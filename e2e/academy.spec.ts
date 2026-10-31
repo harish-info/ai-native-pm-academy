@@ -108,9 +108,9 @@ test('the study plan starts today, switches pace and keeps both after a refresh'
 
 test('nested routes survive a refresh', async ({ page }) => {
   await page.goto('#/levels/3')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Discovery')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Discover and decide')
   await page.reload()
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Discovery')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Discover and decide')
   await page.goto('#/does-not-exist')
   await expect(page.getByText('Page not found')).toBeVisible()
 })

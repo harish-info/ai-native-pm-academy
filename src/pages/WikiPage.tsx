@@ -13,7 +13,7 @@ import { CopyButton } from '../ui/CopyButton'
 import { Card, CheckIcon, PageHeader, Pill, ProgressBar, linkClass } from '../ui/primitives'
 
 const prompts: { id: keyof typeof wikiPrompts; title: string; when: string }[] = [
-  { id: 'ingest', title: 'Ingest', when: 'After a session, when 00-inbox/ has new sources.' },
+  { id: 'ingest', title: 'Ingest', when: 'After a session, when sources/ has new files.' },
   {
     id: 'query',
     title: 'Query',
@@ -32,40 +32,39 @@ export function WikiPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Runs through every level" title="Your personal wiki">
-        A private, agent-maintained knowledge base that grows with every session and stays useful
-        long after the course.
+      <PageHeader eyebrow="Runs through every level" title="Your PM OS">
+        One private folder that grows with every session: a context file in Level 1, the workspace
+        Claude Code works from in Level 2, and an agent-maintained wiki in Level 5.
       </PageHeader>
 
       <div className="space-y-6">
         <Card>
-          <h2 className="mb-3 text-lg font-semibold">The LLM wiki pattern</h2>
+          <h2 className="mb-3 text-lg font-semibold">How it grows</h2>
           <div className="space-y-3 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
-            <p>The wiki has three layers:</p>
             <ul className="list-disc space-y-1 pl-5">
               <li>
-                <strong>Raw sources.</strong> Articles, transcripts, notes and screenshots go into{' '}
-                <code>00-inbox/</code> unchanged. They are the evidence.
+                <strong>Levels 1 and 2.</strong> <code>product-context.md</code> at the top of the
+                folder, then a short <code>CLAUDE.md</code> that points at it, under git.
               </li>
               <li>
-                <strong>Agent-maintained pages.</strong> An agent reads the sources and writes or
-                updates Markdown pages, quoting the source for every claim. You approve every write.{' '}
-                <code>index.md</code> lists the pages and <code>log.md</code> records each change.
+                <strong>Levels 3 and 4.</strong> Research, interviews, decisions, the PRD, the
+                design spec, evals and the readout, each saved where the session says.
               </li>
               <li>
-                <strong>The schema.</strong> <code>AGENTS.md</code> tells any agent how the wiki is
-                organized, the page template and the rules. A fresh agent can pick it up cold.
+                <strong>Level 5.</strong> The folder becomes a wiki with three layers: raw{' '}
+                <code>sources/</code> that never change, <code>wiki/</code> pages Claude writes and
+                cites, and the rules in <code>CLAUDE.md</code>. <code>wiki/index.md</code> lists the
+                pages and <code>wiki/log.md</code> records each change.
               </li>
             </ul>
             <p>
-              You start it by hand in Level 1, hand the maintenance to an agent in Level 2, and file
-              into it after every session from then on. Each session has a "filed in your wiki"
-              checklist item, and each level project has a wiki milestone, so the habit is part of
-              completing the course rather than an extra.
+              Each session has a "filed in your workspace" checklist item, and each level project
+              has a milestone, so the habit is part of completing the course rather than an extra.
+              Session 18 applies the same pattern to a team knowledge base.
             </p>
             {gist && (
               <p>
-                The pattern comes from{' '}
+                The wiki pattern comes from{' '}
                 <a href={gist.url} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   {gist.title}
                   <span className="sr-only"> (opens in a new tab)</span>
@@ -132,7 +131,7 @@ export function WikiPage() {
                   </ul>
                   {!reached && (
                     <p className="mt-3 text-xs text-stone-500 dark:text-stone-400">
-                      Marked as reached when you tick the wiki milestone deliverable on the{' '}
+                      Marked as reached when you tick the workspace milestone deliverable on the{' '}
                       <Link to={`/levels/${m.levelId}/project`} className={linkClass}>
                         Level {m.levelId} project
                       </Link>
@@ -150,7 +149,8 @@ export function WikiPage() {
             The three prompts
           </h2>
           <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-            Paste these into your agent from the wiki folder, or turn them into skills in Level 2.
+            For Level 5. Paste them into Claude Code from your workspace folder; in Session 19 you
+            turn them into skills.
           </p>
           <div className="space-y-4">
             {prompts.map((p) => (
@@ -187,14 +187,14 @@ export function WikiPage() {
             <ProgressBar
               value={filedCount}
               max={allLessons.length}
-              label="Sessions filed in the wiki"
+              label="Sessions filed in the workspace"
             />
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[44rem] text-left text-sm">
               <caption className="sr-only">
-                For each core session: what to capture, which wiki pages it touches, and whether it
-                is filed
+                For each core session: what to capture, which files it touches, and whether it is
+                filed
               </caption>
               <thead>
                 <tr className="border-b border-stone-200 dark:border-stone-800">
@@ -205,7 +205,7 @@ export function WikiPage() {
                     Capture
                   </th>
                   <th scope="col" className="py-2 pr-4 font-semibold">
-                    Pages
+                    Files
                   </th>
                   <th scope="col" className="py-2 font-semibold">
                     Filed
@@ -227,7 +227,7 @@ export function WikiPage() {
                         </Link>
                       </th>
                       <td className="py-2 pr-4 text-stone-700 dark:text-stone-300">
-                        {step?.capture ?? 'No wiki step defined.'}
+                        {step?.capture ?? 'No step defined.'}
                       </td>
                       <td className="py-2 pr-4">
                         {step && step.pages.length > 0 ? (

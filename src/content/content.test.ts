@@ -130,10 +130,10 @@ describe('case studies', () => {
     setActiveCase('moneypilot')
   })
 
-  it('maps every Level 3 to 5 session to exactly one stage of the cycle', () => {
+  it('maps every session to exactly one stage of the cycle', () => {
     const staged = caseStages.flatMap((s) => s.lessons)
-    const l3to5 = levels.filter((l) => l.id >= 3).flatMap((l) => l.lessons.map((x) => x.id))
-    expect([...staged].sort()).toEqual([...l3to5].sort())
+    const all = levels.flatMap((l) => l.lessons.map((x) => x.id))
+    expect([...staged].sort()).toEqual([...all].sort())
   })
 
   it('keeps the other cases out of a case: no lesson names a different product', () => {

@@ -369,7 +369,7 @@ export function Dashboard() {
           {milestone && (
             <Card>
               <p className="font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
-                Second brain, Level {milestone.levelId}
+                PM OS, Level {milestone.levelId}
               </p>
               <h2 className="mt-1 text-lg font-semibold">{milestone.name}</h2>
               <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{milestone.summary}</p>

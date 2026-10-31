@@ -1,156 +1,141 @@
 import type { ChecklistItem, LevelId } from './types'
 
-// The personal wiki is a thread through the whole course, not a single level. It starts in Level 1
-// as a plain `learning/` folder, becomes an agent-maintained second brain in Level 2 (the LLM wiki
-// pattern: raw sources, agent-written pages, AGENTS.md as the schema), and keeps growing as the
-// research log, builder's notebook and leadership kit in Levels 3 to 5.
+// The workspace is a thread through the whole course, not a single level. It starts in Level 1
+// as one folder with product-context.md at the top, becomes the folder Claude Code works from in
+// Level 2, collects the research, decisions and delivery records of Levels 3 and 4, and turns
+// into an agent-maintained wiki (the PM OS) in Level 5: sources in, synthesised pages out,
+// instructions in CLAUDE.md. Session 18 applies the same pattern to a team knowledge base.
 
 export const WIKI_CHECKLIST_ITEM: ChecklistItem = {
   id: 'wiki-filed',
-  text: 'Filed this session in your wiki: sources in 00-inbox/, pages created or updated, one line in log.md',
+  text: 'Filed this session in your workspace: the artifact saved where the step below says, and one line in log.md',
 }
 
 export const WIKI_PROJECT_DELIVERABLE: ChecklistItem = {
   id: 'wiki-milestone',
-  text: 'Wiki milestone reached for this level (see the Wiki page), with every new page linked from index.md',
+  text: 'Workspace milestone reached for this level (see the PM OS page)',
 }
 
 export interface WikiStep {
   /** What to capture from this session. */
   capture: string
-  /** Suggested pages to create or update. Paths are relative to the second-brain root. */
+  /** Suggested files to create or update. Paths are relative to the workspace root. */
   pages: string[]
 }
 
 export const wikiSteps: Record<string, WikiStep> = {
   s1: {
     capture:
-      'Start the wiki today, by hand. Explain tokens, context windows and variation in your own words, with one example that surprised you.',
-    pages: ['log.md', 'learning/how-llms-work.md', 'learning/long-context-degrades-answers.md'],
+      'Create a private {{slug}}-notes/ folder today, by hand. Save your glossary and the model comparison, and start log.md with one line: the date and what you made.',
+    pages: [
+      '{{slug}}-notes/glossary.md',
+      '{{slug}}-notes/model-comparison.md',
+      '{{slug}}-notes/log.md',
+    ],
   },
   s2: {
     capture:
-      'One page per source you checked, with what it claims, how you verified it and whether you would trust it again.',
-    pages: ['reading/<source-name>.md', 'learning/verification-checklist.md'],
+      'The most important file in the course. Save product-context.md at the top of the folder and keep it short; every later session reads it.',
+    pages: ['{{slug}}-notes/product-context.md', '{{slug}}-notes/delegation-audit.md'],
   },
   s3: {
     capture:
-      'Give every page the same template and link it from the index. Orphan pages are invisible to you and to agents.',
-    pages: ['learning/index.md', 'learning/_template.md', 'learning/open-questions.md'],
+      'Save the fact sheet with a link and a check date for every claim. Keep the raw pages you checked in a sources/ folder, unchanged.',
+    pages: ['{{slug}}-notes/fact-sheet.md', '{{slug}}-notes/sources/'],
   },
   s4: {
     capture:
-      'Your first weekly reflection, plus the prompt that produced it, so next week is one paste away.',
-    pages: ['reflections/weekly/<year>-W<week>.md', 'templates/weekly-review-prompt.md'],
+      'Save the link to your live pitch page and what you changed between versions. Add one line to product-context.md for anything the pitch taught you.',
+    pages: ['{{slug}}-notes/pitch-notes.md', '{{slug}}-notes/product-context.md'],
   },
   s5: {
     capture:
-      'Move everything from learning/ into the new second brain. From here on an agent helps maintain it and you review every write: a mode that asks before edits, a plan first, and git diff before you commit.',
-    pages: ['AGENTS.md', 'index.md', 'log.md', '00-inbox/'],
+      'Your notes become {{slug}}-workspace/, the folder Claude Code works from. Paths from here on are relative to it. Add a short CLAUDE.md that points at product-context.md, put the folder under git, and commit.',
+    pages: ['CLAUDE.md', 'learning/', 'pitch/', 'research/', 'log.md'],
   },
   s6: {
     capture:
-      'Run your first real ingest: drop at least ten sources into 00-inbox/ and let the agent file them. Check one quote per page against its source.',
-    pages: ['reading/<source-name>.md', 'index.md', '00-inbox/ingested/'],
+      'REQUIREMENTS.md and the handoff note live in prototype/, its own repository. Note in log.md which decisions the interview forced.',
+    pages: ['prototype/REQUIREMENTS.md', 'log.md'],
   },
   s7: {
     capture:
-      'Record decisions with the reason and the alternative you rejected. Contradictions get marked superseded, never deleted.',
-    pages: [
-      'AGENTS.md',
-      'decisions/<date>-<decision>.md',
-      'goals/2027-return-to-work.md',
-      '.agents/skills/ingest/SKILL.md',
-    ],
+      'Record the live URL and the repository link in CLAUDE.md. The code lives in GitHub; the workspace links to it instead of copying it.',
+    pages: ['CLAUDE.md', 'log.md'],
   },
   s8: {
     capture:
-      'First lint pass: stale claims, contradictions, orphans and missing sources. Run the weekly review through its skill.',
-    pages: ['.agents/skills/lint/SKILL.md', 'projects/<name>/HANDOFF.md', 'reflections/weekly/'],
+      'Keep the review checklist and review log with the prototype. You will reuse the checklist on every agent build.',
+    pages: ['prototype/docs/review-checklist.md', 'prototype/docs/review-log.md'],
   },
   s9: {
     capture:
-      'The wiki becomes the {{name}} research log. One page per competitor or source, each claim with a link and the date you read it.',
-    pages: [
-      'projects/{{slug}}/README.md',
-      'projects/{{slug}}/research/competitors/<name>.md',
-      'projects/{{slug}}/sources.md',
-    ],
+      'Strategy and market research go into the workspace with their sources. Every competitor claim keeps a link and the date you read it.',
+    pages: ['strategy/strategy-kernel.md', 'strategy/market-map.md', 'sources/market/'],
   },
   s10: {
     capture:
-      'Pseudonymized conversation notes (P1, P2, no employers, personal details or identifying stories), then the synthesis and tree that cite them.',
-    pages: [
-      'projects/{{slug}}/discovery/conversation-<n>.md',
-      'projects/{{slug}}/opportunity-tree.md',
-    ],
+      "Pseudonymised interview notes (P1, P2, no names or identifying stories), your synthesis next to Claude's, and the opportunity tree that cites them.",
+    pages: ['interview-notes/', 'discovery/synthesis.md', 'discovery/ost.md'],
   },
   s11: {
     capture:
-      'Your design principles, the reference mockup critique and the concept you chose, as a decision with the losing options kept.',
+      'Save the analysis, the estimate with its assumptions and the ranked bets. Record the bet you chose and the ones you dropped, with why.',
     pages: [
-      'projects/{{slug}}/design-principles.md',
-      'projects/{{slug}}/design/critique.md',
-      'decisions/<date>-concept-direction.md',
+      'data/funnel-analysis.md',
+      'data/impact-estimate.md',
+      'data/prioritised-bets.md',
+      'decisions.md',
     ],
   },
   s12: {
     capture:
-      'Link the PRD rather than copying it, and record what you cut from v1 and why. The cut list is the most valuable page you will write.',
-    pages: [
-      'projects/{{slug}}/prd.md',
-      'decisions/<date>-v1-scope.md',
-      'learning/acceptance-criteria.md',
-    ],
+      'Keep the PRD and its review notes together, and record what you cut from v1 and why in decisions.md. Its open questions are the most honest page you will write.',
+    pages: ['prd/prd.md', 'prd/review-notes.md', 'decisions.md'],
   },
   s13: {
     capture:
-      'A Git and GitHub glossary in your own words, written after you did each thing once, not before.',
-    pages: ['learning/git-and-pull-requests.md'],
+      'The design spec, task breakdown and align check live in the prototype repository next to the team AGENTS.md. Link them from log.md rather than copying them.',
+    pages: [
+      'prototype/docs/design-spec.md',
+      'prototype/docs/task-breakdown.md',
+      'prototype/docs/align-check.md',
+    ],
   },
   s14: {
     capture:
-      'Your coding-agent loop as a playbook: plan, approve, small diff, test, review, merge. Add one thing the agent got wrong and how you caught it.',
-    pages: ['learning/coding-agent-loop.md', 'learning/agent-mistakes.md'],
+      'Save the eval set and the report. Note every failure that would block a release and the guardrail that now covers it.',
+    pages: ['eval-set.md', 'eval-report.md'],
   },
   s15: {
     capture:
-      'How you hand work between sessions and agents. Project state lives in the repo; your lessons about handoffs live in the wiki.',
-    pages: ['learning/handoffs.md', 'projects/{{slug}}/README.md (link to the repo HANDOFF.md)'],
+      'Save the launch plan and the readout. Feed what you learned back into product-context.md and the open questions in prd.md.',
+    pages: ['launch-plan.md', 'experiment-readout.md', 'product-context.md'],
   },
   s16: {
     capture:
-      'Your review checklist and a short postmortem of the bug you fixed: symptom, cause, the test that now guards it.',
-    pages: ['learning/review-checklist.md', 'learning/postmortems/<date>-<bug>.md'],
+      'Save the deck outline, the exported deck and the stakeholder update. The outline is the reusable part; the slides are an output.',
+    pages: ['deck/outline.md', 'deck/', 'stakeholder-update.md'],
   },
   s17: {
     capture:
-      'Agent design patterns you can explain to an engineer: workflow versus agent, tool contracts, least privilege, approval states.',
-    pages: ['learning/agent-patterns.md', 'projects/{{slug}}/agent/architecture-notes.md'],
+      'The workspace becomes your PM OS: raw material moves into sources/, Claude writes wiki/ pages that cite it, and CLAUDE.md holds the rules.',
+    pages: ['sources/', 'wiki/index.md', 'wiki/log.md', 'CLAUDE.md'],
   },
   s18: {
     capture:
-      'What structured output and deterministic tools bought you, with one example where the model would have got the number wrong.',
-    pages: ['learning/structured-output.md', 'projects/{{slug}}/agent/build-log.md'],
+      'Save the team knowledge base blueprint and the trust check. Add a wiki page on what you would do differently for a real team.',
+    pages: ['team-kb/wiki/index.md', 'team-kb/kb-trust-check.md', 'wiki/team-knowledge-base.md'],
   },
   s19: {
     capture:
-      'Evals and safety: your best eval cases, every injection that got through and the fix, and one page per regulation you read.',
-    pages: [
-      'learning/evals.md',
-      'learning/prompt-injection.md',
-      'reading/eu-ai-act.md',
-      'reading/fca-ai-update.md',
-    ],
+      'Save the three skills and their checks. Log what the weekly briefing produced the first time it ran, and what you changed.',
+    pages: ['team-kb/skills/', 'team-kb/skill-checks.md', 'wiki/log.md'],
   },
   s20: {
     capture:
-      'Your AI-native team playbook and a return-to-work page that links the ten best pages in the wiki. This is the kit you take back in February.',
-    pages: [
-      'learning/ai-native-team-playbook.md',
-      'goals/return-to-work-kit.md',
-      'reflections/course-retro.md',
-    ],
+      'Your team playbook, plus a return-to-work page in the wiki that links your ten best pages. This is the kit you take back to work.',
+    pages: ['team-playbook.md', 'wiki/return-to-work.md'],
   },
 }
 
@@ -164,79 +149,81 @@ export interface WikiMilestone {
 export const wikiMilestones: WikiMilestone[] = [
   {
     levelId: 1,
-    name: 'Seed',
+    name: 'Context file',
     summary:
-      'A plain learning folder you maintain by hand, so you feel why structure matters before an agent helps.',
+      'One private notes folder with product-context.md at the top, so every AI conversation about {{name}} starts from what you know.',
     checks: [
-      'learning/index.md links every page',
-      'At least eight concept or source pages in your own words',
-      'One weekly reflection and a log.md with a line per session',
+      'product-context.md covers the product, users, glossary, constraints, open decisions and sources',
+      'fact-sheet.md has a link and a check date for every claim',
+      'log.md has one line per session',
     ],
   },
   {
     levelId: 2,
-    name: 'Second brain',
+    name: 'Agent workspace',
     summary:
-      'The LLM wiki pattern: raw sources in, agent-maintained pages out, AGENTS.md as the schema, you reviewing every write.',
+      'Claude Code works from your folder: CLAUDE.md points at the context, and git records every change.',
     checks: [
-      'AGENTS.md with explicit "when X, do Y" rules',
-      'Ingest, lint and weekly-review skills that work',
-      'Passes the fresh-agent test: a new session can answer three questions from it, with quotes',
+      'CLAUDE.md is short and points at product-context.md instead of repeating it',
+      'The workspace is a private git repository with a commit per session',
+      'A fresh Claude Code session can explain {{name}} and the prototype from the files alone',
     ],
   },
   {
     levelId: 3,
-    name: 'Research log',
-    summary: 'Every {{name}} claim traces to a source, a conversation or a decision record.',
+    name: 'Decision trail',
+    summary: 'Every {{name}} claim traces to a source, an interview or a recorded decision.',
     checks: [
-      'A page per competitor and source, dated',
-      'Pseudonymized conversation notes and a synthesis that cites them',
-      'Decision records for concept direction and v1 scope',
+      'Market research sits in sources/market/ with links and dates',
+      'The synthesis cites pseudonymised interview notes',
+      'decisions.md records what you chose, what you dropped and why; the PRD flags gaps as open questions',
     ],
   },
   {
     levelId: 4,
-    name: "Builder's notebook",
-    summary: 'What you learned shipping software with agents, written so you can teach it.',
+    name: 'Delivery record',
+    summary:
+      'From design spec to deck, the evidence a team lead would ask for, linked from one place.',
     checks: [
-      'Git, agent loop, handoff and review playbook pages',
-      'At least one postmortem',
-      'Project pages link to the repository instead of duplicating it',
+      'Design spec, task breakdown and align check saved',
+      'Eval report and experiment readout saved with their data',
+      'The deck outline and stakeholder update cite the readout',
     ],
   },
   {
     levelId: 5,
-    name: 'Leadership kit',
+    name: 'PM OS',
     summary:
-      'Agent, eval, safety and regulation pages plus a team playbook: the asset you take back to work.',
+      'An agent-maintained wiki built from the whole quarter, plus a team knowledge base blueprint you could take back to work.',
     checks: [
-      'Agent patterns, evals and prompt-injection pages with your own examples',
-      'One page per regulation you read, with the source link',
-      'A return-to-work page linking your ten best pages',
+      'wiki/index.md links every page, and every page has updated: and sources: frontmatter',
+      'A lint pass finds no unsourced claims and no orphan pages',
+      'A fresh agent answers ten questions from the wiki alone, with citations',
     ],
   },
 ]
 
 export const wikiPrompts = {
-  ingest: `Read AGENTS.md first. Then process every file in 00-inbox/:
-1. For each source, propose which existing page to update or which new page to create, following the page template.
-2. Show me the plan and wait for my approval before writing anything.
-3. After approval, write the changes, quote the exact source sentence behind every new claim, move processed files to 00-inbox/ingested/, and add one line per change to log.md.
-4. If a new claim contradicts an existing page, mark the old claim as superseded with a link. Never delete it silently.`,
-  query: `Answer from this wiki only. Read index.md, then the pages you need. For every statement, cite the page path and quote the line it comes from. If the wiki does not contain the answer, say so and suggest which source I should ingest.`,
-  lint: `Read AGENTS.md and index.md, then check the whole wiki and report, without changing anything:
-- pages not linked from index.md
-- claims without a source
-- contradictions between pages
-- pages not updated in 30 days that describe fast-moving tools
-- templates or skills mixed in with notes
+  ingest: `Read CLAUDE.md first. Then process every file in sources/ that wiki/log.md does not mention yet:
+1. Update the wiki pages each source speaks to, or create a page from the template. Change only what the source supports.
+2. Add the source path to each changed page's sources: list and set its updated: date.
+3. Never edit files in sources/. If a source contradicts a page, keep both claims, mark the conflict on the page and list it for me.
+4. Add new pages to wiki/index.md and one line per change to wiki/log.md.
+5. Finish with a list of every page you touched, so I can read the diff before I commit.`,
+  query: `Answer from wiki/ only. Read wiki/index.md, then the pages you need. Cite the page path for every statement. If the wiki does not contain the answer, say so and suggest which source I should add.`,
+  lint: `Read CLAUDE.md and wiki/index.md, then check the wiki and report, without changing anything:
+- pages not linked from index.md, and links to pages that do not exist
+- claims without a source, and pages missing updated: or sources:
+- contradictions between pages, or between a page and a newer source
+- pages not updated in 30 days that describe open decisions or fast-moving tools
+- names of real people, or personal or confidential data
 Group findings by severity and propose fixes I can approve one by one.`,
 }
 
 export const wikiRules = [
-  'Private by default. The wiki never goes into a public repository; your {{name}} code does, the wiki does not.',
-  "No employer or customer data in your personal wiki. When you are back at work, keep a separate work wiki under your employer's rules.",
-  'Sources first: raw material goes into 00-inbox/ unchanged, pages are written from it, and every claim keeps its link.',
-  'You review every agent write: plan first, then read git diff before you commit. An instruction to wait is not a lock; the diff is the check.',
+  'Private by default. The workspace never goes into a public repository; your {{name}} prototype can, the workspace does not.',
+  "No employer or customer data in your personal workspace. When you are back at work, build a separate work knowledge base under your employer's rules.",
+  'Sources first: raw material is saved unchanged, pages that summarise it cite it, and nothing is claimed without a source.',
+  'Git is your safety net. Claude Code acts without asking for most edits, so commit before a big change and read the diff before you keep it.',
   'Ten minutes after each session beats an hour on Sunday. File while it is fresh.',
 ]

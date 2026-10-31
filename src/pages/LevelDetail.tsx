@@ -55,7 +55,7 @@ export function LevelDetail() {
         {level.summary}
       </PageHeader>
 
-      {level.id >= 3 && <CaseStudyStrip levelId={level.id} />}
+      <CaseStudyStrip levelId={level.id} />
 
       {!status.unlocked && (
         <Card
@@ -214,9 +214,9 @@ export function LevelDetail() {
       {milestone && (
         <section className={cx(staticTile, 'rounded-2xl p-5')}>
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="text-lg font-semibold">Wiki milestone: {milestone.name}</h2>
+            <h2 className="text-lg font-semibold">Workspace milestone: {milestone.name}</h2>
             <Link to="/wiki" className={`text-sm ${linkClass}`}>
-              Your wiki guide
+              PM OS guide
             </Link>
           </div>
           <p className="mt-1 text-stone-600 dark:text-stone-400">{milestone.summary}</p>

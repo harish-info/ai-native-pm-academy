@@ -44,11 +44,11 @@ export function CaseStudyPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Case study, Levels 3 to 5" title="One product, the whole cycle">
-        In Levels 3 to 5 you take one product from a hunch to a launched, evaluated AI feature,
-        through the same stages a product team runs. Pick the case you care about: every lesson,
-        prompt and project then uses it. All three use fictional data and teach the same skills;
-        each adds one hard problem of its own.
+      <PageHeader eyebrow="Case study, every level" title="One product, the whole cycle">
+        From your first context file to the team knowledge base, you take one product from a hunch
+        to a launched, evaluated AI feature, through the same stages a product team runs. Pick the
+        case you care about: every lesson, prompt and project then uses it. All three use fictional
+        data and teach the same skills; each adds one hard problem of its own.
       </PageHeader>
 
       <div className="space-y-8">

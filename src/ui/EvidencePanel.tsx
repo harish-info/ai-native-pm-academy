@@ -141,7 +141,7 @@ export function EvidencePanel({
             disabled={locked}
             value={record?.artifact ?? ''}
             onChange={(e) => setField((r) => void (r.artifact = e.target.value))}
-            placeholder="e.g. second-brain/learning/how-llms-work.md or a pull request link"
+            placeholder="e.g. learning/how-llms-work.md or a pull request link"
           />
           <p className="text-xs text-stone-500 dark:text-stone-400">
             Expected: {artifactHint}. Do not paste private content here; a path or link is enough.

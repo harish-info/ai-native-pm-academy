@@ -47,7 +47,7 @@ export interface ChecklistItem {
 export interface AgentPrompt {
   /** Which tool the prompt is written for, e.g. "Claude Code or Codex" or "ChatGPT or Claude". */
   tool: string
-  /** Where to run it, e.g. "In your private second-brain folder". */
+  /** Where to run it, e.g. "In your private workspace folder". */
   where: string
   text: string
 }

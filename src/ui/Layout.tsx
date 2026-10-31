@@ -14,7 +14,7 @@ interface NavItem {
   also?: string[]
 }
 
-// Grouped by the learner's loop: plan the week, learn, build the case study and the second brain,
+// Grouped by the learner's loop: plan the week, learn, build the case study and the PM OS,
 // keep a record. Every item answers a question the learner has; nothing is here for decoration.
 const nav: { heading?: string; items: NavItem[] }[] = [
   { items: [{ to: '/dashboard', label: 'This week', icon: 'home' }] },
@@ -30,7 +30,7 @@ const nav: { heading?: string; items: NavItem[] }[] = [
     heading: 'Build',
     items: [
       { to: '/case-study', label: 'Case study', icon: 'cycle' },
-      { to: '/wiki', label: 'Second brain', icon: 'book' },
+      { to: '/wiki', label: 'PM OS', icon: 'book' },
     ],
   },
   {

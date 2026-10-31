@@ -178,7 +178,7 @@ export function LessonPage() {
         )}
       </div>
 
-      {lesson.levelId >= 3 && <CaseStudyStrip lessonId={lesson.id} />}
+      <CaseStudyStrip lessonId={lesson.id} />
 
       {!status.unlocked && (
         <Card
@@ -266,9 +266,9 @@ export function LessonPage() {
             {wiki && (
               <Card className="border-indigo-200 dark:border-indigo-900">
                 <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="text-lg font-semibold">File it in your wiki</h2>
+                  <h2 className="text-lg font-semibold">File it in your workspace</h2>
                   <Link to="/wiki" className={`text-sm ${linkClass}`}>
-                    Wiki guide and prompts
+                    PM OS guide
                   </Link>
                 </div>
                 <p className="leading-relaxed">{inline(wiki.capture)}</p>

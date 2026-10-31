@@ -74,25 +74,25 @@ export function buildDemoData(now: Date): LearnerData {
       daysAgo: 13,
       reflection:
         'Tokens and context limits explain the odd answers I saw on long policy PDFs. I now spot-check every summary against the source.',
-      artifact: 'second-brain/sessions/s1-ai-map.md',
+      artifact: 'glossary.md',
     },
     {
       daysAgo: 11,
       reflection:
-        'Giving the model the audience, constraints and one good example halved my rewrites. Capital letters did nothing.',
-      artifact: 'second-brain/prompts/brief-template.md',
+        'With product-context.md in the Project, the competitor summary finally talked about our users. Clever wording did nothing.',
+      artifact: 'product-context.md',
     },
     {
       daysAgo: 9,
       reflection:
-        'Delegation map done. Drafting and synthesis are safe to hand off; anything customer-facing needs my review and a source check.',
-      artifact: 'second-brain/sessions/s3-delegation-map.md',
+        'Two of the twelve claims had no real source behind them. Checking against the primary pages took five minutes and was worth it.',
+      artifact: 'fact-sheet.md',
     },
     {
       daysAgo: 7,
       reflection:
-        'The verification habit felt slow at first, but it caught two invented figures in a market summary. Worth the five minutes.',
-      artifact: 'second-brain/checklists/verify-ai-output.md',
+        'A live pitch page in an evening. Changing one thing at a time kept it from drifting away from the context file.',
+      artifact: 'pitch-notes.md',
     },
   ]
   l1.lessons.forEach((lesson, i) => {
@@ -103,8 +103,8 @@ export function buildDemoData(now: Date): LearnerData {
   if (s5) {
     data.lessons[s5.id] = complete(
       s5.checklist,
-      'My notes were scattered across three apps. One Markdown folder with a short index file is already easier for me and for the assistant.',
-      'second-brain/README.md',
+      'My notes were scattered across three apps. One folder with a short CLAUDE.md is already easier for me and for Claude Code.',
+      'CLAUDE.md',
       2,
     )
   }
@@ -122,7 +122,7 @@ export function buildDemoData(now: Date): LearnerData {
     data.challenges[c1.id] = complete(
       c1.steps.map((_, i) => ({ id: `step-${i}` })),
       'Comparing two assistants on the same brief showed how differently they handle missing context. Neither asked a clarifying question.',
-      'second-brain/experiments/c1-compare.md',
+      'experiments/c1-model-lab.md',
       5,
     )
   }
@@ -156,11 +156,12 @@ export function buildDemoData(now: Date): LearnerData {
 
   data.projects['1'] = {
     deliverables: Object.fromEntries(l1.project.deliverables.map((d) => [d.id, true])),
-    evidence: 'second-brain/projects/level-1/ (prompt library, delegation map, verification log)',
+    evidence: 'pitch page link, product-context.md, fact-sheet.md',
     rubric: { correctness: 3, quality: 3, independence: 3, judgment: 4 },
     assessedBy: 'mentor',
     mentorName: 'Mentor',
-    notes: 'Strong verification habit. Next: tighter examples in the prompt library.',
+    notes:
+      'Strong verification habit. Next: mark more of the context file as Unknown instead of guessing.',
     assessedAt: at(4, 21),
   }
 
@@ -188,7 +189,7 @@ export function buildDemoData(now: Date): LearnerData {
       id: 'demo-note-1',
       kind: 'weekly',
       title: 'Week 1',
-      body: 'Wins: prompt template, verification checklist. Stuck: GitHub vocabulary. Next week: second brain folder and context files.',
+      body: 'Wins: product-context.md, fact sheet with sources. Stuck: GitHub vocabulary. Next week: Claude Code workspace and the first prototype.',
       tags: ['weekly'],
       createdAt: at(7, 21),
       updatedAt: at(7, 21),

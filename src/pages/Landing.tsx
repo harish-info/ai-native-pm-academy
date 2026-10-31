@@ -17,7 +17,7 @@ import {
 const pillars = [
   {
     title: 'Practice first',
-    body: 'About three quarters of the time goes into building real artifacts: a personal wiki, a researched product, a shipped web app and an agent that asks before it acts.',
+    body: 'About three quarters of the time goes into building real artifacts: a live prototype, a PRD and design spec, an evaluated AI feature, a launch deck, and a PM OS with a team knowledge base.',
   },
   {
     title: 'Evidence, not clicks',
@@ -75,7 +75,7 @@ export function Landing() {
           <div className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto]">
             <div>
               <p className="mb-3 font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
-                From AI fluency to agentic product leadership
+                From AI foundations to an AI-native product team
               </p>
               <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">
                 Become the product manager who knows <span className="marker">what to build</span>,
@@ -83,9 +83,9 @@ export function Landing() {
               </h1>
               <p className="mt-5 max-w-2xl text-lg text-stone-600 dark:text-stone-400">
                 A structured, practical course in five levels and twenty sessions, built on the best
-                free material from Anthropic, OpenAI, Hugging Face, Matt Pocock and practitioners.
-                In the last three levels you take one product of your choice through the whole
-                cycle, from discovery to a launched, evaluated AI agent.
+                free material from Anthropic, Matt Pocock and practitioners. You take one product of
+                your choice through the whole cycle, from a first context file to a launched,
+                evaluated AI feature and the knowledge base your team runs on.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 {data.onboarding ? (
@@ -139,9 +139,9 @@ export function Landing() {
             One case study, the whole product cycle
           </h2>
           <p className="mt-1 mb-4 max-w-3xl text-stone-600 dark:text-stone-400">
-            From Level 3 you pick a case and run it end to end: discover, design, define, build,
-            test and ship, add the agent, evaluate, launch and lead. Same skills, different hard
-            problem.
+            Pick a case on day one and run it end to end: frame the idea, prototype, discover,
+            decide, hand off, evaluate, launch, and keep the knowledge working. Same skills,
+            different hard problem.
           </p>
           <ul className="grid gap-3 md:grid-cols-3">
             {caseStudies.map((c) => (
@@ -183,7 +183,7 @@ export function Landing() {
           <p className="mt-1 max-w-3xl text-stone-700 dark:text-stone-300">
             Every session includes a short mentor move, and every week of the study plan says what
             the mentor does, about an hour a week: project reviews, a cold read of the PRD, a real
-            pull request review and a skeptical demo audience.
+            pull request review, an executive at the launch review and a sceptical demo audience.
           </p>
         </section>
       </main>

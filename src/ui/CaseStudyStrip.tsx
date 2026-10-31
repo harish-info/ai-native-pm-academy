@@ -4,7 +4,7 @@ import { caseStages } from '../content/caseStudies'
 import { useStore } from '../state/store'
 import { cx, linkClass, staticTile } from './primitives'
 
-/** Shown on Level 3 to 5 pages: which case the text is written for, and where in the cycle you are. */
+/** Shown on level, session and project pages: which case the text is written for, and where in the cycle you are. */
 export function CaseStudyStrip({ lessonId, levelId }: { lessonId?: string; levelId?: number }) {
   const { data } = useStore()
   const chosen = data.settings.caseStudy

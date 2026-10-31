@@ -10,14 +10,14 @@ export const competencies: Competency[] = [
   },
   {
     id: 'prompting-context',
-    name: 'Prompting and context',
-    short: 'Prompting',
+    name: 'Context engineering',
+    short: 'Context',
     description:
-      'Structured instructions, examples, constraints, and giving models the right context.',
+      'Giving models the files, goals, examples and constraints they need, and deciding what to delegate.',
   },
   {
     id: 'knowledge-management',
-    name: 'Knowledge management',
+    name: 'Knowledge bases',
     short: 'Knowledge',
     description:
       'Personal and team knowledge bases, Markdown, freshness, ownership and agent-readable context.',
@@ -47,14 +47,14 @@ export const competencies: Competency[] = [
     name: 'Coding agents',
     short: 'Coding agents',
     description:
-      'Planning, delegating, reviewing and verifying work done by Claude Code, Codex and Copilot.',
+      'Specifying, delegating, reviewing and verifying work done by Claude Code and similar agents.',
   },
   {
     id: 'agentic-systems',
-    name: 'Agentic systems',
-    short: 'Agents',
+    name: 'Skills and automation',
+    short: 'Skills',
     description:
-      'Tools, MCP, orchestration, memory, permissions and human approval in agent products.',
+      'Skills, connectors, scheduled work, permissions and human approval in agent workflows.',
   },
   {
     id: 'evals-safety',

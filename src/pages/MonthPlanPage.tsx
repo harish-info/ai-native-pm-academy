@@ -118,7 +118,7 @@ function PlanItemRow({ item, data }: { item: PlanItem; data: LearnerData }) {
           )}
           {step && step.pages.length > 0 && (
             <p className="mt-1 text-xs [overflow-wrap:anywhere] text-stone-600 dark:text-stone-400">
-              Wiki:{' '}
+              Files:{' '}
               {step.pages.map((p, i) => (
                 <span key={p}>
                   {i > 0 && ', '}
@@ -329,7 +329,7 @@ export function MonthPlanPage() {
         </h2>
         <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
           Communities, newsletters and podcasts to keep up after the course. Skim weekly; file
-          anything useful into the wiki inbox.
+          anything useful into your workspace sources/ folder.
         </p>
         {follow.length > 0 ? (
           <ul className="grid gap-3 md:grid-cols-2">

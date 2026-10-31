@@ -126,11 +126,11 @@ export const profileQuestions: ProfileQuestion[] = [
     kind: 'multi',
     label: 'What are you most curious about?',
     options: [
-      { id: 'knowledge', label: 'Second brain and context' },
+      { id: 'knowledge', label: 'Context and knowledge bases' },
       { id: 'discovery', label: 'AI-native discovery' },
       { id: 'prototyping', label: 'Prototyping' },
       { id: 'coding-agents', label: 'Working with coding agents' },
-      { id: 'agents', label: 'Building agents' },
+      { id: 'agents', label: 'Skills and automation' },
       { id: 'leadership', label: 'Leading AI-native teams' },
     ],
   },
@@ -506,13 +506,13 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
 /** Competencies whose demonstrated score decides whether a level's theory can be skipped. */
 export const levelCompetencies: Record<LevelId, CompetencyId[]> = {
   1: ['ai-fundamentals', 'prompting-context'],
-  2: ['knowledge-management', 'prompting-context'],
+  2: ['coding-agents', 'technical-collaboration'],
   3: ['product-discovery', 'ux-prototyping'],
-  4: ['technical-collaboration', 'coding-agents'],
-  5: ['agentic-systems', 'evals-safety', 'ai-leadership'],
+  4: ['technical-collaboration', 'evals-safety'],
+  5: ['knowledge-management', 'agentic-systems', 'ai-leadership'],
 }
 
-/** Levels 4 and 5 need practical proof (a real PR, a real eval suite), so theory test-out stops at 3. */
+/** Levels 4 and 5 need practical proof (a handoff, an eval report, a team KB), so theory test-out stops at 3. */
 export const maxTestOutLevel: LevelId = 3
 
 export const testOutThreshold = 75

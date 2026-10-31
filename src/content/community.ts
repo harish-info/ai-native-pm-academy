@@ -30,7 +30,7 @@ export const communityConsensus: CommunityPoint[] = [
   },
   {
     point:
-      'In these threads Claude Code is often called useful for PM work that involves no coding, such as notes, research synthesis, organizing files and processing transcripts, because it works directly on local files. Non-coders still find it intimidating. The usual advice: keep project memory in CLAUDE.md, use plan mode and read the plan before approving, work on a copy of the folder, or use the Desktop or web version instead of the terminal.',
+      'In these threads Claude Code is often called useful for PM work that involves no coding, such as notes, research synthesis, organizing files and processing transcripts, because it works directly on local files. Non-coders still find it intimidating. The usual advice: keep project memory in CLAUDE.md, use plan mode and read the plan before approving, work on a copy of the folder, or use the Desktop or web version instead of the terminal. (Claude Code has since made auto mode the default, so this course leans on git and reviewing the result rather than plan mode.)',
     sources: [
       {
         label: 'Hacker News: What non coding tasks do you use Claude Code for? (Nov 2025)',
