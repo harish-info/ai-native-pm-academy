@@ -171,14 +171,21 @@ export function ProgressRing({
   max = 100,
   size = 96,
   label,
+  center,
+  complete,
+  stroke = 8,
 }: {
   value: number
   max?: number
   size?: number
   label: string
+  /** Replaces the percentage in the middle of the ring. */
+  center?: ReactNode
+  /** Draws the ring in the success color. */
+  complete?: boolean
+  stroke?: number
 }) {
   const pct = max > 0 ? Math.min(1, value / max) : 0
-  const stroke = 8
   const r = (size - stroke) / 2
   const c = 2 * Math.PI * r
   return (
@@ -203,11 +210,18 @@ export function ProgressRing({
           strokeDashoffset={c * (1 - pct)}
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
           style={{ '--ring-c': c } as CSSProperties}
-          className="ring-draw stroke-indigo-600 transition-[stroke-dashoffset] dark:stroke-indigo-400"
+          className={cx(
+            'ring-draw transition-[stroke-dashoffset]',
+            complete
+              ? 'stroke-emerald-500 dark:stroke-emerald-400'
+              : 'stroke-indigo-600 dark:stroke-indigo-400',
+          )}
         />
       </svg>
-      <span className="absolute text-lg font-semibold tabular-nums" aria-hidden>
-        {Math.round(pct * 100)}%
+      <span className="absolute text-center" aria-hidden>
+        {center ?? (
+          <span className="text-lg font-semibold tabular-nums">{Math.round(pct * 100)}%</span>
+        )}
       </span>
     </div>
   )

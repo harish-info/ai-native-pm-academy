@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { fresh } from '../test/fixtures'
-import { activeDays, activeWeeks, totalMinutes, weeklySeries } from './stats'
+import { activeDays, activeWeeks, totalMinutes, weekDays, weeklySeries } from './stats'
 
 describe('weekly rhythm', () => {
   it('counts distinct active weeks, with gaps never resetting the count', () => {
@@ -23,5 +23,18 @@ describe('activity', () => {
     expect(weeks[0]!.minutes).toBe(20)
     expect(totalMinutes(data)).toBe(95)
     expect(activeDays(data).size).toBe(3)
+  })
+})
+
+describe('this week', () => {
+  it('marks active days from Monday to Sunday', () => {
+    const data = fresh()
+    data.studyLog.push({ id: 'a', date: '2026-11-03', minutes: 30 })
+    data.studyLog.push({ id: 'b', date: '2026-10-30', minutes: 30 })
+    const days = weekDays(data, '2026-11-04')
+    expect(days.map((d) => d.day)[0]).toBe('2026-11-02')
+    expect(days.filter((d) => d.active).map((d) => d.day)).toEqual(['2026-11-03'])
+    expect(days.find((d) => d.isToday)!.day).toBe('2026-11-04')
+    expect(days.filter((d) => d.future)).toHaveLength(4)
   })
 })

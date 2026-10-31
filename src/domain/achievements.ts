@@ -42,6 +42,10 @@ export function achievements(data: LearnerData, levels: Level[]): Achievement[] 
     kind: 'badge',
     unlocked: s.mastered,
     unlockedAt: s.masteredAt,
+    progress: {
+      value: s.requiredDone + (s.quiz.passed ? 1 : 0) + (s.project.passed ? 1 : 0),
+      target: s.requiredLessons.length + 2,
+    },
   }))
 
   const milestone = (
@@ -159,3 +163,21 @@ export const unlockedIds = (list: Achievement[]) =>
   new Set(list.filter((a) => a.unlocked).map((a) => a.id))
 
 export const today = () => toDay(new Date())
+
+export function progressText(a: Achievement): string {
+  if (!a.progress) return ''
+  if (a.id === 'ten-hours') {
+    return `${Math.floor(a.progress.value / 60)} of ${a.progress.target / 60} hours`
+  }
+  if (a.kind === 'badge') return `${a.progress.value} of ${a.progress.target} steps`
+  return `${a.progress.value} of ${a.progress.target}`
+}
+
+/** The locked achievements closest to unlocking: the current level badge first, then by progress. */
+export function closestRewards(list: Achievement[], currentLevelId: number, n = 3): Achievement[] {
+  const ratio = (a: Achievement) => (a.progress ? a.progress.value / a.progress.target : -1)
+  const locked = list.filter((a) => !a.unlocked)
+  const badge = locked.find((a) => a.id === `level-${currentLevelId}`)
+  const rest = locked.filter((a) => a.kind === 'milestone').sort((x, y) => ratio(y) - ratio(x))
+  return [...(badge ? [badge] : []), ...rest].slice(0, n)
+}

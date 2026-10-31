@@ -226,3 +226,26 @@ body {
   transform-origin: left;
   animation: bar-grow 0.7s cubic-bezier(0.3, 0.7, 0.2, 1) both;
 }
+
+/* The next stop on the level trail breathes gently, so the eye finds it first. */
+@keyframes trail-next {
+  0%,
+  100% {
+    box-shadow:
+      0 2px 0 var(--a-800),
+      0 0 0 0 color-mix(in oklab, var(--a-500) 45%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 2px 0 var(--a-800),
+      0 0 0 8px color-mix(in oklab, var(--a-500) 0%, transparent);
+  }
+}
+.trail-next {
+  animation: trail-next 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .trail-next {
+    animation: none;
+  }
+}

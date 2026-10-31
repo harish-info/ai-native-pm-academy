@@ -251,3 +251,53 @@ export function maxXp(levels: Level[]): number {
     0,
   )
 }
+
+/** XP earned at or after `from` (an ISO timestamp or a day). Uses the time each award was earned. */
+export function xpSince(data: LearnerData, levels: Level[], from: string): number {
+  const statuses = levelStatuses(data, levels)
+  const after = (at: string | undefined) => !!at && at >= from
+  let xp = 0
+  for (const s of statuses) {
+    for (const l of s.level.lessons) if (after(data.lessons[l.id]?.completedAt)) xp += l.xp
+    for (const c of s.level.challenges) if (after(data.challenges[c.id]?.completedAt)) xp += c.xp
+    if (after(s.quiz.passedAt)) xp += QUIZ_PASS_XP
+    const perfect = s.quiz.attempts
+      .filter((a) => a.correct === a.total)
+      .map((a) => a.at)
+      .sort()[0]
+    if (after(perfect)) xp += QUIZ_PERFECT_BONUS_XP
+    if (after(s.project.passedAt)) xp += s.level.project.xp
+    if (after(s.masteredAt)) xp += MASTERY_BONUS_XP
+  }
+  return xp
+}
+
+/** The steps that earn a level's badge: its required sessions, then the assessment, then the project. */
+export function levelSteps(s: LevelStatus, data: LearnerData) {
+  return [
+    ...s.requiredLessons.map((l) => ({
+      key: l.id,
+      kind: 'lesson' as const,
+      label: `Session ${l.number}: ${l.title}`,
+      short: String(l.number),
+      to: `/lessons/${l.id}`,
+      done: !!data.lessons[l.id]?.completedAt,
+    })),
+    {
+      key: 'quiz',
+      kind: 'quiz' as const,
+      label: `Level ${s.level.id} assessment`,
+      short: 'Quiz',
+      to: `/levels/${s.level.id}/quiz`,
+      done: s.quiz.passed,
+    },
+    {
+      key: 'project',
+      kind: 'project' as const,
+      label: s.level.project.title,
+      short: 'Project',
+      to: `/levels/${s.level.id}/project`,
+      done: s.project.passed,
+    },
+  ]
+}

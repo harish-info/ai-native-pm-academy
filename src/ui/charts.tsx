@@ -333,3 +333,91 @@ export function Columns({
     </figure>
   )
 }
+
+export interface MeterRow {
+  label: string
+  value: number
+  marker: number | null
+}
+
+/**
+ * One bar per row on a 0..100 scale, with an optional tick for a reference value. Used for skills:
+ * the bar is coursework evidence, the tick is the diagnostic baseline. One series, so no clutter.
+ */
+export function Meters({
+  title,
+  rows,
+  valueLabel,
+  markerLabel,
+  description,
+}: {
+  title: string
+  rows: MeterRow[]
+  valueLabel: string
+  markerLabel: string
+  description?: string
+}) {
+  const fmt = (v: number | null) => (v === null ? 'n/a' : `${v}%`)
+  const hasMarker = rows.some((r) => r.marker !== null)
+  return (
+    <figure className="m-0">
+      <figcaption className="mb-1 font-semibold">{title}</figcaption>
+      {description && (
+        <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">{description}</p>
+      )}
+      <div
+        className="mb-3 flex flex-wrap gap-4 text-xs text-stone-600 dark:text-stone-400"
+        aria-hidden
+      >
+        <span className="inline-flex items-center gap-1.5">
+          <Swatch color={S1} /> {valueLabel}
+        </span>
+        {hasMarker && (
+          <span className="inline-flex items-center gap-1.5">
+            <span className="inline-block h-3 w-0.5 rounded bg-stone-900 dark:bg-stone-100" />{' '}
+            {markerLabel}
+          </span>
+        )}
+      </div>
+      <ul className="space-y-3">
+        {rows.map((r) => (
+          <li
+            key={r.label}
+            aria-label={`${r.label}: ${valueLabel} ${fmt(r.value)}${hasMarker ? `, ${markerLabel} ${fmt(r.marker)}` : ''}`}
+            className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 sm:grid-cols-[30%_1fr_3rem]"
+          >
+            <span className="truncate text-sm text-stone-700 dark:text-stone-300" aria-hidden>
+              {r.label}
+            </span>
+            <span
+              className="text-right text-sm font-semibold tabular-nums sm:order-last"
+              aria-hidden
+            >
+              {r.value}%
+            </span>
+            <span
+              aria-hidden
+              className="relative col-span-2 block h-3 rounded-full bg-stone-200 sm:col-span-1 dark:bg-stone-800"
+            >
+              <span
+                className="bar-grow absolute inset-y-0 left-0 rounded-full"
+                style={{ width: `${Math.max(r.value, 0)}%`, background: S1 }}
+              />
+              {r.marker !== null && (
+                <span
+                  className="absolute -top-1 -bottom-1 w-0.5 -translate-x-1/2 rounded bg-stone-900 ring-2 ring-white dark:bg-stone-100 dark:ring-stone-900"
+                  style={{ left: `${Math.min(100, Math.max(r.marker, 0))}%` }}
+                />
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <TableView
+        caption={title}
+        head={['Competency', valueLabel, ...(hasMarker ? [markerLabel] : [])]}
+        rows={rows.map((r) => [r.label, fmt(r.value), ...(hasMarker ? [fmt(r.marker)] : [])])}
+      />
+    </figure>
+  )
+}

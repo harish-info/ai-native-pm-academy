@@ -209,3 +209,13 @@ export function timeline(data: LearnerData, levels: Level[]): TimelineEvent[] {
   }
   return events.sort((a, b) => b.at.localeCompare(a.at))
 }
+
+/** Monday to Sunday of the week containing `today`, with whether each day had learning activity. */
+export function weekDays(data: LearnerData, today: string) {
+  const days = activeDays(data)
+  const monday = weekStart(today)
+  return Array.from({ length: 7 }, (_, i) => {
+    const day = addDays(monday, i)
+    return { day, active: days.has(day), isToday: day === today, future: day > today }
+  })
+}

@@ -11,7 +11,9 @@ import {
   projectResults,
   quizResults,
   requirementsFor,
+  levelSteps,
   xpBreakdown,
+  xpSince,
 } from './progress'
 
 describe('lesson requirements', () => {
@@ -221,5 +223,32 @@ describe('sticky mastery', () => {
     expect(s[0]!.mastered).toBe(true)
     expect(s[0]!.masteredAt).toBe('2026-11-07T10:00:00.000Z')
     expect(s[1]!.unlocked).toBe(true)
+  })
+})
+
+describe('weekly xp and level steps', () => {
+  it('counts only xp earned since the given time', () => {
+    const data = fresh()
+    completeLesson(data, 's1', '2026-10-28T10:00:00.000Z')
+    completeLesson(data, 's2', '2026-11-03T10:00:00.000Z')
+    const s2 = level(1).lessons.find((l) => l.id === 's2')!
+    expect(xpSince(data, levels, '2026-11-02')).toBe(s2.xp)
+    passQuiz(data, 1, undefined, '2026-11-04T10:00:00.000Z')
+    expect(xpSince(data, levels, '2026-11-02')).toBe(s2.xp + QUIZ_PASS_XP + QUIZ_PERFECT_BONUS_XP)
+  })
+
+  it('lists required sessions, then the assessment and project, with done flags', () => {
+    const data = fresh()
+    completeLesson(data, 's1')
+    const steps = levelSteps(levelStatuses(data, levels)[0]!, data)
+    expect(steps.map((s) => s.kind)).toEqual([
+      'lesson',
+      'lesson',
+      'lesson',
+      'lesson',
+      'quiz',
+      'project',
+    ])
+    expect(steps.filter((s) => s.done).map((s) => s.key)).toEqual(['s1'])
   })
 })
