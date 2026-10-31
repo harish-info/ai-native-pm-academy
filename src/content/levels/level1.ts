@@ -46,12 +46,12 @@ export const level1: Level = {
         {
           heading: "Context windows: the model's working memory",
           paragraphs: [
-            'The **context window** is everything the model can see at once: the system instructions, your messages, pasted documents, tool results and its own previous replies. Windows of hundreds of thousands of tokens are now common, but bigger is not the same as better. Material buried in the middle of a long conversation tends to get less attention, and stale or contradictory content competes with what you actually want.',
+            'The **context window** is everything the model can see at once: the system instructions, your messages, pasted documents, tool results and its own previous replies. Windows of hundreds of thousands of tokens are now common, but bigger is not the same as better. Practitioners call the effect **context rot**: as a conversation fills with long, loosely relevant or contradictory material, answers get less precise, and stale content competes with what you actually want.',
             "The model does not remember yesterday's chat unless the product deliberately adds a memory feature or you paste the material back in. Treat each conversation as a fresh briefing.",
           ],
           bullets: [
             'Start a new conversation when the topic changes.',
-            'Put the most important instructions and material at the start or the end, not in the middle.',
+            'Give the model only the material the task needs, and restate the key instruction near your question.',
             'Prefer a short, curated document over a long dump of everything you have.',
           ],
         },
@@ -66,7 +66,8 @@ export const level1: Level = {
           heading: 'Compare models like a PM, not a fan',
           paragraphs: [
             'Asking which model is best is the wrong question. Define criteria for the task first: factual accuracy, following constraints, usefulness for the audience, tone, and honesty about uncertainty. Run the same prompt in two tools, blind if someone can relabel the outputs, and score each one.',
-            'Models and products change every few months, so any comparison is a dated snapshot. Keep the method, record the date and model names, and rerun it when it matters. That habit is exactly what a team needs when it standardizes on tools.',
+            'Be honest about what you are comparing. ChatGPT and Claude differ in model, but also in reasoning setting, web search, memory and system instructions. Unless you control those, you are comparing products, not models, which is still useful as long as you say so.',
+            'Models and products change every few months, so any comparison is a dated snapshot. Keep the method, record the date, model names and settings, and rerun it when it matters. That habit is exactly what a team needs when it standardizes on tools.',
           ],
         },
       ],
@@ -78,8 +79,8 @@ export const level1: Level = {
         },
         {
           resourceId: 'karpathy-deep-dive-llms',
-          why: 'The clearest long-form walkthrough of how chat models are built, from pretraining to assistant behavior. Watch the first part for this session.',
-          required: true,
+          why: 'The clearest long-form walkthrough of how chat models are built, from pretraining to assistant behavior. It runs over three hours, so watch it in chapters across the month; it is not part of this session.',
+          required: false,
         },
         {
           resourceId: 'karpathy-how-i-use-llms',
@@ -96,10 +97,10 @@ export const level1: Level = {
         summary:
           'Build a mental model of how LLMs work, then run a structured head-to-head comparison of ChatGPT and Claude on three tasks from your real work.',
         steps: [
-          "Watch the 3Blue1Brown explainer, then the opening part of Karpathy's deep dive until tokens and pretraining make sense. Write five bullet notes in your own words.",
+          'Watch the 3Blue1Brown explainer (about 8 minutes). Write five bullet notes in your own words.',
           'Pick three realistic banking PM tasks that contain no confidential data. For example: rewrite a feature announcement for customers with low financial confidence; summarize a public regulator speech on consumer duty or fair treatment; draft ten interview questions about running short of money before payday.',
           'Write one prompt per task that states the role, goal, audience, constraints and output format.',
-          'Run each prompt in ChatGPT and in Claude, each in a fresh chat. Paste the outputs into one document, labeled A and B. If your mentor is available, let them relabel the outputs so you score blind.',
+          'Run each prompt in ChatGPT and in Claude, each in a fresh chat. Record the model name, whether reasoning or web search was on, and whether memory is enabled. Paste the outputs into one document, labeled A and B. If your mentor is available, let them relabel the outputs so you score blind.',
           'Score every output from 1 to 5 on factual accuracy, constraint following, usefulness and honesty about uncertainty. Note the sentence that drove any low score.',
           'Rerun one prompt twice in the same tool and note how much the answer changes.',
           'Write a one-page dated note: which tool you would use for which task and why, plus three things you now understand about tokens, context windows and hallucination.',
@@ -141,7 +142,7 @@ Constraints:
         'You scored all outputs before asking an AI to critique them, and you recorded where you disagreed with its critique.',
         'At least one factual claim from the outputs was checked against a real source.',
         'Your explanation of a context window makes sense when read aloud to someone non-technical.',
-        'The note records the date and the model or product names you used.',
+        'The note records the date, the model or product names and the settings you used, and says whether it compares models or products.',
       ],
       reflectionPrompts: [
         'Which output surprised you, and what does that tell you about how these models work?',
@@ -151,7 +152,7 @@ Constraints:
       checklist: [
         {
           id: 'explainers',
-          text: 'Watched the explainer videos and wrote five notes in my own words',
+          text: 'Watched the explainer video and wrote five notes in my own words',
         },
         {
           id: 'three-tasks',
@@ -214,10 +215,10 @@ Constraints:
           ],
         },
         {
-          heading: 'Primary, secondary and anecdote',
+          heading: 'Judge the source by its relationship to the claim',
           paragraphs: [
-            'Primary sources are regulators, central banks, national statistics offices, official company publications and peer-reviewed studies. Secondary sources are reputable journalism and analyst reports that interpret primary material. Blogs, AI summaries and forums are useful for sentiment, language and pain points, but they are not evidence for facts.',
-            'This hierarchy matters for product work too. A Reddit thread full of people describing overdraft anxiety is a great discovery signal. It is not a market size.',
+            "A source is strong for a claim when it observed the thing directly. A central bank survey is primary evidence for how many adults run short before payday. A company blog post is primary evidence for what that company says it launched, but only an assertion about how well it works. An engineer documenting a test they ran is good evidence for that test, even on a personal blog. Reputable journalism and analyst reports are secondary: they interpret someone else's evidence.",
+            'So ask three questions of every source: did it observe this, does it gain from the claim, and has anyone independent confirmed it? A Reddit thread full of people describing overdraft anxiety is a great discovery signal. It is not a market size.',
           ],
         },
         {
@@ -231,7 +232,7 @@ Constraints:
       resources: [
         {
           resourceId: 'anthropic-ai-fluency',
-          why: 'Gives you language for discernment: judging AI output critically rather than accepting fluent text.',
+          why: 'Gives you language for discernment: judging AI output critically rather than accepting fluent text. The whole course takes about four hours; for this session, do only the Discernment lessons and finish the rest across the month.',
           required: true,
         },
         {
@@ -274,8 +275,9 @@ Scope:
 - Audience: a product manager preparing an internal briefing
 
 Source requirements:
-- Prefer primary sources: regulators, central banks, national statistics offices, official company publications, peer-reviewed studies.
+- Prefer primary sources: regulators, central banks, national statistics offices, peer-reviewed studies, and official company publications for what a company says it offers.
 - Use reputable press or analyst reports only when no primary source exists, and label them secondary.
+- Label vendor claims about their own product's results as vendor claims.
 - Do not use AI-generated summaries, content farms or forums as evidence for facts.
 
 Output format:
@@ -349,7 +351,7 @@ Rules:
         {
           heading: 'Atomic notes beat long transcripts',
           paragraphs: [
-            'An **atomic note** covers one idea. Its title states the idea as a claim or question, for example `context-windows-degrade-in-the-middle.md` rather than `session-1-notes.md`. Each note carries its source and date and links to related notes.',
+            'An **atomic note** covers one idea. Its title states the idea as a claim or question, for example `long-context-degrades-answers.md` rather than `session-1-notes.md`. Each note carries its source and date and links to related notes.',
             'This matters for AI as much as for you. Agents find information by file names, headings and keywords. Small focused notes are found and quoted accurately; a forty-page transcript is found and then misread.',
           ],
         },
@@ -419,7 +421,7 @@ Rules:
 - Do not drop any idea from the raw notes. If something does not fit, list it under "Unfiled" in the plan.
 - Do not add facts that are not in my notes. Mark your own suggestions with "Suggestion:".
 - Never delete or overwrite files in 00-inbox/. I will archive them myself after review.
-- Use US spelling and plain Markdown only.
+- Match the spelling and tone of my notes. Plain Markdown only.
 
 [paste raw notes here if you are using a chat]`,
       },
@@ -616,8 +618,9 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       steps: [
         "Paste the same paragraph in English and in another language you speak into a public tokenizer tool (for example the tokenizer page on OpenAI's platform) and record the token counts. Do the same for a paragraph full of numbers.",
         'Ask the same open-ended question five times in fresh chats. Record which parts stay stable and which change.',
-        "Take a long public document, such as a bank's annual report. Insert one specific made-up fact (clearly labeled as a test) near the start, then in the middle, then near the end in three separate chats. Ask a question that depends on that fact each time.",
-        'Repeat the long-context test with the fact moved into a short, separate document pasted at the end of your message.',
+        "Take a long public document, such as a bank's annual report. Write a question that needs three facts from different sections combined, for example a ratio across two years plus a note in the risk section. Ask it in a fresh chat with the whole document pasted in. Current models usually find a single planted fact, so a multi-fact question is the fairer test.",
+        'Add distraction: paste two older annual reports alongside the current one and ask again. Note whether the answer mixes years or misses a fact.',
+        'Repeat with only the three relevant sections pasted as a short, separate document. Compare accuracy and how often the model quotes its sources.',
         'Write a one-page lab report with your measurements and three practical rules you derived.',
       ],
       deliverable:
@@ -674,33 +677,51 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       id: 'q1-1',
       competency: 'ai-fundamentals',
       prompt:
-        'A colleague pastes a 300-page policy document and a long chat history into an assistant and asks a precise question. The answer misses a clause on page 140. What is the most likely cause?',
+        'A colleague pastes a 300-page policy document and a long chat history into an assistant and asks a precise question. The answer misses a clause on page 140. What is the most likely cause, and the best fix?',
       options: [
-        { id: 'a', text: 'The model is broken and should be reported to the vendor.' },
+        {
+          id: 'a',
+          text: 'The document overflowed the window; switch to a model with a much larger context window and ask the same question again.',
+        },
         {
           id: 'b',
-          text: 'Material buried in the middle of a long context tends to get less attention and competes with irrelevant content.',
+          text: 'Long, mixed context degrades answers; start fresh with the relevant sections and ask it to quote the clause.',
         },
-        { id: 'c', text: 'Models cannot read policy documents.' },
-        { id: 'd', text: 'The model deliberately skips legal text for safety reasons.' },
+        {
+          id: 'c',
+          text: 'The prompt was too loose; add "read every page carefully and be thorough" and rerun it.',
+        },
+        {
+          id: 'd',
+          text: 'Safety filters skip dense legal text; rephrase the question so it avoids legal wording.',
+        },
       ],
       correct: 'b',
       explanation:
-        'Large context windows do not guarantee equal attention to everything in them. Narrowing the input to the relevant sections, or asking the model to quote the clause it relies on, usually fixes this.',
+        'A bigger window does not mean equal attention to everything in it. Narrowing the input to the relevant sections and asking the model to quote the clause it relies on usually fixes this, and makes the answer checkable.',
     },
     {
       id: 'q1-2',
       competency: 'ai-fundamentals',
       prompt:
-        'You run the same prompt twice in the same tool and get noticeably different answers. Why?',
+        'You run the same prompt twice in fresh chats in the same tool and get noticeably different answers. What is the main reason?',
       options: [
-        { id: 'a', text: 'The model learned from your first conversation and improved.' },
+        {
+          id: 'a',
+          text: 'The model updated itself from your first chat, so the second answer reflects what it learned.',
+        },
         {
           id: 'b',
-          text: 'Generation samples from likely continuations token by token, so outputs vary between runs.',
+          text: 'Each token is sampled from a probability distribution, so two runs can take different paths.',
         },
-        { id: 'c', text: "The vendor routes each request to a random different company's model." },
-        { id: 'd', text: 'Something is wrong with your account.' },
+        {
+          id: 'c',
+          text: 'Chat apps deliberately vary answers to repeat users so the product feels less robotic.',
+        },
+        {
+          id: 'd',
+          text: 'Chat apps run at zero randomness, so the difference must come from a change in your wording.',
+        },
       ],
       correct: 'b',
       explanation:
@@ -712,26 +733,35 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       prompt:
         'A deep research report cites a regulator statistic with a working link. You want to use it in a steering committee deck tomorrow. What should you do first?',
       options: [
-        { id: 'a', text: 'Use it; a working link means the citation is correct.' },
-        { id: 'b', text: 'Ask the same tool whether the statistic is correct.' },
+        {
+          id: 'a',
+          text: 'Use it: research modes only cite pages they actually read, so the link supports the claim.',
+        },
+        {
+          id: 'b',
+          text: 'Ask the tool to re-check the statistic and state its confidence before you use it.',
+        },
         {
           id: 'c',
-          text: 'Open the source and confirm the number, unit, date and population match the claim.',
+          text: 'Open the source and check the number, unit, date and population against the claim.',
         },
-        { id: 'd', text: 'Remove the citation so nobody questions it.' },
+        {
+          id: 'd',
+          text: 'Use it, and mark it "source: AI research" on the slide so readers can judge it.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Citations can exist yet not support the claim, or be outdated or about a different market. A working link proves only that a page exists. Material claims need your own check against the source.',
+        'Citations can exist yet not support the claim, or be outdated or about a different market. A working link proves only that a page exists, and asking the same tool again is not independent. Material claims need your own check against the source.',
     },
     {
       id: 'q1-4',
       competency: 'ai-fundamentals',
       prompt: 'Which task is the best candidate for delegating to AI with light spot-checking?',
       options: [
-        { id: 'a', text: "Reformatting raw meeting notes into your team's standard template." },
-        { id: 'b', text: 'Deciding which roadmap item to cut this quarter.' },
-        { id: 'c', text: "Writing a direct report's performance feedback." },
+        { id: 'a', text: "Reformatting raw meeting notes into your team's template." },
+        { id: 'b', text: 'Choosing which roadmap item to cut this quarter, given capacity.' },
+        { id: 'c', text: "Writing a direct report's performance feedback from your notes." },
         { id: 'd', text: 'Calculating final customer interest charges for a release.' },
       ],
       correct: 'a',
@@ -744,31 +774,50 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       prompt:
         "Your weekly review output reads as generic and could describe anyone's week. What is the best fix?",
       options: [
-        { id: 'a', text: 'Add "be more insightful and specific" to the prompt.' },
-        { id: 'b', text: 'Switch to a different model.' },
+        {
+          id: 'a',
+          text: 'Add "be specific and insightful, avoid generic statements" to the instructions.',
+        },
+        { id: 'b', text: 'Switch to a reasoning model so it thinks harder about your week.' },
         {
           id: 'c',
-          text: "Provide the week's actual notes, open questions and priorities as inputs, and require it to cite the note for each point.",
+          text: "Supply the week's actual notes and priorities, and require a cited note per point.",
         },
-        { id: 'd', text: 'Make the prompt shorter.' },
+        {
+          id: 'd',
+          text: 'Paste three strong weekly reviews written by colleagues so it learns and copies their level of detail.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Generic output usually signals missing context, not weak wording. Supplying the real material and requiring citations grounds the output in your actual week.',
+        'Generic output usually signals missing context, not weak wording or a weak model. Examples help with format, but only your real material grounds the content in your actual week.',
     },
     {
       id: 'q1-6',
-      competency: 'ai-fundamentals',
-      prompt: "Which statement about a model's tone is accurate?",
+      competency: 'evals-safety',
+      prompt:
+        'One assistant gives a confident, detailed answer about a new regulation with no citations. A second tool hedges and says it is unsure. What should you conclude?',
       options: [
-        { id: 'a', text: 'A confident answer is more likely to be correct than a hedged one.' },
-        { id: 'b', text: 'Models only state things confidently when they have verified them.' },
-        { id: 'c', text: "A model's confident tone is not a reliable indicator of accuracy." },
-        { id: 'd', text: 'Hedged answers are always wrong.' },
+        {
+          id: 'a',
+          text: 'The confident answer is more likely right; hedging usually means the model lacks the data.',
+        },
+        {
+          id: 'b',
+          text: "Neither tone tells you much; check the claim against the regulator's own publication.",
+        },
+        {
+          id: 'c',
+          text: 'The hedged answer is more trustworthy, so use it and note the uncertainty in your deck.',
+        },
+        {
+          id: 'd',
+          text: 'Ask both tools a few more times and go with whichever answer appears most often.',
+        },
       ],
-      correct: 'c',
+      correct: 'b',
       explanation:
-        'Fluency and confidence come from training on human writing, not from verification. Judge claims by evidence, and treat a model admitting uncertainty as useful information.',
+        'Fluency and confidence come from training on human writing, not from verification, and repeated sampling only measures consistency. Judge claims by evidence, and treat a model admitting uncertainty as useful information.',
     },
     {
       id: 'q1-7',
@@ -776,13 +825,22 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       prompt:
         'Why do atomic notes with a clear title, source and date work better with AI agents than one long notes file per week?',
       options: [
-        { id: 'a', text: 'Agents cannot open files longer than a page.' },
+        {
+          id: 'a',
+          text: 'Agents cannot open files longer than a few pages, so anything in a long weekly file is silently skipped.',
+        },
         {
           id: 'b',
-          text: 'Agents find information through names, headings and keywords, so focused notes are retrieved and quoted accurately, and dates show what is current.',
+          text: 'Agents find material by names and headings, so small dated notes are found and quoted well.',
         },
-        { id: 'c', text: 'Long files use more disk space.' },
-        { id: 'd', text: 'Atomic notes are only better for human readers.' },
+        {
+          id: 'c',
+          text: 'Atomic notes use fewer tokens in total, and token count is what drives answer quality.',
+        },
+        {
+          id: 'd',
+          text: 'They do not; one file per week is easier for an agent because it only has to open one.',
+        },
       ],
       correct: 'b',
       explanation:
@@ -794,13 +852,22 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       prompt:
         'Last month your comparison found Claude better than ChatGPT for summarizing research. A colleague asks which tool the team should standardize on. What is the best response?',
       options: [
-        { id: 'a', text: 'Claude, because it won the comparison.' },
+        {
+          id: 'a',
+          text: 'Claude: it won a fair comparison, and switching tools later would cost the team time.',
+        },
         {
           id: 'b',
-          text: "Share your method and dated results, then propose rerunning it with the team's own tasks on current versions before deciding.",
+          text: "Share the method and dated results, then rerun it on the team's tasks and current versions.",
         },
-        { id: 'c', text: 'It does not matter; all models are the same.' },
-        { id: 'd', text: 'Whichever tool is cheapest.' },
+        {
+          id: 'c',
+          text: 'Pick the one with the most features, since quality gaps between models close within months.',
+        },
+        {
+          id: 'd',
+          text: 'Pick the cheapest; model quality is now close enough that cost should decide on its own.',
+        },
       ],
       correct: 'b',
       explanation:
@@ -830,7 +897,7 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       },
       {
         id: 'two-reflections',
-        text: 'Two weekly reflections produced with the workflow and edited by you.',
+        text: 'One weekly reflection produced with the workflow and edited by you, plus the date of the next one in your calendar.',
       },
       {
         id: 'limits',
