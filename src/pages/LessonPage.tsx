@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { allLessons, lessonById, wikiSteps } from '../content'
+import { allLessons, guides, lessonById, wikiSteps } from '../content'
 import { competencyById } from '../content/competencies'
 import { formatMinutes } from '../domain/dates'
 import { useLevelStatus } from '../state/hooks'
@@ -10,6 +10,7 @@ import { BookmarkButton, ResourceRefs } from '../ui/ResourceBits'
 import { Bullets, Paragraphs, inline } from '../ui/RichText'
 import { useStore } from '../state/store'
 import { CaseStudyStrip } from '../ui/CaseStudyStrip'
+import { DecisionPractice, SessionBrief, WorkedExample } from '../ui/SessionLearning'
 import {
   Card,
   CheckIcon,
@@ -131,7 +132,8 @@ export function LessonPage() {
   const lesson = lessonById(lessonId)
   const status = useLevelStatus(lesson?.levelId ?? 0)
   const { data } = useStore()
-  if (!lesson || !status) return <NotFound />
+  const guide = guides[lessonId]
+  if (!lesson || !status || !guide) return <NotFound />
   const done = !!data.lessons[lesson.id]?.completedAt
 
   const index = allLessons.findIndex((l) => l.id === lesson.id)
@@ -202,6 +204,7 @@ export function LessonPage() {
         <StepRail key={lesson.id} done={done} />
         <div className="space-y-6">
           <Step id="overview">
+            <SessionBrief guide={guide} minutes={lesson.minutes} />
             <Section title="Why it matters">
               <Paragraphs items={[lesson.whyItMatters]} />
               <p className="text-sm text-stone-600 dark:text-stone-400">
@@ -215,15 +218,27 @@ export function LessonPage() {
           </Step>
 
           <Step id="learn">
-            {lesson.learn.map((s) => (
-              <Section key={s.heading} title={s.heading}>
-                <Paragraphs items={s.paragraphs} />
-                {s.bullets && <Bullets items={s.bullets} />}
-              </Section>
-            ))}
+            <div className="lesson-reader space-y-8 rounded-2xl px-5 py-7 sm:px-8">
+              {lesson.learn.map((s) => (
+                <section key={s.heading} className="mx-auto max-w-prose">
+                  <h2 className="mb-3 text-xl font-semibold tracking-tight">{s.heading}</h2>
+                  <div className="space-y-3">
+                    <Paragraphs items={s.paragraphs} />
+                    {s.bullets && <Bullets items={s.bullets} />}
+                  </div>
+                </section>
+              ))}
+            </div>
 
-            <Section title="Resources">
-              <ResourceRefs refs={lesson.resources} />
+            <WorkedExample guide={guide} />
+            <DecisionPractice key={lesson.id} guide={guide} />
+
+            <Section title="One focused source">
+              <p className="text-sm text-stone-600 dark:text-stone-400">
+                Read the assigned excerpt, then return to practise. The full resource is optional.
+                Reading budgets are estimates, included in the session time.
+              </p>
+              <ResourceRefs refs={lesson.resources} collapseOptional />
             </Section>
           </Step>
 
@@ -250,6 +265,13 @@ export function LessonPage() {
           </Step>
 
           <Step id="verify">
+            <Section title="Try it without AI">
+              <p className="leading-relaxed">{guide.transfer}</p>
+              <p className="text-sm text-stone-600 dark:text-stone-400">
+                Use your explanation in the reflection below. If you cannot explain the decision,
+                revisit the example before marking the session complete.
+              </p>
+            </Section>
             <div className="grid gap-4 md:grid-cols-2">
               <Section title="What good output looks like">
                 <Bullets items={lesson.expectedOutput} />
@@ -301,6 +323,9 @@ export function LessonPage() {
               <p className="px-5 pb-5 leading-relaxed">{inline(lesson.mentorMove)}</p>
             </details>
           </Step>
+          <p className="border-l-2 border-indigo-400 pl-4 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+            {guide.bridge}
+          </p>
         </div>
       </div>
 

@@ -6,7 +6,7 @@ export const level2: Level = {
   title: 'Build with agents',
   theme: 'Turn the pitch into a live, reviewed prototype with Claude Code',
   summary:
-    'The pitch landed, and now people want to click through it. In this level you set up the workspace you will use for the rest of the quarter and start working in Claude Code, the agent that reads and writes files on your computer. Claude Code interviews you until the requirements are clear, then builds a multi-screen {{name}} prototype that you steer by reviewing the result. You publish it through GitHub with a protected main branch and pull requests you can read, put it live on GitHub Pages, and finish by reviewing what the agent built: real users, accessibility, a second opinion from a fresh session and no secrets in the repository.',
+    'Make your hypothesis testable as a clickable prototype. Set up a private agent workspace, decide the requirements, build one flow and publish a fictional-data demo through reviewed pull requests. Check behaviour, figures, accessibility and scope. Level 3 can still change the problem or stop the idea.',
   outcomes: [
     'Run a private workspace for the quarter that Claude Code understands from its first message, with a `CLAUDE.md` you wrote and a clear line between your instructions and its auto memory.',
     'Let Claude Code interview you into `REQUIREMENTS.md`, then build and steer a multi-screen prototype by reviewing the running result.',
@@ -39,7 +39,7 @@ export const level2: Level = {
         {
           heading: 'From chat to an agent that works on your files',
           paragraphs: [
-            'In Level 1 you pasted context into a chat. **Claude Code** works the other way round: you open a folder, and Claude reads the files it needs, writes new ones, runs commands and shows you what it changed. Nothing is uploaded until Claude reads it, and then only what it reads is sent to the model, so what you keep in the folder is what it can know.',
+            'Claude Code can read files, write changes and run tools. File contents, instructions, command output and other context may be sent to the provider. Its working folder is a starting scope, not an access boundary. Check permissions, connected tools and the environment before using it.',
             "You do not need a terminal. The Claude desktop app has a **Code** tab: sign in with your Claude Pro plan, choose a folder and type. The terminal version is the same agent if you ever want it. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on.",
             '**Cowork** is the same agent in a simpler app for non-code work such as documents and connected apps. If you can use Claude Code, you can use Cowork, so this course sticks to one tool.',
           ],
@@ -66,13 +66,14 @@ export const level2: Level = {
             '**`CLAUDE.md`** is loaded at the start of every session in that folder. You write it. A line such as `@product-context.md` on its own pulls that file in too, so every session starts knowing what {{name}} is. Other agents read a file called `AGENTS.md` instead; if you ever use one, a `CLAUDE.md` whose first line is `@AGENTS.md` keeps a single source of truth.',
             '**Auto memory** is notes Claude writes for itself as it works, for example a command that worked or a preference you corrected. It lives in your user folder rather than the workspace, and you can view and edit it with the `/memory` command.',
             'The split is simple. Anything that must hold in every session, or that someone else would need to know, you write in `CLAUDE.md` yourself: what the workspace is, the folder map, the conventions, what must never happen. Auto memory is for small things Claude picks up along the way. Look at it now and then, delete what is wrong and move anything important into `CLAUDE.md`. Status that changes weekly belongs in a workstream README, not in either.',
-            'Keep `CLAUDE.md` short, around 30 to 60 lines. Every line is read in every session, and a long file buries the lines that matter. Instructions are guidance, not a lock: the model can miss one. Anything that must never go wrong is protected by git and by reviewing the change, not by louder wording.',
+            'Keep CLAUDE.md short and test that a fresh session loads it. Instructions guide the model; enforce non-negotiable boundaries through tool permissions, environment isolation and appropriate checks. Use git to inspect and recover tracked file changes.',
           ],
         },
         {
-          heading: 'Auto mode, with git as the safety net',
+          heading: 'Permissions for actions, git for file recovery',
           paragraphs: [
-            'Claude Code starts in **auto mode**: it edits files and runs most commands without asking, with built-in checks that stop clearly risky actions. Your safety net is git: commit before a task, look at what changed after it, and undo anything you did not want. (Plan mode, which proposes changes without making them, is there if you ever want it; this course does not need it.)',
+            'Check the mode in your own session: defaults depend on version, surface and settings. Auto mode uses automated action review; manual modes ask more often, and plan mode helps explore before editing. For unfamiliar or consequential changes, inspect the approach and permissions first.',
+            'Commit before a task and inspect the diff afterwards. Git restores tracked file state; it does not automatically recover ignored or untracked files, unsend messages or undo disclosure. Keep unnecessary connectors disabled and decide separately before publishing.',
             'Git saves snapshots of a folder. You do not need to learn the commands: ask Claude to "commit this with a clear message", "show me what changed since the last commit" or "undo the changes to this file", and read what it reports. The workspace stays on your computer. If you want an off-machine backup, use a private repository only.',
           ],
         },
@@ -163,7 +164,7 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
       ],
       reflectionPrompts: [
         'Which line in `CLAUDE.md` do you expect to matter most, and why?',
-        'How did it feel to let an agent move your files with git as the only safety net?',
+        'Which file changes could git recover, and which actions needed a different permission boundary?',
       ],
       checklist: [
         {
@@ -269,8 +270,8 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
         steps: [
           'Open the Case study page and pick three to five screens for the prototype, starting with {{mvpScreen}}. Note them in a sentence or two.',
           'In Claude Code, with the workspace open, run the interview prompt below. Answer one question at a time in your own words. Say "I do not know" when you do not; it becomes an open question.',
-          'Read `REQUIREMENTS.md` and edit it yourself until every screen has states, a "done when" example and nothing you did not decide. Commit it to the workspace.',
-          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `CLAUDE.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with your mentor; this is the only install in this session.',
+          'Review the requirements yourself. Create prototype/, ignore it in the parent workspace repository and save the canonical requirements as prototype/REQUIREMENTS.md. Keep a private decision note in the workspace, not a second competing requirements file.',
+          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `CLAUDE.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with your mentor; this is the only install in this session.',
           'Ask Claude to start the app and give you the local link. Click through every screen with `REQUIREMENTS.md` beside you, on a laptop and at phone width. Write down everything that is wrong or missing.',
           'Fix the list one change at a time, with screenshots where they help. Check each change in the browser, then ask Claude to commit it with a clear message.',
           'Check two figures on screen by hand against the fictional data file. If they do not match, that is the next fix.',
@@ -413,7 +414,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
           'Run the prompt below. Claude creates a branch, adds the deployment workflow and a README, pushes and opens a pull request.',
           'On GitHub, read the diff with the four questions. Leave at least one comment. Ask your mentor to review too, then ask Claude to address the comments in a new commit.',
           'In Settings, then Pages, set the source to GitHub Actions. Merge the pull request, watch the Actions tab turn green and open the live URL on your phone.',
-          'Ask Claude to push a small change straight to `main` and confirm GitHub rejects it.',
+          'On a clean temporary branch, create a harmless empty test commit and attempt to push that commit to main. Expect rejection by the active ruleset. If it succeeds, record the result and fix the rules before any functional change.',
         ],
       },
       agentPrompt: {
@@ -424,7 +425,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
 Goal: publish the prototype on GitHub Pages so that every merge into main updates the live site.
 
 1. Create a branch called deploy/pages.
-2. Add a GitHub Actions workflow that installs, builds and deploys the site to GitHub Pages on every push to main. Use the official GitHub Pages actions.
+2. Run installation, build and relevant tests on pull requests. Add a separate deployment job on pushes to main, using the official GitHub Pages actions. Never deploy an unmerged pull request. Tell me how to require the PR check in the ruleset after it has run.
 3. Set the Vite base path to /{{slug}}/.
 4. Rewrite README.md: one paragraph on what {{name}} is and the problem it explores, using REQUIREMENTS.md as the source; a Status section saying it is a learning prototype with fictional data only; a Live site section with the URL https://<my-username>.github.io/{{slug}}/ using my real username; and a How we work section: every change goes through a pull request, pull requests stay small, the author reads their own diff first.
 5. Commit with clear messages, push the branch and open a pull request whose description explains each change in one line, written for a product manager.
@@ -434,7 +435,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
       expectedOutput: [
         'A public `{{slug}}` repository with a no-bypass ruleset on `main`.',
         'A merged pull request with a description, at least one review comment and a follow-up commit.',
-        'A deployment workflow that runs on every merge.',
+        'Checks on proposed pull requests and a separate deployment workflow after merge.',
         'The live {{name}} prototype at a GitHub Pages URL.',
       ],
       artifact:
@@ -482,7 +483,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
       safetyCritical: true,
       goal: 'Test the live prototype with real people, cover accessibility basics, get a second review from a fresh Claude session, fix bugs from reports and screenshots, and keep the repository free of secrets.',
       whyItMatters:
-        'You sent the link to a friend. Ten minutes later: two bugs and a screen that breaks on her phone. Agents write code faster than anyone reads it, so review is now the slow step, and the PM who reviews well ships faster than the one who prompts well. In a regulated product such as {{product}}, a confident screen that shows the wrong figure does more damage than a missing feature.',
+        'People may rely on the figures and warnings in {{name}} even in a polished demo. Review observed behaviour, not only generated code or the agent’s explanation. Prioritise wrong decisions and missed warnings before cosmetic polish.',
       learn: [
         {
           heading: 'Test like a user, then like a sceptic',
@@ -555,7 +556,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
           'Go through `REQUIREMENTS.md` yourself on laptop and phone: every screen, state and "done when" example. Check two figures by hand and try two edge cases.',
           'Run the five accessibility checks on every screen and note what fails.',
           'Ask Claude to draft `docs/review-checklist.md` from `REQUIREMENTS.md` and this session: requirements, figures, states, accessibility, data and secrets. Edit it to one page in your own words.',
-          'Write each problem as a bug report in `docs/review-log.md`: device, steps, expected, actual and a screenshot. Pick the three that matter most.',
+          'Write confirmed problems as reproducible reports in docs/review-log.md and prioritise by consequence. Correct at least one meaningful defect. If none appears, ask a mentor to seed a harmless local UI fault on a disposable branch, then reproduce and correct it. Label this exercise and never introduce the fault into the live site.',
           'Fix them one at a time. For each, in a fresh session: paste the report and screenshot, ask Claude to reproduce and explain the cause, fix it on its own branch, add a test if it is a calculation, and open a pull request.',
           'Before merging each pull request, run the review prompt below in another fresh session. Record a decision for every comment in `docs/review-log.md`: fixed, rejected with a reason, or turned into an issue.',
           'Ask your mentor to review the change with the highest risk, usually anything touching {{deterministic}}, as the human reviewer.',
@@ -583,10 +584,11 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       expectedOutput: [
         '`docs/review-checklist.md`: a one-page checklist in your own words.',
         '`docs/review-log.md` with bug reports, agent review comments and a decision for each.',
-        'At least three merged fix pull requests, each reviewed by a fresh session and by you.',
+        'A verified correction through a reviewed pull request, or a labelled seeded local exercise if no real defect was found.',
         'Secret scanning and push protection turned on, and a clean history scan.',
       ],
-      artifact: '`review-checklist.md`, a review log, and at least three fixes merged and live.',
+      artifact:
+        'review-checklist.md, a prioritised review log and a verified correction with review evidence.',
       verification: [
         'Every comment from the agent reviews has a recorded decision: fixed, rejected with a reason, or turned into an issue.',
         'Each bug report has steps, expected and actual results, and a screenshot or device note.',
@@ -605,7 +607,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
         { id: 'review-checklist', text: 'Wrote `docs/review-checklist.md` in my own words' },
         {
           id: 'fixes-merged',
-          text: 'Fixed three bugs from reports and screenshots through separate pull requests',
+          text: 'Reproduced and verified a meaningful correction, or completed a labelled seeded local exercise',
         },
         {
           id: 'agent-review',
@@ -778,7 +780,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       ],
       correct: 'd',
       explanation:
-        'Git gives you a complete record of what changed and a clean way to undo any of it. Approving dozens of individual edits wears attention thin, and a manual folder copy shows you nothing about what changed. A promise from the model is not a control.',
+        'For tracked file changes, commit before the task and inspect the diff afterwards. Git does not recover ignored or untracked files automatically and cannot undo external actions or disclosure. Check scope and permissions separately; a model promise is not a control.',
     },
     {
       id: 'q2-4',
@@ -943,7 +945,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       },
       {
         id: 'fixes',
-        text: 'At least three merged fix pull requests, each with a description and a recorded review.',
+        text: 'A verified correction with a recorded review and post-fix check, or a labelled seeded local exercise.',
       },
       {
         id: 'mentor-walkthrough',

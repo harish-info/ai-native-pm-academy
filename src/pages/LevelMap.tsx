@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { formatDate, formatMinutes } from '../domain/dates'
 import { useLevelStatuses } from '../state/hooks'
 import { LevelArt } from '../ui/art'
+import { courseArc } from '../content/teaching'
 import {
   Card,
   CheckIcon,
@@ -18,7 +19,7 @@ export function LevelMap() {
   const statuses = useLevelStatuses()
   return (
     <>
-      <PageHeader eyebrow="Course" title="Five levels, from fluency to mastery">
+      <PageHeader eyebrow="Course" title="From foundations to independent practice">
         Each level unlocks once you finish the required sessions of the one before it, so you can
         start the next level while a project is still open. Mastering a level needs every required
         session, at least 80% on the assessment and a passing project.
@@ -61,7 +62,19 @@ export function LevelMap() {
                         {s.level.title}
                       </Link>
                     </h2>
-                    <p className="mt-1 text-stone-600 dark:text-stone-400">{s.level.summary}</p>
+                    <p className="mt-2 font-medium text-indigo-800 dark:text-indigo-200">
+                      {courseArc[s.level.id].question}
+                    </p>
+                    <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
+                      {s.level.summary}
+                    </p>
+                    <p className="mt-3 text-sm">
+                      <span className="font-semibold">Evidence you keep: </span>
+                      {courseArc[s.level.id].proof}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-stone-600 dark:text-stone-400">
+                      {courseArc[s.level.id].boundary}
+                    </p>
                     {!s.unlocked && (
                       <p className="mt-2 text-sm">
                         Unlocks when you finish the required sessions of Level {s.level.id - 1}.

@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { levelById, wikiMilestones } from '../content'
 import type { LevelId } from '../content/types'
+import { courseArc } from '../content/teaching'
 import { formatDate, formatMinutes } from '../domain/dates'
 import { QUIZ_PASS_RATIO } from '../domain/progress'
 import { useLevelStatus } from '../state/hooks'
@@ -56,6 +57,17 @@ export function LevelDetail() {
       </PageHeader>
 
       <CaseStudyStrip levelId={level.id} />
+      <div className="session-brief rounded-2xl border border-indigo-200 p-5 dark:border-indigo-800">
+        <p className="text-xs font-semibold tracking-widest uppercase">
+          The question for this level
+        </p>
+        <h2 className="mt-2 text-xl font-semibold">{courseArc[id].question}</h2>
+        <p className="mt-2 text-sm">
+          <strong>Evidence you keep: </strong>
+          {courseArc[id].proof}
+        </p>
+        <p className="mt-1 text-sm text-stone-700 dark:text-stone-300">{courseArc[id].boundary}</p>
+      </div>
 
       {!status.unlocked && (
         <Card

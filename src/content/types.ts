@@ -37,6 +37,8 @@ export interface ResourceRef {
   /** Why this resource, for this lesson, in one sentence. */
   why: string
   required: boolean
+  /** Assigned excerpt budget, distinct from the full resource duration. */
+  minutes?: number
 }
 
 export interface ChecklistItem {

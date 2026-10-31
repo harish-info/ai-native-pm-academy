@@ -6,7 +6,7 @@ export const level3: Level = {
   title: 'Discover and decide',
   theme: 'Do the PM job properly: strategy, real users, data, a decision and a PRD.',
   summary:
-    'Your prototype got people interested. Now you earn the right to build it. In this level you answer "why this, why now?" with a strategy kernel and a sourced market map, put the prototype in front of real people, check what the data says, choose one bet on evidence, and write a PRD for {{name}} that briefs engineers, designers, risk partners and coding agents alike. Claude Code does the legwork in your workspace; the judgment stays yours.',
+    'Revisit the prototype as one possible solution. Investigate the problem, compare alternatives including no AI, and choose a bounded bet or recommend stopping. Use real conversations where available and fictional analytics to rehearse the method. Write a PRD that separates observed evidence from assumptions and states value, quality, cost and response-time requirements.',
   outcomes: [
     'Write a one-page strategy kernel and a market map in which every claim is cited and its source saved in your workspace.',
     'Run interviews and usability tests with real people, handle consent and personal data properly, and synthesise by hand before comparing with Claude.',
@@ -34,12 +34,12 @@ export const level3: Level = {
       mentorReview: 'optional',
       goal: 'Answer leadership\'s "why this, why now?" for your {{name}} feature with a one-page strategy kernel and a market map, where every claim is cited and its source saved under `sources/` in your workspace.',
       whyItMatters:
-        'The pitch page and the prototype did their job: people are interested. Now leadership asks the question every feature meets before it gets a team: why this, and why now? In banking that always includes what the neobanks and the big incumbents are doing. Claude can map a market in an afternoon, and it can also write confident errors about features, launch dates and markets. The PM who moves fast and can still show the source for every line is the one people trust with a team.',
+        'Leadership asks why this problem deserves attention now. Investigate competitors, existing workarounds and what people actually struggle with. An attractive market map can still contain wrong claims; keep a source trail and distinguish observation, vendor assertion and inference.',
       learn: [
         {
           heading: 'Outcomes over features',
           paragraphs: [
-            'Strong product organisations give teams problems to solve and outcomes to own, not lists of features to deliver. Strategy decides which problems matter most; discovery comes before delivery; releases are small and frequent. SVPG calls this the product operating model, and the required reading below is a short introduction.',
+            'An outcome-led approach gives teams problems to solve rather than only feature lists. Strategy chooses which problems matter; discovery tests assumptions before committing delivery effort. The optional SVPG article describes one version of this operating model.',
             'Your idea is a feature until you can say which outcome it moves. For {{name}} a candidate outcome is "{{outcome}}". Leadership does not fund "an assistant". It funds a credible path to an outcome the business cares about, with a reason it has to happen now.',
           ],
         },
@@ -58,7 +58,7 @@ export const level3: Level = {
         {
           heading: 'Research in parallel, cite everything',
           paragraphs: [
-            'Claude Code can search the web, open pages and write files, so it can research inside your workspace instead of in a chat window you lose next week. Split the market into slices and run each slice in its own session at the same time. Each session gets a narrow brief and a clean context, which keeps the quality up (remember context rot from Session 1), and three slices finish in the time one would take.',
+            'Split research into narrow slices with separate output folders. Work sequentially or in parallel if your tool and budget allow it; parallel runs do not guarantee a faster or more accurate result. Bound each slice by time and source count, then verify the material you rely on.',
             'Every claim gets a source note: one Markdown file per page in `sources/market/`, with the link, the date you read it, the exact sentence that supports the claim and an evidence label. The market map is then built only from those notes. This is the start of a habit that runs to the end of the course: raw sources in one place, synthesis in another, and every synthesised line pointing back to where it came from.',
             'Typical research failures: citing a page that does not contain the claim, merging two products into one, describing announced features as shipped, and treating a press release as evidence of adoption. Label every claim so readers can judge it:',
           ],
@@ -104,7 +104,7 @@ export const level3: Level = {
         steps: [
           'In your `{{slug}}-workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `CLAUDE.md`: "Market research notes live in sources/market/, one file per source page."',
           'Open three Claude Code sessions in the workspace at the same time (in the desktop app, start a new session for each). Paste the agent prompt below into each one, choosing a different slice each time: AI assistants that compete, established apps and incumbents, and workarounds and the customer voice.',
-          'While they run, read the SVPG article and draft the diagnosis in `strategy/strategy-kernel.md` in your own words. You know {{user}} better than any search result does.',
+          'Draft the diagnosis in strategy/strategy-kernel.md in your own words. Use the Google PAIR core excerpt to compare AI with a simpler baseline. Mark what you do not yet know about {{user}}.',
           'When the sessions finish, pick five source notes at random and open their links yourself. Does the page say what the note says? Correct any wrong label and note what was wrong. If more than one of the five is wrong, check the rest of that slice too.',
           'Start a fresh session and ask Claude to build `strategy/market-map.md` from `sources/market/` only: a table with product, who it is for, data it uses, what it can do, what needs approval, where it stops on {{risk}}, evidence label and source file for every row; a section of 5 to 8 unmet needs written as customer problems, each with supporting quotes and links; and a section "Claims to check or drop".',
           'Finish `strategy/strategy-kernel.md` on one page: the outcome, the diagnosis, the guiding policy, three to five coherent actions, and what you will not do. Every claim in the diagnosis links to a source note or a market map row.',
@@ -211,14 +211,14 @@ Rules:
         {
           heading: 'Synthesise by hand first, then with Claude',
           paragraphs: [
-            "If you read Claude's themes first, you will see Claude's themes. So write a one-page snapshot of each conversation within a day, while you still remember the tone and the hesitations, then cluster the opportunities and usability problems yourself. Only then ask Claude for an independent synthesis in a fresh session that cannot see yours.",
-            'The comparison is where the value is. Themes you both found are stronger. Themes only Claude found need checking: are they in the notes, or are they what people "usually" say? Themes only you found are often the emotional or surprising ones, which is exactly what discovery is for. Claude is good at counting mentions, finding quotes you forgot, and spotting where your notes contain your interpretation instead of what the participant said.',
+            'Reading an AI synthesis first can anchor your interpretation. Write snapshots and your own themes before comparing with a fresh AI pass. Fresh sessions reduce conversational carry-over; they do not make the model an independent witness. Check both interpretations against the same original observations.',
+            'Agreement can help locate a theme but does not add new participant evidence. Check its supporting quotes, context, consequence and alternative explanations. A severe problem reported once may deserve attention; frequency alone does not decide importance.',
           ],
         },
         {
           heading: 'Synthetic users: when they help and when they mislead',
           paragraphs: [
-            'Synthetic users are AI-generated personas that answer interview questions. They are fast and fluent, and they tend to be agreeable, generic and far too rational about their own behaviour. They reflect an average of their training data, not your customers. In a banking product, a synthetic user will not mention checking their balance three times before buying groceries, or the buffer account their partner does not know about.',
+            'Synthetic users are generated personas, not observations of your customers. They can produce plausible, emotional or surprising stories, but those stories remain invented. Fluency and realism do not establish authenticity or prevalence.',
             'They help with the work around research: rehearsing your discussion guide, spotting leading questions, and listing hypotheses to test with real people. They mislead the moment they are counted as evidence. If you rehearse with a synthetic participant, label it practice and keep it out of your synthesis. Challenge c6 lets you compare the two directly.',
           ],
         },
@@ -269,8 +269,8 @@ Rules:
           'Start a fresh Claude Code session and run the agent prompt below. It writes an independent synthesis to `discovery/synthesis-claude.md` without reading yours.',
           'Add two sections to `synthesis.md`: "Claude\'s synthesis" (a short summary with a link to its file) and "Where we differ", with your decision on each difference and the note or quote that settled it.',
           'Build `discovery/ost.md` as a nested Markdown outline: the outcome from your kernel, 4 to 6 opportunities with participant ids, 2 or 3 solutions under your target opportunity (your prototype is one of them), and one assumption test per solution.',
-          'File the top three usability problems as issues in your prototype repository, with participant ids and no personal details. Fixing them can wait for Level 4.',
-          'If you truly could not find participants, label every file "PRACTICE: real-user validation outstanding" and write down who you will talk to, and when.',
+          'File only the usability problems you actually observed. Put sanitized reproduction steps in public issues and keep participant notes and identifying context in the private workspace. Do not invent three problems to fill a quota.',
+          'If participants are unavailable, use the invented worked example to rehearse the guide and synthesis. Label every resulting file "PRACTICE: real-user validation outstanding", keep it out of research evidence, and make a dated recruitment plan. Continue the course as a learning simulation; do not claim the problem or solution is validated.',
         ],
       },
       agentPrompt: {
@@ -372,7 +372,7 @@ Rules:
             'Wrong denominator: a rate calculated over all users when it should be users who reached the previous step.',
             'Double counting: duplicate events or users counted once per session instead of once.',
             'Correlation read as causation: users who open a feature retain better, but engaged users open everything.',
-            'Small segments: a dramatic difference in a group of 30 users is probably noise.',
+            'Small segments: report the counts and uncertainty. A large observed difference in a small group needs investigation, not an automatic claim of either a real effect or noise.',
           ],
         },
         {
@@ -410,10 +410,10 @@ Rules:
           'Write your definitions at the top of `data/funnel-analysis.md`: what counts as a user, an active user, and each funnel step.',
           'Start a fresh session and ask Claude Code to analyse `data/events.csv` without opening `assumptions.md` or `planted.md`: the funnel from first open to the main action, weekly retention, the step with the biggest drop, and one segment comparison. It must calculate with a script, show the counts behind every percentage, use your definitions, and add its findings to `funnel-analysis.md` with a confidence level for each.',
           'Recompute two of the reported numbers yourself with a pivot table. Record in `funnel-analysis.md` whether they match, and explain any difference.',
-          'Now open `planted.md`. Did the analysis find the planted pattern, miss it, or find something that is not there? Record the answer, and where the data disagrees with your interviews.',
+          'Now open planted.md. Did the method recover the planted pattern? Record misses and false findings. This synthetic dataset cannot contradict or corroborate real interviews about real users; any apparent tension is a practice scenario, not market evidence.',
           'With Claude, write `data/impact-estimate.md`: reach, behaviour change and value for your target opportunity, as a low, base and high range, with every input labeled data, interviews, market or assumption.',
           'List at least eight candidate bets from `ost.md`, the market map and your usability issues. In a fresh session, ask Claude to rank them given only the names and a one-line problem statement, and save the result.',
-          'Score each bet with RICE in `data/prioritised-bets.md` (or a spreadsheet linked from it): confidence set by evidence, effort from your mentor. Finish with one paragraph: the top bet, what you deprioritised and why, and where the blind ranking went wrong.',
+          'Score the bets with RICE, labelling synthetic reach and impact as practice assumptions. Add a no-AI alternative, a cost range and the real evidence still needed. State your recommendation, what you deprioritised and why. Changing the idea or recommending no build is a valid outcome.',
         ],
       },
       agentPrompt: {
@@ -479,9 +479,9 @@ Use no real people, companies or figures.`,
       xp: 150,
       mentorReview: 'recommended',
       practicalProof: true,
-      goal: 'Write `prd.md` for your top bet by letting Claude Code interview you and read your workspace, then improve it through an engineer, a designer and a risk review in fresh sessions, so one document can brief people and coding agents alike.',
+      goal: 'Write `prd/prd.md` for your top bet by letting Claude Code interview you and read your workspace, then improve it through an engineer, a designer and a risk review in fresh sessions, so one document can brief people and coding agents alike.',
       whyItMatters:
-        'You have picked the bet. Soon design and engineering will pick it up, and so will their coding agents. A PRD used to be read by people who filled gaps with judgment and hallway questions. Coding agents fill gaps with guesses, confidently. In a bank, the PRD is also what risk and compliance read before anything ships. The PRD that serves all of them states behaviour precisely, admits what is not known, and links to the evidence behind every decision.',
+        'A PRD briefs people and agents who were not in your conversations. State the behaviour, evidence and open questions so they do not have to infer your decisions. Where the domain involves {{risk}}, bring the relevant risk partner into the decision before delivery.',
       learn: [
         {
           heading: 'One document, two kinds of reader',
@@ -519,7 +519,7 @@ Use no real people, companies or figures.`,
           bullets: [
             '**No invention.** A gap becomes an open question, not a plausible guess. If nobody has decided how a missing value is shown, the PRD says so and names who will decide.',
             '**Flag contradictions.** When your interviews and your data disagree, or the market map and the kernel do, the PRD says so in the text and opens a question.',
-            '**Behaviour, not implementation.** Describe what the user sees and what the system must always or never do. Leave the database, framework and model choice to engineering.',
+            '**Behaviour before implementation.** Specify value, quality, access, latency and cost constraints. Discuss implementation trade-offs with engineering without prescribing a database or model based on fashion.',
           ],
         },
         {
@@ -531,11 +531,18 @@ Use no real people, companies or figures.`,
           ],
         },
         {
+          heading: 'Choose a solution the team can operate',
+          paragraphs: [
+            'Compare a deterministic baseline, a model with relevant context and, only if needed, a tool-using workflow or agent. Retrieve current facts from an authorised source; fine-tuning can adapt repeated behaviour but is not a live database. Record why the simpler option falls short before choosing more complexity.',
+            'Add a one-page operating brief: a data-flow sketch, the source of truth, who can access each input, proposed response-time and failure budgets, fallback behaviour and cost per acceptable task. Include model calls, tools, retries, human review and maintenance. Use labelled illustrative assumptions rather than buying API access for this exercise.',
+          ],
+        },
+        {
           heading: 'Drafted by interview, reviewed from three angles',
           paragraphs: [
             'You learned the interview technique in Session 6: the agent asks you one question at a time until it could write the spec itself. Here Claude Code also reads your workspace, so its questions target what your synthesis, tree and bets leave undecided. Those questions are decisions, and they are cheaper to make now than after a build.',
             'Then review the draft from three angles, each in a fresh session so no review inherits the assumptions of the drafting session. The engineer asks whether every behaviour is buildable and testable without guessing. The designer asks whether every flow and state is covered and matches the prototype. The risk partner asks what could harm a customer or the company in {{risk}}. You decide what to accept; the reviews only advise.',
-            'Last, test agent-readiness directly: a fresh session that sees only `prd.md` lists every question it would need answered before building. When that list is short, the PRD is ready.',
+            'Last, test agent-readiness directly: a fresh session that sees only `prd/prd.md` lists every question it would need answered before building. When that list is short, the PRD is ready.',
           ],
         },
       ],
@@ -544,6 +551,11 @@ Use no real people, companies or figures.`,
           resourceId: 'osmani-good-spec',
           why: 'A concise guide to specs agents can execute: a goal first, a PRD-like structure, and boundaries in three tiers (always, ask first, never).',
           required: true,
+        },
+        {
+          resourceId: 'aws-rag-versus-fine-tuning',
+          why: 'Compare ways of supplying knowledge and adapting behaviour before discussing a solution with engineering.',
+          required: false,
         },
         {
           resourceId: 'chennapragada-demos-before-memos',
@@ -560,13 +572,14 @@ Use no real people, companies or figures.`,
         summary:
           'Let Claude Code interview you and draft the PRD from your workspace, review it as an engineer, a designer and a risk partner in fresh sessions, and test that a fresh agent can build from it.',
         steps: [
-          'Create a `prd/` folder in your workspace. Confirm the top bet in `data/prioritised-bets.md` is still the one you want to write up.',
+          'Create prd/ in your workspace. Confirm the bet or revised direction, then write a short operating brief: solution alternatives, an authorised data-flow sketch, cost per acceptable task, response-time budget and fallback. Label illustrative assumptions; no API purchase is required.',
           'Run the agent prompt below. Answer the interview questions honestly, including "I do not know yet": those become open questions.',
           'Read the draft end to end. Rewrite anything generic in your own words, check that every claim links to a workspace file or one of your answers, and move anything guessed into Open questions.',
-          'Run three reviews, each in a fresh session: "Read prd/prd.md and the files it links. Review it for what [the engineer who builds it | the designer who owns the flows | the risk and compliance partner] needs. List problems with the section and a suggested fix. Add your findings under your heading in prd/review-notes.md and do not edit prd.md."',
-          'Decide on every finding in `review-notes.md`: accept, reject with a reason, or turn it into an open question. Update `prd.md` yourself, or ask Claude to apply only the accepted findings.',
-          'Test agent-readiness: in a fresh session, give Claude only `prd.md` and ask for every question it would need answered before building. Improve the PRD until fewer than five blocking questions remain.',
-          'Put the prototype link, a version and a date at the top of `prd.md`, so spec and prototype travel together.',
+          'Run three reviews, each in a fresh session: "Read prd/prd.md and the files it links. Review it for what [the engineer who builds it | the designer who owns the flows | the risk and compliance partner] needs. List problems with the section and a suggested fix. Add your findings under your heading in prd/review-notes.md and do not edit prd/prd.md."',
+          'Decide on every finding in `review-notes.md`: accept, reject with a reason, or turn it into an open question. Update `prd/prd.md` yourself, or ask Claude to apply only the accepted findings.',
+          'Test readiness in a fresh session with prd/prd.md only. Resolve every blocker for the first slice, especially data access, harmful behaviour and acceptance rules, or remove the affected behaviour from that slice. Future-slice questions can remain visible with owners; a small count of blockers is not readiness.',
+          'Put the prototype link, a version and a date at the top of `prd/prd.md`, so spec and prototype travel together.',
+          'If your recommendation is to stop or use no AI, keep it in the decision pack. For later delivery exercises, define a clearly labelled hypothetical slice. Practising delivery must not silently turn a rejected idea into your product recommendation.',
         ],
       },
       agentPrompt: {
@@ -591,12 +604,12 @@ Rules:
         'Behavioural contracts in three tiers, and an eval plan for the AI parts',
         '`prd/review-notes.md` with engineer, designer and risk findings, each accepted, rejected with a reason, or turned into an open question',
       ],
-      artifact: '`prd.md` plus `review-notes.md`',
+      artifact: '`prd/prd.md` plus `review-notes.md`',
       verification: [
-        'A fresh session reading only `prd.md` raised fewer than five blocking questions.',
+        'A fresh reviewer found no unresolved blocker for the first slice; future-slice questions have owners and the slice excludes their affected behaviour.',
         'Every acceptance criterion has concrete inputs and an observable expected result.',
         'Nothing in the PRD is a guess: each gap or contradiction appears under Open questions.',
-        'The PRD names no framework, database or model; it describes behaviour only.',
+        'The PRD compares a simpler alternative, states an operating cost and latency budget, and records engineering questions without imposing an unsupported technology choice.',
         'The behavioural contracts state that {{deterministic}} come from tested code and that {{action}} never happens without approval.',
         'If your usability tests involved no real people, the PRD states that real-user validation is outstanding.',
       ],
@@ -609,7 +622,7 @@ Rules:
         { id: 'interviewed', text: 'Let Claude Code interview me before drafting' },
         {
           id: 'layout',
-          text: 'Wrote prd.md with every section, including behavioural contracts and an eval plan',
+          text: 'Wrote prd/prd.md with every section, including behavioural contracts and an eval plan',
         },
         { id: 'no-invention', text: 'Moved every gap and contradiction into Open questions' },
         { id: 'three-reviews', text: 'Ran engineer, designer and risk reviews in fresh sessions' },
@@ -916,6 +929,60 @@ Rules:
       explanation:
         'A PRD describes behaviour, not implementation. The first option is an engineering decision and the second hands a calculation to the model, which should come from tested code. The third cannot be tested. A Given, when, then criterion with concrete numbers can become an automated test directly.',
     },
+    {
+      id: 'q3-9',
+      competency: 'agentic-systems',
+      prompt:
+        'Your feature needs current product rules and exact totals. Which proposal is the best starting point?',
+      options: [
+        {
+          id: 'a',
+          text: 'Fine-tune a model each time the records change.',
+        },
+        {
+          id: 'b',
+          text: 'Retrieve authorised current facts, calculate with tested code and evaluate what language assistance adds.',
+        },
+        {
+          id: 'c',
+          text: 'Give a general model the question without any source data.',
+        },
+        {
+          id: 'd',
+          text: 'Use an autonomous agent because it can choose its own process.',
+        },
+      ],
+      correct: 'b',
+      explanation:
+        'Current records belong in an authorised source of truth, exact totals in tested code. Add model-driven steps only when they improve the user task enough to justify cost, latency and risk.',
+    },
+    {
+      id: 'q3-10',
+      competency: 'technical-collaboration',
+      prompt:
+        'An illustrative trial costs 20 units in model calls and 40 in human review. Of 1,000 attempts, 800 meet the quality bar. What is the measured cost per acceptable result?',
+      options: [
+        {
+          id: 'a',
+          text: '0.02 units, counting model calls only.',
+        },
+        {
+          id: 'b',
+          text: '0.06 units, dividing by every attempt.',
+        },
+        {
+          id: 'c',
+          text: '0.075 units, dividing all measured costs by acceptable results.',
+        },
+        {
+          id: 'd',
+          text: '0.05 units, counting human review only.',
+        },
+      ],
+      correct: 'c',
+      explanation:
+        '(20 + 40) / 800 = 0.075. This includes the measured review burden and failed attempts. Tool, support and maintenance costs would also belong in a fuller operating estimate.',
+    },
   ],
   project: {
     title: 'Decision pack',
@@ -954,5 +1021,5 @@ Rules:
     xp: 350,
   },
   nextRecommendation:
-    'Level 4 starts from your PRD: a design spec and an engineering handoff, evals for the AI parts, a launch with a readout, and a deck for the quarterly review. Before you start, make sure `prd.md` has concrete acceptance criteria and that its open questions each have an owner.',
+    'Level 4 starts from your PRD: a design spec and an engineering handoff, evals for the AI parts, a launch with a readout, and a deck for the quarterly review. Before you start, make sure `prd/prd.md` has concrete acceptance criteria and that its open questions each have an owner.',
 }

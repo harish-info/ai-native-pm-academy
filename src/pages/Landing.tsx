@@ -17,15 +17,15 @@ import {
 const pillars = [
   {
     title: 'Practice first',
-    body: 'About three quarters of the time goes into building real artifacts: a live prototype, a PRD and design spec, an evaluated AI feature, a launch deck, and a PM OS with a team knowledge base.',
+    body: 'Study a worked example, make a decision, then practise on your case. Build a prototype, a scoped PRD, an evaluation report, a simulated launch readout and a team knowledge base.',
   },
   {
     title: 'Evidence, not clicks',
-    body: 'A session counts as complete only with a ticked checklist, a written reflection, an artifact and real logged time. Levels unlock through an 80% assessment and a rubric-scored project.',
+    body: 'Complete sessions with an artifact, a reflection and logged practice. Sessions open the next level. An 80% assessment and a rubric-scored project earn the level badge.',
   },
   {
     title: 'Taste and judgment',
-    body: 'Agents can build almost anything. The hard parts are knowing what to build, specifying it well and reviewing what comes back. That is what this course trains.',
+    body: 'Choose what is worth building, compare AI with simpler approaches, specify the behaviour and review the evidence. A well-supported decision to stop is a valid outcome.',
   },
   {
     title: 'Private by design',
@@ -82,10 +82,10 @@ export function Landing() {
                 and can build it with agents.
               </h1>
               <p className="mt-5 max-w-2xl text-lg text-stone-600 dark:text-stone-400">
-                A structured, practical course in five levels and twenty sessions, built on the best
-                free material from Anthropic, Matt Pocock and practitioners. You take one product of
-                your choice through the whole cycle, from a first context file to a launched,
-                evaluated AI feature and the knowledge base your team runs on.
+                A structured, practical course in five levels and twenty sessions, built on curated
+                resources selected for the work PMs actually do. Take one fictional product from a
+                first context file to a reviewed prototype, evidence-based product decisions and a
+                team workflow you can explain and test.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 {data.onboarding ? (
@@ -112,7 +112,7 @@ export function Landing() {
 
         <section aria-labelledby="levels-heading" className="py-10">
           <h2 id="levels-heading" className="mb-4 text-2xl font-bold tracking-tight">
-            Five levels, basics to mastery
+            Five levels, one continuous case
           </h2>
           <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {levels.map((l) => (
@@ -139,9 +139,9 @@ export function Landing() {
             One case study, the whole product cycle
           </h2>
           <p className="mt-1 mb-4 max-w-3xl text-stone-600 dark:text-stone-400">
-            Pick a case on day one and run it end to end: frame the idea, prototype, discover,
-            decide, hand off, evaluate, launch, and keep the knowledge working. Same skills,
-            different hard problem.
+            Frame a hypothesis, prototype it, investigate the problem, decide what to build and
+            rehearse a release. The examples and data are fictional. Your real conversations, when
+            available, remain clearly separated from the simulation.
           </p>
           <ul className="grid gap-3 md:grid-cols-3">
             {caseStudies.map((c) => (
@@ -153,6 +153,38 @@ export function Landing() {
                 <p className="mt-1 text-sm text-stone-700 dark:text-stone-300">{c.pitch}</p>
               </li>
             ))}
+          </ul>
+        </section>
+
+        <section
+          className="mb-8 rounded-2xl border border-stone-200 p-6 dark:border-stone-700"
+          aria-labelledby="before-heading"
+        >
+          <h2 id="before-heading" className="text-xl font-semibold">
+            Before you start
+          </h2>
+          <ul className="mt-4 grid gap-5 text-sm sm:grid-cols-3">
+            <li>
+              <strong className="block">A PM course, not an ML degree</strong>
+              <span className="mt-1 block text-stone-600 dark:text-stone-400">
+                No coding prerequisite. You will direct agents, check their work and make product
+                trade-offs.
+              </span>
+            </li>
+            <li>
+              <strong className="block">About 80 hours, at your pace</strong>
+              <span className="mt-1 block text-stone-600 dark:text-stone-400">
+                An 8-week plan or a lighter 12-week path. Time estimates are untested; recruitment
+                and setup can take longer.
+              </span>
+            </li>
+            <li>
+              <strong className="block">Free reading, some paid practice</strong>
+              <span className="mt-1 block text-stone-600 dark:text-stone-400">
+                Start with a free assistant. Level 2 onward uses Claude Code, which needs suitable
+                paid access. Check access before subscribing.
+              </span>
+            </li>
           </ul>
         </section>
 

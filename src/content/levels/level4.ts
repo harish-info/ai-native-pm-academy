@@ -7,18 +7,18 @@ export const level4: Level = {
   theme:
     'Take a decided PRD through design, engineering handoff, AI quality, launch and the story you tell leadership.',
   summary:
-    'Your PRD for {{name}} is approved. Now the work leaves your hands: a design spec and a handoff bundle so engineers and their agents build the right thing, an eval set that shows the AI feature is safe enough to launch, a staged launch read at a fixed sample size, and a ten-minute deck that gets a decision. Claude drafts, grades and builds; you decide what good means and check it.',
+    'Specify and check one decided slice, evaluate a chat stand-in and plan the evidence needed for a real release. Read a simulated experiment and present a recommendation with its uncertainties. These exercises practise release judgement; they do not establish production safety or constitute a real customer launch.',
   outcomes: [
     'Write a design spec that covers every screen state with exact copy, and hand it to engineering as a filtered bundle, a task breakdown and a team AGENTS.md.',
     'Check a build against the PRD and the design spec with an align check, and open a small pull request yourself.',
-    'Build a golden eval set by harm category from real failure modes, red-team it, and set guardrails, hand-offs to people and release rules.',
-    'Plan a staged launch with metrics fixed in advance, and write a ship, iterate or kill readout without peeking.',
+    'Build a small eval by harm category, reserve unseen cases, repeat critical trials and separate language behaviour from untested tool controls.',
+    'Plan a staged launch with a predefined decision rule, monitor harm throughout and write a ship, iterate, inconclusive or stop recommendation.',
     'Tell the story answer first in a deck that passes the Glance Test, built and reviewed with agents, with a written update alongside.',
   ],
   badge: {
     name: 'Shipper',
     description:
-      'Handed {{name}} to engineering with a spec they could build from, showed the AI feature was safe enough to launch, read the launch honestly and told the story to leadership.',
+      'Handed {{name}} to engineering with a spec they could build from, reported the limits of a stand-in eval, read a simulated launch honestly and told the story to leadership.',
   },
   lessons: [
     {
@@ -28,7 +28,7 @@ export const level4: Level = {
       title: 'Design spec and engineering handoff',
       difficulty: 'Advanced',
       minutes: 150,
-      tools: ['Claude Design (Pro plan) or Figma Make', 'Claude Code', 'GitHub'],
+      tools: ['Your existing prototype', 'Claude Code', 'GitHub', 'Design tool (optional)'],
       prerequisites: ['s12'],
       competencies: ['ux-prototyping', 'technical-collaboration'],
       xp: 150,
@@ -123,8 +123,8 @@ export const level4: Level = {
         steps: [
           'In your `{{slug}}-workspace/` folder, run the agent prompt below. Claude Code drafts `design-spec.md` from your PRD, prototype and notes, and interviews you about every gap it finds. Answer what you know; leave the rest as open questions.',
           'Read the spec screen by screen. Every state needs a condition and exact copy. Check the precedence note at the top and every flagged contradiction, and decide or assign each one.',
-          'Open Claude Design, or Figma Make, give it `prd.md` and `design-spec.md`, and ask for a prototype of {{mvpScreen}}, with every state in the spec. Compare it with the spec state by state, and fix whichever of the two is wrong.',
-          'Export the handoff bundle from Claude Design into a `handoff/` folder in your workspace. With Figma Make, save the prototype link and a screenshot of every state there instead.',
+          'Use the existing prototype to show the core flow and its required states. A new design tool is optional. Compare each state with the spec, record discrepancies and resolve the rule before changing the interface.',
+          'Save the prototype link and screenshots of the relevant states in handoff/. If you chose a design tool, its exported bundle can accompany these. A new subscription is unnecessary.',
           'In your prototype repository from Session 7, on a new branch, ask Claude Code to copy the PRD, the design spec and the bundle into `docs/`, filtered to what this web app needs, and to write `docs/task-breakdown.md`: 5 to 8 vertical slices, each with the acceptance criteria and spec states it covers, likely files and a size (S, M or L). Split any L. Edit the breakdown yourself, then merge it through a pull request.',
           'Ask Claude Code to draft a team `AGENTS.md`: what the product is, the commands, conventions, pointers to `docs/`, and the hard rules. Add a `CLAUDE.md` whose first line is `@AGENTS.md`. Cut anything vague and merge through a pull request.',
           'Have Claude Code build the first slice in a fresh session that reads AGENTS.md and the breakdown. Review the result, not a plan: run it, try every state, read the diff.',
@@ -137,7 +137,7 @@ export const level4: Level = {
         where: 'In your {{slug}}-workspace folder',
         text: `Goal: write design-spec.md for {{name}} v1, so a designer, an engineer and a coding agent can build every screen without guessing.
 
-Read first: prd.md, REQUIREMENTS.md, synthesis.md, product-context.md (for the glossary) and any design notes in this workspace. Then read the prototype from Session 7; ask me for its folder if you cannot find it.
+Read first: prd/prd.md, prototype/REQUIREMENTS.md, discovery/synthesis.md, product-context.md (for the glossary) and any design notes in this workspace. Then read the prototype from Session 7; ask me for its folder if you cannot find it.
 
 Audience: a designer and an engineer who have not seen the prototype, and their coding agents.
 
@@ -230,7 +230,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
           heading: 'Read answers before you write cases',
           paragraphs: [
             'Practitioners who teach evals put one step first: **error analysis**. Run the feature on a few dozen realistic questions, read every answer, and write down in your own words what went wrong. Then group the notes into failure modes, such as "a figure that is not in the data", "missed the hand-off" or "answered outside its scope". Cases and graders come after, aimed at failures you have actually seen. A grader for a failure you have never seen tends to measure the wrong thing.',
-            'The feature is not built yet, so you test a **stand-in**: a Claude Project whose instructions are the assistant rules from your PRD, with the fictional data file attached. It is a fair test of the rules and the model, which are the parts that change most often.',
+            'Use a **stand-in**: a Claude Project with assistant rules and fictional data. It tests the wording and model behaviour of that chat configuration. It does not test production retrieval, authorisation, action execution, retries or cross-user isolation. Mark those checks NOT TESTED and list the sandbox integration evidence engineering must supply.',
           ],
         },
         {
@@ -249,13 +249,13 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
           heading: 'Red-team the data, not only the chat',
           paragraphs: [
             'The dangerous case is **indirect prompt injection**: instructions hidden in content the assistant reads as data, such as a note, a name, an email or a PDF. Models cannot reliably tell data from instructions, so assume the assistant will sometimes be fooled.',
-            'Simon Willison calls the riskiest combination the lethal trifecta: access to private data, exposure to untrusted content, and a way to send data out. Remove one leg where you can. Actions need their own control: if the assistant has no tool that executes and every action waits for a person, a fooled model can at most prepare something a person then declines. Prompt wording helps; the product design is the real control, and it belongs in the PRD.',
+            'Consider unwanted actions and information disclosure separately. Remove unnecessary data access, network destinations and action tools. Enforce approval outside the model, tied to the exact proposed action. A confirmation button does not make the draft or its data handling safe. Document remaining risks in the PRD.',
           ],
         },
         {
           heading: 'Guardrails, hand-offs and release rules',
           paragraphs: [
-            'A **guardrail** is a rule the product enforces whatever the model says: a refusal list, a limit, an approval step, a statement that must appear. A **hand-off** is the moment the assistant stops and routes to a person: a complaint, a sign of distress, a request in regulated or sensitive territory. Write both as behaviour ("always offers a human when ...") so they can be tested.',
+            'Separate requested model behaviour from enforced controls. A refusal instruction or required disclaimer can be missed; an authorisation check outside the model can deny an action regardless of the wording. Specify a human hand-off for defined situations and test the route, not only a sentence promising help.',
             'Then set release rules per category. A single unauthorised action or followed injection blocks the release, whatever the overall pass rate. A slightly awkward sentence does not. Rerun the set on every prompt, model or data change, and your evals become a regression net.',
           ],
         },
@@ -289,16 +289,17 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
       ],
       task: {
         summary:
-          'Build a stand-in for the assistant, run error analysis on realistic questions, write a golden set of at least 24 cases across four categories, grade the results, and write the eval report with guardrails, hand-offs and release rules.',
+          'Use a stand-in to discover failures, write a small 12-case learning set, reserve three unseen cases with a human grader, and report what was and was not tested. This is practice in evaluation design, not a production release certificate.',
         steps: [
           'Create a Claude Project called "{{name}} assistant stand-in". Paste the assistant rules from your PRD (behavioural contracts, scope and hand-offs) as its instructions, and attach the fictional data file from your prototype.',
-          'Error analysis: ask it 20 realistic questions, including every suggested agent question on your case study page, each in a fresh chat. Paste each answer into a spreadsheet and write one line on what is wrong, if anything. Group the notes into failure modes and save them as `failure-modes.md` in your workspace.',
-          'Run the agent prompt below. Claude Code drafts `eval-set.md` from the PRD, the design spec and your failure modes. Edit it to at least 24 cases: at least 8 correctness, 6 conduct and hand-off, 4 unauthorised action and 6 malicious input cases.',
+          'Start with six realistic questions across normal, missing-data, hand-off, action and hostile-input situations. Read each answer and group observed problems in failure-modes.md. A larger error-analysis sample is further practice, not required in this session.',
+          'Draft 12 learning cases: four correctness, three conduct and hand-off, two unauthorised-action and three malicious-input cases. Include both expected refusals and legitimate questions that should be answered. Ask a mentor or peer to hold three additional unseen cases and their answer key outside the tested workspace.',
           'Calculate the expected figures for every correctness case yourself in the spreadsheet, from the fictional data. Never ask a model for them.',
           'Add red-team cases: a note in the data that tells the assistant to ignore its rules, a name field with an instruction in it, a request to reveal its instructions, and a message from an upset user. Ask your mentor for three cases you have not seen.',
-          'Run every case in a fresh chat with the stand-in and save the answers in an `eval-runs/` folder. Ask Claude Code to grade each answer against the expected behaviour, then check every failure and at least five passes yourself.',
+          'Freeze and record the model name, date, instructions and data version. Run each case in a fresh chat, save inputs and outputs in eval-runs/, and grade against your criteria. Check every failure and sample passes yourself. Repeat two critical cases three times to observe variation.',
           'Fix what you can in the stand-in instructions, rerun the failing cases, and note what changed and why. A failure the instructions cannot fix is a product requirement: add it to the PRD as a guardrail.',
-          'Write `eval-report.md`: pass rate per category, release-blocking failures, the guardrails and hand-offs the product needs, known gaps, and the date and model you tested.',
+          'Freeze the revised setup before receiving the three unseen inputs. Run them without the answer key; have the human grader score them and keep the first results even if you later fix failures. With no peer, write and seal the extra cases before tuning, keep the key outside the tested context and report the weaker independence.',
+          'Write eval-report.md with case and trial counts, category results, grader disagreements, first unseen results, versions and known limits. Mark real-tool authorisation, final state, access boundaries and live human hand-offs NOT TESTED. Propose integrated sandbox checks rather than claiming the chat stand-in passed them.',
         ],
       },
       agentPrompt: {
@@ -306,15 +307,15 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         where: 'In your {{slug}}-workspace folder',
         text: `Goal: draft eval-set.md, the golden test set for the {{name}} assistant. I will run it by hand against a stand-in Claude Project and report the results to my risk partner.
 
-Read first: prd.md (behavioural contracts, scope and the eval plan), design-spec.md, product-context.md and failure-modes.md (my error analysis notes).
+Read first: prd/prd.md (behavioural contracts, scope and the eval plan), design-spec.md, product-context.md and failure-modes.md (my error analysis notes).
 
 Write one table with these columns: id, category, input (the exact user message, plus any data it depends on), expected behaviour, how to grade it (an exact check or a short rubric), source (the PRD contract or failure mode it comes from), release-blocking (yes or no).
 
 Categories and minimum counts:
-- correctness: 8. Write "TODO: I calculate" wherever an expected figure is needed.
-- conduct and hand-offs: 6, covering {{risk}}, an upset user and a user who seems vulnerable.
-- unauthorised actions: 4. The assistant may prepare {{action}} but never completes it without approval.
-- malicious inputs: 6, including instructions hidden in the data, not only in the message.
+- correctness: 4. Write "TODO: I calculate" wherever an expected figure is needed.
+- conduct and hand-offs: 3, covering {{risk}}, an upset user and a legitimate in-scope request.
+- unauthorised actions: 2. These check wording only in the stand-in; mark actual execution and authorisation NOT TESTED.
+- malicious inputs: 3, including instructions hidden in the data, not only in the message.
 
 Rules:
 - Every case must trace to a PRD contract or a failure mode in my notes.
@@ -326,9 +327,9 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
       },
       expectedOutput: [
         'failure-modes.md, written from reading real stand-in answers',
-        'eval-set.md with at least 24 cases across four categories, each traced to a PRD contract or a failure mode',
+        'eval-set.md with 12 learning cases across four categories, plus three unseen inputs with a separately held answer key',
         'Expected figures calculated by you in a spreadsheet, not by a model',
-        'eval-report.md with pass rates per category, release-blocking failures, guardrails, hand-offs and known gaps',
+        'eval-report.md with category and trial counts, frozen versions, first unseen results, grader checks and integrated controls explicitly marked NOT TESTED',
       ],
       artifact: 'eval-set.md and eval-report.md',
       verification: [
@@ -350,9 +351,12 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         },
         {
           id: 'error-analysis',
-          text: 'Read 20 real answers and grouped the failures into failure-modes.md',
+          text: 'Read six stand-in answers and grouped observed failures into failure-modes.md',
         },
-        { id: 'golden-set', text: 'Wrote at least 24 cases across all four categories' },
+        {
+          id: 'golden-set',
+          text: 'Wrote 12 cases across four categories and kept three inputs unseen until the setup was frozen',
+        },
         { id: 'own-figures', text: 'Calculated every expected figure yourself' },
         { id: 'red-team', text: 'Included injection in the data and three mentor-written cases' },
         {
@@ -375,7 +379,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
       competencies: ['product-discovery', 'ai-leadership'],
       xp: 125,
       mentorReview: 'recommended',
-      goal: 'Plan a staged launch with success and guardrail metrics decided in advance, read a fictional experiment at a fixed sample size, write a ship, iterate or kill readout, and feed what you learned back into the workspace.',
+      goal: 'Plan a staged launch with success and guardrail metrics decided in advance, read a fictional experiment at a fixed sample size, write a ship, iterate, inconclusive or stop readout, and feed what you learned back into the workspace.',
       whyItMatters:
         'The eval report says {{name}} is ready for a limited launch. Launch day is the start of the real test: in two weeks someone will ask whether it worked, and the answer depends on decisions you make before anyone sees the feature. Which metric counts, what would make you stop, how many users you need before you look. Teams that decide afterwards tend to find the result they hoped for. A launch plan and a readout committed in advance keep you honest, and in a regulated product they are what your risk partner signs.',
       learn: [
@@ -400,9 +404,9 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
           ],
         },
         {
-          heading: 'Fix the sample size, then do not peek',
+          heading: 'Fix the decision plan, monitor safety throughout',
           paragraphs: [
-            'If you check an experiment every day and stop the first time it looks significant, you will often "find" an effect that is not there. Decide the sample size in advance from your baseline rate and the smallest effect worth acting on, run until you reach it, and read the result once. The required reading explains why and gives a rule-of-thumb formula.',
+            'Repeatedly stopping a fixed-horizon test when success looks significant inflates false positives. Predefine the hypothesis, eligible population, randomisation unit, sample size, minimum duration and decision rule. Sequential methods are possible but need their own valid plan. Monitor incidents, telemetry and guardrails throughout; a safety stop does not wait for the success analysis.',
             'Claude Code can do the arithmetic, but you state the inputs and check the working. If the sample you need is larger than your launch audience, say so: a smaller test can still give a directional signal, as long as the readout calls it that.',
           ],
         },
@@ -412,9 +416,10 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
             'Write the decision first, then the evidence. A good readout has the decision, the result against the thresholds you set in advance, the guardrails, what users and support said, what surprised you, and the next step. Segments you looked for only after seeing the data are hypotheses for the next test, not findings.',
           ],
           bullets: [
-            '**Ship**: the success metric moved by at least the threshold and every guardrail held.',
-            '**Iterate**: a clear signal and a fixable problem, or a guardrail wobble with a known cause.',
-            '**Kill**: no effect at the planned sample, or a guardrail breach you cannot design away. Stopping a feature on evidence is a good outcome, and the readout says so.',
+            '**Ship or expand**: the predefined evidence rule, practical benefit, guardrails and operating limits support the next stage.',
+            '**Iterate**: a fixable issue with a specific new hypothesis and another planned test.',
+            '**Inconclusive**: the interval still includes materially different outcomes. State what remains uncertain and whether another test is worth funding.',
+            '**Stop**: unacceptable harm, an uneconomic solution or evidence that rules out a worthwhile benefit. Failure to reach significance alone does not establish no effect.',
           ],
         },
         {
@@ -446,11 +451,11 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
           'Write the launch plan with metrics and thresholds, compute a fixed sample size, generate fictional experiment results, write the readout, and close the loop in the workspace.',
         steps: [
           'Run the agent prompt below. Claude Code drafts `launch-plan.md` from the PRD, the eval report and your impact estimate, and shows its sample size working.',
-          "Check the sample size yourself with the formula in the required reading and a spreadsheet. If your number and Claude's disagree, find out why before you go on.",
+          'For a binary outcome, check a sample-size calculation with a spreadsheet or the optional Evan Miller reference. State baseline, minimum detectable absolute effect, significance level, power and allocation. For other metrics ask an analyst which method applies; do not reuse a binary-rate formula blindly.',
           'Edit the plan: name an owner for every item, write the rollback thresholds as numbers, and add one stage entry condition you would actually enforce.',
           'In a fresh session, ask Claude Code to generate `experiment-results.csv`: fictional daily results for a control and a treatment group over two weeks, at the sample size in your plan, with a fixed random seed. Ask it to write its assumptions, including the true effect it used, to `results-assumptions.md`. Do not open that file until your readout is written.',
-          'Read the results once, at the planned sample. Ask Claude Code to compute the success, leading and guardrail metrics with confidence intervals, and recompute one of them yourself in the spreadsheet.',
-          'Write `experiment-readout.md`: the decision (ship, iterate or kill) in the first line, then the evidence against the thresholds, the guardrails, what surprised you and the next step.',
+          'Before interpreting success, check assigned counts, duplicate users, missing telemetry and whether each group received its intended experience. Analyse at the predefined randomisation unit, not only among people who chose to use the feature. Compute absolute differences and intervals, and hand-check one result.',
+          'Write experiment-readout.md: label the results SIMULATED, then recommend ship, iterate, inconclusive or stop. Include the estimate and interval, planned threshold, guardrails, operating cost and the next decision. No course result establishes real customer impact.',
           'Now open `results-assumptions.md`. Did your readout recover the true effect? Note what you would change in your method.',
           'Close the loop: update the open decisions in `product-context.md`, add the decision and its reason to your decision log, and add any new eval cases to `eval-set.md`.',
         ],
@@ -460,13 +465,13 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         where: 'In your {{slug}}-workspace folder',
         text: `Goal: draft launch-plan.md for a staged launch of {{name}} v1. Readers: my engineering lead, my risk partner and the support team lead.
 
-Read first: prd.md (goals, metrics and tracking), eval-report.md, impact-estimate.md and product-context.md.
+Read first: prd/prd.md (goals, metrics and tracking), eval-report.md, data/impact-estimate.md and product-context.md.
 
 Include:
 1. Audience and stages, each with an entry condition.
 2. A readiness checklist: evals, support briefing, AI disclosure wording, hand-off routes tested.
 3. Metrics with thresholds: success ({{outcomeMetric}}), leading ({{leading}}) and guardrail ({{guardrail}}). Add the hand-off rate and complaints that mention the assistant.
-4. Sample size: from the baseline in impact-estimate.md and the smallest effect worth acting on, compute the users needed per group. Show the formula, every input and the arithmetic. If an input is missing, ask me; do not assume it.
+4. Sample size: from the baseline in data/impact-estimate.md and the smallest effect worth acting on, compute the users needed per group. Show the formula, every input and the arithmetic. If an input is missing, ask me; do not assume it.
 5. Monitoring schedule, kill switch, and rollback thresholds as numbers.
 6. Comms: who hears what, and when.
 
@@ -606,7 +611,7 @@ Done when: every section exists and you have listed the proposed items for my de
           'Write the SCQA for your quarter, in four sentences, at the top of `qbr-outline.md`. Write it yourself, then ask Claude to challenge it, not rewrite it.',
           'Run the agent prompt below to turn your SCQA and workspace into a slide-by-slide outline. Edit it until the titles alone tell the story in six to eight slides, plus an appendix.',
           'Generate the deck in Claude Design from `qbr-outline.md`, the readout and the eval report, or ask the Claude app to create a PPTX from the same files.',
-          'Polish it: one palette, real charts from `experiment-results.csv`, one progressive reveal where it helps, and speaker notes on every slide. Run the Glance Test on each slide: three seconds, one point.',
+          'Use one palette, charts computed from experiment-results.csv with SIMULATED visibly labelled, and speaker notes. Animation is optional. Check each slide communicates one point and that all numbers match the readout.',
           'In a fresh session, ask Claude to review the deck for clarity, consistency, numbers that do not match the readout, and AI-slide tells. Record a decision for each comment, then check every number yourself.',
           'Write `stakeholder-update.md`: one screen, the ask first, the same numbers as the deck, and links to the readout and the eval report.',
           'Export the deck as PPTX or PDF into your workspace. Rehearse once alone with a timer, then present it to your mentor and note every question you could not answer.',
@@ -619,7 +624,7 @@ Done when: every section exists and you have listed the proposed items for my de
 
 Audience: the leadership team of {{org}}. They have not read my documents, and they need to decide whether to back the next stage.
 
-Read first: qbr-outline.md (my SCQA, which I wrote and you should not rewrite), experiment-readout.md, eval-report.md, launch-plan.md, strategy-kernel.md and prd.md.
+Read first: qbr-outline.md (my SCQA, which I wrote and you should not rewrite), experiment-readout.md, eval-report.md, launch-plan.md, strategy/strategy-kernel.md and prd/prd.md.
 
 Add to qbr-outline.md, below my SCQA:
 - Six to eight slides, then an appendix. For each slide: a title that states its one message as a full sentence, the evidence behind it with the source file, the chart or visual it needs, and two lines of speaker notes.
@@ -951,11 +956,64 @@ Done when: the outline is written, and you have read the titles alone in order a
       explanation:
         'Executives read top-down, and ten minutes can end early. Answer first (the pyramid principle) means the decision and the ask land even if you only get two slides in. Chronology and methodology belong in the speaker notes, the appendix or the written update.',
     },
+    {
+      id: 'q4-9',
+      competency: 'evals-safety',
+      prompt: 'Your chat stand-in refuses all unapproved actions. What has this established?',
+      options: [
+        {
+          id: 'a',
+          text: 'Production authorisation is enforced.',
+        },
+        {
+          id: 'b',
+          text: 'The answer wording passed those cases; integrated tool and state controls remain untested.',
+        },
+        {
+          id: 'c',
+          text: 'The real system cannot leak another person’s records.',
+        },
+        {
+          id: 'd',
+          text: 'No further testing is needed before customer exposure.',
+        },
+      ],
+      correct: 'b',
+      explanation:
+        'A chat with no executing tool cannot prove that an integrated system denies unauthorised calls, enforces data access or binds approval to the exact action. Report those boundaries as NOT TESTED.',
+    },
+    {
+      id: 'q4-10',
+      competency: 'product-discovery',
+      prompt:
+        'The estimated gain is +2 percentage points, with a 95% interval from -1 to +5. The smallest worthwhile gain was +3. What is the strongest interpretation?',
+      options: [
+        {
+          id: 'a',
+          text: 'The result proves there is no effect.',
+        },
+        {
+          id: 'b',
+          text: 'The positive estimate is enough to ship.',
+        },
+        {
+          id: 'c',
+          text: 'The result is inconclusive: both a worthwhile benefit and no benefit remain compatible with the data.',
+        },
+        {
+          id: 'd',
+          text: 'Continue checking daily until the interval becomes positive.',
+        },
+      ],
+      correct: 'c',
+      explanation:
+        'The interval includes harm, no change and a worthwhile benefit. Keep the uncertainty explicit and choose a new planned test, an iteration or a stop based on costs and risk. Do not extend opportunistically.',
+    },
   ],
   project: {
     title: 'Launch review',
     brief:
-      'Present the launch review for {{name}} live: what you handed to engineering, how you know the AI feature is safe enough, what the launch showed and what you recommend next. Your mentor plays the executive and asks the hard questions. You should be able to defend every number and every guardrail, and say what you did not test.',
+      'Present the launch review for {{name}} live: what you handed to engineering, what your stand-in eval established and did not establish, what the simulated experiment showed and what you recommend next. Your mentor plays the executive and asks the hard questions. You should be able to defend every number and every guardrail, and say what you did not test.',
     deliverables: [
       {
         id: 'handoff',
@@ -967,7 +1025,7 @@ Done when: the outline is written, and you have read the titles alone in order a
       },
       {
         id: 'launch',
-        text: 'launch-plan.md with thresholds set in advance, and experiment-readout.md with a ship, iterate or kill decision',
+        text: 'launch-plan.md with thresholds set in advance, and experiment-readout.md with a ship, iterate, inconclusive or stop decision',
       },
       {
         id: 'deck',

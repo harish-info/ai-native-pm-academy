@@ -22,6 +22,72 @@ const r = (d: Draft): Resource => ({
 const checked = '2026-10-31'
 
 export const resources: Resource[] = [
+  r({
+    id: 'aws-rag-versus-fine-tuning',
+    title: 'Comparing retrieval and fine-tuning',
+    provider: 'AWS Prescriptive Guidance',
+    url: 'https://docs.aws.amazon.com/prescriptive-guidance/latest/retrieval-augmented-generation-options/rag-vs-fine-tuning.html',
+    topic: 'AI solution design',
+    level: 'intermediate',
+    format: 'documentation',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A short comparison of retrieving changing documents and adapting a model through training. Use it to frame engineering questions, then evaluate the options on your task.',
+  }),
+  r({
+    id: 'google-pair-user-needs',
+    title: 'User needs and defining success',
+    provider: 'Google People + AI Research',
+    url: 'https://pair.withgoogle.com/guidebook-v2/chapter/user-needs/',
+    topic: 'AI product strategy',
+    level: 'intermediate',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A human-centred framework for deciding whether AI adds value over simpler approaches, and whether to automate a task or assist a person.',
+    notes:
+      'Use the product questions and trade-offs. This is not a guide to current model capabilities.',
+  }),
+  r({
+    id: 'microsoft-experiment-monitoring',
+    title: 'Patterns of trustworthy experimentation: during an experiment',
+    provider: 'Microsoft Research, Experimentation Platform',
+    url: 'https://www.microsoft.com/en-us/research/articles/patterns-of-trustworthy-experimentation-during-experiment-stage/',
+    topic: 'Experimentation',
+    level: 'intermediate',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'How to monitor data quality, guardrails and unexpected harm while interpreting early results carefully. Useful alongside a predefined experiment decision plan.',
+  }),
+  r({
+    id: 'duarte-three-second-test',
+    title: 'The three-second test',
+    provider: 'Duarte',
+    url: 'https://www.duarte.com/blog/the-three-second-test/',
+    topic: 'Presentations',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary: 'A short explanation of checking whether a slide communicates its point at a glance.',
+  }),
+  r({
+    id: 'torres-story-interviews',
+    title: 'Story-based customer interviews',
+    provider: 'Teresa Torres, Product Talk',
+    url: 'https://www.producttalk.org/story-based-customer-interviews/',
+    topic: 'Product discovery',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A worked contrast between asking for general opinions and asking about a specific past experience.',
+  }),
   // AI foundations
   r({
     id: 'anthropic-academy',

@@ -34,6 +34,23 @@ test('landing page loads at the base path', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Start with a 10-minute diagnostic' })).toBeVisible()
 })
 
+test('decision practice explains choices without completing a lesson', async ({ page }) => {
+  await page.goto('#/lessons/s1')
+  const exercise = page.getByRole('group', { name: 'Decision practice' })
+  await exercise.getByRole('button', { name: /agreement between two tools/ }).click()
+  await expect(page.getByText('Reconsider the evidence')).toBeVisible()
+  await expect(page.getByText(/They may share training patterns/)).toBeVisible()
+  const correct = exercise.getByRole('button', { name: /claim still needs evidence/ })
+  await correct.focus()
+  await page.keyboard.press('Enter')
+  await expect(correct).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByText('Good judgement')).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
+  await expect(page.getByRole('heading', { name: 'Further study', exact: true })).toHaveCount(0)
+  await page.getByText(/Further study \(/).click()
+  await expect(page.getByRole('link', { name: /AI capabilities and limitations/ })).toBeVisible()
+})
+
 test('onboarding produces a personalized path', async ({ page }) => {
   await page.goto('#/onboarding')
   await page.getByRole('button', { name: 'Continue' }).click()

@@ -6,6 +6,7 @@ import { competencyIds } from './competencies'
 import { diagnosticQuestions } from './onboarding'
 import { planWeeks } from './plan'
 import { wikiMilestones, wikiSteps } from './wiki'
+import { courseArc, lessonGuides } from './teaching'
 
 const allText = (value: unknown): string[] =>
   typeof value === 'string'
@@ -47,6 +48,26 @@ describe('curriculum shape', () => {
 })
 
 describe('references', () => {
+  it('gives every session a bounded core reading and an answerable decision exercise', () => {
+    expect(Object.keys(lessonGuides).sort()).toEqual(allLessons.map((l) => l.id).sort())
+    for (const lesson of allLessons) {
+      const guide = lessonGuides[lesson.id]!
+      expect(guide, lesson.id).toBeDefined()
+      const core = lesson.resources.filter((r) => r.required)
+      expect(core, lesson.id).toHaveLength(1)
+      expect(resourceById(guide.reading.resourceId), lesson.id).toBeDefined()
+      expect(core[0]!.resourceId).toBe(guide.reading.resourceId)
+      expect(guide.reading.minutes).toBeGreaterThan(0)
+      expect(guide.reading.minutes).toBeLessThanOrEqual(15)
+      expect(guide.reading.minutes).toBeLessThan(lesson.minutes)
+      expect(guide.example.reasoning.length).toBeGreaterThanOrEqual(2)
+      const options = guide.checkpoint.options.map((o) => o.id)
+      expect(new Set(options).size).toBe(options.length)
+      expect(options).toContain(guide.checkpoint.correct)
+      for (const o of guide.checkpoint.options) expect(o.feedback.length).toBeGreaterThan(30)
+    }
+    expect(Object.keys(courseArc).map(Number)).toEqual([1, 2, 3, 4, 5])
+  })
   it('points every resource reference at a catalog entry', () => {
     const refs = [...allLessons, ...allChallenges].flatMap((x) =>
       x.resources.map((r) => [x.id, r.resourceId]),
@@ -121,6 +142,7 @@ describe('case studies', () => {
         wikiSteps: active.wikiSteps,
         wikiMilestones: active.wikiMilestones,
         wikiRules: active.wikiRules,
+        guides: active.guides,
       })
       expect(
         text.filter((t) => /\{\{|\}\}/.test(t)),
@@ -162,6 +184,8 @@ describe('writing style', () => {
       wikiMilestones,
       planWeeks,
       caseStudies,
+      lessonGuides,
+      courseArc,
     })
     const offenders = text.filter((t) => /[–—]/.test(t))
     expect(offenders).toEqual([])

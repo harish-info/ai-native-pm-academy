@@ -53,6 +53,10 @@ export function ResourcesPage() {
   const [format, setFormat] = useState<ResourceFormat | ''>('')
   const [freeOnly, setFreeOnly] = useState(false)
   const [status, setStatus] = useState<VerificationStatus | ''>('')
+  const [coreOnly, setCoreOnly] = useState(true)
+  const coreIds = new Set(
+    allLessons.flatMap((l) => l.resources.filter((r) => r.required).map((r) => r.resourceId)),
+  )
 
   const usedBy = useMemo(() => {
     const map = new Map<string, Ref[]>()
@@ -75,13 +79,14 @@ export function ResourcesPage() {
   const q = query.trim().toLowerCase()
   const results = resources.filter(
     (r) =>
+      (!coreOnly || coreIds.has(r.id)) &&
       (!q || [r.title, r.provider, r.topic, r.summary].some((f) => f.toLowerCase().includes(q))) &&
       (!level || r.level === level) &&
       (!format || r.format === format) &&
       (!freeOnly || r.contentFree === true) &&
       (!status || r.status === status),
   )
-  const filtered = q || level || format || freeOnly || status
+  const filtered = q || level || format || freeOnly || status || coreOnly
 
   const reset = () => {
     setQuery('')
@@ -89,14 +94,26 @@ export function ResourcesPage() {
     setFormat('')
     setFreeOnly(false)
     setStatus('')
+    setCoreOnly(false)
   }
 
   return (
     <>
-      <PageHeader eyebrow="Resources" title="Resource catalog">
-        Every external resource the course uses, with its cost, format and when the link was last
-        checked. Free content is preferred throughout.
+      <PageHeader eyebrow="Resources" title="A reading path, then a reference library">
+        Start with the core sources, one short assignment per session. The session page tells you
+        exactly what to read and when to stop. Expand to the full catalog when you have a specific
+        question; finishing every linked course is not required.
       </PageHeader>
+
+      <label className="mb-4 flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm font-medium dark:border-indigo-800 dark:bg-indigo-950">
+        <input
+          type="checkbox"
+          className="h-5 w-5 accent-indigo-600"
+          checked={coreOnly}
+          onChange={(e) => setCoreOnly(e.target.checked)}
+        />
+        Core course sources only
+      </label>
 
       <Card className="mb-4">
         <h2 className="sr-only">Filters</h2>

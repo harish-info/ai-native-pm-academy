@@ -70,10 +70,12 @@ export function ResourceCard({
   resource,
   why,
   required,
+  minutes,
 }: {
   resource: Resource
   why?: string
   required?: boolean
+  minutes?: number
 }) {
   return (
     <li className="rounded-xl border border-stone-200 p-4 dark:border-stone-800">
@@ -85,12 +87,16 @@ export function ResourceCard({
           </a>
           <div className="text-sm text-stone-600 dark:text-stone-400">
             {resource.provider}
-            {resource.estimatedTime ? ` · ${resource.estimatedTime}` : ''} · {costLabel(resource)}
+            {minutes ? ` · Assigned excerpt: about ${minutes} min` : ''}
+            {resource.estimatedTime ? ` · Full resource: ${resource.estimatedTime}` : ''} ·{' '}
+            {costLabel(resource)}
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
           {required !== undefined && (
-            <Pill tone={required ? 'indigo' : 'neutral'}>{required ? 'Required' : 'Optional'}</Pill>
+            <Pill tone={required ? 'indigo' : 'neutral'}>
+              {required ? 'Core excerpt' : 'Further study'}
+            </Pill>
           )}
           <StatusPill resource={resource} />
           <BookmarkButton id={resource.id} label={resource.title} />
@@ -109,21 +115,45 @@ export function ResourceCard({
   )
 }
 
-export function ResourceRefs({ refs }: { refs: ResourceRef[] }) {
+export function ResourceRefs({
+  refs,
+  collapseOptional = false,
+}: {
+  refs: ResourceRef[]
+  collapseOptional?: boolean
+}) {
   const items = refs
     .map((ref) => ({ ref, resource: resourceById(ref.resourceId) }))
     .filter((x) => x.resource)
-  const ordered = [...items.filter((x) => x.ref.required), ...items.filter((x) => !x.ref.required)]
-  return (
+  const core = items.filter((x) => x.ref.required)
+  const optional = items.filter((x) => !x.ref.required)
+  const render = (list: typeof items) => (
     <ul className="space-y-3">
-      {ordered.map(({ ref, resource }) => (
+      {list.map(({ ref, resource }) => (
         <ResourceCard
           key={ref.resourceId}
           resource={resource!}
           why={ref.why}
           required={ref.required}
+          minutes={ref.minutes}
         />
       ))}
     </ul>
+  )
+  return (
+    <div className="space-y-4">
+      {render(core)}
+      {optional.length > 0 &&
+        (collapseOptional ? (
+          <details className="rounded-xl border border-stone-200 p-4 dark:border-stone-700">
+            <summary className="cursor-pointer text-sm font-medium">
+              Further study ({optional.length})
+            </summary>
+            <div className="mt-4">{render(optional)}</div>
+          </details>
+        ) : (
+          render(optional)
+        ))}
+    </div>
   )
 }

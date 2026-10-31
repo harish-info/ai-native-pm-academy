@@ -1,22 +1,25 @@
 # AI-Native PM Academy
 
-A self-paced course for product managers who want to work AI-natively: from AI fluency to directing coding agents and shipping a personal finance agent prototype. It is a static site, and progress stays in the learner's browser.
+A practical course for working product managers, from AI foundations to directing agents, evaluating AI features and leading a team pilot. It is a static site, and progress stays in the learner's browser.
 
-The course assumes a working PM with no coding background, studying alongside a mentor. The running case study is **MoneyPilot**, an experimental personal financial assistant that is researched in Level 3, built in Level 4 and turned into an agent in Level 5. A personal wiki is built alongside, one page per session.
+Choose MoneyPilot (consumer finance), Steady (personal goals) or Triage (support operations). Carry one fictional case through all five levels. No coding background is required. Claude Code is used from Level 2 onward and needs suitable paid access. A mentor or peer can help with reviews; where onboarding records a mentor, Level 4 and 5 project badges require their assessment.
 
 ## Curriculum
 
-| Level | Title                                     | Sessions | Lesson time | Project                           |
-| ----- | ----------------------------------------- | -------- | ----------- | --------------------------------- |
-| 1     | AI Fluency                                | 1 to 4   | 5 h 15 min  | Personal Learning Assistant       |
-| 2     | Second Brain and Context Engineering      | 5 to 8   | 6 h 20 min  | Personal Second Brain             |
-| 3     | AI-Native Product Discovery and Design    | 9 to 12  | 9 h 15 min  | MoneyPilot Product Discovery      |
-| 4     | Agentic Product Engineering               | 13 to 16 | 9 h 15 min  | Working MoneyPilot Web App        |
-| 5     | Advanced AI Agents and Product Leadership | 17 to 20 | 10 h 30 min | MoneyPilot Personal Finance Agent |
+| Level | Focus                              | Sessions | Evidence you keep                                     |
+| ----- | ---------------------------------- | -------- | ----------------------------------------------------- |
+| 1     | AI foundations                     | 1 to 4   | Sourced context and a pitch pack                      |
+| 2     | Build with agents                  | 5 to 8   | A reviewed, live static prototype                     |
+| 3     | Discover and decide                | 9 to 12  | A decision pack and scoped PRD                        |
+| 4     | Hand off, evaluate and communicate | 13 to 16 | State spec, stand-in eval, simulated readout and deck |
+| 5     | PM workspace and team practice     | 17 to 20 | Knowledge base, checked skills and a pilot proposal   |
 
-- **Core path:** 20 sessions (about 40 h), plus 5 projects (about 26 h) and 5 quizzes. Total about 68 h, about 80 h with weekly reviews and mentor time. The study plan runs eight weeks at about 10 h a week from a start date the learner picks, or twelve weeks at about 7 h on the light pace. The onboarding diagnostic lets an experienced learner skip theory in early levels, but not their practical sessions or projects.
-- **Optional:** 10 stretch challenges (about 26 h), unscheduled, for after the course.
-- **Resources:** 89 free or freemium links, each with a verification status and date. The app links to resources but never copies them.
+- Each session has a worked example, a decision with feedback, recall of an earlier concept and a transfer task without AI. Examples are original invented teaching scenarios.
+- One assigned external excerpt per session, budgeted at 8 to 15 minutes. Longer courses and further reading are optional.
+- The plan budgets about 82 hours including projects, assessments, three research conversations, reviews and mentor time. Choose eight weeks at about 10 hours a week or twelve at about 7. Setup, extra interviews and optional challenges can add time. Estimates have not been learner-tested.
+- Ten optional stretch challenges extend the core course.
+- Resource records distinguish link verification, cost and full-resource duration from the assigned excerpt.
+- The course rehearses product work. A static prototype, chat stand-in and simulated experiment do not establish production AI safety or real customer impact.
 
 ## What the app does
 
@@ -25,10 +28,10 @@ The course assumes a working PM with no coding background, studying alongside a 
   - The next level opens once the previous level's required sessions are done, so a project can finish while the next level starts.
   - Mastering a level needs its required sessions, a quiz score of at least 80% and a project that passes a 4-dimension rubric.
   - Badges are kept once earned.
-- Session pages: explanation, resources, task, a copyable agent prompt, expected output, verification, artifact, a wiki step and mentor notes.
+- Session pages: decision brief, recall, explanation, worked example, interactive decision practice, one focused source, task, optional agent prompt, verification and evidence.
 - A session completes only with evidence: checklist, reflection, an artifact reference and logged time.
 - Dashboard, progress charts (each with a table view), weekly rhythm (no daily streaks), timeline and achievements.
-- Workspace for notes and reflections, a study plan with a mentor role every week, a MoneyPilot hub and a wiki guide.
+- Workspace for notes and reflections, a study plan with a mentor role every week, a case-study hub and a PM workspace guide.
 - Settings:
   - versioned JSON export and import, with validation and a pre-import snapshot
   - theme
@@ -86,7 +89,7 @@ e2e/            Playwright tests
 
 The structure follows the original brief. Lesson text, quizzes and projects were drafted with AI assistance from the linked sources. A later review pass checked the main tool, banking and regulatory claims against the sources it links, but not every sentence has been checked, and **no subject-matter expert has reviewed them yet**. Treat them as a strong first draft.
 
-- **Most in need of review:** Level 5 material on regulated financial advice, consent and safety.
+- **Next validation:** observe a PM completing the first level, test the time budgets and seek expert review of evaluation, experimentation and domain safety.
 - **Estimates:** time estimates and quiz difficulty have not been tested with learners.
 - **Link checks:** resource statuses reflect checks made on 2026-10-31. Links rot, so recheck before each cohort.
 

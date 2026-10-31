@@ -6,14 +6,26 @@ import { level3 } from './levels/level3'
 import { level4 } from './levels/level4'
 import { level5 } from './levels/level5'
 import { resources } from './resources'
+import { lessonGuides, type LessonGuide } from './teaching'
 import * as wiki from './wiki'
 
-// The personal wiki runs through every level: each core session ends by filing it in the wiki,
-// and each level project includes that level's wiki milestone.
+// One short core reading per session. Longer courses remain available as further study.
+// The workspace thread preserves the existing evidence ids and learner progress.
 const withWikiThread = (level: Level): Level => ({
   ...level,
   lessons: level.lessons.map((l) => ({
     ...l,
+    resources: [
+      {
+        resourceId: lessonGuides[l.id]!.reading.resourceId,
+        why: lessonGuides[l.id]!.reading.focus,
+        minutes: lessonGuides[l.id]!.reading.minutes,
+        required: true,
+      },
+      ...l.resources
+        .filter((r) => r.resourceId !== lessonGuides[l.id]!.reading.resourceId)
+        .map((r) => ({ ...r, required: false })),
+    ],
     checklist: [...l.checklist, wiki.WIKI_CHECKLIST_ITEM],
   })),
   project: {
@@ -36,6 +48,7 @@ export let allChallenges: Challenge[] = []
 export let wikiSteps: Record<string, wiki.WikiStep> = {}
 export let wikiMilestones: wiki.WikiMilestone[] = []
 export let wikiRules: string[] = []
+export let guides: Record<string, LessonGuide> = {}
 
 export function setActiveCase(id: string | undefined) {
   const next = caseStudyById(id)
@@ -47,6 +60,7 @@ export function setActiveCase(id: string | undefined) {
   wikiSteps = fillDeep(wiki.wikiSteps, next)
   wikiMilestones = fillDeep(wiki.wikiMilestones, next)
   wikiRules = fillDeep(wiki.wikiRules, next)
+  guides = fillDeep(lessonGuides, next)
 }
 
 setActiveCase(DEFAULT_CASE_STUDY)

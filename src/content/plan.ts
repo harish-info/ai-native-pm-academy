@@ -91,7 +91,7 @@ export const planWeeks: PlanWeek[] = [
       { kind: 'lesson', id: 's8' },
       {
         kind: 'prep',
-        text: 'Start recruiting 5 people for short conversations about money in Week 4 (friends, family, a parents group). Ask for 20 minutes, no pitch.',
+        text: 'Start recruiting people who fit your chosen case. Aim for five, with three as the minimum for the learning exercise. Ask for 30 minutes, explain the prototype and agree consent before taking notes.',
         minutes: 15,
       },
       weeklyReview(2),
@@ -109,14 +109,24 @@ export const planWeeks: PlanWeek[] = [
       { kind: 'project', levelId: 2, part: 'whole', minutes: 300 },
       { kind: 'mentor', text: 'Code review walkthrough and Level 2 scoring.', minutes: 60 },
       { kind: 'lesson', id: 's9' },
+      {
+        kind: 'prep',
+        text: 'Read the Session 10 discussion-guide steps and rehearse before the real conversations.',
+        minutes: 30,
+      },
+      {
+        kind: 'prep',
+        text: 'Hold three 30-minute conversations for Session 10. Two more are optional extra time. If recruitment fails, keep the exercise labelled PRACTICE and make a dated validation plan.',
+        minutes: 90,
+      },
       weeklyReview(3),
     ],
   },
   {
     number: 4,
     levelIds: [3, 4],
-    title: 'Real people, real data, a PRD and a handoff',
-    goal: 'Learn from five real conversations, pick a bet with evidence, write the PRD, and turn it into a design spec and handoff.',
+    title: 'Evidence, practice analytics and a scoped PRD',
+    goal: 'Synthesise the conversations, practise analytics on fictional data, choose a bounded bet and write its PRD and handoff.',
     mentor:
       'Early in the week, 15 minutes: be a practice interviewee so her first real conversation is not her first try. End of the week, 30 minutes: read the synthesis and ask which finding surprised her most, and what evidence would change her chosen bet.',
     items: [
@@ -133,7 +143,7 @@ export const planWeeks: PlanWeek[] = [
     number: 5,
     levelIds: [3, 4],
     title: 'Decide, then test the AI feature',
-    goal: 'Finish the decision pack, then build the evals that show whether the AI feature is safe enough to launch.',
+    goal: 'Finish the decision pack, evaluate a stand-in and specify the integrated evidence still needed before a real launch.',
     mentor:
       '60 minutes: be the sceptical engineer reading her PRD and design spec cold. Mark every acceptance criterion you could not test and every place you would have to guess, then argue for cutting one more thing. Score the Level 3 project. Later in the week, 15 minutes: red-team the AI feature with three attempts to make it say something unsafe.',
     items: [
@@ -204,7 +214,9 @@ export const planWeeks: PlanWeek[] = [
 
 export const planNotes = [
   'Pick a start date and a pace. Standard is eight weeks at about 10 hours a week, including mentor time; light is the same weeks stretched to twelve at about 7 hours. You can switch pace at any time without losing progress.',
-  'Sessions are written as 75 to 150 minute blocks, but they split cleanly at the task steps. Two nap-time halves work fine; log the time for each half.',
+  'Sessions are 75 to 150 minute planning budgets, including the short assigned source, examples and practice. Longer courses and extra resources are optional. Split a session across days and log the actual time.',
+  'Recruitment takes elapsed time. Three conversations are budgeted in Week 3, before Session 10 synthesis in Week 4. More participants and installation problems need extra time. Estimates have not been tested with learners.',
+  'Start each weekly review by recalling one earlier decision without notes, then compare it with your artifact. Projects consolidate your session work; do not restart the same assignments.',
   'If a week slips, push the start date back a week rather than skipping verification or reflections. Nothing is lost.',
   "A new level opens as soon as you finish the previous level's sessions, so a project can finish while the next level starts. The level badge still needs the quiz and the project.",
   'Mentor time is about one hour a week plus short unblock calls. Each week says what the mentor does; each session page has a "mentor move" for when there are 15 minutes.',

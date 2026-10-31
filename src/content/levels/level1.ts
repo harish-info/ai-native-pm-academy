@@ -6,7 +6,7 @@ export const level1: Level = {
   title: 'AI foundations',
   theme: 'Learn how the tools work, give them context and check what they say',
   summary:
-    'You start as the new PM on {{name}}, {{product}}, for one quarter. In four sessions you learn what the assistant in front of you actually is, write `product-context.md`, the one-page file every later agent will read, check a research answer claim by claim, and vibe code a pitch page for your first feature idea. Level 1 needs only a free Claude account.',
+    'Start a fictional quarter as the PM on {{name}}, {{product}}. Learn how assistants use context, compare their output, check a research answer and build a pitch page. Your context file and fact sheet carry into the rest of the course. Start with a free assistant account; tool availability and usage limits vary.',
   outcomes: [
     'Explain tokens, the context window, reasoning models and the difference between a chat and an agent in language a risk officer or executive understands.',
     'Compare two models or settings on a real PM task with explicit criteria, and record the date and settings.',
@@ -58,7 +58,7 @@ export const level1: Level = {
         {
           heading: 'Reasoning models, and chat versus agent',
           paragraphs: [
-            "**Reasoning models** (Claude calls the setting extended thinking) work through a problem before they answer. That helps with multi-step analysis, planning and checking a calculation. It is slower and adds little to a simple rewrite. The visible thinking is the model's working, not proof that the answer is right.",
+            '**Reasoning-capable models** can spend extra computation before answering. That can help with multi-step analysis, planning and code, with trade-offs in time and cost. Products expose different controls and may show a summary rather than the full internal process. Judge the answer with evidence and tests, not the apparent depth of its explanation.',
             'A plain **chat** answers from what is in its context. Give the same model **tools** and it can look things up on the web, run code on a spreadsheet, read and create files. An **agent** is a model in a loop: it decides on a step, uses a tool, checks the result and carries on until the task is done. In Level 2 you will use Claude Code, an agent that works on the files in your own folder. More power means more to review: an agent that can act can also act wrongly.',
           ],
         },
@@ -86,7 +86,7 @@ export const level1: Level = {
         },
         {
           resourceId: 'anthropic-capabilities-limitations',
-          why: "Anthropic's own course on what models can and cannot do, with an exercise per idea. It runs about three and a half hours: do the first lessons now and finish it across Level 1.",
+          why: 'A longer optional companion on capabilities and limitations. It is not part of this session’s reading budget.',
           required: true,
         },
         {
@@ -105,7 +105,7 @@ export const level1: Level = {
           'Build a mental model of how models work, write it down as your own glossary, and compare two models or settings on one real PM task for {{name}}.',
         steps: [
           'Create a private folder on your own computer called `{{slug}}-notes/`, not in a shared drive. Every Level 1 file goes here; in Session 5 it moves into your workspace. Files are plain Markdown: `#` for headings, `-` for bullets, `**bold**`, saved with a `.md` ending from any text editor.',
-          'Watch the 3Blue1Brown explainer (about 8 minutes) and do the first lessons of the Anthropic capabilities course.',
+          'Watch the short 3Blue1Brown explainer. The longer capabilities course is optional; use the worked example and decision check here before the practical task.',
           'Write `glossary.md` in your own words: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (one line: retrieval-augmented generation, fetching documents into the context before answering). One or two sentences each, plus one example that surprised you.',
           "See a tool at work: ask Claude a question that needs this week's news with web search switched off, then on. Note which answer used a tool and how you could tell.",
           'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for {{user}} about this problem: {{opportunity}}." Run it in two models or two settings, each in a fresh chat: Claude with extended thinking on and off, two Claude models if your plan offers them, or Claude and ChatGPT. Record the model names, settings and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
@@ -150,7 +150,7 @@ Rules:
         'What kind of work would you now never delegate without checking?',
       ],
       checklist: [
-        { id: 'explainers', text: 'Watched the explainer and did the first capabilities lessons' },
+        { id: 'explainers', text: 'Watched the short explainer and explained the main idea aloud' },
         { id: 'glossary', text: 'Wrote glossary.md in my own words and had it checked' },
         { id: 'tool-test', text: 'Tried one question with web search off and on' },
         {
@@ -185,7 +185,7 @@ Rules:
         {
           heading: 'Why the first draft was generic',
           paragraphs: [
-            'A model with no context about your product fills the gaps with the most likely text, which is the average of everything it has read about products like yours. The result sounds competent and says nothing specific. Generic output almost always signals missing context, not a weak model or weak wording.',
+            'A model without relevant product context may fall back on broad patterns or invent details. Generic output can signal missing context, an unclear task, conflicting instructions or a model limitation. Diagnose the gap before choosing a remedy.',
             'When an output disappoints, ask what the model was missing before you rewrite the instruction. That question, more than any trick, is the core of what is now called **context engineering**.',
           ],
         },
@@ -206,7 +206,7 @@ Rules:
         {
           heading: 'Context beats wording',
           paragraphs: [
-            'Early models responded to role phrases ("you are a world-class strategist"), magic phrases and capital letters. Current models follow plain requests, and those tricks barely change the result. What changes it is the content of the context: the goal, the audience, the source material, the constraints, an example of good, and a definition of done.',
+            'Clear wording still matters: say what task to do, which material to use, the constraints and what done looks like. A role phrase such as "you are a world-class strategist" cannot supply missing evidence. Compare instructions and context on your task instead of assuming a universal prompting trick.',
             'A brief to a model has the same parts as a brief to a new colleague. If a capable person joining your team tomorrow could not do the task from what you gave them, the model cannot either.',
           ],
         },
@@ -258,7 +258,7 @@ Rules:
       ],
       task: {
         summary:
-          'See a generic answer, try the wording trick, then write `product-context.md`, load it into a Claude Project and get a specific answer. Finish with a delegation audit of your quarter.',
+          'Compare a baseline brief, a role phrase and a grounded brief. Write product-context.md, use it in a Project or paste it into a fresh chat, and decide what you will delegate.',
         steps: [
           'In a fresh chat with no context, ask: "Write a one-page competitor summary for {{name}}." Save the answer as `summary-v0.md`.',
           'In another fresh chat, ask the same thing but open with a role phrase such as "You are a world-class strategy consultant" and add "think step by step". Save it as `summary-v0b.md` and note in one line how much it differs from v0.',
@@ -293,14 +293,14 @@ Done when: every table row has a source URL and every implication names the cont
       },
       expectedOutput: [
         '`product-context.md`: one page with Product, Users, Glossary, Constraints, Open decisions and Sources, and "Unknown" where you do not know.',
-        'Three competitor summaries (v0, v0b and v1) showing how little wording changed and how much context did.',
+        'Three competitor summaries (v0, v0b and v1), scored on the same criteria, including any result that did not improve.',
         '`delegation-audit.md`: ten tasks, each with a decision, the context it needs, what you check and who owns it.',
       ],
       artifact:
         '`product-context.md` and `delegation-audit.md`, plus a {{name}} Claude Project with the context file as project knowledge.',
       verification: [
         '`product-context.md` fits on one page and every fact has a source or is marked Unknown.',
-        'The v1 summary names {{name}} specifics that v0 and v0b could not have known.',
+        'You can point to which supplied facts changed v1, and distinguish specific wording from better-supported claims.',
         'You wrote the context file and every update to it yourself; Claude only pointed out gaps.',
         'Every delegated task in the audit names what you will check and how.',
       ],
@@ -335,7 +335,7 @@ Done when: every table row has a source URL and every implication names the cont
       safetyCritical: true,
       goal: 'Use Claude with web search to answer a real question about your market, verify every material claim against a primary source, and know what you must never paste into an assistant.',
       whyItMatters:
-        'The v1 competitor summary reads well, and some of it is wrong. AI research features produce polished, cited reports in minutes. A single fabricated statistic in a leadership review, or a misread regulation, costs credibility or worse. The valuable skill is not getting an answer; it is knowing which parts of the answer you can stand behind.',
+        'The competitor summary may read well and still contain errors. A fabricated statistic or a misread rule can change a product decision. Check the claims that matter, record what held up and carry the unresolved questions forward.',
       learn: [
         {
           heading: 'Why fluent answers can be wrong',
@@ -407,7 +407,7 @@ Done when: every table row has a source URL and every implication names the cont
           "Find at least one relevant primary source that neither answer cited, for example a national statistics release, a regulator report or a competitor's own product page.",
           'Write `fact-sheet.md`: the verified facts you can use, each with its source and date, then a section "What I could not verify".',
           'Update the Sources section of `product-context.md` with what held up, and fix anything that was contradicted.',
-          'Before you finish, reread your chats for anything from the "never paste" list. If you find any, delete the chat and note what happened.',
+          'Check for accidental sensitive inputs. If you find any, stop further use and follow the relevant provider or organisation incident process; revoke any exposed credential. Deleting a chat alone does not undo disclosure.',
         ],
       },
       agentPrompt: {
@@ -545,12 +545,12 @@ Rules:
       ],
       task: {
         summary:
-          'Build a one-page pitch for your {{name}} feature idea as a Claude artifact, improve it in at least five single changes, publish it and get one real reaction.',
+          'Build a one-page pitch as an artifact, observe one reader, and make a deliberate revision that addresses what you learned. Record what the page cannot prove.',
         steps: [
           'Start `pitch-notes.md` with a five-line brief: who it is for, the problem in their words, the idea in one sentence, the one verified fact from `fact-sheet.md` that makes the case, and what you want a reader to do next.',
           'Open a fresh chat in your {{name}} Project, attach `fact-sheet.md`, and run the agent prompt below.',
           'Use the page on your phone and on a laptop. Write down the three things you most want to change.',
-          'Make at least five changes, one per message. After each, log in `pitch-notes.md` what you asked, what changed and anything that broke.',
+          'Make changes one at a time to address the problems you observed. Log the reason, expected improvement and actual result in pitch-notes.md. Keep a before and after comparison for at least one meaningful revision; do not invent extra changes to meet a quota.',
           'Check every number on the mocked screen by hand, confirm the prototype banner is visible, and check that no warning relies on colour alone.',
           'Publish the artifact and share the link with one person: your mentor or a friend. Ask two questions: what do you think this does, and what would you want to know next? Record the answers.',
           'Optional: follow the Lovable quick start and rebuild the page there from the same brief. Note one difference.',
@@ -584,14 +584,14 @@ Build the whole page now. After that I will ask for one change at a time: change
       },
       expectedOutput: [
         'A published pitch page with a shareable link, clearly labelled as a prototype with fictional data.',
-        '`pitch-notes.md`: the brief, a log of at least five single changes, one real reaction and "What this page does not prove".',
+        'pitch-notes.md: the brief, a reasoned revision with before and after evidence, one real reaction and "What this page does not prove".',
       ],
       artifact: 'A live pitch page link plus `pitch-notes.md`.',
       verification: [
         'Every fact on the page appears as Verified in `fact-sheet.md`, with its source shown.',
         'Every number on the mocked screen adds up when you check it by hand.',
         'The page works on a phone, shows the prototype banner and uses no real personal data.',
-        'The change log shows one change per step, and you recorded at least one change that broke something or that you undid.',
+        'The change log connects each revision to an observed problem and records whether the change helped, including any rollback if needed.',
       ],
       reflectionPrompts: [
         'What did the reader think the page did, and how far was that from what you meant?',
@@ -601,7 +601,10 @@ Build the whole page now. After that I will ask for one change at a time: change
       checklist: [
         { id: 'brief', text: 'Wrote a five-line pitch brief in pitch-notes.md' },
         { id: 'built', text: 'Built the page from product-context.md and fact-sheet.md' },
-        { id: 'five-changes', text: 'Made and logged at least five single changes' },
+        {
+          id: 'five-changes',
+          text: 'Made and checked a reasoned revision, with before and after evidence',
+        },
         { id: 'numbers', text: 'Checked every number on the mocked screen by hand' },
         { id: 'published', text: 'Published the page and got one real reaction' },
         { id: 'not-proved', text: 'Wrote what the page does not prove' },
@@ -787,7 +790,7 @@ Build the whole page now. After that I will ask for one change at a time: change
       ],
       correct: 'c',
       explanation:
-        'Generic output signals missing context, not weak wording or a weak model. Role phrases and exhortations barely change what current models produce. Your product context, the source material and the audience ground the answer in your situation.',
+        'Missing context is one likely cause of generic output. Supply the product brief, material and audience, make the task clear, then compare results on the same criteria. A role phrase cannot supply missing facts.',
     },
     {
       id: 'q1-5',

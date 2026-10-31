@@ -76,7 +76,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   s10: {
     capture:
       "Pseudonymised interview notes (P1, P2, no names or identifying stories), your synthesis next to Claude's, and the opportunity tree that cites them.",
-    pages: ['interview-notes/', 'discovery/synthesis.md', 'discovery/ost.md'],
+    pages: ['discovery/interview-notes/', 'discovery/synthesis.md', 'discovery/ost.md'],
   },
   s11: {
     capture:
@@ -115,7 +115,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   s16: {
     capture:
       'Save the deck outline, the exported deck and the stakeholder update. The outline is the reusable part; the slides are an output.',
-    pages: ['deck/outline.md', 'deck/', 'stakeholder-update.md'],
+    pages: ['qbr-outline.md', 'deck/', 'stakeholder-update.md'],
   },
   s17: {
     capture:
