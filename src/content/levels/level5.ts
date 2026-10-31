@@ -189,7 +189,7 @@ Do not delete or rename any existing file. You are done when every page has a so
       practicalProof: true,
       goal: 'Design a knowledge base that a product team and its agents share, seed it with five pages through the same review flow a real team would use, and prove with a fresh agent that it answers real questions with sources.',
       whyItMatters:
-        "A new engineer on your product team asks why the assistant stops at a draft when it prepares a change to a record or an outgoing message. The answer exists in four places: a chat thread, the PRD, a meeting and a ticket comment. Every teammate's agent starts each task knowing none of it. A shared knowledge base gives people and agents one sourced place to look, and stays true as the team learns. There is no settled public guide to this yet, so this session sets out the design the course recommends: your personal wiki, scaled to a team, with review and privacy built in.",
+        "A new engineer on your team asks why the assistant drafts messages but never sends them on its own. The answer is spread across a chat thread, the PRD, a meeting and a ticket comment. Every teammate's agent starts each task knowing none of it. A shared knowledge base gives people and agents one place to look, with a source for every claim. There is no settled public guide for this yet, so this session shows the design the course recommends: your personal wiki, scaled to a team, with review and privacy built in.",
       learn: [
         {
           heading: 'The same three layers, shared by a team',
@@ -227,7 +227,7 @@ Do not delete or rename any existing file. You are done when every page has a so
           bullets: [
             '**Audit**: broken links, unsourced claims, stale pages and orphan pages, written to `wiki/kb-health.md`.',
             '**Reconcile**: when a newer source contradicts a page, the page is flagged with both claims and their dates, for a person to settle.',
-            '**Input review**: check and sanitize material before it reaches an agent or the shared repository. Replacing a name with a role does not necessarily anonymise a story. Exclude sensitive or identifying context, and use approved processing tools. A second check before merge catches remaining mistakes.',
+            '**Privacy check**: before a source goes in, remove names, customer details and anything else that identifies a person. Swapping a name for a job title is often not enough: "the only designer on the payments team" still points to one person. The reviewer checks again before merging.',
             '**Change cap**: one update may not rewrite more than a set share of the wiki, for example a fifth of the pages. A bigger change is split, or a person approves it deliberately.',
           ],
         },
@@ -235,10 +235,9 @@ Do not delete or rename any existing file. You are done when every page has a so
           heading: 'Using the knowledge base, and testing it',
           illustration: 'access',
           paragraphs: [
-            'A `kb-lookup` skill (Session 19) loads the relevant pages into any task, in any repository. The feature loop runs through the knowledge base: **plan** (the PRD and design spec are drafted from team knowledge), **handoff** (the merged plan is loaded into each platform repository, as in Session 13), **build**, then **align** (check the work against the acceptance criteria and the design spec, then against team decisions). Anyone can share at any point in the loop.',
-            'A briefing before a decision meeting can surface open questions; a recap can compare outcomes with commitments. Use either only if it helps the team, and choose a cadence that fits its work.',
-            'Test access before retrieval: a person or job may retrieve only material it is authorised to see. A prompt cannot enforce file permissions. Keep instruction and source access scoped in the tool or environment, and assign a human owner to each maintained page.',
-            'For the **trust check**, keep the expected answers outside the tested agent’s accessible files. Give a fresh session only the questions and the approved knowledge base. Score correctness, citation support, handling of contradictions and honest abstention. Diagnose retrieval, stale-content and reasoning failures separately before changing pages or prompts.',
+            'A `kb-lookup` skill (Session 19) loads the relevant pages into any task, in any repository. The feature loop then runs through the knowledge base: **plan** (draft the PRD and design spec from what the team knows), **handoff** (load the merged plan into each platform repository, as in Session 13), **build**, then **align** (check the work against the acceptance criteria, the design spec and team decisions). Anyone can share a source at any point.',
+            'Who can read what is set in GitHub, not in a prompt. An instruction such as "do not open the HR folder" will not stop an agent that has access to it, so keep out of the repository anything some readers should not see. Give every page a human owner.',
+            'The **trust check** tests whether it works. A fresh session gets ten questions and nothing else, and you score its answers against a key it cannot see. When an answer is wrong, find out why before you fix anything: the page was missing, the page was out of date, or the agent read the right page and drew the wrong conclusion.',
           ],
         },
       ],
@@ -269,8 +268,8 @@ Do not delete or rename any existing file. You are done when every page has a so
           'Seed five pages through the share flow. On a branch, copy five sources from your workspace into `team-kb/sources/`: for example the PRD and design spec into `generated/`, the experiment readout and the glossary into `docs/`, and your decisions page into `shared/`. Ask Claude to run the privacy scrub, write the affected pages, update the index and the log, and open a pull request. Your mentor reviews and merges.',
           'Share one decision the short way: on a new branch, add a one-line source such as "We decided X because Y" to `sources/shared/` and ask Claude to apply it. Check that only the affected pages changed and that the log gained one line per page, then merge after review.',
           'Ask Claude to run the audit and reconcile jobs as `AGENTS.md` describes them and write the results to `wiki/kb-health.md`. Fix what they find in a reviewed pull request.',
-          'Write ten questions in kb-trust-check.md. Keep expected answers and source passages in a separate, inaccessible human answer key, not in team-kb or a parent directory the session can read. Include changed decisions, contradictions and an unanswerable question. Enforce the test scope through permissions or a disposable isolated copy.',
-          'Give the tested session the questions, not the answer key. Score each answer 0 to 2 for correctness and 0 or 1 for a citation that supports it. Record the first results, fix diagnosed issues through review, then rerun and add two unseen questions held by your mentor or peer. Report repeated-question improvement separately from unseen performance.',
+          'Write ten questions a new teammate would ask in `kb-trust-check.md`. Include a decision that changed, two sources that disagree, and one question the knowledge base cannot answer. Keep the expected answers in a separate file outside `team-kb` and outside any folder above it, so the session cannot read them.',
+          'Open a fresh Claude Code session in `team-kb` and give it only the questions. Score each answer 0 to 2 for correctness and 0 or 1 for a citation that backs it up. Fix the pages behind the misses in a reviewed pull request and run it again, adding two questions from your mentor that you have not seen. Report those two separately: they show whether your fixes help with new questions or only the ones you already knew.',
         ],
       },
       agentPrompt: {
@@ -532,13 +531,13 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
       mentorReview: 'recommended',
       goal: 'Explore what a product team with agents could look like, adapt one possible working loop to a real bottleneck, and propose a measured pilot with a 10-minute demo.',
       whyItMatters:
-        'When building becomes easier, a team can spend more attention on what deserves to be built and what it learns from the result. Explore a way of working where the whole team shapes the problem, agents support the build, and evidence informs the next decision. Adapt it as the work changes.',
+        'Agents make building faster. On most teams that moves the wait somewhere else: to deciding what to build, or to reviewing what got built. In this session you find where your team waits today, and propose one change to try for a few weeks, with a way to tell whether it helped.',
       learn: [
         {
-          heading: 'What could a product team with agents look like?',
+          heading: 'What a product team with agents could look like',
           paragraphs: [
-            'This example assumes shared team context is already in place. The shift is in where the team spends its attention: more time exploring the user’s problem and what to build together, then shaping a solution, building, verifying and learning.',
-            'Select a stage to explore the lifecycle. This is one evolving team example, not a fixed sequence: stages can overlap and repeat as the team learns.',
+            'The diagram shows one way to run it. Shared context is already in place (Sessions 17 and 18). The team spends more of its time together on the user’s problem and what to build, then shapes a solution, builds with agents, checks the result and learns from it.',
+            'Select a stage to see what happens in it. Stages overlap and repeat. Treat this as one example to adapt, not a process to install.',
           ],
           illustration: 'team-loop',
         },
@@ -546,68 +545,52 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
           heading: 'Explore the problem with the whole team',
           illustration: 'team-attention',
           paragraphs: [
-            '“Problem, together” means PMs, designers and engineers spending time exploring the user’s problem and what to build in the same conversation. The PM brings user evidence and frames the decision; the whole team challenges assumptions and shapes the direction. Easier implementation creates room to spend more attention here before jumping into a build.',
-            'For example, a request arrives to “add an AI assistant”. Explore which user task is difficult, why it matters, how people handle it today and whether an assistant would help. Use a live prototype to make uncertain ideas concrete and try them together. The discussion should improve the problem and solution, rather than simply approve something already decided.',
-            'After building, treat the feature as a hypothesis to learn from. Compare the result and user feedback with the intended outcome, then carry that learning into the next problem conversation.',
+            'PMs, designers and engineers look at the user’s problem in the same conversation, before anyone builds. The PM brings the evidence and frames the decision; everyone challenges it. Building is cheaper now, so the team can afford more time here.',
+            'Say a request arrives to “add an AI assistant”. Ask which user task is hard, why it matters, how people get it done today, and whether an assistant would actually help. Put a rough prototype on screen and try ideas live. If the meeting only approves what someone already decided, it was not this conversation.',
+            'When an agent can produce three working versions in an afternoon, choosing between them becomes the skill. Compare them on a real user task, check the empty and error states, and reject the polished one if it solves the wrong problem. Roles blur too: a PM can build a prototype and an engineer can join interviews. You still need a designer, an engineer or a security expert for the decisions that need one, and a named person accountable for each.',
           ],
         },
         {
           heading: 'Find where your team waits',
           illustration: 'constraints',
           paragraphs: [
-            'Knowing what to build remains central PM work. When agents shorten implementation for a class of tasks, an unclear problem or an unanswered trade-off can become the constraint. Review can become another queue downstream. Neither shift happens everywhere: inspect where your team waits before deciding what to augment.',
-            'A PM could use agents to assemble sourced evidence, prepare alternatives, find conflicting requirements and surface open decisions before a team conversation. The aim is shorter waits for well-founded decisions, not rushed judgment or more documents. Keep consequential decisions visible, with an owner, an explanation and a route to escalate when the owner is unavailable.',
-            'DORA’s 2025 report describes AI as an amplifier of the wider organisational system. METR’s February 2026 update explains why changing tools and task selection make productivity estimates difficult. Neither establishes that programming is solved. Treat faster generation as an opportunity to test, while problem solving, integration and proving value still need attention.',
-            'This simplified capacity model illustrates why accelerating one stage may leave overall flow unchanged. Real work varies and has feedback loops; inspect your own waiting time before drawing a conclusion.',
+            'When agents speed up building, the queue often moves. Work waits for a decision nobody has made, or for a review by the one engineer who understands that code. It does not happen on every team, so look at where your recent work actually sat still before you change anything.',
+            'Agents can shorten the wait for a decision: gather the evidence with sources, lay out the options, flag requirements that conflict and list the open questions before the meeting. Every important decision still has a named owner, and a backup for when the owner is away.',
+            'Be careful with productivity claims. DORA’s 2025 report describes AI as an amplifier of how the organisation already works. METR’s February 2026 update explains why speed-up numbers are hard to measure. The diagram is a simplified model: speeding up one stage does nothing for overall flow if the work then waits at the next one.',
           ],
         },
         {
-          heading: 'Taste, and how roles overlap',
+          heading: 'Keep human review, and match it to risk',
           paragraphs: [
-            'When several plausible solutions are cheap to generate, selecting and refining the right one becomes more valuable. Make taste discussable: compare alternatives against a real user task, explain what earns attention, test states beyond the happy path, and reject a polished result that solves the wrong problem. An agent can critique; you still need evidence and reasons for the choice.',
-            'Role boundaries may become more fluid: a PM can explore a prototype, a designer can challenge a requirement, and an engineer can contribute to discovery. Generalists may find more ways to contribute across this loop. That does not make specialist expertise obsolete. Bring deep design, engineering, research, accessibility, security and domain judgment to the decisions that need it, and agree who is accountable.',
-          ],
-        },
-        {
-          heading: 'How code review may change',
-          paragraphs: [
-            'If generated changes arrive faster than the team can understand them, generating still more work increases the queue. Start with small changes, author self-review and automated or agent checks before scarce expert attention. An agent review is evidence to inspect; it does not grant release authority.',
-            'For the course exercises, retain an independent human approval for production changes. In a real organisation, the review policy is a decision for its accountable owners. A possible future experiment is exception-based human review for a narrowly bounded class of changes, where policy permits it. It would need evidence of reliability, enforced scope, monitoring, sampling, rollback and a named owner before widening. Removing review because the queue is long is not that evidence.',
+            'If agents produce changes faster than people can understand them, more generation only lengthens the review queue. Keep changes small. The author reviews their own change and runs the automated and agent checks before an expert spends time on it. An agent review is input for the reviewer; it does not approve anything.',
+            'In this course, every production change gets a human approval. At work, your engineering leads own the review policy. Some teams try lighter review for a narrow kind of change. That needs evidence it is safe, monitoring and a way to roll back first, and a long queue is not evidence.',
           ],
           bullets: [
-            '**Lower impact:** define the eligible scope and checks; start with a quick independent human review under the course baseline.',
-            '**Moderate impact:** review the intended behaviour and change, including failure states and missing evidence.',
-            '**High impact:** use the relevant experts and approval policy for sensitive data, consequential decisions, external actions and model behaviour changes.',
+            '**Low risk**, such as a copy change: a quick human review once the checks pass.',
+            '**Medium risk**, such as a new screen state: review the intended behaviour, the failure states and what was not tested.',
+            '**High risk**, such as anything touching personal data, payments, outgoing messages or model behaviour: the relevant experts review it, under your company’s approval policy.',
           ],
         },
         {
-          heading: 'Run a small team workshop, then test one change',
-          paragraphs: [
-            'In a 30-minute discussion, ask three questions: what would augmentation mean for us, what already helps, and where does work still wait? Walk one recent feature through the loop: who explored the problem, when the team jumped to a solution, and what it learned after release. Choose one constraint together. If working alone, rehearse with a mentor and label the team assumptions.',
-            'Try one change in a short pilot: bring the whole team into a problem conversation earlier, explore the uncertain part with a live prototype, or review user feedback together after release. Choose the change that addresses your team’s gap.',
-            'Record an owner and backup, baseline, intended benefit, quality bar, cost and stop signal. Pick a review date appropriate to the work, such as two delivery cycles; six weeks is one option, not a prescribed cadence. Ask teammates whether understanding, confidence and workload improved, then keep, change or stop the experiment. Revisit the workflow as capabilities and constraints change.',
-          ],
-        },
-        {
-          heading: 'What to measure',
+          heading: 'Pick one change and pilot it',
           illustration: 'team',
           paragraphs: [
-            'Measure the outcome you wanted and the work needed to achieve it. Useful signals include time waiting for a decision, time to a tested prototype, end-to-end lead time, review wait and rework. Pair these with quality, cost, team understanding and fatigue. Generated code, documents and AI usage are activity counts; they do not establish customer value.',
-            'Compare similar tasks at a stated quality bar, include failures and label guesses. Avoid ranking people by tool adoption.',
+            'Hold a 30-minute conversation with your team, or with your mentor if you work alone. Ask three questions: where does our work wait, what already helps, and what would we try? Walk one recent feature through the loop: who looked at the problem, when you jumped to a solution, and what you learned after release. Agree on one change, such as bringing engineers into the problem conversation earlier, or reviewing user feedback together after each release.',
+            'Write down the owner and a backup, today’s baseline, the benefit you expect, the cost, and what would make you stop. Set a review date, for example after two delivery cycles, then keep the change, adjust it or stop it.',
+            'Measure the wait you are trying to fix: days waiting for a decision, time to a tested prototype, time from idea to release, review wait and rework. Ask the team whether they understand the work better and whether their workload went up. Counts of generated code, documents or AI usage show activity, not value. Never rank people by how much they use the tools.',
           ],
         },
         {
           heading: 'Demo your proposal',
           paragraphs: [
-            'State the bottleneck and proposal first. Show a cited answer, a shared decision, a tested skill and a deliberate failure. Explain who decides next and what would change your proposal.',
-            'Invite a bounded experiment. Your PM OS should make the next team decision easier, and evolve when it stops helping.',
+            'Open with the bottleneck and your proposal. Then show it working: a cited answer from the knowledge base, a shared decision, a tested skill, and one thing that fails on purpose. End with who decides next and what would change your mind.',
           ],
         },
       ],
       resources: [
         {
           resourceId: 'litt-understanding',
-          why: 'A practitioner argument about understanding as a constraint. Compare it with your own evidence, rather than treating it as a universal review policy.',
+          why: 'A practitioner argues that understanding the work has become the constraint. Check the argument against where your own team waits.',
           required: true,
         },
         {
@@ -640,44 +623,41 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         summary:
           'Draft `team-playbook.md` with Claude from your own evidence, rewrite it in your words, then give a 10-minute live demo of your PM OS to your mentor.',
         steps: [
-          'Spend 30 minutes with teammates or a mentor on the three workshop questions. Map one recent feature to the suggested loop. Check who explored the problem and what the team learned, then choose one change to try. Record assumptions and keep confidential details out.',
+          'Spend 30 minutes with teammates or your mentor on the three questions. Walk one recent feature through the loop and agree on one change to try. Keep confidential details out of your notes.',
           'Run the agent prompt below. Claude drafts the playbook from your quarter: the wiki, the team knowledge base, the skill checks and the trust-check scores.',
-          'Rewrite the draft in your own words. Claude drafts; you own the substance. Read it aloud and rewrite any sentence that sounds like the agent rather than you.',
-          'Check the review model: use the course human-approval baseline, keep changes small and explain three risk tiers with owners and gates. Label any proposed future automation as an experiment requiring policy permission and evidence.',
-          'Check the pilot: one workflow change, an owner and backup, outcome and health metrics with a baseline, a review date and evidence for keeping, changing or stopping. Explain where you adapted the suggested loop.',
-          'Script a short demo: the bottleneck and proposal, a cited query, a shared decision, a tested skill and one deliberate failure. Rehearse once and keep the invitation to experiment explicit.',
+          'Rewrite the draft in your own words. Read it aloud and rewrite any sentence that sounds like the agent rather than you.',
+          'Check the review section: human approval for every production change, small changes, and three risk levels, each with an owner. Any lighter review is labelled as an experiment that needs evidence and permission.',
+          'Check the pilot: one change, an owner and a backup, a baseline, a review date, and what would make you keep, adjust or stop it. Say where you changed the loop for your team.',
+          'Script the demo: the bottleneck and proposal, a cited answer, a shared decision, a tested skill and one deliberate failure. Rehearse once.',
           'Give the demo live to your mentor, take their questions, and record the three changes you would make before showing it at work.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In your workspace, with access to team-kb',
-        text: `I am preparing team-playbook.md: a proposal for how a product team in my organization could work with shared context, skills and agents. Read my evidence first: wiki/index.md and the pages it lists, team-kb/AGENTS.md, team-kb/kb-trust-check.md and team-kb/skill-checks.md. My workshop notes: [paste who explored the problem, where work waited and what the team learned].
+        text: `I am preparing team-playbook.md: a proposal for how my product team could work with shared context, skills and agents. Read my evidence first: wiki/index.md and the pages it lists, team-kb/AGENTS.md, team-kb/kb-trust-check.md and team-kb/skill-checks.md. My workshop notes: [paste where work waited, who looked at the problem and what the team learned].
 
-Draft the playbook in about two pages, with these sections:
-1. Workshop and bottleneck: what augmentation could mean for this team, what already helps, and where work waits. Map one task to Context, Problem together, PRD/spec/prototype, Build, Verify and Learn. Adapt or omit stages with a reason. Mark assumptions.
-2. Problem, together: assume shared context exists. Explain how the whole team will explore the user problem and what to build, using live prototypes where helpful.
-3. Shared skills: reuse a tested skill only if it helps the chosen constraint. Name its owner and checks.
-4. Review model: retain independent human approval for production changes in this course, small changes, author self-review and agent checks before human review. Give three risk tiers, each with an example, owner and gate. Any possible future automated lane needs policy permission, enforced scope, reliability evidence, monitoring and rollback; label it as a proposal, not a forecast.
-5. Working agreements: how the team shapes the solution, verifies the result and learns from user feedback. Feed learning into the next decision; no mandated toolset or fixed cadence.
-6. Accountability: who owns problem choice, evidence judgment, quality, release authority and people decisions. Explain where specialist expertise is needed even when roles overlap.
-7. Measures: outcome and flow metrics and health signals, each with a baseline. No targets for AI usage.
-8. Adoption: one workflow change with an owner and backup, an agreed duration and review date, success criteria and keep/change/stop signals. Six weeks is an option, not a rule. Explain when to revisit the operating model.
-9. Objections from engineering, risk and people who prefer hand-written work, with honest responses.
+Draft about two pages with these sections:
+1. Bottleneck: where work waits today, shown by walking one recent feature through the loop (context, problem together, PRD and prototype, build, verify, learn). Skip or change stages, and say why.
+2. The change: the one thing we will try, and how the team will look at problems together. Name any tested skill it uses, with its owner.
+3. Review: human approval for every production change, small changes, author self-review and agent checks first. Three risk levels, each with an example, an owner and who approves. Label any lighter review as a proposal that needs evidence and permission.
+4. Who owns what: the problem choice, quality, release approval and people decisions, and where a specialist is needed even when roles overlap.
+5. Pilot: owner and backup, baseline, the metrics and team health signals to watch, a review date, and what would make us keep, adjust or stop. No targets for AI usage.
+6. Objections from engineering, risk and people who prefer hand-written work, with honest answers.
 
-Use only my evidence and mark anything else as an assumption. Present the loop as one evolving model to try, not the correct way for every team. Do not present predictions about jobs, solved programming or the end of human review as facts, and do not claim regulatory compliance. After the draft, review it from the point of view of a sceptical head of engineering and list the five weakest points, with the evidence that would strengthen each.`,
+Use only my evidence and mark anything else as an assumption. Present this as one way to try, not the right way for every team. Do not state predictions about jobs or the end of human review as facts, and do not claim regulatory compliance. Then review the draft as a sceptical head of engineering: list the five weakest points and the evidence that would fix each.`,
       },
       expectedOutput: [
         '`team-playbook.md`, bottleneck first, rewritten in your own words',
-        'An adapted team loop, three review risk tiers, and a bounded pilot with a review date and keep/change/stop criteria',
+        'Your adapted team loop, three review risk levels, and a pilot with a review date and keep, adjust or stop criteria',
         'A 10-minute live demo of your PM OS, including one deliberate failure',
         'Mentor feedback and three changes you would make before showing it at work',
       ],
       artifact: '`team-playbook.md` and a live demo of your PM OS',
       verification: [
         'The playbook opens with a named bottleneck, not with a tool.',
-        'The review model retains the course human-approval baseline, names decision owners and labels future automation as a proposal requiring evidence and policy permission.',
-        'The pilot tests one change, has an owner and backup, a review date, a baseline and at least one health signal. The loop is adapted, with a reason, rather than prescribed.',
+        'The review section keeps human approval for production changes, names owners, and labels any lighter review as a proposal.',
+        'The pilot tests one change, with an owner and backup, a baseline, a review date and at least one team health signal.',
         'Every claim in the demo is backed by something on screen: a cited page, a pull request, a briefing or a score.',
         'Read aloud, no sentence of the playbook sounds like the agent rather than you.',
       ],
