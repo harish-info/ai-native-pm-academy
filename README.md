@@ -15,6 +15,7 @@ Apply the methods to a product, service or workflow you understand. Lessons addr
 | 5     | PM workspace and team practice     | 17 to 20 | Knowledge base, checked skills and a pilot proposal   |
 
 - Each session has a worked example, a decision with feedback, recall of an earlier concept and a transfer task without AI. Examples are original invented teaching scenarios.
+- All 20 sessions include a relevant HTML or SVG illustration beside the concept it explains. Interactive examples cover agent loops, context, screen states, Git, conversion rates, evaluations and access boundaries. Animation is bounded and respects reduced motion; illustrations load separately from the initial app.
 - One assigned external excerpt per session, budgeted at 8 to 15 minutes. Longer courses and further reading are optional.
 - The plan budgets about 82 hours including projects, assessments, three research conversations, reviews and mentor time. Choose eight weeks at about 10 hours a week or twelve at about 7. Setup, extra interviews and optional challenges can add time. Estimates have not been learner-tested.
 - Ten optional stretch challenges extend the core course.

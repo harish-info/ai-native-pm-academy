@@ -272,3 +272,48 @@ body {
 .dark .course-hero {
   background: var(--n-900);
 }
+
+.lesson-reader .concept-figure p,
+.lesson-reader .concept-figure li {
+  line-height: 1.6;
+}
+
+.concept-tree-branches {
+  position: relative;
+}
+.concept-tree-branches::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  border-top: 1px solid var(--n-400);
+}
+.concept-tree-branches::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -0.75rem;
+  height: 0.75rem;
+  border-left: 1px solid var(--n-400);
+}
+.concept-tree-branches > div {
+  position: relative;
+}
+.concept-tree-branches > div::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -1rem;
+  height: 1rem;
+  border-left: 1px solid var(--n-400);
+}
+
+@keyframes concept-loading {
+  50% {
+    opacity: 0.45;
+  }
+}
+.concept-skeleton {
+  animation: concept-loading 0.85s ease-in-out 2;
+}

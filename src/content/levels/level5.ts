@@ -39,6 +39,7 @@ export const level5: Level = {
       learn: [
         {
           heading: 'Three layers: sources, wiki, instructions',
+          illustration: 'knowledge',
           paragraphs: [
             'Andrej Karpathy calls this pattern an LLM wiki. The agent does the filing and cross-linking that makes people abandon wikis, and you review what it writes. It works because the three layers are kept apart.',
             'Start with a small set of reviewed final deliverables, not an automatic ingest of every file. Your workstream folders remain drafts; dated snapshots in sources/generated/ capture decisions. Keep raw participant material out of the general wiki. Retention or privacy obligations can require removal; the append-only convention is not a reason to retain sensitive data forever.',
@@ -232,6 +233,7 @@ Do not delete or rename any existing file. You are done when every page has a so
         },
         {
           heading: 'Using it, and testing it',
+          illustration: 'access',
           paragraphs: [
             'A `kb-lookup` skill (Session 19) loads the relevant pages into any task, in any repository. The feature loop runs through the knowledge base: **plan** (the PRD and design spec are drafted from team knowledge), **handoff** (the merged plan is loaded into each platform repository, as in Session 13), **build**, then **align** (check the work against the acceptance criteria and the design spec, then against team decisions). Anyone can share at any point in the loop.',
             "Two rituals keep it alive: a briefing before the weekly decision meeting lists the open questions, and a Friday recap compares shipped work and decisions with Monday's commitments. Session 20 builds them into a team playbook.",
@@ -404,6 +406,7 @@ When done, show the tree and mark any rule you were unsure how to phrase with "(
         },
         {
           heading: 'Check every skill',
+          illustration: 'skills',
           paragraphs: [
             'A skill is a small product, so it gets a small eval: the idea from Session 14, at a smaller scale. For each skill, write three inputs and the behaviour you expect: a normal case, an edge case (nothing relevant found, or two pages that disagree), and a hostile case (a source carrying an injected instruction, or a request to edit `AGENTS.md`). Rerun them after every change to the skill.',
           ],
@@ -564,6 +567,7 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         },
         {
           heading: 'What to measure, and what stays human',
+          illustration: 'team',
           paragraphs: [
             'Measure outcomes and flow, not AI use. Delivery metrics such as lead time and change failure rate show whether flow improved; product metrics such as discovery turnaround and time to first prototype show whether learning sped up. Health signals catch hidden costs: rework, review confidence, whether people understand what they ship, and trust-check scores. The share of work done by AI is an activity metric that says nothing about customers.',
             'Some things stay human: deciding what to build and why, judging evidence from customers, approving every production change, anything about people (performance, hiring, conflict), and the final word on anything sent to customers, regulators or senior leaders. Governance can reference frameworks such as the NIST AI RMF, while risk and legal teams own their interpretation.',

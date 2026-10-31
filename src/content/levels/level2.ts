@@ -46,6 +46,7 @@ export const level2: Level = {
         },
         {
           heading: 'Folder hygiene decides output quality',
+          illustration: 'workspace',
           paragraphs: [
             'Claude finds things by reading names, listing folders and searching text. A workspace with forty loose drafts gives it forty chances to quote an old decision. A workspace with one folder per workstream, each with a short `README.md` saying what belongs there, gives it a map.',
             'Keep the rules simple: one folder per workstream, a short context file at the top, lowercase hyphenated file names, dates as YYYY-MM-DD, and raw material (articles, exports, transcripts) saved unedited in `sources/` so you can always go back to what was actually said. When a draft is superseded, move it to an `archive/` folder rather than leaving two versions side by side.',
@@ -212,6 +213,7 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
         },
         {
           heading: 'What goes in REQUIREMENTS.md',
+          illustration: 'requirements',
           paragraphs: [
             'Keep it to one or two pages. It is a brief for an agent and a checklist for you, not a full PRD; that comes in Session 12.',
           ],
@@ -351,6 +353,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
       learn: [
         {
           heading: 'The mental model',
+          illustration: 'git',
           paragraphs: [
             'A **repository** is a project folder with its full history. A **commit** is a saved snapshot with a message explaining why it was made. A **branch** is a parallel line of work, so you can change things without touching the stable version on `main`. A **pull request** (PR) proposes merging a branch into `main`, and it is where review, discussion and automated checks happen.',
             'Claude Code runs the git commands: "create a branch called deploy/pages", "commit this", "push and open a pull request". Your job is to read what it changed and decide whether it goes in. You will see the same steps on GitHub\'s website, which is where you and your mentor read and comment.',
@@ -487,6 +490,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
       learn: [
         {
           heading: 'Test like a user, then like a sceptic',
+          illustration: 'review',
           paragraphs: [
             'Watch someone use the live link on their own phone without helping. Note where they hesitate, what they tap that does nothing, and what they misread. Then go through `REQUIREMENTS.md` yourself, screen by screen: every state, every "done when" example, at laptop and phone width.',
             'Check the numbers. The totals, dates and status rules come from code, so they should match what you work out by hand from the fictional data, exactly. Pick the edge cases agents miss: no data at all, one item exactly on a boundary such as a due date or deadline, a very long name, two items on the same day.',

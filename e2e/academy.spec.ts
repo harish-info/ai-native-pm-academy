@@ -55,6 +55,39 @@ test('decision practice explains choices without completing a lesson', async ({ 
   expect(lessonPrecedesSources).toBe(true)
 })
 
+test('lesson illustrations explain changing inputs and respect reduced motion', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.clock.install()
+  await page.goto('#/lessons/s1')
+  const agent = page.locator('[data-illustration="chat-agent"]')
+  await agent.getByRole('button', { name: 'Play example' }).click()
+  await expect(agent.locator('[aria-current="step"]')).toContainText('Choose')
+  const next = agent.getByRole('button', { name: 'Next step' })
+  await next.focus()
+  await page.keyboard.press('Enter')
+  await page.clock.runFor(8000)
+  await expect(agent.locator('[aria-current="step"]')).toContainText('Use tool')
+
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await agent.getByRole('button', { name: 'Play example' }).click()
+  await page.clock.runFor(7200)
+  await expect(agent.locator('[aria-current="step"]')).toContainText('Respond')
+  await expect(agent.getByRole('button', { name: 'Play example' })).toBeVisible()
+
+  await page.goto('#/lessons/s11')
+  const funnel = page.locator('[data-illustration="funnel"]')
+  await expect(funnel.getByText('40%', { exact: true })).toBeVisible()
+  await funnel.getByRole('button', { name: 'Of all signups' }).click()
+  await expect(funnel.getByText('20%', { exact: true })).toBeVisible()
+
+  await page.goto('#/lessons/s13')
+  const states = page.locator('[data-illustration="states"]')
+  await states.getByRole('button', { name: 'Error', exact: true }).click()
+  await expect(states.getByText('Could not load your items', { exact: true })).toBeVisible()
+})
+
 test('onboarding produces a personalized path', async ({ page }) => {
   await page.goto('#/onboarding')
   await page.getByRole('button', { name: 'Continue' }).click()

@@ -62,6 +62,7 @@ export const level4: Level = {
         },
         {
           heading: 'States are where the bugs live',
+          illustration: 'states',
           paragraphs: [
             'Most design reviews look at the happy path. Most production bugs live in the other states: empty, loading, error, partial data, stale data, the first visit, and the case where the number is bad news. For the main task screen, write each state as a condition and the exact copy: "When there is no data for the period, show: ...". Add an accessibility note where it matters, such as a warning that must never rely on colour alone. If you cannot write the copy, you have found a gap.',
             'The no-invention rule from the PRD applies here too. When the PRD, the prototype and your notes are silent, the spec says "open question", names who decides, and moves on. A plausible guess written confidently into a spec is worse than a visible gap, because an agent will build it without asking.',
@@ -255,6 +256,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         },
         {
           heading: 'A golden set, organised by harm',
+          illustration: 'evals',
           paragraphs: [
             'Organise test cases by the harm they prevent, so each category can have its own release rule. Start with the workflows, user questions and prohibited actions in your PRD. Include ordinary requests, missing data, ambiguous instructions and attempts to cross a permission boundary.',
           ],
@@ -432,6 +434,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         },
         {
           heading: 'Ship, iterate or kill',
+          illustration: 'experiment',
           paragraphs: [
             'Write the decision first, then the evidence. A good readout has the decision, the result against the thresholds you set in advance, the guardrails, what users and support said, what surprised you, and the next step. Segments you looked for only after seeing the data are hypotheses for the next test, not findings.',
           ],
@@ -564,6 +567,7 @@ Done when: every section exists and you have listed the proposed items for my de
         },
         {
           heading: 'One message per slide',
+          illustration: 'story',
           paragraphs: [
             'Each slide makes one point, and its title states that point as a full sentence: "Pilot users hit the outcome target and the guardrail held", not "Results". Read the titles alone, in order. If they tell the whole story, the deck works.',
             "Then apply Duarte's **Glance Test**: someone should get each slide's point in about three seconds. Anything that takes longer is a document, and belongs in the stakeholder update or the appendix.",

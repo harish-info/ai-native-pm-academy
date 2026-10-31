@@ -1,4 +1,5 @@
 // Typed course content model. All curriculum lives in src/content as plain TypeScript data.
+import type { LessonVisualId } from './illustrations'
 
 export type CompetencyId =
   | 'ai-fundamentals'
@@ -30,6 +31,7 @@ export interface LearnSection {
   heading: string
   paragraphs: string[]
   bullets?: string[]
+  illustration?: LessonVisualId
 }
 
 export interface ResourceRef {

@@ -45,6 +45,7 @@ export const level3: Level = {
         },
         {
           heading: 'The strategy kernel',
+          illustration: 'strategy',
           paragraphs: [
             'Richard Rumelt, in Good Strategy Bad Strategy, describes the kernel of a strategy in three parts. It fits on one page, and it is the most useful page you can bring to a "why this, why now?" conversation.',
           ],
@@ -209,6 +210,7 @@ Rules:
         },
         {
           heading: 'Opportunity Solution Trees',
+          illustration: 'discovery',
           paragraphs: [
             "Teresa Torres's Opportunity Solution Tree connects a desired outcome at the top, to opportunities (customer needs, pain points and desires) in the middle, to solutions and assumption tests at the bottom. Its power is discipline: every solution must hang off an opportunity, and every opportunity should trace back to something a real person said or did.",
             'Take the outcome from your strategy kernel. Opportunities come from specific difficulties observed in your conversations. Preserve the situation and consequence, such as a person having to reopen several tools to finish one task; do not replace evidence with a generic complaint. Your prototype is one solution under one opportunity, not the root of the tree. Put two or three alternatives next to it, and compare them by how well they address the target opportunity, not by how exciting they look in a demo.',
@@ -350,6 +352,7 @@ Rules:
         },
         {
           heading: 'Trust numbers you can check',
+          illustration: 'funnel',
           paragraphs: [
             'Ask Claude Code to calculate with a script, not in its head, and to show the counts behind every percentage. Then recompute two of the numbers yourself in a spreadsheet pivot table. If they match, you have earned some trust in the rest. If they do not, you have found a problem before a stakeholder did.',
           ],
@@ -517,6 +520,7 @@ Use no real people, companies or figures.`,
         },
         {
           heading: 'Choose a solution the team can operate',
+          illustration: 'solution',
           paragraphs: [
             'Compare a deterministic baseline, a model with relevant context and, only if needed, a tool-using workflow or agent. Retrieve current facts from an authorised source; fine-tuning can adapt repeated behaviour but is not a live database. Record why the simpler option falls short before choosing more complexity.',
             'Add a one-page operating brief: a data-flow sketch, the source of truth, who can access each input, proposed response-time and failure budgets, fallback behaviour and cost per acceptable task. Include model calls, tools, retries, human review and maintenance. Use labelled illustrative assumptions rather than buying API access for this exercise.',

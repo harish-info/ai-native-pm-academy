@@ -6,6 +6,7 @@ import { diagnosticQuestions } from './onboarding'
 import { planWeeks } from './plan'
 import { wikiMilestones, wikiSteps } from './wiki'
 import { courseArc, lessonGuides } from './teaching'
+import { lessonVisuals } from './illustrations'
 
 const allText = (value: unknown): string[] =>
   typeof value === 'string'
@@ -47,6 +48,20 @@ describe('curriculum shape', () => {
 })
 
 describe('references', () => {
+  it('places a relevant illustration in every session with no orphaned diagrams', () => {
+    const used = new Set<string>()
+    for (const lesson of allLessons) {
+      const visuals = lesson.learn.flatMap((section) =>
+        section.illustration ? [section.illustration] : [],
+      )
+      expect(visuals.length, lesson.id).toBeGreaterThan(0)
+      for (const id of visuals) {
+        expect(lessonVisuals[id], lesson.id).toBeDefined()
+        used.add(id)
+      }
+    }
+    expect([...used].sort()).toEqual(Object.keys(lessonVisuals).sort())
+  })
   it('gives every session a bounded core reading and an answerable decision exercise', () => {
     expect(Object.keys(lessonGuides).sort()).toEqual(allLessons.map((l) => l.id).sort())
     for (const lesson of allLessons) {
@@ -164,6 +179,7 @@ describe('writing style', () => {
       caseStudies,
       lessonGuides,
       courseArc,
+      lessonVisuals,
     })
     const offenders = text.filter((t) => /[–—]/.test(t))
     expect(offenders).toEqual([])

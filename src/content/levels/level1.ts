@@ -57,6 +57,7 @@ export const level1: Level = {
         },
         {
           heading: 'Reasoning models, and chat versus agent',
+          illustration: 'chat-agent',
           paragraphs: [
             '**Reasoning-capable models** can spend extra computation before answering. That can help with multi-step analysis, planning and code, with trade-offs in time and cost. Products expose different controls and may show a summary rather than the full internal process. Judge the answer with evidence and tests, not the apparent depth of its explanation.',
             'A plain **chat** answers from what is in its context. Give the same model **tools** and it can look things up on the web, run code on a spreadsheet, read and create files. An **agent** is a model in a loop: it decides on a step, uses a tool, checks the result and carries on until the task is done. In Level 2 you will use Claude Code, an agent that works on the files in your own folder. More power means more to review: an agent that can act can also act wrongly.',
@@ -191,6 +192,7 @@ Rules:
         },
         {
           heading: 'What the model actually sees',
+          illustration: 'context',
           paragraphs: [
             'Everything the model uses to answer arrives through its context window. If something is not there, it does not exist for the model, however obvious it is to you.',
           ],
@@ -346,6 +348,7 @@ Done when: every table row has a source URL and every implication names the cont
         },
         {
           heading: 'Claim-level verification',
+          illustration: 'verification',
           paragraphs: [
             'Break any AI report into atomic claims, then sort them. **Material claims** would change a decision if they were wrong; **background claims** would not. You verify every material claim and sample the rest.',
             'For each material claim, open the source yourself and check four things: it exists, it says what is claimed, the date is current enough, and it applies to your geography and users. Then label the claim.',
@@ -499,6 +502,7 @@ Rules:
         },
         {
           heading: 'Label honestly and check the numbers',
+          illustration: 'prototype',
           paragraphs: [
             'Label every prototype honestly, on screen and in the message you share it with: prototype, fictional data, not a product commitment. A polished page reads as a promise, and PMs who prototype a lot warn that it can be motion mistaken for progress: the hard parts of an AI product, such as reliable data, evals and scale, are still ahead.',
             'If the page shows figures, they must add up. Check every number on the mocked screen by hand. One figure that does not reconcile makes people doubt everything after it.',

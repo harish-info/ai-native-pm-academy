@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { allLessons, guides, lessonById, wikiSteps } from '../content'
 import { competencyById } from '../content/competencies'
@@ -22,6 +22,10 @@ import {
   stretchedLink,
 } from '../ui/primitives'
 import { NotFound } from './NotFound'
+
+const LessonIllustration = lazy(() =>
+  import('../ui/LessonIllustration').then((m) => ({ default: m.LessonIllustration })),
+)
 
 const steps = [
   { id: 'overview', label: 'Overview' },
@@ -222,6 +226,11 @@ export function LessonPage() {
                   <div className="space-y-3">
                     <Paragraphs items={s.paragraphs} />
                     {s.bullets && <Bullets items={s.bullets} />}
+                    {s.illustration && (
+                      <Suspense fallback={<p role="status">Loading illustration...</p>}>
+                        <LessonIllustration key={s.illustration} id={s.illustration} />
+                      </Suspense>
+                    )}
                   </div>
                 </section>
               ))}
