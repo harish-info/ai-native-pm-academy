@@ -88,24 +88,26 @@ test('lesson illustrations explain changing inputs and respect reduced motion', 
   await expect(states.getByText('Could not load your items', { exact: true })).toBeVisible()
 })
 
-test('suggested team loop supports keyboard exploration and shows workflow constraints', async ({
-  page,
-}) => {
+test('team loop stays in its lesson and supports keyboard exploration', async ({ page }) => {
   await page.goto('#/levels')
-  const overview = page.getByRole('tablist', { name: 'Product loop stages' })
-  await expect(overview.getByRole('tab')).toHaveCount(6)
-  await overview.getByRole('tab', { name: '1 Context' }).focus()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'From foundations to independent practice',
+  )
+  await expect(page.getByRole('tablist', { name: 'Product loop stages' })).toHaveCount(0)
+
+  await page.goto('#/lessons/s20')
+  const loop = page.locator('[data-illustration="team-loop"]')
+  await expect(loop.getByRole('tab')).toHaveCount(6)
+  await loop.getByRole('tab', { name: '1 Context' }).focus()
   await page.keyboard.press('ArrowLeft')
-  await expect(overview.getByRole('tab', { name: '6 Learn' })).toBeFocused()
-  await expect(page.getByRole('tabpanel')).toContainText('user feedback')
+  await expect(loop.getByRole('tab', { name: '6 Learn' })).toBeFocused()
+  await expect(loop.getByRole('tabpanel')).toContainText('user feedback')
   await page.keyboard.press('Home')
-  await expect(overview.getByRole('tab', { name: '1 Context' })).toHaveAttribute(
+  await expect(loop.getByRole('tab', { name: '1 Context' })).toHaveAttribute(
     'aria-selected',
     'true',
   )
 
-  await page.goto('#/lessons/s20')
-  const loop = page.locator('[data-illustration="team-loop"]')
   await loop.getByRole('tab', { name: '2 Problem, together' }).click()
   await expect(loop.getByRole('tabpanel')).toContainText('as a whole team')
   await expect(loop.getByRole('tabpanel')).toContainText('PMs, designers and engineers')
