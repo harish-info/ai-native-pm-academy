@@ -42,7 +42,7 @@ export const level4: Level = {
           heading: 'What a design spec adds to the PRD',
           paragraphs: [
             'The PRD from Session 12 describes behaviour: goals, flows, behavioural contracts and acceptance criteria. The design spec describes the surface: every screen, every state of every screen, and the exact words on it. It is written for a designer, an engineer and a coding agent at once, so it uses plain headings and no pixel values. Describe visual intent in words ("the projected figure is the first thing the eye lands on") and let the design file carry the pixels.',
-            'Use the same layout every time, so people and agents know where to look:',
+            'The [design spec template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/design-spec-template.md) in product-templates uses this layout. Keep it the same every time, so people and agents know where to look:',
           ],
           bullets: [
             '**Definitions**: the terms the spec uses, matching the PRD glossary.',
@@ -51,13 +51,6 @@ export const level4: Level = {
             '**Per screen**: purpose; every state with its exact copy; conditional logic (what shows when); interactions; visual intent in words; sub-views.',
             '**Navigation map**: how screens connect, including back and cancel.',
             '**Unresolved design gaps**: questions nobody has answered yet, each with who decides.',
-          ],
-        },
-        {
-          heading: 'GrillMe: resolve design decisions before writing the spec',
-          paragraphs: [
-            'Use [Matt Pocock’s /grill-me skill](https://www.aihero.dev/skills-grill-me) again, this time to challenge the design brief. Bring the PRD, prototype and known gaps. Keep the session focused on what each state must communicate and what the user can do next.',
-            'Walk through missing data, failed requests, denied access, back and cancel. Ask which source decides each rule when the prototype and PRD disagree. When words are not enough, inspect a prototype state with a designer instead of debating it indefinitely. Save reviewed decisions in `design-grill-notes.md` and carry unresolved items into the spec.',
           ],
         },
         {
@@ -106,14 +99,9 @@ export const level4: Level = {
       ],
       resources: [
         {
-          resourceId: 'aihero-grill-me',
-          why: 'Run a focused GrillMe session on screen states, interactions and unresolved rules before writing the design spec. Preserve the decisions in your workspace.',
-          required: false,
-        },
-        {
           resourceId: 'product-templates-design-spec',
-          why: 'Copy and adapt the screen, state, copy and interaction sections for design-spec.md. Keep the precedence note and unresolved decisions required by this session.',
-          required: false,
+          why: 'The design spec template this session uses. Copy the headings from its Output Format section into design-spec.md and add the precedence note.',
+          required: true,
         },
         {
           resourceId: 'claude-design-prototype-tutorial',
@@ -140,8 +128,8 @@ export const level4: Level = {
         summary:
           'Write the design spec, prototype the core screen and its states, load the plan into the repository as a filtered bundle with a task breakdown and a team AGENTS.md, then build one slice, run an align check and open one small pull request yourself.',
         steps: [
-          'Open the [design spec template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/design-spec-template.md) as a reusable starting point for `design-spec.md`. Adapt it to your flow, keep a companion PRD link, and add the precedence note and unresolved decisions described above.',
-          '**Run a design GrillMe session.** Use [Matt Pocock’s /grill-me skill](https://www.aihero.dev/skills-grill-me) or the interview in the prompt below. Spend about 15 minutes challenging missing states, exact copy, navigation and conflicting rules. Save reviewed decisions in `design-grill-notes.md`; then draft `design-spec.md` from the same conversation and your source files.',
+          'Copy the headings from the Output Format section of the [design spec template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/design-spec-template.md) into `design-spec.md`, with a link to the PRD and the precedence note at the top.',
+          'Run the agent prompt below. As in Session 12, Claude questions you first, this time about missing states, exact copy, navigation and conflicts between sources, then fills the spec. Some answers need a look at the prototype with a designer, not more discussion; those stay as gaps.',
           'Read the spec screen by screen. Every state needs a condition and exact copy. Check the precedence note at the top and every flagged contradiction, and decide or assign each one.',
           'Use the existing prototype to show the core flow and its required states. A new design tool is optional. Compare each state with the spec, record discrepancies and resolve the rule before changing the interface.',
           'Save the prototype link and screenshots of the relevant states in handoff/. If you chose a design tool, its exported bundle can accompany these. A new subscription is unnecessary.',
@@ -159,11 +147,11 @@ export const level4: Level = {
 
 Read first: prd/prd.md, prototype/REQUIREMENTS.md, discovery/synthesis.md, product-context.md (for the glossary) and any design notes in this workspace. Then read the prototype from Session 7; ask me for its folder if you cannot find it.
 
-Before drafting, run a GrillMe-style questioning session. If design-grill-notes.md already records my reviewed answers, use those first. Ask one question at a time about missing states, exact copy, permissions, back/cancel behaviour and source conflicts. Do not decide product rules for me. After about 15 minutes, summarise decisions and unresolved gaps, and ask whether to continue or draft. Questions needing a prototype remain explicitly unresolved.
+Before drafting, question me one point at a time, each with your recommended answer: missing states, exact copy, permissions, back and cancel, and places where the sources conflict. Do not decide product rules for me. After about 15 minutes, list the decisions and the open gaps, and ask me before drafting into the headings in design-spec.md.
 
 Audience: a designer and an engineer who have not seen the prototype, and their coding agents.
 
-Use this layout:
+The headings, and what goes in each:
 1. Precedence: the PRD wins where it speaks; the prototype is authoritative for states and logic; the design file for hierarchy; notes for intent.
 2. Definitions, matching the PRD glossary.
 3. Screen inventory, one line per screen and sub-view.
@@ -203,7 +191,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
       checklist: [
         {
           id: 'spec',
-          text: 'Ran a design GrillMe session, then wrote design-spec.md with states, copy and precedence',
+          text: 'Answered Claude’s questions, then wrote design-spec.md with states, copy and precedence',
         },
         {
           id: 'prototype',

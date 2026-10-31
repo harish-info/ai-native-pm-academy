@@ -208,7 +208,8 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
           heading: 'Let the agent interview you',
           paragraphs: [
             'Matt Pocock popularised a simple idea, the "grill me" skill: before any building, the agent questions you one point at a time until there is nothing left to guess. It works because you know far more about your product than you have written down, and the questions pull it out.',
-            'Good interview questions are concrete: who opens this screen and why, what it shows when there is no data, what happens on a phone, which figures must be exact, what is out of scope. Answer in your own words. When you do not know, say so: it becomes an open question in the file instead of an invented answer.',
+            'Good questions are concrete: who opens this screen and why, what it shows when there is no data, what happens on a phone, which figures must be exact, what is out of scope. Ask the agent to give its recommended answer with each question, so you can reply "yes" or correct it, and to look up anything your files already say instead of asking you. When you do not know, say so: it becomes an open question in the file instead of an invented answer.',
+            'You will use the same method twice more: for the PRD in Session 12 and the design spec in Session 13.',
           ],
         },
         {

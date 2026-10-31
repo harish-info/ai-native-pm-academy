@@ -475,7 +475,7 @@ Use no real people, companies or figures.`,
       practicalProof: true,
       goal: 'Write `prd/prd.md` for your top bet by letting Claude Code interview you and read your workspace, then improve it through an engineer, a designer and a risk review in fresh sessions, so one document can brief people and coding agents alike.',
       whyItMatters:
-        'A PRD briefs people and agents who were not in your conversations. State the behaviour, evidence and open questions so they do not have to infer your decisions. Where the domain involves sensitive data, consequential decisions and external actions, bring the relevant risk partner into the decision before delivery.',
+        'Engineers, designers and their coding agents will build from this document without having sat in your interviews. Whatever it leaves out, they guess. This session turns your evidence into a PRD that says what must be true, what is still open and how to tell when it is done.',
       learn: [
         {
           heading: 'Who reads the PRD',
@@ -488,22 +488,19 @@ Use no real people, companies or figures.`,
         {
           heading: 'Sections of the PRD',
           paragraphs: [
-            'This layout works for most features. Keep each section short, and spend your effort where agents and engineers most often go wrong: behavioural contracts, acceptance criteria and edge cases.',
+            'Use the [PRD template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/prd-template.md) from product-templates. Its sections cover most features. Keep each one short, and spend your time where engineers and agents most often go wrong: behavioural contracts, acceptance criteria and edge cases.',
+            'The template marks gaps instead of hiding them. `[NEEDS INPUT]` is something nobody has decided yet. `[ASSUMPTION -- reason]` is a guess someone must confirm. `[BLOCKER -- NEEDS INPUT]` is anything the first slice cannot ship without. A draft full of markers is honest; a draft with none is suspicious.',
           ],
           bullets: [
-            '**Definitions**: every term that could be read two ways, such as each figure behind totals, dates and status rules.',
+            '**Definitions**: every term that could be read two ways, such as how a total is calculated or when a status changes.',
             '**Problem statement** and **current state**: what is wrong today and how people cope, with links to your synthesis and data.',
-            '**Goals and outcome metrics**: the outcome from your kernel and how you will measure it.',
-            '**Target users**: who this is for, and who it is not for.',
-            '**Solution overview**: a short description, with a link to the prototype.',
-            '**Scope**: in scope in priority order, out of scope, and non-goals you considered and decided against, with the reason.',
-            '**User flows**: the primary flow and the alternatives, including what happens when data is missing or something fails.',
+            '**Goals**, **target users** and **solution overview**: the outcome from your kernel, who this is for and who it is not for, and a short description with a link to the prototype.',
+            '**Scope**: in scope in priority order, out of scope for now, and non-goals you decided against, with the reason.',
+            '**User flows**: numbered steps for the main flow and the alternatives, with each decision point written as "if this, go to step 4".',
             '**Behavioural contracts**: what the system must always do, must ask first about, and must never do.',
-            '**Data and constraints**: what data the feature uses, where it comes from, and the regulatory, privacy or technical limits that apply.',
-            '**Acceptance criteria per phase**: Given, when, then, with concrete numbers.',
-            '**Tracking**: the events to log, and the leading, outcome and guardrail metrics.',
-            '**Eval plan for the AI parts**: how you will know the AI behaves well enough to ship.',
-            '**Open questions**: every gap and contradiction, each with an owner.',
+            '**Data and constraints**, **acceptance criteria** per phase, **tracking** and **edge cases**.',
+            '**Success metrics** with rollback criteria, **risks** and **open questions**, each question with an owner.',
+            'One section the template does not have: an **eval plan** for the AI parts.',
           ],
         },
         {
@@ -514,7 +511,7 @@ Use no real people, companies or figures.`,
           bullets: [
             '**No invention.** A gap becomes an open question, not a plausible guess. If nobody has decided how a missing value is shown, the PRD says so and names who will decide.',
             '**Flag contradictions.** When your interviews and your data disagree, or the market map and the kernel do, the PRD says so in the text and opens a question.',
-            '**Behaviour before implementation.** Specify value, quality, access, latency and cost constraints. Discuss implementation trade-offs with engineering without prescribing a database or model based on fashion.',
+            '**Behaviour before implementation.** Write "The user sees the three records that need review", not "The system surfaces relevant entities". State limits on quality, access, response time and cost, and leave the database and model choice to engineering.',
           ],
         },
         {
@@ -529,16 +526,15 @@ Use no real people, companies or figures.`,
           heading: 'Compare simpler options and estimate running cost',
           illustration: 'solution',
           paragraphs: [
-            'Compare a deterministic baseline, a model with relevant context and, only if needed, a tool-using workflow or agent. Retrieve current facts from an authorised source; fine-tuning can adapt repeated behaviour but is not a live database. Record why the simpler option falls short before choosing more complexity.',
-            'Add a one-page operating brief: a data-flow sketch, the source of truth, who can access each input, proposed response-time and failure budgets, fallback behaviour and cost per acceptable task. Include model calls, tools, retries, human review and maintenance. Use labelled illustrative assumptions rather than buying API access for this exercise.',
+            'Before you settle on AI, write down what a version without a model would do: a filter, a rule or a template. Then a model given the right context. Only then an agent that uses tools. For each simpler option, say why it falls short. Current facts come from a system of record the user is allowed to see; fine-tuning changes how a model behaves, it is not a live database.',
+            'Then write a one-page operating brief: where the data comes from and who can see it, how long a response may take, what the user sees when it fails, and what one acceptable answer costs once you count model calls, retries and human review. Guesses are fine if you label them; you do not need to buy API access.',
           ],
         },
         {
-          heading: 'GrillMe: challenge the PRD before drafting',
+          heading: 'Get questioned, then draft',
           paragraphs: [
-            'Make a **GrillMe session** part of PRD creation. [Matt Pocock’s /grill-me skill](https://www.aihero.dev/skills-grill-me) helps you challenge an idea before committing to it. Start in a fresh conversation with your evidence and a narrow feature question. If the skill is installed, invoke `/grill-me`; otherwise use the guided interview prompt below.',
-            'For this exercise, spend about 15 minutes on the first pass: which user and problem are supported by evidence, what the smallest useful slice includes, what stays out, and which acceptance or approval rules remain undecided. Push back on suggestions you cannot defend. Record decisions, evidence and open questions in `prd/grill-notes.md`. Discussion cannot answer a research or prototype question for you.',
-            'The standalone skill does not save files. Keep the conversation for drafting, and explicitly save the decisions yourself or ask the agent to save your reviewed notes afterwards. Missing answers remain open questions with an owner or next test.',
+            'In Session 6 the agent questioned you until the prototype requirements were clear. Do the same here, with harder questions: which evidence supports this user and problem, what the smallest useful slice is, what stays out, and which acceptance and approval rules nobody has decided. A good question comes with a recommended answer you can accept or change, and the agent looks up anything your files already answer instead of asking you.',
+            'Fifteen minutes is enough for a first pass. Then Claude drafts into the template. Some questions need a test, not a conversation; those go into Open questions with an owner and the next step.',
           ],
         },
         {
@@ -556,14 +552,9 @@ Use no real people, companies or figures.`,
           required: true,
         },
         {
-          resourceId: 'aihero-grill-me',
-          why: 'Use Matt Pocock’s GrillMe skill for the pre-draft questioning session, then carry your own decisions and unresolved questions into the PRD template.',
-          required: false,
-        },
-        {
           resourceId: 'product-templates-prd',
-          why: 'Copy and adapt this template for prd/prd.md. Keep this session’s AI evaluation and operating brief alongside it, and resolve gaps from your evidence rather than filling them with defaults.',
-          required: false,
+          why: 'The PRD template this session uses. Copy the headings from its Output Format section into prd/prd.md, and read its rules on gaps and contradictions.',
+          required: true,
         },
         {
           resourceId: 'aws-rag-versus-fine-tuning',
@@ -583,12 +574,12 @@ Use no real people, companies or figures.`,
       ],
       task: {
         summary:
-          'Let Claude Code interview you and draft the PRD from your workspace, review it as an engineer, a designer and a risk partner in fresh sessions, and test that a fresh agent can build from it.',
+          'Write an operating brief, let Claude Code question you and fill the PRD template from your workspace, review it as an engineer, a designer and a risk partner in fresh sessions, and test that a fresh agent can build from it.',
         steps: [
-          'Create prd/ in your workspace. Confirm the bet or revised direction, then write a short operating brief: solution alternatives, an authorised data-flow sketch, cost per acceptable task, response-time budget and fallback. Label illustrative assumptions; no API purchase is required.',
-          'For a reusable starting point, open the [PRD template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/prd-template.md). Copy and adapt it for `prd/prd.md`, keeping the AI eval plan and operating brief from this session. You can use the template with your own notes or follow the guided prompt below.',
-          '**Run a GrillMe session before drafting.** Open [Matt Pocock’s /grill-me guide](https://www.aihero.dev/skills-grill-me), then use the skill or the guided prompt below to challenge scope, evidence, exclusions and acceptance rules. Save your decisions in `prd/grill-notes.md`; carry unknowns forward explicitly.',
-          'Read the draft end to end. Rewrite anything generic in your own words, check that every claim links to a workspace file or one of your answers, and move anything guessed into Open questions.',
+          'Create `prd/` in your workspace and confirm which bet you are writing up, or how you changed it. Write `prd/operating-brief.md` on one page: the simpler options and why they fall short, where the data comes from, the response-time budget, the fallback and the cost per acceptable answer. Label your guesses.',
+          'Copy the headings from the Output Format section of the [PRD template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/prd-template.md) into `prd/prd.md`. Add two headings it does not have: Eval plan and Prototype link.',
+          'Run the agent prompt below. Claude questions you one point at a time, then fills the headings in `prd/prd.md` from your files and answers. If you use the `/grill-me` skill, run it first and save your decisions in `prd/grill-notes.md`; the prompt reads them.',
+          'Read the draft end to end. Rewrite anything generic in your own words and check that every claim links to a workspace file or one of your answers. Answer each `[NEEDS INPUT]` and `[ASSUMPTION]` marker, or move it to Open questions with an owner.',
           'Run three reviews, each in a fresh session: "Read prd/prd.md and the files it links. Review it for what [the engineer who builds it | the designer who owns the flows | the risk and compliance partner] needs. List problems with the section and a suggested fix. Add your findings under your heading in prd/review-notes.md and do not edit prd/prd.md."',
           'Decide on every finding in `review-notes.md`: accept, reject with a reason, or turn it into an open question. Update `prd/prd.md` yourself, or ask Claude to apply only the accepted findings.',
           'Test readiness in a fresh session with prd/prd.md only. Resolve every blocker for the first slice, especially data access, harmful behaviour and acceptance rules, or remove the affected behaviour from that slice. Future-slice questions can remain visible with owners; a small count of blockers is not readiness.',
@@ -599,18 +590,24 @@ Use no real people, companies or figures.`,
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In your workspace/ folder',
-        text: `Read CLAUDE.md, product-context.md, strategy/strategy-kernel.md, strategy/market-map.md, discovery/synthesis.md, discovery/ost.md, data/funnel-analysis.md, data/impact-estimate.md and data/prioritised-bets.md.
+        text: `Read CLAUDE.md, product-context.md, prd/operating-brief.md, strategy/strategy-kernel.md, strategy/market-map.md, discovery/synthesis.md, discovery/ost.md, data/funnel-analysis.md, data/impact-estimate.md and data/prioritised-bets.md. If prd/grill-notes.md exists, read it and do not ask again what it answers.
 
-I want a PRD for the top bet in prioritised-bets.md. Start with a GrillMe-style questioning session before drafting. If I have already run /grill-me, use my reviewed prd/grill-notes.md rather than repeating answered questions. Otherwise ask one question at a time about evidence, target users, the first slice, non-goals, acceptance criteria and approval rules. Wait for my answer. Do not make product decisions for me. After about 15 minutes, summarise decisions, blockers and questions that need research or a prototype. Ask me before moving to the draft.
+I want a PRD for the top bet in prioritised-bets.md, written into the headings already in prd/prd.md.
 
-Then write prd/prd.md with these sections: Definitions; Problem statement; Current state; Goals and outcome metrics; Target users; Solution overview; Scope (in scope in priority order, out of scope, non-goals we decided against and why); User flows (primary and alternative); Behavioural contracts (always, ask first, never); Data and constraints; Acceptance criteria per phase, in Given, when, then form and as concrete as this example: "Given 12 records with 3 marked as needing review, when the user filters to Needs review, then exactly 3 records appear and removing the filter restores all 12."; Tracking (events, and leading, outcome and guardrail metrics); Eval plan for the AI parts; Open questions; Prototype link.
+First, question me. Ask one question at a time and wait for my answer. Give your recommended answer with each question and the file it is based on, so I can accept or change it. Ask only what my files do not answer: the target user and the evidence for them, the first slice, what stays out, acceptance criteria and approval rules. Do not make product decisions for me. After about 15 minutes, list the decisions, the blockers and the questions that need research or a prototype, and ask me before drafting.
+
+Then fill every heading in prd/prd.md:
+- Acceptance criteria per phase, in Given, when, then form and as concrete as this example: "Given 12 records with 3 marked as needing review, when the user filters to Needs review, then exactly 3 records appear and removing the filter restores all 12."
+- Behavioural contracts in three tiers: always, ask first, never.
+- Tracking: the events, plus a leading, an outcome and a guardrail metric.
+- Eval plan: about ten example questions, what a good answer contains, what must never happen and who reviews the results.
 
 Rules:
-- No invention. Every statement traces to a file above or to my answers. If something is missing, add it to Open questions instead of guessing.
+- No invention. Every statement traces to a file above or to my answers. Mark a gap [NEEDS INPUT], a guess [ASSUMPTION -- reason], and anything the first slice cannot ship without [BLOCKER -- NEEDS INPUT].
 - Where two sources disagree, say so in the text and add an open question.
-- Describe behaviour, not implementation: what the user sees and what the system must always or never do. Leave technology choices to engineering.
-- totals, dates and status rules are calculated by tested code, never by the model. State this in the behavioural contracts.
-- Finish your reply with the five places an engineer or a coding agent is most likely to misread this PRD.`,
+- Describe what the user sees and what the system must always or never do. Leave technology choices to engineering.
+- Totals, dates and status rules are calculated by tested code, never by the model. State this in the behavioural contracts.
+- End your reply with the five places an engineer or a coding agent is most likely to misread this PRD.`,
       },
       expectedOutput: [
         '`prd/prd.md` with every section of the layout, a prototype link, a version and a date',
@@ -633,10 +630,10 @@ Rules:
         'What did the fresh agent misunderstand, and what does that tell you about how engineers read specs?',
       ],
       checklist: [
-        { id: 'interviewed', text: 'Ran a GrillMe session before drafting and saved my decisions' },
+        { id: 'interviewed', text: 'Answered Claude’s questions before it drafted the PRD' },
         {
           id: 'layout',
-          text: 'Wrote prd/prd.md with every section, including behavioural contracts and an eval plan',
+          text: 'Filled every heading of the PRD template, plus an eval plan',
         },
         { id: 'no-invention', text: 'Moved every gap and contradiction into Open questions' },
         { id: 'three-reviews', text: 'Ran engineer, designer and risk reviews in fresh sessions' },
