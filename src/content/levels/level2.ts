@@ -2,666 +2,659 @@ import type { Level } from '../types'
 
 export const level2: Level = {
   id: 2,
-  slug: 'second-brain',
-  title: 'Second Brain and Context Engineering',
-  theme: 'Build a personal knowledge system that AI agents can use',
+  slug: 'build-with-agents',
+  title: 'Build with agents',
+  theme: 'Turn the pitch into a live, reviewed prototype with Claude Code',
   summary:
-    'Build a private, Markdown-based wiki that an agent maintains under your review: raw sources that never change, a wiki layer of goals, decisions, learning and projects, and a schema file that tells every agent how the place works. Along the way you learn the ideas behind every serious knowledge product: retrieval, RAG, freshness, ownership, contradictions, compaction and handoffs. You finish with a second brain you will keep using after February.',
+    'The pitch landed, and now people want to click through it. In this level you set up the workspace you will use for the rest of the quarter and start working in Claude Code, the agent that reads and writes files on your computer. Claude Code interviews you until the requirements are clear, then builds a multi-screen {{name}} prototype that you steer by reviewing the result. You publish it through GitHub with a protected main branch and pull requests you can read, put it live on GitHub Pages, and finish by reviewing what the agent built: real users, accessibility, a second opinion from a fresh session and no secrets in the repository.',
   outcomes: [
-    'Run a private second brain with three clear layers: raw sources, an agent-maintained wiki and a schema file.',
-    'Use Claude Code or Codex to ingest sources, answer questions with verifiable citations and keep the wiki healthy.',
-    'Write AGENTS.md instructions, with explicit triggers, that make any agent useful from its first message, and know where each tool looks for them.',
-    'Explain retrieval, RAG, freshness, ownership and compaction well enough to shape a team knowledge strategy.',
-    'Hand work between agent sessions and tools without losing context, and test that it works.',
+    'Run a private workspace for the quarter that Claude Code understands from its first message, with a `CLAUDE.md` you wrote and a clear line between your instructions and its auto memory.',
+    'Let Claude Code interview you into `REQUIREMENTS.md`, then build and steer a multi-screen prototype by reviewing the running result.',
+    'Keep long builds on track with fresh sessions and short handoff notes.',
+    'Publish through GitHub: commits, branches, a protected main branch, pull requests whose diffs you can read, and a live URL.',
+    'Review what agents build with user tests, accessibility basics, a second-session review and fixes from bug reports, without ever committing a secret.',
   ],
   badge: {
-    name: 'Context Architect',
+    name: 'Builder PM',
     description:
-      'Built a living second brain that a fresh AI agent can pick up and use, and can explain why it works and where it can fail.',
+      'Turned a pitch into a live, reviewed {{name}} prototype with Claude Code, through pull requests you can explain line by line.',
   },
   lessons: [
     {
       id: 's5',
       levelId: 2,
       number: 5,
-      title: 'Create your private personal wiki',
+      title: 'Your workspace and Claude Code',
       difficulty: 'Intermediate',
-      minutes: 90,
-      tools: ['Claude Code or Codex', 'Terminal', 'Obsidian (optional)', 'Git'],
-      prerequisites: ['s3', 's4'],
-      competencies: ['knowledge-management', 'technical-collaboration'],
-      xp: 150,
+      minutes: 120,
+      tools: ['Claude Code (desktop Code tab or terminal)', 'Git'],
+      prerequisites: ['s4'],
+      competencies: ['coding-agents', 'knowledge-management'],
+      xp: 125,
       mentorReview: 'recommended',
-      practicalProof: true,
-      goal: 'Set up `~/second-brain` as a private, structured Markdown wiki with three clear layers, a catalog, a log, starter content and version history.',
+      goal: 'Set up `{{slug}}-workspace/` as the private home for your quarter on {{name}}: one folder per workstream, your Level 1 files moved in, and a `CLAUDE.md` that points every Claude Code session at `product-context.md`.',
       whyItMatters:
-        'An agent is only as useful as the context it can reach. A plain-folder wiki on your own machine is the simplest knowledge system that works with every AI tool you have and every tool that comes next. Product teams are building the same thing at a larger scale, so building your own is the fastest way to learn why team knowledge bases succeed or rot.',
+        'Your pitch page landed and your manager wants a prototype next. From here the work spreads across research, notes, decisions and code, and an agent is only as useful as the context it can reach. A tidy folder with one short instructions file is the simplest knowledge system that works with Claude Code today and with whatever tool comes next. Every later session, and the personal PM OS you build in Level 5, grows out of this folder.',
       learn: [
         {
-          heading: 'Why plain folders and Markdown come first',
+          heading: 'From chat to an agent that works on your files',
           paragraphs: [
-            'Coding agents such as Claude Code and Codex read and write files natively, search them with simple tools and show you exactly what they changed. Obsidian can display the same folder as a linked knowledge base. Git gives you history and undo. None of this locks you into a vendor.',
-            'Vector databases and enterprise RAG platforms solve problems of scale and fuzzy search across thousands of documents. With a few hundred notes you do not have those problems yet, and adding that machinery early hides how retrieval really works. Start simple, and add search tooling only when you can name the failure it fixes.',
+            'In Level 1 you pasted context into a chat. **Claude Code** works the other way round: you open a folder, and Claude reads the files it needs, writes new ones, runs commands and shows you what it changed. Nothing is uploaded until Claude reads it, and then only what it reads is sent to the model, so what you keep in the folder is what it can know.',
+            "You do not need a terminal. The Claude desktop app has a **Code** tab: sign in with your Claude Pro plan, choose a folder and type. The terminal version is the same agent if you ever want it. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on.",
+            '**Cowork** is the same agent in a simpler app for non-code work such as documents and connected apps. If you can use Claude Code, you can use Cowork, so this course sticks to one tool.',
           ],
         },
         {
-          heading: 'Three layers, and a purpose for every folder',
+          heading: 'Folder hygiene decides output quality',
           paragraphs: [
-            'A robust agent-maintained wiki has three layers. **Raw sources** are the original material: articles, transcripts, exports. They land in `00-inbox/` and are never edited, so you can always go back to what was actually said. The **wiki layer** is the set of pages the agent writes and updates under your review. The **schema** is `AGENTS.md`: the conventions, structure and rules every agent follows, which evolves as you learn.',
-            'People usually abandon wikis because upkeep grows faster than value. Agents change that equation: filing, cross-linking and tidying become cheap. They only stay cheap if the conventions are explicit, which is what the schema is for.',
+            'Claude finds things by reading names, listing folders and searching text. A workspace with forty loose drafts gives it forty chances to quote an old decision. A workspace with one folder per workstream, each with a short `README.md` saying what belongs there, gives it a map.',
+            'Keep the rules simple: one folder per workstream, a short context file at the top, lowercase hyphenated file names, dates as YYYY-MM-DD, and raw material (articles, exports, transcripts) saved unedited in `sources/` so you can always go back to what was actually said. When a draft is superseded, move it to an `archive/` folder rather than leaving two versions side by side.',
           ],
           bullets: [
-            '`00-inbox/`: raw sources, unedited. Ingested files may move to `00-inbox/ingested/`.',
-            '`goals/`, `learning/`, `ideas/`, `decisions/`, `reflections/weekly/`, `projects/`, `reading/`, `resources/`: the wiki layer.',
-            '`.agents/skills/` and `templates/`: mechanism, meaning how work gets done, kept separate from the notes themselves. The folder name matters: agents only discover skills in the places they are built to look (Session 7).',
-            '`AGENTS.md`: the schema. Codex, Copilot and Claude Code all read it; Claude Code only needs a separate `CLAUDE.md` if you want Claude-specific rules.',
+            '`CLAUDE.md`: instructions for Claude, written by you. Short.',
+            '`product-context.md`: the product, users, glossary, constraints and open decisions from Session 2.',
+            '`sources/`: raw material, never edited after saving.',
+            '`learning/`: your glossary, model comparison and delegation audit.',
+            '`pitch/`: pitch notes and the link to your pitch page.',
+            '`research/`: the fact sheet.',
+            '`prototype/`: added in Session 6. Level 3 adds `strategy/`, `discovery/`, `data/` and `prd/` the same way: one folder per workstream.',
           ],
         },
         {
-          heading: 'index.md and log.md: the two files that make it navigable',
+          heading: 'Two kinds of memory: the one you write and the one Claude writes',
           paragraphs: [
-            '`index.md` at the root is a catalog with one line per page: link, type and a one-line summary. Agents read it first when answering a question, then open only the pages they need. This simple pattern works well without embeddings up to roughly a hundred sources, which covers most personal wikis for a long time.',
-            '`log.md` is an append-only record of what happened, one heading per event in a fixed format such as `## [2026-11-09] ingest | Article title`. Because the format never changes, you and any agent can search it with a single text search, see what changed recently and spot gaps.',
+            '**`CLAUDE.md`** is loaded at the start of every session in that folder. You write it. A line such as `@product-context.md` on its own pulls that file in too, so every session starts knowing what {{name}} is. Other agents read a file called `AGENTS.md` instead; if you ever use one, a `CLAUDE.md` whose first line is `@AGENTS.md` keeps a single source of truth.',
+            '**Auto memory** is notes Claude writes for itself as it works, for example a command that worked or a preference you corrected. It lives in your user folder rather than the workspace, and you can view and edit it with the `/memory` command.',
+            'The split is simple. Anything that must hold in every session, or that someone else would need to know, you write in `CLAUDE.md` yourself: what the workspace is, the folder map, the conventions, what must never happen. Auto memory is for small things Claude picks up along the way. Look at it now and then, delete what is wrong and move anything important into `CLAUDE.md`. Status that changes weekly belongs in a workstream README, not in either.',
+            'Keep `CLAUDE.md` short, around 30 to 60 lines. Every line is read in every session, and a long file buries the lines that matter. Instructions are guidance, not a lock: the model can miss one. Anything that must never go wrong is protected by git and by reviewing the change, not by louder wording.',
           ],
         },
         {
-          heading: 'Check who approves what before the agent touches a file',
+          heading: 'Auto mode, with git as the safety net',
           paragraphs: [
-            'Do not assume an agent will ask before it acts. Recent versions of Claude Code start in **auto mode**, where a safety classifier approves most actions instead of you, and the Codex **Auto** preset edits files and runs commands inside the folder without asking. Both are reasonable defaults for experienced users and both are wrong for your first week.',
-            'For this level, pick a mode that shows you each change. In Claude Code, press Shift+Tab to cycle modes until it shows the one that asks before edits, or use plan mode to get a plan with no edits at all. In Codex, choose the Read-only preset while you explore and switch to Auto only for a task you will review. Whatever the mode, your real safety net is git: commit before a task, read `git diff` after it, and undo anything you did not want.',
+            'Claude Code starts in **auto mode**: it edits files and runs most commands without asking, with built-in checks that stop clearly risky actions. Your safety net is git: commit before a task, look at what changed after it, and undo anything you did not want. (Plan mode, which proposes changes without making them, is there if you ever want it; this course does not need it.)',
+            'Git saves snapshots of a folder. You do not need to learn the commands: ask Claude to "commit this with a clear message", "show me what changed since the last commit" or "undo the changes to this file", and read what it reports. The workspace stays on your computer. If you want an off-machine backup, use a private repository only.',
           ],
         },
         {
-          heading: 'Private by design, with just enough git',
+          heading: 'What stays out',
           paragraphs: [
-            'The wiki lives on your computer. Never put it inside the public Academy repository, and never add customer data, credentials or employer-confidential material. Keep it slim on personal data about other people, too: write about your decisions and learning, not about colleagues. Remember that when an agent reads a file, its contents are sent to the model provider, so check the data settings of the tools you use.',
-            'Git gives you save points. `git init` starts history, `git add` stages changes, `git commit -m "message"` saves a snapshot and `git diff` shows exactly what an agent changed before you accept it. If you want an off-machine backup, use a private repository only.',
+            'This is your own workspace on your own computer. Use public or fictional material only: no employer documents, customer data, credentials or personal details about colleagues. When Claude reads a file its contents go to the model provider, so the rule from Session 3 still applies: if you would not paste it into a chat, do not save it here.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'karpathy-llm-wiki',
-          why: 'The clearest short description of the agent-maintained wiki pattern this level is built on: raw sources, a wiki layer, a schema, and ingest, query and lint operations.',
-          required: true,
-        },
-        {
           resourceId: 'claude-code-101',
-          why: 'Gets you comfortable starting, steering and approving changes in Claude Code, which you use for the rest of the course.',
+          why: 'The official beginner course: installation, the everyday loop of asking, reviewing and committing, and how `CLAUDE.md` shapes every session. Skip the parts on subagents, MCP and hooks.',
           required: true,
         },
         {
-          resourceId: 'vellotti-product-os',
-          why: 'A working example of a folder-based personal operating system for PM work. Borrow ideas; do not copy it wholesale.',
+          resourceId: 'claude-code-memory',
+          why: 'The official page on `CLAUDE.md` versus auto memory, and why short instructions work better.',
+          required: true,
+        },
+        {
+          resourceId: 'claude-code-permission-modes',
+          why: 'Reference for auto mode and the other modes, if you want to see what each one allows.',
           required: false,
         },
         {
-          resourceId: 'obsidian',
-          why: 'An optional, free-for-personal-use interface for browsing and linking the same Markdown files.',
+          resourceId: 'claude-cowork-guide',
+          why: 'What Cowork is, in case you later want the same agent for documents and connected apps.',
+          required: false,
+        },
+        {
+          resourceId: 'ccforpms',
+          why: 'An excellent companion course that teaches Claude Code inside Claude Code with a fictional company. It needs a paid Claude plan; link only.',
           required: false,
         },
       ],
       task: {
         summary:
-          'Scaffold `~/second-brain` with an agent, migrate your Level 1 material, write real starter content and make your first commit.',
+          'Install Claude Code, create `{{slug}}-workspace/`, move your Level 1 files in, write `CLAUDE.md` with Claude, and make your first commits.',
         steps: [
-          'Confirm Claude Code or Codex runs in your terminal. If installation is new to you, do this step with your mentor. If neither is available, Google Antigravity or GitHub Copilot on a free plan can run the same prompts, but check their docs for where they read instructions and skills.',
-          'Check the permission mode before you start: switch to the mode that asks before edits (Claude Code) or the Read-only preset (Codex), and write down which mode you used.',
-          'Read the LLM Wiki gist and write three bullets on how its three layers map onto the folders in this lesson.',
-          'Create `~/second-brain` (or reuse the folder from Level 1), start the agent inside it and run the scaffolding prompt below. Approve the plan before anything is created.',
-          'Migrate your Level 1 material: originals stay unedited in `00-inbox/`, notes go to `learning/`, reflections to `reflections/weekly/`. Ask the agent to build the root `index.md` and add one `log.md` entry per migrated item.',
-          "Write real starter content: three goals (personal, professional, learning), two recent decisions (for example how you are using this learning month), five ideas and three reading notes. Keep other people's personal details out.",
-          'Run `git init` and make a first commit. If the agent proposes the commands, read each one and say what it does before approving it.',
-          'Optional: open `~/second-brain` as an Obsidian vault and check that links between notes work.',
+          'Install the Claude desktop app, sign in with your Claude Pro plan and open the **Code** tab. Claude Code needs Git on your computer; if it reports that Git is missing, install it with your mentor before going further.',
+          'Create a folder called `{{slug}}-workspace` somewhere private on your own computer, not in a shared or synced work folder. Copy in everything from your Level 1 `{{slug}}-notes/` folder: `product-context.md`, `glossary.md`, `model-comparison.md`, `delegation-audit.md`, `fact-sheet.md`, `pitch-notes.md` and anything else you kept there.',
+          'Open the folder in Claude Code. Ask it to start a git repository and commit the files exactly as they are, before anything moves. This is your first save point.',
+          'Run the prompt below. Read the proposed folder map and `CLAUDE.md` draft, push back on anything that does not match how you work, then let Claude make the changes.',
+          'Ask Claude to show what changed since the first commit. Check that every Level 1 file still exists, now in its folder, and that nothing was rewritten. Commit.',
+          'Edit `CLAUDE.md` yourself: cut any line a fresh session would not need, and add one rule you care about, such as the spelling you use.',
+          'Test it. Start a new session and ask: "What is this workspace for, and where would you save a new competitor article?" Claude should answer from `CLAUDE.md` and `product-context.md` without hints. If it cannot, fix the file, not the question.',
+          'Run `/memory` and look at what auto memory holds, if anything. Note one thing you would keep there and one thing that belongs in `CLAUDE.md` instead.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude Code or Codex',
-        where: 'Started inside ~/second-brain on your own computer',
-        text: `You are setting up my private personal wiki in the current folder (~/second-brain). It is a knowledge base for an experienced product manager and must work with any AI agent and with Obsidian.
+        tool: 'Claude Code',
+        where: 'In the Code tab, with the {{slug}}-workspace folder open',
+        text: `This folder is my private workspace for one quarter as the new product manager on {{name}}, {{product}}. Everything in it is fictional or public material. It will hold research, notes, decisions and a prototype, and you will work in it in every session.
 
-Use three layers:
-- Raw sources in 00-inbox/: never edited. Ingested files may move to 00-inbox/ingested/.
-- Wiki pages in goals/, learning/, ideas/, decisions/, reflections/weekly/, projects/, reading/, resources/.
-- Mechanism in .agents/skills/ and templates/, kept separate from notes.
+Read every file in the folder first, starting with product-context.md.
 
-Create:
-1. Each folder above, with a README.md stating in 1-2 sentences what belongs there and what does not.
-2. index.md at the root: one line per page, format "- [Title](path) | type | one-line summary".
-3. log.md at the root: append-only, each entry a heading "## [YYYY-MM-DD] action | Title" followed by one line. Add an entry for this setup.
-4. Templates in templates/, each with front matter (title, type, status, updated, sources) and fixed headings:
-   - page.md: Summary, Details, Sources, Related
-   - decision.md: Context, Options, Decision, Why, What would change my mind, Review date, Status (active or superseded by link)
-   - reading-note.md: Source, Key ideas, My take, Quotes, Related
-   - project.md: Goal, Status, Next steps, Open questions, Decisions, Links
-   - weekly-reflection.md: Summary, Priorities check, Open questions, Reflection, Next week
+Goal: organize the workspace so that a fresh Claude Code session understands it from its first message.
 
-Rules:
-- Show the full plan (folders and files) and wait for my approval before creating anything.
-- Do not move, rename or delete existing files without asking.
-- Plain Markdown, file names lowercase-with-hyphens, dates YYYY-MM-DD.
-- When done, show the tree, then suggest git commands to initialize a repository and make a first commit, explaining each in one line. Do not add a remote.`,
+1. Propose a folder map: one folder per workstream (at least sources/, learning/, pitch/, research/ and archive/), with a one-line purpose each and which of my current files goes where. Do not rename my files.
+2. Draft CLAUDE.md, at most 50 lines, with these sections:
+   - What this workspace is (two sentences) and an @product-context.md line so it loads in every session
+   - Folder map (one line per folder)
+   - Conventions: Markdown, lowercase-hyphenated file names, dates as YYYY-MM-DD, raw material saved unedited in sources/
+   - Rules: fictional or public data only; never edit files in sources/; ask before deleting anything or moving more than five files; when a file is superseded, move it to archive/
+   - How I like answers: short, plain English, name the files you used
+3. Draft a README.md for each folder: two or three lines on what belongs there and what does not.
+4. List up to five gaps or contradictions you noticed in product-context.md, as questions for me. Do not edit that file.
+
+Show me the folder map and the CLAUDE.md draft before you move anything. When I agree, make the changes and tell me what to check.`,
       },
       expectedOutput: [
-        'A folder tree with all sections, a README in each, root index.md and log.md.',
-        'Five templates with front matter and fixed headings.',
-        'At least thirteen real starter notes plus your migrated Level 1 material.',
-        'A first git commit.',
+        'A `{{slug}}-workspace/` folder with one folder per workstream, each with a short README.',
+        'Your Level 1 files moved in, unchanged in content.',
+        'A `CLAUDE.md` of 30 to 60 lines that loads `product-context.md` and states the folder map, conventions and rules.',
+        'At least two commits: the files as they arrived, and the organized workspace.',
+        'A short list of open questions about `product-context.md`.',
       ],
       artifact:
-        'A private ~/second-brain wiki with three layers, index.md, log.md, templates, starter content and a first commit.',
+        '`{{slug}}-workspace/` with `CLAUDE.md` pointing at `product-context.md`, one folder per workstream and the Level 1 files moved in, under git.',
       verification: [
-        'Listing the folder shows every section, and each README explains its purpose in one or two sentences.',
-        'index.md has one line for every wiki page you created, and every link opens.',
-        'log.md entries all follow the exact `## [YYYY-MM-DD] action | Title` format.',
-        '`git log` shows your first commit, and `git remote -v` shows nothing or only a private repository.',
-        'The folder is not inside the Academy repository or any shared or public location.',
+        'A fresh session answers "What is this workspace for, and where would a new competitor article go?" correctly, without hints.',
+        'The diff between your first and second commit shows files moved, not rewritten.',
+        '`CLAUDE.md` is under 60 lines and every line is something a fresh session needs.',
+        'The workspace is on your own computer, not in a shared, synced or public location, and has no remote or only a private one.',
+        'Nothing in the folder is employer material, customer data or personal detail about other people.',
       ],
       reflectionPrompts: [
-        'Which folder was hardest to define a purpose for, and what does that say about how you think?',
-        "How did it feel to approve an agent's plan before it touched your files?",
-        'What will you deliberately keep out of this wiki, and why?',
+        'Which line in `CLAUDE.md` do you expect to matter most, and why?',
+        'How did it feel to let an agent move your files with git as the only safety net?',
       ],
       checklist: [
         {
-          id: 'agent-running',
-          text: 'Started Claude Code or Codex inside ~/second-brain in a mode that asks before edits',
+          id: 'claude-code-running',
+          text: 'Installed Claude Code and opened the workspace folder',
+        },
+        { id: 'first-commit', text: 'Committed the Level 1 files unchanged before anything moved' },
+        {
+          id: 'workspace-organized',
+          text: 'Organized one folder per workstream, each with a short README',
         },
         {
-          id: 'structure',
-          text: 'Created all sections with READMEs, index.md, log.md and templates after approving a plan',
+          id: 'claude-md',
+          text: 'Wrote and trimmed `CLAUDE.md`, which loads `product-context.md`',
         },
-        { id: 'migrated', text: 'Migrated Level 1 material with originals unedited in 00-inbox/' },
-        { id: 'starter-content', text: 'Wrote at least thirteen real starter notes' },
-        { id: 'git-commit', text: 'Made a first git commit and checked there is no public remote' },
-        {
-          id: 'privacy-check',
-          text: "Confirmed no customer, employer-confidential or other people's personal data is in the wiki",
-        },
+        { id: 'fresh-test', text: 'Checked that a fresh session understands the workspace' },
+        { id: 'memory-checked', text: 'Looked at auto memory with `/memory`' },
       ],
       mentorMove:
-        'Sit with her for the first terminal session: starting the agent, checking the permission mode, approving a file write and reading a diff. Then hand over the keyboard for the rest of the session and only answer questions.',
+        'Sit with her for the first fifteen minutes: installing, opening the folder and the first commit. Then hand over the keyboard. At the end, ask her to undo one change through Claude Code, so she has seen the safety net work before she relies on it.',
     },
     {
       id: 's6',
       levelId: 2,
       number: 6,
-      title: 'Ingest and query: an agent as your librarian',
+      title: 'Spec by interview, then build',
       difficulty: 'Intermediate',
-      minutes: 90,
-      tools: ['Claude Code or Codex', 'Git', 'Obsidian (optional)'],
+      minutes: 150,
+      tools: ['Claude Code'],
       prerequisites: ['s5'],
-      competencies: ['knowledge-management', 'coding-agents', 'prompting-context'],
-      xp: 150,
-      mentorReview: 'optional',
-      goal: 'Use a coding agent to ingest raw sources into your wiki and answer questions with citations you can verify, while you stay in control of every write.',
+      competencies: ['coding-agents', 'ux-prototyping'],
+      xp: 125,
+      mentorReview: 'recommended',
+      practicalProof: true,
+      goal: 'Let Claude Code interview you until the requirements for a {{name}} prototype are clear, save them as `REQUIREMENTS.md`, then build and steer a running multi-screen prototype by reviewing the result.',
       whyItMatters:
-        "Retrieval and grounding sit at the core of every knowledge product, from a personal wiki to a bank's internal assistant. Doing it by hand with an agent shows exactly where retrieval works and where it fails. That is the judgment you need when a vendor pitches an enterprise RAG platform or a team asks to point an assistant at its documents.",
+        'The engineering lead liked your pitch page and asks to see the flow: what happens on each screen for {{user}}, and what happens when something is missing. A one-line ask produces an agent that guesses, and its guesses look finished. Being interviewed first turns the gaps in your head into decisions on paper, and that file is what the agent builds from, what you check the result against and, in Level 3, the seed of your PRD.',
       learn: [
         {
-          heading: 'Ingest: one source, several pages touched',
+          heading: 'Let the agent interview you',
           paragraphs: [
-            'Ingesting a source means more than summarizing it. The agent reads the raw file, writes a summary page using your template, updates the existing pages the source affects (a goal, a project, a decision), adds the new page to `index.md` and appends an entry to `log.md`. The raw source itself is never edited.',
-            'Contradictions are cheapest to resolve at write time. If a new source conflicts with an existing page, the agent should flag it and propose which claim stands. The older claim is closed, not deleted: mark it superseded and link to the newer page, so the history of your thinking survives.',
+            'Matt Pocock popularised a simple idea, the "grill me" skill: before any building, the agent questions you one point at a time until there is nothing left to guess. It works because you know far more about {{name}} than you have written down, and the questions pull it out.',
+            'Good interview questions are concrete: who opens this screen and why, what it shows when there is no data, what happens on a phone, which figures must be exact, what is out of scope. Answer in your own words. When you do not know, say so: it becomes an open question in the file instead of an invented answer.',
           ],
         },
         {
-          heading: 'Query: how an agent actually finds things',
+          heading: 'What goes in REQUIREMENTS.md',
           paragraphs: [
-            'A coding agent answers questions about your wiki by reading `index.md`, searching file names and contents for keywords, and opening the pages that look relevant. This works well when titles and wording are consistent, and fails when the same idea appears under different words. Clear titles, summaries in the index and consistent tags are retrieval infrastructure.',
-            "When an answer is genuinely useful, file it back as a new page and add it to the index. That is how the wiki compounds: today's good answer becomes tomorrow's source.",
-          ],
-        },
-        {
-          heading: 'RAG in one page',
-          paragraphs: [
-            "Retrieval-augmented generation means retrieving relevant material, placing it in the model's context and generating an answer grounded in it. Enterprise systems split documents into chunks, turn them into embeddings (numerical representations of meaning) to find similar passages, often combine that with keyword search, and rerank the results.",
-            'You do not need to build one. You need to recognize its failure modes, because they are the same in your wiki and in a bank-wide assistant.',
+            'Keep it to one or two pages. It is a brief for an agent and a checklist for you, not a full PRD; that comes in Session 12.',
           ],
           bullets: [
-            'The wrong chunk is retrieved, so the answer is confidently off-topic.',
-            'The right chunk is missing, so the model fills the gap from general knowledge.',
-            'A stale chunk is retrieved, so the answer is correct for last year.',
-            'A chunk is retrieved without its context, so a caveat or exception is lost.',
+            '**Problem and user**: {{user}}, and the job: {{coreJob}}.',
+            '**Screens**: three to five, starting with {{mvpScreen}}. For each, what it shows and what the user can do.',
+            '**States**: empty, loading and error for every screen, with the words shown.',
+            '**Data**: {{data}}, all in one file so you can check and change it.',
+            '**Rules that must hold**: for example, {{deterministic}} are worked out by code, not by the model, and shown with the data they came from; status is never shown by colour alone; a visible label says "Prototype with fictional data".',
+            '**Done when**: one checkable example per screen, such as: {{acceptance}}',
+            '**Out of scope**: what v1 will not do, and open questions.',
           ],
         },
         {
-          heading: 'Trust is the hard part, not retrieval',
+          heading: 'Review the result, not a plan',
           paragraphs: [
-            'Practitioners who run agent-maintained knowledge bases report the same thing: finding text is easy, trusting answers is hard. Require a file path and a short quote for every claim, then check that the quote really exists in that file. Answers that cite real files but misquote them are more dangerous than answers that cite nothing.',
-            'Gate every write behind human review: plan first, then `git diff` before you commit. Asking the agent to wait for approval is an instruction, not a lock, so the diff is the check that cannot be skipped. Summaries also lose information by design, so state the audience and purpose and ask the agent what it left out.',
+            'With clear requirements, let Claude build. You do not need to approve a plan first: commit, let it work, then open the running prototype in your browser and click through every screen with `REQUIREMENTS.md` beside you. A running app shows you in a minute what a written plan hides for an hour.',
+            'Give feedback one change at a time, with a screenshot when it helps: "On the first screen the date is missing from each item; add it under the name." Check the change, then commit it. If a change goes badly, ask Claude to undo it back to the last commit and try again with a clearer ask. That is usually faster than arguing with a confused session.',
+          ],
+        },
+        {
+          heading: 'Fresh sessions and short handoff notes',
+          paragraphs: [
+            'Long sessions fill the context window. Claude Code then compacts the conversation, summarising older turns to make room, and detail is lost. You cannot control what survives. The signs are familiar: it reintroduces a bug it fixed, forgets a decision or contradicts the requirements.',
+            'The fix is cheap. Anything that matters goes into a file. Before you stop, or as soon as a session drifts, ask for a short `HANDOFF.md` and start a fresh session that reads it. A good handoff is written for a capable stranger with no access to the conversation: the goal, the current state with file paths, what is done, decisions and why, open questions, the next steps in order, how to check the work and what not to do. Keep it under 40 lines and overwrite it each time; git keeps the old versions.',
+          ],
+        },
+        {
+          heading: 'Your prototype is its own small project',
+          paragraphs: [
+            'Claude builds the prototype in `prototype/` inside your workspace. Because it will be public on GitHub in Session 7, it gets its own git history, separate from your private notes, and the workspace is told to ignore that folder. Give it its own short `CLAUDE.md` with the commands to run it and the hard rules: fictional data only, no real systems, accounts or keys.',
+            'Ask for a small web app that runs in the browser, built with React, TypeScript and Vite. That is a common, well-documented stack that agents handle well, and it can go live on GitHub Pages for free.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'anthropic-context-engineering',
-          why: 'Explains how agents use limited context, why curation beats volume and how retrieval fits in, from the people who build the models.',
+          resourceId: 'aihero-skills',
+          why: 'The hub for Matt Pocock\'s open skills, including the "grill" idea this session uses: the agent interviews you until the requirements are clear. Read the idea; you do not need to install anything.',
           required: true,
         },
         {
-          resourceId: 'karpathy-llm-wiki',
-          why: 'Reread the ingest and query operations before running them on your own wiki.',
+          resourceId: 'aihero-handoff',
+          why: 'A practitioner explanation of handoff notes: what to put in them and when to start fresh instead of compacting.',
           required: false,
         },
         {
-          resourceId: 'claude-code-in-action',
-          why: 'Deeper practice steering Claude Code on real files, including reviewing and approving its changes.',
-          required: false,
-        },
-        {
-          resourceId: 'vishal-ai-native-pm-os',
-          why: 'Another practitioner example of an AI-native PM knowledge setup, useful for comparing conventions.',
+          resourceId: 'aihero-prototype',
+          why: 'Why a prototype should answer a question and be cheap to throw away, which keeps you from polishing too early.',
           required: false,
         },
       ],
       task: {
         summary:
-          'Ingest at least ten raw sources, ask five questions only your notes can answer, verify every citation and file one answer back into the wiki.',
+          'Get interviewed into `REQUIREMENTS.md`, let Claude build a three to five screen prototype, steer it by reviewing the running result, and practise one handoff into a fresh session.',
         steps: [
-          'Add at least ten raw items to `00-inbox/`: saved articles, a voice-note transcript, meeting-free personal notes, half-formed thoughts, links with a sentence on why they matter.',
-          'Ingest three items one at a time with the prompt below. Approve each plan, then read `git diff` before committing.',
-          'Ingest the remaining items as a batch using the plan table. Spot-check three of the resulting pages against their raw sources.',
-          'Ask five questions only your notes can answer, such as "What did I decide about my learning time and why?". Require a file path and a quote for every claim.',
-          'Open every cited file and confirm each quote exists word for word. Record any misquote or retrieval miss in a retrieval log.',
-          'Ask one question whose answer is not in your notes. The correct response is "Not in your notes."',
-          'File one good answer back as a new page, add it to `index.md`, append to `log.md` and commit.',
+          'Open the Case study page and pick three to five screens for the prototype, starting with {{mvpScreen}}. Note them in a sentence or two.',
+          'In Claude Code, with the workspace open, run the interview prompt below. Answer one question at a time in your own words. Say "I do not know" when you do not; it becomes an open question.',
+          'Read `REQUIREMENTS.md` and edit it yourself until every screen has states, a "done when" example and nothing you did not decide. Commit it to the workspace.',
+          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `CLAUDE.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with your mentor; this is the only install in this session.',
+          'Ask Claude to start the app and give you the local link. Click through every screen with `REQUIREMENTS.md` beside you, on a laptop and at phone width. Write down everything that is wrong or missing.',
+          'Fix the list one change at a time, with screenshots where they help. Check each change in the browser, then ask Claude to commit it with a clear message.',
+          'Check two figures on screen by hand against the fictional data file. If they do not match, that is the next fix.',
+          'When the session gets long, ask for `HANDOFF.md` using the second prompt in the agent prompt box below. Start a fresh session, ask it to read the handoff and say what it will do next, and continue from there.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude Code or Codex',
-        where: 'Started inside ~/second-brain',
-        text: `Act as the librarian of this wiki. Read AGENTS.md (if present), index.md and the folder READMEs first.
+        tool: 'Claude Code',
+        where: 'In the Code tab, with the {{slug}}-workspace folder open',
+        text: `I am the product manager on {{name}}, {{product}}. I want a clickable prototype of my feature idea for {{user}}, who say: "{{opportunity}}". Engineers and real users will click through it, so it must be honest and simple.
 
-INGEST (one source or a batch):
-1. For each file in 00-inbox/ that has not been ingested, propose in a table: new page path, title, type, tags, one-line summary, existing pages it should update, and any contradiction with existing pages.
-2. Wait for my approval.
-3. Then: write the page using the matching template in templates/, update the affected pages, add the page to index.md, append "## [YYYY-MM-DD] ingest | Title" with one line to log.md, and move the raw file to 00-inbox/ingested/ without editing it.
-4. If a source contradicts an existing page, do not choose silently. Show both claims with dates and propose which stands. Mark the losing claim "Superseded by [link]" instead of deleting it.
+Read product-context.md and pitch/pitch-notes.md first.
 
-QUERY (I will ask one question at a time):
-- Read index.md first, then open only the pages you need.
-- Answer only from files in this folder. After every claim, cite the file path and a short exact quote.
-- If the answer is not in my notes, reply exactly "Not in your notes." and suggest where such a page would belong.
-- If notes disagree, show both with dates.
+Interview me until the requirements are clear enough that you would not need to guess while building. Ask one question at a time and wait for my answer. Cover: who uses each screen and why, the three to five screens, what each shows and what the user can do, empty, loading and error states with the exact words, the fictional data needed ({{data}}), which figures must be exact and calculated by code, accessibility, what happens at phone width, and what is out of scope. When an answer of mine contradicts product-context.md, point it out.
 
-Never edit raw sources, never delete pages, and show me git diff --stat before I commit.`,
+When you have no more questions, write REQUIREMENTS.md with these sections: Problem and user, Screens (one subsection each: shows, actions, states, done when), Data, Rules that must hold, Out of scope, Open questions. Use my words where you can. Do not fill gaps with plausible guesses; list them as open questions. Show me the file before saving it.
+
+---
+
+Second prompt, for later in the session:
+
+Write prototype/HANDOFF.md for a capable stranger who has none of this conversation. Under 40 lines: Goal, Current state (with file paths), Done so far, Decisions and why, Open questions, Next steps (numbered, each small enough for one session), How to check the work, Do not. Then list anything important that exists only in this conversation and not in a file.`,
       },
       expectedOutput: [
-        'At least ten ingested sources, each with a wiki page, index entry and log entry.',
-        'A retrieval log: five questions, the cited files and quotes, and any misses or misquotes.',
-        'One answer filed back as a new wiki page.',
+        '`REQUIREMENTS.md` with three to five screens, each with states and a "done when" example, plus open questions.',
+        'A running prototype in `prototype/` with its own git history, a short `CLAUDE.md` and a visible "Prototype with fictional data" label.',
+        'Several small commits, one per accepted change.',
+        'A `HANDOFF.md` that a fresh session used to continue the work.',
       ],
       artifact:
-        'A retrieval log of five cited answers with verified quotes, one correct "Not in your notes.", and an ingested inbox.',
+        '`REQUIREMENTS.md` and a running multi-screen {{name}} prototype in `prototype/`, with a handoff note.',
       verification: [
-        'Every quote in the five answers exists word for word in the cited file.',
-        'The out-of-scope question got "Not in your notes." rather than an invented answer.',
-        'Raw sources in 00-inbox/ingested/ are byte-for-byte unchanged (git shows them as moved, not modified).',
-        'Every new page appears in index.md and has a matching log.md entry.',
+        'Every screen in `REQUIREMENTS.md` exists in the prototype and shows its empty and error states.',
+        'Two figures on screen match your own calculation from the fictional data file.',
+        'Nothing in `REQUIREMENTS.md` is a decision you did not make: guesses are listed as open questions.',
+        'A fresh session given only `HANDOFF.md` and `REQUIREMENTS.md` correctly states the next step.',
+        'The workspace git history does not include the `prototype/` folder.',
       ],
       reflectionPrompts: [
-        'Where did retrieval fail, and was it a naming problem, a missing note or a misquote?',
-        'How much would you trust this setup for a decision that matters, and what would raise that trust?',
-        'What did reviewing every diff teach you about how the agent behaves?',
+        'Which interview question made you decide something you had not thought about?',
+        'What did clicking through the running prototype show you that the requirements did not?',
+        'When did you choose to start a fresh session, and what told you it was time?',
       ],
       checklist: [
-        { id: 'ten-sources', text: 'Ingested at least ten raw sources with plan approval' },
-        { id: 'diff-reviewed', text: 'Reviewed git diff before every commit' },
-        { id: 'five-questions', text: 'Asked five questions and required file paths and quotes' },
+        { id: 'interviewed', text: 'Was interviewed by Claude until the requirements were clear' },
         {
-          id: 'quotes-checked',
-          text: 'Opened every cited file and checked each quote word for word',
+          id: 'requirements',
+          text: 'Edited and committed `REQUIREMENTS.md` with states, examples and open questions',
         },
-        { id: 'not-in-notes', text: 'Tested a question the notes cannot answer' },
-        { id: 'filed-back', text: 'Filed one answer back as a page and committed' },
+        { id: 'prototype-runs', text: 'Built a three to five screen prototype that runs locally' },
+        {
+          id: 'reviewed-result',
+          text: 'Clicked through every screen and fixed issues one change at a time',
+        },
+        { id: 'figures-checked', text: 'Checked two figures by hand against the data file' },
+        { id: 'handoff', text: 'Wrote `HANDOFF.md` and continued in a fresh session' },
       ],
       mentorMove:
-        'Give her one question whose answer is phrased differently in her notes than in the question, and let her discover the retrieval miss. Then explain in five minutes how embeddings would help with that, and where they would still fail.',
+        'Play the engineering lead for ten minutes. Click through the prototype and ask "what happens when..." questions: no data, a very long name, a phone in landscape. Every question she cannot answer from `REQUIREMENTS.md` is a missing line, not a missing feature.',
     },
     {
       id: 's7',
       levelId: 2,
       number: 7,
-      title: 'Schema, goals, decisions and your first skills',
+      title: 'GitHub and go live',
       difficulty: 'Intermediate',
-      minutes: 100,
-      tools: ['Claude Code or Codex', 'A text editor'],
+      minutes: 120,
+      tools: ['Claude Code', 'GitHub (free account)'],
       prerequisites: ['s6'],
-      competencies: ['prompting-context', 'knowledge-management', 'ai-leadership'],
-      xp: 170,
-      mentorReview: 'recommended',
-      goal: 'Write the persistent instructions that make any agent useful in your wiki, record goals and decisions properly, and turn repeated prompts into skills.',
+      competencies: ['technical-collaboration', 'coding-agents'],
+      xp: 125,
+      mentorReview: 'required',
+      practicalProof: true,
+      goal: 'Publish the prototype as a public `{{slug}}` repository with a protected main branch, merge your first pull request, and put {{name}} live on GitHub Pages.',
       whyItMatters:
-        'Persistent instructions are the difference between an agent that asks what the folder is every session and one that knows your conventions, priorities and boundaries. The same files now appear in most engineering repositories, and PMs increasingly own the product context inside them. Learning to write them for yourself is direct preparation for writing them for a team.',
+        'Engineers want to see the prototype and comment on it, and they want a link, not a screen share. GitHub is where software work becomes visible: changes, reviews, decisions and releases. PMs who can open a pull request and read a diff work with engineers and coding agents directly instead of only through tickets, and the pull request history is the audit trail regulated teams rely on.',
       learn: [
         {
-          heading: 'AGENTS.md is the schema',
+          heading: 'The mental model',
           paragraphs: [
-            '`AGENTS.md` is an open convention read by Codex, GitHub Copilot, recent versions of Claude Code and many other agents. Claude Code reads it when there is no `CLAUDE.md` in the folder. If you later want rules only Claude should follow, create a `CLAUDE.md` whose first line is `@AGENTS.md`, which imports the shared file, so there is still one source of truth. The file states what the place is, its structure, conventions, permissions and how to verify work. Keep it short; every line costs context in every session.',
-            'Agents reliably read these files at the start of a session, but often skip the wiki in the middle of a task. Put **explicit triggers** in the file, written as rules with a condition.',
-            'Triggers make the right behavior much more likely; they do not guarantee it. An instruction is guidance the model can miss or misread. Anything that must never happen, such as deleting raw sources or pushing to a remote, needs an enforced control: a permission rule in the tool settings, a read-only folder, or review before commit.',
-          ],
-          bullets: [
-            'Before answering anything about my goals, decisions or projects, read index.md and cite the pages you used.',
-            'When a task produces a decision, propose a decision record and a log.md entry.',
-            'Before creating, moving or editing files, show a plan and wait for approval.',
-            'When you make a mistake I correct, propose a one-line rule for this file.',
+            'A **repository** is a project folder with its full history. A **commit** is a saved snapshot with a message explaining why it was made. A **branch** is a parallel line of work, so you can change things without touching the stable version on `main`. A **pull request** (PR) proposes merging a branch into `main`, and it is where review, discussion and automated checks happen.',
+            'Claude Code runs the git commands: "create a branch called deploy/pages", "commit this", "push and open a pull request". Your job is to read what it changed and decide whether it goes in. You will see the same steps on GitHub\'s website, which is where you and your mentor read and comment.',
           ],
         },
         {
-          heading: 'Knowledge versus project context, in fixed formats',
+          heading: 'Why a protected main branch matters',
           paragraphs: [
-            'Durable knowledge (who you are, goals, conventions, decisions) belongs in the schema and the wiki. Project context (status, next steps, open questions for one piece of work) belongs in `projects/<name>/README.md`. Mixing them makes the root instructions go stale quickly.',
-            'Models apply conventions inconsistently unless the format is fixed. List the required headings for each page type in `AGENTS.md`, keep them identical to your templates, and check them during the weekly lint. Consistent structure is what lets an agent find the Status of every decision with one search.',
+            'A ruleset on `main` makes it accept changes only through pull requests. That one setting turns "someone changed the live site" into "a reviewed, recorded change was merged". When an agent can write code in minutes, this gate matters more, not less.',
+            "One catch: by default, repository admins can bypass the rules, and on your own repository you are the admin. Leave the ruleset's bypass list empty so the rule binds you too. Apply the same rule to everyone who changes code, including PMs, designers and agents: a one-word copy fix still gets a pull request, just a quick review.",
           ],
         },
         {
-          heading: 'Decision records and contradictions',
+          heading: 'Reading a diff',
           paragraphs: [
-            'A decision record captures the context, options considered, the decision, why, what would change your mind, a review date and a status. It gives future you, and every future agent, the reasoning rather than just the outcome.',
-            "Decisions change. Resolve the conflict when you write the new decision: set the old record's status to superseded with a link to the new one. Never delete it, and instruct agents to flag conflicting claims instead of picking one silently.",
+            'A diff shows removed lines in red and added lines in green. You do not need to understand every line to review usefully. Ask four questions: does this change match the pull request description, is anything changed that should not be, is there a way to check it works, and is there anything secret or real in it? Those four questions catch a surprising amount.',
+            'If you cannot explain what a change does and why, do not merge it. Ask Claude to walk you through any line you do not understand, and keep asking until you can explain it back.',
           ],
         },
         {
-          heading: 'Mechanism versus data, and when a prompt becomes a skill',
+          heading: 'Going live on GitHub Pages',
           paragraphs: [
-            'Keep **mechanism** (skills, templates, instructions) separate from **data** (your notes). You can then improve how work gets done without touching your knowledge, and share a useful skill without sharing anything private.',
-            'A skill is a folder with a `SKILL.md` file: front matter with a `name` and a `description` of when to use it, then the steps, plus any templates it needs. Agents read only the descriptions until a skill is relevant, which keeps everyday context lean. Location matters: Codex discovers skills in `.agents/skills/<name>/SKILL.md`, and Claude Code in `.claude/skills/<name>/SKILL.md`. Keep one copy in `.agents/skills/` and give Claude Code a link to it (your mentor can show you `ln -s`), or keep the skills in the folder your main tool uses. A good rule: once you have used the same multi-step prompt three times, make it a skill. Your weekly review and your ingest prompt both qualify.',
-            "Instruction files and skills are advice, not enforcement. Claude Code's best practices say it plainly: the model may decide a guideline does not apply, so a rule with zero exceptions, such as never editing a source in `00-inbox/`, belongs in a permission rule, a hook or a check, not in more emphatic wording. Keep AGENTS.md short and limited to what the agent cannot learn from the files themselves; a long file buries the lines that matter.",
+            'GitHub Pages hosts static sites for free on public repositories. A small **GitHub Actions** workflow builds the app and publishes it every time something is merged into `main`, so the live site always matches the reviewed code. Vite apps need one setting, the base path, set to `/{{slug}}/` so the site works at `https://<your-username>.github.io/{{slug}}/`.',
+            'The repository is public, so everything in it is public, including its history. Before the first push, check for keys, real names and personal data. The prototype uses {{data}} and nothing else; your private workspace notes never go here.',
+            'If a merge ever breaks the live site, the first move is to undo it: the **Revert** button on the merged pull request opens a new pull request that reverses it. Fix forward afterwards.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'agents-md',
-          why: 'The open convention for agent instruction files, with examples of what to include.',
+          resourceId: 'github-skills-intro',
+          why: 'A free, hands-on exercise inside GitHub itself that walks you through branches, commits and pull requests before you do them for real.',
           required: true,
         },
         {
-          resourceId: 'anthropic-agent-skills-course',
-          why: 'A free course on how agent skills are structured and loaded, so your skills follow the real format.',
+          resourceId: 'github-pages-docs',
+          why: 'The official guide to publishing a site with GitHub Pages, including where the publishing settings live.',
           required: true,
         },
         {
-          resourceId: 'claude-code-docs',
-          why: 'The memory and skills pages state exactly where Claude Code looks for AGENTS.md, CLAUDE.md and skills. Check them when something is not picked up.',
+          resourceId: 'github-about-prs',
+          why: 'The official explanation of pull requests, reviews and merging, for when something on the PR page is unclear.',
           required: false,
         },
         {
-          resourceId: 'aihero-skills',
-          why: 'Practitioner examples of skills used in real AI engineering workflows, useful for seeing how others scope them.',
-          required: false,
-        },
-        {
-          resourceId: 'claude-code-best-practices',
-          why: 'The clearest statement of what instructions can and cannot guarantee, and what to enforce instead.',
-          required: false,
-        },
-        {
-          resourceId: 'augment-agents-md',
-          why: 'A study of what makes instruction files help or hurt; it covers code repositories, but the advice on brevity carries over.',
+          resourceId: 'vite-static-deploy',
+          why: 'How a Vite app is deployed to GitHub Pages, including the base path. Useful if the live site loads blank.',
           required: false,
         },
       ],
       task: {
         summary:
-          'Let an agent interview you, write AGENTS.md with triggers and format rules, record a goal and two decisions, and create your first two skills.',
+          'Complete the GitHub introduction, publish the prototype as a public repository with a no-bypass ruleset on main, merge a pull request that deploys it, and open the live URL on your phone.',
         steps: [
-          'Run the interview prompt below and answer one question at a time.',
-          'Edit the draft AGENTS.md yourself. Keep explicit triggers and the required headings for each page type. Cut anything an agent will not need in most sessions.',
-          'If you use Claude Code, confirm it picks up AGENTS.md: start a session and ask what instructions it loaded. Only create CLAUDE.md (first line `@AGENTS.md`) if you need Claude-specific rules.',
-          'Write `goals/2027-return-to-work.md` with outcomes, how you will know you achieved them and a review date.',
-          'Write two decision records from the template, one of which supersedes an earlier note or decision. Mark the old one superseded with a link.',
-          'Turn your weekly review prompt into `.agents/skills/weekly-review/SKILL.md` and your ingest instructions into `.agents/skills/ingest/SKILL.md`, each with `name` and `description` front matter. If you use Claude Code, link `.claude/skills` to `.agents/skills`.',
-          'In a fresh session, ask the agent which skills it can see, then trigger each one by describing the task without naming the skill. If a skill is not found, fix the folder or the description before moving on.',
-          'Start a new agent session and ask: "What is this folder, and how should you file a new reading note?" Check that it answers from AGENTS.md without hints.',
-          'Append log.md entries and commit.',
+          'Create a free GitHub account if you do not have one, and turn on two-factor authentication.',
+          'Complete the GitHub Skills "Introduction to GitHub" exercise in the browser.',
+          'With your mentor, sign your computer in to GitHub once so Claude Code can push. The GitHub CLI (`gh auth login`) is the usual way, and Claude Code can talk you through it.',
+          'In Claude Code, open the `prototype/` folder. Ask Claude to check the code and its history for keys, tokens, real names, email addresses and personal data, and to confirm `.gitignore` excludes build output, dependencies and any `.env` file. Fix anything it finds before going further.',
+          'Ask Claude to create a public GitHub repository named `{{slug}}` and push `main`.',
+          'On GitHub, open Settings, then Rules, and add a ruleset for `main` that requires a pull request before merging. Leave the bypass list empty.',
+          'Run the prompt below. Claude creates a branch, adds the deployment workflow and a README, pushes and opens a pull request.',
+          'On GitHub, read the diff with the four questions. Leave at least one comment. Ask your mentor to review too, then ask Claude to address the comments in a new commit.',
+          'In Settings, then Pages, set the source to GitHub Actions. Merge the pull request, watch the Actions tab turn green and open the live URL on your phone.',
+          'Ask Claude to push a small change straight to `main` and confirm GitHub rejects it.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude Code or Codex',
-        where: 'Started inside ~/second-brain',
-        text: `I want to write AGENTS.md for this personal wiki so that any AI agent (Claude Code, Codex, Copilot) is useful from its first message.
+        tool: 'Claude Code',
+        where: 'In the Code tab, with the prototype folder open',
+        text: `This is the {{name}} prototype, a React, TypeScript and Vite app that runs in the browser on {{data}} only. It is now a public GitHub repository called {{slug}}, and main only accepts pull requests.
 
-First read index.md, log.md and the templates in templates/. Then interview me. Ask one question at a time, at most 12 questions, covering:
-- Who I am and what this wiki is for
-- My current goals and priorities
-- How pages are named, dated, tagged and filed
-- What agents may do without asking, what needs my approval and what they must never do
-- How to handle contradictions, stale pages and missing information
-- How I like answers formatted
+Goal: publish the prototype on GitHub Pages so that every merge into main updates the live site.
 
-Then draft AGENTS.md:
-- Under 120 lines, Markdown headings, imperative sentences
-- Sections: Purpose, About me, Layers and structure (one line per folder), Page types and required headings (match templates/ exactly), Triggers, Permissions and boundaries, Contradictions and freshness, Skills, How to verify your work
-- Triggers written as "When X, do Y" rules, including: read index.md before answering about goals, decisions or projects; propose a decision record when a decision is made; plan before any write
-- Project status belongs in projects/<name>/README.md, not in AGENTS.md
-- Mark any line you are unsure about with "(confirm)"
+1. Create a branch called deploy/pages.
+2. Add a GitHub Actions workflow that installs, builds and deploys the site to GitHub Pages on every push to main. Use the official GitHub Pages actions.
+3. Set the Vite base path to /{{slug}}/.
+4. Rewrite README.md: one paragraph on what {{name}} is and the problem it explores, using REQUIREMENTS.md as the source; a Status section saying it is a learning prototype with fictional data only; a Live site section with the URL https://<my-username>.github.io/{{slug}}/ using my real username; and a How we work section: every change goes through a pull request, pull requests stay small, the author reads their own diff first.
+5. Commit with clear messages, push the branch and open a pull request whose description explains each change in one line, written for a product manager.
 
-Do not write the file until I approve the draft.`,
+Constraints: no new dependencies beyond what the deployment needs, no changes to the app itself, nothing outside the files above. Tell me which setting I need to change on GitHub myself, and what I should check in the diff before merging.`,
       },
       expectedOutput: [
-        'AGENTS.md with structure, triggers, page formats and boundaries.',
-        'A return-to-work goal file and two decision records, one superseding another.',
-        'Two skills in .agents/skills/: weekly-review and ingest, each discovered by a fresh session.',
+        'A public `{{slug}}` repository with a no-bypass ruleset on `main`.',
+        'A merged pull request with a description, at least one review comment and a follow-up commit.',
+        'A deployment workflow that runs on every merge.',
+        'The live {{name}} prototype at a GitHub Pages URL.',
       ],
-      artifact: 'AGENTS.md, a goal file, two decision records and two working skills.',
+      artifact:
+        'The live {{name}} prototype URL and your first merged pull request in the public `{{slug}}` repository.',
       verification: [
-        'AGENTS.md is under 150 lines and contains at least three explicit "When X, do Y" triggers.',
-        'A fresh session answers the filing question correctly, citing AGENTS.md or index.md, without hints.',
-        'Each skill has `name` and `description` front matter and numbered steps, a fresh session lists it, and it triggers from a task description alone.',
-        'The superseded decision has status superseded and a working link to its replacement.',
+        'The live URL loads on your phone and shows the "Prototype with fictional data" label.',
+        'A direct push to `main` is rejected, even though you are the repository admin.',
+        'The merged pull request shows at least two commits, a review comment and a resolved conversation.',
+        'The diff changed only the workflow, the Vite setting and the README, as the prompt asked.',
+        'Nothing in the repository or its history contains keys, real names or personal data.',
       ],
       reflectionPrompts: [
-        'Which line in AGENTS.md do you expect to matter most, and why?',
-        'What did the interview reveal about your working style that you had not written down before?',
-        'Which other repeated prompt in your life or work deserves to become a skill?',
+        'Which git idea clicked for you, and which still feels fuzzy?',
+        'What did reading the diff reveal that the pull request description did not mention?',
       ],
       checklist: [
-        { id: 'interview', text: 'Completed the agent interview' },
+        { id: 'gh-skills', text: 'Completed the GitHub Skills introduction exercise' },
         {
-          id: 'agents-md',
-          text: 'Edited and saved AGENTS.md with triggers and page formats, and confirmed my tool loads it',
+          id: 'secrets-check',
+          text: 'Checked the prototype for keys and personal data before the first push',
         },
-        { id: 'goal', text: 'Wrote the return-to-work goal with a review date' },
-        { id: 'decisions', text: 'Wrote two decision records, one superseding another' },
-        { id: 'skills', text: 'Created and ran the weekly-review and ingest skills' },
+        { id: 'ruleset', text: 'Added a ruleset on main with an empty bypass list' },
         {
-          id: 'fresh-check',
-          text: 'Tested a fresh session against the filing question and committed',
+          id: 'pr-merged',
+          text: 'Read the diff, addressed a review comment and merged the pull request',
         },
+        { id: 'live-url', text: 'Opened the live GitHub Pages URL on a phone' },
+        { id: 'push-rejected', text: 'Confirmed a direct push to main is rejected' },
       ],
       mentorMove:
-        'Show her one real agent instruction file from your own work, sanitized, and explain a line you added after an agent made a mistake. Then review her AGENTS.md for lines that are vague or rarely needed.',
+        'Be the reviewer on her first pull request: leave one real comment, such as a missing link in the README, and one question, and approve only after she pushes a fix. Then open a merged pull request from a well-known open-source project and talk through what you look at first and why.',
     },
     {
       id: 's8',
       levelId: 2,
       number: 8,
-      title: 'Weekly review, lint and the fresh-agent test',
-      difficulty: 'Advanced',
-      minutes: 100,
-      tools: ['Two different agents: Claude Code, Codex, Antigravity or Copilot'],
+      title: 'Review what agents build',
+      difficulty: 'Intermediate',
+      minutes: 120,
+      tools: ['Claude Code', 'GitHub', 'A phone'],
       prerequisites: ['s7'],
-      competencies: ['knowledge-management', 'prompting-context', 'coding-agents'],
-      xp: 200,
+      competencies: ['technical-collaboration', 'evals-safety'],
+      xp: 125,
       mentorReview: 'recommended',
-      practicalProof: true,
-      goal: 'Keep the wiki healthy with a weekly lint, write a handoff, and prove that a fresh agent in a different tool can continue your work from saved context alone.',
+      safetyCritical: true,
+      goal: 'Test the live prototype with real people, cover accessibility basics, get a second review from a fresh Claude session, fix bugs from reports and screenshots, and keep the repository free of secrets.',
       whyItMatters:
-        'Context that only lives in one chat dies with that chat. Handoffs, compaction and continuity are how agent work scales across days, people and tools, and they are exactly the problems teams hit when a PM, a designer and an engineer pass work between agents. The fresh-agent test is also your first evaluation, a theme that returns in Level 5.',
+        'You sent the link to a friend. Ten minutes later: two bugs and a screen that breaks on her phone. Agents write code faster than anyone reads it, so review is now the slow step, and the PM who reviews well ships faster than the one who prompts well. In a regulated product such as {{product}}, a confident screen that shows the wrong figure does more damage than a missing feature.',
       learn: [
         {
-          heading: 'Sessions end, files persist',
+          heading: 'Test like a user, then like a sceptic',
           paragraphs: [
-            'Long agent sessions fill the context window. Tools then compact the conversation, summarizing older turns to make room, and detail is lost in the process. You cannot control exactly what survives a compaction.',
-            'The durable rule is simple: anything that matters goes into a file. Decisions go to `decisions/`, project state to the project README or a handoff, and conventions to `AGENTS.md`. A new session should never need the old chat.',
+            'Watch someone use the live link on their own phone without helping. Note where they hesitate, what they tap that does nothing, and what they misread. Then go through `REQUIREMENTS.md` yourself, screen by screen: every state, every "done when" example, at laptop and phone width.',
+            'Check the numbers. The {{deterministic}} come from code, so they should match what you work out by hand from the fictional data, exactly. Pick the edge cases agents miss: no data at all, one item exactly on a boundary such as a due date or deadline, a very long name, two items on the same day.',
           ],
         },
         {
-          heading: 'Lint: keep the wiki trustworthy',
+          heading: 'Accessibility basics',
           paragraphs: [
-            'A wiki rots quietly. A weekly lint pass, run by an agent and reviewed by you, keeps it slim and trustworthy. Agents trust whatever they read, so a stale page is worse than a missing one.',
+            'You do not need to be an expert to catch most problems. Filter the WCAG quick reference to levels A and AA and run five checks on every screen.',
           ],
           bullets: [
-            '**Contradictions**: pages that make conflicting claims without a superseded marker.',
-            '**Stale claims**: pages not updated in over 60 days that describe current state.',
-            '**Orphans**: pages missing from index.md or linked from nowhere.',
-            '**Missing links**: pages that mention a topic another page covers but do not link to it.',
-            '**Gaps**: open questions or log entries with no page that answers them.',
-            '**Format drift**: pages missing the required headings for their type.',
+            '**Keyboard only**: can you reach and use everything with Tab and Enter, and can you see where you are?',
+            '**Colour alone**: is any status, warning or shortfall shown only by colour? Add words or an icon.',
+            '**Contrast**: is grey text readable? Low-contrast secondary text is the most common failure.',
+            '**Labels**: does every button and form field have a name a screen reader can announce?',
+            '**Zoom**: at 200% zoom, does the layout still work without sideways scrolling?',
           ],
         },
         {
-          heading: 'Anatomy of a good handoff',
+          heading: 'A second opinion from a fresh session',
           paragraphs: [
-            'A handoff is written for a capable stranger with no access to your conversation. It states the goal, current state with file paths, what is done, decisions and their reasons, open questions, ordered next steps, how to verify the work and what not to do.',
-            'Freshness and ownership apply here too. Every important page needs a date and an owner, even when the owner is you. In teams, pages without an owner are the first to rot, and agents will keep quoting them long after they stop being true.',
+            'The session that wrote the code is the worst one to review it: it remembers what it meant, not what it wrote. Open a fresh session, give it the requirements and your checklist, and ask it to review the changes against `main` without editing anything. Claude Code also has a built-in review command; a plain prompt in a fresh session works just as well.',
+            'An agent reviewer finds likely bugs, missing states and scope creep in minutes. It also raises false alarms and misses context only you have. Treat each comment as input, not a verdict, and record a decision for every one: fixed, rejected with a reason, or turned into an issue. An agent approval never replaces a human one: in a bank, every production change needs an independent person to approve it.',
           ],
         },
         {
-          heading: 'The fresh-agent test is an evaluation',
+          heading: 'Fix from a bug report and a screenshot',
           paragraphs: [
-            'To test your context system, open a new session in a different tool with no chat history and give it a real task. Score whether it found the right files, followed your conventions, took a sensible next step and asked only for information that is genuinely missing.',
-            'Every failure points to missing or undiscoverable context. Fix the context, not the agent, then rerun. Measuring, fixing and remeasuring is the same loop teams use to evaluate AI products.',
+            'Good fixes start with a reproducible report: the device, the exact steps, what you expected, what happened and a screenshot. Paste the screenshot straight into Claude Code. Ask it to reproduce the problem first and explain the cause, then fix it on its own branch with its own pull request. If the bug is in a calculation, ask for a test that fails before the fix and passes after it: a fix without a test tends to come back.',
+          ],
+        },
+        {
+          heading: 'Never commit a secret',
+          paragraphs: [
+            "A public repository is public forever: bots scan GitHub for keys within minutes, and deleting a file later does not remove it from history. Keep keys, tokens, passwords and `.env` files out, list them in `.gitignore`, and turn on secret scanning and push protection in the repository's security settings so GitHub blocks a push that contains a known key format.",
+            'If a secret does get pushed, revoke it at the provider first, then clean up the repository. Real personal data follows the same rule: none, ever, because the prototype runs on {{data}}.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'aihero-handoff',
-          why: "A practitioner's handoff skill showing what a good agent-to-agent handoff contains.",
+          resourceId: 'claude-code-in-action',
+          why: 'The official course for people who already use Claude Code: steering longer sessions, `CLAUDE.md`, and code review on GitHub. Skip the parts on hooks and headless runs.',
           required: true,
         },
         {
-          resourceId: 'anthropic-context-engineering',
-          why: 'Background on compaction, structured note-taking and long-running agent work.',
+          resourceId: 'aihero-code-review',
+          why: 'A practitioner view of agent code review on two axes: does the change follow the conventions, and does it match the spec.',
           required: false,
         },
         {
-          resourceId: 'codex-docs',
-          why: 'Reference for running Codex as the fresh agent if Claude Code was your main tool, or the other way round.',
+          resourceId: 'wcag-quickref',
+          why: 'The official accessibility checklist. Filter to levels A and AA to keep it manageable.',
           required: false,
         },
         {
-          resourceId: 'claude-code-docs',
-          why: 'Reference for how Claude Code loads instruction files and skills and handles long sessions.',
+          resourceId: 'claude-code-review-post',
+          why: "Anthropic's account of its own review practice, where an agent reviews every pull request and human depth scales with risk. A vendor describing its own tool: read it as a worked example, not proof.",
           required: false,
         },
       ],
       task: {
         summary:
-          'Run your weekly review through the skill, create and run a lint skill, write a handoff and score a fresh agent in a different tool twice.',
+          'Test the live prototype with a user and against your requirements, write `review-checklist.md`, fix the bugs you find through reviewed pull requests, and confirm the repository has no secrets.',
         steps: [
-          "Run the weekly-review skill in your main agent on this week's notes. Edit the reflection in your own words and save it.",
-          'Create `.agents/skills/lint/SKILL.md` that checks contradictions, stale claims, orphans, missing links, gaps and format drift. Run it, review the findings and approve fixes one group at a time.',
-          'Pick a project in progress (for example your return-to-work plan or your case study preparation) and ask the agent to write `projects/<name>/HANDOFF.md` with the prompt below.',
-          'Close every session. Open a different agent (for example Codex if you used Claude Code, or Antigravity or Copilot) fresh in `~/second-brain` and say only: "Continue the <name> project. Read what you need first."',
-          'Score the fresh agent from 1 to 4 on: found the right files, understood the state, followed conventions, chose a sensible next step, asked only necessary questions.',
-          'Fix the gaps in AGENTS.md or HANDOFF.md, rerun in another fresh session and rescore.',
-          'Record both scores in a test log, append to log.md and commit.',
+          'Send the live link to one or two people. Watch at least one of them use it on their own phone without helping. Note every bug, hesitation and misreading.',
+          'Go through `REQUIREMENTS.md` yourself on laptop and phone: every screen, state and "done when" example. Check two figures by hand and try two edge cases.',
+          'Run the five accessibility checks on every screen and note what fails.',
+          'Ask Claude to draft `docs/review-checklist.md` from `REQUIREMENTS.md` and this session: requirements, figures, states, accessibility, data and secrets. Edit it to one page in your own words.',
+          'Write each problem as a bug report in `docs/review-log.md`: device, steps, expected, actual and a screenshot. Pick the three that matter most.',
+          'Fix them one at a time. For each, in a fresh session: paste the report and screenshot, ask Claude to reproduce and explain the cause, fix it on its own branch, add a test if it is a calculation, and open a pull request.',
+          'Before merging each pull request, run the review prompt below in another fresh session. Record a decision for every comment in `docs/review-log.md`: fixed, rejected with a reason, or turned into an issue.',
+          'Ask your mentor to review the change with the highest risk, usually anything touching {{deterministic}}, as the human reviewer.',
+          'Turn on secret scanning and push protection in the repository settings. Ask Claude to scan the full history for keys, tokens and personal data, and fix anything it finds.',
+          'Merge, then check the live site shows the fixes on your phone.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude Code or Codex',
-        where: 'Started inside ~/second-brain, in the session that knows the project',
-        text: `Write a handoff for the project in projects/[name]/ so that a different AI agent, with no access to this conversation, can continue the work tomorrow.
+        tool: 'Claude Code',
+        where: 'In a fresh session, in the prototype folder, on the branch of an open pull request',
+        text: `Review the changes on this branch compared with main. You did not write them, so read them fresh. Do not edit any files.
 
-Save it as projects/[name]/HANDOFF.md with these sections:
-1. Goal: one paragraph, including why it matters to me
-2. Current state: what exists now, with file paths
-3. Done so far: newest first, with file paths
-4. Decisions: each with its reason, linking to decisions/ pages where they exist
-5. Open questions: what is unresolved and who decides
-6. Next steps: numbered, in order, each small enough for one session
-7. How to verify: how the next agent can check its own work
-8. Do not: things the next agent must avoid
+Context: this is the {{name}} prototype, {{product}}, running on {{data}} only. Read CLAUDE.md, REQUIREMENTS.md, docs/review-checklist.md and the pull request description first.
 
-Rules:
-- Write for a capable stranger. No "as discussed" and no references to this chat.
-- Link to files instead of repeating their content.
-- Keep it under 80 lines and add the date and owner at the top.
-- Append "## [YYYY-MM-DD] handoff | [name]" to log.md.
-- After writing, list any important context that exists only in this conversation and is not yet saved in a file, so I can decide where it belongs.`,
+Check, in this order:
+1. Requirements: does the change do what the pull request says, and does it still meet every "done when" example it touches? Check any change to {{deterministic}} by hand for two cases from the fictional data.
+2. Scope: is anything changed that the description does not mention?
+3. States: empty, loading and error states on every screen the change touches.
+4. Accessibility: colour-only signals, missing labels, low contrast, keyboard access.
+5. Data and secrets: keys, tokens, real names, personal data, new network calls or new dependencies.
+6. Tests: if the change touches a calculation, is there a test that would fail without the fix?
+
+Output a table: severity (blocker, should-fix or nit), file and line, issue, suggested fix. Only "blocker" means do not merge. If you are not sure something is a bug, say so and say what would confirm it. End with one paragraph, written for a product manager, on what this change does and how risky it is.`,
       },
       expectedOutput: [
-        'A weekly reflection produced with the skill, plus a lint skill and its first findings resolved.',
-        'projects/<name>/HANDOFF.md.',
-        'A fresh-agent test log with two scored runs and the context fixes between them.',
+        '`docs/review-checklist.md`: a one-page checklist in your own words.',
+        '`docs/review-log.md` with bug reports, agent review comments and a decision for each.',
+        'At least three merged fix pull requests, each reviewed by a fresh session and by you.',
+        'Secret scanning and push protection turned on, and a clean history scan.',
       ],
-      artifact:
-        'A fresh-agent test log showing two scored runs in a different tool, the gaps found and the context fixes.',
+      artifact: '`review-checklist.md`, a review log, and at least three fixes merged and live.',
       verification: [
-        'The second run scores at least as well as the first on every dimension.',
-        'The fresh agent ran in a different tool, or at least a new session with no shared history.',
-        'HANDOFF.md contains file paths, a date and an owner, and no references to the old conversation.',
-        'The lint output lists real findings, or states that it checked each category and found none.',
+        'Every comment from the agent reviews has a recorded decision: fixed, rejected with a reason, or turned into an issue.',
+        'Each bug report has steps, expected and actual results, and a screenshot or device note.',
+        'Any calculation fix has a test that fails without it and passes with it.',
+        'The live site passes the five accessibility checks on the screens you fixed.',
+        'Secret scanning and push protection are on, and nothing in the repository history is a key, token or real personal data.',
       ],
       reflectionPrompts: [
-        'What did the fresh agent need that you assumed was obvious?',
-        'Which lint finding surprised you most?',
-        'How would this test change if a colleague, rather than an agent, picked up your work?',
+        'Which agent review comment was wrong, and how did you know?',
+        'What did watching a real person use the prototype show you that your own testing missed?',
+        'What would you need before trusting an agent review on a change that touches real money or real customers?',
       ],
       checklist: [
+        { id: 'user-test', text: 'Watched at least one person use the live prototype on a phone' },
+        { id: 'a11y-checks', text: 'Ran the five accessibility checks on every screen' },
+        { id: 'review-checklist', text: 'Wrote `docs/review-checklist.md` in my own words' },
         {
-          id: 'weekly-skill',
-          text: 'Ran the weekly-review skill and saved a reflection in my own words',
+          id: 'fixes-merged',
+          text: 'Fixed three bugs from reports and screenshots through separate pull requests',
         },
         {
-          id: 'lint',
-          text: 'Created the lint skill, ran it and resolved the findings with review',
+          id: 'agent-review',
+          text: 'Ran a fresh-session review on each fix and recorded a decision per comment',
         },
-        { id: 'handoff', text: 'Wrote HANDOFF.md for a real project' },
-        { id: 'fresh-run-1', text: 'Ran and scored the fresh-agent test in a different tool' },
-        { id: 'fresh-run-2', text: 'Fixed context gaps, reran and rescored' },
-        { id: 'committed', text: 'Saved the test log, appended to log.md and committed' },
+        {
+          id: 'no-secrets',
+          text: 'Turned on secret scanning and push protection and checked the history',
+        },
       ],
       mentorMove:
-        'Be the fresh agent for five minutes: read only her HANDOFF.md and say aloud what you would do next. Wherever you hesitate is where the handoff is weak.',
+        'Do the human review on her highest-risk pull request and think aloud: what you check first, what you trust the agent review for, and what makes you slow down. Then compare your findings with the agent review and point out one thing only someone who knows the product would have caught.',
     },
   ],
   challenges: [
     {
       id: 'c3',
       levelId: 2,
-      title: 'Team knowledge base blueprint',
-      difficulty: 'Advanced',
-      minutes: 150,
-      competencies: ['ai-leadership', 'knowledge-management'],
-      xp: 200,
+      title: 'Read a real codebase',
+      difficulty: 'Intermediate',
+      minutes: 60,
+      competencies: ['technical-collaboration', 'coding-agents'],
+      xp: 75,
       summary:
-        'Design, on paper, how a product team at a bank could run a shared knowledge base that both people and agents use, applying everything you learned building your own.',
+        'Before your next engineering conversation, use Claude Code to understand an open-source product you could use yourself, without changing a line. Come out with a one-page brief and three good questions for an engineer.',
       steps: [
-        'Describe the three layers for a team: which raw sources (research, decisions, specs, retros), the wiki pages and the schema file.',
-        'Define the three operations for a team: who ingests what, how agents answer queries with citations, and who runs the lint and how often.',
-        'Set ownership and freshness rules: every page has an owner and an update date; define what happens to unowned or stale pages.',
-        'Define confidentiality tiers and access control, and what never goes in (customer data, credentials, personal data about colleagues). Note which tools your employer approves for each tier.',
-        'Decide how writes are gated: which changes an agent may make alone and which need human review.',
-        'Draft an example AGENTS.md for a product repository, with triggers and page formats.',
-        'Review the blueprint with your mentor and list the three biggest adoption risks.',
+        'Pick an open-source product on GitHub with a web interface, active maintainers and a clear README: a budgeting app, a notes app or a help desk, ideally close to {{name}}.',
+        'Ask Claude Code to download a copy into a new folder outside your workspace. Tell it this is read-only: no edits, no installs, no commands that change anything.',
+        'Ask: what does the product do, what are the main folders and what lives in each, where does one user-facing feature live from screen to data, how is it tested, and what would an engineer find hardest to change?',
+        'Ask Claude to save the answers as `codebase-brief.md`, citing a file path for every claim.',
+        'Open two of the cited files yourself and check that they say what the brief claims.',
+        'Write three questions you would now ask an engineer on that project, and say which part of the brief prompted each.',
       ],
       deliverable:
-        'A two-page team knowledge base blueprint plus an example AGENTS.md for a product repository.',
+        'A one-page `codebase-brief.md` with file paths for every claim, two claims you checked yourself, and three questions for an engineer.',
       verification: [
-        'Every page type has a named owner role and a freshness rule.',
-        "The blueprint explains how a contradiction between two teams' pages gets resolved.",
-        'No real employer names, systems or data appear in the document.',
+        'Every claim in the brief names a file path, and the two you opened match.',
+        'Nothing in the downloaded copy was changed.',
+        'The three questions are about trade-offs or risk, not things the README already answers.',
       ],
       resources: [
         {
-          resourceId: 'anthropic-sdlc-playbook',
-          why: 'Covers team context, handoffs and skills as institutional knowledge in AI-native teams.',
+          resourceId: 'claude-code-docs',
+          why: 'The official docs, including how to ask Claude Code to explain an unfamiliar codebase.',
           required: false,
         },
         {
-          resourceId: 'karpathy-llm-wiki',
-          why: 'The personal pattern you are scaling to a team.',
-          required: false,
-        },
-        {
-          resourceId: 'anthropic-context-engineering',
-          why: 'Principles for deciding what context agents should and should not receive.',
+          resourceId: 'github-hello-world',
+          why: 'A quick refresher on repositories and branches if the project layout is confusing.',
           required: false,
         },
       ],
@@ -669,37 +662,37 @@ Rules:
     {
       id: 'c4',
       levelId: 2,
-      title: 'Wiki trust eval: measure before you rely on it',
-      difficulty: 'Advanced',
-      minutes: 150,
-      competencies: ['evals-safety', 'knowledge-management'],
-      xp: 200,
+      title: 'Fix it from the bug tracker',
+      difficulty: 'Intermediate',
+      minutes: 90,
+      competencies: ['technical-collaboration', 'coding-agents'],
+      xp: 100,
       summary:
-        'Build a small evaluation set for your second brain and measure how often a fresh agent answers correctly with faithful citations, before and after improving the wiki.',
+        'Work the way an engineering team does: turn three user bug reports into GitHub issues, let Claude Code fix them one at a time, and review each pull request before it merges.',
       steps: [
-        'Write ten questions with known answers from your wiki, including two whose answer is "Not in your notes" and two that involve a superseded decision.',
-        'Save them with the expected answer and expected source file in `projects/wiki-eval/questions.md`.',
-        'Run the questions in a fresh session using your query rules. For each, record: correct answer, correct source, quote exists word for word.',
-        'Calculate three scores out of ten: answer accuracy, source accuracy and quote faithfulness.',
-        'Fix the causes of failures (titles, index summaries, triggers, superseded markers), rerun and compare.',
-        'Turn the procedure into `.agents/skills/wiki-eval/SKILL.md` so you can rerun it monthly.',
+        'Collect three bug reports about the prototype, from your review log or from a new tester.',
+        'Open each as a GitHub issue in `{{slug}}`: a clear title, the device, steps to reproduce, expected and actual results, a screenshot and a severity.',
+        'For the first issue, start a fresh Claude Code session in the prototype folder and ask it to read the issue, reproduce the bug, explain the cause, fix it on a new branch and open a pull request that says "Fixes #" followed by the issue number.',
+        'Review the pull request: read the diff with the four questions from Session 7, run the review prompt from Session 8 in another fresh session, and check the fix on the preview or locally.',
+        'Merge and confirm the issue closed automatically. Only then start the next issue, in a new session.',
+        'Write three lines on what each issue said well or failed to say, and how that changed the fix.',
       ],
       deliverable:
-        'A ten-question eval set, two scored runs with a comparison, and a reusable wiki-eval skill.',
+        'Three closed issues, each linked to a reviewed and merged pull request, plus a short note on what made an issue easy or hard to fix.',
       verification: [
-        'Scores come from your own checking of every answer, not from the agent grading itself.',
-        'At least one fix is traced to a specific failure in the first run.',
-        'The superseded-decision questions return the current decision.',
+        'Each pull request is linked to its issue and closed it on merge.',
+        'Each pull request changed only what its issue needed.',
+        'Every review comment has a decision recorded on the pull request.',
       ],
       resources: [
         {
-          resourceId: 'anthropic-agent-skills-course',
-          why: 'Helps you package the eval procedure as a proper skill.',
+          resourceId: 'github-about-prs',
+          why: 'How pull requests link to issues so the history explains why each change exists.',
           required: false,
         },
         {
-          resourceId: 'hamel-evals-faq',
-          why: 'Practical guidance on building small, useful evals from real failures.',
+          resourceId: 'aihero-code-review',
+          why: 'A way to review each fix against its issue as well as against your conventions.',
           required: false,
         },
       ],
@@ -710,265 +703,268 @@ Rules:
       id: 'q2-1',
       competency: 'knowledge-management',
       prompt:
-        'You have about eighty notes and want an agent to answer questions about them. A friend suggests setting up a vector database first. What is the best response?',
+        'You want every Claude Code session in your workspace to know that the prototype uses {{data}} only and must never connect to real systems. Where should that rule live?',
       options: [
         {
           id: 'a',
-          text: 'Agree: semantic search finds ideas phrased differently, which plain file search will always miss.',
+          text: 'Tell Claude once in a session, so auto memory saves it for every session after that.',
         },
         {
           id: 'b',
-          text: 'Start with an index.md and consistent titles; add search tooling once you can name the failure.',
+          text: 'Add it to the glossary in `product-context.md`, which every session already loads.',
         },
         {
           id: 'c',
-          text: 'Merge the notes into one well-structured file so the agent can read everything in a single pass.',
+          text: 'In `CLAUDE.md`, written by you, where it is read at the start of every session.',
         },
         {
           id: 'd',
-          text: 'Use the chat tool built-in project memory instead, since it already handles retrieval for you.',
+          text: 'Repeat it at the top of every prompt you send, so it is always the most recent thing.',
         },
       ],
-      correct: 'b',
+      correct: 'c',
       explanation:
-        'An index read first, plus file search, works well up to roughly a hundred sources and keeps retrieval transparent. Embeddings do help with fuzzy matching, but at this size they add machinery that hides why an answer was found, and you have not yet seen the failure they fix.',
+        "Rules that must hold in every session belong in the instructions file you write and review. Auto memory is Claude's own notes: it may or may not record the rule, in its own words. The glossary is for terms, not rules, and repeating yourself is fragile. Even in `CLAUDE.md` a rule is guidance, so git and review stay the real safety net.",
     },
     {
       id: 'q2-2',
       competency: 'knowledge-management',
       prompt:
-        'A new source contradicts a decision you recorded in March. What should your agent do when ingesting it?',
+        'Your workspace root holds forty loose files: drafts, exports and notes from different weeks. Claude has started quoting a decision you reversed. What is the best fix?',
       options: [
         {
           id: 'a',
-          text: 'Prefer the newer source automatically, since recent information is usually the more accurate.',
+          text: 'One folder per workstream with a README, and superseded drafts moved to `archive/`.',
         },
         {
           id: 'b',
-          text: 'Rewrite the March decision to match the new source, and note the change in log.md.',
+          text: 'Add a line to `CLAUDE.md` telling Claude to ignore any file older than two weeks.',
         },
         {
           id: 'c',
-          text: 'Flag the conflict with both dates; once you decide, mark the loser superseded with a link.',
+          text: 'Switch to a model with a larger context window so it can weigh every file at once.',
         },
         {
           id: 'd',
-          text: 'File the new source as usual and let the weekly lint pass pick up the contradiction later.',
+          text: 'Merge all the notes into one long, well-structured document that Claude reads first.',
         },
       ],
-      correct: 'c',
+      correct: 'a',
       explanation:
-        "Contradictions are cheapest to resolve at write time, and the decision is yours, not the agent's. Closing superseded claims with a link, rather than rewriting them, preserves the reasoning trail and stops agents from quoting stale decisions.",
+        'Claude finds things by names, folders and search, so a clear structure is retrieval. Moving superseded drafts out of the way removes the wrong answer instead of hoping an instruction or a bigger window hides it. One long file mixes current and old decisions in a single place.',
     },
     {
       id: 'q2-3',
-      competency: 'prompting-context',
+      competency: 'coding-agents',
       prompt:
-        'Where should the line "{{name}}: interviews done, prototype next, waiting on mentor feedback" live?',
+        'Claude Code is in auto mode and about to restructure the prototype across many files. What is your best safety net?',
       options: [
         {
           id: 'a',
-          text: 'In AGENTS.md under a Current work heading, so every session starts with the latest state.',
+          text: 'Switch to a mode that asks before every edit, and approve each change as it comes.',
         },
         {
           id: 'b',
-          text: 'In projects/{{slug}}/README.md or its handoff, because it is project state that changes.',
+          text: 'Copy the whole folder to a backup on your desktop before you let Claude start.',
         },
         {
           id: 'c',
-          text: 'In a dated log.md entry only, since the log already records everything that happens.',
+          text: 'Ask Claude to promise in its reply that it will not delete or break anything.',
         },
         {
           id: 'd',
-          text: "In the agent tool's built-in memory feature, so it carries across all sessions without any extra files.",
+          text: 'Commit first, then read what changed and undo with git anything you do not want.',
         },
       ],
-      correct: 'b',
+      correct: 'd',
       explanation:
-        'AGENTS.md holds durable conventions that rarely change, and status in it goes stale for every session. The log records events, not current state. Project status belongs with the project, where agents read it when they work on that project.',
+        'Git gives you a complete record of what changed and a clean way to undo any of it. Approving dozens of individual edits wears attention thin, and a manual folder copy shows you nothing about what changed. A promise from the model is not a control.',
     },
     {
       id: 'q2-4',
-      competency: 'coding-agents',
+      competency: 'ux-prototyping',
       prompt:
-        'Your agent reads the wiki at the start of a session, but halfway through a task it answers a question about your goals from general knowledge. What is the best fix?',
+        'You asked Claude Code to "build a prototype of {{name}}" in one line. It built five screens, two you never wanted, and invented a feature. What is the best next step?',
       options: [
         {
           id: 'a',
-          text: 'Copy your goals into AGENTS.md itself so the agent always has them in context.',
+          text: 'Ask it to delete the two extra screens and the feature, and keep the rest as it is.',
         },
         {
           id: 'b',
-          text: 'Add a trigger to AGENTS.md: before answering about goals, read index.md and cite pages.',
+          text: 'Let it interview you into `REQUIREMENTS.md`, then rebuild from that file.',
         },
         {
           id: 'c',
-          text: 'Switch to a model with a larger context window so the wiki stays in view all session.',
+          text: 'Rewrite the prompt to open with "You are a senior product designer" and run it again.',
         },
         {
           id: 'd',
-          text: 'Remind the agent to use the wiki at the start of each message you send in long sessions.',
+          text: 'Keep everything, since extra screens give engineers more to react to in the demo.',
         },
       ],
       correct: 'b',
       explanation:
-        'Agents reliably read instruction files at session start but often skip the wiki mid-task. A conditional rule ("when X, do Y") makes the right behavior much more likely without repeating yourself or bloating AGENTS.md. It is still guidance, not a guarantee, so you keep checking citations.',
+        'The agent guessed because it had nothing to build from. Being interviewed turns the gaps into decisions you made, and the file becomes what you check the result against. Role phrases add no information, and deleting screens leaves every other guess in place.',
     },
     {
       id: 'q2-5',
-      competency: 'evals-safety',
+      competency: 'coding-agents',
       prompt:
-        'The agent answers a question with a file path and a quote for each claim. What is the most important check before relying on the answer?',
+        'Two hours into a build session, Claude reintroduces a bug it fixed earlier and forgets a decision you made. What should you do?',
       options: [
         {
           id: 'a',
-          text: 'That every cited file exists, is dated, and is recent enough to trust here.',
+          text: 'Remind it of the decision and the old bug at the start of every message from now on.',
         },
         {
           id: 'b',
-          text: 'That a second agent, asked the same question, gives the same answer.',
+          text: 'Delete the prototype and start again from scratch with a longer, more detailed prompt.',
         },
         {
           id: 'c',
-          text: 'That each quote is in the cited file word for word and supports the claim.',
+          text: 'Ask for a short handoff note, save it, and continue in a fresh session that reads it.',
         },
-        { id: 'd', text: 'That the agent rates its own confidence as high for each claim.' },
+        {
+          id: 'd',
+          text: 'Keep going in the same session: the context will settle once the current task is done.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Trust, not retrieval, is the hard part. Real file paths with misquoted or misread content are more dangerous than no citation, because they look verified. Agreement between two agents measures consistency, not faithfulness.',
+        'Long sessions get compacted and detail is lost. A handoff note puts what matters in a file, and a fresh session starts clean with only that. Repeating yourself fills the context further, and rebuilding throws away good work.',
     },
     {
       id: 'q2-6',
-      competency: 'agentic-systems',
+      competency: 'technical-collaboration',
       prompt:
-        "A bank's internal assistant tells staff last year's fee for a product, although this year's fee document is in the knowledge base. Which failure is most likely?",
+        'A pull request says "Fix the date label on the first screen", but the diff also changes the code that works out {{deterministic}}. What do you do?',
       options: [
         {
           id: 'a',
-          text: 'The model memorized the old fee during training and ignored the retrieved document.',
+          text: 'Ask why, split the calculation change into its own pull request and check it by hand.',
         },
         {
           id: 'b',
-          text: 'Retrieval returned the outdated document: a freshness and ownership problem in the base.',
+          text: 'Merge it, since the automated checks passed and the agent probably fixed a related bug.',
         },
         {
           id: 'c',
-          text: 'The chunk size is too small, so the fee table was split apart and its year heading was lost.',
+          text: 'Ask the same session to review its own pull request and merge it if it says it is safe.',
         },
         {
           id: 'd',
-          text: 'The staff member asked vaguely; a precise question would have retrieved this year.',
+          text: 'Close the pull request and stop letting Claude touch any code that does calculations.',
         },
       ],
-      correct: 'b',
+      correct: 'a',
       explanation:
-        'Stale retrieval is a classic RAG failure when old and new documents both exist. Chunking and phrasing can contribute, but the root fixes are knowledge management fixes: owners, update dates, superseded markers and retiring old documents.',
+        'A change the description does not mention is the first thing a diff review should catch, and calculations people rely on are the riskiest kind. Splitting it out keeps the label fix small and gives the calculation its own review. Green checks and self-review do not answer why it changed.',
     },
     {
       id: 'q2-7',
-      competency: 'prompting-context',
+      competency: 'evals-safety',
       prompt:
-        'You have pasted the same ingest instructions and template five times this week, using Codex. What should you do?',
+        'You notice an API key in a commit you pushed to your public repository an hour ago. What is the first thing to do?',
       options: [
         {
           id: 'a',
-          text: 'Put the full ingest instructions in AGENTS.md so they load in every session.',
+          text: 'Delete the file in a new commit and push it, so the key is gone from the latest version.',
         },
         {
           id: 'b',
-          text: 'Save them as skills/ingest/SKILL.md next to your notes, with the template.',
+          text: 'Make the repository private straight away, so nobody else can see the commit.',
         },
         {
           id: 'c',
-          text: 'Make a skill in .agents/skills/ingest/ with name and description front matter.',
+          text: 'Rewrite the history to remove the commit, then force-push to replace it on GitHub.',
         },
         {
           id: 'd',
-          text: 'Save the prompt in templates/ and paste it in from there whenever you need to ingest.',
+          text: 'Revoke the key with its provider, then clean the repository.',
         },
       ],
-      correct: 'c',
+      correct: 'd',
       explanation:
-        'Repeated multi-step prompts are skill candidates, and skills only load from the folders a tool scans: Codex looks in .agents/skills/, Claude Code in .claude/skills/. A skills/ folder at the root is never discovered. AGENTS.md would load the instructions into every session, even when you are not ingesting.',
+        'Once a key has been public, assume it has been copied: bots scan GitHub within minutes, and the old commit stays in history and in any copies. Revoking it is the only step that makes it useless. Cleaning the repository matters, but it comes second.',
     },
     {
       id: 'q2-8',
-      competency: 'ai-leadership',
+      competency: 'ux-prototyping',
       prompt:
-        'Your team proposes loading customer complaint transcripts into a shared AI knowledge base. As the PM, what is your first question?',
+        'Your prototype marks a problem, such as a shortfall, a missed target or an overdue item, only by turning its text red. Which fix meets accessibility basics?',
       options: [
         {
           id: 'a',
-          text: 'Can we strip names and account numbers first, so the data counts as anonymous?',
+          text: 'Use a darker red that passes the contrast check against the background.',
         },
         {
           id: 'b',
-          text: 'What classification, lawful basis, access and retention rules apply, on which tools?',
+          text: 'Add words and an icon so the state never depends on colour, and check contrast.',
         },
         {
           id: 'c',
-          text: 'Which retrieval setup gives the most accurate answers over long transcripts?',
+          text: 'Add a tooltip that explains what the red text means when someone hovers over it.',
         },
         {
           id: 'd',
-          text: 'Which complaint themes would staff most want to search for, so we can justify the build?',
+          text: 'Add a colour legend at the bottom of the screen that explains what red stands for.',
         },
       ],
       correct: 'b',
       explanation:
-        'In banking, data governance comes before tooling or value. Removing names usually leaves data pseudonymized, not anonymous, so it is still personal data. Customer data needs classification, a lawful basis, access control and retention rules. Often a de-identified summary layer is the right answer, not raw transcripts.',
+        'People with colour vision differences, and anyone on a glary phone screen, can miss a colour-only signal. Words or an icon carry the meaning on their own. Better contrast still leaves colour as the only signal, tooltips do not work on touch screens or for many keyboard users, and a legend makes people decode the screen.',
     },
   ],
   project: {
-    title: 'Personal Second Brain',
+    title: 'Clickable prototype',
     brief:
-      'Finish Level 2 with a functioning private knowledge workspace that you will keep using after the course: raw sources that never change, a wiki layer an agent maintains under your review, and a schema that makes any fresh agent productive. Demonstrate that it is trustworthy, not just tidy: citations that check out, contradictions resolved, stale pages caught and a handoff that works across tools. A useful knowledge base is not a large pile of documents; it is a small, current, well-structured set of pages with clear owners and rules.',
+      'Finish Level 2 with a live, reviewed {{name}} prototype that engineers and users can click through, and the workspace and habits that produced it. Show that you directed the agent rather than accepted whatever it built: requirements you decided, changes you can explain, reviews that caught real problems and a repository with nothing in it that should not be public. Then walk your mentor through the code review on one pull request. About 5 hours, mostly finishing and tidying the work from Sessions 5 to 8.',
     deliverables: [
       {
-        id: 'structure',
-        text: '~/second-brain with three layers, a README per folder, root index.md and an append-only log.md, under git.',
+        id: 'workspace',
+        text: '`{{slug}}-workspace/` under git, with a short `CLAUDE.md` that loads `product-context.md`, one folder per workstream and your Level 1 files filed.',
       },
       {
-        id: 'content',
-        text: 'At least thirty real pages across goals, learning, decisions, reading, ideas and reflections, each dated and in the required format.',
+        id: 'requirements',
+        text: '`REQUIREMENTS.md` with three to five screens, their states, a "done when" example each and open questions.',
       },
       {
-        id: 'schema',
-        text: 'AGENTS.md under 150 lines with explicit triggers and page formats, loaded by every agent you use.',
+        id: 'repo',
+        text: 'The public `{{slug}}` repository with a no-bypass ruleset on main, a README and a current `HANDOFF.md`.',
       },
       {
-        id: 'skills',
-        text: 'Working skills for weekly review, ingest and lint in .agents/skills/, discovered by a fresh session and kept separate from your notes.',
+        id: 'live',
+        text: 'The live GitHub Pages URL, working on a phone, with the "Prototype with fictional data" label.',
       },
       {
-        id: 'logs',
-        text: 'The Session 6 retrieval log with verified quotes and the Session 8 fresh-agent test log.',
+        id: 'review-log',
+        text: '`docs/review-checklist.md` and `docs/review-log.md`, with bug reports and a decision for every agent review comment.',
       },
       {
-        id: 'weekly-reviews',
-        text: 'Two weekly reviews run through the skill, each followed by a lint pass.',
+        id: 'fixes',
+        text: 'At least three merged fix pull requests, each with a description and a recorded review.',
       },
       {
-        id: 'demo',
-        text: 'A ten-minute demo to your mentor: a fresh agent answers three questions with checkable citations and ingests one new source correctly.',
+        id: 'mentor-walkthrough',
+        text: 'A 20-minute walkthrough with your mentor of one pull request: what changed, why, how you checked it and what the agent review got right and wrong.',
       },
     ],
     rubric: {
       correctness:
-        'Citations point to the right files and every sampled quote exists word for word; ingested pages follow conventions; superseded claims are closed with links and no unflagged contradictions remain.',
+        'Every screen in `REQUIREMENTS.md` works on the live site with its states; figures match hand calculations from the fictional data; fixes did what their bug reports asked.',
       quality:
-        'Pages are atomic, dated and in fixed formats; index.md and log.md are complete; AGENTS.md is short, specific and contains working triggers; mechanism and data are cleanly separated.',
+        'Requirements are short, specific and free of invented decisions; pull requests are small and well described; the prototype passes the five accessibility checks; `CLAUDE.md` and the handoff are short and current.',
       independence:
-        'You start, steer and correct agents in the wiki without help, review every write through a plan and a diff, and can undo a bad change with git.',
+        'You ran Claude Code, git and GitHub yourself, steered by reviewing results, used fresh sessions and handoffs when context drifted, and used your mentor for review rather than for doing the work.',
       judgment:
-        'You can explain what stays out of the wiki and why, where retrieval and trust fail, when a prompt deserves to become a skill, and how you would adapt the design for a team.',
+        'You can explain every merged change, rejected at least one agent suggestion with a reason, kept private notes out of the public repository, and know which changes deserve a closer human review.',
     },
     privacyNote:
-      'This workspace is private. Keep it on your own computer, optionally backed up to a private repository only. Never put it in the public Academy repository, and never add customer data, credentials, employer-confidential material or personal details about other people. The Academy stores only your checklist, reflections and the paths you type, never the files themselves.',
-    minutes: 240,
-    xp: 500,
+      'The `{{slug}}` repository is public: fictional data only, no interview notes, no real names, no employer material, and never a key or token. Your workspace stays private on your own computer. The Academy stores only your checklist, reflections and the paths you type, never the files themselves.',
+    minutes: 300,
+    xp: 350,
   },
   nextRecommendation:
-    'Move to Level 3 and pick your case study. Your second brain becomes its research and decision log: create projects/<case>/ before Session 9, ingest every source and interview note there and record each product decision as a decision record.',
+    'Move to Level 3. The prototype becomes your research tool: in Session 10 you put it in front of five real users. Keep the workspace as the home for everything you learn: strategy, interviews, data and the PRD all go in it, and Claude Code reads them from there.',
 }

@@ -2,72 +2,79 @@ import type { Level } from '../types'
 
 export const level1: Level = {
   id: 1,
-  slug: 'ai-fluency',
-  title: 'AI Fluency',
-  theme: 'Understand and use AI effectively',
+  slug: 'ai-foundations',
+  title: 'AI foundations',
+  theme: 'Learn how the tools work, give them context and check what they say',
   summary:
-    'Learn how large language models actually work, where they fail, and how to use them with judgment. Every session produces something you keep: a dated model comparison, a verified research brief, an organized learning folder and a weekly review routine. Together they become your Personal Learning Assistant and the seed of your second brain.',
+    'You start as the new PM on {{name}}, {{product}}, for one quarter. In four sessions you learn what the assistant in front of you actually is, write `product-context.md`, the one-page file every later agent will read, check a research answer claim by claim, and vibe code a pitch page for your first feature idea. Level 1 needs only a free Claude account.',
   outcomes: [
-    'Explain tokens, context windows and hallucination in language a risk officer or executive understands.',
-    'Compare models on real tasks with explicit criteria instead of brand loyalty.',
-    'Research a question with AI and verify every material claim against a primary source.',
-    'Turn scattered notes into a structured `learning/` folder that both you and an agent can use.',
-    'Run a weekly learning and reflection loop where AI drafts and you decide.',
+    'Explain tokens, the context window, reasoning models and the difference between a chat and an agent in language a risk officer or executive understands.',
+    'Compare two models or settings on a real PM task with explicit criteria, and record the date and settings.',
+    'Write a one-page product context file and use it as project knowledge, so answers are about your product instead of the average of the internet.',
+    'Decide what to delegate with the 4Ds, and verify every material claim in an AI research answer against a primary source.',
+    'Build and share a pitch page for a feature idea in an afternoon, changing one thing at a time and labelling it honestly.',
   ],
   badge: {
-    name: 'Fluent Operator',
+    name: 'Context Builder',
     description:
-      'Uses AI every day with judgment: delegates the right work, checks the claims that matter and keeps a learning loop running.',
+      'Knows what the model can see, gives it the context it needs, checks the claims that matter and shows ideas as working pages instead of memos.',
   },
   lessons: [
     {
       id: 's1',
       levelId: 1,
       number: 1,
-      title: 'How models work, and why their answers differ',
+      title: "How today's AI works",
       difficulty: 'Foundational',
       minutes: 75,
-      tools: ['ChatGPT', 'Claude'],
+      tools: ['Claude (free plan)', 'ChatGPT (optional, for the comparison)'],
       prerequisites: [],
-      competencies: ['ai-fundamentals', 'prompting-context'],
+      competencies: ['ai-fundamentals'],
       xp: 100,
       mentorReview: 'optional',
-      goal: 'Explain in plain language how an LLM produces an answer, and compare two models on the same real tasks using explicit criteria.',
+      goal: 'Explain in plain language how a model produces an answer, what it can and cannot see, and how a chat differs from an agent, then compare two models or settings on one real PM task.',
       whyItMatters:
-        'In a bank, every AI conversation eventually reaches risk, compliance or an engineering lead. A PM who can explain tokens, context windows and hallucination in two minutes makes better calls about what to automate, and earns credibility in those rooms.',
+        'Day one as the PM on {{name}}. Before you use the assistant for anything that matters, you need to know what it actually is. Every AI conversation in a product team eventually reaches risk, legal or an engineering lead. A PM who can explain tokens, context windows and hallucination in two minutes makes better calls about what to automate, and earns credibility in those rooms.',
       learn: [
         {
           heading: 'Next-token prediction, at enormous scale',
           paragraphs: [
             'A large language model is trained on a vast amount of text to predict the next small chunk of text, called a **token**. A token is roughly three quarters of an English word; numbers, code and non-English text often use more tokens per word. After this pretraining, the model is further trained on examples and human feedback so that it follows instructions and behaves like an assistant.',
-            'When you send a message, the model reads everything in its context and generates the reply one token at a time, each choice conditioned on everything before it. That single mechanism explains a lot. Models are fluent because fluency is what they were trained on. They can be confidently wrong because a plausible sentence and a true sentence look the same to the generation process. And two runs of the same prompt can differ because generation involves sampling from likely continuations, not looking up a stored answer.',
+            'When you send a message, the model reads everything in its context and generates the reply one token at a time, each choice conditioned on everything before it. That single mechanism explains a lot. Models are fluent because fluency is what they were trained on. They can be confidently wrong because a plausible sentence and a true sentence look the same to the generation process. And two runs of the same request can differ because generation involves sampling from likely continuations, not looking up a stored answer.',
           ],
         },
         {
           heading: "Context windows: the model's working memory",
           paragraphs: [
-            'The **context window** is everything the model can see at once: the system instructions, your messages, pasted documents, tool results and its own previous replies. Windows of hundreds of thousands of tokens are now common, but bigger is not the same as better. Practitioners call the effect **context rot**: as a conversation fills with long, loosely relevant or contradictory material, answers get less precise, and stale content competes with what you actually want.',
-            "The model does not remember yesterday's chat unless the product deliberately adds a memory feature or you paste the material back in. Treat each conversation as a fresh briefing.",
+            'The **context window** is everything the model can see at once: the instructions the product adds, your messages, attached documents, tool results and its own previous replies. Windows of hundreds of thousands of tokens are now common, but bigger is not the same as better. Practitioners call the effect **context rot**: as a conversation fills with long, loosely relevant or contradictory material, answers get less precise, and stale content competes with what you actually want.',
+            "The model does not remember yesterday's chat unless the product deliberately adds a memory feature or you bring the material back in. Treat each conversation as a fresh briefing. Session 2 turns this into the core skill of the course: deciding what the model sees.",
           ],
           bullets: [
             'Start a new conversation when the topic changes.',
-            'Give the model only the material the task needs, and restate the key instruction near your question.',
+            'Give the model only the material the task needs.',
             'Prefer a short, curated document over a long dump of everything you have.',
+          ],
+        },
+        {
+          heading: 'Reasoning models, and chat versus agent',
+          paragraphs: [
+            "**Reasoning models** (Claude calls the setting extended thinking) work through a problem before they answer. That helps with multi-step analysis, planning and checking a calculation. It is slower and adds little to a simple rewrite. The visible thinking is the model's working, not proof that the answer is right.",
+            'A plain **chat** answers from what is in its context. Give the same model **tools** and it can look things up on the web, run code on a spreadsheet, read and create files. An **agent** is a model in a loop: it decides on a step, uses a tool, checks the result and carries on until the task is done. In Level 2 you will use Claude Code, an agent that works on the files in your own folder. More power means more to review: an agent that can act can also act wrongly.',
           ],
         },
         {
           heading: 'Capabilities and failure modes',
           paragraphs: [
-            'Current models are strong at drafting, restructuring, summarizing, explaining a topic at different levels, generating options, translating between audiences and writing code. Reasoning or thinking modes, where the model works through a problem before answering, help with multi-step analysis.',
+            'Current models are strong at drafting, restructuring, summarizing, explaining a topic at different levels, generating options, translating between audiences and writing code.',
             'They remain risky for exact arithmetic over many figures without a calculator tool, recent events unless web search is on, citations (which can be invented or misattributed), facts specific to your organization, and consistent judgment on ambiguous policy questions. A confident tone is not evidence of accuracy.',
           ],
         },
         {
           heading: 'Compare models like a PM, not a fan',
           paragraphs: [
-            'Asking which model is best is the wrong question. Define criteria for the task first: factual accuracy, following constraints, usefulness for the audience, tone, and honesty about uncertainty. Run the same prompt in two tools, blind if someone can relabel the outputs, and score each one.',
-            'Be honest about what you are comparing. ChatGPT and Claude differ in model, but also in reasoning setting, web search, memory and system instructions. Unless you control those, you are comparing products, not models, which is still useful as long as you say so.',
-            'Models and products change every few months, so any comparison is a dated snapshot. Keep the method, record the date, model names and settings, and rerun it when it matters. That habit is exactly what a team needs when it standardizes on tools.',
+            'Asking which model is best is the wrong question. Define criteria for the task first: factual accuracy, following constraints, usefulness for the audience and honesty about uncertainty. Run the same request in two models or two settings, blind if someone can relabel the outputs, and score each one.',
+            'Be honest about what you are comparing. Two products differ in model, but also in reasoning setting, web search, memory and the instructions the product adds. Unless you control those, you are comparing products, not models, which is still useful as long as you say so.',
+            'Every model release changes what is possible: longer tasks, better tool use, lower cost. Something that failed six months ago may work now, so treat "AI cannot do that" as a dated claim. Keep the method, record the date, model names and settings, and rerun it when a new model ships. This course uses Claude throughout; ChatGPT works much the same, and in Level 2 Codex can do most of what Claude Code does.',
           ],
         },
       ],
@@ -78,134 +85,270 @@ export const level1: Level = {
           required: true,
         },
         {
+          resourceId: 'anthropic-capabilities-limitations',
+          why: "Anthropic's own course on what models can and cannot do, with an exercise per idea. It runs about three and a half hours: do the first lessons now and finish it across Level 1.",
+          required: true,
+        },
+        {
           resourceId: 'karpathy-deep-dive-llms',
-          why: 'The clearest long-form walkthrough of how chat models are built, from pretraining to assistant behavior. It runs over three hours, so watch it in chapters across the course; it is not part of this session.',
+          why: 'The clearest long-form walkthrough of how chat models are built, from pretraining to assistant behaviour. It runs over three hours, so watch it in chapters across the course; it is not part of this session.',
           required: false,
         },
         {
-          resourceId: 'karpathy-how-i-use-llms',
-          why: 'A practitioner tour of everyday model use across tools, useful for seeing what different features are good at.',
-          required: false,
-        },
-        {
-          resourceId: 'anthropic-ai-fluency',
-          why: 'A structured framework for working with AI deliberately: delegating, describing tasks and judging outputs.',
+          resourceId: 'aihero-llm-fundamentals',
+          why: 'A short primer on why context windows fill up and degrade and when an agent is the right shape. Written for engineers, but readable.',
           required: false,
         },
       ],
       task: {
         summary:
-          'Build a mental model of how LLMs work, then run a structured head-to-head comparison of ChatGPT and Claude on three tasks from your real work.',
+          'Build a mental model of how models work, write it down as your own glossary, and compare two models or settings on one real PM task for {{name}}.',
         steps: [
-          'Watch the 3Blue1Brown explainer (about 8 minutes). Write five bullet notes in your own words.',
-          'Pick three realistic banking PM tasks that contain no confidential data. For example: rewrite a feature announcement for customers with low financial confidence; summarize a public regulator speech on consumer duty or fair treatment; draft ten interview questions about running short of money before payday.',
-          'Write one prompt per task that states the role, goal, audience, constraints and output format.',
-          'Run each prompt in ChatGPT and in Claude, each in a fresh chat. Record the model name, whether reasoning or web search was on, and whether memory is enabled. Paste the outputs into one document, labeled A and B. If your mentor is available, let them relabel the outputs so you score blind.',
-          'Score every output from 1 to 5 on factual accuracy, constraint following, usefulness and honesty about uncertainty. Note the sentence that drove any low score.',
-          'Rerun one prompt twice in the same tool and note how much the answer changes.',
-          'Write a one-page dated note: which tool you would use for which task and why, plus three things you now understand about tokens, context windows and hallucination.',
+          'Create a private folder on your own computer called `{{slug}}-notes/`, not in a shared drive. Every Level 1 file goes here; in Session 5 it moves into your workspace. Files are plain Markdown: `#` for headings, `-` for bullets, `**bold**`, saved with a `.md` ending from any text editor.',
+          'Watch the 3Blue1Brown explainer (about 8 minutes) and do the first lessons of the Anthropic capabilities course.',
+          'Write `glossary.md` in your own words: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (one line: retrieval-augmented generation, fetching documents into the context before answering). One or two sentences each, plus one example that surprised you.',
+          "See a tool at work: ask Claude a question that needs this week's news with web search switched off, then on. Note which answer used a tool and how you could tell.",
+          'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for {{user}} about this problem: {{opportunity}}." Run it in two models or two settings, each in a fresh chat: Claude with extended thinking on and off, two Claude models if your plan offers them, or Claude and ChatGPT. Record the model names, settings and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
+          'Score both outputs from 1 to 5 on factual accuracy, constraint following, usefulness and honesty about uncertainty. Quote the sentence behind any low score.',
+          'Rerun the same request once in the same model and note how much the answer changes.',
+          'Write `model-comparison.md`: the date, what you compared (models or products), the scores, the variation you saw, and which you would use for this kind of task and why.',
+          'Ask Claude to check your glossary with the prompt below. Accept or reject each suggestion yourself.',
         ],
       },
       agentPrompt: {
-        tool: 'ChatGPT or Claude',
-        where: 'A fresh chat, only after you have scored the outputs yourself',
-        text: `I am comparing two AI model outputs for the same task. I have already scored them myself. I want a second opinion, not a replacement for my judgment.
+        tool: 'Claude',
+        where: 'A fresh chat, with your glossary.md attached or pasted below',
+        text: `Below is a glossary of AI terms I wrote in my own words. I am a product manager, and I will use it to explain these ideas to colleagues in risk, legal and engineering.
 
-Task given to both models:
-[paste the original prompt]
+For each term:
+1. Say whether my definition is correct, partly correct or wrong.
+2. If it is not fully correct, explain the problem in one or two sentences and suggest a corrected sentence.
+3. Flag any simplification that would mislead a risk officer, even if it is technically defensible.
 
-Output A:
-[paste output A]
+Rules:
+- Do not rewrite definitions that are already correct. Keep my wording wherever you can.
+- If you are unsure about a point, say so instead of guessing.
+- Output a table with the columns: term, verdict, problem, suggested sentence.
 
-Output B:
-[paste output B]
-
-Please:
-1. Score each output from 1 to 5 on: factual accuracy, following the stated constraints, usefulness for the stated audience, and honesty about uncertainty.
-2. Quote the exact sentence behind every score below 4.
-3. List any factual claims in either output that should be checked against a primary source.
-4. Say which output you would choose for this task and why, in three sentences.
-
-Constraints:
-- Do not guess which model wrote which output.
-- If you are unsure whether a claim is true, say so instead of judging it.
-- Format: a Markdown table of scores, then the claim list, then your choice.`,
+[paste glossary.md here]`,
       },
       expectedOutput: [
-        'A comparison table: three tasks, two models, four criteria, with scores and short justifications.',
-        'A one-page note explaining tokens, context windows and hallucination in your own words.',
-        'A short observation on how much the same prompt varied between runs.',
+        '`glossary.md`: ten terms in your own words, each checked, with any accepted corrections.',
+        '`model-comparison.md`: one task, two models or settings, four criteria, scores with quoted evidence, and a note on variation.',
+        'A short note on what changed when web search was switched on.',
       ],
-      artifact:
-        'model-comparison.md: a dated comparison of two models on three real tasks (you will file it in learning/ in Session 3).',
+      artifact: '`glossary.md` and `model-comparison.md` in your private `{{slug}}-notes/` folder.',
       verification: [
-        'You scored all outputs before asking an AI to critique them, and you recorded where you disagreed with its critique.',
-        'At least one factual claim from the outputs was checked against a real source.',
-        'Your explanation of a context window makes sense when read aloud to someone non-technical.',
-        'The note records the date, the model or product names and the settings you used, and says whether it compares models or products.',
+        'You scored both outputs before reading any AI critique of them.',
+        'Your explanation of a context window and of an agent makes sense read aloud to someone non-technical.',
+        'The comparison records the date, the model or product names and the settings, and says whether it compares models or products.',
+        'You rejected or changed at least one suggestion from the glossary check, or wrote down why every suggestion was right.',
       ],
       reflectionPrompts: [
         'Which output surprised you, and what does that tell you about how these models work?',
-        'Where did your scoring disagree with the AI critique, and who was right?',
+        'Where in your past work would an agent, rather than a chat, have changed what was possible?',
         'What kind of work would you now never delegate without checking?',
       ],
       checklist: [
+        { id: 'explainers', text: 'Watched the explainer and did the first capabilities lessons' },
+        { id: 'glossary', text: 'Wrote glossary.md in my own words and had it checked' },
+        { id: 'tool-test', text: 'Tried one question with web search off and on' },
         {
-          id: 'explainers',
-          text: 'Watched the explainer video and wrote five notes in my own words',
+          id: 'compared',
+          text: 'Compared two models or settings on one real task and scored them',
         },
-        {
-          id: 'three-tasks',
-          text: 'Ran three real tasks in both ChatGPT and Claude in fresh chats',
-        },
-        {
-          id: 'scored',
-          text: 'Scored every output on all four criteria before asking for an AI critique',
-        },
-        { id: 'variance', text: 'Reran one prompt and recorded how the answer varied' },
-        { id: 'note-saved', text: 'Saved the dated comparison note' },
+        { id: 'variance', text: 'Reran one request and recorded how the answer varied' },
         {
           id: 'no-confidential',
-          text: 'Confirmed no confidential, employer or customer data was used in any prompt',
+          text: 'Confirmed no confidential, employer or customer data was used in any chat',
         },
       ],
       mentorMove:
-        "Relabel the outputs as A and B so she scores blind. Then ask her to explain a context window to you as if you were the bank's chief risk officer, and push back once with a hard follow-up question.",
+        "Relabel the outputs as A and B so she scores blind. Then ask her to explain the difference between a chat and an agent as if you were the company's chief risk officer, and push back once with a hard follow-up question.",
     },
     {
       id: 's2',
       levelId: 1,
       number: 2,
-      title: 'Research a real question and check every source',
+      title: 'Context, not prompts',
       difficulty: 'Foundational',
       minutes: 90,
-      tools: [
-        'ChatGPT (web search or deep research)',
-        'Claude (web search or research)',
-        'A web browser',
-      ],
+      tools: ['Claude (Projects)', 'A text editor'],
       prerequisites: ['s1'],
-      competencies: ['ai-fundamentals', 'evals-safety', 'product-discovery'],
-      xp: 150,
+      competencies: ['prompting-context', 'ai-fundamentals'],
+      xp: 100,
       mentorReview: 'recommended',
-      practicalProof: true,
-      safetyCritical: true,
-      goal: 'Use AI research tools to answer a real question, then verify every material claim against a primary source and label your confidence.',
+      goal: 'Write a one-page `product-context.md` for {{name}}, use it as project knowledge in a Claude Project, and decide with the 4Ds which parts of your quarter to delegate.',
       whyItMatters:
-        'AI research features produce polished, cited reports in minutes. In banking, a single fabricated statistic in a steering committee deck or a misread regulation costs credibility, or worse. The valuable skill is not getting an answer; it is knowing which parts of the answer you can stand behind.',
+        'Your manager wants a competitor summary by Friday. You ask Claude and get back a page that could describe any product in the category, because the model knows nothing about {{name}}. The fix is not cleverer wording. It is giving the model what a new colleague would need: the product, the users, the constraints and the material. That file is the seed of every knowledge base you build in this course.',
+      learn: [
+        {
+          heading: 'Why the first draft was generic',
+          paragraphs: [
+            'A model with no context about your product fills the gaps with the most likely text, which is the average of everything it has read about products like yours. The result sounds competent and says nothing specific. Generic output almost always signals missing context, not a weak model or weak wording.',
+            'When an output disappoints, ask what the model was missing before you rewrite the instruction. That question, more than any trick, is the core of what is now called **context engineering**.',
+          ],
+        },
+        {
+          heading: 'What the model actually sees',
+          paragraphs: [
+            'Everything the model uses to answer arrives through its context window. If something is not there, it does not exist for the model, however obvious it is to you.',
+          ],
+          bullets: [
+            '**Instructions**: what the product adds, plus your project or custom instructions.',
+            '**Your message**: the goal, the audience and what done looks like.',
+            '**Files and project knowledge**: documents you attach or store in a Project.',
+            '**Examples**: a good past output shows format and level better than a description.',
+            '**Memory**: what the product chooses to recall from earlier chats. Useful, but you cannot always see or control it, so put what matters in a file.',
+            '**Tool results**: search results, code output, files the model opened.',
+          ],
+        },
+        {
+          heading: 'Context beats wording',
+          paragraphs: [
+            'Early models responded to role phrases ("you are a world-class strategist"), magic phrases and capital letters. Current models follow plain requests, and those tricks barely change the result. What changes it is the content of the context: the goal, the audience, the source material, the constraints, an example of good, and a definition of done.',
+            'A brief to a model has the same parts as a brief to a new colleague. If a capable person joining your team tomorrow could not do the task from what you gave them, the model cannot either.',
+          ],
+        },
+        {
+          heading: 'One page of product context',
+          paragraphs: [
+            '`product-context.md` is a single page that tells any assistant what it needs to know about {{name}}. Keep it short: context rot applies to your own files too. Write "Unknown" where you do not know something, instead of a plausible guess, and list where each fact came from.',
+            'In a **Claude Project**, files in project knowledge and the project instructions are available to every chat in that project, so you stop pasting the same background every time. In Session 5 the same file sits at the top of your workspace, and in Level 5 it grows into a personal and a team knowledge base.',
+          ],
+          bullets: [
+            '**Product**: what it is, the one job v1 does, what it is not.',
+            '**Users**: who they are and the problem in their words.',
+            '**Glossary**: domain terms and how your team uses them.',
+            '**Constraints**: regulation, risk, technical and brand limits.',
+            '**Open decisions**: what is not yet decided, and who decides.',
+            '**Sources**: where each fact came from, with dates.',
+          ],
+        },
+        {
+          heading: 'Decide what to delegate: the 4Ds',
+          paragraphs: [
+            "Anthropic's AI Fluency course names four competencies. **Delegation**: deciding what work to give the AI and what to keep. **Description**: giving it the context and the definition of done. **Discernment**: judging what comes back. **Diligence**: owning the result, including being open about how it was made.",
+            'For delegation, use two axes: how much judgment the task needs, and how costly a mistake would be. High-volume, low-judgment work such as summarizing, formatting and first drafts can be delegated with spot checks. High-judgment, high-stakes work such as priorities, feedback to people and what you believe stays with you; AI can challenge your thinking but should not do it for you.',
+            'Forwarding AI output to colleagues without reading it makes you what one engineer calls a meat proxy: they end up doing the review you skipped. If you send it, you own it, so read it, cut it and stand behind every claim.',
+          ],
+        },
+      ],
+      resources: [
+        {
+          resourceId: 'anthropic-ai-fluency',
+          why: 'The source of the 4Ds. Do the introduction and the Delegation and Description lessons now; the Discernment lessons fit Session 3, and the rest can follow across the course.',
+          required: true,
+        },
+        {
+          resourceId: 'anthropic-context-engineering',
+          why: 'Why curated context beats volume, from the people who build the models. Read the opening sections up to and including the anatomy of effective context; the later sections on retrieval and long-running agents are for engineers, so skim or skip them.',
+          required: true,
+        },
+        {
+          resourceId: 'gruhn-meat-proxy',
+          why: 'A short essay on why relaying unread AI output to colleagues hands them your work.',
+          required: false,
+        },
+        {
+          resourceId: 'openai-academy',
+          why: 'Free introductory courses on working with AI assistants, if you want more guided practice on the same ideas.',
+          required: false,
+        },
+      ],
+      task: {
+        summary:
+          'See a generic answer, try the wording trick, then write `product-context.md`, load it into a Claude Project and get a specific answer. Finish with a delegation audit of your quarter.',
+        steps: [
+          'In a fresh chat with no context, ask: "Write a one-page competitor summary for {{name}}." Save the answer as `summary-v0.md`.',
+          'In another fresh chat, ask the same thing but open with a role phrase such as "You are a world-class strategy consultant" and add "think step by step". Save it as `summary-v0b.md` and note in one line how much it differs from v0.',
+          'Open the case study page in the academy. Using it and anything else public you know, write `product-context.md` in your own words with the six headings from this lesson. Keep it to one page and write "Unknown" instead of guessing.',
+          'Create a Claude Project called {{name}}. Add `product-context.md` to project knowledge and write four to six lines of project instructions: who the outputs are for, the format you usually want, and "say what is missing instead of guessing". If your plan does not offer Projects, paste the file at the top of each fresh chat instead.',
+          'Collect public product pages for three to five competitors (the shipped products linked on the case study page are a good start). Run the agent prompt below in the Project and save the answer as `summary-v1.md`. Keep it: Session 3 fact-checks it.',
+          'Read the "Gaps and assumptions" list in v1. Update `product-context.md` yourself where you can answer a gap; add the rest under Open decisions.',
+          'Write `delegation-audit.md`: ten tasks from your quarter on {{name}} (for example competitor research, interview synthesis, a PRD draft, a stakeholder update, a prioritisation call). For each, record the decision (delegate with spot checks, draft with AI and edit, or keep), the context it needs, what you will check and who owns the result.',
+        ],
+      },
+      agentPrompt: {
+        tool: 'Claude',
+        where:
+          'A chat inside your {{name}} Claude Project, with product-context.md in project knowledge',
+        text: `Goal: a one-page competitor summary for {{name}} that I will bring to my manager on Friday.
+
+Context: product-context.md in this project describes the product, its users, constraints and open decisions. Use it to judge what matters about each competitor.
+
+Audience: my manager and two engineers. They know {{name}} well; they do not know the competitors.
+
+Material: the competitor pages below. Use only this material and the context file.
+[paste the names, URLs and the relevant text of three to five competitor pages]
+
+What good looks like:
+- A table with the columns: competitor, what it offers {{user}}, how it handles the problem "{{opportunity}}", where it hands off to a person, source URL.
+- Three implications for {{name}}, each naming the line in product-context.md it relies on.
+- A section "Gaps and assumptions": anything you needed but could not find in the material or the context file. Do not fill gaps with guesses.
+
+Constraints: under 400 words plus the table, plain language. Mark any statement the material does not support as "unverified".
+
+Done when: every table row has a source URL and every implication names the context line it relies on.`,
+      },
+      expectedOutput: [
+        '`product-context.md`: one page with Product, Users, Glossary, Constraints, Open decisions and Sources, and "Unknown" where you do not know.',
+        'Three competitor summaries (v0, v0b and v1) showing how little wording changed and how much context did.',
+        '`delegation-audit.md`: ten tasks, each with a decision, the context it needs, what you check and who owns it.',
+      ],
+      artifact:
+        '`product-context.md` and `delegation-audit.md`, plus a {{name}} Claude Project with the context file as project knowledge.',
+      verification: [
+        '`product-context.md` fits on one page and every fact has a source or is marked Unknown.',
+        'The v1 summary names {{name}} specifics that v0 and v0b could not have known.',
+        'You wrote the context file and every update to it yourself; Claude only pointed out gaps.',
+        'Every delegated task in the audit names what you will check and how.',
+      ],
+      reflectionPrompts: [
+        'How much did the role phrase change the answer compared with the context file?',
+        'Which gap in your product context surprised you most?',
+        'Which task in your audit were you tempted to delegate fully, and what made you hold back?',
+      ],
+      checklist: [
+        { id: 'generic-first', text: 'Saved a no-context summary and a role-phrase summary' },
+        { id: 'context-file', text: 'Wrote a one-page product-context.md with sources' },
+        { id: 'project', text: 'Set up a Claude Project with the file and short instructions' },
+        { id: 'summary-v1', text: 'Got a specific v1 summary and saved it for Session 3' },
+        { id: 'gaps', text: 'Updated the context file from the gaps list myself' },
+        { id: 'audit', text: 'Wrote a ten-task delegation audit' },
+      ],
+      mentorMove:
+        'Read her `product-context.md` cold and say what you, as an engineer joining tomorrow, would still need to know. Then challenge one task she delegated in the audit: what would go wrong, and how would she notice?',
+    },
+    {
+      id: 's3',
+      levelId: 1,
+      number: 3,
+      title: 'Research and verify',
+      difficulty: 'Foundational',
+      minutes: 90,
+      tools: ['Claude (web search or Research)', 'A web browser'],
+      prerequisites: ['s2'],
+      competencies: ['ai-fundamentals', 'evals-safety'],
+      xp: 100,
+      mentorReview: 'recommended',
+      safetyCritical: true,
+      goal: 'Use Claude with web search to answer a real question about your market, verify every material claim against a primary source, and know what you must never paste into an assistant.',
+      whyItMatters:
+        'The v1 competitor summary reads well, and some of it is wrong. AI research features produce polished, cited reports in minutes. A single fabricated statistic in a leadership review, or a misread regulation, costs credibility or worse. The valuable skill is not getting an answer; it is knowing which parts of the answer you can stand behind.',
       learn: [
         {
           heading: 'Why fluent answers can be wrong',
           paragraphs: [
-            'Generation optimizes for plausible text, so a model can produce a statistic, a quote or a citation that looks right and is not. Citations fail in three ways: the source does not exist, the source exists but does not say what is claimed, or the source is real but outdated or about a different market.',
-            'Web search and deep research modes reduce invented sources because the model reads real pages. They do not remove the problem. The model can still over-trust a weak page, merge two numbers, or summarize a nuanced finding into something stronger than the original.',
+            'Generation optimizes for plausible text, so a model can produce a statistic, a quote or a citation that looks right and is not. This is called **hallucination**. Citations fail in three ways: the source does not exist, the source exists but does not say what is claimed, or the source is real but outdated or about a different market.',
+            'Web search and research modes reduce invented sources because the model reads real pages. They do not remove the problem. The model can still over-trust a weak page, merge two numbers, or summarize a nuanced finding into something stronger than the original.',
           ],
         },
         {
           heading: 'Claim-level verification',
           paragraphs: [
             'Break any AI report into atomic claims, then sort them. **Material claims** would change a decision if they were wrong; **background claims** would not. You verify every material claim and sample the rest.',
-            'For each material claim, open the source yourself and check four things: it exists, it says what is claimed, the date is current enough, and it applies to your geography and customer segment. Then label the claim.',
+            'For each material claim, open the source yourself and check four things: it exists, it says what is claimed, the date is current enough, and it applies to your geography and users. Then label the claim.',
           ],
           bullets: [
             '**Verified**: the source says exactly this.',
@@ -217,67 +360,70 @@ Constraints:
         {
           heading: 'Judge the source by its relationship to the claim',
           paragraphs: [
-            "A source is strong for a claim when it observed the thing directly. A central bank survey is primary evidence for how many adults run short before payday. A company blog post is primary evidence for what that company says it launched, but only an assertion about how well it works. An engineer documenting a test they ran is good evidence for that test, even on a personal blog. Reputable journalism and analyst reports are secondary: they interpret someone else's evidence.",
-            'So ask three questions of every source: did it observe this, does it gain from the claim, and has anyone independent confirmed it? A Reddit thread full of people describing overdraft anxiety is a great discovery signal. It is not a market size.',
+            "A source is strong for a claim when it observed the thing directly. A national statistics survey is primary evidence for how many people face a problem. A company's own page is primary evidence for what that company says it launched, but only an assertion about how well it works. Reputable journalism and analyst reports are secondary: they interpret someone else's evidence.",
+            'So ask three questions of every source: did it observe this, does it gain from the claim, and has anyone independent confirmed it? A forum thread full of people describing the problem is a great discovery signal. It is not a market size.',
           ],
         },
         {
-          heading: 'Deep research: when it helps',
+          heading: 'Web search and Research: when they help',
           paragraphs: [
-            'Deep research modes run an agent that searches many pages and writes a long report. They are excellent for landscape scans, competitor overviews and finding sources you would not have found. They are slow, and they need the same verification as anything else.',
-            'Brief them like you would brief an analyst: scope, geography, time window, required source types, and an instruction to separate what was found from what was inferred. Running the same brief in a second tool is a cheap cross-check: where two reports disagree is where you look first.',
+            "Claude's web search, available on the free plan, reads a handful of pages and cites them. **Research**, on paid plans, runs an agent that searches many pages and writes a long report. Both are excellent for landscape scans, competitor overviews and finding sources you would not have found. Both need the same verification as anything else.",
+            'Brief them like you would brief an analyst: scope, geography, time window, required source types, and an instruction to separate what was found from what was inferred. Running the same brief again in a fresh chat is a cheap cross-check: where the two reports disagree is where you look first.',
+          ],
+        },
+        {
+          heading: 'What never goes into an assistant',
+          paragraphs: [
+            "What you paste may be stored, reviewed for safety or, depending on your settings, used to improve models. Check the privacy and memory settings of every assistant you use. At work, your employer's approved-tool policy decides what is allowed, not the tool's settings. In this course, use only public sources and fictional data.",
+          ],
+          bullets: [
+            '**Personal data**: names, contact details, account numbers, health details or anything else about real customers, users or colleagues.',
+            '**Confidential company data**: unreleased plans, internal metrics, contracts, security details, anything under a confidentiality agreement.',
+            '**Credentials**: passwords, API keys, access tokens. If one slips into a chat, change it.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'anthropic-ai-fluency',
-          why: 'Gives you language for discernment: judging AI output critically rather than accepting fluent text. The whole course takes about four hours; for this session, do only the Discernment lessons and finish the rest across the course.',
+          resourceId: 'karpathy-how-i-use-llms',
+          why: 'A practitioner tour of everyday model use. For this session, watch the sections on internet search and deep research, where he shows both the value and the need to check; the rest of the video is optional.',
           required: true,
         },
         {
-          resourceId: 'karpathy-how-i-use-llms',
-          why: 'Shows search-enabled and deep research tools in practice, including where they help and where they need checking.',
-          required: false,
-        },
-        {
-          resourceId: 'openai-academy',
-          why: 'Free introductory material on using ChatGPT features, including search and research, if you want guided practice.',
-          required: false,
-        },
-        {
           resourceId: 'simon-willison-blog',
-          why: 'A respected practitioner who regularly tests AI research and search features and documents where they go wrong.',
+          why: 'A respected practitioner who regularly tests AI search and research features and documents where they go wrong.',
           required: false,
         },
       ],
       task: {
         summary:
-          'Answer a real question with two AI research tools, then build a claim-by-claim verification table and a one-page verified brief.',
+          'Research one real question about your market with Claude, build a claim-by-claim verification table, and turn it into `fact-sheet.md`.',
         steps: [
-          'Choose a real question with publicly verifiable answers. A good one for this course: "What share of adults in my country report running short of money before payday, and what do banks and fintechs currently offer to help?"',
-          'Write a research brief: the question, geography, time window (last 24 months), required source types and the output format. Use the agent prompt below as a starting point.',
-          'Run the brief in ChatGPT and in Claude with web search or research mode switched on. Save both reports.',
-          'Extract the ten most material claims across both reports into a table with columns: claim, cited source, label, my evidence link, date of source.',
+          'Write a research question with publicly verifiable answers, built from your v1 summary. A good one: "How common is the problem \'{{opportunity}}\' among {{user}} in my country, and what do the main competitors offer for it today?"',
+          'Adapt the research brief below: question, geography, time window, required source types and output format.',
+          'Run it in Claude with web search on (or Research, if your plan has it). Run it a second time in a fresh chat. Save both answers.',
+          'Extract the ten most material claims from both answers and from `summary-v1.md` into a table: claim, cited source, label, your evidence link, date of source.',
           'Open every cited source yourself. Label each claim Verified, Partly supported, Unsupported or Contradicted.',
-          'Find at least one relevant primary source that neither tool cited, for example a central bank survey or a national statistics release.',
-          'Write a one-page verified brief with a confidence label for each section and a short list titled "What I could not verify".',
+          "Find at least one relevant primary source that neither answer cited, for example a national statistics release, a regulator report or a competitor's own product page.",
+          'Write `fact-sheet.md`: the verified facts you can use, each with its source and date, then a section "What I could not verify".',
+          'Update the Sources section of `product-context.md` with what held up, and fix anything that was contradicted.',
+          'Before you finish, reread your chats for anything from the "never paste" list. If you find any, delete the chat and note what happened.',
         ],
       },
       agentPrompt: {
-        tool: 'ChatGPT or Claude with web search or deep research',
-        where: 'A fresh chat with search or research mode enabled',
+        tool: 'Claude with web search or Research',
+        where: 'A fresh chat in your {{name}} Project, with web search switched on',
         text: `Research question: [your question]
 
 Scope:
 - Geography: [country or region]
 - Time window: sources published in the last 24 months, unless a foundational source is older
-- Audience: a product manager preparing an internal briefing
+- Audience: a product manager preparing a short internal fact sheet for {{name}}
 
 Source requirements:
-- Prefer primary sources: regulators, central banks, national statistics offices, peer-reviewed studies, and official company publications for what a company says it offers.
+- Prefer primary sources: regulators, national statistics offices, peer-reviewed studies, and official company pages for what a company says it offers.
 - Use reputable press or analyst reports only when no primary source exists, and label them secondary.
-- Label vendor claims about their own product's results as vendor claims.
+- Label claims a company makes about its own results as company claims.
 - Do not use AI-generated summaries, content farms or forums as evidence for facts.
 
 Output format:
@@ -291,342 +437,197 @@ Rules:
 - Quote numbers exactly as the source states them, including the unit, the year and the population surveyed.`,
       },
       expectedOutput: [
-        'A verification table of ten material claims, each labeled with your own evidence link.',
-        'A one-page verified brief with section-level confidence labels.',
-        'A list of claims you could not verify, plus any fabricated or misattributed citations you found.',
+        'A verification table of ten material claims, each labelled, with your own evidence link.',
+        '`fact-sheet.md`: verified facts with sources and dates, and a "What I could not verify" list.',
+        'An updated Sources section in `product-context.md`.',
       ],
-      artifact:
-        'verified-brief.md: a one-page research brief backed by a ten-claim verification table.',
+      artifact: '`fact-sheet.md`: every fact sourced, dated and checked by you.',
       verification: [
         'Every material claim has a source link that you opened and read yourself.',
-        'At least one primary source is included that the AI tools did not cite.',
+        'At least one primary source is included that the AI answers did not cite.',
         'Every number matches its source exactly, including date, unit and geography.',
-        'You either identified at least one discrepancy or wrote down that all ten claims held up after checking.',
+        'You either found at least one discrepancy or wrote down that all ten claims held up after checking.',
+        'No chat in this session contains personal data, confidential company data or credentials.',
       ],
       reflectionPrompts: [
         'What share of the claims held up, and what kind of failure did you see most?',
-        'Where did the two tools disagree, and which one was closer to the primary source?',
-        'How will you change the way you use AI research in your work from February?',
+        'Where did the two runs disagree, and which was closer to the primary source?',
+        'What would you need to change about how you use AI research when you are back at work?',
       ],
       checklist: [
-        {
-          id: 'brief',
-          text: 'Wrote a research brief with scope, time window and source requirements',
-        },
-        { id: 'two-tools', text: 'Ran the brief in two different AI research tools' },
+        { id: 'brief', text: 'Wrote a research brief with scope, time window and source rules' },
+        { id: 'two-runs', text: 'Ran the brief twice in fresh chats with web search on' },
         { id: 'ten-claims', text: 'Extracted ten material claims into a verification table' },
-        { id: 'opened-sources', text: 'Opened every cited source myself and labeled each claim' },
+        { id: 'opened-sources', text: 'Opened every cited source myself and labelled each claim' },
         { id: 'primary-source', text: 'Added at least one primary source the AI did not cite' },
-        {
-          id: 'confidence',
-          text: 'Wrote the verified brief with confidence labels and a could-not-verify list',
-        },
+        { id: 'fact-sheet', text: 'Wrote fact-sheet.md and updated the context file sources' },
+        { id: 'never-paste', text: 'Checked my chats for personal, confidential or secret data' },
       ],
       mentorMove:
-        'Pick two claims she marked Verified and check them yourself while she watches. Then show her how you ask a model to separate what it found from what it inferred, and how you spot a citation that exists but does not support the claim.',
-    },
-    {
-      id: 's3',
-      levelId: 1,
-      number: 3,
-      title: 'Organize your learning notes with AI',
-      difficulty: 'Foundational',
-      minutes: 75,
-      tools: ['Claude or ChatGPT', 'Claude Code or Codex (optional)', 'A text editor or Obsidian'],
-      prerequisites: ['s1', 's2'],
-      competencies: ['knowledge-management', 'prompting-context'],
-      xp: 120,
-      mentorReview: 'optional',
-      goal: 'Turn the scattered notes from your first two sessions into a structured `learning/` folder of Markdown files that both you and an AI can use.',
-      whyItMatters:
-        'Most PMs have their learning scattered across chats, screenshots, documents and bookmarks. AI is excellent at restructuring messy notes, but only if you decide the structure. This folder becomes the seed of the second brain you build in Level 2.',
-      learn: [
-        {
-          heading: 'Markdown in ten minutes',
-          paragraphs: [
-            'Markdown is plain text with light formatting: `#` for headings, `-` for bullets, `**bold**`, `[link text](url)` and `>` for quotes. It reads well as raw text, opens in any editor, renders nicely in Obsidian and GitHub, and is the native format of AI agents. Files you write today will still open in twenty years.',
-            'Because it is plain text, version control can show exactly what changed between two versions of a note. That becomes important when an agent edits your files for you.',
-          ],
-        },
-        {
-          heading: 'Atomic notes beat long transcripts',
-          paragraphs: [
-            'An **atomic note** covers one idea. Its title states the idea as a claim or question, for example `long-context-degrades-answers.md` rather than `session-1-notes.md`. Each note carries its source and date and links to related notes.',
-            'This matters for AI as much as for you. Agents find information by file names, headings and keywords. Small focused notes are found and quoted accurately; a forty-page transcript is found and then misread.',
-          ],
-        },
-        {
-          heading: 'You own the structure, AI does the labor',
-          paragraphs: [
-            'The reliable delegation pattern is: you define the folders and the template, the AI proposes how to split, title and file the material, you approve the plan, then the AI writes the files. Asking for a plan first is the single most useful habit when an AI touches your files.',
-          ],
-          bullets: [
-            'Keep originals in `00-inbox/` until you have reviewed the result.',
-            'Never let an AI delete source material in the same step it creates summaries.',
-            'Spot-check a few notes against the originals: did any idea disappear?',
-          ],
-        },
-        {
-          heading: 'Questions are first-class notes',
-          paragraphs: [
-            'Keep a running `open-questions.md`. Unanswered questions are what turn passive reading into directed learning, and AI is good at extracting the questions implied by your notes. In Session 4, this file becomes one of the inputs to your weekly review.',
-          ],
-        },
-      ],
-      resources: [
-        {
-          resourceId: 'anthropic-prompting-docs',
-          why: 'Explains how to structure instructions with clear sections, examples and output formats, which is exactly what a reorganization prompt needs.',
-          required: true,
-        },
-        {
-          resourceId: 'obsidian',
-          why: 'An optional, free-for-personal-use editor that shows your Markdown folder as a linked knowledge base without locking you in.',
-          required: false,
-        },
-        {
-          resourceId: 'vellotti-free-courses',
-          why: 'Practical, PM-oriented material on working with AI on real files, useful if you want to try the file-based agent route now.',
-          required: false,
-        },
-      ],
-      task: {
-        summary:
-          'Create a private `learning/` folder, define a note template, and use AI to turn your raw notes into atomic, sourced notes with an index and an open-questions list.',
-        steps: [
-          'Create `~/second-brain/learning/` and `~/second-brain/00-inbox/` on your own computer. Do not put them in a shared drive or any public repository.',
-          'Drop your raw material from Sessions 1 and 2 into `00-inbox/`: the model comparison, the verified brief, and any chat answers worth keeping, saved as `.md` or `.txt`.',
-          'Create `learning/_template.md` with these headings: Title, Date, Source, Key ideas, My take, Open questions, Related notes.',
-          'Paste the inbox material and the template into Claude or ChatGPT with the prompt below. Ask for a reorganization plan first.',
-          'Review the plan. Rename anything vague, merge or split notes, then approve and let the AI write the notes. Save each one as its own file in `learning/`.',
-          'Create `learning/index.md` (every note with a one-line summary) and `learning/open-questions.md`.',
-          'Optional: open `~/second-brain` in Obsidian, or start Claude Code or Codex inside `~/second-brain` and let it do steps 4 to 6 directly on the files.',
-        ],
-      },
-      agentPrompt: {
-        tool: 'Claude, ChatGPT, Claude Code or Codex',
-        where:
-          'A chat with your inbox notes pasted in, or Claude Code or Codex started inside ~/second-brain',
-        text: `You are helping me organize my personal learning notes into a Markdown folder I own.
-
-Inputs: the raw notes below (or the files in 00-inbox/ if you can read files), and my note template in learning/_template.md.
-
-Step 1, plan only. Propose how to split the material into atomic notes, one idea per note. For each proposed note give: file name (lowercase-with-hyphens.md), a title phrased as a claim or question, source, date, and which raw note it comes from. Also list the open questions you found. Then stop and wait for my approval.
-
-Step 2, after I approve: write each note using my template exactly. Then create:
-- learning/index.md: every note with a one-line summary and a relative link
-- learning/open-questions.md: each question with a link to the note it came from
-
-Rules:
-- Do not drop any idea from the raw notes. If something does not fit, list it under "Unfiled" in the plan.
-- Do not add facts that are not in my notes. Mark your own suggestions with "Suggestion:".
-- Never delete or overwrite files in 00-inbox/. I will archive them myself after review.
-- Match the spelling and tone of my notes. Plain Markdown only.
-
-[paste raw notes here if you are using a chat]`,
-      },
-      expectedOutput: [
-        'A `learning/` folder with five to ten atomic notes, each with a source and a date.',
-        '`learning/index.md` and `learning/open-questions.md`.',
-        '`learning/_template.md`, the template you will reuse for every future note.',
-      ],
-      artifact:
-        '~/second-brain/learning/: an index, a template, atomic notes and an open-questions list.',
-      verification: [
-        'Every note has a source and a date.',
-        'You spot-checked three notes against the originals and no idea was lost or invented.',
-        'Every link in index.md opens the right note.',
-        'open-questions.md contains at least five questions you genuinely want answered.',
-      ],
-      reflectionPrompts: [
-        "Which part of the plan did you change, and why did the AI's first proposal miss it?",
-        'Did reorganizing your notes change what you think you learned?',
-        'What would make you trust an AI to reorganize your files without a plan step, if anything?',
-      ],
-      checklist: [
-        {
-          id: 'private-folder',
-          text: 'Created ~/second-brain with learning/ and 00-inbox/ in a private location',
-        },
-        { id: 'template', text: 'Wrote learning/_template.md' },
-        {
-          id: 'plan-reviewed',
-          text: 'Asked for a plan first and changed at least one thing before approving',
-        },
-        { id: 'notes-saved', text: 'Saved at least five atomic notes with source and date' },
-        { id: 'index-questions', text: 'Created index.md and open-questions.md' },
-        { id: 'spot-check', text: 'Spot-checked three notes against the originals' },
-      ],
-      mentorMove:
-        'Show her how to start Claude Code or Codex inside ~/second-brain and ask it to list the files and summarize the index. Spend ten minutes, and let her type every command herself.',
+        'Pick two claims she marked Verified and check them yourself while she watches. Then show her how a citation can exist and still not support the claim, and ask what she would never paste into a chat at her employer.',
     },
     {
       id: 's4',
       levelId: 1,
       number: 4,
-      title: 'Build a weekly learning and reflection workflow',
+      title: 'Vibe code your first page',
       difficulty: 'Foundational',
-      minutes: 75,
-      tools: ['Claude or ChatGPT', 'Your calendar', 'Your learning/ folder'],
+      minutes: 90,
+      tools: ['Claude artifacts (free)', 'Lovable (optional)'],
       prerequisites: ['s3'],
-      competencies: ['prompting-context', 'knowledge-management', 'ai-fundamentals'],
-      xp: 130,
-      mentorReview: 'recommended',
-      goal: 'Design and run a repeatable weekly workflow in which AI summarizes your week, surfaces gaps and drafts reflection questions, and you write the conclusions.',
+      competencies: ['ux-prototyping'],
+      xp: 100,
+      mentorReview: 'optional',
+      practicalProof: true,
+      goal: 'Turn your feature idea into a live, shareable pitch page built from `product-context.md` and `fact-sheet.md`, improved one change at a time, and labelled honestly as a prototype.',
       whyItMatters:
-        'The AI landscape shifts every month. A weekly loop is how you keep up without drowning. When you return to work, the same pattern powers weekly status notes, stakeholder updates and team retrospectives. It is also your first reusable prompt, which becomes a skill in Level 2.',
+        'You have an idea for {{name}}: users keep saying some version of "{{opportunity}}". The old move was a two-page memo nobody reads. The new move is a working page in an afternoon that people can click, react to and argue with. A PM who can show instead of tell gets better feedback, sooner.',
       learn: [
         {
-          heading: 'Prompts versus context',
+          heading: 'Demos before memos',
           paragraphs: [
-            "A **prompt** is the instruction for this turn. **Context** is everything the model sees: instructions, documents, examples, history and tool results. Most quality gains come from better context, not cleverer wording. A weekly review prompt without the week's actual notes will produce confident, generic text.",
-            'When an output disappoints, ask what the model was missing before you rewrite the instruction. That question, more than any prompt trick, is the core of what is now called context engineering.',
+            'A page people can click answers questions a memo leaves open: what would the user actually see, what would it say, where would it break. It also exposes weak ideas faster, which is the point. You will meet this idea again in Session 12, where the prototype is linked from the PRD.',
+            '**Vibe coding**, a term Andrej Karpathy coined in early 2025, means describing what you want in plain language, letting the AI write the code, and judging the result by using it rather than by reading the code. It is ideal for pitches and throwaway prototypes. It is not how production software gets built, and Level 2 shows the more careful version.',
           ],
         },
         {
-          heading: 'Structured instructions that survive reuse',
+          heading: 'Feed it context, then change one thing at a time',
           paragraphs: [
-            'A reusable prompt has the same parts as a good brief to a colleague. Separate instructions from material using headings or tags, and include an example of a good output when you have one.',
+            'Start from the files you already have. Building inside your {{name}} Project means `product-context.md` is already in context; attach `fact-sheet.md` so the page uses only checked facts. Say what the page is for, who will see it and what each section must contain.',
+            'Then iterate in small steps. Ask for one change per message and check the result before the next. A request that changes five things at once makes it impossible to tell which change broke the layout. Artifacts keep earlier versions, so you can step back. When the chat gets long, start a fresh one with the current version and your context files: context rot applies here too.',
+          ],
+        },
+        {
+          heading: 'Label honestly and check the numbers',
+          paragraphs: [
+            'Label every prototype honestly, on screen and in the message you share it with: prototype, fictional data, not a product commitment. A polished page reads as a promise, and PMs who prototype a lot warn that it can be motion mistaken for progress: the hard parts of an AI product, such as reliable data, evals and scale, are still ahead.',
+            'If the page shows figures, they must add up. Check every number on the mocked screen by hand. One figure that does not reconcile makes people doubt everything after it.',
           ],
           bullets: [
-            '**Role**: who the model is acting as.',
-            '**Inputs**: exactly what material it will receive.',
-            '**Steps**: what to do, in order.',
-            '**Output format**: headings, length, tone.',
-            '**Rules**: what it must not do, such as inventing activity you did not do.',
+            'It works on a phone as well as a laptop.',
+            'Text is readable and has enough contrast.',
+            'No warning relies on colour alone.',
           ],
         },
         {
-          heading: 'When to delegate, and when not to',
+          heading: 'Choosing a tool',
           paragraphs: [
-            'A simple delegation test has two axes: how much judgment the task needs, and how costly a mistake would be. High-volume, low-judgment work such as summarizing, formatting and first drafts can be delegated with spot checks. High-judgment, high-stakes work such as priorities, feedback to people and what you believe stays with you; AI can challenge your thinking but should not do it for you.',
-            'Reflection sits firmly in the second group. Let the AI gather what happened and suggest questions. Write the answers yourself, because the thinking is the point.',
-            'The same rule applies to anything you pass on. Forwarding AI output to colleagues without reading it makes you what one engineer calls a meat proxy: they end up doing the review you skipped. If you send it, you own it, so read it, cut it and stand behind every claim.',
-          ],
-        },
-        {
-          heading: 'Make it a ritual, then improve it',
-          paragraphs: [
-            'Fix a time, keep it to thirty minutes, and use the same inputs every week. Judge the workflow by one measure: did it change what you do next week? Each week, note one thing the output got wrong and adjust the prompt. Small, regular improvements to your own tools are exactly how strong AI users get strong.',
+            'Claude artifacts are free, quick for a single page and can be published with a shareable link. Lovable builds multi-page web apps and publishes them to its own address; its free tier has a small daily allowance. Challenge 2 compares artifacts, Lovable and v0 on the same pitch. Use fictional data in every tool.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'anthropic-prompting-docs',
-          why: 'The reference for structuring prompts with sections, examples and clear output formats.',
+          resourceId: 'claude-artifacts',
+          why: 'How artifacts work inside a Claude chat, including publishing and sharing a link.',
           required: true,
         },
         {
-          resourceId: 'anthropic-ai-fluency',
-          why: 'Useful framing for deciding what to delegate and how to keep your own judgment in the loop.',
+          resourceId: 'lovable-quickstart',
+          why: 'The official quick start builds and publishes a small site from a prompt, one change at a time, which is exactly the habit this session teaches.',
+          required: true,
+        },
+        {
+          resourceId: 'lovable',
+          why: 'A prompt-to-app builder for multi-page web apps, if you want to go beyond a single page.',
           required: false,
         },
         {
-          resourceId: 'how-i-ai',
-          why: 'Practitioners demonstrate their real AI workflows, a good source of ideas for your own routine.',
+          resourceId: 'v0',
+          why: "Vercel's prompt-to-app builder, an alternative you will compare in Challenge 2.",
           required: false,
         },
         {
-          resourceId: 'gruhn-meat-proxy',
-          why: 'A short essay on why relaying unread AI output to colleagues hands them your work.',
+          resourceId: 'mckinnon-vibe-coding-pms',
+          why: 'A PM leader on what prototypes prove and what they only appear to prove.',
           required: false,
         },
       ],
       task: {
         summary:
-          "Write a reusable weekly review prompt, run it on this week's notes, edit the result into a real reflection, improve the prompt once and schedule the ritual.",
+          'Build a one-page pitch for your {{name}} feature idea as a Claude artifact, improve it in at least five single changes, publish it and get one real reaction.',
         steps: [
-          "Define the workflow on one page: trigger (for example Friday evening, 30 minutes), inputs (notes created this week, open-questions.md, your study log from this Academy, last week's priorities) and outputs (summary, priorities check, open questions, next week's three priorities, reflection).",
-          'Write a reusable prompt using the structure from this lesson and save it as `~/second-brain/templates/weekly-review-prompt.md`.',
-          "Run it in Claude or ChatGPT with this week's inputs pasted in.",
-          'Edit the draft. Rewrite the reflection in your own words; the AI provides scaffolding, not conclusions.',
-          'Save the result as `~/second-brain/reflections/weekly/2026-W45.md`, using the current ISO week number.',
-          'Note one thing the output got wrong or missed, change the prompt to fix it, rerun and compare. Save the improved prompt as v2.',
-          'Add a recurring 30-minute block to your calendar for the weekly review.',
+          'Start `pitch-notes.md` with a five-line brief: who it is for, the problem in their words, the idea in one sentence, the one verified fact from `fact-sheet.md` that makes the case, and what you want a reader to do next.',
+          'Open a fresh chat in your {{name}} Project, attach `fact-sheet.md`, and run the agent prompt below.',
+          'Use the page on your phone and on a laptop. Write down the three things you most want to change.',
+          'Make at least five changes, one per message. After each, log in `pitch-notes.md` what you asked, what changed and anything that broke.',
+          'Check every number on the mocked screen by hand, confirm the prototype banner is visible, and check that no warning relies on colour alone.',
+          'Publish the artifact and share the link with one person: your mentor or a friend. Ask two questions: what do you think this does, and what would you want to know next? Record the answers.',
+          'Optional: follow the Lovable quick start and rebuild the page there from the same brief. Note one difference.',
+          'Close `pitch-notes.md` with a section "What this page does not prove".',
         ],
       },
       agentPrompt: {
-        tool: 'Claude or ChatGPT',
-        where: "A fresh chat, with this week's notes pasted below the prompt",
-        text: `# Role
-You are my weekly learning reviewer. You prepare a draft; I make the conclusions.
+        tool: 'Claude',
+        where:
+          'A fresh chat in your {{name}} Project, with product-context.md in project knowledge and fact-sheet.md attached',
+        text: `Build a one-page pitch for a feature idea for {{name}}, as an interactive artifact that works on a phone and on a laptop.
 
-# Inputs
-- Notes I created or changed this week: [paste them or list the files]
-- learning/open-questions.md: [paste]
-- My study log from the Academy: [paste minutes and sessions]
-- Last week's priorities: [paste, or write "first week"]
+Context: product-context.md describes the product and its constraints. fact-sheet.md holds checked facts. Use only facts marked Verified in fact-sheet.md, and show the source under each one.
 
-# Steps
-1. Summarize what I actually studied and produced this week, citing the note for each item.
-2. Compare against last week's priorities: done, partly done, not started.
-3. List open questions that are still unanswered, plus new ones implied by my notes.
-4. Point out patterns: topics I keep returning to, things I avoid, where my understanding looks shaky.
-5. Propose three priorities for next week, each tied to a goal or an open question.
-6. Draft five reflection questions for me. Do not answer them.
+The idea: [your one-sentence idea for the problem "{{opportunity}}"]
+Who will see it: my manager and two engineers, in a two-minute look.
 
-# Output format
-Markdown with the headings: Summary, Priorities check, Open questions, Patterns, Next week, Reflection questions.
+Sections, in order:
+1. The problem, as {{user}} would describe it, with one or two verified facts.
+2. The idea in one sentence.
+3. A mocked screen of {{mvpScreen}}, filled with {{data}} that you invent. Show {{deterministic}}, worked out from that data, and make sure every number is consistent.
+4. What we would test first, and what result would make us stop.
+5. A banner at the top: "Prototype. Fictional data. Not a product commitment."
 
-# Rules
-- Use only what is in the inputs. If something is unclear, write "unclear from notes".
-- Never invent activity, progress or feelings.
-- Keep the whole draft under 500 words.`,
+Constraints:
+- Plain language, one primary action.
+- Text contrast at least WCAG AA; no warning shown by colour alone.
+- No external images, fonts or tracking.
+
+Build the whole page now. After that I will ask for one change at a time: change only what I ask, and tell me in one line what you changed.`,
       },
       expectedOutput: [
-        '`templates/weekly-review-prompt.md`, version 2.',
-        'Your first weekly reflection in `reflections/weekly/`, with the reflection section written by you.',
-        'A recurring calendar event for the weekly review.',
+        'A published pitch page with a shareable link, clearly labelled as a prototype with fictional data.',
+        '`pitch-notes.md`: the brief, a log of at least five single changes, one real reaction and "What this page does not prove".',
       ],
-      artifact: 'A reusable weekly review prompt (v2) and your first weekly reflection file.',
+      artifact: 'A live pitch page link plus `pitch-notes.md`.',
       verification: [
-        'The summary mentions only things that appear in your notes, with no invented activity.',
-        'Every open question can be traced back to a note.',
-        'Prompt v2 fixes a specific, named problem from v1.',
-        'The reflection section is in your own words, not the AI draft.',
+        'Every fact on the page appears as Verified in `fact-sheet.md`, with its source shown.',
+        'Every number on the mocked screen adds up when you check it by hand.',
+        'The page works on a phone, shows the prototype banner and uses no real personal data.',
+        'The change log shows one change per step, and you recorded at least one change that broke something or that you undid.',
       ],
       reflectionPrompts: [
-        'What did the AI notice about your week that you had missed?',
-        'What did v1 get wrong, and was the fix a better instruction or better context?',
-        'Which part of your pre-leave work week could run on a loop like this?',
+        'What did the reader think the page did, and how far was that from what you meant?',
+        'Which change made the biggest difference, and was it about content or about looks?',
+        'What would you be uncomfortable hearing a stakeholder promise after seeing this page?',
       ],
       checklist: [
-        {
-          id: 'workflow-defined',
-          text: 'Defined trigger, inputs and outputs for the weekly workflow',
-        },
-        { id: 'prompt-saved', text: 'Saved the structured prompt in templates/' },
-        { id: 'first-run', text: "Ran it on this week's real notes" },
-        {
-          id: 'own-reflection',
-          text: 'Rewrote the reflection section in my own words and saved it',
-        },
-        { id: 'prompt-v2', text: 'Improved the prompt once based on a specific problem' },
-        { id: 'calendar', text: 'Scheduled a recurring weekly review' },
+        { id: 'brief', text: 'Wrote a five-line pitch brief in pitch-notes.md' },
+        { id: 'built', text: 'Built the page from product-context.md and fact-sheet.md' },
+        { id: 'five-changes', text: 'Made and logged at least five single changes' },
+        { id: 'numbers', text: 'Checked every number on the mocked screen by hand' },
+        { id: 'published', text: 'Published the page and got one real reaction' },
+        { id: 'not-proved', text: 'Wrote what the page does not prove' },
       ],
       mentorMove:
-        'Read her v1 and v2 prompts and suggest one improvement about context (what input is missing), not wording. Then share your own weekly review routine as a concrete example.',
+        'Open the link cold on your phone and say out loud, within 30 seconds, what you think it does. Then ask the engineer question: which part of this would be hardest to build for real, and why?',
     },
   ],
   challenges: [
     {
       id: 'c1',
       levelId: 1,
-      title: 'Model behavior lab: tokens, variation and long context',
+      title: 'Model behaviour lab: tokens, variation and long context',
       difficulty: 'Intermediate',
-      minutes: 120,
-      competencies: ['ai-fundamentals', 'prompting-context'],
-      xp: 150,
+      minutes: 90,
+      competencies: ['ai-fundamentals'],
+      xp: 100,
       summary:
-        'Run three small experiments that turn abstract concepts into things you have seen with your own eyes: token counts across languages, output variation, and how retrieval degrades inside long context.',
+        'Run three small experiments that turn abstract ideas into things you have seen with your own eyes: token counts across languages, output variation, and how answers degrade inside long context.',
       steps: [
-        "Paste the same paragraph in English and in another language you speak into a public tokenizer tool (for example the tokenizer page on OpenAI's platform) and record the token counts. Do the same for a paragraph full of numbers.",
-        'Ask the same open-ended question five times in fresh chats. Record which parts stay stable and which change.',
-        "Take a long public document, such as a bank's annual report. Write a question that needs three facts from different sections combined, for example a ratio across two years plus a note in the risk section. Ask it in a fresh chat with the whole document pasted in. Current models usually find a single planted fact, so a multi-fact question is the fairer test.",
-        'Add distraction: paste two older annual reports alongside the current one and ask again. Note whether the answer mixes years or misses a fact.',
-        'Repeat with only the three relevant sections pasted as a short, separate document. Compare accuracy and how often the model quotes its sources.',
-        'Write a one-page lab report with your measurements and three practical rules you derived.',
+        'Paste the same paragraph in English and in another language you speak into a free public tokenizer page and record the token counts. Do the same for a paragraph full of numbers. Each model family splits text a little differently, but the pattern holds.',
+        'Ask Claude the same open-ended question five times in fresh chats. Record which parts stay stable and which change.',
+        "Take a long public document, such as a listed company's annual report. Write a question that needs three facts from different sections combined, for example a figure across two years plus a note in the risk section. Ask it in a fresh chat with the whole document attached. Current models usually find a single planted fact, so a multi-fact question is the fairer test.",
+        'Add distraction: attach two older annual reports alongside the current one and ask again. Note whether the answer mixes years or misses a fact.',
+        'Repeat with only the three relevant sections attached as a short, separate document. Compare accuracy and how often the model quotes its sources.',
+        'Write a one-page lab report with your measurements and three practical rules you derived, and add any new terms to `glossary.md`.',
       ],
       deliverable:
         'A one-page lab report with token counts, variation notes, long-context results and three practical rules.',
@@ -646,31 +647,37 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
     {
       id: 'c2',
       levelId: 1,
-      title: 'Delegation audit of a real work week',
+      title: 'One idea, three tools',
       difficulty: 'Intermediate',
-      minutes: 120,
-      competencies: ['ai-leadership', 'ai-fundamentals'],
-      xp: 150,
+      minutes: 90,
+      competencies: ['ux-prototyping', 'prompting-context'],
+      xp: 100,
       summary:
-        'Reconstruct a typical pre-leave work week and design how you will work differently in February, task by task, with honest risk notes.',
+        'Build the same pitch page in Claude artifacts, Lovable and v0 (or Bolt) from the same brief and context, then compare what each tool is good for.',
       steps: [
-        'From memory and your calendar, list twenty recurring tasks from a typical week. Use generic descriptions only; no confidential details.',
-        'Place each task on the delegation grid: judgment needed versus cost of a mistake.',
-        'For the five most promising tasks, design the AI-assisted version: tool, inputs, prompt or skill, and what you will always check.',
-        'Estimate time saved per week, and name the main risk for each of the five.',
-        'Review the audit with your mentor and agree which two changes you will try in your first month back.',
+        'Reuse the brief from `pitch-notes.md`, `product-context.md` and `fact-sheet.md` unchanged, so the only variable is the tool.',
+        'Build the page in each tool from a fresh start. Allow yourself the same number of follow-up changes in each, for example three.',
+        'Publish or share each version and open all three on your phone.',
+        'Score each from 1 to 5 on: faithfulness to the context and facts, whether the numbers add up, accessibility (contrast, colour, phone layout), ease of making one small change, and how easy it was to share.',
+        'Note the free-tier limits you hit and what the paid plan would add.',
+        'Write `tool-comparison.md`: the scores, one screenshot or link per tool, and which tool you would pick for a quick pitch, a multi-screen flow and a test with real users.',
       ],
       deliverable:
-        'A delegation audit: twenty tasks on the grid, five redesigned workflows with risks, and two first-month experiments.',
+        '`tool-comparison.md` with three versions of the same pitch, scores on five criteria and a recommendation per use.',
       verification: [
-        'Every redesigned workflow names what you will verify and how.',
-        "No task containing customer data is delegated without noting your employer's approved-tool policy.",
-        'Your mentor challenged at least one estimate and you recorded the outcome.',
+        'All three versions were built from the same brief and context files.',
+        'You checked the numbers by hand in every version.',
+        'The recommendation is based on your scores, not on which page looked nicest.',
       ],
       resources: [
         {
-          resourceId: 'anthropic-ai-fluency',
-          why: 'Its delegation framing helps you separate what AI should do from what you should.',
+          resourceId: 'lovable',
+          why: 'One of the three tools you compare.',
+          required: false,
+        },
+        {
+          resourceId: 'v0',
+          why: 'One of the three tools you compare, with a small free daily allowance.',
           required: false,
         },
       ],
@@ -693,7 +700,7 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
         },
         {
           id: 'c',
-          text: 'The prompt was too loose; add "read every page carefully and be thorough" and rerun it.',
+          text: 'The request was too loose; add "read every page carefully and be thorough" and rerun it.',
         },
         {
           id: 'd',
@@ -708,7 +715,7 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       id: 'q1-2',
       competency: 'ai-fundamentals',
       prompt:
-        'You run the same prompt twice in fresh chats in the same tool and get noticeably different answers. What is the main reason?',
+        'You run the same request twice in fresh chats in the same tool and get noticeably different answers. What is the main reason?',
       options: [
         {
           id: 'a',
@@ -716,26 +723,92 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
         },
         {
           id: 'b',
-          text: 'Each token is sampled from a probability distribution, so two runs can take different paths.',
-        },
-        {
-          id: 'c',
           text: 'Chat apps deliberately vary answers to repeat users so the product feels less robotic.',
         },
         {
+          id: 'c',
+          text: 'Chat apps run with no randomness, so the difference must come from a change in your wording.',
+        },
+        {
           id: 'd',
-          text: 'Chat apps run at zero randomness, so the difference must come from a change in your wording.',
+          text: 'Each token is sampled from a probability distribution, so two runs can take different paths.',
         },
       ],
-      correct: 'b',
+      correct: 'd',
       explanation:
-        'Variation comes from sampling during generation, not from learning between chats. This is why you test important prompts more than once and judge the range of outputs, not a single run.',
+        'Variation comes from sampling during generation, not from learning between chats. This is why you test important requests more than once and judge the range of outputs, not a single run.',
     },
     {
       id: 'q1-3',
+      competency: 'ai-fundamentals',
+      prompt:
+        'An engineer says the team is moving from "a chat assistant" to "an agent" for internal research. What is the most important practical difference for you as the PM?',
+      options: [
+        {
+          id: 'a',
+          text: 'The agent can use tools and take several steps on its own, so its actions as well as its answers need review.',
+        },
+        {
+          id: 'b',
+          text: 'The agent runs on a newer, larger model, so it no longer makes the factual errors a chat makes.',
+        },
+        {
+          id: 'c',
+          text: 'The agent remembers every past conversation with every user, so it no longer needs any context.',
+        },
+        {
+          id: 'd',
+          text: 'There is no real difference; "agent" is a marketing name for the same chat product.',
+        },
+      ],
+      correct: 'a',
+      explanation:
+        'An agent is a model in a loop with tools: it searches, opens files, runs code and acts until a task is done. That expands what it can do and what can go wrong. It still makes errors, and it still depends on the context it is given.',
+    },
+    {
+      id: 'q1-4',
+      competency: 'prompting-context',
+      prompt:
+        'Your competitor summary from an assistant could describe any product in your category. What is the best fix?',
+      options: [
+        {
+          id: 'a',
+          text: 'Open with "You are a world-class strategy consultant with 20 years of experience" and ask again.',
+        },
+        { id: 'b', text: 'Switch to a reasoning model so it thinks harder about the competitors.' },
+        {
+          id: 'c',
+          text: 'Give it a one-page product context file and the competitor pages, and say who it is for.',
+        },
+        {
+          id: 'd',
+          text: 'Add "be specific and insightful, avoid generic statements" to the instructions.',
+        },
+      ],
+      correct: 'c',
+      explanation:
+        'Generic output signals missing context, not weak wording or a weak model. Role phrases and exhortations barely change what current models produce. Your product context, the source material and the audience ground the answer in your situation.',
+    },
+    {
+      id: 'q1-5',
+      competency: 'ai-fundamentals',
+      prompt:
+        'Using the 4Ds, which task is the best candidate for delegating to AI with light spot-checking?',
+      options: [
+        { id: 'a', text: "Reformatting raw meeting notes into your team's template." },
+        { id: 'b', text: 'Choosing which roadmap item to cut this quarter, given capacity.' },
+        { id: 'c', text: "Writing a direct report's performance feedback from your notes." },
+        { id: 'd', text: 'Calculating final customer charges for a release.' },
+      ],
+      correct: 'a',
+      explanation:
+        'Reformatting is high volume and low judgment, and mistakes are cheap and easy to see. Prioritization and feedback need your judgment, and customer charges need deterministic calculation and controls, not a language model.',
+    },
+    {
+      id: 'q1-6',
       competency: 'evals-safety',
       prompt:
-        'A deep research report cites a regulator statistic with a working link. You want to use it in a steering committee deck tomorrow. What should you do first?',
+        'A research answer cites a regulator statistic with a working link. You want to use it in a leadership review tomorrow. What should you do first?',
       options: [
         {
           id: 'a',
@@ -743,7 +816,7 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
         },
         {
           id: 'b',
-          text: 'Ask the tool to re-check the statistic and state its confidence before you use it.',
+          text: 'Ask the same tool to re-check the statistic and state its confidence before you use it.',
         },
         {
           id: 'c',
@@ -759,172 +832,105 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
         'Citations can exist yet not support the claim, or be outdated or about a different market. A working link proves only that a page exists, and asking the same tool again is not independent. Material claims need your own check against the source.',
     },
     {
-      id: 'q1-4',
-      competency: 'ai-fundamentals',
-      prompt: 'Which task is the best candidate for delegating to AI with light spot-checking?',
-      options: [
-        { id: 'a', text: "Reformatting raw meeting notes into your team's template." },
-        { id: 'b', text: 'Choosing which roadmap item to cut this quarter, given capacity.' },
-        { id: 'c', text: "Writing a direct report's performance feedback from your notes." },
-        { id: 'd', text: 'Calculating final customer interest charges for a release.' },
-      ],
-      correct: 'a',
-      explanation:
-        'Reformatting is high volume and low judgment, and mistakes are cheap and easy to see. Prioritization and feedback need your judgment, and customer charges need deterministic calculation and controls, not a language model.',
-    },
-    {
-      id: 'q1-5',
-      competency: 'prompting-context',
-      prompt:
-        "Your weekly review output reads as generic and could describe anyone's week. What is the best fix?",
-      options: [
-        {
-          id: 'a',
-          text: 'Add "be specific and insightful, avoid generic statements" to the instructions.',
-        },
-        { id: 'b', text: 'Switch to a reasoning model so it thinks harder about your week.' },
-        {
-          id: 'c',
-          text: "Supply the week's actual notes and priorities, and require a cited note per point.",
-        },
-        {
-          id: 'd',
-          text: 'Paste three strong weekly reviews written by colleagues so it learns and copies their level of detail.',
-        },
-      ],
-      correct: 'c',
-      explanation:
-        'Generic output usually signals missing context, not weak wording or a weak model. Examples help with format, but only your real material grounds the content in your actual week.',
-    },
-    {
-      id: 'q1-6',
+      id: 'q1-7',
       competency: 'evals-safety',
       prompt:
-        'One assistant gives a confident, detailed answer about a new regulation with no citations. A second tool hedges and says it is unsure. What should you conclude?',
+        'You are preparing for a product review on your personal Claude account. Which of these is fine to paste in?',
       options: [
         {
           id: 'a',
-          text: 'The confident answer is more likely right; hedging usually means the model lacks the data.',
+          text: "An export of last month's customer complaints, since the assistant will only summarize it.",
         },
         {
           id: 'b',
-          text: "Neither tone tells you much; check the claim against the regulator's own publication.",
+          text: "A regulator's published report on your market, to pull out the figures you need.",
         },
         {
           id: 'c',
-          text: 'The hedged answer is more trustworthy, so use it and note the uncertainty in your deck.',
+          text: "Your employer's unreleased roadmap, as long as you delete the chat afterwards.",
         },
         {
           id: 'd',
-          text: 'Ask both tools a few more times and go with whichever answer appears most often.',
+          text: 'A config file with an API key, if you ask the assistant not to store or repeat the key.',
         },
       ],
       correct: 'b',
       explanation:
-        'Fluency and confidence come from training on human writing, not from verification, and repeated sampling only measures consistency. Judge claims by evidence, and treat a model admitting uncertainty as useful information.',
-    },
-    {
-      id: 'q1-7',
-      competency: 'knowledge-management',
-      prompt:
-        'Why do atomic notes with a clear title, source and date work better with AI agents than one long notes file per week?',
-      options: [
-        {
-          id: 'a',
-          text: 'Agents cannot open files longer than a few pages, so anything in a long weekly file is silently skipped.',
-        },
-        {
-          id: 'b',
-          text: 'Agents find material by names and headings, so small dated notes are found and quoted well.',
-        },
-        {
-          id: 'c',
-          text: 'Atomic notes use fewer tokens in total, and token count is what drives answer quality.',
-        },
-        {
-          id: 'd',
-          text: 'They do not; one file per week is easier for an agent because it only has to open one.',
-        },
-      ],
-      correct: 'b',
-      explanation:
-        'Retrieval works on structure. Clear titles and small scopes make the right note easy to find, and dates and sources let both you and the agent judge freshness and reliability.',
+        'Published material is safe to paste. Customer complaints contain personal data, an unreleased roadmap is confidential, and a credential is a secret: deleting a chat or asking the model not to remember does not undo the exposure. At work, the approved-tool policy decides.',
     },
     {
       id: 'q1-8',
-      competency: 'ai-leadership',
+      competency: 'ux-prototyping',
       prompt:
-        'Last month your comparison found Claude better than ChatGPT for summarizing research. A colleague asks which tool the team should standardize on. What is the best response?',
+        'You asked for five changes to your pitch page in one message, and now the layout is broken and a figure no longer adds up. What is the best next step?',
       options: [
         {
           id: 'a',
-          text: 'Claude: it won a fair comparison, and switching tools later would cost the team time.',
+          text: 'Ask it to "fix everything that broke" in one message so the page catches up quickly.',
         },
         {
           id: 'b',
-          text: "Share the method and dated results, then rerun it on the team's tasks and current versions.",
+          text: 'Start over in a new tool, since the first one has clearly reached its limits.',
         },
         {
           id: 'c',
-          text: 'Pick the one with the most features, since quality gaps between models close within months.',
+          text: 'Leave the figure as it is, because the page is labelled as a prototype with fictional data.',
         },
         {
           id: 'd',
-          text: 'Pick the cheapest; model quality is now close enough that cost should decide on its own.',
+          text: 'Go back to the last good version and make the changes one at a time, checking each.',
         },
       ],
-      correct: 'b',
+      correct: 'd',
       explanation:
-        "Models change frequently and performance depends on the task. A repeatable method and the team's own tasks are worth more than a past winner. Cost and approved-tool policy also matter, alongside quality.",
+        'With five changes at once you cannot tell which one broke the page. Stepping back and changing one thing at a time makes each result checkable. A prototype label does not excuse wrong numbers: one figure that does not add up makes people doubt the rest.',
     },
   ],
   project: {
-    title: 'Personal Learning Assistant',
+    title: 'Pitch pack',
     brief:
-      'Combine Sessions 1 to 4 into a small system you will actually use for the rest of the course: a folder, a set of reusable prompts and a weekly routine that organizes learning materials, summarizes lessons, surfaces unanswered questions and prepares a weekly reflection. Run it in a Claude Project, a ChatGPT Project, or Claude Code or Codex started inside ~/second-brain. The notes it produces are the first content of your Level 2 second brain.',
+      'Bring Level 1 together into the pack you would take to your first conversation about the {{name}} feature idea: the live pitch page, `fact-sheet.md` and `product-context.md`. Then walk your mentor through it, including one AI answer you rejected during the level and why. The context file is the seed of your Level 2 workspace, so make it something you would trust an agent to read.',
     deliverables: [
       {
-        id: 'instructions',
-        text: 'Written instructions for the assistant (project instructions or a file) stating its role, inputs, outputs and what it must never do.',
+        id: 'context-file',
+        text: '`product-context.md`, updated through the level: one page, every fact sourced or marked Unknown, open decisions listed.',
       },
       {
-        id: 'prompt-set',
-        text: 'At least three saved, reusable prompts: summarize a lesson, extract open questions, prepare the weekly reflection.',
+        id: 'fact-sheet',
+        text: '`fact-sheet.md` with every fact verified against a source you opened, and a "What I could not verify" list.',
       },
       {
-        id: 'learning-folder',
-        text: 'A learning/ folder with an index, a template and at least eight atomic notes from Level 1.',
+        id: 'pitch-page',
+        text: 'The live pitch page link, labelled as a prototype with fictional data, plus `pitch-notes.md` with the change log and real reactions.',
       },
       {
-        id: 'verified-brief',
-        text: 'The verified research brief from Session 2, filed in the folder.',
+        id: 'foundations',
+        text: '`glossary.md`, `model-comparison.md` and `delegation-audit.md`, filed in the same folder.',
       },
       {
-        id: 'two-reflections',
-        text: 'One weekly reflection produced with the workflow and edited by you, plus the date of the next one in your calendar.',
+        id: 'rejected-answer',
+        text: 'A short note on one AI answer you rejected: what it said, how you found the problem and what you used instead.',
       },
       {
-        id: 'limits',
-        text: "A short note on the assistant's limits: what it gets wrong and what you always check.",
-      },
-      {
-        id: 'demo',
-        text: 'A five-minute live demo to your mentor: run the assistant on a new piece of material.',
+        id: 'walkthrough',
+        text: 'A fifteen-minute walkthrough with your mentor: the page, the facts behind it, the context file and the rejected answer.',
       },
     ],
     rubric: {
       correctness:
-        "Summaries and questions are faithful to the source material; spot checks find no invented content; the research brief's claims hold up when the mentor checks two of them.",
+        'Every fact on the page traces to a Verified line in the fact sheet; the mentor checks two sources and they hold up; the numbers on the mocked screen add up.',
       quality:
-        'Notes are atomic, titled, dated and sourced; prompts are structured well enough that someone else could reuse them without explanation.',
+        'The context file is one page and specific enough that a newcomer could brief an assistant from it; the page is clear in thirty seconds and honest about being a prototype.',
       independence:
-        'You built and ran the system yourself; the mentor answered questions but did not set it up or write the prompts.',
+        'You wrote the context file, the brief and the fact sheet yourself; the mentor gave feedback but did not build or write any of it.',
       judgment:
-        'You can say what you delegate, what you check and why; the limits note names real failure modes you observed, not generic warnings.',
+        'You can explain why you delegated what you did, what you checked and why you rejected the answer you rejected; "What this page does not prove" names real limits.',
     },
+    privacyNote:
+      'Use public sources and fictional data only. No customer, colleague or employer data, and no credentials, in any chat, file or published page.',
     minutes: 180,
-    xp: 400,
+    xp: 300,
   },
   nextRecommendation:
-    'Move to Level 2. Your learning/ folder and weekly prompt become the first pieces of a full second brain. If the weekly loop still feels shaky, run it for one more week before adding more structure.',
+    'Move to Level 2. From here the course uses Claude Code, which needs a paid Claude Pro plan. In Session 5 your `{{slug}}-notes/` files move into a workspace, and `product-context.md` becomes the first thing every agent reads.',
 }

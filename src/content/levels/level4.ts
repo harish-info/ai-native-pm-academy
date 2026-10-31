@@ -2,698 +2,701 @@ import type { Level } from '../types'
 
 export const level4: Level = {
   id: 4,
-  slug: 'agentic-engineering',
-  title: 'Agentic Product Engineering',
-  theme: 'Take a product from specification to working software with AI coding agents.',
+  slug: 'handoff-ship-tell',
+  title: 'Hand off, ship, tell the story',
+  theme:
+    'Take a decided PRD through design, engineering handoff, AI quality, launch and the story you tell leadership.',
   summary:
-    'Coding agents can now implement features from a good spec, which means PMs can ship real software. The hard parts move elsewhere: clear specs, small reviewable steps, verification loops that prove behavior, and review that scales. In this level you take {{name}} from PRD to a tested, deployed web app through real pull requests.',
+    'Your PRD for {{name}} is approved. Now the work leaves your hands: a design spec and a handoff bundle so engineers and their agents build the right thing, an eval set that shows the AI feature is safe enough to launch, a staged launch read at a fixed sample size, and a ten-minute deck that gets a decision. Claude drafts, grades and builds; you decide what good means and check it.',
   outcomes: [
-    'Use Git and GitHub confidently: branches, commits, pull requests, reviews and a protected main branch.',
-    'Direct Claude Code or Codex with plan-first, small, verifiable tasks, and never merge code you cannot explain.',
-    'Turn a PRD into an implementation plan, a repository AGENTS.md, session handoffs, a delegated issue and an acceptance check.',
-    'Verify AI-written code with automated tests, agent-assisted review, author self-review and an independent human approval scaled to risk.',
-    'Deploy a working demo to GitHub Pages, roll back a bad release, and explain what it does, how it works and what evidence proves it.',
+    'Write a design spec that covers every screen state with exact copy, and hand it to engineering as a filtered bundle, a task breakdown and a team AGENTS.md.',
+    'Check a build against the PRD and the design spec with an align check, and open a small pull request yourself.',
+    'Build a golden eval set by harm category from real failure modes, red-team it, and set guardrails, hand-offs to people and release rules.',
+    'Plan a staged launch with metrics fixed in advance, and write a ship, iterate or kill readout without peeking.',
+    'Tell the story answer first in a deck that passes the Glance Test, built and reviewed with agents, with a written update alongside.',
   ],
   badge: {
-    name: 'Spec to Ship',
+    name: 'Shipper',
     description:
-      'Shipped a working {{name}} web app from your own PRD through real pull requests, with tests, reviews and a live deployment.',
+      'Handed {{name}} to engineering with a spec they could build from, showed the AI feature was safe enough to launch, read the launch honestly and told the story to leadership.',
   },
   lessons: [
     {
       id: 's13',
       levelId: 4,
       number: 13,
-      title: 'Git, GitHub and your first pull request',
+      title: 'Design spec and engineering handoff',
       difficulty: 'Advanced',
-      minutes: 120,
-      tools: [
-        'GitHub account (free)',
-        'GitHub Desktop or the gh CLI',
-        'A code editor such as VS Code',
-        'Claude Code or Codex',
-      ],
+      minutes: 150,
+      tools: ['Claude Design (Pro plan) or Figma Make', 'Claude Code', 'GitHub'],
       prerequisites: ['s12'],
-      competencies: ['technical-collaboration', 'coding-agents'],
-      xp: 200,
-      mentorReview: 'required',
-      goal: 'Set up GitHub, create the {{slug}} repository with a protected main branch, and complete a full branch, commit, pull request, review and merge cycle yourself.',
+      competencies: ['ux-prototyping', 'technical-collaboration'],
+      xp: 150,
+      mentorReview: 'recommended',
+      practicalProof: true,
+      goal: 'Turn the PRD and prototype into a design spec that covers every screen state, hand it to engineering as a filtered bundle with a task breakdown and a team AGENTS.md, and check the first build with an align check.',
       whyItMatters:
-        'GitHub is where software work becomes visible: specs, decisions, reviews and releases. PMs who can open a pull request, read a diff and leave a useful review comment work with engineers and coding agents directly instead of only through tickets. The pull request history is also the audit trail regulated teams rely on.',
+        'Monday morning: the PRD is approved and design and engineering pick it up. Within an hour the designer asks what {{name}} says when there is nothing to show, and an engineer asks which document wins when the prototype and the PRD disagree. A PRD says what the product must do and why; a design spec says what the user sees in every state, word for word. Engineers and their coding agents build exactly what the documents say and guess everywhere else. Every guess you remove now is a bug or a rework loop you do not have later.',
       learn: [
         {
-          heading: 'The mental model',
+          heading: 'What a design spec adds to the PRD',
           paragraphs: [
-            'A **repository** is a project folder with its full history. A **commit** is a saved snapshot with a message explaining why it was made. A **branch** is a parallel line of work, so you can change things without touching the stable version on `main`. A **pull request** (PR) proposes merging a branch into `main`, and it is where review, discussion and automated checks happen.',
+            'The PRD from Session 12 describes behaviour: goals, flows, behavioural contracts and acceptance criteria. The design spec describes the surface: every screen, every state of every screen, and the exact words on it. It is written for a designer, an engineer and a coding agent at once, so it uses plain headings and no pixel values. Describe visual intent in words ("the projected figure is the first thing the eye lands on") and let the design file carry the pixels.',
+            'Use the same layout every time, so people and agents know where to look:',
           ],
           bullets: [
-            '`git clone` copies a repository to your machine.',
-            '`git switch -c docs/readme-intro` creates and switches to a new branch.',
-            '`git add` and `git commit -m "explain why"` save a snapshot.',
-            '`git push` uploads your branch to GitHub.',
-            '`gh pr create` opens a pull request, or use the GitHub website or GitHub Desktop.',
+            '**Definitions**: the terms the spec uses, matching the PRD glossary.',
+            '**Screen inventory**: every screen and sub-view, one line each.',
+            '**Shared patterns**: cards, the empty state, the error state and the loading state, written once and referenced.',
+            '**Per screen**: purpose; every state with its exact copy; conditional logic (what shows when); interactions; visual intent in words; sub-views.',
+            '**Navigation map**: how screens connect, including back and cancel.',
+            '**Unresolved design gaps**: questions nobody has answered yet, each with who decides.',
           ],
         },
         {
-          heading: 'Why protected main matters',
+          heading: 'States are where the bugs live',
           paragraphs: [
-            'Branch protection rules and rulesets make `main` accept changes only through pull requests, optionally with passing checks and an approving review. That one setting turns "someone changed production" into "a reviewed, tested, recorded change was merged." When agents can write code quickly, this gate matters more, not less.',
-            'One catch: by default a classic branch protection rule does not apply to repository admins, and on your own repository you are the admin. Use a ruleset with an empty bypass list, or tick "Do not allow bypassing the above settings", so the rule binds you too.',
-            'Apply the same rule to everyone who changes code, including PMs, designers and agents: changes go through pull requests, never direct pushes to main, however small. A copy fix gets a light review; it still gets a PR.',
+            'Most design reviews look at the happy path. Most production bugs live in the other states: empty, loading, error, partial data, stale data, the first visit, and the case where the number is bad news. For {{mvpScreen}}, write each state as a condition and the exact copy: "When there is no data for the period, show: ...". Add an accessibility note where it matters, such as a warning that must never rely on colour alone. If you cannot write the copy, you have found a gap.',
+            'The no-invention rule from the PRD applies here too. When the PRD, the prototype and your notes are silent, the spec says "open question", names who decides, and moves on. A plausible guess written confidently into a spec is worse than a visible gap, because an agent will build it without asking.',
           ],
         },
         {
-          heading: 'Frontend, backend, APIs and databases in five minutes',
+          heading: 'Which source wins',
           paragraphs: [
-            'The **frontend** is what runs in the browser: screens, buttons and on-screen state. The **backend** runs on servers: business logic, security and access to data. An **API** is the contract between them, for example `GET /api/items?since=2026-11-01` returning a JSON list. A **database** stores data durably and lets the backend query it.',
-            'For {{name}} in this level, everything runs in the browser with {{data}}, so you can deploy for free. In a real product the data and the logic behind {{deterministic}} would sit behind backend APIs with authentication, consent and audit logging. Knowing where that line sits is what lets you have a sensible conversation with your engineers about effort and risk.',
+            'You will have four sources and they will disagree. Decide the precedence before you write and put it at the top of the spec. Contradictions are flagged in the spec, never silently resolved: "The PRD says X; the prototype shows Y; flagged for decision."',
+          ],
+          bullets: [
+            '**The PRD wins wherever it speaks**: scope, rules, thresholds and acceptance criteria.',
+            '**The prototype is authoritative for states and logic**: what appears when, and what each tap does.',
+            '**The design file is authoritative for hierarchy**: what is prominent, grouping and order.',
+            '**Notes are authoritative for intent**: why a choice was made.',
           ],
         },
         {
-          heading: 'Reading a diff',
+          heading: 'The handoff bundle and the task breakdown',
           paragraphs: [
-            'A diff shows removed lines in red and added lines in green. You do not need to understand every line to review usefully. Ask four questions: does this change match the PR description, is anything changed that should not be, are there tests, and is there anything secret or real in it? Those four questions catch a surprising amount.',
+            'Claude Design, a research preview on the paid Claude plans, generates designs and working prototypes from a brief, and packages a finished design into a **handoff bundle** for Claude Code. Figma Make is the alternative if your team works in Figma; its free plan is enough for one screen. Either way, the prototype comes from the PRD and the design spec, not from a blank prompt.',
+            'Handing off means loading the plan into the engineering repository, filtered to what that platform needs. A web repository needs the web states and the acceptance criteria; it does not need your interview notes or gesture notes for a mobile app. Put the filtered PRD, the design spec and the bundle under `docs/`, so engineers and agents build from one source.',
+            'Then break the work into tasks. Slice vertically: each task delivers something a user can see or a test can check, end to end, rather than "all the data first, then all the screens". A good slice fits in one pull request and one agent session, names the acceptance criteria and spec states it covers, and lists the files it will likely touch.',
+          ],
+        },
+        {
+          heading: 'A team AGENTS.md',
+          paragraphs: [
+            '`AGENTS.md` at the root of a repository tells any coding agent what the project is, how to install, run and test it, the conventions, and the hard rules, such as "fictional data only, never connect real systems". Most other coding agents read it directly; Claude Code reads `CLAUDE.md`, so add one whose first line is `@AGENTS.md`. Every engineer\'s agent then starts from the same context, whatever tool they prefer.',
+            'Keep it short and accurate. Point to `docs/prd.md` and `docs/design-spec.md` instead of copying them. Stale instructions are worse than none, and an instruction is guidance, not a lock: keep the hard rules enforced by branch rules and checks as well.',
+          ],
+        },
+        {
+          heading: 'The align check, and your own pull request',
+          paragraphs: [
+            'After a slice is built, run an **align check** in a fresh Claude Code session. Claude compares the work with every PRD acceptance criterion and every design spec state, then with the team decisions recorded in the repository, and lists each one as met, partly met or missing, with evidence: a file, a test or a screenshot. Missing items become tasks; contradictions go back to the spec. Spot-check the evidence yourself: the check is a fast first pass, not a verdict.',
+            "Finally, open one small pull request yourself. A copy string that does not match the spec is perfect. Claude Code runs git; you write the description, read the diff and ask for review, as in Session 7. It is the quickest way to earn the right to comment on everyone else's pull requests.",
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'github-skills-intro',
-          why: 'A free, hands-on exercise that walks you through branches, commits and pull requests inside GitHub itself.',
+          resourceId: 'claude-design-launch',
+          why: 'What Claude Design makes and how it packages a finished design into a handoff bundle for Claude Code.',
           required: true,
         },
         {
-          resourceId: 'github-about-prs',
-          why: 'The official explanation of pull requests, reviews and merging.',
+          resourceId: 'agents-md',
+          why: 'The open format for the team instructions file that coding agents read before they start work.',
           required: true,
         },
         {
-          resourceId: 'github-hello-world',
-          why: 'A short official walkthrough of the same workflow if you prefer reading to an interactive course.',
+          resourceId: 'figma-make',
+          why: 'The alternative prototyping tool if your team works in Figma; the free plan covers this session.',
           required: false,
         },
         {
-          resourceId: 'vellotti-codex-pm-course',
-          why: 'A PM-oriented, hands-on introduction to working in a repository with a coding agent.',
+          resourceId: 'anthropic-sdlc-playbook',
+          why: 'How engineering teams reorganise planning, design and build around agents; skim the plan and design plays to see where your spec lands.',
           required: false,
         },
       ],
       task: {
         summary:
-          'Complete the GitHub introduction exercise, create the {{slug}} repository with protected main, and take one small change from branch to merged pull request.',
+          'Write the design spec, prototype the core screen and its states, load the plan into the repository as a filtered bundle with a task breakdown and a team AGENTS.md, then build one slice, run an align check and open one small pull request yourself.',
         steps: [
-          'Create a free GitHub account if you do not have one, and turn on two-factor authentication.',
-          'Complete the GitHub Skills "Introduction to GitHub" exercise in the browser.',
-          'Install GitHub Desktop or the gh CLI. If you use the CLI, run `gh auth login`. Your mentor can help with setup.',
-          'Create a repository named `{{slug}}`. Public is fine because it will only ever contain fictional data. Copy your PRD into `docs/prd.md` and your prototype screenshots into `docs/prototype/`, removing any private research references.',
-          'In the repository settings, add a ruleset for `main` that requires a pull request before merging, and leave its bypass list empty so it applies to you as the admin.',
-          'Clone the repository, create the branch `docs/readme-intro`, and run the agent prompt below to improve the README. Read the diff before committing.',
-          'Commit, push and open a pull request with a clear description. Ask your mentor to review it and request one change.',
-          'Address the review comment in a new commit, merge the PR and delete the branch.',
+          'In your `{{slug}}-workspace/` folder, run the agent prompt below. Claude Code drafts `design-spec.md` from your PRD, prototype and notes, and interviews you about every gap it finds. Answer what you know; leave the rest as open questions.',
+          'Read the spec screen by screen. Every state needs a condition and exact copy. Check the precedence note at the top and every flagged contradiction, and decide or assign each one.',
+          'Open Claude Design, or Figma Make, give it `prd.md` and `design-spec.md`, and ask for a prototype of {{mvpScreen}}, with every state in the spec. Compare it with the spec state by state, and fix whichever of the two is wrong.',
+          'Export the handoff bundle from Claude Design into a `handoff/` folder in your workspace. With Figma Make, save the prototype link and a screenshot of every state there instead.',
+          'In your prototype repository from Session 7, on a new branch, ask Claude Code to copy the PRD, the design spec and the bundle into `docs/`, filtered to what this web app needs, and to write `docs/task-breakdown.md`: 5 to 8 vertical slices, each with the acceptance criteria and spec states it covers, likely files and a size (S, M or L). Split any L. Edit the breakdown yourself, then merge it through a pull request.',
+          'Ask Claude Code to draft a team `AGENTS.md`: what the product is, the commands, conventions, pointers to `docs/`, and the hard rules. Add a `CLAUDE.md` whose first line is `@AGENTS.md`. Cut anything vague and merge through a pull request.',
+          'Have Claude Code build the first slice in a fresh session that reads AGENTS.md and the breakdown. Review the result, not a plan: run it, try every state, read the diff.',
+          'In another fresh session, run the align check: "Compare the current build with every acceptance criterion in docs/prd.md and every state in docs/design-spec.md, then with the decisions in AGENTS.md. For each, report met, partly met or missing, with the file, test or screenshot that shows it. Do not fix anything." Save the result as `docs/align-check.md` and turn every missing item into a task.',
+          'Open one small pull request yourself, such as a copy string that does not match the spec. Write the description, read the diff, ask your mentor to review it, then merge.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude Code or Codex',
-        where: 'In your local clone of the {{slug}} repository, on branch docs/readme-intro',
-        text: `I am a product manager learning the GitHub workflow. This repository will hold {{name}}, a demo web app version of {{product}}. It uses {{data}} only.
+        tool: 'Claude Code',
+        where: 'In your {{slug}}-workspace folder',
+        text: `Goal: write design-spec.md for {{name}} v1, so a designer, an engineer and a coding agent can build every screen without guessing.
 
-Please improve README.md only. Do not create or change any other file.
+Read first: prd.md, REQUIREMENTS.md, synthesis.md, product-context.md (for the glossary) and any design notes in this workspace. Then read the prototype from Session 7; ask me for its folder if you cannot find it.
 
-The README should contain:
-1. A one-paragraph description of {{name}} and the problem it solves, using docs/prd.md as the source
-2. A "Status" section saying this is a learning project that uses fictional data only
-3. A "How we work" section: every change goes through a pull request to main, PRs stay small, the author reviews their own diff before asking for review, and tests are required once code exists
-4. A "Docs" section linking to docs/prd.md and docs/prototype/
+Audience: a designer and an engineer who have not seen the prototype, and their coding agents.
 
-Before editing, show me your plan in 3 to 5 bullets and wait for my approval.
-After editing, show me the diff and explain each change in one line.
-Do not run git commit or git push. I will do that myself.`,
+Use this layout:
+1. Precedence: the PRD wins where it speaks; the prototype is authoritative for states and logic; the design file for hierarchy; notes for intent.
+2. Definitions, matching the PRD glossary.
+3. Screen inventory, one line per screen and sub-view.
+4. Shared patterns: card, empty state, error state, loading state.
+5. Per screen: purpose; every state with its exact copy; conditional logic (what shows when); interactions; visual intent in words, with no pixel values; sub-views. Start with {{mvpScreen}}.
+6. Navigation map.
+7. Unresolved design gaps, each with who should decide.
+
+Rules:
+- No invention. If the sources do not say what a state shows, write it as an open question. Never fill a gap with a plausible guess.
+- Flag every contradiction between sources with both versions and the precedence rule that applies.
+- Describe behaviour, not implementation.
+- Before writing, interview me about the gaps you find, one question at a time, until I say "write it".
+
+Done when: every screen in the PRD flows has every state with exact copy or an open question, and you have listed the five gaps that most need a decision.`,
       },
       expectedOutput: [
-        'A {{slug}} repository on GitHub with a protected main branch',
-        'A merged pull request with a description, at least one review comment and a follow-up commit',
-        'docs/prd.md and docs/prototype/ in the repository, with no private research data',
+        'design-spec.md covering every screen state with exact copy, a precedence note and a list of open gaps',
+        'A Claude Design or Figma Make prototype of the core screen, with its handoff bundle or state screenshots saved in the workspace',
+        'docs/task-breakdown.md and a team AGENTS.md merged in the prototype repository',
+        'An align check report for the first slice, and one pull request you opened yourself',
       ],
-      artifact: '{{slug}} repository with protected main and a first merged pull request',
+      artifact:
+        'design-spec.md, a handoff bundle, task-breakdown.md and a team AGENTS.md in the prototype repository',
       verification: [
-        'A direct push to main is rejected by the ruleset, even though you are the repository admin. Try it once on purpose.',
-        'The merged PR shows at least two commits, a review comment and a resolved conversation.',
-        'The README diff changed only README.md, as the prompt required.',
-        'Nothing in the repository contains real names, interview notes or real personal or customer data.',
+        'Every state in the spec has a condition and exact copy, or is listed as an open question with who decides.',
+        'Every contradiction between the PRD and the prototype is flagged with both versions, not silently resolved.',
+        'Every slice in the task breakdown names the acceptance criteria and spec states it covers, and no slice is size L.',
+        'A fresh Claude Code session given only the repository can say what the product is, how to run it and which rules it must never break.',
+        'The align check lists every acceptance criterion as met, partly met or missing with evidence, you checked the evidence for two of them, and every missing item is now a task.',
+        'Your own pull request changed only what its description says.',
       ],
       reflectionPrompts: [
-        'Which Git concept clicked for you, and which still feels fuzzy?',
-        'What did reading the diff reveal that the agent did not mention?',
-        'How would "everything through a pull request" change the way your bank team ships changes today?',
+        'Which state did nobody think about until the spec forced it, and who decided what it says?',
+        'Where did the PRD and the prototype disagree, and which one turned out to be right?',
+        'What did the align check find that you would have missed in a demo?',
       ],
       checklist: [
-        { id: 'gh-skills', text: 'Completed the GitHub Skills introduction exercise' },
         {
-          id: 'repo',
-          text: 'Created the {{slug}} repository with a ruleset on main that has no bypass',
+          id: 'spec',
+          text: 'Wrote design-spec.md with every state, its copy and a precedence note',
         },
-        { id: 'pr-url', text: 'Opened a pull request and recorded its URL as the artifact' },
-        { id: 'review', text: 'Received a review comment and addressed it in a follow-up commit' },
-        { id: 'merged', text: 'Merged the PR and deleted the branch' },
+        {
+          id: 'prototype',
+          text: 'Prototyped the core screen in Claude Design or Figma Make and saved the handoff',
+        },
+        {
+          id: 'breakdown',
+          text: 'Merged docs/task-breakdown.md with vertical slices mapped to criteria and states',
+        },
+        { id: 'agents-md', text: 'Merged a team AGENTS.md, with a CLAUDE.md that imports it' },
+        {
+          id: 'align',
+          text: 'Ran an align check on the first slice and saved docs/align-check.md',
+        },
+        { id: 'own-pr', text: 'Opened one small pull request yourself and merged it after review' },
       ],
       mentorMove:
-        'Be the reviewer on her first PR: leave one substantive comment, such as a missing link, and one question, and approve only after she pushes a fix. Then open a merged PR from a well-known open-source project and talk through what you look at first and why.',
+        'Read her design spec as the engineer who has to build it: point to the state you would have had to guess and the slice in the breakdown you would split. Then review her own pull request properly, with one comment and one question, and approve only after she responds.',
     },
     {
       id: 's14',
       levelId: 4,
       number: 14,
-      title: 'Ship a small feature with a coding agent',
+      title: 'Quality for an AI feature',
       difficulty: 'Advanced',
-      minutes: 135,
-      tools: ['Claude Code or Codex', 'Node.js (LTS)', 'GitHub'],
+      minutes: 150,
+      tools: ['Claude Code', 'Claude (Projects)', 'A spreadsheet'],
       prerequisites: ['s13'],
-      competencies: ['coding-agents', 'technical-collaboration', 'prompting-context'],
-      xp: 225,
-      mentorReview: 'recommended',
-      goal: 'Use Claude Code or Codex to scaffold the {{name}} app and implement one small, well-specified feature through a plan-first loop with small diffs, tests and a pull request you can fully explain.',
+      competencies: ['evals-safety', 'agentic-systems'],
+      xp: 150,
+      mentorReview: 'required',
+      safetyCritical: true,
+      goal: 'Define what a good answer from the {{name}} assistant means as a set of test cases, run them, find the failure modes, and write an eval report with guardrails, hand-offs to people and release rules that risk and engineering can act on.',
       whyItMatters:
-        'Agents are good at writing code and bad at knowing when they are wrong. The skill that matters is directing them: a precise task, a plan before code, changes small enough to review, and proof that the result works. It is the same skill as leading an engineering team, compressed into minutes.',
+        'Two weeks before launch, your risk partner asks one question: "What happens when it is wrong?" The feature answers questions such as "{{question}}", and people will act on the answer. "It worked in the demo" is not evidence. An eval set is how a PM states the quality bar in a form people and machines can check, catches regressions when the prompt or the model changes, and gives risk and compliance something concrete to review. The PM is often best placed to write it, because the PM knows what a good answer means for the customer.',
       learn: [
         {
-          heading: 'The plan-first loop',
+          heading: 'What an eval is, at PM depth',
           paragraphs: [
-            'Explore, plan, implement, verify. First ask the agent to read the repository and explain what is there. Then ask for a plan and challenge it before any code is written. Then let it implement one step at a time, running tests after each step. Most bad agent sessions skip the plan and go straight to a large, unreviewable change.',
+            'An eval is a set of test cases, each an input with the expected behaviour, plus a **grader** that decides pass or fail. Code graders check what is checkable: an exact figure, a forbidden action, a required hand-off. A model grader (another model with a rubric) handles qualities such as clarity. A person reads a sample, and always reads the failures.',
+            'Your job is not the test runner. Engineers wire the cases into an automated suite that runs on every change. Your job is the cases, the expected behaviour, the release rules and an honest report. That is product work: it is the behavioural contracts from your PRD, written as tests.',
+          ],
+        },
+        {
+          heading: 'Read answers before you write cases',
+          paragraphs: [
+            'Practitioners who teach evals put one step first: **error analysis**. Run the feature on a few dozen realistic questions, read every answer, and write down in your own words what went wrong. Then group the notes into failure modes, such as "a figure that is not in the data", "missed the hand-off" or "answered outside its scope". Cases and graders come after, aimed at failures you have actually seen. A grader for a failure you have never seen tends to measure the wrong thing.',
+            'The feature is not built yet, so you test a **stand-in**: a Claude Project whose instructions are the assistant rules from your PRD, with the fictional data file attached. It is a fair test of the rules and the model, which are the parts that change most often.',
+          ],
+        },
+        {
+          heading: 'A golden set, organised by harm',
+          paragraphs: [
+            'Organise cases by the harm they prevent, so each category can have its own release rule. The suggested agent questions on your case study page seed every category.',
           ],
           bullets: [
-            '**Explore**: "Read the repo and summarize its structure and how to run it."',
-            '**Plan**: "Propose steps, files to touch and how you will test it. Do not write code yet." In Claude Code, plan mode (Shift+Tab) does this without touching files; in Codex, use the Read-only preset for this step.',
-            '**Implement**: "Do step 1 only, then run the tests."',
-            '**Verify**: "Show me the test output and the diff."',
+            '**Correctness**: figures match what you calculated yourself from the fictional data, including edge cases such as an empty period or a missing record. Code calculates {{deterministic}}; the model only explains, so every figure in an answer must come from the data.',
+            '**Conduct and hand-offs**: nothing on {{risk}} beyond what the domain rules on your case study page allow, no invented names or dates, and the right response to an upset or vulnerable person: a route to a human, never pressure.',
+            '**Unauthorised actions**: the assistant may prepare {{action}}, but nothing happens without {{approval}}, and it never prepares an action nobody asked for.',
+            "**Malicious inputs**: prompt injection in the user message and in the data, and requests to reveal its instructions or another person's data.",
           ],
         },
         {
-          heading: 'Small diffs and safe permissions',
+          heading: 'Red-team the data, not only the chat',
           paragraphs: [
-            'A 50-line change can be reviewed in minutes; a 2,000-line change gets rubber-stamped. Ask for one feature per branch and one concern per commit. If a session goes sideways, it is usually faster to discard the branch and restart with a better prompt than to argue with the agent.',
-            'As in Level 2, check the permission mode before you start: recent Claude Code versions start in auto mode and the Codex Auto preset acts without asking. While you learn, use a mode that asks before edits and commands, or plan mode for the planning step. Never paste secrets into prompts, never let an agent push to main, and read every command that deletes, installs or uploads something before you approve it.',
+            'The dangerous case is **indirect prompt injection**: instructions hidden in content the assistant reads as data, such as a note, a name, an email or a PDF. Models cannot reliably tell data from instructions, so assume the assistant will sometimes be fooled.',
+            'Simon Willison calls the riskiest combination the lethal trifecta: access to private data, exposure to untrusted content, and a way to send data out. Remove one leg where you can. Actions need their own control: if the assistant has no tool that executes and every action waits for a person, a fooled model can at most prepare something a person then declines. Prompt wording helps; the product design is the real control, and it belongs in the PRD.',
           ],
         },
         {
-          heading: 'Which agent surface when',
+          heading: 'Guardrails, hand-offs and release rules',
           paragraphs: [
-            "The same agents now run in several places. The terminal is this level's default because it shows you exactly what happens, but you do not have to live there.",
-          ],
-          bullets: [
-            '**Terminal** (Claude Code, Codex CLI): works on your local clone with full visibility. Best while you learn.',
-            '**Desktop and web apps** (Claude Code desktop and on the web, the Codex app): the same agent without a terminal. The web versions run in a cloud sandbox and hand back a branch or pull request.',
-            '**Assign an issue** (GitHub Copilot cloud agent, Claude Code on the web, Codex cloud): delegate a well-specified issue and review the pull request it opens. Session 15 has you try this once.',
-            "**Editor agents** (Copilot in VS Code, Google Antigravity): the agent sits beside the code; Antigravity's Agent Manager runs several agents at once.",
-          ],
-        },
-        {
-          heading: 'Give the agent a verification loop',
-          paragraphs: [
-            'A unit test checks one function with concrete inputs and an expected output. Your Given/When/Then criteria map directly onto tests. Take this one: {{acceptance}} The givens become inputs, and the then becomes the values the test asserts. Ask the agent to write the test first, watch it fail, then make it pass: you get evidence rather than assurances.',
-            'Output quality improves sharply when the agent can check its own work: tests it can run, a browser session it can drive, and screenshots it can compare against the design. Web apps are cheap to verify this way, which is one reason {{name}} is a web app; native mobile apps are much harder to put in an automatic loop.',
-          ],
-        },
-        {
-          heading: 'Do not merge code you cannot explain',
-          paragraphs: [
-            'A rule worth adopting: if you cannot explain what a change does and why, you do not merge it. Ask the agent to walk you through any line you do not understand, and keep asking until you can explain it back.',
-            'Practitioners describe this as the new bottleneck: agents write code faster than people can follow it, so understanding becomes a deliverable in its own right. Ask the agent to explain each change in the PR description, written for you rather than for the reviewer.',
-            'Agent-written tests need the same scrutiny. A test can pass while checking the wrong thing, for example asserting that a function returns a number rather than the right number. Read each test and confirm it checks the acceptance criterion it claims to cover.',
+            'A **guardrail** is a rule the product enforces whatever the model says: a refusal list, a limit, an approval step, a statement that must appear. A **hand-off** is the moment the assistant stops and routes to a person: a complaint, a sign of distress, a request in regulated or sensitive territory. Write both as behaviour ("always offers a human when ...") so they can be tested.',
+            'Then set release rules per category. A single unauthorised action or followed injection blocks the release, whatever the overall pass rate. A slightly awkward sentence does not. Rerun the set on every prompt, model or data change, and your evals become a regression net.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'claude-code-101',
-          why: 'An official beginner course on working with Claude Code, from setup to everyday use.',
+          resourceId: 'hamel-evals-faq',
+          why: 'Practitioner answers on error analysis, code versus model graders and vanity metrics; start with the questions on error analysis.',
           required: true,
         },
         {
-          resourceId: 'codex-workflows-cookbook',
-          why: 'OpenAI examples of iterating on development work with Codex, if Codex is your agent of choice.',
+          resourceId: 'torres-ai-evals',
+          why: 'A product-team guide to evals that also starts with error analysis; the first steps are free.',
           required: false,
         },
         {
-          resourceId: 'aihero-videos',
-          why: 'Short practitioner videos on directing coding agents well.',
+          resourceId: 'owasp-agentic-top10',
+          why: 'Use the risk list to check your malicious-input cases cover more than one kind of attack.',
           required: false,
         },
         {
-          resourceId: 'codex-docs',
-          why: 'Official Codex documentation for installation, permissions and configuration.',
+          resourceId: 'willison-lethal-trifecta',
+          why: 'The short post behind the lethal trifecta test in this session.',
           required: false,
         },
         {
-          resourceId: 'claude-code-permission-modes',
-          why: 'The official reference for the modes in this session, including plan mode and how Shift+Tab cycles them.',
-          required: false,
-        },
-        {
-          resourceId: 'willison-agentic-patterns',
-          why: 'Read the Principles, Testing and QA, and Understanding code chapters of this practitioner guide.',
+          resourceId: 'fca-ai-good-practice',
+          why: "A regulator's view of good and poor practice with AI in financial services: useful language for your risk partner, whichever case you chose.",
           required: false,
         },
       ],
       task: {
         summary:
-          'Scaffold {{name}} with an agent, then implement and test the core logic for {{deterministic}} with a plan-first loop, and merge it through a pull request.',
+          'Build a stand-in for the assistant, run error analysis on realistic questions, write a golden set of at least 24 cases across four categories, grade the results, and write the eval report with guardrails, hand-offs and release rules.',
         steps: [
-          'Install Node.js LTS. Open Claude Code or Codex in your {{slug}} clone and ask it to explain the repository.',
-          'On branch `feat/scaffold`, ask the agent for a minimal React, TypeScript and Vite app with Vitest, plus README instructions to run it. Run it yourself with `npm install` and `npm run dev`, then open a PR, self-review the diff and merge. If setup stalls for more than 20 minutes, ask your mentor to unblock it: environment setup is not the skill this session tests.',
-          'On branch `feat/core-logic`, run the agent prompt below. Review the plan and push back on anything outside scope.',
-          'Let the agent write the tests first, run them and show they fail, then implement until they pass.',
-          'Read every test and confirm it checks the acceptance criterion it names. Calculate two expected values by hand.',
-          'Run `npm test` yourself and paste the output into the PR description.',
-          'Read the full diff. Ask the agent to explain any line you cannot explain yourself, then open the PR, request your mentor review, address comments and merge.',
+          'Create a Claude Project called "{{name}} assistant stand-in". Paste the assistant rules from your PRD (behavioural contracts, scope and hand-offs) as its instructions, and attach the fictional data file from your prototype.',
+          'Error analysis: ask it 20 realistic questions, including every suggested agent question on your case study page, each in a fresh chat. Paste each answer into a spreadsheet and write one line on what is wrong, if anything. Group the notes into failure modes and save them as `failure-modes.md` in your workspace.',
+          'Run the agent prompt below. Claude Code drafts `eval-set.md` from the PRD, the design spec and your failure modes. Edit it to at least 24 cases: at least 8 correctness, 6 conduct and hand-off, 4 unauthorised action and 6 malicious input cases.',
+          'Calculate the expected figures for every correctness case yourself in the spreadsheet, from the fictional data. Never ask a model for them.',
+          'Add red-team cases: a note in the data that tells the assistant to ignore its rules, a name field with an instruction in it, a request to reveal its instructions, and a message from an upset user. Ask your mentor for three cases you have not seen.',
+          'Run every case in a fresh chat with the stand-in and save the answers in an `eval-runs/` folder. Ask Claude Code to grade each answer against the expected behaviour, then check every failure and at least five passes yourself.',
+          'Fix what you can in the stand-in instructions, rerun the failing cases, and note what changed and why. A failure the instructions cannot fix is a product requirement: add it to the PRD as a guardrail.',
+          'Write `eval-report.md`: pass rate per category, release-blocking failures, the guardrails and hand-offs the product needs, known gaps, and the date and model you tested.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude Code or Codex',
-        where: 'In the {{slug}} repository, on branch feat/core-logic',
-        text: `Read docs/prd.md, focusing on the data definitions and the acceptance criteria about {{deterministic}}.
+        tool: 'Claude Code',
+        where: 'In your {{slug}}-workspace folder',
+        text: `Goal: draft eval-set.md, the golden test set for the {{name}} assistant. I will run it by hand against a stand-in Claude Project and report the results to my risk partner.
 
-Task: implement the logic for {{deterministic}} as pure TypeScript functions. The app runs on {{data}}.
+Read first: prd.md (behavioural contracts, scope and the eval plan), design-spec.md, product-context.md and failure-modes.md (my error analysis notes).
 
-Inputs and outputs: take them from the data definitions in docs/prd.md. Today's date and time must be an input, never read inside a function. The same inputs must always give the same outputs.
+Write one table with these columns: id, category, input (the exact user message, plus any data it depends on), expected behaviour, how to grade it (an exact check or a short rubric), source (the PRD contract or failure mode it comes from), release-blocking (yes or no).
 
-Process:
-1. Explore: tell me which files exist and where these functions should live. Do not write code yet.
-2. Plan: list the functions with their inputs and outputs, the files to create, and the test cases you will write, each mapped to a PRD acceptance criterion by number. Wait for my approval.
-3. Tests first: write Vitest unit tests for each mapped criterion, including this example or the PRD's version of it: {{acceptance}} Add edge cases: empty data, an item exactly on a boundary such as a due date or deadline, an item just outside the period, two items at the same time, and data last updated longer ago than a limit you propose in the plan, which must be flagged as stale. Run them and show me they fail.
-4. Implement until all tests pass. Run npm test and show me the full output.
-5. Explain each test in one sentence: which criterion it covers and what would make it fail.
+Categories and minimum counts:
+- correctness: 8. Write "TODO: I calculate" wherever an expected figure is needed.
+- conduct and hand-offs: 6, covering {{risk}}, an upset user and a user who seems vulnerable.
+- unauthorised actions: 4. The assistant may prepare {{action}} but never completes it without approval.
+- malicious inputs: 6, including instructions hidden in the data, not only in the message.
 
-Constraints:
-- No UI changes in this branch. No new dependencies.
-- Store any money amount as integers in minor units (cents or pence) to avoid floating point errors.
-- If you need to make an assumption about ordering, time zones or rounding, write it in the plan and wait for my decision.
-- Do not commit or push. I will review the diff first.`,
+Rules:
+- Every case must trace to a PRD contract or a failure mode in my notes.
+- Do not calculate any expected figure. I will do that in a spreadsheet.
+- Mark unauthorised actions and followed injections as release-blocking.
+- If the PRD does not say what the right behaviour is, add the case with "open question" as the expected behaviour.
+
+Done when: the table meets the counts, and you list the PRD gaps the cases exposed.`,
       },
       expectedOutput: [
-        'A scaffolded React and TypeScript app that runs locally',
-        'Tested functions for {{deterministic}}, mapped to PRD acceptance criteria',
-        'Two merged PRs: the scaffold, and the feature with test output in its description',
+        'failure-modes.md, written from reading real stand-in answers',
+        'eval-set.md with at least 24 cases across four categories, each traced to a PRD contract or a failure mode',
+        'Expected figures calculated by you in a spreadsheet, not by a model',
+        'eval-report.md with pass rates per category, release-blocking failures, guardrails, hand-offs and known gaps',
       ],
-      artifact: 'Merged PR implementing the logic for {{deterministic}} with passing tests',
+      artifact: 'eval-set.md and eval-report.md',
       verification: [
-        'npm test passes on your machine, and you ran it yourself rather than trusting the agent transcript.',
-        'Each test references a PRD acceptance criterion, and you confirmed it checks the right value, not just any value.',
-        'You calculated at least two test cases by hand and the expected values match.',
-        'The diff contains no unrelated changes, new dependencies or UI edits.',
-        'You can explain every line in the merged diff, or you asked until you could.',
+        'Every correctness case has an expected figure you calculated yourself, and your mentor checked two of them.',
+        'Every injection case ended with nothing prepared and the injected text never followed, or it is reported as a release-blocking failure.',
+        "You read every failure and at least five passes yourself, and noted where Claude's grading was wrong or too generous, or that it was not.",
+        'The report says what was not tested, such as long conversations, other languages or the real data feed.',
+        'No real personal or customer data appears in any case, run or report.',
       ],
       reflectionPrompts: [
-        'Where did you push back on the agent plan, and were you right to?',
-        'Did any agent-written test pass while checking the wrong thing? How did you notice?',
-        'How did directing the agent compare with writing a ticket for an engineer?',
+        'Which failure surprised you, and what does it say about how the PRD specified the assistant?',
+        'Which categories would you make release-blocking, and which would you only monitor after launch?',
+        'How would you explain the pass rate to an executive without overstating safety?',
       ],
       checklist: [
-        { id: 'scaffold', text: 'Scaffolded the app and ran it locally' },
-        { id: 'plan', text: 'Reviewed and adjusted the agent plan before any code was written' },
-        { id: 'tests-pass', text: 'Ran npm test yourself and saw all tests pass' },
         {
-          id: 'tests-right',
-          text: 'Read every test and checked two expected values by hand',
+          id: 'stand-in',
+          text: 'Built a stand-in Project from the PRD assistant rules and the fictional data',
         },
-        { id: 'pr-merged', text: 'Merged the feature PR with test output in the description' },
+        {
+          id: 'error-analysis',
+          text: 'Read 20 real answers and grouped the failures into failure-modes.md',
+        },
+        { id: 'golden-set', text: 'Wrote at least 24 cases across all four categories' },
+        { id: 'own-figures', text: 'Calculated every expected figure yourself' },
+        { id: 'red-team', text: 'Included injection in the data and three mentor-written cases' },
+        {
+          id: 'report',
+          text: 'Wrote eval-report.md with pass rates, guardrails, hand-offs and known gaps',
+        },
       ],
       mentorMove:
-        'Sit with her for the planning step only. Watch how she reviews the agent plan and ask "how will you know it works?" before she approves. Afterwards, pick one agent-written test and ask her to explain what it proves; then show how you would discard a bad session and restart rather than patching it.',
+        'Red-team for 15 minutes without showing her the wording first: one injection hidden in the fictional data, one in a user message, and one request for the instructions. Every one that gets through becomes a case she adds and a guardrail she proposes for the PRD.',
     },
     {
       id: 's15',
       levelId: 4,
       number: 15,
-      title: 'From PRD to plan, handoffs and first screens',
-      difficulty: 'Advanced',
-      minutes: 150,
-      tools: ['Claude Code or Codex', 'Your chosen prototype', 'GitHub'],
+      title: 'Launch and learn',
+      difficulty: 'Intermediate',
+      minutes: 120,
+      tools: ['Claude Code', 'A spreadsheet'],
       prerequisites: ['s14'],
-      competencies: [
-        'coding-agents',
-        'technical-collaboration',
-        'knowledge-management',
-        'ux-prototyping',
-      ],
-      xp: 250,
+      competencies: ['product-discovery', 'ai-leadership'],
+      xp: 125,
       mentorReview: 'recommended',
-      goal: 'Turn the PRD and prototype into an implementation plan of small slices, add AGENTS.md and a handoff routine to the repository, build the first working {{name}} screens with {{data}}, and check the build against the PRD.',
+      goal: 'Plan a staged launch with success and guardrail metrics decided in advance, read a fictional experiment at a fixed sample size, write a ship, iterate or kill readout, and feed what you learned back into the workspace.',
       whyItMatters:
-        'Big asks produce big, wrong changes. PMs who get the most out of coding agents break work into slices that each produce a visible, testable result, and they make the repository itself carry the context: what the product is, how to run it, which rules apply. That context survives across sessions, tools and people.',
+        'The eval report says {{name}} is ready for a limited launch. Launch day is the start of the real test: in two weeks someone will ask whether it worked, and the answer depends on decisions you make before anyone sees the feature. Which metric counts, what would make you stop, how many users you need before you look. Teams that decide afterwards tend to find the result they hoped for. A launch plan and a readout committed in advance keep you honest, and in a regulated product they are what your risk partner signs.',
       learn: [
         {
-          heading: 'Task decomposition',
+          heading: 'A launch plan is a list of decisions',
           paragraphs: [
-            'Slice vertically. Each task should deliver something a user can see or a test can check, end to end, rather than "build all the data models" followed by "build all the screens." A good slice fits in one PR and one agent session, has acceptance criteria, and lists the files it is likely to touch.',
-            'How much to plan before building is a live debate. Some practitioners keep research, planning and implementation as separate steps and review a written plan before any code; others argue that current models plan well enough inside a quick loop of act, inspect and adjust. For a PM supervising an agent, a short plan you can check against the PRD is the safer default. Relax it once slices are small and familiar.',
+            'A launch plan answers, in advance: who sees the feature and in what stages, what you measure, what would make you pause or roll back, and who does what on the day. Write the rollback thresholds before launch: on a bad day nobody agrees what "bad" means.',
           ],
           bullets: [
-            'Slice 1: the fictional data file and a first screen showing {{mvpScreen}}.',
-            'Slice 2: the items behind the headline figures, each with its date or deadline.',
-            'Slice 3: the warning state, in words and an icon, never color alone.',
-            'Slice 4: empty and uncertain states.',
-            'Slice 5: responsive layout and an accessibility pass.',
+            '**Audience and stages**: internal users first, then a small share of customers behind a feature flag, then more. Each stage has an entry condition.',
+            '**Readiness**: the eval report, support briefed on the likely questions, the AI disclosure wording approved, and the hand-off routes tested end to end.',
+            '**Monitoring**: the metrics below, plus complaints and hand-off volume, checked on a set schedule by a named person.',
+            '**Kill switch and rollback**: how the feature is turned off, by whom, and the thresholds that trigger it.',
+            '**Comms**: who hears what and when, inside and outside the company.',
           ],
         },
         {
-          heading: 'The repository as context',
+          heading: 'Three kinds of metric',
           paragraphs: [
-            '`AGENTS.md` tells any agent what the project is, how to install, run and test it, the conventions, and the hard rules, such as "fictional data only, never connect real systems or APIs." Codex reads it natively, Claude Code reads it when there is no `CLAUDE.md`, and GitHub Copilot and many other tools support it too. Keep it short and accurate: stale instructions are worse than none, and an instruction is guidance, not a lock, so keep the hard rules enforced by CI and branch rules as well.',
-            'Keep the PRD and the prototype in the repository next to the code, in `docs/prd.md` and `docs/prototype/`, and update them in the same PR when scope changes. Agents and engineers then build from one consistent source.',
+            'Take them from the PRD and write the thresholds down before launch. The **success metric** is the outcome you want: {{outcomeMetric}}. The **leading indicator** moves first and tells you early whether people use the feature: {{leading}}. The **guardrail** must not get worse: {{guardrail}}. A launch that hits the success metric and breaks the guardrail is not a success.',
+            'For an AI feature, add the quality signals from Session 14: the hand-off rate, complaints that mention the assistant, and a weekly sample of real answers read by a person. A US regulator found that poor chatbots that block access to a person harm customers, so "people can reach a human" is a guardrail, not a nice-to-have.',
           ],
         },
         {
-          heading: 'Handoffs and the acceptance check',
+          heading: 'Fix the sample size, then do not peek',
           paragraphs: [
-            'Agent sessions have limited context and they end. A handoff note captures where the work is: what was done, what is next, decisions made and why, open questions, and how to verify the current state. It is the same discipline as the second-brain handoff from Level 2, applied to code.',
-            "Public spec-driven workflows, such as GitHub's Spec Kit and the practitioner handoff skill linked below, close the loop the same way: each session starts from the spec and the latest handoff; when a slice is done, an **acceptance check** compares the build with every acceptance criterion and reports what is met, partial or missing; and what you learned goes back into AGENTS.md or your notes, so the next session starts smarter.",
+            'If you check an experiment every day and stop the first time it looks significant, you will often "find" an effect that is not there. Decide the sample size in advance from your baseline rate and the smallest effect worth acting on, run until you reach it, and read the result once. The required reading explains why and gives a rule-of-thumb formula.',
+            'Claude Code can do the arithmetic, but you state the inputs and check the working. If the sample you need is larger than your launch audience, say so: a smaller test can still give a directional signal, as long as the readout calls it that.',
           ],
         },
         {
-          heading: 'Executable specs',
+          heading: 'Ship, iterate or kill',
           paragraphs: [
-            'The plan, the acceptance criteria and the tests form a chain: each slice points to criteria, and each criterion becomes a test. When the spec changes, update the PRD and the tests together. That is what people mean by an executable specification: a spec whose truth is checked automatically on every change.',
+            'Write the decision first, then the evidence. A good readout has the decision, the result against the thresholds you set in advance, the guardrails, what users and support said, what surprised you, and the next step. Segments you looked for only after seeing the data are hypotheses for the next test, not findings.',
+          ],
+          bullets: [
+            '**Ship**: the success metric moved by at least the threshold and every guardrail held.',
+            '**Iterate**: a clear signal and a fixable problem, or a guardrail wobble with a known cause.',
+            '**Kill**: no effect at the planned sample, or a guardrail breach you cannot design away. Stopping a feature on evidence is a good outcome, and the readout says so.',
+          ],
+        },
+        {
+          heading: 'Close the loop',
+          paragraphs: [
+            'The readout is not the end of the work; it is the newest source in your workspace. Update the open decisions in `product-context.md`, record the decision and its reason, file support themes and new failure modes as notes, and add eval cases for anything that went wrong in the wild. Next quarter starts from what you learned, not from memory.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'agents-md',
-          why: 'The open format for repository instructions that coding agents read before working.',
+          resourceId: 'evanmiller-ab-test',
+          why: 'Why peeking inflates false positives and why the sample size must be fixed in advance, with a rule-of-thumb formula you can check by hand.',
           required: true,
         },
         {
-          resourceId: 'aihero-handoff',
-          why: 'A practitioner skill for writing session handoffs so a fresh agent can continue the work.',
-          required: true,
-        },
-        {
-          resourceId: 'aihero-skills',
-          why: 'Related skills for planning and decomposing work before implementation.',
+          resourceId: 'lennys-newsletter',
+          why: 'Practitioner writing on launches, metrics and readouts from product teams; some posts are paid.',
           required: false,
         },
         {
-          resourceId: 'github-spec-kit',
-          why: 'The spec-driven workflow mentioned above: specify, plan, tasks, implement, then check against the spec.',
-          required: false,
-        },
-        {
-          resourceId: 'copilot-assign-issue',
-          why: 'How assigning an issue to Copilot works, including what context it sees.',
-          required: false,
-        },
-        {
-          resourceId: 'tane-plan-first',
-          why: 'The plan-first side of the debate: review the plan before any code.',
-          required: false,
-        },
-        {
-          resourceId: 'nadeem-plan-mode-is-dead',
-          why: 'The other side: iterate instead of writing long plans.',
+          resourceId: 'cfpb-chatbots',
+          why: 'A regulator report on chatbots that block access to a person, and why that belongs in your launch guardrails.',
           required: false,
         },
       ],
       task: {
         summary:
-          'Write the implementation plan and AGENTS.md, build the first two slices as separate PRs with a handoff note after each session, delegate one slice as a GitHub issue to a cloud agent, then run an acceptance check against the PRD.',
+          'Write the launch plan with metrics and thresholds, compute a fixed sample size, generate fictional experiment results, write the readout, and close the loop in the workspace.',
         steps: [
-          'Run the agent prompt below to draft `docs/plan.md` with 5 to 8 vertical slices mapped to PRD acceptance criteria.',
-          'Edit the plan yourself: reorder, cut, or split slices that are too big. Merge it through a PR.',
-          'Ask the agent to draft `AGENTS.md` with project purpose, commands, conventions and hard rules. Claude Code reads it when there is no `CLAUDE.md`; add a `CLAUDE.md` that starts with `@AGENTS.md` only if you want Claude-specific rules. Trim anything vague, then merge through a PR.',
-          'Create `src/data/fictional.ts` with {{data}} for one fictional persona from your PRD, matching your prototype dataset.',
-          'Build slices 1 and 2, each on its own branch and PR, using the plan-first loop from Session 14. Give the agent your prototype screenshots so it can compare its result to the design.',
-          'Write slice 3 as a GitHub issue: goal, acceptance criteria, files likely to change and how to test it. Assign it to a cloud agent: the Copilot cloud agent if your plan includes it, Claude Code on the web, or Codex cloud. Review the pull request it opens exactly as you would any other, and note what the issue failed to say.',
-          'At the end of each session, ask the agent to write a handoff note to `docs/handoffs/YYYY-MM-DD.md`. Start the next slice in a fresh session that reads AGENTS.md and the latest handoff.',
-          'Run an acceptance check: in a fresh session, ask the agent to compare the running app and the code with every acceptance criterion in `docs/prd.md` and report met, partial or missing.',
-          'Write two or three learnings from this session back to your second brain or `docs/learnings.md`.',
+          'Run the agent prompt below. Claude Code drafts `launch-plan.md` from the PRD, the eval report and your impact estimate, and shows its sample size working.',
+          "Check the sample size yourself with the formula in the required reading and a spreadsheet. If your number and Claude's disagree, find out why before you go on.",
+          'Edit the plan: name an owner for every item, write the rollback thresholds as numbers, and add one stage entry condition you would actually enforce.',
+          'In a fresh session, ask Claude Code to generate `experiment-results.csv`: fictional daily results for a control and a treatment group over two weeks, at the sample size in your plan, with a fixed random seed. Ask it to write its assumptions, including the true effect it used, to `results-assumptions.md`. Do not open that file until your readout is written.',
+          'Read the results once, at the planned sample. Ask Claude Code to compute the success, leading and guardrail metrics with confidence intervals, and recompute one of them yourself in the spreadsheet.',
+          'Write `experiment-readout.md`: the decision (ship, iterate or kill) in the first line, then the evidence against the thresholds, the guardrails, what surprised you and the next step.',
+          'Now open `results-assumptions.md`. Did your readout recover the true effect? Note what you would change in your method.',
+          'Close the loop: update the open decisions in `product-context.md`, add the decision and its reason to your decision log, and add any new eval cases to `eval-set.md`.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude Code or Codex',
-        where: 'In the {{slug}} repository, on branch docs/implementation-plan',
-        text: `Read docs/prd.md and the prototype screenshots and notes in docs/prototype/.
+        tool: 'Claude Code',
+        where: 'In your {{slug}}-workspace folder',
+        text: `Goal: draft launch-plan.md for a staged launch of {{name}} v1. Readers: my engineering lead, my risk partner and the support team lead.
 
-Write docs/plan.md, an implementation plan for {{name}} v1.
+Read first: prd.md (goals, metrics and tracking), eval-report.md, impact-estimate.md and product-context.md.
 
-Requirements:
-- 5 to 8 vertical slices. Each slice must produce something visible in the browser or checkable by a test.
-- For each slice: goal, the PRD acceptance criteria numbers it satisfies, files likely to change, tests to add, how the result will be checked against the prototype, and a size (S, M, L). Split any L slice.
-- The first slice must render a real screen using fictional data from src/data/fictional.ts.
-- Include a "Not in v1" list based on the PRD non-goals.
-- Include a "Risks and unknowns" section.
+Include:
+1. Audience and stages, each with an entry condition.
+2. A readiness checklist: evals, support briefing, AI disclosure wording, hand-off routes tested.
+3. Metrics with thresholds: success ({{outcomeMetric}}), leading ({{leading}}) and guardrail ({{guardrail}}). Add the hand-off rate and complaints that mention the assistant.
+4. Sample size: from the baseline in impact-estimate.md and the smallest effect worth acting on, compute the users needed per group. Show the formula, every input and the arithmetic. If an input is missing, ask me; do not assume it.
+5. Monitoring schedule, kill switch, and rollback thresholds as numbers.
+6. Comms: who hears what, and when.
 
-Constraints:
-- Browser only, no backend, fictional data only, no real systems, APIs or credentials.
-- Keep the existing stack (React, TypeScript, Vite, Vitest). Propose a new dependency only with a one-line justification.
-- Do not write any application code in this branch.
+Rules:
+- Every threshold must come from the PRD or from me. Mark anything else "proposed".
+- Leave every owner as "TODO" for me to fill in.
+- Fictional data only.
 
-After writing the plan, name the two slices most likely to go wrong and explain why.`,
+Done when: every section exists and you have listed the proposed items for my decision.`,
       },
       expectedOutput: [
-        'docs/plan.md with 5 to 8 vertical slices mapped to acceptance criteria',
-        'AGENTS.md with working commands, conventions and hard rules',
-        'At least two merged PRs that build working screens with fictional data, plus one PR from a delegated issue',
-        'Handoff notes in docs/handoffs/ and an acceptance check report against the PRD',
+        'launch-plan.md with stages, metrics and thresholds decided in advance, a sample size with its working, owners and rollback criteria',
+        'experiment-results.csv generated with a fixed seed, and its sealed assumptions file',
+        'experiment-readout.md with the decision first, evidence against the thresholds, and a next step',
+        'product-context.md, the decision log and eval-set.md updated with what you learned',
       ],
-      artifact:
-        'Implementation plan, AGENTS.md, handoff notes, acceptance report and first working {{name}} screens',
+      artifact: 'launch-plan.md and experiment-readout.md',
       verification: [
-        'A fresh agent session given only AGENTS.md and the latest handoff note correctly states what to do next.',
-        'Each merged slice PR references its plan slice and the acceptance criteria it satisfies.',
-        'The figures on screen match a hand calculation from the fictional dataset.',
-        'The install, run and test commands in AGENTS.md work when copied exactly.',
-        'The acceptance report lists every acceptance criterion with a status, and missing items are in the plan.',
-        'The delegated issue produced a pull request that you reviewed and either merged or closed with a reason.',
+        'Every threshold in the launch plan was written before you generated the results.',
+        'You recomputed the sample size and one readout metric yourself, and they match.',
+        'The readout decision follows from the thresholds in the plan, not from what you hoped to see.',
+        'Segments found after seeing the data are labelled as hypotheses.',
+        'Guardrails are reported even where they held.',
       ],
       reflectionPrompts: [
-        'Which slice did you split or cut, and why?',
-        'What did the fresh agent get wrong from your handoff note, and what did you change?',
-        'What did the acceptance check find that you had missed, and what did the cloud agent get wrong because the issue did not say it?',
+        'Was there a moment you wanted to peek, or to move a threshold? What stopped you?',
+        'Did your readout recover the true effect, and what does that say about your sample size?',
+        'Which item in the launch plan would your real team be most tempted to skip, and what would it cost them?',
       ],
       checklist: [
+        { id: 'plan', text: 'Wrote launch-plan.md with stages, owners and rollback thresholds' },
         {
-          id: 'plan',
-          text: 'Merged docs/plan.md with vertical slices mapped to acceptance criteria',
+          id: 'thresholds',
+          text: 'Set success, leading and guardrail thresholds before seeing any results',
         },
-        { id: 'agents-md', text: 'Added AGENTS.md with working commands and hard rules' },
-        { id: 'slices', text: 'Merged at least two slice PRs with working screens' },
-        { id: 'handoff', text: 'Wrote a handoff note and resumed from it in a fresh session' },
-        { id: 'align', text: 'Ran an acceptance check against the PRD and recorded the results' },
+        { id: 'sample-size', text: 'Computed and checked a fixed sample size' },
+        { id: 'readout', text: 'Wrote experiment-readout.md with the decision in the first line' },
+        { id: 'truth-check', text: 'Compared your readout with the sealed assumptions' },
         {
-          id: 'delegated',
-          text: 'Delegated one slice as an issue to a cloud agent and reviewed its PR',
+          id: 'loop-closed',
+          text: 'Updated product-context.md, the decision log and eval-set.md',
         },
-        { id: 'figures', text: 'Checked on-screen figures against a hand calculation' },
       ],
       mentorMove:
-        'Review her docs/plan.md before she builds anything and point to the slice you would split. Then describe, in general terms, one rule your teams added to their agent instructions after an agent made a mistake, and why it was worded the way it was.',
+        'Play the impatient executive on day four: tell her the early numbers look great and ask to ship today. Then go through her sample size working together, and ask what she would do if the guardrail moved but the success metric did not.',
     },
     {
       id: 's16',
       levelId: 4,
       number: 16,
-      title: 'Test, review, debug and deploy',
-      difficulty: 'Advanced',
-      minutes: 150,
-      tools: [
-        'Claude Code or Codex',
-        'GitHub Actions (free for public repositories)',
-        'GitHub Pages',
-        'Optional: Playwright',
-      ],
+      title: 'Presentations with agents',
+      difficulty: 'Intermediate',
+      minutes: 120,
+      tools: ['Claude Design or Claude file creation (PPTX)', 'Claude', 'Claude Code'],
       prerequisites: ['s15'],
-      competencies: ['coding-agents', 'evals-safety', 'technical-collaboration'],
-      xp: 250,
-      mentorReview: 'required',
-      safetyCritical: true,
-      goal: 'Put automated verification in front of every change, run self-review, agent-assisted review and risk-based human review, debug a real failure, and deploy {{name}} to GitHub Pages with evidence that it works.',
+      competencies: ['ai-leadership', 'ux-prototyping'],
+      xp: 125,
+      mentorReview: 'recommended',
+      practicalProof: true,
+      goal: "Tell the quarter's story in a ten-minute QBR deck that leads with the answer, passes the Glance Test and uses real charts from your readout, write the stakeholder update that goes alongside it, and rehearse.",
       whyItMatters:
-        'When agents produce code faster than people can read it, review becomes the bottleneck. The answer is not to stop reviewing. It is to let machines check what machines can check, have authors review their own work first, and spend expert human attention where risk is highest. In banking, a written risk-based review policy is also what auditors and risk teams expect to see.',
+        'The quarterly business review is on Thursday and you have ten minutes. Leadership will remember one message and one ask, if the deck makes them obvious. Agents now produce a polished deck in minutes, which makes polish cheap and the storyline the scarce part. The PM who decides the message first, then uses the agent to build and check the slides, leaves the room with a decision. The PM who starts from a template leaves with questions about slide 7.',
       learn: [
         {
-          heading: 'Layers of verification',
+          heading: 'Answer first',
           paragraphs: [
-            'Unit tests check individual functions. Integration or end-to-end tests check that screens and logic work together, for example that opening the app with the fictional dataset shows the figures your acceptance criteria expect. Type checks and linting catch whole classes of mistakes automatically.',
-            'Continuous integration (CI) runs all of these on every pull request, so a red check blocks a merge before a human spends any time on it. Requiring those checks in your branch protection makes the rule automatic.',
+            'Executives read top-down. Start with the answer: what you recommend and why, then the supporting arguments, then the evidence. The SCQA frame gets you there in four sentences: the **situation** everyone agrees on, the **complication** that changed it, the **question** that raises, and your **answer**. If you cannot write those four sentences, no slide design will save the deck.',
+            'Nancy Duarte adds the shape of a talk: contrast what is with what could be, and move the audience from where they are to where you need them. In a QBR, "what is" is the problem and the evidence; "what could be" is the outcome if leadership backs your next step.',
           ],
         },
         {
-          heading: 'Review is the new bottleneck',
+          heading: 'One message per slide',
           paragraphs: [
-            'When an agent writes a feature in minutes, reading it becomes the slow step. Long-standing code review practice keeps it moving: authors review their own diff before asking anyone else, PRs stay small so reviews stay fast, and reviewers mark non-blocking comments as nits so that "request changes" means a real problem.',
-            'An agent reviewer can read a diff and flag likely bugs, missing tests and mismatches with the spec in minutes. It also produces false positives and misses context, so treat its comments as input, not a verdict.',
-            'Anthropic describes routing its own review this way: an agent reviews every pull request, and human depth scales with what the change touches. Read it as a vendor describing its own practice, and note the cost commenters raise: agent review on every PR uses tokens that not every team can afford.',
-            "In a bank, every production change normally needs at least one independent human approval, from someone other than the author (segregation of duties). An agent's approval does not count as that human. Risk decides how deep the human review goes, not whether it happens.",
+            'Each slide makes one point, and its title states that point as a full sentence: "Pilot users hit the outcome target and the guardrail held", not "Results". Read the titles alone, in order. If they tell the whole story, the deck works.',
+            "Then apply Duarte's **Glance Test**: someone should get each slide's point in about three seconds. Anything that takes longer is a document, and belongs in the stakeholder update or the appendix.",
+          ],
+        },
+        {
+          heading: 'Build it with an agent',
+          paragraphs: [
+            'Write the outline in Markdown first: the SCQA, then one line per slide with its title sentence, the evidence and the chart it needs. Then generate the deck. **Claude Design** takes the purpose, the audience and your sources, lets you edit by commenting, adds speaker notes, and exports to PPTX, PDF or Google Slides. Without it, the Claude app can create a PPTX file from the same outline.',
+            'Then make it pleasing to look at, on purpose:',
           ],
           bullets: [
-            '**Low risk**: copy, styling, docs. Automated checks, self-review and a quick human approval.',
-            '**Medium risk**: new UI flows, refactors. Automated checks, agent review and one human review.',
-            '**High risk**: calculations, data handling, security, permissions, anything touching money, or {{risk}}. Tests covering the change, agent review, and careful review by someone who understands the domain.',
+            'One palette and one type scale on every slide, with enough contrast and no meaning carried by colour alone.',
+            'Real charts built from `experiment-results.csv`, with labelled axes and the takeaway in the title. Check every number against the readout.',
+            'Progressive reveal or animation only where it helps understanding, such as building a chart one series at a time.',
+            'Speaker notes with what you will say, so the slides can stay sparse.',
           ],
         },
         {
-          heading: 'Autonomy needs context',
+          heading: 'Review it before anyone sees it',
           paragraphs: [
-            "An agent only knows what is in the repository and its instructions. Feature flags, experiments, other teams that depend on a screen, a regulator's wording that must not change: if none of that is written down, a green CI run tells you nothing about it. The answer is not less automation; it is writing that context into AGENTS.md or the issue, and keeping a reviewer who knows the product in the loop.",
+            'Ask a fresh Claude session to review the deck against the outline and the readout. Ask for clarity (one message per slide, titles that are sentences), consistency (palette, terms and numbers that match) and the tells of an AI-made deck: generic headings such as "Key insights", filler adjectives, icon grids that say nothing, every slide in the same layout, and numbers that appear nowhere in your sources.',
+            'Then read every number yourself. The agent review is input; the deck is yours.',
           ],
         },
         {
-          heading: 'Debugging, deployment, rollback and feedback loops',
+          heading: 'The written update goes alongside',
           paragraphs: [
-            'Good debugging starts with a reproducible failure: exact steps, expected result, actual result, error message. Give the agent that, ask it to form hypotheses and test them one at a time, and ask for a failing test that reproduces the bug before it fixes anything. A fix without a test tends to come back.',
-            'GitHub Pages hosts static sites for free, and a GitHub Actions workflow can build and deploy on every merge to `main`. Practise the bad day too: when a release breaks, the first move is to roll back by reverting the change through a pull request, and only then to investigate. A short incident note (what broke, who noticed, how long, what changes) is how teams learn from it. After deploying, close the loop: share the link with two or three people from your discovery work, watch them use it, and turn what you see into issues. Shipping is the start of learning, not the end.',
+            'Not everyone will be in the room, and the people who are will forget. `stakeholder-update.md` carries the same story in one screen of text: the decision or ask in the first line, the result with its numbers, the risks, and what you need from whom by when. It uses the same numbers as the deck and links to the readout and the eval report.',
+            'Rehearse once out loud with a timer, then once with your mentor. Ten minutes means about six content slides, with room for questions.',
           ],
         },
       ],
       resources: [
         {
-          resourceId: 'aihero-code-review',
-          why: 'A practitioner skill for agent-assisted code review that you can adapt to your own review policy.',
+          resourceId: 'claude-design-slides',
+          why: 'The official tutorial for building, editing and exporting a deck in Claude Design; it covers the tool, and the storyline is up to you.',
           required: true,
         },
         {
-          resourceId: 'github-pages-docs',
-          why: 'The official guide to publishing a site with GitHub Pages.',
+          resourceId: 'duarte-slideology',
+          why: 'The Glance Test and one message per slide, from the source.',
           required: true,
         },
         {
-          resourceId: 'anthropic-sdlc-playbook',
-          why: 'How teams restructure delivery, quality checks and review around AI agents.',
+          resourceId: 'minto-scqa',
+          why: 'A free summary of the pyramid principle and the SCQA frame.',
           required: false,
         },
         {
-          resourceId: 'copilot-docs',
-          why: 'Includes GitHub Copilot code review, one way to add an agent reviewer directly on pull requests.',
+          resourceId: 'duarte-resonate',
+          why: 'The free ebook on the from-to shape of a talk; registration may be required.',
           required: false,
         },
         {
-          resourceId: 'claude-code-review-post',
-          why: 'A vendor account of risk-routed review; useful as a worked example, not as proof.',
-          required: false,
-        },
-        {
-          resourceId: 'litt-understanding',
-          why: 'Why understanding a change, not producing it, is now the slow step.',
+          resourceId: 'slidev-guide',
+          why: 'Markdown slides with click-by-click reveals, if you want to try the Challenge 8 route.',
           required: false,
         },
       ],
       task: {
         summary:
-          'Add CI and an end-to-end check, write a review policy, self-review and agent-review your PRs, fix a reproduced bug with a regression test, deploy to GitHub Pages and practise a rollback.',
+          'Write the storyline, generate the QBR deck from a Markdown outline, polish it with real charts, run an agent review, write the stakeholder update and rehearse with your mentor.',
         steps: [
-          'On branch `ci/tests`, ask the agent to add a GitHub Actions workflow that runs install, type check, lint and `npm test` on every pull request. Turn on "require status checks to pass" in branch protection.',
-          'Add one end-to-end or integration test that loads your first screen with the fictional data and checks the figures from one acceptance criterion, using Playwright or React Testing Library.',
-          'Write `docs/review-policy.md`: every change to main needs one human approval from someone other than the author; low, medium and high risk rules for how deep that review goes; a PR size cap; mandatory author self-review; and nits marked as non-blocking. Note that a change touching a screen behind a feature flag or experiment is always high risk.',
-          'On each open PR, do your own self-review first, then run the agent review prompt below. Record a decision for every comment: fixed, rejected with a reason, or turned into an issue.',
-          'Ask your mentor to review the highest-risk change, the logic for {{deterministic}}, as the human domain reviewer.',
-          'Break something on purpose, for example an item that falls exactly on a due date or deadline. Reproduce it, have the agent write a failing test, then fix it.',
-          'Add a GitHub Pages deployment workflow. Vite needs `base` set to `/{{slug}}/`. Merge, then open the live URL on your phone.',
-          'Practise a rollback with your mentor: merge a small PR that breaks a displayed figure on purpose, confirm the live site is wrong, then use the Revert button on the merged PR to open and merge a revert PR. Write a five-line incident note in `docs/incidents/`.',
-          'Share the URL with two or three people, note where they struggle, and open GitHub issues for the top findings.',
+          'Write the SCQA for your quarter, in four sentences, at the top of `qbr-outline.md`. Write it yourself, then ask Claude to challenge it, not rewrite it.',
+          'Run the agent prompt below to turn your SCQA and workspace into a slide-by-slide outline. Edit it until the titles alone tell the story in six to eight slides, plus an appendix.',
+          'Generate the deck in Claude Design from `qbr-outline.md`, the readout and the eval report, or ask the Claude app to create a PPTX from the same files.',
+          'Polish it: one palette, real charts from `experiment-results.csv`, one progressive reveal where it helps, and speaker notes on every slide. Run the Glance Test on each slide: three seconds, one point.',
+          'In a fresh session, ask Claude to review the deck for clarity, consistency, numbers that do not match the readout, and AI-slide tells. Record a decision for each comment, then check every number yourself.',
+          'Write `stakeholder-update.md`: one screen, the ask first, the same numbers as the deck, and links to the readout and the eval report.',
+          'Export the deck as PPTX or PDF into your workspace. Rehearse once alone with a timer, then present it to your mentor and note every question you could not answer.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude Code, Codex or GitHub Copilot code review',
-        where: 'In the {{slug}} repository, on the branch of an open pull request',
-        text: `Review the changes on this branch compared with main. Act as a careful senior reviewer on the team building {{product}}.
+        tool: 'Claude Code',
+        where: 'In your {{slug}}-workspace folder',
+        text: `Goal: turn my SCQA into a slide-by-slide outline for a ten-minute quarterly business review of {{name}}.
 
-Context: read AGENTS.md, docs/prd.md, docs/plan.md and docs/review-policy.md first.
+Audience: the leadership team of {{org}}. They have not read my documents, and they need to decide whether to back the next stage.
 
-Check, in this order:
-1. Correctness: does the change satisfy the acceptance criteria it claims? Recheck any change to {{deterministic}} by hand for at least two cases.
-2. Tests: is every changed behavior covered by a test, and does each test check the right value? Name missing cases.
-3. Scope: is anything changed that the PR description does not mention?
-4. Safety: secrets, real personal or customer data, new network calls, new dependencies, anything that could trigger {{action}}, or changes to a screen behind a feature flag or experiment.
-5. Accessibility: color-only signals, missing labels, small tap targets.
+Read first: qbr-outline.md (my SCQA, which I wrote and you should not rewrite), experiment-readout.md, eval-report.md, launch-plan.md, strategy-kernel.md and prd.md.
 
-Output a table: severity (blocker, should-fix, nit), file and line, issue, suggested fix. Only "blocker" means the PR must not merge.
-Then give an overall risk rating (low, medium or high) per docs/review-policy.md, with one sentence of reasoning.
+Add to qbr-outline.md, below my SCQA:
+- Six to eight slides, then an appendix. For each slide: a title that states its one message as a full sentence, the evidence behind it with the source file, the chart or visual it needs, and two lines of speaker notes.
+- The first content slide gives the answer and the ask.
+- Every number must appear in a source file. Name the file next to it.
 
 Rules:
-- Do not edit any files. Review only.
-- If you are not sure something is a bug, say so and explain what would confirm it.`,
+- Do not add claims, numbers or quotes that are not in the files.
+- Move anything that takes more than a few seconds to read into the appendix.
+
+Done when: the outline is written, and you have read the titles alone in order and told me where the story breaks.`,
       },
       expectedOutput: [
-        'A CI workflow running type check, lint and tests on every PR, required by branch protection',
-        'docs/review-policy.md with an independent human approval on every change, risk tiers, a PR size cap and mandatory self-review',
-        'Agent review comments with recorded decisions, and a bug reproduced by a failing test then fixed',
-        '{{name}} live on GitHub Pages, a practised rollback with an incident note, and issues opened from real user feedback',
+        'qbr-outline.md with an SCQA you wrote and six to eight slide titles that tell the story on their own',
+        'A QBR deck exported as PPTX or PDF, with real charts, one palette and speaker notes',
+        'An agent review with a decision recorded for each comment',
+        'stakeholder-update.md, and notes from the rehearsal with your mentor',
       ],
-      artifact:
-        'Deployed {{name}} URL, passing CI, review policy, a regression-tested bug fix and an incident note',
+      artifact: 'A QBR deck (PPTX or PDF) and stakeholder-update.md',
       verification: [
-        'A pull request with a deliberately failing test is blocked from merging by CI.',
-        'The live GitHub Pages URL loads on a phone and shows the correct figures for the fictional dataset.',
-        'Every agent review comment has a recorded decision: fixed, rejected with a reason, or turned into an issue.',
-        'The bug fix PR includes a test that fails without the fix and passes with it.',
-        'docs/review-policy.md requires a human approval other than the author on every change, and classifies calculation and data changes as high risk requiring a human domain reviewer.',
-        'The revert PR restored the correct figures on the live site, and the incident note says what broke and what changes.',
+        'The first content slide states the answer and the ask.',
+        'Read alone and in order, the slide titles tell the whole story.',
+        'Every slide passes the Glance Test with someone who has not seen it.',
+        'Every number in the deck and the update matches the readout or the eval report, checked by you.',
+        'The talk fits in ten minutes with time left for questions.',
       ],
       reflectionPrompts: [
-        'Which agent review comment was wrong, and how did you know?',
-        'Where in your bank team would a risk-based review policy save the most time, and where would it worry risk or compliance?',
-        'What did real users do with the live app that surprised you?',
+        'Which slide did you cut, and why was it hard to let go?',
+        'What did the agent review catch, and what did it miss that only you could see?',
+        'Which executive question could you not answer, and which document should have answered it?',
       ],
       checklist: [
-        { id: 'ci', text: 'Added CI with required status checks on main' },
-        { id: 'e2e', text: 'Added an end-to-end or integration test for the first screen' },
-        {
-          id: 'policy',
-          text: 'Wrote a review policy with human approval on every change, risk tiers, a PR size cap and self-review',
-        },
-        {
-          id: 'agent-review',
-          text: 'Self-reviewed, ran an agent review and recorded a decision for every comment',
-        },
-        { id: 'bug-test', text: 'Fixed a reproduced bug with a regression test' },
-        {
-          id: 'rollback',
-          text: 'Rolled back a broken release with a revert PR and wrote an incident note',
-        },
-        {
-          id: 'deployed',
-          text: 'Deployed to GitHub Pages, recorded the live URL and opened issues from real feedback',
-        },
+        { id: 'scqa', text: 'Wrote the SCQA yourself before generating anything' },
+        { id: 'outline', text: 'Wrote an outline whose titles alone tell the story' },
+        { id: 'deck', text: 'Generated and polished the deck with real charts and speaker notes' },
+        { id: 'review', text: 'Ran an agent review and checked every number yourself' },
+        { id: 'update', text: 'Wrote stakeholder-update.md with the same numbers as the deck' },
+        { id: 'rehearsed', text: 'Rehearsed with your mentor and logged the questions' },
       ],
       mentorMove:
-        'Do the human review on her highest-risk PR, the calculation change, and narrate your thinking aloud: what you check first, what you trust CI for, and what makes you slow down. Then compare your findings with the agent review, and point out one thing only someone who knows the product would have caught.',
+        'Be the most senior person in the room: interrupt at slide two with "so what do you need from me?", and ask one question the deck does not answer. Afterwards, tell her the one sentence you remember, and compare it with the message she intended.',
     },
   ],
   challenges: [
     {
       id: 'c7',
       levelId: 4,
-      title: 'Parallel agents on separate branches',
-      difficulty: 'Expert',
-      minutes: 150,
-      competencies: ['coding-agents', 'technical-collaboration'],
-      xp: 250,
+      title: 'Design system round trip',
+      difficulty: 'Advanced',
+      minutes: 75,
+      competencies: ['ux-prototyping', 'technical-collaboration'],
+      xp: 100,
       summary:
-        'Run two coding agents at once on two independent {{name}} slices, using git worktrees or separate clones, then integrate both through pull requests. Learn first-hand where parallel agents save time and where coordination eats the savings.',
+        'Bring a design system or visual style into Claude Design, regenerate one {{name}} screen with it, and check that every state in your design spec survives the restyle.',
       steps: [
-        'Pick two slices from docs/plan.md that touch different files.',
-        'With your mentor, create a second working copy with `git worktree add ../{{slug}}-b -b feat/slice-b`, or clone the repository twice.',
-        'Start Claude Code in one working copy and Codex in the other, both reading the same AGENTS.md and handoff note.',
-        'Self-review and agent-review each PR independently. Merge the first.',
-        'Update the second branch with the latest main, and resolve any conflict with agent help while reading every conflicted line yourself.',
-        'Write a short note comparing the two agents and the real coordination overhead.',
+        "Pick a public design system, such as the GOV.UK Design System or Material Design 3, or a style you have permission to use. Never upload an employer's design files.",
+        'Give Claude Design the design system: its documentation, colour and type tokens, or screenshots of its components. Ask it to use this as the style for your project.',
+        'Regenerate {{mvpScreen}} from `design-spec.md` in that style, with every state.',
+        "Compare the result with the spec state by state, and with the design system's own components. Note where it invented a component instead of using an existing one.",
+        'Ask for one change by comment, such as a different empty state, and check that the rest of the screen stayed consistent.',
+        'Write `design-system-notes.md`: what carried over, what drifted, and what an engineer would need to build it with the real component library.',
       ],
-      deliverable:
-        'Two PRs built in parallel by different agents, both merged, plus a comparison note',
+      deliverable: 'The restyled screen with every state, and design-system-notes.md',
       verification: [
-        'Both PRs passed CI before merging.',
-        'You can explain how each conflict was resolved.',
-        'The note honestly compares time saved with coordination cost, including any rework.',
+        'Every state in the design spec appears in the restyled screen.',
+        'The notes name at least two places where the output drifted from the design system.',
+        'No employer or confidential design files were used.',
       ],
       resources: [
         {
-          resourceId: 'codex-workflows-cookbook',
-          why: 'Examples of structuring development workflows with Codex.',
+          resourceId: 'claude-design-launch',
+          why: 'What Claude Design can take in and produce, including working from an existing style.',
           required: false,
         },
         {
-          resourceId: 'claude-code-docs',
-          why: 'Official documentation, including running Claude Code across working copies.',
+          resourceId: 'figma-make',
+          why: 'An alternative if your team keeps its design system in Figma.',
           required: false,
         },
       ],
@@ -701,36 +704,31 @@ Rules:
     {
       id: 'c8',
       levelId: 4,
-      title: 'Close the loop: ship a feedback-driven improvement',
+      title: 'Animated deck in Slidev',
       difficulty: 'Advanced',
-      minutes: 150,
-      competencies: ['product-discovery', 'technical-collaboration', 'coding-agents'],
-      xp: 225,
+      minutes: 90,
+      competencies: ['ai-leadership', 'coding-agents'],
+      xp: 100,
       summary:
-        'Take the top issue from real user feedback on the live app, write a mini-spec, ship it through the full workflow, and re-test with the same people. Add privacy-respecting local event counting for one PRD metric.',
+        'Rebuild your QBR deck in Slidev, which turns Markdown into slides with click-by-click reveals, with Claude Code doing the build. Learn when animation helps understanding and when it only decorates.',
       steps: [
-        'Choose the top GitHub issue opened from user feedback in Session 16.',
-        'Write a mini-spec in the issue: problem, evidence, acceptance criteria and edge cases.',
-        'Implement it with an agent through the plan-first loop, self-review and the review policy.',
-        'Add local-only event counting for one PRD metric, stored in the browser and shown in a small debug panel, with no third-party tracking.',
-        'Deploy, re-test with the same people, and write a before and after note.',
+        'Ask Claude Code to set up a Slidev project in a new folder in your workspace, or open Slidev in StackBlitz in the browser if you prefer to avoid the terminal.',
+        'Give it `qbr-outline.md` and `experiment-results.csv`, and ask it to build the deck in `slides.md` with one message per slide and your speaker notes.',
+        'Add click-by-click reveals on two slides only: one chart that builds a series at a time, and one argument that builds point by point.',
+        'Apply your palette from Session 16 and check the contrast.',
+        'Export to PDF and compare it with your Session 16 deck. Write three lines on which one you would present, and why.',
       ],
       deliverable:
-        'A mini-spec, a merged PR with local event counting, and a before and after feedback note',
+        'A Slidev deck with two animated slides, its PDF export and a three-line comparison',
       verification: [
-        'The mini-spec acceptance criteria are covered by tests.',
-        'No third-party analytics or network calls were added.',
-        'The before and after note uses observations from the same participants.',
+        'Someone who has not seen the deck finds the two animated slides easier to follow than static versions.',
+        'Every number matches the readout.',
+        'The exported PDF still reads well without the animations.',
       ],
       resources: [
         {
-          resourceId: 'github-about-prs',
-          why: 'Linking issues and pull requests so the history explains why the change exists.',
-          required: false,
-        },
-        {
-          resourceId: 'aihero-skills',
-          why: 'Skills for turning feedback into a tight spec before implementation.',
+          resourceId: 'slidev-guide',
+          why: 'The official guide, including working with AI agents and exporting to PDF.',
           required: false,
         },
       ],
@@ -739,270 +737,262 @@ Rules:
   quiz: [
     {
       id: 'q4-1',
-      competency: 'technical-collaboration',
+      competency: 'ux-prototyping',
       prompt:
-        'A designer wants to push a one-word copy fix directly to main because "it is just text". What is the best response?',
+        'While writing the design spec, you find that the PRD says a warning appears at one threshold, but the prototype shows the warning at a different value. What goes in the spec?',
       options: [
         {
           id: 'a',
-          text: 'Allow it for copy and styling changes only, since text changes cannot break the build or the tests.',
+          text: 'The prototype value, because the prototype is newer and is authoritative for states and logic.',
         },
         {
           id: 'b',
-          text: 'Open a small pull request anyway: checks run, it is recorded, and low risk means a light review.',
+          text: 'The PRD rule, with the contradiction flagged and both versions shown so the owner can confirm.',
         },
         {
           id: 'c',
-          text: 'Ask an engineer to make the change instead, so only engineers ever touch the codebase directly.',
+          text: 'Whichever value the engineer building the screen finds easier to implement in the first slice.',
         },
         {
           id: 'd',
-          text: 'Collect it with other copy fixes and merge them together in one larger pull request each month.',
+          text: 'Both values, so the coding agent can pick the one that fits best with the rest of the code.',
         },
       ],
       correct: 'b',
       explanation:
-        'One rule for everyone who changes code: pull requests, never direct pushes to main. Risk-based review keeps that cheap for low-risk changes, the checks still run, and the history stays auditable. Batching makes review harder, not easier.',
+        'The PRD wins wherever it speaks, and a threshold is a rule the PRD states. The prototype is authoritative for states and logic only where the PRD is silent. Flagging the contradiction instead of silently resolving it lets the right person confirm, and saves the next reader from rediscovering it.',
     },
     {
       id: 'q4-2',
-      competency: 'coding-agents',
+      competency: 'technical-collaboration',
       prompt:
-        'You asked an agent to build the first {{name}} screen and it returned an 1,800-line diff across 30 files. What is the best next step?',
+        'Three engineers on your team use different coding agents. What does a team AGENTS.md at the root of the repository do for them?',
       options: [
         {
           id: 'a',
-          text: 'Merge it if CI passes, then fix anything that breaks in small follow-up pull requests.',
+          text: 'It locks every agent so it cannot break the hard rules, which removes the need for branch protection.',
         },
         {
           id: 'b',
-          text: 'Ask a senior engineer to set aside an afternoon and review all 1,800 lines carefully.',
+          text: 'It replaces the PRD and the design spec, so engineers no longer need the docs folder at all.',
         },
         {
           id: 'c',
-          text: 'Park the branch, ask for a plan, split it into small slices and rebuild one slice per PR.',
+          text: 'It gives every agent the same product context, commands and hard rules, and points to the PRD and spec.',
         },
         {
           id: 'd',
-          text: 'Have a second agent review the diff and merge it if neither agent finds a blocking issue.',
+          text: 'It lets the PM approve agent pull requests automatically once the instructions have been followed.',
         },
       ],
       correct: 'c',
       explanation:
-        'Huge diffs get rubber-stamped, not reviewed, by people and agents alike. Restarting with a plan and small vertical slices is usually faster than untangling a large change, and each slice can be verified.',
+        'AGENTS.md is shared context: what the product is, how to run it, the conventions and the hard rules, with pointers to the PRD and design spec rather than copies. It is guidance, not a lock, so hard rules still need branch rules and checks, and pull requests still need human review.',
     },
     {
       id: 'q4-3',
       competency: 'coding-agents',
       prompt:
-        'The agent reports "All tests pass, the feature is complete." What should you do before merging?',
+        "After the first slice is built, Claude's align check reports every acceptance criterion as met. What is the best next step?",
       options: [
         {
           id: 'a',
-          text: 'Check that the number of tests went up and that code coverage did not drop, then merge the PR.',
+          text: 'Merge and move on to the next slice, because the check compared every criterion with the build.',
         },
         {
           id: 'b',
-          text: 'Run the tests or check CI, read what each test asserts, and be sure you can explain the change.',
+          text: 'Check the evidence it cites for two or three criteria yourself, including an edge-case state.',
         },
         {
           id: 'c',
-          text: 'Ask the agent to confirm it ran the full suite and to list every test it added in the PR.',
+          text: 'Run the same align check two more times, and merge if all three runs agree everything is met.',
         },
         {
           id: 'd',
-          text: 'Merge it, because the agent ran the tests in its own session and showed you the passing output.',
+          text: 'Ask the session that built the slice to confirm the result, since it knows the code best.',
         },
       ],
       correct: 'b',
       explanation:
-        'Agent transcripts can be wrong, and agent-written tests can pass while testing the wrong thing. Coverage and test counts do not tell you whether a test checks the right value. Independent test runs plus a human check of what the tests assert is the minimum.',
+        'An align check is a fast first pass, not a verdict. It must cite evidence, such as a file, a test or a screenshot, and you spot-check that evidence, especially for states that are easy to miss. Rerunning it or asking the builder to confirm repeats the same blind spots.',
     },
     {
       id: 'q4-4',
-      competency: 'technical-collaboration',
+      competency: 'evals-safety',
       prompt:
-        'Your bank wants a real bill forecast in its app, using customer transactions. Where should the forecast calculation run?',
+        'You are about to write the eval set for the {{name}} assistant. Where should you start?',
       options: [
         {
           id: 'a',
-          text: 'In the browser on the customer device, so transaction data never has to leave the phone.',
+          text: 'Write a model grader with a detailed rubric, so every answer can be scored automatically from day one.',
         },
         {
           id: 'b',
-          text: 'On the backend behind an authenticated API, so access and audit are controlled centrally.',
+          text: 'Adopt a public benchmark for assistants and use its overall score as the release bar for the feature.',
         },
         {
           id: 'c',
-          text: 'Inside the language model, which reads the transactions and works out the forecast itself.',
+          text: 'Read a few dozen real answers, note what went wrong, and group the notes into failure modes first.',
         },
         {
           id: 'd',
-          text: 'In a nightly batch job that emails each customer a forecast spreadsheet before payday.',
+          text: 'Collect thumbs-up and thumbs-down ratings from pilot users and treat that rate as the quality score.',
         },
       ],
-      correct: 'b',
+      correct: 'c',
       explanation:
-        'Real financial data belongs behind authentication, authorization and audit logging on the backend, and the browser would need the full data set first anyway. Models should never do the arithmetic. Your case study runs in the browser only because it uses fictional data.',
+        'Error analysis comes first: read real outputs and name the failure modes before writing graders. A grader for a failure you have never seen tends to measure the wrong thing, a generic benchmark does not know your domain rules, and ratings tell you something is wrong but not what.',
     },
     {
       id: 'q4-5',
       competency: 'evals-safety',
       prompt:
-        'Under a risk-based review policy, which change most needs careful review by a human domain expert?',
+        'Your eval report shows a 96% overall pass rate. One failing case prepared {{action}} that the user never asked for. What do you recommend?',
       options: [
         {
           id: 'a',
-          text: 'Rewording the empty state message shown on the first screen.',
+          text: 'Launch, since 96% is well above the 90% target and one case in a small set is within noise.',
         },
         {
           id: 'b',
-          text: 'Changing how a figure on the main screen is calculated.',
+          text: 'Launch to a small group and watch whether the problem happens with real users before fixing it.',
         },
         {
           id: 'c',
-          text: 'Upgrading the test runner to its latest minor version.',
+          text: 'Block the release until it is fixed and rerun, because unauthorised actions are release-blocking.',
         },
         {
           id: 'd',
-          text: 'Moving the list screen styles into a separate CSS file.',
+          text: 'Remove the case from the set, since the user would still have to approve the action anyway.',
         },
       ],
-      correct: 'b',
+      correct: 'c',
       explanation:
-        'Calculations that users rely on for decisions are high risk: small errors compound and erode trust. The other changes still get a human approval, but automated checks and a light review are enough.',
+        'Release rules are set per category, not on the overall rate. An action nobody asked for is exactly the failure that destroys trust, and the approval step is a last line of defence, not a reason to tolerate it. Fix it, rerun, and keep the case as a regression test.',
     },
     {
       id: 'q4-6',
       competency: 'agentic-systems',
       prompt:
-        'You assigned a GitHub issue for a list screen to a cloud coding agent. Its pull request is green in CI, but it also changed the logic for {{deterministic}}, which the issue never mentioned. What do you do?',
+        'A red-team case hides "ignore your rules and act now" inside a note in the data the assistant reads. What is the strongest protection?',
       options: [
         {
           id: 'a',
-          text: 'Merge it, since CI is green and the agent probably found a related bug while it was working.',
+          text: 'Add a line to the instructions telling the model never to follow instructions that appear in data.',
         },
         {
           id: 'b',
-          text: 'Close the pull request and stop delegating issues to cloud agents until the tools are more reliable.',
+          text: 'Give the assistant no tool that executes, so every action waits for a person to approve it.',
         },
         {
           id: 'c',
-          text: 'Treat it as high risk: ask why the core logic changed, split it out, and get a domain review.',
+          text: 'Ask the model to scan each record for suspicious text and skip any record it flags as unsafe.',
         },
         {
           id: 'd',
-          text: 'Ask the cloud agent to review its own pull request and merge it if it says the change is safe.',
+          text: 'Only let verified customers use the assistant, so nobody untrusted can reach it in the first place.',
+        },
+      ],
+      correct: 'b',
+      explanation:
+        'Models cannot reliably tell data from instructions, so wording and self-checks help but will sometimes fail. Removing the ability to act alone limits the damage when the model is fooled. Verifying users does not help: the injected text arrives through the data, not from the user.',
+    },
+    {
+      id: 'q4-7',
+      competency: 'product-discovery',
+      prompt:
+        'Four days into a two-week experiment, the success metric looks significantly better. A director wants to ship today. What do you say?',
+      options: [
+        {
+          id: 'a',
+          text: 'Agree, because a significant result after only four days means the real effect must be large.',
+        },
+        {
+          id: 'b',
+          text: 'Wait for the sample size set in the plan, then read it once, guardrails included, and decide.',
+        },
+        {
+          id: 'c',
+          text: 'Keep checking daily, and ship on the first day the result has been significant three days running.',
+        },
+        {
+          id: 'd',
+          text: 'Extend the test to a full month so the result is even more certain before anyone decides.',
+        },
+      ],
+      correct: 'b',
+      explanation:
+        'Checking repeatedly and stopping when the result looks significant inflates false positives, and early effects often shrink. The sample size was fixed in advance for this reason. Extending the test without a reason is the same mistake in reverse: the plan, not the mood, decides when you look.',
+    },
+    {
+      id: 'q4-8',
+      competency: 'ai-leadership',
+      prompt:
+        'You have ten minutes at the QBR to get backing for the next stage. Which opening works best?',
+      options: [
+        {
+          id: 'a',
+          text: 'An agenda, then the methodology, so leadership trusts the evidence before they see the result.',
+        },
+        {
+          id: 'b',
+          text: 'The story of the quarter in order, from discovery to launch, building up to the result at the end.',
+        },
+        {
+          id: 'c',
+          text: 'The recommendation and the ask, then the two or three reasons, with the evidence behind them.',
+        },
+        {
+          id: 'd',
+          text: 'A dashboard of every metric you tracked, so leadership can draw its own conclusion from the data.',
         },
       ],
       correct: 'c',
       explanation:
-        'A delegated PR is reviewed like any other. Scope creep into core logic raises the risk tier, whatever CI says. Splitting it out keeps the list change small and lets the logic change get a proper domain review; the issue probably needed a "do not touch" line.',
-    },
-    {
-      id: 'q4-7',
-      competency: 'ai-leadership',
-      prompt:
-        'Agents now produce PRs faster than your team can review them and the queue keeps growing. Which set of practices best addresses this?',
-      options: [
-        {
-          id: 'a',
-          text: 'Let an agent reviewer approve low-risk PRs on its own and keep human review only for the high-risk ones.',
-        },
-        {
-          id: 'b',
-          text: 'Automated checks first, author self-review, a PR size cap, and human review depth scaled to risk.',
-        },
-        {
-          id: 'c',
-          text: 'Batch all agent PRs into one weekly review session so reviewers can approve them together.',
-        },
-        {
-          id: 'd',
-          text: 'Pause all agent work until the review queue is empty, then limit each engineer to one agent PR a day.',
-        },
-      ],
-      correct: 'b',
-      explanation:
-        'These practices keep humans focused where judgment matters without giving up review or the speed agents bring. In a bank, every production change still needs an independent human approval, so an agent cannot be the only approver even for low-risk changes.',
-    },
-    {
-      id: 'q4-8',
-      competency: 'coding-agents',
-      prompt:
-        'Which addition is most likely to improve the quality of an agent building {{name}} screens?',
-      options: [
-        {
-          id: 'a',
-          text: 'A longer prompt that describes the whole app, every screen and the brand voice in detail.',
-        },
-        {
-          id: 'b',
-          text: 'Tests it can run, a browser it can drive, and screenshots to compare with the prototype.',
-        },
-        {
-          id: 'c',
-          text: 'Full permissions so it can install packages, run commands and push without interruption.',
-        },
-        {
-          id: 'd',
-          text: 'One large task covering all the screens, so it has the full context in a single session.',
-        },
-      ],
-      correct: 'b',
-      explanation:
-        'Agents improve sharply when they can check their own work against an objective signal. Web apps are cheap to verify this way; native apps are harder, which is worth knowing when you plan agent work.',
+        'Executives read top-down, and ten minutes can end early. Answer first (the pyramid principle) means the decision and the ask land even if you only get two slides in. Chronology and methodology belong in the speaker notes, the appendix or the written update.',
     },
   ],
   project: {
-    title: 'Working {{name}} Web App',
+    title: 'Launch review',
     brief:
-      'Ship {{name}} v1 as a deployed web app on GitHub Pages, built with coding agents through real pull requests from your Level 3 PRD. You should be able to explain what it does, how it works at a high level, and what evidence shows it is correct.',
+      'Present the launch review for {{name}} live: what you handed to engineering, how you know the AI feature is safe enough, what the launch showed and what you recommend next. Your mentor plays the executive and asks the hard questions. You should be able to defend every number and every guardrail, and say what you did not test.',
     deliverables: [
       {
-        id: 'repo',
-        text: 'Public {{slug}} repository with a no-bypass ruleset on main and required CI checks',
+        id: 'handoff',
+        text: 'design-spec.md, docs/task-breakdown.md and a team AGENTS.md merged in the prototype repository, with an align check report',
       },
       {
-        id: 'pr',
-        text: 'At least one real pull request reviewed and merged on GitHub, with its URL recorded',
+        id: 'evals',
+        text: 'eval-set.md and eval-report.md, with expected figures you calculated and a release rule per category',
       },
       {
-        id: 'context',
-        text: 'docs/prd.md and docs/prototype/ versioned together, docs/plan.md, AGENTS.md and at least two handoff notes',
+        id: 'launch',
+        text: 'launch-plan.md with thresholds set in advance, and experiment-readout.md with a ship, iterate or kill decision',
       },
       {
-        id: 'tests',
-        text: 'Automated tests mapped to PRD acceptance criteria, passing in CI, plus an acceptance report',
+        id: 'deck',
+        text: 'The QBR deck (PPTX or PDF) and stakeholder-update.md, with matching numbers',
       },
       {
-        id: 'review',
-        text: 'docs/review-policy.md and evidence of self-review, agent-assisted review with triaged comments, and a human approval on every merged PR',
-      },
-      {
-        id: 'live',
-        text: 'Live GitHub Pages URL showing correct figures for the fictional dataset',
-      },
-      {
-        id: 'walkthrough',
-        text: 'A two-minute walkthrough, written or recorded, of what the app does, how it works and the verification evidence',
+        id: 'presented',
+        text: 'A live ten-minute presentation to your mentor, with the questions asked and your answers logged in qna-log.md',
       },
     ],
     rubric: {
       correctness:
-        'Figures on the live app match hand calculations for the fictional dataset, tests check the right values for the acceptance criteria, and CI is green on main.',
+        'Figures in the eval report, readout, deck and update match each other and your own calculations, and the readout decision follows from thresholds set before the results.',
       quality:
-        'PRs are small and well described, the UI follows the chosen prototype and passes basic accessibility checks, and AGENTS.md and the PRD are accurate and current.',
+        'The design spec covers every state with exact copy, the deck leads with the answer and passes the Glance Test, and the written update stands on its own.',
       independence:
-        'You directed the agents, made the plan and review decisions, and self-reviewed before every human review, using your mentor for review and unblocking rather than implementation.',
+        'You wrote the SCQA, the release rules and the launch decision yourself, used Claude to draft, grade and review, and used your mentor to challenge rather than to write.',
       judgment:
-        'You applied risk-based review, can explain every merged change, questioned or rejected at least one agent suggestion with reasons, and kept fictional data and scope boundaries intact.',
+        'You flagged gaps instead of inventing answers, blocked on the right failures, labelled post-hoc segments as hypotheses, and can say what you did not test.',
     },
     privacyNote:
-      'The repository is public: fictional data only, no interview notes, no real names, no employer code or data, and never commit API keys or tokens.',
+      'Fictional data only. No real customer data, interview recordings or real names in the repository or the deck, no employer documents or design files, and never commit API keys or tokens.',
     minutes: 300,
-    xp: 600,
+    xp: 350,
   },
   nextRecommendation:
-    'Level 5 adds an AI agent on top of {{name}}. Keep your calculation functions pure and tested: in Level 5 they become the deterministic tools the agent must call instead of doing the math itself.',
+    'Level 5 turns sixteen sessions of files into a personal PM OS and a team knowledge base. Keep your PRD, design spec, eval report and readout where you can find them: they become the first sources your wiki cites.',
 }
