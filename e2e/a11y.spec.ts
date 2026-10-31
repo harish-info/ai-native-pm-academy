@@ -20,6 +20,7 @@ const demoRoutes = [
   '#/wiki',
   '#/settings',
   '#/onboarding/result',
+  '#/nope',
 ]
 
 async function audit(page: Page, route: string) {

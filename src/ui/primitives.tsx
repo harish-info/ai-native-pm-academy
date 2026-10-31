@@ -270,15 +270,18 @@ export function EmptyState({
   title,
   children,
   action,
+  titleAs: Title = 'p',
 }: {
   title: string
   children?: ReactNode
   action?: ReactNode
+  /** Use 'h1' when the empty state is the whole page. */
+  titleAs?: 'p' | 'h1'
 }) {
   return (
     <div className="rounded-2xl border border-dashed border-stone-300 p-8 text-center dark:border-stone-700">
       <EmptyArt className="mx-auto mb-3 h-16 w-16" />
-      <p className="font-medium">{title}</p>
+      <Title className="font-medium">{title}</Title>
       {children && (
         <div className="mt-1 text-sm text-stone-600 dark:text-stone-400">{children}</div>
       )}
