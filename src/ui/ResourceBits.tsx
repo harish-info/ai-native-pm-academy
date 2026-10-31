@@ -122,8 +122,11 @@ export function ResourceRefs({ refs }: { refs: ResourceRef[] }) {
   const items = refs
     .map((ref) => ({ ref, resource: resourceById(ref.resourceId) }))
     .filter((x) => x.resource)
-  const core = items.filter((x) => x.ref.required)
-  const optional = items.filter((x) => !x.ref.required)
+  // The preferred PM course comes before the core excerpt whenever it is included.
+  const preferred = items.filter((x) => x.ref.resourceId === 'ccforpms')
+  const remaining = items.filter((x) => x.ref.resourceId !== 'ccforpms')
+  const core = remaining.filter((x) => x.ref.required)
+  const optional = remaining.filter((x) => !x.ref.required)
   const render = (list: typeof items) => (
     <ul className="space-y-3">
       {list.map(({ ref, resource }) => (
@@ -139,6 +142,7 @@ export function ResourceRefs({ refs }: { refs: ResourceRef[] }) {
   )
   return (
     <div className="space-y-4">
+      {preferred.length > 0 && render(preferred)}
       {render(core)}
       {optional.length > 0 && render(optional)}
     </div>

@@ -23,6 +23,23 @@ const checked = '2026-10-31'
 
 export const resources: Resource[] = [
   r({
+    id: 'ccforpms',
+    title: 'Claude Code for Product Managers',
+    provider: 'Carl Vellotti (independent)',
+    url: 'https://ccforpms.com/',
+    topic: 'AI for PMs',
+    level: 'beginner',
+    format: 'course',
+    estimatedTime: '10 to 12 hr',
+    practicalCost: 'Course free; needs a Claude Pro or Max plan (from $20 a month).',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'PM-specific course taught inside Claude itself, in five modules: getting started, fundamentals, advanced PM work, Nano Banana and vibe coding. No coding needed.',
+    notes:
+      "Not affiliated with Anthropic. Course source: github.com/carlvellotti/free-ai-courses, which also holds the author's Codex, Cursor and Antigravity courses.",
+  }),
+  r({
     id: 'product-templates',
     title: 'Product Templates: PRD, design spec and drafting skill',
     provider: 'harish-info on GitHub',
@@ -425,23 +442,7 @@ export const resources: Resource[] = [
   }),
 
   // Practitioner PM courses
-  r({
-    id: 'ccforpms',
-    title: 'Claude Code for Product Managers',
-    provider: 'Carl Vellotti (independent)',
-    url: 'https://ccforpms.com/',
-    topic: 'AI for PMs',
-    level: 'beginner',
-    format: 'course',
-    estimatedTime: '10 to 12 hr',
-    practicalCost: 'Course free; needs a Claude Pro or Max plan (from $20 a month).',
-    verifiedOn: checked,
-    status: 'verified',
-    summary:
-      'PM-specific course taught inside Claude itself, in five modules: getting started, fundamentals, advanced PM work, Nano Banana and vibe coding. No coding needed.',
-    notes:
-      "Not affiliated with Anthropic. Course source: github.com/carlvellotti/free-ai-courses, which also holds the author's Codex, Cursor and Antigravity courses.",
-  }),
+
   r({
     id: 'vellotti-free-courses',
     title: 'Free AI courses from The Full Stack PM',
