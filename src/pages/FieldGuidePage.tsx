@@ -1,4 +1,4 @@
-import { Fragment, Suspense, lazy, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { challengeById, lessonById, levelById, resourceById } from '../content'
 import {
@@ -10,11 +10,6 @@ import {
 import { CopyButton } from '../ui/CopyButton'
 import { Card, LinkButton, PageHeader, Pill, cx, linkClass } from '../ui/primitives'
 import { Bullets, Paragraphs, inline } from '../ui/RichText'
-
-// The agent loop diagram from Session 1, reused so the learner sees the same picture again.
-const LessonIllustration = lazy(() =>
-  import('../ui/LessonIllustration').then((m) => ({ default: m.LessonIllustration })),
-)
 
 const layerLabels: Record<LayerScenario['correct'], string> = {
   brief: 'Your brief or context',
@@ -259,21 +254,19 @@ export function FieldGuidePage() {
           </div>
         </Card>
 
-        {/* 1. Three layers */}
+        {/* 1. Quick orientation */}
         <Card as="section" aria-labelledby="fg-layers">
           <SectionHeading id="fg-layers" eyebrow="1 · Lasts">
-            Model, agent, app
+            Quick orientation
           </SectionHeading>
-          <p className="mb-4 max-w-3xl leading-relaxed">{g.layersIntro}</p>
+          <p className="mb-4 max-w-3xl leading-relaxed">{inline(g.layersIntro)}</p>
           <ol className="grid gap-3 md:grid-cols-3">
-            {g.layers.map((l, i) => (
+            {g.layers.map((l) => (
               <li
                 key={l.name}
                 className="rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800/60"
               >
-                <p className="font-mono text-xs text-stone-600 dark:text-stone-400">
-                  Layer {i + 1} · {l.analogy}
-                </p>
+                <p className="font-mono text-xs text-stone-600 dark:text-stone-400">{l.analogy}</p>
                 <h3 className="mt-1 text-lg font-semibold">{l.name}</h3>
                 <p className="mt-2">{l.what}</p>
                 <p className="mt-2 text-stone-600 dark:text-stone-400">
@@ -283,31 +276,19 @@ export function FieldGuidePage() {
               </li>
             ))}
           </ol>
-          <div className="mt-4 max-w-3xl space-y-3">
-            <Paragraphs items={g.layersAfter} />
-          </div>
-
-          <h3 className="mt-6 mb-2 text-lg font-semibold">Inside the loop</h3>
-          <div className="max-w-3xl space-y-3">
-            <p className="leading-relaxed">{g.loopIntro}</p>
-            <Bullets items={g.loopSteps} ordered />
-            <p className="leading-relaxed">{inline(g.loopAfter)}</p>
-          </div>
-          <div className="mt-4">
-            <Suspense fallback={<p role="status">Loading illustration...</p>}>
-              <LessonIllustration id="chat-agent" />
-            </Suspense>
-          </div>
-
-          <h3 className="mt-6 mb-1 text-lg font-semibold">Which layer let you down?</h3>
-          <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-            {g.scenariosIntro} Practice only, with no grade or XP.
-          </p>
-          <ol className="space-y-3">
-            {g.scenarios.map((s, i) => (
-              <Scenario key={s.id} s={s} n={i + 1} />
-            ))}
-          </ol>
+          <details className="mt-4">
+            <summary className="min-h-10 cursor-pointer py-2 font-semibold">
+              Diagnose a disappointing result: three practice cases
+            </summary>
+            <p className="mt-2 mb-3 text-sm text-stone-600 dark:text-stone-400">
+              {g.scenariosIntro} Practice only, with no grade or XP.
+            </p>
+            <ol className="space-y-3">
+              {g.scenarios.map((s, i) => (
+                <Scenario key={s.id} s={s} n={i + 1} />
+              ))}
+            </ol>
+          </details>
         </Card>
 
         {/* 2. Landscape */}
@@ -438,87 +419,9 @@ export function FieldGuidePage() {
           </ol>
         </Card>
 
-        {/* 3. Why it matters */}
-        <Card as="section" aria-labelledby="fg-why">
-          <SectionHeading id="fg-why" eyebrow="3 · Lasts">
-            {g.whyHeading}
-          </SectionHeading>
-          <div className="max-w-3xl">
-            <Bullets items={g.why} />
-          </div>
-          <h3 className="mt-6 mb-2 text-lg font-semibold">{g.noPmModelHeading}</h3>
-          <div className="max-w-3xl space-y-3">
-            <Paragraphs items={g.noPmModel} />
-          </div>
-        </Card>
-
-        {/* 4. Briefing */}
-        <Card as="section" aria-labelledby="fg-brief">
-          <SectionHeading id="fg-brief" eyebrow="4 · Lasts">
-            {g.briefHeading}
-          </SectionHeading>
-          <div className="max-w-3xl space-y-3">
-            <Paragraphs items={g.brief} />
-          </div>
-          <div className="mt-4 grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
-            <div>
-              <h3 className="mb-2 text-sm font-semibold">Weak brief</h3>
-              <pre
-                tabIndex={0}
-                className="overflow-x-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
-              >
-                {g.briefWeak}
-              </pre>
-            </div>
-            <div>
-              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                <h3 className="text-sm font-semibold">Agent-ready brief</h3>
-                <CopyButton text={g.briefStrong} label="Copy agent-ready brief" />
-              </div>
-              <pre
-                tabIndex={0}
-                className="overflow-x-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
-              >
-                {g.briefStrong}
-              </pre>
-            </div>
-          </div>
-          <p className="mt-4 max-w-3xl leading-relaxed">{g.briefAfter}</p>
-        </Card>
-
-        {/* 5. Building */}
-        <Card as="section" aria-labelledby="fg-build">
-          <SectionHeading id="fg-build" eyebrow="5 · Lasts">
-            {g.buildHeading}
-          </SectionHeading>
-          <p className="mb-4 max-w-3xl leading-relaxed">{g.buildIntro}</p>
-          <ol className="grid gap-3 md:grid-cols-3">
-            {g.buildLevels.map((b, i) => (
-              <li
-                key={b.name}
-                className="flex flex-col rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800/60"
-              >
-                <p className="font-mono text-xs text-stone-600 dark:text-stone-400">
-                  Level {i + 1}
-                </p>
-                <h3 className="mt-1 text-lg font-semibold">{b.name}</h3>
-                <p className="mt-2">{b.goodFor}</p>
-                <p className="mt-2 text-stone-600 dark:text-stone-400">{b.tools}</p>
-                <p className="mt-2">
-                  <span className="font-medium">You review: </span>
-                  {b.youReview}
-                </p>
-                <div className="mt-3 border-t border-stone-200 pt-2 dark:border-stone-700">
-                  <SessionLinks lessons={b.lessons} />
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Card>
-
-        {/* 6. A PM's week */}
+        {/* 3. A PM's week */}
         <Card as="section" aria-labelledby="fg-week">
-          <SectionHeading id="fg-week" eyebrow="6 · Lasts">
+          <SectionHeading id="fg-week" eyebrow="3 · Practise in the course">
             {g.weekHeading}
           </SectionHeading>
           <p className="mb-4 max-w-3xl leading-relaxed">{g.weekIntro}</p>
@@ -560,6 +463,26 @@ export function FieldGuidePage() {
               </tbody>
             </table>
           </div>
+          <details className="mt-5 border-t border-stone-200 pt-3 dark:border-stone-800">
+            <summary className="min-h-10 cursor-pointer py-2 font-semibold">
+              {g.dashboardExample.title}
+            </summary>
+            <p className="mt-2 mb-3 max-w-3xl text-sm leading-relaxed">
+              {g.dashboardExample.context}
+            </p>
+            <div className="mb-2 flex justify-end">
+              <CopyButton text={g.dashboardExample.prompt} label="Copy dashboard brief" />
+            </div>
+            <pre
+              tabIndex={0}
+              className="overflow-x-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
+            >
+              {g.dashboardExample.prompt}
+            </pre>
+            <div className="mt-3 text-sm">
+              <SessionLinks lessons={g.dashboardExample.lessons} />
+            </div>
+          </details>
         </Card>
 
         {/* Refresh */}

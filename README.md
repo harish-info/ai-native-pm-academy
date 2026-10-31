@@ -32,9 +32,9 @@ Apply the methods to a product, service or workflow you understand. Lessons addr
 - Session pages: decision brief, recall, lesson explanation, visible tutorials and sources, worked example, interactive decision practice, task, optional agent prompt, verification and evidence. The lesson introduces the concepts before the links. One suggested excerpt helps with pacing; additional sources stay visible.
 - A session completes only with evidence: checklist, reflection, an artifact reference and logged time.
 - Field guide, read after Level 1 and before Session 5:
-  - model, agent and app as three layers, with a short "which layer let you down?" practice
+  - a short model, agent and interface reminder, with optional diagnostic practice
   - a dated landscape of labs, models, agents, usage surveys and trends, plus a copyable refresh prompt
-  - how to brief an agent, three levels of building, and a PM's week mapped to the sessions that practise each job
+  - model and effort choices, a PM's week mapped to the lessons, and an optional copyable dashboard brief
   - Sessions keep the methods; this page holds the facts that date. Recheck it before each cohort.
 - Dashboard, progress charts (each with a table view), weekly rhythm (no daily streaks), timeline and achievements.
 - Workspace for notes and reflections, a study plan with a mentor role every week, a case-study hub and a PM workspace guide.

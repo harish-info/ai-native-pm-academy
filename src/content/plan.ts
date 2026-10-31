@@ -85,7 +85,7 @@ export const planWeeks: PlanWeek[] = [
     items: [
       {
         kind: 'prep',
-        text: 'Before Session 5, read the Field guide (under Learn in the menu): model, agent and app, the landscape as of its date, and a PM week with AI. Try the three "which layer" situations.',
+        text: 'Before Session 5, use the Field guide (under Learn in the menu) to check current models, effort settings and the PM work map. Open the three diagnostic practice cases if you want to test which part of a disappointing result to fix.',
         minutes: 30,
       },
       { kind: 'mentor', text: 'First Claude Code session together.', minutes: 15 },

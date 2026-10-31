@@ -61,7 +61,6 @@ export const level1: Level = {
           paragraphs: [
             '**Reasoning-capable models** can spend extra computation before answering. That can help with multi-step analysis, planning and code, with trade-offs in time and cost. Products expose different controls and may show a summary rather than the full internal process. Judge the answer with evidence and tests, not the apparent depth of its explanation.',
             'A plain **chat** answers from what is in its context. Give the same model **tools** and it can look things up on the web, run code on a spreadsheet, read and create files. An **agent** is a model in a loop: it decides on a step, uses a tool, checks the result and carries on until the task is done. In Level 2 you will use Claude Code, an agent that works on the files in your own folder. More power means more to review: an agent that can act can also act wrongly.',
-            'This is the short version. The [Field guide](/field-guide) goes one layer deeper before you hand real work to an agent in Session 5: how a model, the agent around it and the app you use fit together, who makes the leading ones today, and how a PM uses them through the week.',
           ],
         },
         {
@@ -958,5 +957,5 @@ Build the whole page now. After that I will ask for one change at a time: change
     xp: 300,
   },
   nextRecommendation:
-    'Move to Level 2. From here the course uses Claude Code, which needs a paid Claude Pro plan. Before Session 5, read the Field guide: it explains what an agent adds to a model, why the course uses Claude Code, and where each everyday PM job is practised. In Session 5 your `learning-notes/` files move into a workspace, and `product-context.md` becomes the first thing every agent reads.',
+    'Move to Level 2. From here the course uses Claude Code, which needs a paid Claude Pro plan. Before Session 5, use the Field guide to check current models and tools and find where each everyday PM job is practised. In Session 5 your `learning-notes/` files move into a workspace, and `product-context.md` becomes the first thing every agent reads.',
 }

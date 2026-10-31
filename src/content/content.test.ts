@@ -133,7 +133,7 @@ describe('field guide', () => {
   it('points at real sessions, challenges and verified sources checked on its date', () => {
     const lessonRefs = [
       ...fieldGuide.week.flatMap((w) => w.lessons),
-      ...fieldGuide.buildLevels.flatMap((b) => b.lessons),
+      ...fieldGuide.dashboardExample.lessons,
     ]
     for (const id of lessonRefs)
       expect(

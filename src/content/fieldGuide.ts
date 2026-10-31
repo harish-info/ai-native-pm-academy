@@ -1,6 +1,5 @@
-// The field guide: models, agents and today's tools, for a PM. It sits between Session 1 (which
-// introduces chat versus agent) and Session 5 (where the learner first hands work to an agent).
-// Sessions teach methods that last; this page holds the facts that date, each with a date.
+// A reference alongside the lessons: current models and tools, troubleshooting, and a PM work map.
+// Keep full explanations and methods in the lessons rather than teaching them again here.
 // Every dated fact was checked against the linked vendor page or survey on AS_OF.
 
 export const FIELD_GUIDE_AS_OF = '2026-10-31'
@@ -42,14 +41,6 @@ export interface Trend {
   resourceIds: string[]
 }
 
-export interface BuildLevel {
-  name: string
-  tools: string
-  goodFor: string
-  youReview: string
-  lessons: string[]
-}
-
 export interface WeekJob {
   job: string
   ai: string
@@ -60,52 +51,31 @@ export interface WeekJob {
 
 export const fieldGuide = {
   intro: [
-    'Session 1 gave you the short version: a chat answers from its context, and an agent is a model in a loop with tools. From Session 5 onwards you hand real work to an agent. Before then it pays to know what you are actually using: which part is the model, which part is the agent, who makes them, and what product people use them for day to day. If you do not know what you are using, you cannot tell whether a bad result came from the tool or from your brief.',
-    'Sessions teach methods that last. This page holds the facts that go out of date, in one place, each with a date. Read it once you finish Level 1, before Session 5, and refresh it with the Session 3 method whenever it is more than a couple of months old.',
+    'Use this reference alongside the course: find current model and effort choices, diagnose a disappointing result, or find the lesson for an everyday PM task. The lessons teach the full methods; this guide keeps the dated tool landscape in one place.',
   ],
 
   layersIntro:
-    'When people say "AI" they mean three different things stacked on top of each other. Separating them is the most useful idea on this page.',
+    'A reminder of the parts you are choosing between. An agent can also be an app, and the same agent can have several interfaces. [Session 1](/lessons/s1) explains the loop; [Session 5](/lessons/s5) covers permissions and working on files.',
   layers: [
     {
       name: 'Model',
       analogy: 'The engine',
-      what: 'A trained network that reads its context and predicts the next token, as in Session 1. On its own it cannot open a file, search the web or remember yesterday. A model family can include several tiers, trading capability against speed and cost. The version number identifies a release within that family.',
+      what: 'The trained model that reasons and generates responses from the context it receives.',
       examples: 'Claude Opus 5.5, GPT-6.1 Sol, Gemini 4 Argon.',
     },
     {
       name: 'Agent',
-      analogy: 'The car built around the engine',
-      what: 'Software that puts the model in a loop. It gives the model instructions and tools (read a file, search, run code, edit), runs whichever tool the model asks for, feeds the result back and repeats until the task is done or it needs you. It also decides what the model may touch: permissions, step limits and where the work runs.',
-      examples: 'Claude Code, Codex, ChatGPT Work, Google Antigravity, Cursor, GitHub Copilot.',
+      analogy: 'The application around it',
+      what: 'Uses the model and tools in a loop to carry out a task.',
+      examples: 'Claude Code, Codex, ChatGPT Work.',
     },
     {
-      name: 'App',
-      analogy: 'The dashboard you drive from',
-      what: 'Where you meet it: the Claude or ChatGPT app, the desktop Code tab, a terminal, a code editor, Slack. The same agent can appear in several places; Claude Code runs in the desktop app, in a terminal and inside code editors.',
-      examples: 'The Claude app, the ChatGPT desktop app, the Gemini app, VS Code.',
+      name: 'Interface',
+      analogy: 'Where you interact',
+      what: 'The surface where you give instructions and review the result.',
+      examples: 'A desktop Code tab, web chat, terminal or code editor.',
     },
   ] satisfies FieldGuideLayer[],
-  layersAfter: [
-    'Two things follow. The same model behaves differently in different agents, because each agent adds its own instructions, tools and limits: Claude Opus 5.5 in Claude Code can answer questions about your folder that the same model in a plain chat cannot, because it can look. And one agent can run several models: Cursor and GitHub Copilot let you choose models from different labs, and Claude Code lets you switch between Claude models. That is why Session 1 asked you to say whether you were comparing models or products.',
-    'The big labs train models and also build agents on top of them: Anthropic makes Claude Code, OpenAI makes Codex, Google makes Antigravity. Other companies, such as Cursor, GitHub and Lovable, build agents and apps on models they license from the labs.',
-    "Claude Code and Codex are rivals at the same layer. Both work on the files in a folder, run commands and propose changes for you to review; each runs its own lab's models. The main visible difference is the instructions file: Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md`. Session 5 shows the one line that lets both share a single file, and in Session 13 you hand engineering a team `AGENTS.md`.",
-  ],
-
-  loopIntro:
-    'Here is what happens when you ask an agent for something. Take a request like the ones you make in Session 6: "Add the empty and error states from REQUIREMENTS.md to the first screen."',
-  loopSteps: [
-    'The agent starts a session. It loads its own instructions, your `CLAUDE.md` and the list of tools it may use into the context window.',
-    'The model reads all of that plus your request and picks a first step: list the files in the folder.',
-    'The agent runs that tool and adds the result to the context.',
-    'The model picks the next step: open the screen file, then propose an edit.',
-    'The agent checks its permissions. Depending on the mode, it asks you first or applies the edit.',
-    'The model asks to run the prototype or the tests, reads the output and fixes what broke.',
-    'It stops when it judges the task done, hits a limit or needs a decision from you, and reports what it did.',
-  ],
-  loopAfter:
-    'Every step adds to the same context window. That is why long agent sessions suffer from context rot (Session 1) and why a short `CLAUDE.md` beats a long one (Session 5). And every action is something to review: with an agent you check what it did, not only what it said.',
-
   scenariosIntro:
     'When a result disappoints, ask which layer let you down before you fix anything. Try three.',
   scenarios: [
@@ -329,7 +299,7 @@ export const fieldGuide = {
   usageCaveat:
     'Read these the way Session 3 taught you. Surveys describe the people who answered them, and many people use two or three tools at once, so the shares overlap. Neither survey is of product managers. No large PM survey with a published method turned up when this page was written, so the designers and builders survey is the nearest neighbour.',
 
-  trendsHeading: 'Five trends, and what they mean for you',
+  trendsHeading: 'What is changing in the tools',
   trends: [
     {
       title: 'Chat and agent are merging into one app',
@@ -347,53 +317,14 @@ export const fieldGuide = {
         'A draft that looks finished is easy to forward unread. The Session 2 rule (if you send it, you own it), Session 3 verification and the honest labels from Session 4 matter more, not less.',
       resourceIds: ['claude-one-app', 'openai-chatgpt-work', 'openai-gpt6-everyone'],
     },
-    {
-      title: 'New frontier models every few weeks',
-      evidence:
-        'Between September and the end of October 2026 OpenAI released the GPT-6 family, Google released Gemini 4 Argon and announced Carbon, and Anthropic released its 5.5 models.',
-      forYou:
-        'Model strengths and trade-offs change. Keep your method, not your favourite: rerun your Session 1 comparison when a big release lands, and record the date.',
-      resourceIds: ['openai-gpt6-astra', 'google-gemini-4-argon', 'google-gemini-4-carbon'],
-    },
-    {
-      title: 'Engineers already work with agents',
-      evidence:
-        'In mid-2026, 90% of professional developers used an AI coding agent at work at least weekly and 68% daily.',
-      forYou:
-        'The engineers you hand off to in Level 4 already brief agents. Your PRD will be read by agents as well as people, which is why Session 12 writes it as agent-ready context.',
-      resourceIds: ['jetbrains-agent-adoption-2026'],
-    },
-    {
-      title: 'Designers and builders make working prototypes, and review is the bottleneck',
-      evidence:
-        'Claude Code was a weekly tool for 38.4% of designers and builders in spring 2026, and more than four in ten spent most of their building time vibe coding.',
-      forYou:
-        'Making a working prototype is now a normal product skill. What separates good work is deciding what to build and checking what came back, which is where Levels 2 to 4 spend their time.',
-      resourceIds: ['uxtools-state-of-prototyping-2026'],
-    },
   ] satisfies Trend[],
 
-  whyHeading: 'Why a PM needs this map',
-  why: [
-    '**Diagnose before you fix.** Knowing the three layers tells you whether to improve your brief, change the model tier or change what the agent is allowed to do.',
-    '**Choose model and effort separately.** Use the task examples above, compare results against your criteria, and record both settings. A more expensive run needs to earn its place.',
-    '**Talk to engineers in their terms.** They use Claude Code, Codex, Cursor or Copilot daily. In Level 4 you review what their agents build.',
-    "**Judge claims, including your own product's.** Vendor launch posts lead with benchmarks. Session 14 teaches you to test your own task instead.",
-    "**Know what you are allowed to use.** At work your employer's approved tools decide, not the leaderboard. Open-weight and enterprise plans exist largely for that reason.",
-  ],
-  noPmModelHeading: 'Is there a best model for product managers?',
-  noPmModel: [
-    'There is no single winner across all PM tasks. A good model for drafting a brief may not be your best choice for visual prototyping, analysing a large file or a long agent task. Compare the output on your own work. Also check the app: its available tools, access to your material and employer approval can decide whether it is usable at all.',
-    'So pick one main assistant and one building agent, and learn them deeply rather than sampling everything. This course uses Claude and Claude Code. ChatGPT and Codex can do nearly all of the same work, and every method in the course transfers.',
-  ],
-
-  briefHeading: 'How to brief a model or an agent',
-  brief: [
-    'Session 2 calls this context engineering, and it applies unchanged: a brief to a model has the same parts as a brief to a new colleague. Goal and audience, the context and material, the constraints, and what done looks like.',
-    'An agent acts, so its brief needs four more lines: where it may work and what it must not touch, when to stop and ask you, how to check its own work, and what to report back.',
-  ],
-  briefWeak: 'Analyse the feedback and make a dashboard.',
-  briefStrong: `Goal: a one-page dashboard of what users complained about in Q3, for Thursday's team review.
+  dashboardExample: {
+    title: 'Example: brief a feedback dashboard',
+    context:
+      'A copyable example using fictional feedback. Session 2 teaches the briefing method; Sessions 10 and 11 cover the feedback and data checks.',
+    lessons: ['s2', 's10', 's11'],
+    prompt: `Goal: a one-page dashboard of what users complained about in Q3, for Thursday's team review.
 
 Context: product-context.md describes the product and users. Data: data/feedback-q3.csv (fictional, 400 rows: date, channel, text). My own themes, from reading 50 rows myself: data/my-themes.md.
 
@@ -406,40 +337,7 @@ Done when: every row has one theme, the counts add up to 400, each theme shows t
 Check: recount the totals with code, not by reading. List any rows you could not tag.
 
 Report: what you did, which files changed and anything you were unsure about.`,
-  briefAfter:
-    "Notice the order. You read a sample and write your own themes first, as Session 10 and Challenge 5 ask, so the agent's list cannot anchor you, and the agent stops after proposing its themes. Deciding what the themes are is your judgement, the delegation call from Session 2; tagging four hundred rows against them is not. Two more habits come later: in Session 6 the agent interviews you before it builds, and long work restarts in a fresh session from a short handoff note.",
-
-  buildHeading: 'Prototyping, vibe coding and agentic building',
-  buildIntro:
-    'Building with AI comes in three levels. The course climbs them in order, and each one has a different thing for you to review.',
-  buildLevels: [
-    {
-      name: 'Prompt to page',
-      tools: 'Claude artifacts, Claude Design, Lovable, v0, Figma Make, Google AI Studio.',
-      goodFor:
-        'A pitch or a flow you want reactions to, in minutes. This is vibe coding: you judge the result by using it, not by reading the code.',
-      youReview:
-        'What the page claims, whether the numbers add up and whether it is labelled as a prototype.',
-      lessons: ['s4'],
-    },
-    {
-      name: 'An agent in your own folder',
-      tools:
-        'Claude Code or Codex, working on files you own, under git, published through pull requests.',
-      goodFor: 'A multi-screen prototype you can test with real people, in hours.',
-      youReview:
-        'The running result, the diff of every change and what the agent was allowed to do.',
-      lessons: ['s5', 's6', 's7', 's8'],
-    },
-    {
-      name: 'Production with engineering',
-      tools:
-        "The same agents, in the team's real codebase, against a spec and tests, with a person approving every change.",
-      goodFor: 'Software that real users or money depend on, in days to weeks.',
-      youReview: 'The spec, the evals and the acceptance check. Engineers own the code review.',
-      lessons: ['s12', 's13', 's14'],
-    },
-  ] satisfies BuildLevel[],
+  },
 
   weekHeading: "A PM's week with AI",
   weekIntro:
@@ -473,7 +371,7 @@ Report: what you did, which files changed and anything you were unsure about.`,
     },
     {
       job: 'Dashboards and charts',
-      ai: 'Turn a data file into charts or a one-page dashboard, like the agent-ready brief above.',
+      ai: 'Turn a data file into charts or a one-page dashboard. A copyable brief follows this map.',
       you: 'What the reader has to decide, the metric definitions, and whether every number adds up.',
       lessons: ['s11', 's16'],
     },

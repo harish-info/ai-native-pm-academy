@@ -40,7 +40,7 @@ export const level2: Level = {
           heading: 'From chat to an agent that works on your files',
           paragraphs: [
             'Claude Code can read files, write changes and run tools. File contents, instructions, command output and other context may be sent to the provider. Its working folder is a starting scope, not an access boundary. Check permissions, connected tools and the environment before using it.',
-            "You do not need a terminal. The Claude desktop app has a **Code** tab: sign in with your Claude Pro plan, choose a folder and type. The terminal version is the same agent if you ever want it. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on. The [Field guide](/field-guide) explains what the agent adds to the model and where both sit in today's landscape.",
+            "You do not need a terminal. The Claude desktop app has a **Code** tab: sign in with your Claude Pro plan, choose a folder and type. The terminal version is the same agent if you ever want it. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on. The [Field guide](/field-guide) compares current models and tools.",
             'The main Claude app, which now includes **Cowork**, can also act as an agent. This course uses Claude Code because your prototype lives in a folder you own, under git, where you can see and undo every change.',
           ],
         },
