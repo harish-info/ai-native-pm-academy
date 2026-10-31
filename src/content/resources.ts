@@ -23,6 +23,48 @@ const checked = '2026-10-31'
 
 export const resources: Resource[] = [
   r({
+    id: 'product-templates',
+    title: 'Product Templates: PRD, design spec and drafting skill',
+    provider: 'harish-info on GitHub',
+    url: 'https://github.com/harish-info/product-templates',
+    topic: 'Product templates',
+    level: 'intermediate',
+    format: 'repository',
+    practicalCost: 'Free',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Reusable PRD and design spec templates, with an optional prd-plan skill for drafting from notes, designs and prototypes. Use the templates directly or adapt the workflow to your team.',
+  }),
+  r({
+    id: 'product-templates-prd',
+    title: 'PRD template',
+    provider: 'harish-info, Product Templates',
+    url: 'https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/prd-template.md',
+    topic: 'Product templates',
+    level: 'intermediate',
+    format: 'documentation',
+    practicalCost: 'Free',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A reusable starting point for the problem, scope, flows, behavioural contracts, acceptance criteria, tracking and open questions. Distinguishes missing inputs from assumptions instead of inventing requirements.',
+  }),
+  r({
+    id: 'product-templates-design-spec',
+    title: 'Design spec template',
+    provider: 'harish-info, Product Templates',
+    url: 'https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/design-spec-template.md',
+    topic: 'Product templates',
+    level: 'intermediate',
+    format: 'documentation',
+    practicalCost: 'Free',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A reusable screen inventory and state-by-state specification for copy, conditional behaviour, interactions and navigation. Keeps unresolved design inputs visible and separates behaviour from implementation detail.',
+  }),
+  r({
     id: 'claude-skills-tutorial',
     title: 'Teach Claude your way of working using skills',
     provider: 'Anthropic, Claude Academy',

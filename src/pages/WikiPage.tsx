@@ -25,6 +25,9 @@ const prompts: { id: keyof typeof wikiPrompts; title: string; when: string }[] =
 export function WikiPage() {
   const { data } = useStore()
   const gist = resourceById('karpathy-llm-wiki')
+  const templateRepo = resourceById('product-templates')
+  const prdTemplate = resourceById('product-templates-prd')
+  const designTemplate = resourceById('product-templates-design-spec')
   const filedCount = allLessons.filter((l) => data.lessons[l.id]?.checklist['wiki-filed']).length
   const reachedCount = wikiMilestones.filter(
     (m) => data.projects[String(m.levelId)]?.deliverables['wiki-milestone'],
@@ -70,6 +73,39 @@ export function WikiPage() {
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>{' '}
                 by {gist.provider.replace(/ \(.*\)$/, '')}.
+              </p>
+            )}
+            {templateRepo && prdTemplate && designTemplate && (
+              <p>
+                <strong>Reusable product templates.</strong> Start with the{' '}
+                <a
+                  href={prdTemplate.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkClass}
+                >
+                  PRD template<span className="sr-only"> (opens in a new tab)</span>
+                </a>{' '}
+                or{' '}
+                <a
+                  href={designTemplate.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkClass}
+                >
+                  design spec template<span className="sr-only"> (opens in a new tab)</span>
+                </a>{' '}
+                from{' '}
+                <a
+                  href={templateRepo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkClass}
+                >
+                  Product Templates<span className="sr-only"> (opens in a new tab)</span>
+                </a>
+                . Copy and adapt them for your workspace, then keep reviewed team versions under{' '}
+                <code>templates/</code> in Session 18.
               </p>
             )}
           </div>

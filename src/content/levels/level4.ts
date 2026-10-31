@@ -54,6 +54,13 @@ export const level4: Level = {
           ],
         },
         {
+          heading: 'GrillMe: resolve design decisions before writing the spec',
+          paragraphs: [
+            'Use [Matt Pocock’s /grill-me skill](https://www.aihero.dev/skills-grill-me) again, this time to challenge the design brief. Bring the PRD, prototype and known gaps. Keep the session focused on what each state must communicate and what the user can do next.',
+            'Walk through missing data, failed requests, denied access, back and cancel. Ask which source decides each rule when the prototype and PRD disagree. When words are not enough, inspect a prototype state with a designer instead of debating it indefinitely. Save reviewed decisions in `design-grill-notes.md` and carry unresolved items into the spec.',
+          ],
+        },
+        {
           heading: 'States are where the bugs live',
           paragraphs: [
             'Most design reviews look at the happy path. Most production bugs live in the other states: empty, loading, error, partial data, stale data, the first visit, and the case where the number is bad news. For the main task screen, write each state as a condition and the exact copy: "When there is no data for the period, show: ...". Add an accessibility note where it matters, such as a warning that must never rely on colour alone. If you cannot write the copy, you have found a gap.',
@@ -97,6 +104,16 @@ export const level4: Level = {
       ],
       resources: [
         {
+          resourceId: 'aihero-grill-me',
+          why: 'Run a focused GrillMe session on screen states, interactions and unresolved rules before writing the design spec. Preserve the decisions in your workspace.',
+          required: false,
+        },
+        {
+          resourceId: 'product-templates-design-spec',
+          why: 'Copy and adapt the screen, state, copy and interaction sections for design-spec.md. Keep the precedence note and unresolved decisions required by this session.',
+          required: false,
+        },
+        {
           resourceId: 'claude-design-prototype-tutorial',
           why: 'A direct tutorial on clickable prototypes, real components, missing states and continuing in Claude Code. Useful as a second explanation of the handoff, even if you keep your existing prototype.',
           required: true,
@@ -121,7 +138,8 @@ export const level4: Level = {
         summary:
           'Write the design spec, prototype the core screen and its states, load the plan into the repository as a filtered bundle with a task breakdown and a team AGENTS.md, then build one slice, run an align check and open one small pull request yourself.',
         steps: [
-          'In your `workspace/` folder, run the agent prompt below. Claude Code drafts `design-spec.md` from your PRD, prototype and notes, and interviews you about every gap it finds. Answer what you know; leave the rest as open questions.',
+          'Open the [design spec template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/design-spec-template.md) as a reusable starting point for `design-spec.md`. Adapt it to your flow, keep a companion PRD link, and add the precedence note and unresolved decisions described above.',
+          '**Run a design GrillMe session.** Use [Matt Pocock’s /grill-me skill](https://www.aihero.dev/skills-grill-me) or the interview in the prompt below. Spend about 15 minutes challenging missing states, exact copy, navigation and conflicting rules. Save reviewed decisions in `design-grill-notes.md`; then draft `design-spec.md` from the same conversation and your source files.',
           'Read the spec screen by screen. Every state needs a condition and exact copy. Check the precedence note at the top and every flagged contradiction, and decide or assign each one.',
           'Use the existing prototype to show the core flow and its required states. A new design tool is optional. Compare each state with the spec, record discrepancies and resolve the rule before changing the interface.',
           'Save the prototype link and screenshots of the relevant states in handoff/. If you chose a design tool, its exported bundle can accompany these. A new subscription is unnecessary.',
@@ -138,6 +156,8 @@ export const level4: Level = {
         text: `Goal: write design-spec.md for my product v1, so a designer, an engineer and a coding agent can build every screen without guessing.
 
 Read first: prd/prd.md, prototype/REQUIREMENTS.md, discovery/synthesis.md, product-context.md (for the glossary) and any design notes in this workspace. Then read the prototype from Session 7; ask me for its folder if you cannot find it.
+
+Before drafting, run a GrillMe-style questioning session. If design-grill-notes.md already records my reviewed answers, use those first. Ask one question at a time about missing states, exact copy, permissions, back/cancel behaviour and source conflicts. Do not decide product rules for me. After about 15 minutes, summarise decisions and unresolved gaps, and ask whether to continue or draft. Questions needing a prototype remain explicitly unresolved.
 
 Audience: a designer and an engineer who have not seen the prototype, and their coding agents.
 
@@ -182,7 +202,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
       checklist: [
         {
           id: 'spec',
-          text: 'Wrote design-spec.md with every state, its copy and a precedence note',
+          text: 'Ran a design GrillMe session, then wrote design-spec.md with states, copy and precedence',
         },
         {
           id: 'prototype',

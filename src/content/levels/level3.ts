@@ -523,9 +523,16 @@ Use no real people, companies or figures.`,
           ],
         },
         {
-          heading: 'Drafted by interview, reviewed from three angles',
+          heading: 'GrillMe: challenge the PRD before drafting',
           paragraphs: [
-            'You learned the interview technique in Session 6: the agent asks you one question at a time until it could write the spec itself. Here Claude Code also reads your workspace, so its questions target what your synthesis, tree and bets leave undecided. Those questions are decisions, and they are cheaper to make now than after a build.',
+            'Make a **GrillMe session** part of PRD creation. [Matt Pocock’s /grill-me skill](https://www.aihero.dev/skills-grill-me) helps you challenge an idea before committing to it. Start in a fresh conversation with your evidence and a narrow feature question. If the skill is installed, invoke `/grill-me`; otherwise use the guided interview prompt below.',
+            'For this exercise, spend about 15 minutes on the first pass: which user and problem are supported by evidence, what the smallest useful slice includes, what stays out, and which acceptance or approval rules remain undecided. Push back on suggestions you cannot defend. Record decisions, evidence and open questions in `prd/grill-notes.md`. Discussion cannot answer a research or prototype question for you.',
+            'The standalone skill does not save files. Keep the conversation for drafting, and explicitly save the decisions yourself or ask the agent to save your reviewed notes afterwards. Missing answers remain open questions with an owner or next test.',
+          ],
+        },
+        {
+          heading: 'Review the draft from three angles',
+          paragraphs: [
             'Then review the draft from three angles, each in a fresh session so no review inherits the assumptions of the drafting session. The engineer asks whether every behaviour is buildable and testable without guessing. The designer asks whether every flow and state is covered and matches the prototype. The risk reviewer asks where sensitive data, consequential decisions or external actions could cause harm, and which safeguards the chosen domain needs. You decide what to accept; the reviews only advise.',
             'Last, test agent-readiness directly: a fresh session that sees only `prd/prd.md` lists every question it would need answered before building. When that list is short, the PRD is ready.',
           ],
@@ -536,6 +543,16 @@ Use no real people, companies or figures.`,
           resourceId: 'osmani-good-spec',
           why: 'A concise guide to specs agents can execute: a goal first, a PRD-like structure, and boundaries in three tiers (always, ask first, never).',
           required: true,
+        },
+        {
+          resourceId: 'aihero-grill-me',
+          why: 'Use Matt Pocock’s GrillMe skill for the pre-draft questioning session, then carry your own decisions and unresolved questions into the PRD template.',
+          required: false,
+        },
+        {
+          resourceId: 'product-templates-prd',
+          why: 'Copy and adapt this template for prd/prd.md. Keep this session’s AI evaluation and operating brief alongside it, and resolve gaps from your evidence rather than filling them with defaults.',
+          required: false,
         },
         {
           resourceId: 'aws-rag-versus-fine-tuning',
@@ -558,7 +575,8 @@ Use no real people, companies or figures.`,
           'Let Claude Code interview you and draft the PRD from your workspace, review it as an engineer, a designer and a risk partner in fresh sessions, and test that a fresh agent can build from it.',
         steps: [
           'Create prd/ in your workspace. Confirm the bet or revised direction, then write a short operating brief: solution alternatives, an authorised data-flow sketch, cost per acceptable task, response-time budget and fallback. Label illustrative assumptions; no API purchase is required.',
-          'Run the agent prompt below. Answer the interview questions honestly, including "I do not know yet": those become open questions.',
+          'For a reusable starting point, open the [PRD template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/prd-template.md). Copy and adapt it for `prd/prd.md`, keeping the AI eval plan and operating brief from this session. You can use the template with your own notes or follow the guided prompt below.',
+          '**Run a GrillMe session before drafting.** Open [Matt Pocock’s /grill-me guide](https://www.aihero.dev/skills-grill-me), then use the skill or the guided prompt below to challenge scope, evidence, exclusions and acceptance rules. Save your decisions in `prd/grill-notes.md`; carry unknowns forward explicitly.',
           'Read the draft end to end. Rewrite anything generic in your own words, check that every claim links to a workspace file or one of your answers, and move anything guessed into Open questions.',
           'Run three reviews, each in a fresh session: "Read prd/prd.md and the files it links. Review it for what [the engineer who builds it | the designer who owns the flows | the risk and compliance partner] needs. List problems with the section and a suggested fix. Add your findings under your heading in prd/review-notes.md and do not edit prd/prd.md."',
           'Decide on every finding in `review-notes.md`: accept, reject with a reason, or turn it into an open question. Update `prd/prd.md` yourself, or ask Claude to apply only the accepted findings.',
@@ -572,7 +590,7 @@ Use no real people, companies or figures.`,
         where: 'In your workspace/ folder',
         text: `Read CLAUDE.md, product-context.md, strategy/strategy-kernel.md, strategy/market-map.md, discovery/synthesis.md, discovery/ost.md, data/funnel-analysis.md, data/impact-estimate.md and data/prioritised-bets.md.
 
-I want a PRD for the top bet in prioritised-bets.md. Before writing anything, interview me one question at a time until you could write it yourself. Start with the decisions these files leave open. Wait for my answer each time.
+I want a PRD for the top bet in prioritised-bets.md. Start with a GrillMe-style questioning session before drafting. If I have already run /grill-me, use my reviewed prd/grill-notes.md rather than repeating answered questions. Otherwise ask one question at a time about evidence, target users, the first slice, non-goals, acceptance criteria and approval rules. Wait for my answer. Do not make product decisions for me. After about 15 minutes, summarise decisions, blockers and questions that need research or a prototype. Ask me before moving to the draft.
 
 Then write prd/prd.md with these sections: Definitions; Problem statement; Current state; Goals and outcome metrics; Target users; Solution overview; Scope (in scope in priority order, out of scope, non-goals we decided against and why); User flows (primary and alternative); Behavioural contracts (always, ask first, never); Data and constraints; Acceptance criteria per phase, in Given, when, then form and as concrete as this example: "Given 12 records with 3 marked as needing review, when the user filters to Needs review, then exactly 3 records appear and removing the filter restores all 12."; Tracking (events, and leading, outcome and guardrail metrics); Eval plan for the AI parts; Open questions; Prototype link.
 
@@ -604,7 +622,7 @@ Rules:
         'What did the fresh agent misunderstand, and what does that tell you about how engineers read specs?',
       ],
       checklist: [
-        { id: 'interviewed', text: 'Let Claude Code interview me before drafting' },
+        { id: 'interviewed', text: 'Ran a GrillMe session before drafting and saved my decisions' },
         {
           id: 'layout',
           text: 'Wrote prd/prd.md with every section, including behavioural contracts and an eval plan',

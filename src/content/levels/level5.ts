@@ -247,6 +247,11 @@ Do not delete or rename any existing file. You are done when every page has a so
           required: false,
         },
         {
+          resourceId: 'product-templates',
+          why: 'Reuse the PRD and design spec templates as starting points for your team’s reviewed templates/ folder, with the source repository linked for future updates.',
+          required: false,
+        },
+        {
           resourceId: 'karpathy-llm-wiki',
           why: 'The personal pattern this design scales to a team. Reread the ingest and lint sections with a team in mind.',
           required: false,
@@ -257,6 +262,7 @@ Do not delete or rename any existing file. You are done when every page has a so
           'Set up `team-kb` as a private repository, write its instructions, seed five pages through a share pull request, run the maintenance jobs by hand and score a trust check.',
         steps: [
           'Create a private GitHub repository called `team-kb` and open it in Claude Code. In real life it belongs to the team; for the course it is yours, with your mentor as the teammate who reviews.',
+          'Review the reusable [PRD template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/prd-template.md) and [design spec template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/design-spec-template.md). Adapt the useful headings to your team before adding them under `templates/`, and keep a link to the originals. Your reviewed course documents remain the source for the scaffold below.',
           'Run the agent prompt below to scaffold the layout, `AGENTS.md`, `CLAUDE.md`, the templates, `CONTRIBUTING.md` and the special files. Then edit `AGENTS.md` yourself. It is the instruction layer: every line in it is yours, and from now on it changes only through a reviewed pull request.',
           'Seed five pages through the share flow. On a branch, copy five sources from your workspace into `team-kb/sources/`: for example the PRD and design spec into `generated/`, the experiment readout and the glossary into `docs/`, and your decisions page into `shared/`. Ask Claude to run the privacy scrub, write the affected pages, update the index and the log, and open a pull request. Your mentor reviews and merges.',
           'Share one decision the short way: on a new branch, add a one-line source such as "We decided X because Y" to `sources/shared/` and ask Claude to apply it. Check that only the affected pages changed and that the log gained one line per page, then merge after review.',
@@ -408,6 +414,11 @@ When done, show the tree and mark any rule you were unsure how to phrase with "(
           resourceId: 'anthropic-agent-skills-course',
           why: 'How skills are structured, described and loaded in Claude Code, so yours follow the real format.',
           required: true,
+        },
+        {
+          resourceId: 'product-templates',
+          why: 'A concrete example of templates packaged with a reusable drafting procedure. Read the [prd-plan skill](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/SKILL.md) and inspect its inputs, gap handling and output paths. Installation is optional.',
+          required: false,
         },
         {
           resourceId: 'anthropic-pm-plugin',
