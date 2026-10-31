@@ -9,13 +9,14 @@ export default defineConfig({
   base,
   plugins: [react(), tailwindcss()],
   build: {
-    // Budget: no chunk over 500 kB minified (scripts/bundle-budget.mjs enforces gzip totals).
+    // Budget: no chunk over 450 kB minified; scripts/bundle-budget.mjs also caps gzip totals.
     // Curriculum text changes far more often than the libraries, so they cache separately.
     rolldownOptions: {
       output: {
         codeSplitting: {
           groups: [
             { name: 'vendor', test: /node_modules/ },
+            { name: 'teaching', test: /src[\\/]content[\\/]teaching\.ts$/, priority: 10 },
             { name: 'content', test: /src[\\/]content[\\/]/ },
           ],
         },

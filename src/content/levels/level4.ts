@@ -18,7 +18,7 @@ export const level4: Level = {
   badge: {
     name: 'Shipper',
     description:
-      'Handed {{name}} to engineering with a spec they could build from, reported the limits of a stand-in eval, read a simulated launch honestly and told the story to leadership.',
+      'Handed your product to engineering with a spec they could build from, reported the limits of a stand-in eval, read a simulated launch honestly and told the story to leadership.',
   },
   lessons: [
     {
@@ -36,7 +36,7 @@ export const level4: Level = {
       practicalProof: true,
       goal: 'Turn the PRD and prototype into a design spec that covers every screen state, hand it to engineering as a filtered bundle with a task breakdown and a team AGENTS.md, and check the first build with an align check.',
       whyItMatters:
-        'Monday morning: the PRD is approved and design and engineering pick it up. Within an hour the designer asks what {{name}} says when there is nothing to show, and an engineer asks which document wins when the prototype and the PRD disagree. A PRD says what the product must do and why; a design spec says what the user sees in every state, word for word. Engineers and their coding agents build exactly what the documents say and guess everywhere else. Every guess you remove now is a bug or a rework loop you do not have later.',
+        'Monday morning: the PRD is approved and design and engineering pick it up. Within an hour the designer asks what your product says when there is nothing to show, and an engineer asks which document wins when the prototype and the PRD disagree. A PRD says what the product must do and why; a design spec says what the user sees in every state, word for word. Engineers and their coding agents build exactly what the documents say and guess everywhere else. Every guess you remove now is a bug or a rework loop you do not have later.',
       learn: [
         {
           heading: 'What a design spec adds to the PRD',
@@ -56,7 +56,7 @@ export const level4: Level = {
         {
           heading: 'States are where the bugs live',
           paragraphs: [
-            'Most design reviews look at the happy path. Most production bugs live in the other states: empty, loading, error, partial data, stale data, the first visit, and the case where the number is bad news. For {{mvpScreen}}, write each state as a condition and the exact copy: "When there is no data for the period, show: ...". Add an accessibility note where it matters, such as a warning that must never rely on colour alone. If you cannot write the copy, you have found a gap.',
+            'Most design reviews look at the happy path. Most production bugs live in the other states: empty, loading, error, partial data, stale data, the first visit, and the case where the number is bad news. For the main task screen, write each state as a condition and the exact copy: "When there is no data for the period, show: ...". Add an accessibility note where it matters, such as a warning that must never rely on colour alone. If you cannot write the copy, you have found a gap.',
             'The no-invention rule from the PRD applies here too. When the PRD, the prototype and your notes are silent, the spec says "open question", names who decides, and moves on. A plausible guess written confidently into a spec is worse than a visible gap, because an agent will build it without asking.',
           ],
         },
@@ -75,7 +75,7 @@ export const level4: Level = {
         {
           heading: 'The handoff bundle and the task breakdown',
           paragraphs: [
-            'Claude Design, a research preview on the paid Claude plans, generates designs and working prototypes from a brief, and packages a finished design into a **handoff bundle** for Claude Code. Figma Make is the alternative if your team works in Figma; its free plan is enough for one screen. Either way, the prototype comes from the PRD and the design spec, not from a blank prompt.',
+            'Start with your existing prototype. If you need a design tool, the linked Claude tutorial shows how to review states and continue in Claude Code through a shared design link or the original session. Figma is another option if your team already uses it. Keep a **handoff bundle** of the prototype reference, state screenshots and agreed decisions in your workspace; a tool-specific export is optional.',
             'Handing off means loading the plan into the engineering repository, filtered to what that platform needs. A web repository needs the web states and the acceptance criteria; it does not need your interview notes or gesture notes for a mobile app. Put the filtered PRD, the design spec and the bundle under `docs/`, so engineers and agents build from one source.',
             'Then break the work into tasks. Slice vertically: each task delivers something a user can see or a test can check, end to end, rather than "all the data first, then all the screens". A good slice fits in one pull request and one agent session, names the acceptance criteria and spec states it covers, and lists the files it will likely touch.',
           ],
@@ -97,8 +97,8 @@ export const level4: Level = {
       ],
       resources: [
         {
-          resourceId: 'claude-design-launch',
-          why: 'What Claude Design makes and how it packages a finished design into a handoff bundle for Claude Code.',
+          resourceId: 'claude-design-prototype-tutorial',
+          why: 'A direct tutorial on clickable prototypes, real components, missing states and continuing in Claude Code. Useful as a second explanation of the handoff, even if you keep your existing prototype.',
           required: true,
         },
         {
@@ -121,7 +121,7 @@ export const level4: Level = {
         summary:
           'Write the design spec, prototype the core screen and its states, load the plan into the repository as a filtered bundle with a task breakdown and a team AGENTS.md, then build one slice, run an align check and open one small pull request yourself.',
         steps: [
-          'In your `{{slug}}-workspace/` folder, run the agent prompt below. Claude Code drafts `design-spec.md` from your PRD, prototype and notes, and interviews you about every gap it finds. Answer what you know; leave the rest as open questions.',
+          'In your `workspace/` folder, run the agent prompt below. Claude Code drafts `design-spec.md` from your PRD, prototype and notes, and interviews you about every gap it finds. Answer what you know; leave the rest as open questions.',
           'Read the spec screen by screen. Every state needs a condition and exact copy. Check the precedence note at the top and every flagged contradiction, and decide or assign each one.',
           'Use the existing prototype to show the core flow and its required states. A new design tool is optional. Compare each state with the spec, record discrepancies and resolve the rule before changing the interface.',
           'Save the prototype link and screenshots of the relevant states in handoff/. If you chose a design tool, its exported bundle can accompany these. A new subscription is unnecessary.',
@@ -134,8 +134,8 @@ export const level4: Level = {
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your {{slug}}-workspace folder',
-        text: `Goal: write design-spec.md for {{name}} v1, so a designer, an engineer and a coding agent can build every screen without guessing.
+        where: 'In your workspace folder',
+        text: `Goal: write design-spec.md for my product v1, so a designer, an engineer and a coding agent can build every screen without guessing.
 
 Read first: prd/prd.md, prototype/REQUIREMENTS.md, discovery/synthesis.md, product-context.md (for the glossary) and any design notes in this workspace. Then read the prototype from Session 7; ask me for its folder if you cannot find it.
 
@@ -146,7 +146,7 @@ Use this layout:
 2. Definitions, matching the PRD glossary.
 3. Screen inventory, one line per screen and sub-view.
 4. Shared patterns: card, empty state, error state, loading state.
-5. Per screen: purpose; every state with its exact copy; conditional logic (what shows when); interactions; visual intent in words, with no pixel values; sub-views. Start with {{mvpScreen}}.
+5. Per screen: purpose; every state with its exact copy; conditional logic (what shows when); interactions; visual intent in words, with no pixel values; sub-views. Start with the main task screen.
 6. Navigation map.
 7. Unresolved design gaps, each with who should decide.
 
@@ -160,7 +160,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
       },
       expectedOutput: [
         'design-spec.md covering every screen state with exact copy, a precedence note and a list of open gaps',
-        'A Claude Design or Figma Make prototype of the core screen, with its handoff bundle or state screenshots saved in the workspace',
+        'The existing or new prototype of the core flow, with state screenshots and handoff notes saved in the workspace',
         'docs/task-breakdown.md and a team AGENTS.md merged in the prototype repository',
         'An align check report for the first slice, and one pull request you opened yourself',
       ],
@@ -186,7 +186,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         },
         {
           id: 'prototype',
-          text: 'Prototyped the core screen in Claude Design or Figma Make and saved the handoff',
+          text: 'Reviewed the existing prototype or made a new one, and saved the handoff',
         },
         {
           id: 'breakdown',
@@ -215,9 +215,9 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
       xp: 150,
       mentorReview: 'required',
       safetyCritical: true,
-      goal: 'Define what a good answer from the {{name}} assistant means as a set of test cases, run them, find the failure modes, and write an eval report with guardrails, hand-offs to people and release rules that risk and engineering can act on.',
+      goal: 'Define what a good answer from your product assistant means as a set of test cases, run them, find the failure modes, and write an eval report with guardrails, hand-offs to people and release rules that risk and engineering can act on.',
       whyItMatters:
-        'Two weeks before launch, your risk partner asks one question: "What happens when it is wrong?" The feature answers questions such as "{{question}}", and people will act on the answer. "It worked in the demo" is not evidence. An eval set is how a PM states the quality bar in a form people and machines can check, catches regressions when the prompt or the model changes, and gives risk and compliance something concrete to review. The PM is often best placed to write it, because the PM knows what a good answer means for the customer.',
+        'Two weeks before launch, your risk partner asks one question: "What happens when it is wrong?" The feature answers questions such as "What needs my attention, and why?", and people will act on the answer. "It worked in the demo" is not evidence. An eval set is how a PM states the quality bar in a form people and machines can check, catches regressions when the prompt or the model changes, and gives risk and compliance something concrete to review. The PM is often best placed to write it, because the PM knows what a good answer means for the customer.',
       learn: [
         {
           heading: 'What an eval is, at PM depth',
@@ -236,12 +236,12 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         {
           heading: 'A golden set, organised by harm',
           paragraphs: [
-            'Organise cases by the harm they prevent, so each category can have its own release rule. The suggested agent questions on your case study page seed every category.',
+            'Organise test cases by the harm they prevent, so each category can have its own release rule. Start with the workflows, user questions and prohibited actions in your PRD. Include ordinary requests, missing data, ambiguous instructions and attempts to cross a permission boundary.',
           ],
           bullets: [
-            '**Correctness**: figures match what you calculated yourself from the fictional data, including edge cases such as an empty period or a missing record. Code calculates {{deterministic}}; the model only explains, so every figure in an answer must come from the data.',
-            '**Conduct and hand-offs**: nothing on {{risk}} beyond what the domain rules on your case study page allow, no invented names or dates, and the right response to an upset or vulnerable person: a route to a human, never pressure.',
-            '**Unauthorised actions**: the assistant may prepare {{action}}, but nothing happens without {{approval}}, and it never prepares an action nobody asked for.',
+            '**Correctness**: figures match what you calculated yourself from the fictional data, including edge cases such as an empty period or a missing record. Code calculates totals, dates and status rules; the model only explains, so every figure in an answer must come from the data.',
+            '**Conduct and hand-offs**: follow the domain rules you recorded in the PRD, avoid invented facts and offer an appropriate route to a person when the system cannot safely help. Choose the high-impact cases for your users and setting.',
+            '**Unauthorised actions**: the assistant may prepare a change to a record or an outgoing message, but nothing happens without the approval and permission checks defined for that action, and it never prepares an action nobody asked for.',
             "**Malicious inputs**: prompt injection in the user message and in the data, and requests to reveal its instructions or another person's data.",
           ],
         },
@@ -283,7 +283,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         },
         {
           resourceId: 'fca-ai-good-practice',
-          why: "A regulator's view of good and poor practice with AI in financial services: useful language for your risk partner, whichever case you chose.",
+          why: 'An optional financial-services example of how a regulator evaluates AI use. Translate the questions to your domain; its legal requirements are not universal.',
           required: false,
         },
       ],
@@ -291,7 +291,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         summary:
           'Use a stand-in to discover failures, write a small 12-case learning set, reserve three unseen cases with a human grader, and report what was and was not tested. This is practice in evaluation design, not a production release certificate.',
         steps: [
-          'Create a Claude Project called "{{name}} assistant stand-in". Paste the assistant rules from your PRD (behavioural contracts, scope and hand-offs) as its instructions, and attach the fictional data file from your prototype.',
+          'Create a Claude Project called "Assistant evaluation sandbox". Paste the assistant rules from your PRD (behavioural contracts, scope and hand-offs) as its instructions, and attach the fictional data file from your prototype.',
           'Start with six realistic questions across normal, missing-data, hand-off, action and hostile-input situations. Read each answer and group observed problems in failure-modes.md. A larger error-analysis sample is further practice, not required in this session.',
           'Draft 12 learning cases: four correctness, three conduct and hand-off, two unauthorised-action and three malicious-input cases. Include both expected refusals and legitimate questions that should be answered. Ask a mentor or peer to hold three additional unseen cases and their answer key outside the tested workspace.',
           'Calculate the expected figures for every correctness case yourself in the spreadsheet, from the fictional data. Never ask a model for them.',
@@ -304,8 +304,8 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your {{slug}}-workspace folder',
-        text: `Goal: draft eval-set.md, the golden test set for the {{name}} assistant. I will run it by hand against a stand-in Claude Project and report the results to my risk partner.
+        where: 'In your workspace folder',
+        text: `Goal: draft eval-set.md, a test set for the assistant defined in my PRD. I will run it by hand against a stand-in Claude Project and report the results to my risk partner.
 
 Read first: prd/prd.md (behavioural contracts, scope and the eval plan), design-spec.md, product-context.md and failure-modes.md (my error analysis notes).
 
@@ -313,7 +313,7 @@ Write one table with these columns: id, category, input (the exact user message,
 
 Categories and minimum counts:
 - correctness: 4. Write "TODO: I calculate" wherever an expected figure is needed.
-- conduct and hand-offs: 3, covering {{risk}}, an upset user and a legitimate in-scope request.
+- conduct and hand-offs: 3, covering sensitive data, consequential decisions and external actions, an upset user and a legitimate in-scope request.
 - unauthorised actions: 2. These check wording only in the stand-in; mark actual execution and authorisation NOT TESTED.
 - malicious inputs: 3, including instructions hidden in the data, not only in the message.
 
@@ -381,7 +381,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
       mentorReview: 'recommended',
       goal: 'Plan a staged launch with success and guardrail metrics decided in advance, read a fictional experiment at a fixed sample size, write a ship, iterate, inconclusive or stop readout, and feed what you learned back into the workspace.',
       whyItMatters:
-        'The eval report says {{name}} is ready for a limited launch. Launch day is the start of the real test: in two weeks someone will ask whether it worked, and the answer depends on decisions you make before anyone sees the feature. Which metric counts, what would make you stop, how many users you need before you look. Teams that decide afterwards tend to find the result they hoped for. A launch plan and a readout committed in advance keep you honest, and in a regulated product they are what your risk partner signs.',
+        'A learning eval does not establish launch readiness. Rehearse the planning decisions for a hypothetical staged release: in two weeks someone will ask whether it worked, and the answer depends on decisions you make before anyone sees the feature. Which metric counts, what would make you stop, how many users you need before you look. Teams that decide afterwards tend to find the result they hoped for. A launch plan and a readout committed in advance keep you honest, and in a regulated product they are what your risk partner signs.',
       learn: [
         {
           heading: 'A launch plan is a list of decisions',
@@ -399,7 +399,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         {
           heading: 'Three kinds of metric',
           paragraphs: [
-            'Take them from the PRD and write the thresholds down before launch. The **success metric** is the outcome you want: {{outcomeMetric}}. The **leading indicator** moves first and tells you early whether people use the feature: {{leading}}. The **guardrail** must not get worse: {{guardrail}}. A launch that hits the success metric and breaks the guardrail is not a success.',
+            'Choose metrics from your PRD and write the thresholds down before exposure. A **success metric** measures the intended outcome, such as successful task completion or resolution time. A **leading indicator** can show earlier movement, such as use of the core workflow. A **guardrail** checks a potential cost, such as errors, unwanted actions or support demand. Define the denominator and window for each; these examples are not defaults for every product. A launch that hits the success metric and breaks the guardrail is not a success.',
             'For an AI feature, add the quality signals from Session 14: the hand-off rate, complaints that mention the assistant, and a weekly sample of real answers read by a person. A US regulator found that poor chatbots that block access to a person harm customers, so "people can reach a human" is a guardrail, not a nice-to-have.',
           ],
         },
@@ -462,15 +462,15 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your {{slug}}-workspace folder',
-        text: `Goal: draft launch-plan.md for a staged launch of {{name}} v1. Readers: my engineering lead, my risk partner and the support team lead.
+        where: 'In your workspace folder',
+        text: `Goal: draft launch-plan.md for a staged launch of my product v1. Readers: my engineering lead, my risk partner and the support team lead.
 
 Read first: prd/prd.md (goals, metrics and tracking), eval-report.md, data/impact-estimate.md and product-context.md.
 
 Include:
 1. Audience and stages, each with an entry condition.
 2. A readiness checklist: evals, support briefing, AI disclosure wording, hand-off routes tested.
-3. Metrics with thresholds: success ({{outcomeMetric}}), leading ({{leading}}) and guardrail ({{guardrail}}). Add the hand-off rate and complaints that mention the assistant.
+3. Metrics with thresholds: use the success, leading and guardrail metrics chosen in my PRD. State unit, denominator, window and source for each. Ask about missing definitions; do not choose defaults for me. Add relevant quality signals from the eval report.
 4. Sample size: from the baseline in data/impact-estimate.md and the smallest effect worth acting on, compute the users needed per group. Show the formula, every input and the arithmetic. If an input is missing, ask me; do not assume it.
 5. Monitoring schedule, kill switch, and rollback thresholds as numbers.
 6. Comms: who hears what, and when.
@@ -525,7 +525,7 @@ Done when: every section exists and you have listed the proposed items for my de
       title: 'Presentations with agents',
       difficulty: 'Intermediate',
       minutes: 120,
-      tools: ['Claude Design or Claude file creation (PPTX)', 'Claude', 'Claude Code'],
+      tools: ['Claude Slides or your existing slide tool', 'Claude', 'Claude Code'],
       prerequisites: ['s15'],
       competencies: ['ai-leadership', 'ux-prototyping'],
       xp: 125,
@@ -552,7 +552,7 @@ Done when: every section exists and you have listed the proposed items for my de
         {
           heading: 'Build it with an agent',
           paragraphs: [
-            'Write the outline in Markdown first: the SCQA, then one line per slide with its title sentence, the evidence and the chart it needs. Then generate the deck. **Claude Design** takes the purpose, the audience and your sources, lets you edit by commenting, adds speaker notes, and exports to PPTX, PDF or Google Slides. Without it, the Claude app can create a PPTX file from the same outline.',
+            'Write the outline in Markdown first: the SCQA, then one line per slide with its title sentence, the evidence and the chart it needs. Build the deck in your existing slide tool, or follow the linked **Claude Slides** tutorial. Check every generated claim and number, then export a format your audience can open, such as PPTX or PDF.',
             'Then make it pleasing to look at, on purpose:',
           ],
           bullets: [
@@ -580,7 +580,7 @@ Done when: every section exists and you have listed the proposed items for my de
       resources: [
         {
           resourceId: 'claude-design-slides',
-          why: 'The official tutorial for building, editing and exporting a deck in Claude Design; it covers the tool, and the storyline is up to you.',
+          why: 'The direct tutorial for building, editing and exporting a deck with Claude Slides. Use your own outline and verify the source material; the storyline is up to you.',
           required: true,
         },
         {
@@ -610,7 +610,7 @@ Done when: every section exists and you have listed the proposed items for my de
         steps: [
           'Write the SCQA for your quarter, in four sentences, at the top of `qbr-outline.md`. Write it yourself, then ask Claude to challenge it, not rewrite it.',
           'Run the agent prompt below to turn your SCQA and workspace into a slide-by-slide outline. Edit it until the titles alone tell the story in six to eight slides, plus an appendix.',
-          'Generate the deck in Claude Design from `qbr-outline.md`, the readout and the eval report, or ask the Claude app to create a PPTX from the same files.',
+          'Build the deck from `qbr-outline.md`, the readout and the eval report in Claude Slides or your existing slide tool.',
           'Use one palette, charts computed from experiment-results.csv with SIMULATED visibly labelled, and speaker notes. Animation is optional. Check each slide communicates one point and that all numbers match the readout.',
           'In a fresh session, ask Claude to review the deck for clarity, consistency, numbers that do not match the readout, and AI-slide tells. Record a decision for each comment, then check every number yourself.',
           'Write `stakeholder-update.md`: one screen, the ask first, the same numbers as the deck, and links to the readout and the eval report.',
@@ -619,10 +619,10 @@ Done when: every section exists and you have listed the proposed items for my de
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your {{slug}}-workspace folder',
-        text: `Goal: turn my SCQA into a slide-by-slide outline for a ten-minute quarterly business review of {{name}}.
+        where: 'In your workspace folder',
+        text: `Goal: turn my SCQA into a slide-by-slide outline for a ten-minute quarterly business review of my product.
 
-Audience: the leadership team of {{org}}. They have not read my documents, and they need to decide whether to back the next stage.
+Audience: the leadership team of my organization. They have not read my documents, and they need to decide whether to back the next stage.
 
 Read first: qbr-outline.md (my SCQA, which I wrote and you should not rewrite), experiment-readout.md, eval-report.md, launch-plan.md, strategy/strategy-kernel.md and prd/prd.md.
 
@@ -678,11 +678,11 @@ Done when: the outline is written, and you have read the titles alone in order a
       competencies: ['ux-prototyping', 'technical-collaboration'],
       xp: 100,
       summary:
-        'Bring a design system or visual style into Claude Design, regenerate one {{name}} screen with it, and check that every state in your design spec survives the restyle.',
+        'Bring a design system or visual style into Claude Design, regenerate one screen for your product with it, and check that every state in your design spec survives the restyle.',
       steps: [
         "Pick a public design system, such as the GOV.UK Design System or Material Design 3, or a style you have permission to use. Never upload an employer's design files.",
         'Give Claude Design the design system: its documentation, colour and type tokens, or screenshots of its components. Ask it to use this as the style for your project.',
-        'Regenerate {{mvpScreen}} from `design-spec.md` in that style, with every state.',
+        'Regenerate the main task screen from `design-spec.md` in that style, with every state.',
         "Compare the result with the spec state by state, and with the design system's own components. Note where it invented a component instead of using an existing one.",
         'Ask for one change by comment, such as a different empty state, and check that the rest of the screen stayed consistent.',
         'Write `design-system-notes.md`: what carried over, what drifted, and what an engineer would need to build it with the real component library.',
@@ -695,8 +695,8 @@ Done when: the outline is written, and you have read the titles alone in order a
       ],
       resources: [
         {
-          resourceId: 'claude-design-launch',
-          why: 'What Claude Design can take in and produce, including working from an existing style.',
+          resourceId: 'claude-design-prototype-tutorial',
+          why: 'The current tutorial on working with existing components and a design system, then reviewing the result.',
           required: false,
         },
         {
@@ -825,7 +825,7 @@ Done when: the outline is written, and you have read the titles alone in order a
       id: 'q4-4',
       competency: 'evals-safety',
       prompt:
-        'You are about to write the eval set for the {{name}} assistant. Where should you start?',
+        'You are about to write the eval set for your product assistant. Where should you start?',
       options: [
         {
           id: 'a',
@@ -852,7 +852,7 @@ Done when: the outline is written, and you have read the titles alone in order a
       id: 'q4-5',
       competency: 'evals-safety',
       prompt:
-        'Your eval report shows a 96% overall pass rate. One failing case prepared {{action}} that the user never asked for. What do you recommend?',
+        'Your eval report shows a 96% overall pass rate. One failing case prepared a change to a record or an outgoing message that the user never asked for. What do you recommend?',
       options: [
         {
           id: 'a',
@@ -1013,7 +1013,7 @@ Done when: the outline is written, and you have read the titles alone in order a
   project: {
     title: 'Launch review',
     brief:
-      'Present the launch review for {{name}} live: what you handed to engineering, what your stand-in eval established and did not establish, what the simulated experiment showed and what you recommend next. Your mentor plays the executive and asks the hard questions. You should be able to defend every number and every guardrail, and say what you did not test.',
+      'Present the launch review for your product live: what you handed to engineering, what your stand-in eval established and did not establish, what the simulated experiment showed and what you recommend next. Your mentor plays the executive and asks the hard questions. You should be able to defend every number and every guardrail, and say what you did not test.',
     deliverables: [
       {
         id: 'handoff',

@@ -17,7 +17,7 @@ export const level2: Level = {
   badge: {
     name: 'Builder PM',
     description:
-      'Turned a pitch into a live, reviewed {{name}} prototype with Claude Code, through pull requests you can explain line by line.',
+      'Turned a pitch into a live, reviewed product prototype with Claude Code, through pull requests you can explain line by line.',
   },
   lessons: [
     {
@@ -32,7 +32,7 @@ export const level2: Level = {
       competencies: ['coding-agents', 'knowledge-management'],
       xp: 125,
       mentorReview: 'recommended',
-      goal: 'Set up `{{slug}}-workspace/` as the private home for your quarter on {{name}}: one folder per workstream, your Level 1 files moved in, and a `CLAUDE.md` that points every Claude Code session at `product-context.md`.',
+      goal: 'Set up `workspace/` as the private home for your PM practice: one folder per workstream, your Level 1 files moved in, and a `CLAUDE.md` that points every Claude Code session at `product-context.md`.',
       whyItMatters:
         'Your pitch page landed and your manager wants a prototype next. From here the work spreads across research, notes, decisions and code, and an agent is only as useful as the context it can reach. A tidy folder with one short instructions file is the simplest knowledge system that works with Claude Code today and with whatever tool comes next. Every later session, and the personal PM OS you build in Level 5, grows out of this folder.',
       learn: [
@@ -63,7 +63,7 @@ export const level2: Level = {
         {
           heading: 'Two kinds of memory: the one you write and the one Claude writes',
           paragraphs: [
-            '**`CLAUDE.md`** is loaded at the start of every session in that folder. You write it. A line such as `@product-context.md` on its own pulls that file in too, so every session starts knowing what {{name}} is. Other agents read a file called `AGENTS.md` instead; if you ever use one, a `CLAUDE.md` whose first line is `@AGENTS.md` keeps a single source of truth.',
+            '**`CLAUDE.md`** is loaded at the start of every session in that folder. You write it. A line such as `@product-context.md` on its own pulls that file in too, so every session starts knowing what your product is. Other agents read a file called `AGENTS.md` instead; if you ever use one, a `CLAUDE.md` whose first line is `@AGENTS.md` keeps a single source of truth.',
             '**Auto memory** is notes Claude writes for itself as it works, for example a command that worked or a preference you corrected. It lives in your user folder rather than the workspace, and you can view and edit it with the `/memory` command.',
             'The split is simple. Anything that must hold in every session, or that someone else would need to know, you write in `CLAUDE.md` yourself: what the workspace is, the folder map, the conventions, what must never happen. Auto memory is for small things Claude picks up along the way. Look at it now and then, delete what is wrong and move anything important into `CLAUDE.md`. Status that changes weekly belongs in a workstream README, not in either.',
             'Keep CLAUDE.md short and test that a fresh session loads it. Instructions guide the model; enforce non-negotiable boundaries through tool permissions, environment isolation and appropriate checks. Use git to inspect and recover tracked file changes.',
@@ -113,10 +113,10 @@ export const level2: Level = {
       ],
       task: {
         summary:
-          'Install Claude Code, create `{{slug}}-workspace/`, move your Level 1 files in, write `CLAUDE.md` with Claude, and make your first commits.',
+          'Install Claude Code, create `workspace/`, move your Level 1 files in, write `CLAUDE.md` with Claude, and make your first commits.',
         steps: [
           'Install the Claude desktop app, sign in with your Claude Pro plan and open the **Code** tab. Claude Code needs Git on your computer; if it reports that Git is missing, install it with your mentor before going further.',
-          'Create a folder called `{{slug}}-workspace` somewhere private on your own computer, not in a shared or synced work folder. Copy in everything from your Level 1 `{{slug}}-notes/` folder: `product-context.md`, `glossary.md`, `model-comparison.md`, `delegation-audit.md`, `fact-sheet.md`, `pitch-notes.md` and anything else you kept there.',
+          'Create a folder called `workspace` somewhere private on your own computer, not in a shared or synced work folder. Copy in everything from your Level 1 `learning-notes/` folder: `product-context.md`, `glossary.md`, `model-comparison.md`, `delegation-audit.md`, `fact-sheet.md`, `pitch-notes.md` and anything else you kept there.',
           'Open the folder in Claude Code. Ask it to start a git repository and commit the files exactly as they are, before anything moves. This is your first save point.',
           'Run the prompt below. Read the proposed folder map and `CLAUDE.md` draft, push back on anything that does not match how you work, then let Claude make the changes.',
           'Ask Claude to show what changed since the first commit. Check that every Level 1 file still exists, now in its folder, and that nothing was rewritten. Commit.',
@@ -127,8 +127,8 @@ export const level2: Level = {
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In the Code tab, with the {{slug}}-workspace folder open',
-        text: `This folder is my private workspace for one quarter as the new product manager on {{name}}, {{product}}. Everything in it is fictional or public material. It will hold research, notes, decisions and a prototype, and you will work in it in every session.
+        where: 'In the Code tab, with the workspace folder open',
+        text: `This is my private PM workspace. Read product-context.md for the product, users and constraints I have chosen. Everything in it is fictional or public material. It will hold research, notes, decisions and a prototype, and you will work in it across the course.
 
 Read every file in the folder first, starting with product-context.md.
 
@@ -147,14 +147,14 @@ Goal: organize the workspace so that a fresh Claude Code session understands it 
 Show me the folder map and the CLAUDE.md draft before you move anything. When I agree, make the changes and tell me what to check.`,
       },
       expectedOutput: [
-        'A `{{slug}}-workspace/` folder with one folder per workstream, each with a short README.',
+        'A `workspace/` folder with one folder per workstream, each with a short README.',
         'Your Level 1 files moved in, unchanged in content.',
         'A `CLAUDE.md` of 30 to 60 lines that loads `product-context.md` and states the folder map, conventions and rules.',
         'At least two commits: the files as they arrived, and the organized workspace.',
         'A short list of open questions about `product-context.md`.',
       ],
       artifact:
-        '`{{slug}}-workspace/` with `CLAUDE.md` pointing at `product-context.md`, one folder per workstream and the Level 1 files moved in, under git.',
+        '`workspace/` with `CLAUDE.md` pointing at `product-context.md`, one folder per workstream and the Level 1 files moved in, under git.',
       verification: [
         'A fresh session answers "What is this workspace for, and where would a new competitor article go?" correctly, without hints.',
         'The diff between your first and second commit shows files moved, not rewritten.',
@@ -199,14 +199,14 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
       xp: 125,
       mentorReview: 'recommended',
       practicalProof: true,
-      goal: 'Let Claude Code interview you until the requirements for a {{name}} prototype are clear, save them as `REQUIREMENTS.md`, then build and steer a running multi-screen prototype by reviewing the result.',
+      goal: 'Let Claude Code interview you until the requirements for a product prototype are clear, save them as `REQUIREMENTS.md`, then build and steer a running multi-screen prototype by reviewing the result.',
       whyItMatters:
-        'The engineering lead liked your pitch page and asks to see the flow: what happens on each screen for {{user}}, and what happens when something is missing. A one-line ask produces an agent that guesses, and its guesses look finished. Being interviewed first turns the gaps in your head into decisions on paper, and that file is what the agent builds from, what you check the result against and, in Level 3, the seed of your PRD.',
+        'Before building a feature prototype, make the flow explicit: what happens on each screen for the users you chose, and what happens when something is missing. A one-line ask produces an agent that guesses, and its guesses look finished. Being interviewed first turns the gaps in your head into decisions on paper, and that file is what the agent builds from, what you check the result against and, in Level 3, the seed of your PRD.',
       learn: [
         {
           heading: 'Let the agent interview you',
           paragraphs: [
-            'Matt Pocock popularised a simple idea, the "grill me" skill: before any building, the agent questions you one point at a time until there is nothing left to guess. It works because you know far more about {{name}} than you have written down, and the questions pull it out.',
+            'Matt Pocock popularised a simple idea, the "grill me" skill: before any building, the agent questions you one point at a time until there is nothing left to guess. It works because you know far more about your product than you have written down, and the questions pull it out.',
             'Good interview questions are concrete: who opens this screen and why, what it shows when there is no data, what happens on a phone, which figures must be exact, what is out of scope. Answer in your own words. When you do not know, say so: it becomes an open question in the file instead of an invented answer.',
           ],
         },
@@ -216,12 +216,12 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
             'Keep it to one or two pages. It is a brief for an agent and a checklist for you, not a full PRD; that comes in Session 12.',
           ],
           bullets: [
-            '**Problem and user**: {{user}}, and the job: {{coreJob}}.',
-            '**Screens**: three to five, starting with {{mvpScreen}}. For each, what it shows and what the user can do.',
+            '**Problem and user**: name the user group, the specific task they need to complete and the difficulty you are exploring. Use the definitions in product-context.md.',
+            '**Screens**: three to five, starting with the main task screen. For each, what it shows and what the user can do.',
             '**States**: empty, loading and error for every screen, with the words shown.',
-            '**Data**: {{data}}, all in one file so you can check and change it.',
-            '**Rules that must hold**: for example, {{deterministic}} are worked out by code, not by the model, and shown with the data they came from; status is never shown by colour alone; a visible label says "Prototype with fictional data".',
-            '**Done when**: one checkable example per screen, such as: {{acceptance}}',
+            '**Data**: fictional records and events, all in one file so you can check and change it.',
+            '**Rules that must hold**: for example, totals, dates and status rules are worked out by code, not by the model, and shown with the data they came from; status is never shown by colour alone; a visible label says "Prototype with fictional data".',
+            '**Done when**: one checkable example per screen, such as: Given 12 records with 3 marked as needing review, when the user filters to Needs review, then exactly 3 records appear and removing the filter restores all 12.',
             '**Out of scope**: what v1 will not do, and open questions.',
           ],
         },
@@ -249,8 +249,8 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
       ],
       resources: [
         {
-          resourceId: 'aihero-skills',
-          why: 'The hub for Matt Pocock\'s open skills, including the "grill" idea this session uses: the agent interviews you until the requirements are clear. Read the idea; you do not need to install anything.',
+          resourceId: 'aihero-grill-me',
+          why: 'A direct tutorial for the questioning method. You own the choices, unknowns stay visible, and some questions need a prototype rather than another round of discussion.',
           required: true,
         },
         {
@@ -268,7 +268,7 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
         summary:
           'Get interviewed into `REQUIREMENTS.md`, let Claude build a three to five screen prototype, steer it by reviewing the running result, and practise one handoff into a fresh session.',
         steps: [
-          'Open the Case study page and pick three to five screens for the prototype, starting with {{mvpScreen}}. Note them in a sentence or two.',
+          'Use product-context.md to choose one user task worth exploring. Pick the three to five screens needed to complete it, starting with the main task screen. Note them in a sentence or two.',
           'In Claude Code, with the workspace open, run the interview prompt below. Answer one question at a time in your own words. Say "I do not know" when you do not; it becomes an open question.',
           'Review the requirements yourself. Create prototype/, ignore it in the parent workspace repository and save the canonical requirements as prototype/REQUIREMENTS.md. Keep a private decision note in the workspace, not a second competing requirements file.',
           'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `CLAUDE.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with your mentor; this is the only install in this session.',
@@ -280,14 +280,14 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In the Code tab, with the {{slug}}-workspace folder open',
-        text: `I am the product manager on {{name}}, {{product}}. I want a clickable prototype of my feature idea for {{user}}, who say: "{{opportunity}}". Engineers and real users will click through it, so it must be honest and simple.
+        where: 'In the Code tab, with the workspace folder open',
+        text: `I am a PM exploring a feature idea. Read product-context.md for my product, target users and the problem I have chosen. If the problem is missing, ask me to define it before proposing screens. I want a clickable prototype that people can use to understand and challenge the idea. It must be honest and simple.
 
 Read product-context.md and pitch/pitch-notes.md first.
 
-Interview me until the requirements are clear enough that you would not need to guess while building. Ask one question at a time and wait for my answer. Cover: who uses each screen and why, the three to five screens, what each shows and what the user can do, empty, loading and error states with the exact words, the fictional data needed ({{data}}), which figures must be exact and calculated by code, accessibility, what happens at phone width, and what is out of scope. When an answer of mine contradicts product-context.md, point it out.
+Interview me until the requirements are clear enough that you would not need to guess while building. Ask one question at a time and wait for my answer. Cover: who uses each screen and why, the three to five screens, what each shows and what the user can do, empty, loading and error states with the exact words, the fictional data needed (fictional records and events), which figures must be exact and calculated by code, accessibility, what happens at phone width, and what is out of scope. When an answer of mine contradicts product-context.md, point it out.
 
-When you have no more questions, write REQUIREMENTS.md with these sections: Problem and user, Screens (one subsection each: shows, actions, states, done when), Data, Rules that must hold, Out of scope, Open questions. Use my words where you can. Do not fill gaps with plausible guesses; list them as open questions. Show me the file before saving it.
+When you have no more questions, write prototype/REQUIREMENTS.md with these sections: Problem and user, Screens (one subsection each: shows, actions, states, done when), Data, Rules that must hold, Out of scope, Open questions. Use my words where you can. Do not fill gaps with plausible guesses; list them as open questions. Show me the file before saving it.
 
 ---
 
@@ -302,7 +302,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
         'A `HANDOFF.md` that a fresh session used to continue the work.',
       ],
       artifact:
-        '`REQUIREMENTS.md` and a running multi-screen {{name}} prototype in `prototype/`, with a handoff note.',
+        '`REQUIREMENTS.md` and a running multi-screen product prototype in `prototype/`, with a handoff note.',
       verification: [
         'Every screen in `REQUIREMENTS.md` exists in the prototype and shows its empty and error states.',
         'Two figures on screen match your own calculation from the fictional data file.',
@@ -345,7 +345,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
       xp: 125,
       mentorReview: 'required',
       practicalProof: true,
-      goal: 'Publish the prototype as a public `{{slug}}` repository with a protected main branch, merge your first pull request, and put {{name}} live on GitHub Pages.',
+      goal: 'Publish the prototype as a public `product-prototype` repository with a protected main branch, merge your first pull request, and put your product live on GitHub Pages.',
       whyItMatters:
         'Engineers want to see the prototype and comment on it, and they want a link, not a screen share. GitHub is where software work becomes visible: changes, reviews, decisions and releases. PMs who can open a pull request and read a diff work with engineers and coding agents directly instead of only through tickets, and the pull request history is the audit trail regulated teams rely on.',
       learn: [
@@ -373,8 +373,8 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
         {
           heading: 'Going live on GitHub Pages',
           paragraphs: [
-            'GitHub Pages hosts static sites for free on public repositories. A small **GitHub Actions** workflow builds the app and publishes it every time something is merged into `main`, so the live site always matches the reviewed code. Vite apps need one setting, the base path, set to `/{{slug}}/` so the site works at `https://<your-username>.github.io/{{slug}}/`.',
-            'The repository is public, so everything in it is public, including its history. Before the first push, check for keys, real names and personal data. The prototype uses {{data}} and nothing else; your private workspace notes never go here.',
+            'GitHub Pages hosts static sites for free on public repositories. A small **GitHub Actions** workflow builds the app and publishes it every time something is merged into `main`, so the live site always matches the reviewed code. Vite apps need one setting, the base path, set to `/product-prototype/` so the site works at `https://<your-username>.github.io/product-prototype/`.',
+            'The repository is public, so everything in it is public, including its history. Before the first push, check for keys, real names and personal data. The prototype uses fictional records and events and nothing else; your private workspace notes never go here.',
             'If a merge ever breaks the live site, the first move is to undo it: the **Revert** button on the merged pull request opens a new pull request that reverses it. Fix forward afterwards.',
           ],
         },
@@ -409,7 +409,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
           'Complete the GitHub Skills "Introduction to GitHub" exercise in the browser.',
           'With your mentor, sign your computer in to GitHub once so Claude Code can push. The GitHub CLI (`gh auth login`) is the usual way, and Claude Code can talk you through it.',
           'In Claude Code, open the `prototype/` folder. Ask Claude to check the code and its history for keys, tokens, real names, email addresses and personal data, and to confirm `.gitignore` excludes build output, dependencies and any `.env` file. Fix anything it finds before going further.',
-          'Ask Claude to create a public GitHub repository named `{{slug}}` and push `main`.',
+          'Ask Claude to create a public GitHub repository named `product-prototype` and push `main`.',
           'On GitHub, open Settings, then Rules, and add a ruleset for `main` that requires a pull request before merging. Leave the bypass list empty.',
           'Run the prompt below. Claude creates a branch, adds the deployment workflow and a README, pushes and opens a pull request.',
           'On GitHub, read the diff with the four questions. Leave at least one comment. Ask your mentor to review too, then ask Claude to address the comments in a new commit.',
@@ -420,26 +420,26 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In the Code tab, with the prototype folder open',
-        text: `This is the {{name}} prototype, a React, TypeScript and Vite app that runs in the browser on {{data}} only. It is now a public GitHub repository called {{slug}}, and main only accepts pull requests.
+        text: `This is my product prototype, a React, TypeScript and Vite app that runs in the browser on fictional records and events only. It is now a public GitHub repository called product-prototype, and main only accepts pull requests.
 
 Goal: publish the prototype on GitHub Pages so that every merge into main updates the live site.
 
 1. Create a branch called deploy/pages.
 2. Run installation, build and relevant tests on pull requests. Add a separate deployment job on pushes to main, using the official GitHub Pages actions. Never deploy an unmerged pull request. Tell me how to require the PR check in the ruleset after it has run.
-3. Set the Vite base path to /{{slug}}/.
-4. Rewrite README.md: one paragraph on what {{name}} is and the problem it explores, using REQUIREMENTS.md as the source; a Status section saying it is a learning prototype with fictional data only; a Live site section with the URL https://<my-username>.github.io/{{slug}}/ using my real username; and a How we work section: every change goes through a pull request, pull requests stay small, the author reads their own diff first.
+3. Set the Vite base path to /product-prototype/.
+4. Rewrite README.md: one paragraph on what my product is and the problem it explores, using REQUIREMENTS.md as the source; a Status section saying it is a learning prototype with fictional data only; a Live site section with the URL https://<my-username>.github.io/product-prototype/ using my real username; and a How we work section: every change goes through a pull request, pull requests stay small, the author reads their own diff first.
 5. Commit with clear messages, push the branch and open a pull request whose description explains each change in one line, written for a product manager.
 
 Constraints: no new dependencies beyond what the deployment needs, no changes to the app itself, nothing outside the files above. Tell me which setting I need to change on GitHub myself, and what I should check in the diff before merging.`,
       },
       expectedOutput: [
-        'A public `{{slug}}` repository with a no-bypass ruleset on `main`.',
+        'A public `product-prototype` repository with a no-bypass ruleset on `main`.',
         'A merged pull request with a description, at least one review comment and a follow-up commit.',
         'Checks on proposed pull requests and a separate deployment workflow after merge.',
-        'The live {{name}} prototype at a GitHub Pages URL.',
+        'The live product prototype at a GitHub Pages URL.',
       ],
       artifact:
-        'The live {{name}} prototype URL and your first merged pull request in the public `{{slug}}` repository.',
+        'The live product prototype URL and your first merged pull request in the public `product-prototype` repository.',
       verification: [
         'The live URL loads on your phone and shows the "Prototype with fictional data" label.',
         'A direct push to `main` is rejected, even though you are the repository admin.',
@@ -483,13 +483,13 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
       safetyCritical: true,
       goal: 'Test the live prototype with real people, cover accessibility basics, get a second review from a fresh Claude session, fix bugs from reports and screenshots, and keep the repository free of secrets.',
       whyItMatters:
-        'People may rely on the figures and warnings in {{name}} even in a polished demo. Review observed behaviour, not only generated code or the agent’s explanation. Prioritise wrong decisions and missed warnings before cosmetic polish.',
+        'People may rely on the figures and warnings in your product even in a polished demo. Review observed behaviour, not only generated code or the agent’s explanation. Prioritise wrong decisions and missed warnings before cosmetic polish.',
       learn: [
         {
           heading: 'Test like a user, then like a sceptic',
           paragraphs: [
             'Watch someone use the live link on their own phone without helping. Note where they hesitate, what they tap that does nothing, and what they misread. Then go through `REQUIREMENTS.md` yourself, screen by screen: every state, every "done when" example, at laptop and phone width.',
-            'Check the numbers. The {{deterministic}} come from code, so they should match what you work out by hand from the fictional data, exactly. Pick the edge cases agents miss: no data at all, one item exactly on a boundary such as a due date or deadline, a very long name, two items on the same day.',
+            'Check the numbers. The totals, dates and status rules come from code, so they should match what you work out by hand from the fictional data, exactly. Pick the edge cases agents miss: no data at all, one item exactly on a boundary such as a due date or deadline, a very long name, two items on the same day.',
           ],
         },
         {
@@ -509,7 +509,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
           heading: 'A second opinion from a fresh session',
           paragraphs: [
             'The session that wrote the code is the worst one to review it: it remembers what it meant, not what it wrote. Open a fresh session, give it the requirements and your checklist, and ask it to review the changes against `main` without editing anything. Claude Code also has a built-in review command; a plain prompt in a fresh session works just as well.',
-            'An agent reviewer finds likely bugs, missing states and scope creep in minutes. It also raises false alarms and misses context only you have. Treat each comment as input, not a verdict, and record a decision for every one: fixed, rejected with a reason, or turned into an issue. An agent approval never replaces a human one: in a bank, every production change needs an independent person to approve it.',
+            'An agent reviewer can find likely bugs, missing states and scope creep. It also raises false alarms and misses context only you have. Treat each comment as input, not a verdict, and record a decision for every one: fixed, rejected with a reason, or turned into an issue. Follow your team’s review policy; an agent approval does not replace a required human approval.',
           ],
         },
         {
@@ -522,7 +522,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
           heading: 'Never commit a secret',
           paragraphs: [
             "A public repository is public forever: bots scan GitHub for keys within minutes, and deleting a file later does not remove it from history. Keep keys, tokens, passwords and `.env` files out, list them in `.gitignore`, and turn on secret scanning and push protection in the repository's security settings so GitHub blocks a push that contains a known key format.",
-            'If a secret does get pushed, revoke it at the provider first, then clean up the repository. Real personal data follows the same rule: none, ever, because the prototype runs on {{data}}.',
+            'If a secret does get pushed, revoke it at the provider first, then clean up the repository. Real personal data follows the same rule: none, ever, because the prototype runs on fictional records and events.',
           ],
         },
       ],
@@ -559,7 +559,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
           'Write confirmed problems as reproducible reports in docs/review-log.md and prioritise by consequence. Correct at least one meaningful defect. If none appears, ask a mentor to seed a harmless local UI fault on a disposable branch, then reproduce and correct it. Label this exercise and never introduce the fault into the live site.',
           'Fix them one at a time. For each, in a fresh session: paste the report and screenshot, ask Claude to reproduce and explain the cause, fix it on its own branch, add a test if it is a calculation, and open a pull request.',
           'Before merging each pull request, run the review prompt below in another fresh session. Record a decision for every comment in `docs/review-log.md`: fixed, rejected with a reason, or turned into an issue.',
-          'Ask your mentor to review the change with the highest risk, usually anything touching {{deterministic}}, as the human reviewer.',
+          'Ask your mentor to review the change with the highest risk, usually anything touching totals, dates and status rules, as the human reviewer.',
           'Turn on secret scanning and push protection in the repository settings. Ask Claude to scan the full history for keys, tokens and personal data, and fix anything it finds.',
           'Merge, then check the live site shows the fixes on your phone.',
         ],
@@ -569,10 +569,10 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
         where: 'In a fresh session, in the prototype folder, on the branch of an open pull request',
         text: `Review the changes on this branch compared with main. You did not write them, so read them fresh. Do not edit any files.
 
-Context: this is the {{name}} prototype, {{product}}, running on {{data}} only. Read CLAUDE.md, REQUIREMENTS.md, docs/review-checklist.md and the pull request description first.
+Context: this is my product prototype, the product described in product-context.md, running on fictional records and events only. Read CLAUDE.md, REQUIREMENTS.md, docs/review-checklist.md and the pull request description first.
 
 Check, in this order:
-1. Requirements: does the change do what the pull request says, and does it still meet every "done when" example it touches? Check any change to {{deterministic}} by hand for two cases from the fictional data.
+1. Requirements: does the change do what the pull request says, and does it still meet every "done when" example it touches? Check any change to totals, dates and status rules by hand for two cases from the fictional data.
 2. Scope: is anything changed that the description does not mention?
 3. States: empty, loading and error states on every screen the change touches.
 4. Accessibility: colour-only signals, missing labels, low contrast, keyboard access.
@@ -634,7 +634,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       summary:
         'Before your next engineering conversation, use Claude Code to understand an open-source product you could use yourself, without changing a line. Come out with a one-page brief and three good questions for an engineer.',
       steps: [
-        'Pick an open-source product on GitHub with a web interface, active maintainers and a clear README: a budgeting app, a notes app or a help desk, ideally close to {{name}}.',
+        'Pick an open-source product on GitHub with a web interface, active maintainers and a clear README: a budgeting app, a notes app or a help desk, ideally close to your product.',
         'Ask Claude Code to download a copy into a new folder outside your workspace. Tell it this is read-only: no edits, no installs, no commands that change anything.',
         'Ask: what does the product do, what are the main folders and what lives in each, where does one user-facing feature live from screen to data, how is it tested, and what would an engineer find hardest to change?',
         'Ask Claude to save the answers as `codebase-brief.md`, citing a file path for every claim.',
@@ -673,7 +673,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
         'Work the way an engineering team does: turn three user bug reports into GitHub issues, let Claude Code fix them one at a time, and review each pull request before it merges.',
       steps: [
         'Collect three bug reports about the prototype, from your review log or from a new tester.',
-        'Open each as a GitHub issue in `{{slug}}`: a clear title, the device, steps to reproduce, expected and actual results, a screenshot and a severity.',
+        'Open each as a GitHub issue in `product-prototype`: a clear title, the device, steps to reproduce, expected and actual results, a screenshot and a severity.',
         'For the first issue, start a fresh Claude Code session in the prototype folder and ask it to read the issue, reproduce the bug, explain the cause, fix it on a new branch and open a pull request that says "Fixes #" followed by the issue number.',
         'Review the pull request: read the diff with the four questions from Session 7, run the review prompt from Session 8 in another fresh session, and check the fix on the preview or locally.',
         'Merge and confirm the issue closed automatically. Only then start the next issue, in a new session.',
@@ -705,7 +705,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       id: 'q2-1',
       competency: 'knowledge-management',
       prompt:
-        'You want every Claude Code session in your workspace to know that the prototype uses {{data}} only and must never connect to real systems. Where should that rule live?',
+        'You want every Claude Code session in your workspace to know that the prototype uses fictional records and events only and must never connect to real systems. Where should that rule live?',
       options: [
         {
           id: 'a',
@@ -786,7 +786,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       id: 'q2-4',
       competency: 'ux-prototyping',
       prompt:
-        'You asked Claude Code to "build a prototype of {{name}}" in one line. It built five screens, two you never wanted, and invented a feature. What is the best next step?',
+        'You asked Claude Code to "build a prototype of your product" in one line. It built five screens, two you never wanted, and invented a feature. What is the best next step?',
       options: [
         {
           id: 'a',
@@ -840,7 +840,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       id: 'q2-6',
       competency: 'technical-collaboration',
       prompt:
-        'A pull request says "Fix the date label on the first screen", but the diff also changes the code that works out {{deterministic}}. What do you do?',
+        'A pull request says "Fix the date label on the first screen", but the diff also changes the code that works out totals, dates and status rules. What do you do?',
       options: [
         {
           id: 'a',
@@ -921,11 +921,11 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
   project: {
     title: 'Clickable prototype',
     brief:
-      'Finish Level 2 with a live, reviewed {{name}} prototype that engineers and users can click through, and the workspace and habits that produced it. Show that you directed the agent rather than accepted whatever it built: requirements you decided, changes you can explain, reviews that caught real problems and a repository with nothing in it that should not be public. Then walk your mentor through the code review on one pull request. About 5 hours, mostly finishing and tidying the work from Sessions 5 to 8.',
+      'Finish Level 2 with a live, reviewed product prototype that engineers and users can click through, and the workspace and habits that produced it. Show that you directed the agent rather than accepted whatever it built: requirements you decided, changes you can explain, reviews that caught real problems and a repository with nothing in it that should not be public. Then walk your mentor through the code review on one pull request. About 5 hours, mostly finishing and tidying the work from Sessions 5 to 8.',
     deliverables: [
       {
         id: 'workspace',
-        text: '`{{slug}}-workspace/` under git, with a short `CLAUDE.md` that loads `product-context.md`, one folder per workstream and your Level 1 files filed.',
+        text: '`workspace/` under git, with a short `CLAUDE.md` that loads `product-context.md`, one folder per workstream and your Level 1 files filed.',
       },
       {
         id: 'requirements',
@@ -933,7 +933,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       },
       {
         id: 'repo',
-        text: 'The public `{{slug}}` repository with a no-bypass ruleset on main, a README and a current `HANDOFF.md`.',
+        text: 'The public `product-prototype` repository with a no-bypass ruleset on main, a README and a current `HANDOFF.md`.',
       },
       {
         id: 'live',
@@ -963,7 +963,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
         'You can explain every merged change, rejected at least one agent suggestion with a reason, kept private notes out of the public repository, and know which changes deserve a closer human review.',
     },
     privacyNote:
-      'The `{{slug}}` repository is public: fictional data only, no interview notes, no real names, no employer material, and never a key or token. Your workspace stays private on your own computer. The Academy stores only your checklist, reflections and the paths you type, never the files themselves.',
+      'The `product-prototype` repository is public: fictional data only, no interview notes, no real names, no employer material, and never a key or token. Your workspace stays private on your own computer. The Academy stores only your checklist, reflections and the paths you type, never the files themselves.',
     minutes: 300,
     xp: 350,
   },

@@ -9,7 +9,6 @@ import { EvidencePanel } from '../ui/EvidencePanel'
 import { BookmarkButton, ResourceRefs } from '../ui/ResourceBits'
 import { Bullets, Paragraphs, inline } from '../ui/RichText'
 import { useStore } from '../state/store'
-import { CaseStudyStrip } from '../ui/CaseStudyStrip'
 import { DecisionPractice, SessionBrief, WorkedExample } from '../ui/SessionLearning'
 import {
   Card,
@@ -26,7 +25,7 @@ import { NotFound } from './NotFound'
 
 const steps = [
   { id: 'overview', label: 'Overview' },
-  { id: 'learn', label: 'Learn' },
+  { id: 'learn', label: 'Sources and lesson' },
   { id: 'task', label: 'Practical task' },
   { id: 'prompt', label: 'Agent prompt' },
   { id: 'verify', label: 'Verify and complete' },
@@ -76,7 +75,7 @@ function StepRail({ done }: { done: boolean }) {
     setActive(id)
   }
   return (
-    <nav aria-label="Session steps" className="lg:sticky lg:top-8">
+    <nav aria-label="Session steps" className="self-start lg:sticky lg:top-8">
       <ol className="relative -mx-1 flex snap-x snap-mandatory scroll-px-1 gap-2 overflow-x-auto px-1 pb-1 [mask-image:linear-gradient(to_right,#000_82%,transparent)] lg:mx-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:px-0 lg:[mask-image:none]">
         {steps.map((step, i) => {
           const isActive = active === step.id
@@ -159,28 +158,26 @@ export function LessonPage() {
         eyebrow={`Session ${lesson.number}`}
         title={lesson.title}
         actions={<BookmarkButton id={lesson.id} label={lesson.title} />}
-      >
-        {lesson.goal}
-      </PageHeader>
+      />
 
       <div className="flex flex-wrap gap-1.5 text-xs">
         <Pill>{formatMinutes(lesson.minutes)}</Pill>
         <Pill>{lesson.difficulty}</Pill>
-        <Pill>{lesson.xp} XP</Pill>
-        {lesson.tools.map((t) => (
-          <Pill key={t} tone="blue">
-            {t}
-          </Pill>
-        ))}
         {optional && <Pill tone="blue">Optional for you</Pill>}
-        {lesson.practicalProof && <Pill tone="indigo">Practical proof</Pill>}
         {lesson.safetyCritical && <Pill tone="red">Safety critical</Pill>}
-        {lesson.mentorReview !== 'optional' && (
-          <Pill tone="amber">Mentor review {lesson.mentorReview}</Pill>
-        )}
       </div>
 
-      <CaseStudyStrip lessonId={lesson.id} />
+      <details className="text-sm">
+        <summary className="cursor-pointer font-medium text-stone-700 dark:text-stone-300">
+          Session outcome and tools
+        </summary>
+        <p className="mt-3 max-w-prose leading-relaxed">{inline(lesson.goal)}</p>
+        <p className="mt-2 text-stone-600 dark:text-stone-400">Tools: {lesson.tools.join(', ')}.</p>
+        <p className="mt-1 text-xs text-stone-600 dark:text-stone-400">
+          {lesson.xp} XP · Mentor review {lesson.mentorReview}
+          {lesson.practicalProof ? ' · Practical proof' : ''}
+        </p>
+      </details>
 
       {!status.unlocked && (
         <Card
@@ -218,7 +215,16 @@ export function LessonPage() {
           </Step>
 
           <Step id="learn">
-            <div className="lesson-reader space-y-8 rounded-2xl px-5 py-7 sm:px-8">
+            <Section title="Sources and tutorials">
+              <p className="text-sm text-stone-600 dark:text-stone-400">
+                Start with the suggested excerpt, then explore the other tutorials for another
+                explanation or more depth. The excerpt time is included in this session; the
+                additional reading is yours to choose.
+              </p>
+              <ResourceRefs refs={lesson.resources} />
+            </Section>
+
+            <div className="lesson-reader space-y-8 rounded-2xl border border-stone-200 bg-white px-5 py-7 sm:px-8 dark:border-stone-800 dark:bg-stone-900">
               {lesson.learn.map((s) => (
                 <section key={s.heading} className="mx-auto max-w-prose">
                   <h2 className="mb-3 text-xl font-semibold tracking-tight">{s.heading}</h2>
@@ -232,14 +238,6 @@ export function LessonPage() {
 
             <WorkedExample guide={guide} />
             <DecisionPractice key={lesson.id} guide={guide} />
-
-            <Section title="One focused source">
-              <p className="text-sm text-stone-600 dark:text-stone-400">
-                Read the assigned excerpt, then return to practise. The full resource is optional.
-                Reading budgets are estimates, included in the session time.
-              </p>
-              <ResourceRefs refs={lesson.resources} collapseOptional />
-            </Section>
           </Step>
 
           <Step id="task">
@@ -290,7 +288,7 @@ export function LessonPage() {
                 <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                   <h2 className="text-lg font-semibold">File it in your workspace</h2>
                   <Link to="/wiki" className={`text-sm ${linkClass}`}>
-                    PM OS guide
+                    Workspace guide
                   </Link>
                 </div>
                 <p className="leading-relaxed">{inline(wiki.capture)}</p>
@@ -323,7 +321,7 @@ export function LessonPage() {
               <p className="px-5 pb-5 leading-relaxed">{inline(lesson.mentorMove)}</p>
             </details>
           </Step>
-          <p className="border-l-2 border-indigo-400 pl-4 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+          <p className="border-t border-stone-200 pt-4 dark:border-stone-800 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
             {guide.bridge}
           </p>
         </div>

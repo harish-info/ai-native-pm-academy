@@ -23,6 +23,54 @@ const checked = '2026-10-31'
 
 export const resources: Resource[] = [
   r({
+    id: 'claude-skills-tutorial',
+    title: 'Teach Claude your way of working using skills',
+    provider: 'Anthropic, Claude Academy',
+    url: 'https://academy.claude.com/tutorials/teach-claude-your-way-of-working-using-skills',
+    topic: 'Agent workflows',
+    level: 'intermediate',
+    format: 'article',
+    estimatedTime: '10 min',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'An illustrated tutorial on turning a proven procedure, examples and quality standards into a reusable skill. Contrasts skills, projects and one-off prompts.',
+    notes:
+      'The examples use Claude chat. Use the linked agent skills course for Claude Code file structure, and test loading in the surface you actually use.',
+  }),
+  r({
+    id: 'claude-design-prototype-tutorial',
+    title: 'Using Claude for prototypes and UX',
+    provider: 'Anthropic, Claude Academy',
+    url: 'https://academy.claude.com/tutorials/using-claude-design-for-prototypes-and-ux',
+    topic: 'Design and handoff',
+    level: 'beginner',
+    format: 'article',
+    estimatedTime: '15 min',
+    practicalCost:
+      'Claude Design is available on every plan, subject to usage and organization settings.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A practical tutorial covering clickable flows, existing components, missing states, review permissions and handing the design to Claude Code. Optional if you already have a prototype.',
+  }),
+  r({
+    id: 'aihero-grill-me',
+    title: 'The /grill-me skill',
+    provider: 'Matt Pocock, AI Hero',
+    url: 'https://www.aihero.dev/skills-grill-me',
+    topic: 'Requirements',
+    level: 'beginner',
+    format: 'article',
+    estimatedTime: '5 min',
+    practicalCost: 'Free to read. Installation is optional; running it needs a coding agent.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A direct guide to questioning a loose idea before committing to it. Explains when discussion helps and when you need a prototype or evidence instead.',
+    notes: 'The standalone skill writes no files. Save your course requirements explicitly.',
+  }),
+  r({
     id: 'aws-rag-versus-fine-tuning',
     title: 'Comparing retrieval and fine-tuning',
     provider: 'AWS Prescriptive Guidance',
@@ -1943,25 +1991,28 @@ export const resources: Resource[] = [
     topic: 'Design and handoff',
     level: 'beginner',
     format: 'article',
-    practicalCost: 'Claude Design is a research preview on paid Claude plans (Pro or higher).',
+    practicalCost:
+      'Historical launch conditions. Use the current Academy tutorial for availability.',
     verifiedOn: checked,
     status: 'verified',
     summary:
-      'Launch post (2026-04-17): Claude Design makes designs, prototypes, slides and one-pagers with Claude, and packages a finished design into a handoff bundle for Claude Code.',
+      'Historical launch post (2026-04-17). Useful for the original product rationale; the interface, sharing and plan availability have since changed.',
   }),
   r({
     id: 'claude-design-slides',
-    title: 'Using Claude Design for presentations and slide decks',
+    title: 'Making slides and presentations with Claude',
     provider: 'Anthropic (Claude Academy)',
     url: 'https://academy.claude.com/tutorials/using-claude-design-for-presentations-and-slide-decks',
     topic: 'Presentations',
     level: 'beginner',
     format: 'documentation',
-    practicalCost: 'Claude Design needs a paid Claude plan (Pro or higher).',
+    estimatedTime: '10 min',
+    practicalCost:
+      'Claude Slides is available on every plan, subject to usage and organization settings.',
     verifiedOn: checked,
     status: 'verified',
     summary:
-      'Tutorial: give purpose, audience and sources, edit by commenting, add speaker notes, and export to PDF, PPTX, HTML or Google Slides. It covers the tool, not the storyline.',
+      'Practical tutorial: provide audience, source material and a design reference, edit the deck, check claims, add notes and export. It covers the tool; use the Duarte reading for the storyline.',
   }),
   r({
     id: 'duarte-slideology',

@@ -21,11 +21,11 @@ export interface LessonGuide {
 }
 
 // Original teaching scenarios, not customer research or claims about a provider's performance.
-// The store fills the same case tokens as the lessons. Nothing here writes learner progress.
+// Examples illustrate transferable PM decisions. Nothing here writes learner progress.
 export const lessonGuides: Record<string, LessonGuide> = {
   s1: {
     decision: 'Which parts of an AI answer can you trust enough to use?',
-    bring: 'A free assistant account, a text editor and the case study you want to explore.',
+    bring: 'A free assistant account, a text editor and one PM task you want to practise.',
     recall: {
       question: 'Before reading: what do you think an assistant can see about your product?',
       answer:
@@ -40,7 +40,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'A fluent answer is not a source',
       situation:
-        'You ask an assistant for interview questions for {{name}}. It adds: “Most {{user}} face this problem every week.”',
+        'You ask an assistant for interview questions. It adds: “Most users face this problem every week.” You have not supplied evidence about frequency.',
       reasoning: [
         {
           label: 'Useful draft',
@@ -89,7 +89,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
   },
   s2: {
     decision: 'What is the smallest brief that makes an answer specific and checkable?',
-    bring: 'Your case study, glossary and one public competitor page.',
+    bring: 'Your glossary, a product or workflow you understand and one public competitor page.',
     recall: {
       question: 'From Session 1: what is the difference between context and evidence?',
       answer:
@@ -104,7 +104,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Brief the decision, not the persona',
       situation:
-        '“Be a brilliant strategist and analyse {{name}}” produces an attractive but generic answer.',
+        '“Be a brilliant strategist and analyse your product” produces an attractive but generic answer.',
       reasoning: [
         {
           label: 'Goal',
@@ -231,7 +231,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     example: {
       title: 'Test comprehension before demand',
-      situation: 'Your pitch shows {{mvpScreen}}. A friend says it looks polished.',
+      situation: 'Your pitch shows the main task screen. A friend says it looks polished.',
       reasoning: [
         {
           label: 'Weak signal',
@@ -348,15 +348,15 @@ export const lessonGuides: Record<string, LessonGuide> = {
         'It shows an interaction, not evidence of demand or safe production behaviour. Requirements make the hypothesis testable; they do not validate it.',
     },
     reading: {
-      resourceId: 'aihero-skills',
+      resourceId: 'aihero-grill-me',
       minutes: 8,
       focus:
-        'Read the description of the interviewing or grill-me skill. Borrow the questioning method; installation is unnecessary.',
+        'Read the direct grill-me guide. Notice when a question needs evidence or a prototype rather than more discussion. Borrow the method; installation is unnecessary.',
     },
     example: {
       title: 'Turn “handle missing data” into a decision',
       situation:
-        'The agent asks what {{mvpScreen}} should show when one required value is missing.',
+        'The agent asks what the main task screen should show when one required value is missing.',
       reasoning: [
         {
           label: 'Vague',
@@ -368,7 +368,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'Scope',
-          text: 'This is a proposed learning-example behaviour. Choose it explicitly or record a blocking question; do not present it as a settled case-study rule.',
+          text: 'This is a proposed behaviour for the example. Choose the rule for your own workflow explicitly or record a blocking question; do not let the agent decide it silently.',
         },
       ],
       takeaway:
@@ -478,7 +478,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         'Read the distinction between following the spec and following conventions. Apply it to one small change.',
     },
     example: {
-      title: 'Triage by consequence',
+      title: 'Prioritise by consequence',
       situation:
         'A reviewer reports a wrong calculated figure, a colour-only warning and a heading that could be shorter.',
       reasoning: [
@@ -544,7 +544,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Choose the simplest credible route',
       situation:
-        '{{name}} needs to help users {{coreJob}}. Leadership suggests an autonomous assistant.',
+        'your product needs to help users complete their main task. Leadership suggests an autonomous assistant.',
       reasoning: [
         {
           label: 'No AI',
@@ -1170,10 +1170,10 @@ export const lessonGuides: Record<string, LessonGuide> = {
         'Inspect what it read, which tools it called and what state changed. A harmless final paragraph can conceal an unwanted write or disclosure.',
     },
     reading: {
-      resourceId: 'anthropic-agent-skills-course',
-      minutes: 12,
+      resourceId: 'claude-skills-tutorial',
+      minutes: 10,
       focus:
-        'Read the skill structure and description guidance. Build one narrow skill, then reuse the pattern for the other two; the full course and plugins are optional.',
+        'Read the tutorial on packaging a proven procedure. Compare a skill with a project or one-off prompt, then use the linked agent skills course for the Claude Code file format.',
     },
     example: {
       title: 'Make the weekly brief finite',

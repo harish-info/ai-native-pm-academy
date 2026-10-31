@@ -46,9 +46,13 @@ test('decision practice explains choices without completing a lesson', async ({ 
   await expect(correct).toHaveAttribute('aria-pressed', 'true')
   await expect(page.getByText('Good judgement')).toBeVisible()
   await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
-  await expect(page.getByRole('heading', { name: 'Further study', exact: true })).toHaveCount(0)
-  await page.getByText(/Further study \(/).click()
   await expect(page.getByRole('link', { name: /AI capabilities and limitations/ })).toBeVisible()
+  const sourcesPrecedeLesson = await page.locator('#step-learn').evaluate((section) => {
+    const sources = section.querySelector('a[target="_blank"]')!
+    const reader = section.querySelector('.lesson-reader')!
+    return !!(sources.compareDocumentPosition(reader) & Node.DOCUMENT_POSITION_FOLLOWING)
+  })
+  expect(sourcesPrecedeLesson).toBe(true)
 })
 
 test('onboarding produces a personalized path', async ({ page }) => {
@@ -70,6 +74,20 @@ test('onboarding produces a personalized path', async ({ page }) => {
 
   await page.goto('')
   await expect(page).toHaveURL(/#\/dashboard$/)
+})
+
+test('case studies stay in their own area and never rename the workspace', async ({ page }) => {
+  await page.goto('#/case-study')
+  await page.getByText('Triage', { exact: true }).click()
+  await expect(page.getByRole('radio', { name: 'Triage', exact: true })).toBeChecked()
+  await expect(page.getByRole('heading', { name: 'Triage: the brief' })).toBeVisible()
+  await page.goto('#/lessons/s17')
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await expect(page.locator('main')).not.toContainText(/MoneyPilot|Triage|Steady/)
+  await expect(page.locator('main')).toContainText('workspace')
+  await page.goto('#/wiki')
+  await expect(page.getByRole('heading', { name: 'Your workspace' })).toBeVisible()
+  await expect(page.locator('main')).not.toContainText(/MoneyPilot|Triage|Steady/)
 })
 
 test('a session completes only with evidence and stays complete after refresh', async ({

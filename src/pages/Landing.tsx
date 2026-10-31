@@ -1,23 +1,14 @@
 import { Link } from 'react-router-dom'
 import { levels } from '../content'
-import { caseStudies } from '../content/caseStudies'
 import { useStore } from '../state/store'
 import { BrandMark, LevelArt } from '../ui/art'
 import { levelShortName } from '../ui/levelNames'
-import {
-  Button,
-  Chevron,
-  cx,
-  interactiveCard,
-  LinkButton,
-  staticTile,
-  stretchedLink,
-} from '../ui/primitives'
+import { Button, Chevron, cx, interactiveCard, LinkButton, stretchedLink } from '../ui/primitives'
 
 const pillars = [
   {
     title: 'Practice first',
-    body: 'Study a worked example, make a decision, then practise on your case. Build a prototype, a scoped PRD, an evaluation report, a simulated launch readout and a team knowledge base.',
+    body: 'Study a worked example, make a decision, then apply the method in your own context. Build a prototype, a scoped PRD, an evaluation report, a simulated launch readout and a team knowledge base.',
   },
   {
     title: 'Evidence, not clicks',
@@ -67,25 +58,23 @@ export function Landing() {
       </header>
 
       <main id="main" tabIndex={-1} className="mx-auto max-w-6xl px-4 pb-20 outline-none sm:px-6">
-        <section className="dot-grid relative -mx-4 overflow-hidden px-4 py-10 sm:mx-0 sm:rounded-2xl sm:border sm:border-stone-200 sm:px-10 sm:py-14 dark:sm:border-stone-800">
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-stone-50 via-stone-50/90 to-stone-50/40 dark:from-stone-950 dark:via-stone-950/90 dark:to-stone-950/40"
-          />
-          <div className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto]">
+        <section className="course-hero relative -mx-4 overflow-hidden px-4 py-10 sm:mx-0 sm:rounded-2xl sm:border sm:border-stone-200 sm:px-10 sm:py-14 dark:sm:border-stone-700">
+          <div className="relative">
             <div>
               <p className="mb-3 font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
-                From AI foundations to an AI-native product team
+                A practical field course for product managers
               </p>
-              <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">
-                Become the product manager who knows <span className="marker">what to build</span>,
-                and can build it with agents.
+              <h1 className="max-w-3xl text-4xl leading-[1.1] font-bold tracking-[-0.04em] text-balance sm:text-5xl">
+                Become the product manager who knows what to build, and can build it with agents.
               </h1>
-              <p className="mt-5 max-w-2xl text-lg text-stone-600 dark:text-stone-400">
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
                 A structured, practical course in five levels and twenty sessions, built on curated
-                resources selected for the work PMs actually do. Take one fictional product from a
-                first context file to a reviewed prototype, evidence-based product decisions and a
-                team workflow you can explain and test.
+                resources selected for the work PMs actually do. Build from your own product
+                context: a useful brief, a reviewed prototype, evidence-based product decisions and
+                a team workflow you can explain and test.
+              </p>
+              <p className="mt-5 text-sm font-medium text-indigo-800 dark:text-indigo-200">
+                20 sessions · 5 levels · Apply to your own PM work
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 {data.onboarding ? (
@@ -102,17 +91,12 @@ export function Landing() {
                 </Button>
               </div>
             </div>
-            <div aria-hidden className="hidden grid-cols-2 gap-2 lg:grid">
-              {levels.slice(0, 4).map((l) => (
-                <LevelArt key={l.id} levelId={l.id} className="h-24 w-24" />
-              ))}
-            </div>
           </div>
         </section>
 
         <section aria-labelledby="levels-heading" className="py-10">
           <h2 id="levels-heading" className="mb-4 text-2xl font-bold tracking-tight">
-            Five levels, one continuous case
+            Five levels, skills that build on each other
           </h2>
           <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {levels.map((l) => (
@@ -132,28 +116,6 @@ export function Landing() {
               </li>
             ))}
           </ol>
-        </section>
-
-        <section aria-labelledby="cases-heading" className="pb-10">
-          <h2 id="cases-heading" className="text-2xl font-bold tracking-tight">
-            One case study, the whole product cycle
-          </h2>
-          <p className="mt-1 mb-4 max-w-3xl text-stone-600 dark:text-stone-400">
-            Frame a hypothesis, prototype it, investigate the problem, decide what to build and
-            rehearse a release. The examples and data are fictional. Your real conversations, when
-            available, remain clearly separated from the simulation.
-          </p>
-          <ul className="grid gap-3 md:grid-cols-3">
-            {caseStudies.map((c) => (
-              <li key={c.id} className={cx(staticTile, 'rounded-2xl p-5')}>
-                <p className="font-mono text-[0.7rem] font-medium tracking-[0.12em] text-stone-600 uppercase dark:text-stone-400">
-                  {c.kind}
-                </p>
-                <h3 className="mt-1 text-lg font-bold tracking-tight">{c.tokens.name}</h3>
-                <p className="mt-1 text-sm text-stone-700 dark:text-stone-300">{c.pitch}</p>
-              </li>
-            ))}
-          </ul>
         </section>
 
         <section
@@ -210,13 +172,23 @@ export function Landing() {
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border-l-4 border-mark-400 bg-white p-6 dark:bg-stone-900">
+        <section className="mt-8 rounded-2xl border border-stone-200 dark:border-stone-800 bg-white p-6 dark:bg-stone-900">
           <h2 className="text-lg font-semibold">Learning with a mentor?</h2>
           <p className="mt-1 max-w-3xl text-stone-700 dark:text-stone-300">
             Every session includes a short mentor move, and every week of the study plan says what
             the mentor does, about an hour a week: project reviews, a cold read of the PRD, a real
             pull request review, an executive at the launch review and a sceptical demo audience.
           </p>
+        </section>
+        <section className="mt-8 border-t border-stone-200 pt-6 dark:border-stone-800">
+          <h2 className="text-lg font-semibold">Want a concrete example?</h2>
+          <p className="mt-2 max-w-3xl text-sm text-stone-600 dark:text-stone-400">
+            The optional case-study area shows how the methods apply in three different domains.
+            Explore it whenever a worked reference helps; the course stays focused on your own role.
+          </p>
+          <Link to="/case-study" className={cx(navLink, 'mt-3 inline-block')}>
+            Explore the case studies
+          </Link>
         </section>
       </main>
     </div>

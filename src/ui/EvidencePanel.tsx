@@ -5,6 +5,7 @@ import { allMet, minutesLoggedFor, REFLECTION_MIN_CHARS, requirementsFor } from 
 import { emptyLessonRecord, type LearnerData, type LessonRecord } from '../storage/schema'
 import { newId, useStore } from '../state/store'
 import { Button, Card, CheckIcon, cx, inputClass } from './primitives'
+import { inline } from './RichText'
 
 type Slice = 'lessons' | 'challenges'
 
@@ -103,7 +104,7 @@ export function EvidencePanel({
                       checked && 'text-stone-500 line-through dark:text-stone-400',
                     )}
                   >
-                    {item.text}
+                    {inline(item.text)}
                   </span>
                 </label>
               </li>
@@ -116,7 +117,7 @@ export function EvidencePanel({
         <h2 className="mb-1 text-lg font-semibold">Reflection</h2>
         <ul className="mb-3 list-disc pl-5 text-sm text-stone-600 dark:text-stone-400">
           {reflectionPrompts.map((p) => (
-            <li key={p}>{p}</li>
+            <li key={p}>{inline(p)}</li>
           ))}
         </ul>
         <label htmlFor={`${uid}-reflection`} className="sr-only">
@@ -144,7 +145,8 @@ export function EvidencePanel({
             placeholder="e.g. learning/how-llms-work.md or a pull request link"
           />
           <p className="text-xs text-stone-500 dark:text-stone-400">
-            Expected: {artifactHint}. Do not paste private content here; a path or link is enough.
+            Expected: {inline(artifactHint.replace(/[.!?]$/, ''))}. Do not paste private content
+            here; a path or link is enough.
           </p>
         </div>
       </Card>

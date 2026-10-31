@@ -81,7 +81,7 @@ export const settingsSchema = z.object({
   planStart: day.optional(),
   /** Plan pace. Unset means derived from the weekly hours given in onboarding. Added in schema 2. */
   planPace: z.enum(['standard', 'light']).optional(),
-  /** The case study carried through the course. Unset until the learner picks one. Added in schema 3. */
+  /** The optional example viewed on the Case study page. Added in schema 3. */
   caseStudy: z.enum(['moneypilot', 'steady', 'triage']).optional(),
 })
 
@@ -118,6 +118,7 @@ export function emptyLearnerData(now = new Date()): LearnerData {
     schemaVersion: CURRENT_SCHEMA_VERSION,
     createdAt: at,
     updatedAt: at,
+    settings: { theme: 'dark' },
   })
 }
 

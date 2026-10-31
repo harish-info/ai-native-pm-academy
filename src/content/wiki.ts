@@ -26,31 +26,31 @@ export interface WikiStep {
 export const wikiSteps: Record<string, WikiStep> = {
   s1: {
     capture:
-      'Create a private {{slug}}-notes/ folder today, by hand. Save your glossary and the model comparison, and start log.md with one line: the date and what you made.',
+      'Create a private learning-notes/ folder today, by hand. Save your glossary and the model comparison, and start log.md with one line: the date and what you made.',
     pages: [
-      '{{slug}}-notes/glossary.md',
-      '{{slug}}-notes/model-comparison.md',
-      '{{slug}}-notes/log.md',
+      'learning-notes/glossary.md',
+      'learning-notes/model-comparison.md',
+      'learning-notes/log.md',
     ],
   },
   s2: {
     capture:
       'The most important file in the course. Save product-context.md at the top of the folder and keep it short; every later session reads it.',
-    pages: ['{{slug}}-notes/product-context.md', '{{slug}}-notes/delegation-audit.md'],
+    pages: ['learning-notes/product-context.md', 'learning-notes/delegation-audit.md'],
   },
   s3: {
     capture:
       'Save the fact sheet with a link and a check date for every claim. Keep the raw pages you checked in a sources/ folder, unchanged.',
-    pages: ['{{slug}}-notes/fact-sheet.md', '{{slug}}-notes/sources/'],
+    pages: ['learning-notes/fact-sheet.md', 'learning-notes/sources/'],
   },
   s4: {
     capture:
       'Save the link to your live pitch page and what you changed between versions. Add one line to product-context.md for anything the pitch taught you.',
-    pages: ['{{slug}}-notes/pitch-notes.md', '{{slug}}-notes/product-context.md'],
+    pages: ['learning-notes/pitch-notes.md', 'learning-notes/product-context.md'],
   },
   s5: {
     capture:
-      'Your notes become {{slug}}-workspace/, the folder Claude Code works from. Paths from here on are relative to it. Add a short CLAUDE.md that points at product-context.md, put the folder under git, and commit.',
+      'Your notes become workspace/, the folder Claude Code works from. Paths from here on are relative to it. Add a short CLAUDE.md that points at product-context.md, put the folder under git, and commit.',
     pages: ['CLAUDE.md', 'learning/', 'pitch/', 'research/', 'log.md'],
   },
   s6: {
@@ -151,7 +151,7 @@ export const wikiMilestones: WikiMilestone[] = [
     levelId: 1,
     name: 'Context file',
     summary:
-      'One private notes folder with product-context.md at the top, so every AI conversation about {{name}} starts from what you know.',
+      'One private notes folder with product-context.md at the top, so every AI conversation about your product starts from what you know.',
     checks: [
       'product-context.md covers the product, users, glossary, constraints, open decisions and sources',
       'fact-sheet.md has a link and a check date for every claim',
@@ -166,13 +166,14 @@ export const wikiMilestones: WikiMilestone[] = [
     checks: [
       'CLAUDE.md is short and points at product-context.md instead of repeating it',
       'The workspace is a private git repository with a commit per session',
-      'A fresh Claude Code session can explain {{name}} and the prototype from the files alone',
+      'A fresh Claude Code session can explain your product and the prototype from the files alone',
     ],
   },
   {
     levelId: 3,
     name: 'Decision trail',
-    summary: 'Every {{name}} claim traces to a source, an interview or a recorded decision.',
+    summary:
+      'Every claim about your product traces to a source, an interview or a recorded decision.',
     checks: [
       'Market research sits in sources/market/ with links and dates',
       'The synthesis cites pseudonymised interview notes',
@@ -221,7 +222,7 @@ Group findings by severity and propose fixes I can approve one by one.`,
 }
 
 export const wikiRules = [
-  'Private by default. The workspace never goes into a public repository; your {{name}} prototype can, the workspace does not.',
+  'Private by default. The workspace never goes into a public repository; your product prototype can, the workspace does not.',
   "No employer or customer data in your personal workspace. When you are back at work, build a separate work knowledge base under your employer's rules.",
   'Sources first: raw material is saved unchanged, pages that summarise it cite it, and nothing is claimed without a source.',
   'Git is your safety net. Claude Code acts without asking for most edits, so commit before a big change and read the diff before you keep it.',

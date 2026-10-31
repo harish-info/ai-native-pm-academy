@@ -32,7 +32,7 @@ export function WikiPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Runs through every level" title="Your PM OS">
+      <PageHeader eyebrow="Runs through every level" title="Your workspace">
         One private folder that grows with every session: a context file in Level 1, the workspace
         Claude Code works from in Level 2, and an agent-maintained wiki in Level 5.
       </PageHeader>

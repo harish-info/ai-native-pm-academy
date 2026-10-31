@@ -3,6 +3,7 @@ import type { Resource, ResourceRef, VerificationStatus } from '../content/types
 import { formatDate } from '../domain/dates'
 import { useStore } from '../state/store'
 import { Button, Pill, linkClass } from './primitives'
+import { inline } from './RichText'
 
 const statusTone: Record<VerificationStatus, 'green' | 'blue' | 'amber' | 'red'> = {
   verified: 'green',
@@ -87,7 +88,7 @@ export function ResourceCard({
           </a>
           <div className="text-sm text-stone-600 dark:text-stone-400">
             {resource.provider}
-            {minutes ? ` · Assigned excerpt: about ${minutes} min` : ''}
+            {minutes ? ` · Read and reflect: about ${minutes} min` : ''}
             {resource.estimatedTime ? ` · Full resource: ${resource.estimatedTime}` : ''} ·{' '}
             {costLabel(resource)}
           </div>
@@ -95,14 +96,14 @@ export function ResourceCard({
         <div className="flex flex-wrap items-center gap-1.5">
           {required !== undefined && (
             <Pill tone={required ? 'indigo' : 'neutral'}>
-              {required ? 'Core excerpt' : 'Further study'}
+              {required ? 'Start here' : 'Go deeper'}
             </Pill>
           )}
           <StatusPill resource={resource} />
           <BookmarkButton id={resource.id} label={resource.title} />
         </div>
       </div>
-      {why && <p className="mt-2 text-sm">{why}</p>}
+      {why && <p className="mt-2 text-sm">{inline(why)}</p>}
       {!why && (
         <p className="mt-2 text-sm text-stone-700 dark:text-stone-300">{resource.summary}</p>
       )}
@@ -115,13 +116,7 @@ export function ResourceCard({
   )
 }
 
-export function ResourceRefs({
-  refs,
-  collapseOptional = false,
-}: {
-  refs: ResourceRef[]
-  collapseOptional?: boolean
-}) {
+export function ResourceRefs({ refs }: { refs: ResourceRef[] }) {
   const items = refs
     .map((ref) => ({ ref, resource: resourceById(ref.resourceId) }))
     .filter((x) => x.resource)
@@ -143,17 +138,7 @@ export function ResourceRefs({
   return (
     <div className="space-y-4">
       {render(core)}
-      {optional.length > 0 &&
-        (collapseOptional ? (
-          <details className="rounded-xl border border-stone-200 p-4 dark:border-stone-700">
-            <summary className="cursor-pointer text-sm font-medium">
-              Further study ({optional.length})
-            </summary>
-            <div className="mt-4">{render(optional)}</div>
-          </details>
-        ) : (
-          render(optional)
-        ))}
+      {optional.length > 0 && render(optional)}
     </div>
   )
 }

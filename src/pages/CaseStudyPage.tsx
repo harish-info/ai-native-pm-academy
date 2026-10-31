@@ -44,19 +44,19 @@ export function CaseStudyPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Case study, every level" title="One product, the whole cycle">
-        From your first context file to the team knowledge base, take one fictional product from a
-        hunch through a reviewed prototype, discovery and a simulated release decision. Pick the
-        case you care about: every lesson, prompt and project then uses it. All three use fictional
-        data and teach the same skills; each adds one hard problem of its own.
+      <PageHeader eyebrow="Optional case studies" title="See the methods in context">
+        The course works with your own product context. These fictional examples show how the same
+        methods apply in different domains, from a first brief to a simulated release decision.
+        Explore them when you want a concrete reference. Choosing an example here changes only this
+        page.
       </PageHeader>
 
       <div className="space-y-8">
         <fieldset>
-          <legend className="mb-3 text-lg font-semibold">Pick your case</legend>
+          <legend className="mb-3 text-lg font-semibold">Explore an example</legend>
           {!chosen && (
             <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-              Not chosen yet. Lessons use MoneyPilot until you pick one.
+              MoneyPilot is shown first. You can explore any example without changing the course.
             </p>
           )}
           <div className="grid gap-4 md:grid-cols-3">
@@ -74,6 +74,7 @@ export function CaseStudyPage() {
                 >
                   <input
                     type="radio"
+                    aria-label={cs.tokens.name}
                     name="case-study"
                     value={cs.id}
                     checked={selected}
@@ -102,11 +103,11 @@ export function CaseStudyPage() {
                   <span className="mt-auto pt-4 text-sm font-semibold">
                     {selected ? (
                       <Pill tone="green">
-                        <CheckIcon className="h-3 w-3" /> Your case study
+                        <CheckIcon className="h-3 w-3" /> Viewing this example
                       </Pill>
                     ) : (
                       <span className="text-indigo-700 dark:text-indigo-300">
-                        Choose {cs.tokens.name}
+                        Explore {cs.tokens.name}
                       </span>
                     )}
                   </span>
@@ -115,8 +116,8 @@ export function CaseStudyPage() {
             })}
           </div>
           <p className="mt-3 text-sm text-stone-600 dark:text-stone-400">
-            You can switch later. Lesson text follows the new case; your checklists, notes and
-            project evidence stay as you wrote them.
+            These are starting hypotheses for practice, not research findings. The lessons,
+            workspace names and your saved evidence remain independent of the example you view.
           </p>
         </fieldset>
 
@@ -128,8 +129,8 @@ export function CaseStudyPage() {
             <Card>
               <h3 className="font-semibold">Starting hypothesis</h3>
               <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
-                Your discovery in Session 10 may overturn any of this. If it does, follow the
-                evidence and record the decision.
+                A learner applying Session 10 to this example could overturn any of these
+                assumptions. Follow the evidence and record the decision.
               </p>
               <dl className="mt-4 grid gap-x-6 gap-y-3 text-sm sm:grid-cols-[9rem_minmax(0,1fr)]">
                 {(

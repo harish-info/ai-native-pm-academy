@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { allChallenges, allLessons, levels, resourceById, resources, setActiveCase } from '.'
-import * as active from '.'
+import { allChallenges, allLessons, guides, levels, resourceById, resources } from '.'
 import { caseStages, caseStudies } from './caseStudies'
 import { competencyIds } from './competencies'
 import { diagnosticQuestions } from './onboarding'
@@ -134,43 +133,22 @@ describe('case studies', () => {
     }
   })
 
-  it('fills every token in the lessons and wiki for every case', () => {
+  it('keeps course content independent of the optional case studies', () => {
+    const text = allText({ levels, wikiSteps, wikiMilestones, guides, planWeeks })
+    expect(text.filter((t) => /\{\{|\}\}/.test(t))).toEqual([])
     for (const c of caseStudies) {
-      setActiveCase(c.id)
-      const text = allText({
-        levels: active.levels,
-        wikiSteps: active.wikiSteps,
-        wikiMilestones: active.wikiMilestones,
-        wikiRules: active.wikiRules,
-        guides: active.guides,
-      })
       expect(
-        text.filter((t) => /\{\{|\}\}/.test(t)),
-        c.id,
+        text.filter((t) => new RegExp(`\\b${c.tokens.name}\\b`, 'i').test(t)),
+        `${c.tokens.name} must remain in the optional case-study area`,
       ).toEqual([])
+      expect(text.filter((t) => t.includes(`${c.tokens.slug}-workspace`))).toEqual([])
     }
-    setActiveCase('moneypilot')
   })
 
   it('maps every session to exactly one stage of the cycle', () => {
     const staged = caseStages.flatMap((s) => s.lessons)
     const all = levels.flatMap((l) => l.lessons.map((x) => x.id))
     expect([...staged].sort()).toEqual([...all].sort())
-  })
-
-  it('keeps the other cases out of a case: no lesson names a different product', () => {
-    for (const c of caseStudies) {
-      setActiveCase(c.id)
-      const others = caseStudies.filter((o) => o.id !== c.id).map((o) => o.tokens.name)
-      const text = allText({ levels: active.levels.filter((l) => l.id >= 3) })
-      for (const name of others) {
-        expect(
-          text.filter((t) => new RegExp(`\\b${name}\\b`).test(t)),
-          `${name} in ${c.id}`,
-        ).toEqual([])
-      }
-    }
-    setActiveCase('moneypilot')
   })
 })
 

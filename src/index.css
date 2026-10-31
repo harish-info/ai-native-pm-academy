@@ -162,7 +162,7 @@ body {
 @keyframes pop-in {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
@@ -170,7 +170,7 @@ body {
   }
 }
 .animate-pop-in {
-  animation: pop-in 0.28s ease-out both;
+  animation: pop-in 0.18s ease-out both;
 }
 
 /* A highlighter stroke behind a word, the one place the marker yellow appears in text. */
@@ -242,10 +242,33 @@ body {
   }
 }
 .trail-next {
-  animation: trail-next 2.4s ease-in-out infinite;
+  box-shadow: 0 2px 0 var(--a-800);
 }
 @media (prefers-reduced-motion: reduce) {
   .trail-next {
     animation: none;
   }
+}
+
+/* Quiet reading surfaces: hierarchy comes from typography and spacing. */
+.lesson-reader p,
+.lesson-reader li {
+  line-height: 1.8;
+}
+
+.lesson-reader section + section {
+  border-top: 1px solid var(--n-200);
+  padding-top: 1.75rem;
+}
+
+.dark .lesson-reader section + section {
+  border-color: var(--n-800);
+}
+
+.course-hero {
+  background: var(--paper);
+}
+
+.dark .course-hero {
+  background: var(--n-900);
 }

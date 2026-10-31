@@ -6,7 +6,7 @@ export const level5: Level = {
   title: "Your PM OS and your team's knowledge",
   theme: 'Turn a quarter of work into a knowledge system you, your team and your agents can trust.',
   summary:
-    'Your workspace now holds a quarter of {{name}} work. Turn it into a personal PM OS that an agent keeps current, design a team knowledge base that people and agents share, package your recurring work as tested skills with a scheduled weekly briefing, and write the playbook for leading a team that works this way.',
+    'Your workspace now holds research, decisions and delivery artifacts from the course. Turn it into a personal PM OS that an agent keeps current, design a team knowledge base that people and agents share, package your recurring work as tested skills with a scheduled weekly briefing, and write the playbook for leading a team that works this way.',
   outcomes: [
     'Run a personal knowledge base with three layers (sources, wiki, instructions) and use Claude Code to ingest, query and lint it.',
     'Decide what belongs in instructions, in auto memory and in the wiki.',
@@ -33,7 +33,7 @@ export const level5: Level = {
       xp: 150,
       mentorReview: 'recommended',
       practicalProof: true,
-      goal: 'Turn your {{slug}}-workspace into a personal PM OS: raw sources kept as they arrived, an agent-maintained `wiki/` that cites them, and instructions that tell Claude how the place works.',
+      goal: 'Turn your workspace into a personal PM OS: raw sources kept as they arrived, an agent-maintained `wiki/` that cites them, and instructions that tell Claude how the place works.',
       whyItMatters:
         'Sixteen sessions in, your workspace holds a quarter of work: research, interview notes, a PRD, a design spec, an eval report, a readout and a deck. Your manager asks why the team dropped an option in week three, and you spend twenty minutes searching. A knowledge base that an agent keeps current, and that cites where every claim came from, turns that pile into something you and Claude can query in seconds. It is also the personal version of the team knowledge base you design next session.',
       learn: [
@@ -70,8 +70,8 @@ export const level5: Level = {
         {
           heading: 'Instructions, memory or wiki?',
           paragraphs: [
-            'Three places hold context, and each has one job. **Instructions** (`CLAUDE.md`, which you write) say how to work here: structure, templates, rules. **Auto memory** (notes Claude writes for itself) holds what it has learned about working with you, such as preferring tables for comparisons; review it with `/memory` and delete anything wrong. The **wiki** holds what is true about {{name}}, with sources.',
-            'A quick test: if it would still be true on a different product, it is an instruction or a preference. If it is about {{name}}, its users or its decisions, it belongs in the wiki with a source. Keep `CLAUDE.md` short, because every line is read in every session.',
+            'Three places hold context, and each has one job. **Instructions** (`CLAUDE.md`, which you write) say how to work here: structure, templates, rules. **Auto memory** (notes Claude writes for itself) holds what it has learned about working with you, such as preferring tables for comparisons; review it with `/memory` and delete anything wrong. The **wiki** holds what is true about your product, with sources.',
+            'A quick test: if it would still be true on a different product, it is an instruction or a preference. If it is about your product, its users or its decisions, it belongs in the wiki with a source. Keep `CLAUDE.md` short, because every line is read in every session.',
           ],
         },
       ],
@@ -106,19 +106,19 @@ export const level5: Level = {
           'Run the agent prompt below in the workspace. It sorts raw material into `sources/`, files final deliverables into `sources/generated/`, writes the wiki pages, the index and the log, and drafts the instructions.',
           'Review the result, not a plan: read `git diff --stat`, then open five pages and check each claim against the source it cites. Rewrite the instructions draft in your own words, cut anything Claude will not need in most sessions, and move it into `CLAUDE.md`.',
           'Ingest one new source: write a short note on your last mentor conversation, or save an article you read this week, into `sources/notes/`, and ask Claude to ingest it. Check which pages changed and that the log has one new line per page.',
-          'Ask five questions only your quarter can answer, such as "Why did we choose the current scope for {{name}}?" and "What is our guardrail metric, and where did we agree it?" Open the cited sources. Then ask one question the wiki cannot answer and check that Claude says so.',
+          'Ask five questions only your workspace can answer, such as "Why did we choose the current scope?" and "What is our guardrail metric, and where did we agree it?" Open the cited sources. Then ask one question the wiki cannot answer and check that Claude says so.',
           'Ask Claude to lint the wiki. Approve fixes one group at a time, then commit.',
           'Optional: open the workspace as an Obsidian vault to browse the `[[wikilinks]]` and the graph view.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your {{slug}}-workspace folder (desktop Code tab or terminal)',
-        text: `This folder is my PM workspace for {{name}}, {{product}}. It holds a quarter of work: product-context.md, research, interview notes, analyses, the PRD, the design spec, eval and launch documents and a stakeholder update. I want it to become a personal knowledge base that you maintain, with three layers.
+        where: 'In your workspace folder (desktop Code tab or terminal)',
+        text: `This is my PM workspace. Read product-context.md for the context I have chosen. The folder holds my learning work: research, interview notes, analyses, the PRD, the design spec, eval and launch documents and a stakeholder update. I want it to become a personal knowledge base that you maintain, with three layers.
 
 Layers:
 - sources/: raw material, never edited after saving. Only ingest the public or fictional inputs I explicitly select. Exclude raw participant notes. Sort selected raw material into subfolders by origin: research/, interviews/, data/, notes/, generated/. Copy the final version of each deliverable (PRD, design spec, eval report, experiment readout, stakeholder update) into sources/generated/ with the date in the filename. Leave my workstream folders and product-context.md where they are.
-- wiki/: one flat folder of synthesised pages, one topic per page. Suggested pages: {{slug}}-overview, users, decisions, metrics, competitors, glossary, open-questions, plus any others the material needs.
+- wiki/: one flat folder of synthesised pages, one topic per page. Suggested pages: product-overview, users, decisions, metrics, competitors, glossary, open-questions, plus any others the material needs.
 - Instructions: draft a "Knowledge base" section for CLAUDE.md in wiki-instructions-draft.md. I will edit it and move it into CLAUDE.md myself.
 
 Page rules:
@@ -143,7 +143,7 @@ Do not delete or rename any existing file. You are done when every page has a so
         'Five answered questions with checked citations, one honest "Not in the wiki", one ingest and one lint',
       ],
       artifact:
-        '`wiki/` in your {{slug}}-workspace, with `index.md`, `log.md` and sourced pages generated from the quarter',
+        '`wiki/` in your workspace, with `index.md`, `log.md` and sourced pages generated from your course work',
       verification: [
         'Every wiki page has `updated` and `sources` in its frontmatter, and every listed source path exists.',
         'Five claims you pick at random each match the source they cite.',
@@ -188,7 +188,7 @@ Do not delete or rename any existing file. You are done when every page has a so
       practicalProof: true,
       goal: 'Design a knowledge base that a product team and its agents share, seed it with five pages through the same review flow a real team would use, and prove with a fresh agent that it answers real questions with sources.',
       whyItMatters:
-        "A new engineer on the {{name}} team asks why the assistant stops at a draft when it prepares {{action}}. The answer exists in four places: a chat thread, the PRD, a meeting and a ticket comment. Every teammate's agent starts each task knowing none of it. A shared knowledge base gives people and agents one sourced place to look, and stays true as the team learns. There is no settled public guide to this yet, so this session sets out the design the course recommends: your personal wiki, scaled to a team, with review and privacy built in.",
+        "A new engineer on your product team asks why the assistant stops at a draft when it prepares a change to a record or an outgoing message. The answer exists in four places: a chat thread, the PRD, a meeting and a ticket comment. Every teammate's agent starts each task knowing none of it. A shared knowledge base gives people and agents one sourced place to look, and stays true as the team learns. There is no settled public guide to this yet, so this session sets out the design the course recommends: your personal wiki, scaled to a team, with review and privacy built in.",
       learn: [
         {
           heading: 'Three layers, one rule each',
@@ -268,7 +268,7 @@ Do not delete or rename any existing file. You are done when every page has a so
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In your new team-kb repository',
-        text: `This repository is the shared knowledge base for the {{name}} product team ({{product}}). People and coding agents both read it. Set up the structure below. Do not write any content pages yet, only the special files.
+        text: `This repository is a practice shared knowledge base for my product team. Read product-context.md for the context I have defined. People and coding agents both read it. Set up the structure below. Do not write any content pages yet, only the special files.
 
 Layout:
 - sources/ with subfolders meetings/, docs/, chat/, tickets/, repo-notes/, shared/, generated/ and archive/, each with a one-line README saying what goes there.
@@ -538,7 +538,7 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
             'An agent reviews first, so humans spend their attention on judgment, not typos.',
             'Low risk (copy, styling, internal tooling): automated checks, agent review and a quick human approval.',
             'Medium risk (features with no sensitive data or actions): a human reviews the plan and the full change.',
-            'High risk (model behaviour changes, or anything involving {{risk}}): mandatory human review, a passing eval suite, risk sign-off and an audit record.',
+            'High risk (model behaviour changes, or anything involving sensitive data, consequential decisions and external actions): mandatory human review, a passing eval suite, risk sign-off and an audit record.',
           ],
         },
         {
@@ -593,7 +593,7 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         summary:
           'Draft `team-playbook.md` with Claude from your own evidence, rewrite it in your words, then give a 10-minute live demo of your PM OS to your mentor.',
         steps: [
-          'Name the bottleneck first: picture {{org}}, or a team you know, and write two sentences on where the work actually slows down and how far the team has moved from private AI use to shared practice. Keep it free of confidential details.',
+          'Name the bottleneck first: picture a team you work with or know well, and write two sentences on where the work actually slows down and how far the team has moved from private AI use to shared practice. Keep it free of confidential details.',
           'Run the agent prompt below. Claude drafts the playbook from your quarter: the wiki, the team knowledge base, the skill checks and the trust-check scores.',
           'Rewrite the draft in your own words. Claude drafts; you own the substance. Read it aloud and rewrite any sentence that sounds like the agent rather than you.',
           'Check the review model: an independent human approval on every production change, author self-review, a pull request size cap, agent review first, and three risk tiers, each with an example and a gate.',
@@ -604,14 +604,14 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your {{slug}}-workspace, with access to team-kb',
-        text: `I am preparing team-playbook.md: a proposal for how one product team in an organization like {{org}} could work with shared context, skills and agents. Read my evidence first: wiki/index.md and the pages it lists, team-kb/AGENTS.md, team-kb/kb-trust-check.md and team-kb/skill-checks.md. My notes on the team's bottleneck: [paste your two sentences].
+        where: 'In your workspace, with access to team-kb',
+        text: `I am preparing team-playbook.md: a proposal for how a product team in my organization could work with shared context, skills and agents. Read my evidence first: wiki/index.md and the pages it lists, team-kb/AGENTS.md, team-kb/kb-trust-check.md and team-kb/skill-checks.md. My notes on the team's bottleneck: [paste your two sentences].
 
 Draft the playbook in about two pages, with these sections:
 1. Bottleneck: where the team slows down today. Open with this, not with a tool. Mark assumptions.
 2. Shared context: the team knowledge base (layers, share flow, maintenance jobs), an AGENTS.md in every repository that points to it, and how PMs and designers contribute, not only engineers.
 3. Shared skills: which skills the team installs, who owns each, and how each is checked.
-4. Review model: an independent human approval on every production change, author self-review, a pull request size cap, agent review first, and three risk tiers (low, medium, high, where high includes anything involving {{risk}}), each with an example and a gate.
+4. Review model: an independent human approval on every production change, author self-review, a pull request size cap, agent review first, and three risk tiers (low, medium, high, where high includes anything involving sensitive data, consequential decisions and external actions), each with an example and a gate.
 5. Rituals: the Monday briefing before the weekly decision meeting, decisions shared as one-liners, a Friday recap against Monday's commitments, a monthly trust check.
 6. What stays human, as a short list.
 7. Measures: outcome and flow metrics and health signals, each with a baseline. No targets for AI usage.
@@ -664,13 +664,13 @@ Use only my evidence and mark anything else as an assumption. Do not present pre
       competencies: ['agentic-systems', 'technical-collaboration', 'evals-safety'],
       xp: 100,
       summary:
-        'Write a one-page brief to engineering on the {{name}} assistant: what it may do on its own, which tools it needs, where a person must approve, and its limits. PM depth: no code, only the decisions engineering needs from you.',
+        'Write a one-page brief to engineering on your product assistant: what it may do on its own, which tools it needs, where a person must approve, and its limits. PM depth: no code, only the decisions engineering needs from you.',
       steps: [
         'Read Building effective agents and write, in three sentences of your own, the difference between a workflow and an agent.',
-        'Take five questions the assistant should answer, starting from the suggested agent questions on your case study page, such as "{{question}}" For each, mark which steps are tested code, which need language understanding, and which would change anything.',
+        'Choose five realistic requests from the workflow and behavioural contracts in your PRD. Include a factual lookup, an explanation, a proposed action, missing data and an out-of-scope request. For each, mark which steps are tested code, which need language understanding, and which would change anything.',
         'List the tools it needs, each with one line on its purpose and a permission level: read or prepare. No tool executes anything. Delete any tool that none of your five questions needs.',
-        'Describe the three approval states: a recommendation (text only), a prepared action (a draft of {{action}} with Approve and Dismiss), and an executed action (carried out by app code after approval, then logged). Note that in a real product, approval would need {{approval}}.',
-        'Set the limits: what it refuses and hands to a person (anything about {{risk}} beyond your domain rules), how many steps it may take before it stops, what the user sees when it gives up, and that facts always come from the system of record, never from memory.',
+        'Describe the three approval states: a recommendation (text only), a prepared action (a draft of a change to a record or an outgoing message with Approve and Dismiss), and an executed action (carried out by app code after approval, then logged). For a real integration, define who may approve, how the system authenticates them and how the confirmation is tied to the exact action.',
+        'Set the limits: what it refuses and hands to a person (anything about sensitive data, consequential decisions and external actions beyond your domain rules), how many steps it may take before it stops, what the user sees when it gives up, and that facts always come from the system of record, never from memory.',
         'List the audit trail: every tool call with inputs and outputs, the model and prompt version, every approval or dismissal, and timestamps.',
         'Ask Claude, in a fresh session that sees only the brief, for three ways the design could be abused. Add a control or an open question for each.',
       ],
@@ -927,7 +927,7 @@ Use only my evidence and mark anything else as an assumption. Do not present pre
         },
         {
           id: 'd',
-          text: 'The PRD for {{name}}, so that every agent session can read the latest version.',
+          text: 'The PRD for your product, so that every agent session can read the latest version.',
         },
       ],
       correct: 'a',

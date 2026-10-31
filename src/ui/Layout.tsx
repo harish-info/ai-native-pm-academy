@@ -14,7 +14,7 @@ interface NavItem {
   also?: string[]
 }
 
-// Grouped by the learner's loop: plan the week, learn, build the case study and the PM OS,
+// Grouped by the learner's loop: plan the week, learn, build the PM OS,
 // keep a record. Every item answers a question the learner has; nothing is here for decoration.
 const nav: { heading?: string; items: NavItem[] }[] = [
   { items: [{ to: '/dashboard', label: 'This week', icon: 'home' }] },
@@ -28,10 +28,7 @@ const nav: { heading?: string; items: NavItem[] }[] = [
   },
   {
     heading: 'Build',
-    items: [
-      { to: '/case-study', label: 'Case study', icon: 'cycle' },
-      { to: '/wiki', label: 'PM OS', icon: 'book' },
-    ],
+    items: [{ to: '/wiki', label: 'Your workspace', icon: 'book' }],
   },
   {
     heading: 'Record',
@@ -40,6 +37,7 @@ const nav: { heading?: string; items: NavItem[] }[] = [
       { to: '/stats', label: 'Progress', icon: 'chart', also: ['/achievements'] },
     ],
   },
+  { heading: 'Examples', items: [{ to: '/case-study', label: 'Case study', icon: 'cycle' }] },
   { items: [{ to: '/settings', label: 'Settings', icon: 'sliders' }] },
 ]
 
@@ -73,7 +71,7 @@ function NavItems({ onNavigate }: { onNavigate?: () => void }) {
                       cx(
                         'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                         isActive || extra
-                          ? 'bg-indigo-50 text-indigo-800 before:absolute before:inset-y-1.5 before:-left-4 before:w-1 before:rounded-r-full before:bg-indigo-600 dark:bg-indigo-950 dark:text-indigo-200 dark:before:bg-indigo-400'
+                          ? 'bg-indigo-50 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-200'
                           : 'text-stone-700 hover:bg-stone-100 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white',
                       )
                     }

@@ -53,7 +53,7 @@ export function ResourcesPage() {
   const [format, setFormat] = useState<ResourceFormat | ''>('')
   const [freeOnly, setFreeOnly] = useState(false)
   const [status, setStatus] = useState<VerificationStatus | ''>('')
-  const [coreOnly, setCoreOnly] = useState(true)
+  const [coreOnly, setCoreOnly] = useState(false)
   const coreIds = new Set(
     allLessons.flatMap((l) => l.resources.filter((r) => r.required).map((r) => r.resourceId)),
   )
@@ -99,10 +99,10 @@ export function ResourcesPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Resources" title="A reading path, then a reference library">
-        Start with the core sources, one short assignment per session. The session page tells you
-        exactly what to read and when to stop. Expand to the full catalog when you have a specific
-        question; finishing every linked course is not required.
+      <PageHeader eyebrow="Resources" title="Tutorials, courses and original sources">
+        Explore different explanations, follow a practical tutorial or check the original guidance.
+        Each session suggests a starting excerpt and links additional reading. The full library is
+        here whenever you want to go deeper.
       </PageHeader>
 
       <label className="mb-4 flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm font-medium dark:border-indigo-800 dark:bg-indigo-950">
@@ -112,7 +112,7 @@ export function ResourcesPage() {
           checked={coreOnly}
           onChange={(e) => setCoreOnly(e.target.checked)}
         />
-        Core course sources only
+        Suggested starting sources only
       </label>
 
       <Card className="mb-4">

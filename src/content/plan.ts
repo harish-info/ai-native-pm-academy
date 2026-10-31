@@ -91,7 +91,7 @@ export const planWeeks: PlanWeek[] = [
       { kind: 'lesson', id: 's8' },
       {
         kind: 'prep',
-        text: 'Start recruiting people who fit your chosen case. Aim for five, with three as the minimum for the learning exercise. Ask for 30 minutes, explain the prototype and agree consent before taking notes.',
+        text: 'Start recruiting people who experience the problem you chose. Aim for five, with three as the minimum for the learning exercise. Ask for 30 minutes, explain the prototype and agree consent before taking notes.',
         minutes: 15,
       },
       weeklyReview(2),

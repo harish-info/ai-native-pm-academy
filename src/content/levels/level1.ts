@@ -6,7 +6,7 @@ export const level1: Level = {
   title: 'AI foundations',
   theme: 'Learn how the tools work, give them context and check what they say',
   summary:
-    'Start a fictional quarter as the PM on {{name}}, {{product}}. Learn how assistants use context, compare their output, check a research answer and build a pitch page. Your context file and fact sheet carry into the rest of the course. Start with a free assistant account; tool availability and usage limits vary.',
+    'Start from the work you do as a PM. Learn how assistants use context, compare their output, check a research answer and build a pitch page. Choose your own product context, using public information and fictional practice data. Your context file and fact sheet carry into the rest of the course. Start with a free assistant account; tool availability and usage limits vary.',
   outcomes: [
     'Explain tokens, the context window, reasoning models and the difference between a chat and an agent in language a risk officer or executive understands.',
     'Compare two models or settings on a real PM task with explicit criteria, and record the date and settings.',
@@ -34,7 +34,7 @@ export const level1: Level = {
       mentorReview: 'optional',
       goal: 'Explain in plain language how a model produces an answer, what it can and cannot see, and how a chat differs from an agent, then compare two models or settings on one real PM task.',
       whyItMatters:
-        'Day one as the PM on {{name}}. Before you use the assistant for anything that matters, you need to know what it actually is. Every AI conversation in a product team eventually reaches risk, legal or an engineering lead. A PM who can explain tokens, context windows and hallucination in two minutes makes better calls about what to automate, and earns credibility in those rooms.',
+        'Before you use an assistant for anything that matters in your PM work, you need to know what it actually is. Product teams need a shared understanding of its limits. A PM who can explain tokens, context windows and hallucination in two minutes makes better calls about what to automate and what to check.',
       learn: [
         {
           heading: 'Next-token prediction, at enormous scale',
@@ -102,13 +102,13 @@ export const level1: Level = {
       ],
       task: {
         summary:
-          'Build a mental model of how models work, write it down as your own glossary, and compare two models or settings on one real PM task for {{name}}.',
+          'Build a mental model of how models work, write it down as your own glossary, and compare two models or settings on one real PM task for your product.',
         steps: [
-          'Create a private folder on your own computer called `{{slug}}-notes/`, not in a shared drive. Every Level 1 file goes here; in Session 5 it moves into your workspace. Files are plain Markdown: `#` for headings, `-` for bullets, `**bold**`, saved with a `.md` ending from any text editor.',
+          'Create a private folder on your own computer called `learning-notes/`, not in a shared drive. Every Level 1 file goes here; in Session 5 it moves into your workspace. Files are plain Markdown: `#` for headings, `-` for bullets, `**bold**`, saved with a `.md` ending from any text editor.',
           'Watch the short 3Blue1Brown explainer. The longer capabilities course is optional; use the worked example and decision check here before the practical task.',
           'Write `glossary.md` in your own words: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (one line: retrieval-augmented generation, fetching documents into the context before answering). One or two sentences each, plus one example that surprised you.',
           "See a tool at work: ask Claude a question that needs this week's news with web search switched off, then on. Note which answer used a tool and how you could tell.",
-          'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for {{user}} about this problem: {{opportunity}}." Run it in two models or two settings, each in a fresh chat: Claude with extended thinking on and off, two Claude models if your plan offers them, or Claude and ChatGPT. Record the model names, settings and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
+          'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for [target users] about [specific problem]." Replace the brackets with a context you know. Run it in two models or two settings, each in a fresh chat: Claude with extended thinking on and off, two Claude models if your plan offers them, or Claude and ChatGPT. Record the model names, settings and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
           'Score both outputs from 1 to 5 on factual accuracy, constraint following, usefulness and honesty about uncertainty. Quote the sentence behind any low score.',
           'Rerun the same request once in the same model and note how much the answer changes.',
           'Write `model-comparison.md`: the date, what you compared (models or products), the scores, the variation you saw, and which you would use for this kind of task and why.',
@@ -137,7 +137,7 @@ Rules:
         '`model-comparison.md`: one task, two models or settings, four criteria, scores with quoted evidence, and a note on variation.',
         'A short note on what changed when web search was switched on.',
       ],
-      artifact: '`glossary.md` and `model-comparison.md` in your private `{{slug}}-notes/` folder.',
+      artifact: '`glossary.md` and `model-comparison.md` in your private `learning-notes/` folder.',
       verification: [
         'You scored both outputs before reading any AI critique of them.',
         'Your explanation of a context window and of an agent makes sense read aloud to someone non-technical.',
@@ -178,9 +178,9 @@ Rules:
       competencies: ['prompting-context', 'ai-fundamentals'],
       xp: 100,
       mentorReview: 'recommended',
-      goal: 'Write a one-page `product-context.md` for {{name}}, use it as project knowledge in a Claude Project, and decide with the 4Ds which parts of your quarter to delegate.',
+      goal: 'Write a one-page `product-context.md` for your product, use it as project knowledge in a Claude Project, and decide with the 4Ds which parts of your quarter to delegate.',
       whyItMatters:
-        'Your manager wants a competitor summary by Friday. You ask Claude and get back a page that could describe any product in the category, because the model knows nothing about {{name}}. The fix is not cleverer wording. It is giving the model what a new colleague would need: the product, the users, the constraints and the material. That file is the seed of every knowledge base you build in this course.',
+        'Your manager wants a competitor summary by Friday. You ask Claude and get back a page that could describe any product in the category, because the model knows nothing about your product. The fix is not cleverer wording. It is giving the model what a new colleague would need: the product, the users, the constraints and the material. That file is the seed of every knowledge base you build in this course.',
       learn: [
         {
           heading: 'Why the first draft was generic',
@@ -213,7 +213,7 @@ Rules:
         {
           heading: 'One page of product context',
           paragraphs: [
-            '`product-context.md` is a single page that tells any assistant what it needs to know about {{name}}. Keep it short: context rot applies to your own files too. Write "Unknown" where you do not know something, instead of a plausible guess, and list where each fact came from.',
+            '`product-context.md` is a single page that tells any assistant what it needs to know about your product. Keep it short: context rot applies to your own files too. Write "Unknown" where you do not know something, instead of a plausible guess, and list where each fact came from.',
             'In a **Claude Project**, files in project knowledge and the project instructions are available to every chat in that project, so you stop pasting the same background every time. In Session 5 the same file sits at the top of your workspace, and in Level 5 it grows into a personal and a team knowledge base.',
           ],
           bullets: [
@@ -260,31 +260,31 @@ Rules:
         summary:
           'Compare a baseline brief, a role phrase and a grounded brief. Write product-context.md, use it in a Project or paste it into a fresh chat, and decide what you will delegate.',
         steps: [
-          'In a fresh chat with no context, ask: "Write a one-page competitor summary for {{name}}." Save the answer as `summary-v0.md`.',
+          'Choose a public product or workflow you understand. In a fresh chat with no background brief, ask: "Write a one-page competitor summary for [product or workflow]." Replace the brackets with its name, without adding private context. Save the answer as `summary-v0.md`.',
           'In another fresh chat, ask the same thing but open with a role phrase such as "You are a world-class strategy consultant" and add "think step by step". Save it as `summary-v0b.md` and note in one line how much it differs from v0.',
-          'Open the case study page in the academy. Using it and anything else public you know, write `product-context.md` in your own words with the six headings from this lesson. Keep it to one page and write "Unknown" instead of guessing.',
-          'Create a Claude Project called {{name}}. Add `product-context.md` to project knowledge and write four to six lines of project instructions: who the outputs are for, the format you usually want, and "say what is missing instead of guessing". If your plan does not offer Projects, paste the file at the top of each fresh chat instead.',
-          'Collect public product pages for three to five competitors (the shipped products linked on the case study page are a good start). Run the agent prompt below in the Project and save the answer as `summary-v1.md`. Keep it: Session 3 fact-checks it.',
+          'Choose a product, service or internal workflow you understand. Use public information and fictional practice data, without employer or customer details. Write `product-context.md` in your own words with the six headings from this lesson. Keep it to one page and write "Unknown" instead of guessing.',
+          'Create a Claude Project called "PM workspace". Add `product-context.md` to project knowledge and write four to six lines of project instructions: who the outputs are for, the format you usually want, and "say what is missing instead of guessing". If your plan does not offer Projects, paste the file at the top of each fresh chat instead.',
+          'Collect public pages for three to five competitors or alternative ways of doing the job. Run the agent prompt below in the Project and save the answer as `summary-v1.md`. Keep it: Session 3 fact-checks it.',
           'Read the "Gaps and assumptions" list in v1. Update `product-context.md` yourself where you can answer a gap; add the rest under Open decisions.',
-          'Write `delegation-audit.md`: ten tasks from your quarter on {{name}} (for example competitor research, interview synthesis, a PRD draft, a stakeholder update, a prioritisation call). For each, record the decision (delegate with spot checks, draft with AI and edit, or keep), the context it needs, what you will check and who owns the result.',
+          'Write `delegation-audit.md`: ten tasks from your PM role, such as competitor research, interview synthesis, a PRD draft, a stakeholder update or a prioritisation call. For each, record the decision (delegate with spot checks, draft with AI and edit, or keep), the context it needs, what you will check and who owns the result.',
         ],
       },
       agentPrompt: {
         tool: 'Claude',
         where:
-          'A chat inside your {{name}} Claude Project, with product-context.md in project knowledge',
-        text: `Goal: a one-page competitor summary for {{name}} that I will bring to my manager on Friday.
+          'A chat inside your PM workspace Project, with product-context.md in project knowledge',
+        text: `Goal: a one-page competitor summary for my product that I will bring to my manager on Friday.
 
 Context: product-context.md in this project describes the product, its users, constraints and open decisions. Use it to judge what matters about each competitor.
 
-Audience: my manager and two engineers. They know {{name}} well; they do not know the competitors.
+Audience: my manager and two engineers. They know my product well; they do not know the competitors.
 
 Material: the competitor pages below. Use only this material and the context file.
 [paste the names, URLs and the relevant text of three to five competitor pages]
 
 What good looks like:
-- A table with the columns: competitor, what it offers {{user}}, how it handles the problem "{{opportunity}}", where it hands off to a person, source URL.
-- Three implications for {{name}}, each naming the line in product-context.md it relies on.
+- A table with the columns: competitor, what it offers my target users, how it addresses the user problem in product-context.md, where it hands off to a person, source URL.
+- Three implications for my product, each naming the line in product-context.md it relies on.
 - A section "Gaps and assumptions": anything you needed but could not find in the material or the context file. Do not fill gaps with guesses.
 
 Constraints: under 400 words plus the table, plain language. Mark any statement the material does not support as "unverified".
@@ -297,7 +297,7 @@ Done when: every table row has a source URL and every implication names the cont
         '`delegation-audit.md`: ten tasks, each with a decision, the context it needs, what you check and who owns it.',
       ],
       artifact:
-        '`product-context.md` and `delegation-audit.md`, plus a {{name}} Claude Project with the context file as project knowledge.',
+        '`product-context.md` and `delegation-audit.md`, plus a Claude Project named PM workspace with the context file as project knowledge.',
       verification: [
         '`product-context.md` fits on one page and every fact has a source or is marked Unknown.',
         'You can point to which supplied facts changed v1, and distinguish specific wording from better-supported claims.',
@@ -399,7 +399,7 @@ Done when: every table row has a source URL and every implication names the cont
         summary:
           'Research one real question about your market with Claude, build a claim-by-claim verification table, and turn it into `fact-sheet.md`.',
         steps: [
-          'Write a research question with publicly verifiable answers, built from your v1 summary. A good one: "How common is the problem \'{{opportunity}}\' among {{user}} in my country, and what do the main competitors offer for it today?"',
+          'Write a research question with publicly verifiable answers, built from your v1 summary. For example: "What public evidence describes [specific problem] for [user group] in [market], and what alternatives exist today?" Replace the brackets; if prevalence data is unavailable, record that gap.',
           'Adapt the research brief below: question, geography, time window, required source types and output format.',
           'Run it in Claude with web search on (or Research, if your plan has it). Run it a second time in a fresh chat. Save both answers.',
           'Extract the ten most material claims from both answers and from `summary-v1.md` into a table: claim, cited source, label, your evidence link, date of source.',
@@ -412,13 +412,13 @@ Done when: every table row has a source URL and every implication names the cont
       },
       agentPrompt: {
         tool: 'Claude with web search or Research',
-        where: 'A fresh chat in your {{name}} Project, with web search switched on',
+        where: 'A fresh chat in your PM workspace Project, with web search switched on',
         text: `Research question: [your question]
 
 Scope:
 - Geography: [country or region]
 - Time window: sources published in the last 24 months, unless a foundational source is older
-- Audience: a product manager preparing a short internal fact sheet for {{name}}
+- Audience: a product manager preparing a short internal fact sheet for my product
 
 Source requirements:
 - Prefer primary sources: regulators, national statistics offices, peer-reviewed studies, and official company pages for what a company says it offers.
@@ -481,7 +481,7 @@ Rules:
       practicalProof: true,
       goal: 'Turn your feature idea into a live, shareable pitch page built from `product-context.md` and `fact-sheet.md`, improved one change at a time, and labelled honestly as a prototype.',
       whyItMatters:
-        'You have an idea for {{name}}: users keep saying some version of "{{opportunity}}". The old move was a two-page memo nobody reads. The new move is a working page in an afternoon that people can click, react to and argue with. A PM who can show instead of tell gets better feedback, sooner.',
+        'You have a feature idea and a problem hypothesis in product-context.md. A prototype can make the idea easier to discuss, but it does not establish that users have the problem. A simple pitch page helps people inspect the proposed flow and challenge its assumptions. Use it when interaction is the question; keep a short written argument for decisions the interface cannot show.',
       learn: [
         {
           heading: 'Demos before memos',
@@ -493,7 +493,7 @@ Rules:
         {
           heading: 'Feed it context, then change one thing at a time',
           paragraphs: [
-            'Start from the files you already have. Building inside your {{name}} Project means `product-context.md` is already in context; attach `fact-sheet.md` so the page uses only checked facts. Say what the page is for, who will see it and what each section must contain.',
+            'Start from the files you already have. Building inside your PM workspace Project means `product-context.md` is already in context; attach `fact-sheet.md` so the page uses only checked facts. Say what the page is for, who will see it and what each section must contain.',
             'Then iterate in small steps. Ask for one change per message and check the result before the next. A request that changes five things at once makes it impossible to tell which change broke the layout. Artifacts keep earlier versions, so you can step back. When the chat gets long, start a fresh one with the current version and your context files: context rot applies here too.',
           ],
         },
@@ -548,7 +548,7 @@ Rules:
           'Build a one-page pitch as an artifact, observe one reader, and make a deliberate revision that addresses what you learned. Record what the page cannot prove.',
         steps: [
           'Start `pitch-notes.md` with a five-line brief: who it is for, the problem in their words, the idea in one sentence, the one verified fact from `fact-sheet.md` that makes the case, and what you want a reader to do next.',
-          'Open a fresh chat in your {{name}} Project, attach `fact-sheet.md`, and run the agent prompt below.',
+          'Open a fresh chat in your PM workspace Project, attach `fact-sheet.md`, and run the agent prompt below.',
           'Use the page on your phone and on a laptop. Write down the three things you most want to change.',
           'Make changes one at a time to address the problems you observed. Log the reason, expected improvement and actual result in pitch-notes.md. Keep a before and after comparison for at least one meaningful revision; do not invent extra changes to meet a quota.',
           'Check every number on the mocked screen by hand, confirm the prototype banner is visible, and check that no warning relies on colour alone.',
@@ -560,18 +560,18 @@ Rules:
       agentPrompt: {
         tool: 'Claude',
         where:
-          'A fresh chat in your {{name}} Project, with product-context.md in project knowledge and fact-sheet.md attached',
-        text: `Build a one-page pitch for a feature idea for {{name}}, as an interactive artifact that works on a phone and on a laptop.
+          'A fresh chat in your PM workspace Project, with product-context.md in project knowledge and fact-sheet.md attached',
+        text: `Build a one-page pitch for a feature idea for my product, as an interactive artifact that works on a phone and on a laptop.
 
 Context: product-context.md describes the product and its constraints. fact-sheet.md holds checked facts. Use only facts marked Verified in fact-sheet.md, and show the source under each one.
 
-The idea: [your one-sentence idea for the problem "{{opportunity}}"]
+The idea: [paste your one-sentence feature hypothesis and the problem from product-context.md]
 Who will see it: my manager and two engineers, in a two-minute look.
 
 Sections, in order:
-1. The problem, as {{user}} would describe it, with one or two verified facts.
+1. The problem, as my target users would describe it, with one or two verified facts.
 2. The idea in one sentence.
-3. A mocked screen of {{mvpScreen}}, filled with {{data}} that you invent. Show {{deterministic}}, worked out from that data, and make sure every number is consistent.
+3. A mocked screen of the main task screen, filled with fictional records and events that you invent. Show totals, dates and status rules, worked out from that data, and make sure every number is consistent.
 4. What we would test first, and what result would make us stop.
 5. A banner at the top: "Prototype. Fictional data. Not a product commitment."
 
@@ -892,7 +892,7 @@ Build the whole page now. After that I will ask for one change at a time: change
   project: {
     title: 'Pitch pack',
     brief:
-      'Bring Level 1 together into the pack you would take to your first conversation about the {{name}} feature idea: the live pitch page, `fact-sheet.md` and `product-context.md`. Then walk your mentor through it, including one AI answer you rejected during the level and why. The context file is the seed of your Level 2 workspace, so make it something you would trust an agent to read.',
+      'Bring Level 1 together into the pack you would take to your first conversation about your product feature idea: the live pitch page, `fact-sheet.md` and `product-context.md`. Then walk your mentor through it, including one AI answer you rejected during the level and why. The context file is the seed of your Level 2 workspace, so make it something you would trust an agent to read.',
     deliverables: [
       {
         id: 'context-file',
@@ -935,5 +935,5 @@ Build the whole page now. After that I will ask for one change at a time: change
     xp: 300,
   },
   nextRecommendation:
-    'Move to Level 2. From here the course uses Claude Code, which needs a paid Claude Pro plan. In Session 5 your `{{slug}}-notes/` files move into a workspace, and `product-context.md` becomes the first thing every agent reads.',
+    'Move to Level 2. From here the course uses Claude Code, which needs a paid Claude Pro plan. In Session 5 your `learning-notes/` files move into a workspace, and `product-context.md` becomes the first thing every agent reads.',
 }

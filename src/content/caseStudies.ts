@@ -1,14 +1,11 @@
 import type { LevelId } from './types'
 
-// The case study is the product the learner takes through a full product cycle in Levels 3 to 5:
-// discovery, a PRD, prototypes, a built and deployed v1, an agent with approvals and evals, and a
-// launch and team plan. The learner picks one. Lesson text is written once with {{tokens}} that are
-// filled from the chosen case, so every case gets the same stages, artifacts and quality bar.
-// All three use fictional data only.
+// Optional domain examples, displayed only in the Case study area. Choosing one never changes
+// lessons, workspace paths or assessments. All three use fictional data only.
 
 export type CaseStudyId = 'moneypilot' | 'steady' | 'triage'
 
-/** Strings substituted into lesson text as {{key}}. Each must read naturally mid-sentence. */
+/** Domain details displayed in the optional case-study brief. */
 export interface CaseTokens {
   /** Product name, for example "MoneyPilot". */
   name: string
@@ -78,7 +75,7 @@ export interface CaseStudy {
   /** Domain rules the agent and the PRD must respect. Not legal advice. */
   domainRisks: string[]
   screens: CaseScreen[]
-  /** Suggested questions with the behavior an eval should check. Used in Sessions 18 and 19. */
+  /** Example questions with the behavior an eval should check. */
   agentQuestions: AgentQuestion[]
   /** Session 11 taste exercise: what to look at before designing. */
   critique: string

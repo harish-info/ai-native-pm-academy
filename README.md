@@ -2,7 +2,7 @@
 
 A practical course for working product managers, from AI foundations to directing agents, evaluating AI features and leading a team pilot. It is a static site, and progress stays in the learner's browser.
 
-Choose MoneyPilot (consumer finance), Steady (personal goals) or Triage (support operations). Carry one fictional case through all five levels. No coding background is required. Claude Code is used from Level 2 onward and needs suitable paid access. A mentor or peer can help with reviews; where onboarding records a mentor, Level 4 and 5 project badges require their assessment.
+Apply the methods to a product, service or workflow you understand. Lessons address your PM role and use neutral names such as `workspace/` and `team-kb/`. The optional case-study area contains three fictional domain examples; viewing one never changes the curriculum. No coding background is required. Claude Code is used from Level 2 onward and needs suitable paid access. A mentor or peer can help with reviews; where onboarding records a mentor, Level 4 and 5 project badges require their assessment.
 
 ## Curriculum
 
@@ -28,7 +28,7 @@ Choose MoneyPilot (consumer finance), Steady (personal goals) or Triage (support
   - The next level opens once the previous level's required sessions are done, so a project can finish while the next level starts.
   - Mastering a level needs its required sessions, a quiz score of at least 80% and a project that passes a 4-dimension rubric.
   - Badges are kept once earned.
-- Session pages: decision brief, recall, explanation, worked example, interactive decision practice, one focused source, task, optional agent prompt, verification and evidence.
+- Session pages: decision brief, recall, visible sources and tutorials, explanation, worked example, interactive decision practice, task, optional agent prompt, verification and evidence. One suggested excerpt helps with pacing; additional sources stay visible.
 - A session completes only with evidence: checklist, reflection, an artifact reference and logged time.
 - Dashboard, progress charts (each with a table view), weekly rhythm (no daily streaks), timeline and achievements.
 - Workspace for notes and reflections, a study plan with a mentor role every week, a case-study hub and a PM workspace guide.
@@ -71,7 +71,7 @@ The base path comes from the Pages configuration at build time. Locally it defau
 - **Backups:** clearing site data or switching browsers loses progress, so the dashboard reminds the learner to export a backup. Backups are plain JSON.
   - `*academy-backup*.json` is gitignored.
   - Do not commit learner data.
-- **Sensitive data:** sessions repeatedly tell the learner not to paste employer, customer or banking data into AI tools. MoneyPilot uses fictional data only, in every level.
+- **Sensitive data:** use public sources and fictional practice data throughout. Do not paste employer or customer information into the course tools.
 
 ## Project structure
 

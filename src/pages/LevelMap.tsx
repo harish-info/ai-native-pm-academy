@@ -3,6 +3,7 @@ import { formatDate, formatMinutes } from '../domain/dates'
 import { useLevelStatuses } from '../state/hooks'
 import { LevelArt } from '../ui/art'
 import { courseArc } from '../content/teaching'
+import { inline } from '../ui/RichText'
 import {
   Card,
   CheckIcon,
@@ -66,7 +67,7 @@ export function LevelMap() {
                       {courseArc[s.level.id].question}
                     </p>
                     <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
-                      {s.level.summary}
+                      {inline(s.level.summary)}
                     </p>
                     <p className="mt-3 text-sm">
                       <span className="font-semibold">Evidence you keep: </span>

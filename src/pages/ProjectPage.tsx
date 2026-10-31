@@ -28,7 +28,6 @@ import {
   Pill,
   linkClass,
 } from '../ui/primitives'
-import { CaseStudyStrip } from '../ui/CaseStudyStrip'
 
 function ensureProject(draft: LearnerData, key: string): ProjectRecord {
   const existing = draft.projects[key]
@@ -132,11 +131,7 @@ function ProjectPageView({ levelId }: { levelId: number }) {
         {PROJECT_MIN_DIMENSION}.
       </PageHeader>
 
-      {level.id >= 3 && (
-        <div className="mb-6">
-          <CaseStudyStrip levelId={level.id} />
-        </div>
-      )}
+      {level.id >= 3 && <div className="mb-6"></div>}
 
       {locked && (
         <Card className="mb-6 border-amber-300 dark:border-amber-800">
@@ -222,7 +217,7 @@ function ProjectPageView({ levelId }: { levelId: number }) {
           <p className="mb-4 text-sm text-stone-600 dark:text-stone-400">
             Score honestly against the descriptors.{' '}
             {result.requireMentor
-              ? 'This project counts only with a mentor assessment: it ships code and an agent that handles money, where self-scoring is least reliable.'
+              ? 'This project counts only with a mentor assessment: it rehearses consequential product and agent decisions, where an independent review matters.'
               : 'A mentor assessment is worth asking for: it is the closest thing to a real review.'}
           </p>
           <fieldset disabled={locked} className="mb-5">

@@ -6,9 +6,8 @@ import { formatDate, formatMinutes } from '../domain/dates'
 import { QUIZ_PASS_RATIO } from '../domain/progress'
 import { useLevelStatus } from '../state/hooks'
 import { useStore } from '../state/store'
-import { CaseStudyStrip } from '../ui/CaseStudyStrip'
 import { LevelArt } from '../ui/art'
-import { Bullets } from '../ui/RichText'
+import { Bullets, inline } from '../ui/RichText'
 import {
   Card,
   CheckIcon,
@@ -53,15 +52,11 @@ export function LevelDetail() {
           </div>
         }
       >
-        {level.summary}
+        {inline(level.summary)}
       </PageHeader>
 
-      <CaseStudyStrip levelId={level.id} />
-      <div className="session-brief rounded-2xl border border-indigo-200 p-5 dark:border-indigo-800">
-        <p className="text-xs font-semibold tracking-widest uppercase">
-          The question for this level
-        </p>
-        <h2 className="mt-2 text-xl font-semibold">{courseArc[id].question}</h2>
+      <div className="border-b border-stone-200 pb-5 dark:border-stone-800">
+        <h2 className="text-xl font-semibold">{courseArc[id].question}</h2>
         <p className="mt-2 text-sm">
           <strong>Evidence you keep: </strong>
           {courseArc[id].proof}
@@ -131,7 +126,9 @@ export function LevelDetail() {
                     <Link to={`/lessons/${l.id}`} className={stretchedLink}>
                       Session {l.number}: {l.title}
                     </Link>
-                    <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{l.goal}</p>
+                    <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+                      {inline(l.goal)}
+                    </p>
                     <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
                       <Pill>{formatMinutes(l.minutes)}</Pill>
                       <Pill>{l.difficulty}</Pill>

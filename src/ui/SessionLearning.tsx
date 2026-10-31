@@ -5,25 +5,17 @@ import { Card, cx } from './primitives'
 
 export function SessionBrief({ guide, minutes }: { guide: LessonGuide; minutes: number }) {
   return (
-    <section className="session-brief rounded-2xl border border-indigo-200 p-5 sm:p-7 dark:border-indigo-800">
-      <p className="text-xs font-semibold tracking-widest text-indigo-800 uppercase dark:text-indigo-200">
-        The decision you are learning to make
+    <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 dark:border-stone-800 dark:bg-stone-900">
+      <h2 className="max-w-2xl text-xl font-semibold tracking-tight">{guide.decision}</h2>
+      <p className="mt-3 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+        <strong>Bring: </strong>
+        {guide.bring}
       </p>
-      <h2 className="mt-2 max-w-2xl text-2xl font-semibold tracking-tight">{guide.decision}</h2>
-      <div className="mt-5 grid gap-4 text-sm sm:grid-cols-[minmax(0,1fr)_auto]">
-        <div>
-          <p className="font-semibold">Bring to this session</p>
-          <p className="mt-1 text-stone-700 dark:text-stone-300">{guide.bring}</p>
-        </div>
-        <div className="sm:border-l sm:border-indigo-200 sm:pl-5 dark:sm:border-indigo-800">
-          <p className="font-semibold">{minutes} min planning budget</p>
-          <p className="mt-1 text-stone-700 dark:text-stone-300">
-            {guide.reading.minutes} min external reading
-          </p>
-          <p className="text-stone-700 dark:text-stone-300">Then learn here, practise and check.</p>
-        </div>
-      </div>
-      <details className="mt-5 border-t border-indigo-200 pt-4 dark:border-indigo-800">
+      <p className="mt-2 text-xs text-stone-600 dark:text-stone-400">
+        Plan about {minutes} minutes, including {guide.reading.minutes} minutes for the assigned
+        source.
+      </p>
+      <details className="mt-4">
         <summary className="cursor-pointer font-medium">
           Before you start: recall and compare
         </summary>
@@ -43,7 +35,7 @@ export function SessionBrief({ guide, minutes }: { guide: LessonGuide; minutes: 
 
 export function WorkedExample({ guide }: { guide: LessonGuide }) {
   return (
-    <section className="worked-example overflow-hidden rounded-2xl border border-stone-300 dark:border-stone-700">
+    <section className="overflow-hidden rounded-2xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900">
       <div className="border-b border-stone-200 px-5 py-4 sm:px-7 dark:border-stone-700">
         <p className="text-xs font-semibold tracking-widest text-stone-600 uppercase dark:text-stone-300">
           Worked example · invented for practice
@@ -52,24 +44,24 @@ export function WorkedExample({ guide }: { guide: LessonGuide }) {
       </div>
       <div className="space-y-5 p-5 sm:p-7">
         <Paragraphs items={[guide.example.situation]} />
-        <dl className="space-y-4">
+        <ol className="space-y-4">
           {guide.example.reasoning.map((step, i) => (
-            <div key={step.label} className="grid grid-cols-[1.5rem_minmax(0,1fr)] gap-3">
+            <li key={step.label} className="grid grid-cols-[1.5rem_minmax(0,1fr)] gap-3">
               <span
                 aria-hidden
-                className="pt-0.5 font-mono text-xs text-indigo-700 dark:text-indigo-300"
+                className="pt-0.5 font-mono text-xs text-stone-500 dark:text-stone-400"
               >
                 {String(i + 1).padStart(2, '0')}
               </span>
               <div>
-                <dt className="font-semibold">{step.label}</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+                <h3 className="font-semibold">{step.label}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
                   {inline(step.text)}
-                </dd>
+                </p>
               </div>
-            </div>
+            </li>
           ))}
-        </dl>
+        </ol>
         <p className="border-t border-stone-200 pt-4 text-sm font-medium leading-relaxed dark:border-stone-700">
           {guide.example.takeaway}
         </p>
@@ -83,7 +75,7 @@ export function DecisionPractice({ guide }: { guide: LessonGuide }) {
   const selected = guide.checkpoint.options.find((o) => o.id === choice)
   const correct = choice === guide.checkpoint.correct
   return (
-    <Card className="decision-practice">
+    <Card>
       <p className="mb-2 text-xs font-semibold tracking-widest text-stone-600 uppercase dark:text-stone-300">
         Your call · practise before asking AI
       </p>
@@ -109,9 +101,12 @@ export function DecisionPractice({ guide }: { guide: LessonGuide }) {
           </button>
         ))}
       </div>
-      <div aria-live="polite" aria-atomic="true" className="mt-4">
+      <div aria-live="polite" aria-atomic="true" className="mt-4 min-h-24">
         {selected ? (
-          <div className="rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800">
+          <div
+            key={choice}
+            className="animate-pop-in rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800"
+          >
             <p className="mb-1 font-semibold">
               {correct ? 'Good judgement' : 'Reconsider the evidence'}
             </p>

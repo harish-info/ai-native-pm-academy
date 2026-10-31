@@ -17,7 +17,7 @@ export const level3: Level = {
   badge: {
     name: 'Evidence-Led PM',
     description:
-      'Took {{name}} from "why this, why now?" to a reviewed PRD, with every claim traced to a source, a conversation or a number you checked yourself.',
+      'Took your product from "why this, why now?" to a reviewed PRD, with every claim traced to a source, a conversation or a number you checked yourself.',
   },
   lessons: [
     {
@@ -32,7 +32,7 @@ export const level3: Level = {
       competencies: ['product-discovery', 'ai-leadership'],
       xp: 125,
       mentorReview: 'optional',
-      goal: 'Answer leadership\'s "why this, why now?" for your {{name}} feature with a one-page strategy kernel and a market map, where every claim is cited and its source saved under `sources/` in your workspace.',
+      goal: 'Answer leadership\'s "why this, why now?" for your product feature with a one-page strategy kernel and a market map, where every claim is cited and its source saved under `sources/` in your workspace.',
       whyItMatters:
         'Leadership asks why this problem deserves attention now. Investigate competitors, existing workarounds and what people actually struggle with. An attractive market map can still contain wrong claims; keep a source trail and distinguish observation, vendor assertion and inference.',
       learn: [
@@ -40,7 +40,7 @@ export const level3: Level = {
           heading: 'Outcomes over features',
           paragraphs: [
             'An outcome-led approach gives teams problems to solve rather than only feature lists. Strategy chooses which problems matter; discovery tests assumptions before committing delivery effort. The optional SVPG article describes one version of this operating model.',
-            'Your idea is a feature until you can say which outcome it moves. For {{name}} a candidate outcome is "{{outcome}}". Leadership does not fund "an assistant". It funds a credible path to an outcome the business cares about, with a reason it has to happen now.',
+            'Your idea is a feature until you can say which outcome it moves. Choose an outcome relevant to your context, such as successful task completion, time to resolution or qualified conversion. State the population and measurement window. Leadership needs a credible path to a useful outcome, with a reason it matters now.',
           ],
         },
         {
@@ -71,8 +71,8 @@ export const level3: Level = {
         {
           heading: 'What actually differentiates AI products',
           paragraphs: [
-            "AI assistants differ less in their chat interface than in their data access, their action rights and their trust model. For each competitor, capture who it is for, what data it uses, what it can do (answer, summarise, plan, act on the user's behalf), what needs explicit approval, and where it draws the line on {{risk}}. Not every competitor is an AI product: the strongest one is often a spreadsheet, a reminder or a habit, so include the workarounds too.",
-            'The three banking examples in the resources show strategic plays that apply in any market: a product that deepens its own customer relationship, depth in one niche such as business customers, and a firm that tests carefully with its regulator before scaling. Ask which play {{name}} could credibly make, and write the answer into your guiding policy.',
+            "AI assistants differ less in their chat interface than in their data access, their action rights and their trust model. For each competitor, capture who it is for, what data it uses, what it can do (answer, summarise, plan, act on the user's behalf), what needs explicit approval, and where it draws the line on sensitive data, consequential decisions and external actions. Not every competitor is an AI product: the strongest one is often a spreadsheet, a reminder or a habit, so include the workarounds too.",
+            'Compare strategic choices: deepen an existing workflow, serve an underserved segment, remove a costly handoff or make a recurring decision easier. Choose using your evidence and constraints. Your strongest alternative may be a process change rather than a new AI feature.',
           ],
         },
       ],
@@ -82,39 +82,24 @@ export const level3: Level = {
           why: 'A short introduction to outcomes over features: teams own problems, strategy picks which ones, discovery comes before delivery.',
           required: true,
         },
-        {
-          resourceId: 'revolut-air',
-          why: 'A shipped assistant from a consumer neobank, and a worked example of reading a vendor page: note its scope, action rights and hand-offs, and label them as vendor claims.',
-          required: false,
-        },
-        {
-          resourceId: 'monzo-fca-live-testing',
-          why: 'A UK bank on what it learned testing an AI savings assistant with the regulator; a firm describing its own work.',
-          required: false,
-        },
-        {
-          resourceId: 'starling-assistant',
-          why: 'An agentic assistant for business banking customers, useful for comparing action rights and a niche strategy.',
-          required: false,
-        },
       ],
       task: {
         summary:
-          'Run competitor research in three parallel Claude Code sessions with every claim saved as a source note, build a market map from those notes only, and write a one-page strategy kernel for your {{name}} feature.',
+          'Run competitor research in three parallel Claude Code sessions with every claim saved as a source note, build a market map from those notes only, and write a one-page strategy kernel for your product feature.',
         steps: [
-          'In your `{{slug}}-workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `CLAUDE.md`: "Market research notes live in sources/market/, one file per source page."',
+          'In your `workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `CLAUDE.md`: "Market research notes live in sources/market/, one file per source page."',
           'Open three Claude Code sessions in the workspace at the same time (in the desktop app, start a new session for each). Paste the agent prompt below into each one, choosing a different slice each time: AI assistants that compete, established apps and incumbents, and workarounds and the customer voice.',
-          'Draft the diagnosis in strategy/strategy-kernel.md in your own words. Use the Google PAIR core excerpt to compare AI with a simpler baseline. Mark what you do not yet know about {{user}}.',
+          'Draft the diagnosis in strategy/strategy-kernel.md in your own words. Use the Google PAIR core excerpt to compare AI with a simpler baseline. Mark what you do not yet know about your target users.',
           'When the sessions finish, pick five source notes at random and open their links yourself. Does the page say what the note says? Correct any wrong label and note what was wrong. If more than one of the five is wrong, check the rest of that slice too.',
-          'Start a fresh session and ask Claude to build `strategy/market-map.md` from `sources/market/` only: a table with product, who it is for, data it uses, what it can do, what needs approval, where it stops on {{risk}}, evidence label and source file for every row; a section of 5 to 8 unmet needs written as customer problems, each with supporting quotes and links; and a section "Claims to check or drop".',
+          'Start a fresh session and ask Claude to build `strategy/market-map.md` from `sources/market/` only: a table with product, who it is for, data it uses, what it can do, what needs approval, where it stops on sensitive data, consequential decisions and external actions, evidence label and source file for every row; a section of 5 to 8 unmet needs written as customer problems, each with supporting quotes and links; and a section "Claims to check or drop".',
           'Finish `strategy/strategy-kernel.md` on one page: the outcome, the diagnosis, the guiding policy, three to five coherent actions, and what you will not do. Every claim in the diagnosis links to a source note or a market map row.',
           'In a fresh session, ask Claude to read the kernel and the market map and find the weakest link: a claim with no source, an action that does not follow from the policy, or a competitor fact the kernel depends on that is only a vendor claim. You decide what to change.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'Three sessions at once in your {{slug}}-workspace/ folder, one per research slice',
-        text: `Read CLAUDE.md and product-context.md first. I am the PM on {{name}}, {{product}}, and I am mapping the market for a feature that helps {{user}} with this problem: "{{opportunity}}".
+        where: 'Three sessions at once in your workspace/ folder, one per research slice',
+        text: `Read CLAUDE.md and product-context.md first. I am mapping competitors and workarounds for the user problem defined there. Confirm the target users, problem and market from that file. Ask me if any are missing; do not substitute a generic or fictional problem.
 
 Your slice: [AI ASSISTANTS THAT COMPETE | ESTABLISHED APPS AND INCUMBENTS | WORKAROUNDS AND THE CUSTOMER VOICE]. Stay inside this slice; other sessions are covering the rest.
 
@@ -145,7 +130,7 @@ Rules:
       ],
       reflectionPrompts: [
         'Which claim looked most credible but turned out to be unsupported or only a vendor claim?',
-        'Which strategic play would suit {{name}}, and what in your diagnosis makes you think so?',
+        'Which strategic play would suit your product, and what in your diagnosis makes you think so?',
         'What would a sceptical director say is missing from your kernel?',
       ],
       checklist: [
@@ -176,19 +161,19 @@ Rules:
       mentorReview: 'recommended',
       practicalProof: true,
       safetyCritical: true,
-      goal: 'Interview five real people who match {{user}} and test your prototype with them, handle their personal data properly, synthesise by hand before comparing with Claude, and turn the evidence into an Opportunity Solution Tree. The conversations happen in the week before this session; the session time covers the guide, synthesis and tree.',
+      goal: 'Interview five real people who match your target users and test your prototype with them, handle their personal data properly, synthesise by hand before comparing with Claude, and turn the evidence into an Opportunity Solution Tree. The conversations happen in the week before this session; the session time covers the guide, synthesis and tree.',
       whyItMatters:
-        'The strategy says the opportunity is real on paper. Now you put the prototype in front of five people who live with the problem, and the riskiest assumption of your quarter either survives or it does not. AI makes it trivially easy to generate personas, transcripts and "user insights" that no person ever said. Teams that confuse those with research ship confident products for imaginary customers. In a bank, and in any product near {{risk}}, a decision trail built on real evidence is also what holds up when risk, compliance or leadership asks why you built something.',
+        'Your strategy contains assumptions about people and their work. Now you investigate them with people who actually experience the problem. AI can generate plausible personas, transcripts and insights that nobody ever said. Keep those separate from observations, and preserve a decision trail so another person can assess why you chose the next step.',
       learn: [
         {
           heading: 'One session, two halves',
           paragraphs: [
             'Each conversation takes about 30 minutes. Spend the first half on a story-based interview and the second half on a usability test of your prototype. Interview first, so the prototype does not shape what people tell you about their real lives.',
-            'In the interview, ask about specific past behaviour, not hypothetical futures. "Tell me about the last time this went wrong for you" beats "Would you use {{name}}?" People are poor at predicting their own behaviour and very good at telling stories about what actually happened.',
-            'In the usability test, give a realistic task built on the core job, such as answering "{{question}}" with the prototype on its live link. Ask them to think aloud, stay quiet, and watch where they hesitate. Record observations, not opinions: "P3 tapped the total three times expecting details" is useful, "P3 liked it" is not. Finish with a comprehension question about a figure on screen: "what does this number mean, and what happens next?" If people cannot answer it, the design is not working, however much they liked it.',
+            'In the interview, ask about specific past behaviour, not hypothetical futures. "Tell me about the last time this went wrong for you" beats "Would you use your product?" People are poor at predicting their own behaviour and very good at telling stories about what actually happened.',
+            'In the usability test, give a realistic task built on the core job, such as answering "What needs my attention, and why?" with the prototype on its live link. Ask them to think aloud, stay quiet, and watch where they hesitate. Record observations, not opinions: "P3 tapped the total three times expecting details" is useful, "P3 liked it" is not. Finish with a comprehension question about a figure on screen: "what does this number mean, and what happens next?" If people cannot answer it, the design is not working, however much they liked it.',
           ],
           bullets: [
-            'Start with context: their week, the tools they use and where the job {{name}} targets fits in.',
+            'Start with context: their week, the tools they use and where the job your product targets fits in.',
             'Ask for the last specific time, then dig: what did you do, what did you check, how did it feel?',
             'Listen for workarounds such as spreadsheets, sticky notes, reminders or copied templates. Workarounds signal real pain.',
             'Do not pitch. Show the prototype only in the second half, and say it is a prototype with fictional data.',
@@ -197,7 +182,7 @@ Rules:
         {
           heading: 'Consent and personal data',
           paragraphs: [
-            'Interview notes are personal data, and in a product near {{risk}} people may tell you things they would not tell their bank. Treat the notes with the care you would want for your own.',
+            'Interview notes can contain personal and confidential information, whatever the product domain. Explain how the notes will be used, collect only what you need, remove identifying details and follow the participant’s consent and your organization’s policy.',
           ],
           bullets: [
             'Ask for consent to take notes, separately for any recording or transcription, and separately again before any AI tool processes the notes. Name the tool: "I will use Claude to help summarise my notes, without your name."',
@@ -226,7 +211,7 @@ Rules:
           heading: 'Opportunity Solution Trees',
           paragraphs: [
             "Teresa Torres's Opportunity Solution Tree connects a desired outcome at the top, to opportunities (customer needs, pain points and desires) in the middle, to solutions and assumption tests at the bottom. Its power is discipline: every solution must hang off an opportunity, and every opportunity should trace back to something a real person said or did.",
-            'Take the outcome from your strategy kernel. Opportunities come from your conversations, for example "{{opportunity}}". Your prototype is one solution under one opportunity, not the root of the tree. Put two or three alternatives next to it, and compare them by how well they address the target opportunity, not by how exciting they look in a demo.',
+            'Take the outcome from your strategy kernel. Opportunities come from specific difficulties observed in your conversations. Preserve the situation and consequence, such as a person having to reopen several tools to finish one task; do not replace evidence with a generic complaint. Your prototype is one solution under one opportunity, not the root of the tree. Put two or three alternatives next to it, and compare them by how well they address the target opportunity, not by how exciting they look in a demo.',
           ],
         },
       ],
@@ -259,9 +244,9 @@ Rules:
       ],
       task: {
         summary:
-          'Recruit five real people, run a 30-minute interview and usability test with each, synthesise by hand, compare with Claude, and build an Opportunity Solution Tree for {{name}}.',
+          'Recruit five real people, run a 30-minute interview and usability test with each, synthesise by hand, compare with Claude, and build an Opportunity Solution Tree for your product.',
         steps: [
-          'A week before this session (late in Level 2 is a good time), recruit five people who match {{user}} as closely as you can. Ask friends, former colleagues and your wider network for introductions. Three is the minimum. Explain it is a 30-minute learning conversation, and ask for consent to take notes and to use Claude on the notes without their name.',
+          'A week before this session (late in Level 2 is a good time), recruit five people who match your target users as closely as you can. Ask friends, former colleagues and your wider network for introductions. Three is the minimum. Explain it is a 30-minute learning conversation, and ask for consent to take notes and to use Claude on the notes without their name.',
           'Write `discovery/discussion-guide.md` in two halves: interview questions about the last time, then 3 to 5 usability tasks and one comprehension question. Ask Claude to point out every leading or hypothetical question; you decide the fixes.',
           'Run the conversations on a video call with the prototype on its live link. Take notes, or transcribe only with explicit consent. Use P1 to P5 from the start.',
           'Within a day of each conversation, write a one-page snapshot in `discovery/interview-notes/P1.md` and so on: key quotes, behaviours, workarounds, emotions, where they hesitated in the prototype, and their answer to the comprehension question. Delete any recording once the snapshot is written.',
@@ -275,7 +260,7 @@ Rules:
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'A fresh session in your {{slug}}-workspace/ folder',
+        where: 'A fresh session in your workspace/ folder',
         text: `Read the snapshots in discovery/interview-notes/ (P1.md to P5.md). Do not open discovery/synthesis.md: I wrote my own synthesis first and want an independent one to compare it with.
 
 Names and identifying details are already removed. Do not try to work out who anyone is.
@@ -345,7 +330,7 @@ Rules:
       competencies: ['product-discovery', 'technical-collaboration'],
       xp: 125,
       mentorReview: 'optional',
-      goal: 'Generate a fictional {{name}} event log with Claude Code, analyse the funnel, check the key numbers yourself, estimate the impact of your opportunity as a range, and turn everything you know into an evidence-weighted list of bets.',
+      goal: 'Generate a fictional event log for your product with Claude Code, analyse the funnel, check the key numbers yourself, estimate the impact of your opportunity as a range, and turn everything you know into an evidence-weighted list of bets.',
       whyItMatters:
         'Your interviews say people struggle with one thing. Then an engineer asks how many people actually hit it, and how often. Interviews tell you why; data tells you how many, and when the two disagree you have found the most useful moment in discovery. Claude Code can generate a dataset, analyse it and draft a priority list in an hour. It can also produce a confident chart from a wrong denominator. The skill is knowing which numbers to check by hand before anyone makes a decision on them.',
       learn: [
@@ -359,7 +344,7 @@ Rules:
         {
           heading: 'Fictional data, real method',
           paragraphs: [
-            'You will not use real customer data in this course. Instead, Claude Code writes and runs a small script that generates a realistic event log for {{name}}. Two details make it useful. A **fixed random seed** means the script produces exactly the same file every time, so your numbers can be reproduced. **Stated assumptions** in a separate file record every rate and drop-off the script used, so you can later check whether the analysis recovered them.',
+            'You will not use real customer data in this course. Instead, Claude Code writes and runs a small script that generates a realistic event log for your product. Two details make it useful. A **fixed random seed** means the script produces exactly the same file every time, so your numbers can be reproduced. **Stated assumptions** in a separate file record every rate and drop-off the script used, so you can later check whether the analysis recovered them.',
             "You do not need to read the script. You do need to check its output, the same way you would check an analyst's work. Analytics tools now offer connectors that let Claude query live product data directly, and at work that is how you would do this, within your company's data rules. Here a CSV keeps it free and private.",
           ],
         },
@@ -378,7 +363,7 @@ Rules:
         {
           heading: 'Impact as a range, prioritisation by evidence',
           paragraphs: [
-            'An impact estimate multiplies reach (how many users face the problem), the change you expect in their behaviour, and the value of that change to the outcome, here {{outcomeMetric}}. Give it as a low, base and high range, and label every input with where it came from: the data, the interviews, the market map, or an assumption. A single precise number invites false confidence.',
+            'Make the units explicit in your impact estimate. For example, eligible users multiplied by an expected absolute increase in completion rate gives additional successful completions, not a new percentage. If you translate those completions into time or money, state and justify that conversion separately. Give it as a low, base and high range, and label every input with where it came from: the data, the interviews, the market map, or an assumption. A single precise number invites false confidence.',
             'RICE, from Intercom, scores each idea by reach, impact, confidence and effort, so competing ideas can be compared on evidence rather than on who argues loudest. Confidence is where your evidence enters: high when data and several interviews agree, medium when only interviews support it, low for a single source or an assumption. Effort comes from engineering; your mentor can give a T-shirt size. Treat the score as the start of a conversation, and override it with a written reason when something it cannot see matters, such as a regulatory risk.',
             'One more test shows what your judgment adds: ask Claude to rank the same list knowing only the item names. Where its blind ranking differs from yours is where your evidence is doing the work.',
           ],
@@ -403,7 +388,7 @@ Rules:
       ],
       task: {
         summary:
-          'Generate and analyse a fictional {{name}} event log, verify two numbers by hand, write an impact estimate as a range, and build an evidence-weighted list of bets.',
+          'Generate and analyse a fictional event log for your product, verify two numbers by hand, write an impact estimate as a range, and build an evidence-weighted list of bets.',
         steps: [
           'Create a `data/` folder in your workspace and run the agent prompt below in Claude Code. It generates `data/events.csv`, `data/assumptions.md` and a sealed `data/planted.md`. Do not open `planted.md` yet.',
           'Open `events.csv` in a spreadsheet and skim it: do the event names match your prototype, and does it cover about 2,000 users over 8 weeks?',
@@ -418,12 +403,12 @@ Rules:
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your {{slug}}-workspace/ folder',
-        text: `Read product-context.md and discovery/ost.md so the data fits {{name}}, {{product}}.
+        where: 'In your workspace/ folder',
+        text: `Read product-context.md and discovery/ost.md. Use my chosen workflow, target users and definitions to generate fictional practice data. Ask about any missing definition rather than choosing a product domain for me.
 
 Write and run a small script that generates data/events.csv: a fictional event log for 2,000 fictional users over 8 weeks.
 - Columns: user_id, timestamp, event, plus one or two properties useful for segments, such as platform or signup week.
-- Events that match my prototype's screens, for example opening the app, viewing {{mvpScreen}}, opening a detail, completing the main action and returning the next week. List the event names you chose in your reply.
+- Events that match my prototype's screens, for example opening the app, viewing the main task screen, opening a detail, completing the main action and returning the next week. List the event names you chose in your reply.
 - Use a fixed random seed so the file is identical every time the script runs.
 - Include realistic mess: users who sign up and never return, some duplicate events, a few missing values.
 
@@ -481,7 +466,7 @@ Use no real people, companies or figures.`,
       practicalProof: true,
       goal: 'Write `prd/prd.md` for your top bet by letting Claude Code interview you and read your workspace, then improve it through an engineer, a designer and a risk review in fresh sessions, so one document can brief people and coding agents alike.',
       whyItMatters:
-        'A PRD briefs people and agents who were not in your conversations. State the behaviour, evidence and open questions so they do not have to infer your decisions. Where the domain involves {{risk}}, bring the relevant risk partner into the decision before delivery.',
+        'A PRD briefs people and agents who were not in your conversations. State the behaviour, evidence and open questions so they do not have to infer your decisions. Where the domain involves sensitive data, consequential decisions and external actions, bring the relevant risk partner into the decision before delivery.',
       learn: [
         {
           heading: 'One document, two kinds of reader',
@@ -496,7 +481,7 @@ Use no real people, companies or figures.`,
             'This layout works for most features. Keep each section short, and spend your effort where agents and engineers most often go wrong: behavioural contracts, acceptance criteria and edge cases.',
           ],
           bullets: [
-            '**Definitions**: every term that could be read two ways, such as each figure behind {{deterministic}}.',
+            '**Definitions**: every term that could be read two ways, such as each figure behind totals, dates and status rules.',
             '**Problem statement** and **current state**: what is wrong today and how people cope, with links to your synthesis and data.',
             '**Goals and outcome metrics**: the outcome from your kernel and how you will measure it.',
             '**Target users**: who this is for, and who it is not for.',
@@ -525,9 +510,9 @@ Use no real people, companies or figures.`,
         {
           heading: 'Behavioural contracts, acceptance criteria and evals',
           paragraphs: [
-            'Behavioural contracts are the rules that hold in every state. Addy Osmani suggests three tiers: always, ask first, never. For {{name}}: always show the figures an answer used; {{deterministic}} always come from tested code, never from the model; ask first before preparing {{action}}; never carry it out without {{approval}}.',
-            'Acceptance criteria turn the contracts and flows into checks with concrete inputs and an observable result, and an engineer or agent can turn each one directly into a test. Group them by phase, so phase 1 can ship on its own. Cover the edge cases: empty data, a missing or uncertain value, something on a boundary date, a limit reached. For example: {{acceptance}}',
-            'The eval plan is short at this stage: ten or so example questions such as "{{question}}", what a good answer contains, what must never happen, and who reviews the results. Level 4 turns it into a full eval set. Tracking names the events and the three metrics: a leading indicator ({{leading}}), an outcome ({{outcomeMetric}}) and a guardrail ({{guardrail}}).',
+            'Behavioural contracts are the rules that hold in every state. Addy Osmani suggests three tiers: always, ask first, never. For your product: always show the figures an answer used; totals, dates and status rules always come from tested code, never from the model; ask first before preparing a change to a record or an outgoing message; never carry it out without the approval and permission checks defined for that action.',
+            'Acceptance criteria turn the contracts and flows into checks with concrete inputs and an observable result, and an engineer or agent can turn each one directly into a test. Group them by phase, so phase 1 can ship on its own. Cover the edge cases: empty data, a missing or uncertain value, something on a boundary date, a limit reached. For example: Given 12 records with 3 marked as needing review, when the user filters to Needs review, then exactly 3 records appear and removing the filter restores all 12.',
+            'The eval plan is short at this stage: ten or so example questions such as "What needs my attention, and why?", what a good answer contains, what must never happen, and who reviews the results. Level 4 turns it into a full eval set. Tracking names the events and the three metrics: a leading indicator (the share of eligible users who try the core workflow), an outcome (the share of eligible users who complete the target task successfully) and a guardrail (errors, support demand or unwanted actions per completed task).',
           ],
         },
         {
@@ -541,7 +526,7 @@ Use no real people, companies or figures.`,
           heading: 'Drafted by interview, reviewed from three angles',
           paragraphs: [
             'You learned the interview technique in Session 6: the agent asks you one question at a time until it could write the spec itself. Here Claude Code also reads your workspace, so its questions target what your synthesis, tree and bets leave undecided. Those questions are decisions, and they are cheaper to make now than after a build.',
-            'Then review the draft from three angles, each in a fresh session so no review inherits the assumptions of the drafting session. The engineer asks whether every behaviour is buildable and testable without guessing. The designer asks whether every flow and state is covered and matches the prototype. The risk partner asks what could harm a customer or the company in {{risk}}. You decide what to accept; the reviews only advise.',
+            'Then review the draft from three angles, each in a fresh session so no review inherits the assumptions of the drafting session. The engineer asks whether every behaviour is buildable and testable without guessing. The designer asks whether every flow and state is covered and matches the prototype. The risk reviewer asks where sensitive data, consequential decisions or external actions could cause harm, and which safeguards the chosen domain needs. You decide what to accept; the reviews only advise.',
             'Last, test agent-readiness directly: a fresh session that sees only `prd/prd.md` lists every question it would need answered before building. When that list is short, the PRD is ready.',
           ],
         },
@@ -584,18 +569,18 @@ Use no real people, companies or figures.`,
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your {{slug}}-workspace/ folder',
+        where: 'In your workspace/ folder',
         text: `Read CLAUDE.md, product-context.md, strategy/strategy-kernel.md, strategy/market-map.md, discovery/synthesis.md, discovery/ost.md, data/funnel-analysis.md, data/impact-estimate.md and data/prioritised-bets.md.
 
 I want a PRD for the top bet in prioritised-bets.md. Before writing anything, interview me one question at a time until you could write it yourself. Start with the decisions these files leave open. Wait for my answer each time.
 
-Then write prd/prd.md with these sections: Definitions; Problem statement; Current state; Goals and outcome metrics; Target users; Solution overview; Scope (in scope in priority order, out of scope, non-goals we decided against and why); User flows (primary and alternative); Behavioural contracts (always, ask first, never); Data and constraints; Acceptance criteria per phase, in Given, when, then form and as concrete as this example: "{{acceptance}}"; Tracking (events, and leading, outcome and guardrail metrics); Eval plan for the AI parts; Open questions; Prototype link.
+Then write prd/prd.md with these sections: Definitions; Problem statement; Current state; Goals and outcome metrics; Target users; Solution overview; Scope (in scope in priority order, out of scope, non-goals we decided against and why); User flows (primary and alternative); Behavioural contracts (always, ask first, never); Data and constraints; Acceptance criteria per phase, in Given, when, then form and as concrete as this example: "Given 12 records with 3 marked as needing review, when the user filters to Needs review, then exactly 3 records appear and removing the filter restores all 12."; Tracking (events, and leading, outcome and guardrail metrics); Eval plan for the AI parts; Open questions; Prototype link.
 
 Rules:
 - No invention. Every statement traces to a file above or to my answers. If something is missing, add it to Open questions instead of guessing.
 - Where two sources disagree, say so in the text and add an open question.
 - Describe behaviour, not implementation: what the user sees and what the system must always or never do. Leave technology choices to engineering.
-- {{deterministic}} are calculated by tested code, never by the model. State this in the behavioural contracts.
+- totals, dates and status rules are calculated by tested code, never by the model. State this in the behavioural contracts.
 - Finish your reply with the five places an engineer or a coding agent is most likely to misread this PRD.`,
       },
       expectedOutput: [
@@ -610,7 +595,7 @@ Rules:
         'Every acceptance criterion has concrete inputs and an observable expected result.',
         'Nothing in the PRD is a guess: each gap or contradiction appears under Open questions.',
         'The PRD compares a simpler alternative, states an operating cost and latency budget, and records engineering questions without imposing an unsupported technology choice.',
-        'The behavioural contracts state that {{deterministic}} come from tested code and that {{action}} never happens without approval.',
+        'The behavioural contracts state that totals, dates and status rules come from tested code and that a change to a record or an outgoing message never happens without approval.',
         'If your usability tests involved no real people, the PRD states that real-user validation is outstanding.',
       ],
       reflectionPrompts: [
@@ -648,7 +633,7 @@ Rules:
       summary:
         'Theme 200 free-text survey answers with Claude Code, then spot-check its themes, counts and quotes against your own reading. Practise trusting AI synthesis at scale only as far as you can check it.',
       steps: [
-        'Ask Claude Code to generate `data/survey.csv`: 200 fictional free-text answers from {{user}} to one open question about how they try to {{coreJob}}. Ask it to use a fixed seed, plant five to seven themes in known proportions, and record them only in `data/survey-key.md`. Do not open the key yet.',
+        'Ask Claude Code to generate `data/survey.csv`: 200 fictional free-text answers from your target users to one open question about how they try to complete their main task. Ask it to use a fixed seed, plant five to seven themes in known proportions, and record them only in `data/survey-key.md`. Do not open the key yet.',
         'Read 40 random answers yourself and write your own themes with a tally for each.',
         'In a fresh session, ask Claude to label every row with a theme in a new column, then count the labels with a script. For each theme: a definition, the count and three verbatim quotes with their row numbers.',
         'Spot-check: re-read 20 random rows and judge whether each label is right, and confirm every quoted row number really contains that quote.',
@@ -686,7 +671,7 @@ Rules:
       summary:
         'Run your Session 10 discussion guide with five synthetic participants, synthesise their answers the same way, and compare them with your real interviews. Find out exactly where synthetic users help and where they mislead.',
       steps: [
-        'Ask Claude to play five synthetic participants who match {{user}}, each in a fresh session, answering your discussion guide from `discovery/discussion-guide.md`. Save each as `discovery/synthetic/S1.md` and so on, labeled PRACTICE at the top.',
+        'Ask Claude to play five synthetic participants who match your target users, each in a fresh session, answering your discussion guide from `discovery/discussion-guide.md`. Save each as `discovery/synthetic/S1.md` and so on, labeled PRACTICE at the top.',
         'Run the Session 10 synthesis prompt on the synthetic notes, writing to `discovery/synthetic/synthesis.md`.',
         'Compare with your real synthesis in a table: opportunities in both, only in the real interviews, and only in the synthetic ones.',
         'Note the tone: how agreeable, rational and generic were the synthetic answers? Did any mention a workaround, an emotion or a surprising behaviour?',
@@ -718,7 +703,7 @@ Rules:
       id: 'q3-1',
       competency: 'ai-leadership',
       prompt:
-        'Leadership asks why {{name}} should build your feature now. Which statement is a diagnosis in the strategy-kernel sense?',
+        'Leadership asks why your product should build your feature now. Which statement is a diagnosis in the strategy-kernel sense?',
       options: [
         {
           id: 'a',
@@ -726,7 +711,7 @@ Rules:
         },
         {
           id: 'b',
-          text: 'Users tell us "{{opportunity}}", and none of the products they use answer it when it matters.',
+          text: 'Users tell us "I cannot complete this task with the tools I use today", and none of the products they use answer it when it matters.',
         },
         {
           id: 'c',
@@ -922,7 +907,7 @@ Rules:
         },
         {
           id: 'd',
-          text: '{{acceptance}}',
+          text: 'Given 12 records with 3 marked as needing review, when the user filters to Needs review, then exactly 3 records appear and removing the filter restores all 12.',
         },
       ],
       correct: 'd',
@@ -1016,7 +1001,7 @@ Rules:
         'Evidence and assumptions are visibly separated, synthetic output is never presented as research, contradictions and gaps are flagged rather than smoothed over, and the PRD has explicit non-goals.',
     },
     privacyNote:
-      'Use {{data}} and fictional analytics only. Keep interview notes pseudonymised in your private workspace, never in a public repository, delete recordings once notes are written, and do not use any real customer data from an employer.',
+      'Use fictional records and events and fictional analytics only. Keep interview notes pseudonymised in your private workspace, never in a public repository, delete recordings once notes are written, and do not use any real customer data from an employer.',
     minutes: 300,
     xp: 350,
   },
