@@ -1013,7 +1013,7 @@ Use only my evidence and mark anything else as an assumption. Present this as on
       ],
       correct: 'c',
       explanation:
-        'For this course and the stated regulated setting, retain the human-approval baseline unless the accountable policy owners authorise a different process. Small changes and self-review reduce review load, with agent checks as evidence and human depth scaled to risk. An agent approval alone does not establish that a change is eligible for autonomous release.',
+        'In this course, and in a regulated setting, a person approves every production change unless the people who own the review policy decide otherwise. Small changes and self-review cut the load; agent checks give the reviewer evidence, and the depth of human review follows the risk. An agent approving a change does not make it safe to release without a person.',
     },
     {
       id: 'q5-10',

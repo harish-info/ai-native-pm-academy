@@ -1025,7 +1025,7 @@ Done when: the outline is written, and you have read the titles alone in order a
   project: {
     title: 'Launch review',
     brief:
-      'Present the launch review for your product live: what you handed to engineering, what your stand-in eval established and did not establish, what the simulated experiment showed and what you recommend next. Your mentor plays the executive and asks the hard questions. You should be able to defend every number and every guardrail, and say what you did not test.',
+      'Present the launch review for your product live: what you handed to engineering, what your stand-in eval tested and what it did not, what the simulated experiment showed and what you recommend next. Your mentor plays the executive and asks the hard questions. You should be able to defend every number and every guardrail, and say what you did not test.',
     deliverables: [
       {
         id: 'handoff',

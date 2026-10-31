@@ -502,7 +502,7 @@ Rules:
       practicalProof: true,
       goal: 'Turn your feature idea into a live, shareable pitch page built from `product-context.md` and `fact-sheet.md`, improved one change at a time, and labelled honestly as a prototype.',
       whyItMatters:
-        'You have a feature idea and a problem hypothesis in product-context.md. A prototype can make the idea easier to discuss, but it does not establish that users have the problem. A simple pitch page helps people inspect the proposed flow and challenge its assumptions. Use it when interaction is the question; keep a short written argument for decisions the interface cannot show.',
+        'You have a feature idea and a problem hypothesis in product-context.md. A clickable pitch page makes the idea easy to discuss: people can click through the flow and poke holes in it. It cannot tell you whether users actually have the problem; Level 3 checks that. Build a page when the question is how it works, and write a few sentences for the decisions a screen cannot show, such as why this problem first.',
       learn: [
         {
           heading: 'Why build a page instead of writing a memo',
