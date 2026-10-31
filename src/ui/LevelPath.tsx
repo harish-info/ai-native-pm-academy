@@ -36,7 +36,7 @@ export function LevelPath({ statuses, currentId }: { statuses: LevelStatus[]; cu
                   'group flex h-full flex-col items-center rounded-xl border px-2 pt-3 pb-3 text-center transition-[border-color,box-shadow,transform] duration-200 hover:shadow-[0_6px_20px_-8px_rgb(0_0_0/0.18)] motion-safe:hover:-translate-y-0.5',
                   isCurrent
                     ? 'border-indigo-400 bg-white ring-1 ring-indigo-400 dark:border-indigo-500 dark:bg-stone-900 dark:ring-indigo-500'
-                    : 'border-stone-200 bg-white hover:border-indigo-300 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-indigo-700',
+                    : 'border-stone-300 bg-white shadow-[0_1px_0_var(--n-300)] hover:border-indigo-400 dark:border-stone-700 dark:bg-stone-900 dark:shadow-[0_1px_0_var(--n-700)] dark:hover:border-indigo-500',
                 )}
               >
                 <LevelArt
@@ -57,7 +57,7 @@ export function LevelPath({ statuses, currentId }: { statuses: LevelStatus[]; cu
                       : isCurrent
                         ? 'bg-mark-200 text-stone-900 dark:bg-mark-900 dark:text-mark-200'
                         : s.unlocked
-                          ? 'bg-indigo-50 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-200'
+                          ? 'bg-white text-stone-800 ring-1 ring-stone-300 ring-inset dark:bg-stone-900 dark:text-stone-200 dark:ring-stone-700'
                           : 'bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-300',
                   )}
                 >

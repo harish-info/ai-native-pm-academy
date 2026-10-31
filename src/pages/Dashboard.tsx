@@ -33,6 +33,7 @@ import {
   Chevron,
   cx,
   interactiveCard,
+  staticTile,
   EmptyState,
   LinkButton,
   PageHeader,
@@ -187,8 +188,8 @@ function ThisWeekInPlan({ today }: { today: string }) {
                 <li
                   key={i}
                   className={cx(
-                    'flex items-center gap-3 rounded-lg border border-stone-200 bg-white p-3 dark:border-stone-800 dark:bg-stone-900',
-                    v.to && interactiveCard,
+                    'flex items-center gap-3 rounded-lg p-3',
+                    v.to ? interactiveCard : staticTile,
                   )}
                 >
                   <span
@@ -288,7 +289,7 @@ export function Dashboard() {
         </Card>
       )}
 
-      <Card className={cx(interactiveCard, 'dot-grid overflow-hidden p-0')}>
+      <Card interactive className="dot-grid overflow-hidden p-0">
         <div className="flex flex-col gap-6 bg-gradient-to-r from-white via-white/95 to-white/40 p-6 sm:flex-row sm:items-center sm:p-8 dark:from-stone-900 dark:via-stone-900/95 dark:to-stone-900/40">
           <div className="min-w-0 flex-1">
             <p className="font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
@@ -311,7 +312,7 @@ export function Dashboard() {
             </div>
           </div>
           <div className="flex items-center gap-5 sm:flex-col sm:items-center sm:gap-2">
-            <div className="relative">
+            <div className="relative hidden sm:block">
               <ProgressRing
                 value={levelDone}
                 max={levelUnits}

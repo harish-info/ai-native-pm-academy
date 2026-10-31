@@ -13,7 +13,7 @@ import {
   CheckIcon,
   Chevron,
   cx,
-  interactiveCard,
+  staticTile,
   stretchedLink,
   EmptyState,
   LinkButton,
@@ -48,7 +48,7 @@ export function LevelDetail() {
                 <CheckIcon className="h-3 w-3" /> Mastered
               </Pill>
             )}
-            <LevelArt levelId={level.id} className="h-24 w-24" />
+            <LevelArt levelId={level.id} className="hidden h-24 w-24 sm:block" />
           </div>
         }
       >
@@ -84,10 +84,10 @@ export function LevelDetail() {
         </Card>
       )}
 
-      <Card>
+      <section className={cx(staticTile, 'rounded-2xl p-5')}>
         <h2 className="mb-2 text-lg font-semibold">By the end of this level you can</h2>
         <Bullets items={level.outcomes} />
-      </Card>
+      </section>
 
       <section aria-labelledby="sessions-heading">
         <h2 id="sessions-heading" className="mb-3 text-lg font-semibold">
@@ -98,7 +98,7 @@ export function LevelDetail() {
             const rec = data.lessons[l.id]
             const done = !!rec?.completedAt
             return (
-              <Card as="li" key={l.id} className={cx(interactiveCard, 'p-4')}>
+              <Card as="li" key={l.id} interactive className="p-4">
                 <div className="flex items-start gap-4">
                   <span
                     aria-hidden
@@ -210,7 +210,7 @@ export function LevelDetail() {
       </div>
 
       {milestone && (
-        <Card>
+        <section className={cx(staticTile, 'rounded-2xl p-5')}>
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-lg font-semibold">Wiki milestone: {milestone.name}</h2>
             <Link to="/wiki" className={`text-sm ${linkClass}`}>
@@ -221,7 +221,7 @@ export function LevelDetail() {
           <div className="mt-3">
             <Bullets items={milestone.checks} />
           </div>
-        </Card>
+        </section>
       )}
 
       <section aria-labelledby="challenges-heading">
@@ -235,7 +235,7 @@ export function LevelDetail() {
         {level.challenges.length ? (
           <ul className="grid gap-3 md:grid-cols-2">
             {level.challenges.map((c) => (
-              <Card as="li" key={c.id} className={cx(interactiveCard, 'p-4')}>
+              <Card as="li" key={c.id} interactive className="p-4">
                 <div className="flex items-start justify-between gap-3">
                   <Link to={`/challenges/${c.id}`} className={stretchedLink}>
                     {c.title}

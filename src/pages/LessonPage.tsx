@@ -18,7 +18,6 @@ import {
   PageHeader,
   Pill,
   cx,
-  interactiveCard,
   linkClass,
   stretchedLink,
 } from '../ui/primitives'
@@ -77,12 +76,12 @@ function StepRail({ done }: { done: boolean }) {
   }
   return (
     <nav aria-label="Session steps" className="lg:sticky lg:top-8">
-      <ol className="relative -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 lg:mx-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:px-0">
+      <ol className="relative -mx-1 flex snap-x snap-mandatory scroll-px-1 gap-2 overflow-x-auto px-1 pb-1 [mask-image:linear-gradient(to_right,#000_82%,transparent)] lg:mx-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:px-0 lg:[mask-image:none]">
         {steps.map((step, i) => {
           const isActive = active === step.id
           const complete = done && step.id === 'verify'
           return (
-            <li key={step.id} className="shrink-0">
+            <li key={step.id} className="shrink-0 snap-start">
               <button
                 type="button"
                 onClick={() => go(step.id)}
@@ -302,7 +301,7 @@ export function LessonPage() {
 
       <nav aria-label="Session navigation" className="grid gap-3 sm:grid-cols-2">
         {prev ? (
-          <Card as="div" className={cx(interactiveCard, 'flex items-center gap-3 p-4')}>
+          <Card as="div" interactive className="flex items-center gap-3 p-4">
             <Chevron className="rotate-180 motion-safe:group-hover:-translate-x-0.5" />
             <span className="min-w-0">
               <span className="block font-mono text-xs tracking-[0.12em] text-stone-600 uppercase dark:text-stone-400">
@@ -317,10 +316,7 @@ export function LessonPage() {
           <span />
         )}
         {next && (
-          <Card
-            as="div"
-            className={cx(interactiveCard, 'flex items-center justify-end gap-3 p-4 text-right')}
-          >
+          <Card as="div" interactive className="flex items-center justify-end gap-3 p-4 text-right">
             <span className="min-w-0">
               <span className="block font-mono text-xs tracking-[0.12em] text-stone-600 uppercase dark:text-stone-400">
                 Next

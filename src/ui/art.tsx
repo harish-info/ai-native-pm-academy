@@ -2,7 +2,7 @@
 // tokens, so every piece follows light, dark and the palette without extra assets.
 import type { CSSProperties, JSX, ReactNode } from 'react'
 import type { LevelId } from '../content/types'
-import { cx } from './primitives'
+import { cx } from './cx'
 
 const ink = 'stroke-stone-800 dark:stroke-stone-200'
 const blob = 'fill-indigo-50 dark:fill-indigo-950'

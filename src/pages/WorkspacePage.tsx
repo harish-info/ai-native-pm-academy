@@ -530,7 +530,7 @@ export function WorkspacePage() {
           (data.bookmarks.length === 0 ? (
             <EmptyState title="No bookmarks yet">
               Bookmark resources from the{' '}
-              <Link to="/resources" className="text-indigo-700 underline dark:text-indigo-300">
+              <Link to="/resources" className={linkClass}>
                 resource catalog
               </Link>{' '}
               or session pages.

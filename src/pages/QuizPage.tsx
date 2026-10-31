@@ -21,6 +21,7 @@ import {
   PageHeader,
   Pill,
   ProgressBar,
+  staticTile,
   linkClass,
 } from '../ui/primitives'
 
@@ -86,7 +87,7 @@ function QuizSidePanel({
                           : 'border-red-500 bg-red-50 text-red-800 dark:border-red-500 dark:bg-red-950 dark:text-red-200'
                         : a
                           ? 'border-indigo-600 bg-indigo-600 text-white dark:border-indigo-400 dark:bg-indigo-400 dark:text-stone-950'
-                          : 'border-stone-300 text-stone-700 hover:border-indigo-400 dark:border-stone-600 dark:text-stone-300',
+                          : 'border-stone-300 bg-white text-stone-700 shadow-[0_1px_0_var(--n-300)] hover:border-indigo-400 hover:text-indigo-800 dark:border-stone-600 dark:bg-stone-900 dark:text-stone-300 dark:shadow-none dark:hover:text-indigo-200',
                     )}
                   >
                     {result ? (
@@ -127,14 +128,13 @@ function QuizSidePanel({
                 <li key={c} className="flex items-center gap-2">
                   <span
                     aria-hidden
-                    className={cx(
-                      'grid h-4 w-4 shrink-0 place-items-center rounded-full',
-                      done
-                        ? 'bg-emerald-600 text-white dark:bg-emerald-400 dark:text-stone-950'
-                        : 'border border-stone-300 dark:border-stone-600',
-                    )}
+                    className="grid h-4 w-4 shrink-0 place-items-center text-emerald-700 dark:text-emerald-300"
                   >
-                    {done && <CheckIcon className="h-3 w-3" />}
+                    {done ? (
+                      <CheckIcon className="h-4 w-4" />
+                    ) : (
+                      <span className="h-1.5 w-1.5 rounded-full bg-stone-400 dark:bg-stone-500" />
+                    )}
                   </span>
                   <span className={done ? '' : 'text-stone-600 dark:text-stone-400'}>
                     {competencyById[c as keyof typeof competencyById]?.name ?? c}
@@ -257,12 +257,12 @@ function QuizPageView({ levelId }: { levelId: number }) {
         as often as you like. Every answer comes with an explanation.
       </PageHeader>
 
-      <div className="mb-6 grid gap-4 sm:grid-cols-3">
-        <Card as="div">
+      <div className="mb-6 grid grid-cols-3 gap-2 sm:gap-4">
+        <div className={cx(staticTile, 'rounded-xl p-3 sm:p-4')}>
           <div className="font-mono text-[0.7rem] font-medium tracking-[0.12em] text-stone-600 uppercase dark:text-stone-400">
             Best score
           </div>
-          <div className="mt-1 text-2xl font-semibold tabular-nums">
+          <div className="mt-1 text-xl font-semibold tabular-nums sm:text-2xl">
             {best ? `${pct(best)}%` : 'None yet'}
           </div>
           {best && (
@@ -270,14 +270,16 @@ function QuizPageView({ levelId }: { levelId: number }) {
               {formatDate(best.at)}
             </div>
           )}
-        </Card>
-        <Card as="div">
+        </div>
+        <div className={cx(staticTile, 'rounded-xl p-3 sm:p-4')}>
           <div className="font-mono text-[0.7rem] font-medium tracking-[0.12em] text-stone-600 uppercase dark:text-stone-400">
             Attempts
           </div>
-          <div className="mt-1 text-2xl font-semibold tabular-nums">{attempts.length}</div>
-        </Card>
-        <Card as="div">
+          <div className="mt-1 text-xl font-semibold tabular-nums sm:text-2xl">
+            {attempts.length}
+          </div>
+        </div>
+        <div className={cx(staticTile, 'rounded-xl p-3 sm:p-4')}>
           <div className="font-mono text-[0.7rem] font-medium tracking-[0.12em] text-stone-600 uppercase dark:text-stone-400">
             Status
           </div>
@@ -291,7 +293,7 @@ function QuizPageView({ levelId }: { levelId: number }) {
               <Pill tone="amber">Not passed yet</Pill>
             )}
           </div>
-        </Card>
+        </div>
       </div>
 
       {result && (

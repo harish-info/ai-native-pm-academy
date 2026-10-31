@@ -17,9 +17,6 @@
         var dark =
           t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
         if (dark) document.documentElement.classList.add('dark')
-        // TEMP(phase3 comparison): visual direction switch, removed after the pick
-        var dir = localStorage.getItem('academy-direction')
-        if (dir) document.documentElement.dataset.direction = dir
       } catch (e) {}
     </script>
   </head>

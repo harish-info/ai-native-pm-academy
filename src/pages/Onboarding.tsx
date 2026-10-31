@@ -4,7 +4,7 @@ import { competencies } from '../content/competencies'
 import { diagnosticQuestions, profileQuestions } from '../content/onboarding'
 import { shuffled } from '../domain/shuffle'
 import { useStore } from '../state/store'
-import { Button, Card, cx, inputClass } from '../ui/primitives'
+import { Button, Card, cx, inputClass, linkClass } from '../ui/primitives'
 
 type Profile = Record<string, string | string[]>
 
@@ -115,7 +115,7 @@ export function Onboarding() {
           AI-Native PM Academy
         </Link>
         {data.onboarding && (
-          <Link to="/dashboard" className="text-sm text-stone-600 underline dark:text-stone-400">
+          <Link to="/dashboard" className={cx(linkClass, 'text-sm')}>
             Back to dashboard
           </Link>
         )}

@@ -11,7 +11,6 @@ import {
   Pill,
   ProgressBar,
   cx,
-  interactiveCard,
   stretchedLink,
 } from '../ui/primitives'
 
@@ -32,7 +31,7 @@ export function LevelMap() {
           const doneParts = s.requiredDone + (s.quiz.passed ? 1 : 0) + (s.project.passed ? 1 : 0)
           return (
             <li key={s.level.id}>
-              <Card as="div" className={interactiveCard}>
+              <Card as="div" interactive>
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <LevelArt
                     levelId={s.level.id}
