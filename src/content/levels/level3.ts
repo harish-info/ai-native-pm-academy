@@ -34,7 +34,7 @@ export const level3: Level = {
       mentorReview: 'optional',
       goal: 'Answer leadership\'s "why this, why now?" for your product feature with a one-page strategy kernel and a market map, where every claim is cited and its source saved under `sources/` in your workspace.',
       whyItMatters:
-        'Leadership asks why this problem deserves attention now. Investigate competitors, existing workarounds and what people actually struggle with. An attractive market map can still contain wrong claims; keep a source trail and distinguish observation, vendor assertion and inference.',
+        'Your manager has seen the prototype and asks: why this problem, and why now? The demo does not answer that. You need to know who else solves it, how people cope today and what they actually struggle with, with a source for every claim. One wrong competitor fact in a polished market map is enough to lose the room.',
       learn: [
         {
           heading: 'Start from the outcome, not the feature',
@@ -44,9 +44,10 @@ export const level3: Level = {
           ],
         },
         {
-          heading: 'Why deciding what to build matters more now',
+          heading: 'Your prototype is a guess, and this level checks it',
           paragraphs: [
-            'Knowing what to build is central PM work. For tasks where agents speed implementation, unresolved product choices can leave the team waiting. Augment discovery and decision preparation too: gather sourced evidence, compare alternatives and make open trade-offs visible. Faster decisions still need a sound basis.',
+            'In Level 2 you built a prototype before doing any research. That was deliberate: building is now cheap, and a working page is the fastest way to make an idea concrete. But it is still a guess. This level checks it: is the problem real, who has it, how often, and is your solution the right one?',
+            'When agents make building faster, the slow part of a team becomes deciding what to build. So use Claude for this part too: gathering sourced evidence, comparing options and laying out the trade-offs nobody has decided. Expect to change the idea. "Do not build this" is a valid answer.',
           ],
         },
         {
@@ -65,7 +66,7 @@ export const level3: Level = {
         {
           heading: 'Research in parallel sessions and save every source',
           paragraphs: [
-            'Split research into narrow slices with separate output folders. Work sequentially or in parallel if your tool and budget allow it; parallel runs do not guarantee a faster or more accurate result. Bound each slice by time and source count, then verify the material you rely on.',
+            'Split the research into narrow slices, such as competing AI assistants, established apps and how people cope today, and give each slice its own session and folder. You can run them side by side or one after another. Cap each one at a number of sources, then check the material you rely on.',
             'Every claim gets a source note: one Markdown file per page in `sources/market/`, with the link, the date you read it, the exact sentence that supports the claim and an evidence label. The market map is then built only from those notes. This is the start of a habit that runs to the end of the course: raw sources in one place, synthesis in another, and every synthesised line pointing back to where it came from.',
             'Typical research failures: citing a page that does not contain the claim, merging two products into one, describing announced features as shipped, and treating a press release as evidence of adoption. Label every claim so readers can judge it:',
           ],
