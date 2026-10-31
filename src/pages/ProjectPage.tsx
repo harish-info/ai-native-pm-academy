@@ -26,6 +26,7 @@ import {
   LockIcon,
   PageHeader,
   Pill,
+  linkClass,
 } from '../ui/primitives'
 
 function ensureProject(draft: LearnerData, key: string): ProjectRecord {
@@ -115,10 +116,7 @@ function ProjectPageView({ levelId }: { levelId: number }) {
   }
 
   const backLink = (
-    <Link
-      to={`/levels/${level.id}`}
-      className="text-sm font-medium text-indigo-700 hover:underline dark:text-indigo-300"
-    >
+    <Link to={`/levels/${level.id}`} className={`text-sm ${linkClass}`}>
       Back to Level {level.id}
     </Link>
   )

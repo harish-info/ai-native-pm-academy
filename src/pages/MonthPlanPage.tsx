@@ -17,9 +17,7 @@ import {
 import type { LearnerData } from '../storage/schema'
 import { useStore } from '../state/store'
 import { ResourceCard } from '../ui/ResourceBits'
-import { Card, CheckIcon, PageHeader, Pill, cx } from '../ui/primitives'
-
-const linkClass = 'text-indigo-700 underline-offset-2 hover:underline dark:text-indigo-300'
+import { Card, CheckIcon, PageHeader, Pill, cx, linkClass } from '../ui/primitives'
 
 function parseDay(day: string): Date {
   const [y, m, d] = day.split('-').map(Number) as [number, number, number]
@@ -120,7 +118,7 @@ function PlanItemRow({ item, data }: { item: PlanItem; data: LearnerData }) {
             </p>
           )}
           {step && step.pages.length > 0 && (
-            <p className="mt-1 text-xs text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-xs [overflow-wrap:anywhere] text-stone-600 dark:text-stone-400">
               Wiki:{' '}
               {step.pages.map((p, i) => (
                 <span key={p}>

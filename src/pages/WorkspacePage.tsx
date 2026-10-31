@@ -14,6 +14,7 @@ import {
   Pill,
   cx,
   inputClass,
+  linkClass,
 } from '../ui/primitives'
 
 type Tab = 'notes' | 'reflections' | 'goals' | 'bookmarks'
@@ -413,10 +414,7 @@ export function WorkspacePage() {
               {filteredReflections.map((r) => (
                 <Card as="li" key={r.id}>
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <Link
-                      to={r.href}
-                      className="font-semibold text-indigo-700 hover:underline dark:text-indigo-300"
-                    >
+                    <Link to={r.href} className={linkClass}>
                       {r.title}
                     </Link>
                     <span className="text-xs text-stone-500 dark:text-stone-400">
@@ -555,16 +553,13 @@ export function WorkspacePage() {
                           href={resource.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-medium text-indigo-700 hover:underline dark:text-indigo-300"
+                          className={linkClass}
                         >
                           {resource.title}
                           <span className="sr-only"> (opens in a new tab)</span>
                         </a>
                       ) : lesson ? (
-                        <Link
-                          to={`/lessons/${lesson.id}`}
-                          className="font-medium text-indigo-700 hover:underline dark:text-indigo-300"
-                        >
+                        <Link to={`/lessons/${lesson.id}`} className={linkClass}>
                           {label}
                         </Link>
                       ) : (

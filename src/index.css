@@ -2,33 +2,209 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
+@theme inline {
   --font-sans:
     'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     sans-serif;
   --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-display: var(--display-face);
+  --color-white: var(--paper);
+  --color-stone-50: var(--n-50);
+  --color-stone-100: var(--n-100);
+  --color-stone-200: var(--n-200);
+  --color-stone-300: var(--n-300);
+  --color-stone-400: var(--n-400);
+  --color-stone-500: var(--n-500);
+  --color-stone-600: var(--n-600);
+  --color-stone-700: var(--n-700);
+  --color-stone-800: var(--n-800);
+  --color-stone-900: var(--n-900);
+  --color-stone-950: var(--n-950);
+  --color-indigo-50: var(--a-50);
+  --color-indigo-100: var(--a-100);
+  --color-indigo-200: var(--a-200);
+  --color-indigo-300: var(--a-300);
+  --color-indigo-400: var(--a-400);
+  --color-indigo-500: var(--a-500);
+  --color-indigo-600: var(--a-600);
+  --color-indigo-700: var(--a-700);
+  --color-indigo-800: var(--a-800);
+  --color-indigo-900: var(--a-900);
+  --color-indigo-950: var(--a-950);
+  --color-emerald-50: var(--g-50);
+  --color-emerald-100: var(--g-100);
+  --color-emerald-200: var(--g-200);
+  --color-emerald-300: var(--g-300);
+  --color-emerald-400: var(--g-400);
+  --color-emerald-500: var(--g-500);
+  --color-emerald-600: var(--g-600);
+  --color-emerald-700: var(--g-700);
+  --color-emerald-800: var(--g-800);
+  --color-emerald-900: var(--g-900);
+  --color-emerald-950: var(--g-950);
+  --color-mark-100: var(--m-100);
+  --color-mark-200: var(--m-200);
+  --color-mark-300: var(--m-300);
+  --color-mark-400: var(--m-400);
+  --color-mark-500: var(--m-500);
+  --color-mark-900: var(--m-900);
+  --radius-xl: var(--r-xl);
+  --radius-2xl: var(--r-2xl);
+}
+
+/* Design tokens. The Tailwind stone, indigo and emerald scales are remapped to these, so every
+   page picks up the palette: stone is a cool paper and graphite neutral, indigo the ink blue used
+   for actions and links, emerald the moss used for done states, and mark the highlighter yellow
+   that marks where the learner is. */
+:root {
+  --n-50: #f5f5f0;
+  --n-100: #ebebe4;
+  --n-200: #dcdcd2;
+  --n-300: #c4c4b8;
+  --n-400: #94948a;
+  --n-500: #6a6a61;
+  --n-600: #52524b;
+  --n-700: #3f3f3a;
+  --n-800: #2c2c29;
+  --n-900: #1e1e1b;
+  --n-950: #131311;
+  --a-50: #eef1fb;
+  --a-100: #dbe2f7;
+  --a-200: #b9c7f0;
+  --a-300: #8fa5e6;
+  --a-400: #6782da;
+  --a-500: #4562c9;
+  --a-600: #2f4bb0;
+  --a-700: #273e91;
+  --a-800: #213374;
+  --a-900: #1d2b5c;
+  --a-950: #121a38;
+  --g-50: #edf5ef;
+  --g-100: #d6eadb;
+  --g-200: #add4b8;
+  --g-300: #80ba92;
+  --g-400: #519c6d;
+  --g-500: #358154;
+  --g-600: #296a44;
+  --g-700: #225538;
+  --g-800: #1d452e;
+  --g-900: #193926;
+  --g-950: #0d2116;
+  --m-100: #fff6cc;
+  --m-200: #ffec99;
+  --m-300: #ffdf5c;
+  --m-400: #f6c923;
+  --m-500: #d6a700;
+  --m-900: #4a3c08;
+  --m-hl: #ffe680;
+  --grid-dot: #d7d7cc;
+  --paper: #fdfdfa;
+  --display-face:
+    'Avenir Next', 'Segoe UI Variable Display', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+  --r-xl: 0.625rem;
+  --r-2xl: 0.875rem;
+}
+.dark {
+  --m-hl: #5a4a0f;
+  --grid-dot: #2f2f2b;
+}
+
+[data-direction='b'] {
+  --n-50: #f6f7f8;
+  --n-100: #eceef0;
+  --n-200: #dde1e5;
+  --n-300: #c4cad1;
+  --n-400: #8f98a3;
+  --n-500: #646d78;
+  --n-600: #4c545e;
+  --n-700: #3a414a;
+  --n-800: #2a3037;
+  --n-900: #1d2126;
+  --n-950: #131619;
+  --a-50: #eaf5f4;
+  --a-100: #cfe8e5;
+  --a-200: #a3d2cc;
+  --a-300: #6fb7ae;
+  --a-400: #3f9a90;
+  --a-500: #1f7f76;
+  --a-600: #17695f;
+  --a-700: #14554e;
+  --a-800: #124541;
+  --a-900: #0f3734;
+  --a-950: #08211f;
+  --g-50: #ecfdf5;
+  --g-100: #d1fae5;
+  --g-200: #a7f3d0;
+  --g-300: #6ee7b7;
+  --g-400: #34d399;
+  --g-500: #10b981;
+  --g-600: #059669;
+  --g-700: #047857;
+  --g-800: #065f46;
+  --g-900: #064e3b;
+  --g-950: #022c22;
+  --m-100: #fff3d6;
+  --m-200: #ffe2a3;
+  --m-300: #fdcb68;
+  --m-400: #f3b23a;
+  --m-500: #d18f12;
+  --m-900: #4a3305;
+  --m-hl: #ffe2a3;
+  --grid-dot: #dde1e5;
+  --paper: #ffffff;
+  --display-face: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --r-xl: 0.5rem;
+  --r-2xl: 0.625rem;
 }
 
 :root {
-  --viz-surface: #fcfcfb;
-  --viz-text-primary: #0b0b0b;
-  --viz-text-secondary: #52514e;
-  --viz-grid: #e4e4e0;
-  --viz-series-1: #2a78d6;
-  --viz-series-2: #eb6834;
+  --viz-surface: #fdfdfa;
+  --viz-text-primary: #131311;
+  --viz-text-secondary: #52524b;
+  --viz-grid: #dcdcd2;
+  --viz-series-1: #3d5cc4;
+  --viz-series-2: #c4572c;
 }
 .dark {
-  --viz-surface: #1a1a19;
-  --viz-text-primary: #f0efec;
-  --viz-text-secondary: #c3c2b7;
-  --viz-grid: #3a3a37;
-  --viz-series-1: #3987e5;
-  --viz-series-2: #d95926;
+  --viz-surface: #1e1e1b;
+  --viz-text-primary: #ebebe4;
+  --viz-text-secondary: #c4c4b8;
+  --viz-grid: #2c2c29;
+  --viz-series-1: #6f8ce0;
+  --viz-series-2: #d9733f;
+}
+[data-direction='b'] {
+  --viz-surface: #ffffff;
+  --viz-text-primary: #131619;
+  --viz-text-secondary: #4c545e;
+  --viz-grid: #dde1e5;
+  --viz-series-1: #2f6fb0;
+  --viz-series-2: #c4642a;
+}
+[data-direction='b'].dark {
+  --viz-surface: #1d2126;
+  --viz-text-primary: #eceef0;
+  --viz-text-secondary: #c4cad1;
+  --viz-grid: #2a3037;
+  --viz-series-1: #5a93d6;
+  --viz-series-2: #d0703a;
 }
 
 html {
   -webkit-font-smoothing: antialiased;
+  color-scheme: light;
   text-rendering: optimizeLegibility;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+  }
 }
 
 body {
@@ -60,4 +236,58 @@ body {
 }
 .animate-pop-in {
   animation: pop-in 0.28s ease-out both;
+}
+
+/* A highlighter stroke behind a word, the one place the marker yellow appears in text. */
+.marker {
+  background: linear-gradient(
+    to bottom,
+    transparent 56%,
+    var(--m-hl) 56%,
+    var(--m-hl) 90%,
+    transparent 90%
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.12em;
+  margin: 0 -0.12em;
+}
+
+/* Notebook dot grid used behind hero areas. */
+.dot-grid {
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+@keyframes confetti {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.4) rotate(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(1) rotate(var(--r));
+  }
+}
+.confetti-piece {
+  animation: confetti 0.95s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes ring-draw {
+  from {
+    stroke-dashoffset: var(--ring-c);
+  }
+}
+.ring-draw {
+  animation: ring-draw 0.9s cubic-bezier(0.3, 0.7, 0.2, 1) both;
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+.bar-grow {
+  transform-origin: left;
+  animation: bar-grow 0.7s cubic-bezier(0.3, 0.7, 0.2, 1) both;
 }

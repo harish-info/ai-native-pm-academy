@@ -5,7 +5,7 @@ import { computeOnboardingResult } from '../domain/assessment'
 import { formatMinutes } from '../domain/dates'
 import { useStore } from '../state/store'
 import { PairedBars } from '../ui/charts'
-import { Card, EmptyState, LinkButton, PageHeader, Pill, Stat } from '../ui/primitives'
+import { Card, EmptyState, LinkButton, PageHeader, Pill, Stat, linkClass } from '../ui/primitives'
 
 export function OnboardingResult() {
   const { data } = useStore()
@@ -62,7 +62,7 @@ export function OnboardingResult() {
         <ul className="divide-y divide-stone-200 dark:divide-stone-800">
           {levels.map((l) => (
             <li key={l.id} className="flex flex-wrap items-center justify-between gap-2 py-3">
-              <Link to={`/levels/${l.id}`} className="font-medium hover:underline">
+              <Link to={`/levels/${l.id}`} className={linkClass}>
                 Level {l.id}: {l.title}
               </Link>
               {result.path[l.id] === 'proof-only' ? (

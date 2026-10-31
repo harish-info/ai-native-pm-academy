@@ -2,7 +2,7 @@ import { resourceById } from '../content'
 import type { Resource, ResourceRef, VerificationStatus } from '../content/types'
 import { formatDate } from '../domain/dates'
 import { useStore } from '../state/store'
-import { Button, Pill } from './primitives'
+import { Button, Pill, linkClass } from './primitives'
 
 const statusTone: Record<VerificationStatus, 'green' | 'blue' | 'amber' | 'red'> = {
   verified: 'green',
@@ -40,8 +40,8 @@ export function BookmarkButton({ id, label }: { id: string; label: string }) {
   const on = data.bookmarks.includes(id)
   return (
     <Button
-      variant="ghost"
-      className="min-h-8 px-2 py-1 text-xs"
+      variant="secondary"
+      className="min-h-8 gap-1.5 px-2.5 py-1 text-xs"
       aria-pressed={on}
       aria-label={`${on ? 'Remove bookmark' : 'Bookmark'}: ${label}`}
       onClick={() =>
@@ -50,6 +50,17 @@ export function BookmarkButton({ id, label }: { id: string; label: string }) {
         })
       }
     >
+      <svg
+        aria-hidden
+        viewBox="0 0 20 20"
+        className="h-3.5 w-3.5"
+        strokeWidth={1.8}
+        stroke="currentColor"
+        fill={on ? 'currentColor' : 'none'}
+        strokeLinejoin="round"
+      >
+        <path d="M5.5 3.5h9v13L10 13l-4.5 3.5Z" />
+      </svg>
       {on ? 'Bookmarked' : 'Bookmark'}
     </Button>
   )
@@ -68,12 +79,7 @@ export function ResourceCard({
     <li className="rounded-xl border border-stone-200 p-4 dark:border-stone-800">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <a
-            href={resource.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-indigo-700 underline-offset-2 hover:underline dark:text-indigo-300"
-          >
+          <a href={resource.url} target="_blank" rel="noopener noreferrer" className={linkClass}>
             {resource.title}
             <span className="sr-only"> (opens in a new tab)</span>
           </a>

@@ -24,16 +24,24 @@ import {
 import type { LearnerData } from '../storage/schema'
 import { useLevelStatuses } from '../state/hooks'
 import { useStore } from '../state/store'
+import { LevelArt } from '../ui/art'
 import { Columns, PairedBars } from '../ui/charts'
+import { LevelPath } from '../ui/LevelPath'
 import {
+  Button,
   Card,
+  Chevron,
+  cx,
+  interactiveCard,
   EmptyState,
   LinkButton,
   PageHeader,
   Pill,
-  ProgressBar,
   ProgressRing,
   Stat,
+  linkClass,
+  stretchedLink,
+  CheckIcon,
 } from '../ui/primitives'
 
 const BACKUP_REMINDER_DAYS = 7
@@ -46,19 +54,21 @@ function shortDay(day: string): string {
 function nextAction(
   status: LevelStatus,
   data: LearnerData,
-): { label: string; to: string; detail: string } {
+): { label: string; to: string; detail: string; heading: string } {
   const lesson = status.requiredLessons.find((l) => !data.lessons[l.id]?.completedAt)
   if (lesson) {
     return {
+      heading: lesson.title,
       label: data.lessons[lesson.id]?.startedAt
         ? `Continue session ${lesson.number}`
         : `Start session ${lesson.number}`,
       to: `/lessons/${lesson.id}`,
-      detail: `${lesson.title} · about ${formatMinutes(lesson.minutes)}`,
+      detail: `Session ${lesson.number} of Level ${status.level.id} · about ${formatMinutes(lesson.minutes)}`,
     }
   }
   if (!status.quiz.passed) {
     return {
+      heading: `Level ${status.level.id} assessment`,
       label: `Take the Level ${status.level.id} assessment`,
       to: `/levels/${status.level.id}/quiz`,
       detail: 'Pass mark 80%. You can retake it as often as you like.',
@@ -66,12 +76,14 @@ function nextAction(
   }
   if (!status.project.passed) {
     return {
+      heading: status.level.project.title,
       label: `Work on the Level ${status.level.id} project`,
       to: `/levels/${status.level.id}/project`,
       detail: status.level.project.title,
     }
   }
   return {
+    heading: 'Stretch challenges',
     label: 'Explore the stretch challenges',
     to: `/levels/${status.level.id}`,
     detail: 'Every level is mastered. The optional challenges are waiting.',
@@ -137,10 +149,7 @@ function ThisWeekInPlan({ today }: { today: string }) {
         <h2 className="text-lg font-semibold">
           {week && n <= planWeeks.length ? `This week: Week ${week.number}` : 'Your plan'}
         </h2>
-        <Link
-          to="/plan"
-          className="text-sm font-medium text-indigo-700 hover:underline dark:text-indigo-300"
-        >
+        <Link to="/plan" className={`text-sm ${linkClass}`}>
           Full plan
         </Link>
       </div>
@@ -161,13 +170,9 @@ function ThisWeekInPlan({ today }: { today: string }) {
               <span className="flex-1">
                 Week 1 needs only a chat account. Start whenever you are ready.
               </span>
-              <button
-                type="button"
-                onClick={() => update((d) => void (d.settings.planStart = today))}
-                className="rounded-lg bg-indigo-700 px-3 py-1.5 font-medium text-white hover:bg-indigo-800 dark:bg-indigo-500 dark:text-stone-950 dark:hover:bg-indigo-400"
-              >
+              <Button onClick={() => update((d) => void (d.settings.planStart = today))}>
                 Start Week 1 today
-              </button>
+              </Button>
             </div>
           )}
           {start && n === 0 && (
@@ -181,8 +186,22 @@ function ThisWeekInPlan({ today }: { today: string }) {
               return (
                 <li
                   key={i}
-                  className="flex items-start gap-3 rounded-lg border border-stone-200 p-3 dark:border-stone-800"
+                  className={cx(
+                    'flex items-center gap-3 rounded-lg border border-stone-200 bg-white p-3 dark:border-stone-800 dark:bg-stone-900',
+                    v.to && interactiveCard,
+                  )}
                 >
+                  <span
+                    aria-hidden
+                    className={cx(
+                      'grid h-6 w-6 shrink-0 place-items-center rounded-full border',
+                      v.done
+                        ? 'border-emerald-600 bg-emerald-600 text-white dark:border-emerald-400 dark:bg-emerald-400 dark:text-stone-950'
+                        : 'border-stone-300 dark:border-stone-600',
+                    )}
+                  >
+                    {v.done && <CheckIcon className="h-3.5 w-3.5" />}
+                  </span>
                   <span className="flex-1 text-sm">
                     {'tag' in v && v.tag && (
                       <Pill tone="neutral" className="mr-2">
@@ -190,10 +209,7 @@ function ThisWeekInPlan({ today }: { today: string }) {
                       </Pill>
                     )}
                     {v.to ? (
-                      <Link
-                        to={v.to}
-                        className="font-medium text-indigo-700 hover:underline dark:text-indigo-300"
-                      >
+                      <Link to={v.to} className={cx(stretchedLink, 'font-medium')}>
                         {v.title}
                       </Link>
                     ) : (
@@ -206,7 +222,8 @@ function ThisWeekInPlan({ today }: { today: string }) {
                       </span>
                     ) : null}
                   </span>
-                  {v.done && <Pill tone="green">Done</Pill>}
+                  {v.done && <span className="sr-only">Done</span>}
+                  {v.to && <Chevron className="h-4 w-4" />}
                 </li>
               )
             })}
@@ -255,7 +272,7 @@ export function Dashboard() {
         eyebrow={`Level ${current.level.id}: ${current.level.title}`}
         title={name ? `Welcome back, ${name}` : 'Welcome back'}
       >
-        Small, real steps every day. Progress here only counts work you have actually done.
+        Small, real steps. Progress here only counts work you have actually done.
       </PageHeader>
 
       {!data.onboarding && (
@@ -271,70 +288,84 @@ export function Dashboard() {
         </Card>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <Card>
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">
-                Current level
-              </p>
-              <h2 className="text-xl font-semibold">
-                Level {current.level.id}: {current.level.title}
-              </h2>
-              <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
-                {current.level.theme}
-              </p>
+      <Card className={cx(interactiveCard, 'dot-grid overflow-hidden p-0')}>
+        <div className="flex flex-col gap-6 bg-gradient-to-r from-white via-white/95 to-white/40 p-6 sm:flex-row sm:items-center sm:p-8 dark:from-stone-900 dark:via-stone-900/95 dark:to-stone-900/40">
+          <div className="min-w-0 flex-1">
+            <p className="font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
+              Next step · Level {current.level.id}
+            </p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight text-balance sm:text-3xl">
+              {action.heading}
+            </h2>
+            <p className="mt-1.5 text-stone-600 dark:text-stone-400">{action.detail}</p>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <LinkButton
+                to={action.to}
+                className="after:absolute after:inset-0 after:rounded-[inherit] after:content-['']"
+              >
+                {action.label}
+                <span aria-hidden>→</span>
+              </LinkButton>
+              {current.path === 'proof-only' && <Pill tone="blue">Theory tested out</Pill>}
+              {current.mastered && <Pill tone="green">Mastered</Pill>}
             </div>
-            {current.path === 'proof-only' && <Pill tone="blue">Theory tested out</Pill>}
-            {current.mastered && <Pill tone="green">Mastered</Pill>}
           </div>
-          <div className="mt-4">
-            <ProgressBar
-              value={levelDone}
-              max={levelUnits}
-              label={`Level ${current.level.id} progress`}
-            />
-            <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
-              {current.requiredDone} of {current.requiredLessons.length} sessions · assessment{' '}
-              {current.quiz.passed ? 'passed' : 'not passed yet'} · project{' '}
-              {current.project.passed ? 'passed' : 'not passed yet'}
+          <div className="flex items-center gap-5 sm:flex-col sm:items-center sm:gap-2">
+            <div className="relative">
+              <ProgressRing
+                value={levelDone}
+                max={levelUnits}
+                size={112}
+                label={`Level ${current.level.id} progress`}
+              />
+            </div>
+            <p className="text-sm text-stone-600 dark:text-stone-400">
+              {current.requiredDone} of {current.requiredLessons.length} sessions
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> · </span>
+              assessment {current.quiz.passed ? 'passed' : 'to do'} · project{' '}
+              {current.project.passed ? 'passed' : 'to do'}
             </p>
           </div>
-          <div className="mt-5 rounded-xl bg-stone-50 p-4 dark:bg-stone-800/50">
-            <p className="text-sm text-stone-600 dark:text-stone-400">Next step</p>
-            <p className="mt-0.5 font-medium">{action.detail}</p>
-            <LinkButton to={action.to} className="mt-3">
-              {action.label}
-            </LinkButton>
-          </div>
-        </Card>
-        <ThisWeekInPlan today={today} />
-      </div>
+          <LevelArt levelId={current.level.id} className="hidden h-36 w-36 lg:block" />
+        </div>
+      </Card>
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Stat
-          label="Experience"
-          value={`${xp.total.toLocaleString()} XP`}
-          hint={`of ${xpMax.toLocaleString()} possible`}
-        />
-        <Stat
-          label="Active weeks"
-          value={`${weeksActive} ${weeksActive === 1 ? 'week' : 'weeks'}`}
-          hint="Weeks with any study. Missed days never reset it."
-        />
-        <Stat
-          label="This week"
-          value={formatMinutes(thisWeek)}
-          hint={`Logged since Monday, of about ${Math.round(target / 60)} h planned`}
-        />
-        <div className="flex items-center gap-4 rounded-xl border border-stone-200 p-4 dark:border-stone-800">
-          <ProgressRing value={ov.completionPct} size={72} label="Course completion" />
-          <div>
-            <div className="text-sm text-stone-600 dark:text-stone-400">Course completion</div>
-            <div className="text-xs text-stone-500 dark:text-stone-400">
-              Sessions, assessments and projects
-            </div>
-          </div>
+      <section aria-labelledby="path-heading">
+        <div className="mb-3 flex items-baseline justify-between gap-2">
+          <h2 id="path-heading" className="text-lg font-semibold">
+            Your path
+          </h2>
+          <Link to="/levels" className={`text-sm ${linkClass}`}>
+            All levels
+          </Link>
+        </div>
+        <LevelPath statuses={statuses} currentId={current.level.id} />
+      </section>
+
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <ThisWeekInPlan today={today} />
+        <div className="grid grid-cols-2 content-start gap-4">
+          <Stat
+            label="Experience"
+            value={`${xp.total.toLocaleString()} XP`}
+            hint={`of ${xpMax.toLocaleString()} possible`}
+          />
+          <Stat
+            label="Active weeks"
+            value={`${weeksActive} ${weeksActive === 1 ? 'week' : 'weeks'}`}
+            hint="Weeks with any study. Missed days never reset it."
+          />
+          <Stat
+            label="This week"
+            value={formatMinutes(thisWeek)}
+            hint={`Logged since Monday, of about ${Math.round(target / 60)} h planned`}
+          />
+          <Stat
+            label="Course"
+            value={`${ov.completionPct}%`}
+            hint="Sessions, assessments and projects done"
+          />
         </div>
       </div>
 
@@ -391,10 +422,7 @@ export function Dashboard() {
         <Card className="lg:col-span-2">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-lg font-semibold">Recent activity</h2>
-            <Link
-              to="/stats"
-              className="text-sm font-medium text-indigo-700 hover:underline dark:text-indigo-300"
-            >
+            <Link to="/stats" className={`text-sm ${linkClass}`}>
               All progress
             </Link>
           </div>
@@ -409,7 +437,7 @@ export function Dashboard() {
                     {formatDate(e.at)}
                   </div>
                   {e.href ? (
-                    <Link to={e.href} className="font-medium hover:underline">
+                    <Link to={e.href} className={linkClass}>
                       {e.title}
                     </Link>
                   ) : (
@@ -428,10 +456,7 @@ export function Dashboard() {
           <Card>
             <div className="mb-2 flex items-center justify-between">
               <h2 className="text-lg font-semibold">Goals</h2>
-              <Link
-                to="/workspace"
-                className="text-sm font-medium text-indigo-700 hover:underline dark:text-indigo-300"
-              >
+              <Link to="/workspace" className={`text-sm ${linkClass}`}>
                 Manage
               </Link>
             </div>
@@ -454,10 +479,7 @@ export function Dashboard() {
               </p>
               <h2 className="text-lg font-semibold">{milestone.name}</h2>
               <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{milestone.summary}</p>
-              <Link
-                to="/wiki"
-                className="mt-3 inline-block text-sm font-medium text-indigo-700 hover:underline dark:text-indigo-300"
-              >
+              <Link to="/wiki" className={`mt-3 inline-block text-sm ${linkClass}`}>
                 Open your wiki guide
               </Link>
             </Card>

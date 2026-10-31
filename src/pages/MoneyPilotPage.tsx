@@ -8,15 +8,13 @@ import {
   referenceScreens,
   type ReferenceScreen,
 } from '../content/moneypilot'
-import { Card, PageHeader, Pill } from '../ui/primitives'
+import { Card, PageHeader, Pill, linkClass } from '../ui/primitives'
 
 const priorityTone: Record<ReferenceScreen['priority'], 'indigo' | 'blue' | 'neutral'> = {
   'v1 core': 'indigo',
   'v1 candidate': 'blue',
   later: 'neutral',
 }
-
-const linkClass = 'text-indigo-700 underline-offset-2 hover:underline dark:text-indigo-300'
 
 export function MoneyPilotPage() {
   return (

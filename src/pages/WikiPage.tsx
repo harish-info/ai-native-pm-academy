@@ -3,9 +3,7 @@ import { allLessons, levelById, resourceById } from '../content'
 import { wikiMilestones, wikiPrompts, wikiRules, wikiSteps } from '../content/wiki'
 import { useStore } from '../state/store'
 import { CopyButton } from '../ui/CopyButton'
-import { Card, CheckIcon, PageHeader, Pill, ProgressBar } from '../ui/primitives'
-
-const linkClass = 'text-indigo-700 underline-offset-2 hover:underline dark:text-indigo-300'
+import { Card, CheckIcon, PageHeader, Pill, ProgressBar, linkClass } from '../ui/primitives'
 
 const prompts: { id: keyof typeof wikiPrompts; title: string; when: string }[] = [
   { id: 'ingest', title: 'Ingest', when: 'After a session, when 00-inbox/ has new sources.' },

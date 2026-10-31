@@ -1,7 +1,43 @@
-import type { ComponentProps, ReactNode } from 'react'
+import type { ComponentProps, CSSProperties, ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
 
 export const cx = (...xs: (string | false | null | undefined)[]) => xs.filter(Boolean).join(' ')
+
+/** Inline text link: always underlined so it reads as clickable without hovering. */
+export const linkClass =
+  'font-medium text-indigo-700 underline decoration-indigo-300 decoration-[1.5px] underline-offset-[3px] transition-colors hover:text-indigo-900 hover:decoration-indigo-700 dark:text-indigo-300 dark:decoration-indigo-700 dark:hover:text-indigo-200 dark:hover:decoration-indigo-300'
+
+/**
+ * A card that is one big link. Put `stretchedLink` on the card's main link (usually its title):
+ * its overlay covers the whole card, so anywhere on the card opens it, and the card shows the
+ * hover lift and the focus ring. Other controls inside the card need `relative z-10`.
+ */
+export const interactiveCard =
+  'group relative cursor-pointer transition-[border-color,box-shadow,transform] duration-200 hover:border-indigo-300 hover:shadow-[0_6px_20px_-8px_rgb(0_0_0/0.18)] motion-safe:hover:-translate-y-0.5 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-indigo-500 dark:hover:border-indigo-700'
+
+export const stretchedLink =
+  "font-semibold text-stone-900 transition-colors after:absolute after:inset-0 after:rounded-[inherit] after:content-[''] group-hover:text-indigo-700 focus-visible:outline-none dark:text-stone-50 dark:group-hover:text-indigo-300"
+
+/** The arrow that tells a card or row it goes somewhere. */
+export function Chevron({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={cx(
+        'h-5 w-5 shrink-0 text-stone-400 transition-transform duration-200 group-hover:text-indigo-600 motion-safe:group-hover:translate-x-0.5 dark:text-stone-500 dark:group-hover:text-indigo-300',
+        className,
+      )}
+    >
+      <path d="M7.5 4.5 13 10l-5.5 5.5" />
+    </svg>
+  )
+}
 
 export function Card({
   children,
@@ -16,7 +52,7 @@ export function Card({
   return (
     <Tag
       className={cx(
-        'rounded-2xl border border-stone-200 bg-white p-5 shadow-sm dark:border-stone-800 dark:bg-stone-900',
+        'rounded-2xl border border-stone-200 bg-white p-5 shadow-[0_1px_2px_rgb(0_0_0/0.04)] dark:border-stone-800 dark:bg-stone-900',
         className,
       )}
       {...rest}
@@ -30,15 +66,15 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-indigo-600 text-white hover:bg-indigo-700 disabled:bg-indigo-300 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:disabled:bg-indigo-900',
+    'bg-indigo-600 text-white shadow-[0_1px_0_rgb(0_0_0/0.12)] hover:bg-indigo-700 disabled:bg-indigo-300 dark:bg-indigo-400 dark:text-stone-950 dark:hover:bg-indigo-300 dark:disabled:bg-indigo-900 dark:disabled:text-stone-400',
   secondary:
-    'border border-stone-300 bg-white text-stone-800 hover:bg-stone-100 disabled:text-stone-400 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:bg-stone-800',
-  ghost: 'text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800',
+    'border border-indigo-200 bg-white text-indigo-800 hover:border-indigo-400 hover:bg-indigo-50 disabled:border-stone-200 disabled:text-stone-500 dark:border-indigo-800 dark:bg-stone-900 dark:text-indigo-200 dark:hover:border-indigo-500 dark:hover:bg-indigo-950',
+  ghost: 'text-indigo-800 hover:bg-indigo-50 dark:text-indigo-200 dark:hover:bg-indigo-950',
   danger: 'bg-red-600 text-white hover:bg-red-700 disabled:bg-red-300',
 }
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed min-h-10'
+  'inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-[background-color,border-color,color,transform] duration-150 motion-safe:active:scale-[0.97] disabled:cursor-not-allowed min-h-10'
 
 export function Button({
   variant = 'primary',
@@ -110,7 +146,7 @@ export function ProgressBar({
       className="h-2 w-full overflow-hidden rounded-full bg-stone-200 dark:bg-stone-800"
     >
       <div
-        className="h-full rounded-full bg-indigo-600 transition-[width] dark:bg-indigo-400"
+        className="bar-grow h-full rounded-full bg-indigo-600 transition-[width] dark:bg-indigo-400"
         style={{ width: `${pct}%` }}
       />
     </div>
@@ -153,7 +189,8 @@ export function ProgressRing({
           strokeDasharray={c}
           strokeDashoffset={c * (1 - pct)}
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
-          className="stroke-indigo-600 transition-[stroke-dashoffset] dark:stroke-indigo-400"
+          style={{ '--ring-c': c } as CSSProperties}
+          className="ring-draw stroke-indigo-600 transition-[stroke-dashoffset] dark:stroke-indigo-400"
         />
       </svg>
       <span className="absolute text-lg font-semibold tabular-nums" aria-hidden>
@@ -178,9 +215,11 @@ export function PageHeader({
     <header className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div className="max-w-3xl">
         {eyebrow && (
-          <p className="mb-1 text-sm font-medium text-indigo-700 dark:text-indigo-300">{eyebrow}</p>
+          <p className="mb-2 font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
+            {eyebrow}
+          </p>
         )}
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">{title}</h1>
         {children && <div className="mt-2 text-stone-600 dark:text-stone-400">{children}</div>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
@@ -190,9 +229,11 @@ export function PageHeader({
 
 export function Stat({ label, value, hint }: { label: string; value: ReactNode; hint?: string }) {
   return (
-    <div className="rounded-xl border border-stone-200 p-4 dark:border-stone-800">
-      <div className="text-sm text-stone-600 dark:text-stone-400">{label}</div>
-      <div className="mt-1 text-2xl font-semibold tabular-nums">{value}</div>
+    <div className="rounded-xl border border-stone-200 bg-white p-4 dark:border-stone-800 dark:bg-stone-900">
+      <div className="font-mono text-[0.7rem] font-medium tracking-[0.12em] text-stone-600 uppercase dark:text-stone-400">
+        {label}
+      </div>
+      <div className="mt-1.5 text-2xl font-bold tabular-nums">{value}</div>
       {hint && <div className="mt-1 text-xs text-stone-500 dark:text-stone-400">{hint}</div>}
     </div>
   )
@@ -241,7 +282,7 @@ export function Field({
 }
 
 export const inputClass =
-  'w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm placeholder:text-stone-400 dark:border-stone-700 dark:bg-stone-950'
+  'w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm placeholder:text-stone-500 dark:border-stone-700 dark:bg-stone-950'
 
 export function LockIcon() {
   return (

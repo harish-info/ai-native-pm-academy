@@ -15,7 +15,7 @@ import {
 import { useLevelStatuses } from '../state/hooks'
 import { useStore } from '../state/store'
 import { Columns, PairedBars } from '../ui/charts'
-import { Button, Card, EmptyState, LinkButton, PageHeader, Stat } from '../ui/primitives'
+import { Button, Card, EmptyState, LinkButton, PageHeader, Stat, linkClass } from '../ui/primitives'
 
 const PASS_PCT = Math.round(QUIZ_PASS_RATIO * 100)
 
@@ -215,7 +215,7 @@ export function StatsPage() {
                     </span>
                     <span className="min-w-0 flex-1">
                       {href ? (
-                        <Link to={href} className="hover:underline">
+                        <Link to={href} className={linkClass}>
                           {title}
                         </Link>
                       ) : (
@@ -261,7 +261,7 @@ export function StatsPage() {
               >
                 <div className="text-xs text-stone-500 dark:text-stone-400">{formatDate(e.at)}</div>
                 {e.href ? (
-                  <Link to={e.href} className="font-medium hover:underline">
+                  <Link to={e.href} className={linkClass}>
                     {e.title}
                   </Link>
                 ) : (

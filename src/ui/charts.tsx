@@ -223,7 +223,7 @@ export function Columns({
 }) {
   const [active, setActive] = useState<number | null>(null)
   const top = Math.max(max ?? 0, ...points.map((p) => p.value), reference?.value ?? 0, 1)
-  const ticks = [0, 0.5, 1].map((f) => Math.round(top * f))
+  const ticks = [...new Set([0, 0.5, 1].map((f) => Math.round(top * f)))]
   return (
     <figure className="m-0">
       <figcaption className="mb-1 font-semibold">{title}</figcaption>

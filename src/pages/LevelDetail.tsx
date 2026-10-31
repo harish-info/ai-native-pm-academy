@@ -6,15 +6,21 @@ import { formatDate, formatMinutes } from '../domain/dates'
 import { QUIZ_PASS_RATIO } from '../domain/progress'
 import { useLevelStatus } from '../state/hooks'
 import { useStore } from '../state/store'
+import { LevelArt } from '../ui/art'
 import { Bullets } from '../ui/RichText'
 import {
   Card,
   CheckIcon,
+  Chevron,
+  cx,
+  interactiveCard,
+  stretchedLink,
   EmptyState,
   LinkButton,
   LockIcon,
   PageHeader,
   Pill,
+  linkClass,
 } from '../ui/primitives'
 import { NotFound } from './NotFound'
 
@@ -36,11 +42,14 @@ export function LevelDetail() {
         eyebrow={`Level ${level.id}`}
         title={level.title}
         actions={
-          status.mastered ? (
-            <Pill tone="green">
-              <CheckIcon className="h-3 w-3" /> Mastered
-            </Pill>
-          ) : undefined
+          <div className="flex items-center gap-3">
+            {status.mastered && (
+              <Pill tone="green">
+                <CheckIcon className="h-3 w-3" /> Mastered
+              </Pill>
+            )}
+            <LevelArt levelId={level.id} className="h-24 w-24" />
+          </div>
         }
       >
         {level.summary}
@@ -56,7 +65,7 @@ export function LevelDetail() {
           </p>
           <p className="mt-1 text-sm">
             Finish the required sessions of{' '}
-            <Link to={`/levels/${level.id - 1}`} className="underline">
+            <Link to={`/levels/${level.id - 1}`} className={linkClass}>
               Level {level.id - 1}
             </Link>{' '}
             first. Its assessment and project can stay open while you start here. You can still read
@@ -89,10 +98,23 @@ export function LevelDetail() {
             const rec = data.lessons[l.id]
             const done = !!rec?.completedAt
             return (
-              <Card as="li" key={l.id} className="p-4">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <Link to={`/lessons/${l.id}`} className="font-medium hover:underline">
+              <Card as="li" key={l.id} className={cx(interactiveCard, 'p-4')}>
+                <div className="flex items-start gap-4">
+                  <span
+                    aria-hidden
+                    className={cx(
+                      'grid h-10 w-10 shrink-0 place-items-center rounded-full border-2 font-mono text-sm font-semibold',
+                      done
+                        ? 'border-emerald-600 bg-emerald-600 text-white dark:border-emerald-400 dark:bg-emerald-400 dark:text-stone-950'
+                        : rec?.startedAt
+                          ? 'border-stone-900 bg-mark-300 text-stone-900 dark:border-mark-300 dark:bg-mark-900 dark:text-mark-200'
+                          : 'border-stone-300 text-stone-600 dark:border-stone-600 dark:text-stone-300',
+                    )}
+                  >
+                    {done ? <CheckIcon className="h-5 w-5" /> : l.number}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <Link to={`/lessons/${l.id}`} className={stretchedLink}>
                       Session {l.number}: {l.title}
                     </Link>
                     <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{l.goal}</p>
@@ -105,16 +127,21 @@ export function LevelDetail() {
                       {l.mentorReview === 'required' && <Pill tone="amber">Mentor review</Pill>}
                     </div>
                   </div>
-                  <div className="shrink-0 text-sm">
-                    {done ? (
-                      <Pill tone="green">
-                        <CheckIcon className="h-3 w-3" /> Done
-                      </Pill>
-                    ) : rec?.startedAt ? (
-                      <Pill tone="amber">In progress</Pill>
-                    ) : (
-                      <Pill>Not started</Pill>
-                    )}
+                  <div className="flex shrink-0 items-center gap-2 self-center text-sm">
+                    <span
+                      className={cx(
+                        'hidden text-xs font-medium sm:inline',
+                        done
+                          ? 'text-emerald-700 dark:text-emerald-300'
+                          : 'text-stone-600 dark:text-stone-400',
+                      )}
+                    >
+                      {done ? 'Done' : rec?.startedAt ? 'In progress' : 'Not started'}
+                    </span>
+                    <span className="sr-only sm:hidden">
+                      {done ? 'Done' : rec?.startedAt ? 'In progress' : 'Not started'}
+                    </span>
+                    <Chevron />
                   </div>
                 </div>
               </Card>
@@ -186,7 +213,7 @@ export function LevelDetail() {
         <Card>
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-lg font-semibold">Wiki milestone: {milestone.name}</h2>
-            <Link to="/wiki" className="text-sm underline">
+            <Link to="/wiki" className={`text-sm ${linkClass}`}>
               Your wiki guide
             </Link>
           </div>
@@ -208,10 +235,13 @@ export function LevelDetail() {
         {level.challenges.length ? (
           <ul className="grid gap-3 md:grid-cols-2">
             {level.challenges.map((c) => (
-              <Card as="li" key={c.id} className="p-4">
-                <Link to={`/challenges/${c.id}`} className="font-medium hover:underline">
-                  {c.title}
-                </Link>
+              <Card as="li" key={c.id} className={cx(interactiveCard, 'p-4')}>
+                <div className="flex items-start justify-between gap-3">
+                  <Link to={`/challenges/${c.id}`} className={stretchedLink}>
+                    {c.title}
+                  </Link>
+                  <Chevron />
+                </div>
                 <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{c.summary}</p>
                 <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
                   <Pill>{formatMinutes(c.minutes)}</Pill>

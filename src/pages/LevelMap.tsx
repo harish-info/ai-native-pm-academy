@@ -1,7 +1,19 @@
 import { Link } from 'react-router-dom'
 import { formatDate, formatMinutes } from '../domain/dates'
 import { useLevelStatuses } from '../state/hooks'
-import { Card, CheckIcon, LockIcon, PageHeader, Pill, ProgressBar } from '../ui/primitives'
+import { LevelArt } from '../ui/art'
+import {
+  Card,
+  CheckIcon,
+  Chevron,
+  LockIcon,
+  PageHeader,
+  Pill,
+  ProgressBar,
+  cx,
+  interactiveCard,
+  stretchedLink,
+} from '../ui/primitives'
 
 export function LevelMap() {
   const statuses = useLevelStatuses()
@@ -20,9 +32,13 @@ export function LevelMap() {
           const doneParts = s.requiredDone + (s.quiz.passed ? 1 : 0) + (s.project.passed ? 1 : 0)
           return (
             <li key={s.level.id}>
-              <Card as="div" className={s.unlocked ? '' : 'opacity-75'}>
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="max-w-2xl">
+              <Card as="div" className={interactiveCard}>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                  <LevelArt
+                    levelId={s.level.id}
+                    className={cx('h-16 w-16', !s.unlocked && 'opacity-60 grayscale')}
+                  />
+                  <div className="max-w-2xl flex-1">
                     <div className="mb-1 flex flex-wrap items-center gap-2 text-sm">
                       <span className="font-medium text-stone-500 dark:text-stone-400">
                         Level {s.level.id}
@@ -42,7 +58,7 @@ export function LevelMap() {
                       {s.path === 'proof-only' && <Pill tone="blue">Theory tested out</Pill>}
                     </div>
                     <h2 className="text-xl font-semibold">
-                      <Link to={`/levels/${s.level.id}`} className="hover:underline">
+                      <Link to={`/levels/${s.level.id}`} className={stretchedLink}>
                         {s.level.title}
                       </Link>
                     </h2>
@@ -69,6 +85,9 @@ export function LevelMap() {
                     />
                     <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
                       Badge: {s.level.badge.name}
+                    </p>
+                    <p className="mt-3 flex items-center justify-end gap-1 text-sm font-semibold whitespace-nowrap text-indigo-700 dark:text-indigo-300">
+                      Open level <Chevron className="h-4 w-4 text-current" />
                     </p>
                   </div>
                 </div>

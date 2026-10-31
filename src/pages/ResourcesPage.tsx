@@ -4,7 +4,7 @@ import { allChallenges, allLessons, resources } from '../content'
 import { communityConsensus } from '../content/community'
 import type { Resource, ResourceFormat, VerificationStatus } from '../content/types'
 import { ResourceCard } from '../ui/ResourceBits'
-import { Card, PageHeader, inputClass } from '../ui/primitives'
+import { Card, PageHeader, inputClass, linkClass } from '../ui/primitives'
 
 const formats: { id: ResourceFormat; label: string }[] = [
   { id: 'course', label: 'Course' },
@@ -183,11 +183,7 @@ export function ResourcesPage() {
             Showing {results.length} of {resources.length} resources
           </p>
           {filtered && (
-            <button
-              type="button"
-              onClick={reset}
-              className="text-sm text-indigo-700 underline-offset-2 hover:underline dark:text-indigo-300"
-            >
+            <button type="button" onClick={reset} className={`text-sm ${linkClass}`}>
               Clear filters
             </button>
           )}
@@ -216,10 +212,7 @@ export function ResourcesPage() {
                       {refs.map((ref, i) => (
                         <span key={ref.href}>
                           {i > 0 && ', '}
-                          <Link
-                            to={ref.href}
-                            className="text-indigo-700 underline-offset-2 hover:underline dark:text-indigo-300"
-                          >
+                          <Link to={ref.href} className={linkClass}>
                             {ref.label}
                           </Link>
                         </span>
@@ -266,7 +259,7 @@ export function ResourcesPage() {
               <ul className="mt-1 space-y-0.5 text-sm text-stone-600 dark:text-stone-400">
                 {c.sources.map((s) => (
                   <li key={s.url}>
-                    <a href={s.url} target="_blank" rel="noreferrer" className="underline">
+                    <a href={s.url} target="_blank" rel="noreferrer" className={linkClass}>
                       {s.label}
                     </a>
                     {!s.fetchedDirectly && ' (via a summary)'}

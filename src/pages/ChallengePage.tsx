@@ -5,7 +5,7 @@ import { useLevelStatus } from '../state/hooks'
 import { EvidencePanel } from '../ui/EvidencePanel'
 import { BookmarkButton, ResourceRefs } from '../ui/ResourceBits'
 import { Bullets, inline } from '../ui/RichText'
-import { Card, PageHeader, Pill } from '../ui/primitives'
+import { Card, PageHeader, Pill, linkClass } from '../ui/primitives'
 import { NotFound } from './NotFound'
 
 export function ChallengePage() {
@@ -19,7 +19,7 @@ export function ChallengePage() {
   return (
     <article className="space-y-6">
       <nav aria-label="Breadcrumb" className="text-sm text-stone-600 dark:text-stone-400">
-        <Link to={`/levels/${challenge.levelId}`} className="underline">
+        <Link to={`/levels/${challenge.levelId}`} className={linkClass}>
           Level {challenge.levelId}: {status.level.title}
         </Link>
       </nav>

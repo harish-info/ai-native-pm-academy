@@ -3,19 +3,20 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { levels } from '../content'
 import { currentLevel, levelStatuses, xpBreakdown } from '../domain/progress'
 import { useStore } from '../state/store'
-import { Button, cx } from './primitives'
+import { BrandMark, ConfettiBurst, Icon, LevelArt } from './art'
+import { Button, Chevron, cx } from './primitives'
 
-const nav: { to: string; label: string; end?: boolean }[] = [
-  { to: '/dashboard', label: 'Dashboard' },
-  { to: '/levels', label: 'Learning path' },
-  { to: '/plan', label: 'Study plan' },
-  { to: '/moneypilot', label: 'MoneyPilot' },
-  { to: '/wiki', label: 'Your wiki' },
-  { to: '/workspace', label: 'Workspace' },
-  { to: '/resources', label: 'Resources' },
-  { to: '/stats', label: 'Progress' },
-  { to: '/achievements', label: 'Achievements' },
-  { to: '/settings', label: 'Settings' },
+const nav: { to: string; label: string; icon: string; end?: boolean }[] = [
+  { to: '/dashboard', label: 'Dashboard', icon: 'home' },
+  { to: '/levels', label: 'Learning path', icon: 'path' },
+  { to: '/plan', label: 'Study plan', icon: 'calendar' },
+  { to: '/moneypilot', label: 'MoneyPilot', icon: 'wallet' },
+  { to: '/wiki', label: 'Your wiki', icon: 'book' },
+  { to: '/workspace', label: 'Workspace', icon: 'pencil' },
+  { to: '/resources', label: 'Resources', icon: 'library' },
+  { to: '/stats', label: 'Progress', icon: 'chart' },
+  { to: '/achievements', label: 'Achievements', icon: 'trophy' },
+  { to: '/settings', label: 'Settings', icon: 'sliders' },
 ]
 
 function NavItems({ onNavigate }: { onNavigate?: () => void }) {
@@ -29,13 +30,14 @@ function NavItems({ onNavigate }: { onNavigate?: () => void }) {
             onClick={onNavigate}
             className={({ isActive }) =>
               cx(
-                'block rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-indigo-50 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-200'
-                  : 'text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800',
+                  ? 'bg-indigo-50 text-indigo-800 before:absolute before:inset-y-1.5 before:-left-4 before:w-1 before:rounded-r-full before:bg-indigo-600 dark:bg-indigo-950 dark:text-indigo-200 dark:before:bg-indigo-400'
+                  : 'text-stone-700 hover:bg-stone-100 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white',
               )
             }
           >
+            <Icon name={item.icon} className="h-[1.15rem] w-[1.15rem] shrink-0 opacity-80" />
             {item.label}
           </NavLink>
         </li>
@@ -90,14 +92,10 @@ function CelebrationDialog() {
         aria-labelledby="celebration-title"
         aria-describedby="celebration-body"
         onClick={(e) => e.stopPropagation()}
-        className="animate-pop-in w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-xl dark:bg-stone-900"
+        className="animate-pop-in relative w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-xl dark:bg-stone-900"
       >
-        <div
-          aria-hidden
-          className="mx-auto mb-3 grid h-14 w-14 place-items-center rounded-full bg-indigo-100 text-2xl font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300"
-        >
-          {celebration.kind === 'level' ? 'L' : '+'}
-        </div>
+        <ConfettiBurst />
+        <BrandMark className="relative mx-auto mb-3 h-14 w-14" />
         <h2 id="celebration-title" className="text-xl font-semibold">
           {celebration.title}
         </h2>
@@ -142,17 +140,32 @@ export function Layout() {
 
       <aside className="hidden border-r border-stone-200 bg-white px-4 py-6 lg:block dark:border-stone-800 dark:bg-stone-900">
         <div className="sticky top-6">
-          <NavLink to="/dashboard" className="mb-6 block px-3">
-            <span className="block text-base font-semibold tracking-tight">
-              AI-Native PM Academy
-            </span>
-            <span className="text-xs text-stone-500 dark:text-stone-400">
-              Level {current.level.id} · {xp.toLocaleString()} XP
+          <NavLink to="/dashboard" className="mb-7 flex items-center gap-2.5 px-2">
+            <BrandMark />
+            <span className="font-display text-[0.95rem] leading-tight font-bold tracking-tight">
+              AI-Native
+              <br />
+              PM Academy
             </span>
           </NavLink>
           <nav aria-label="Main">
             <NavItems />
           </nav>
+          <NavLink
+            to={`/levels/${current.level.id}`}
+            className="group mt-6 flex items-center gap-3 rounded-xl border border-stone-200 bg-stone-50 p-3 transition-colors hover:border-indigo-300 dark:border-stone-800 dark:bg-stone-950 dark:hover:border-indigo-700"
+          >
+            <LevelArt levelId={current.level.id} className="h-10 w-10" />
+            <span className="min-w-0 flex-1 text-xs">
+              <span className="block font-semibold text-stone-900 dark:text-stone-100">
+                Level {current.level.id}
+              </span>
+              <span className="text-stone-600 tabular-nums dark:text-stone-400">
+                {xp.toLocaleString()} XP
+              </span>
+            </span>
+            <Chevron className="h-4 w-4" />
+          </NavLink>
           {mode === 'demo' && (
             <p className="mt-6 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:bg-amber-950 dark:text-amber-200">
               Demo mode
@@ -163,7 +176,11 @@ export function Layout() {
 
       <div className="sticky top-0 z-40 border-b border-stone-200 bg-white/90 backdrop-blur lg:hidden dark:border-stone-800 dark:bg-stone-900/90">
         <div className="flex items-center justify-between px-4 py-3">
-          <NavLink to="/dashboard" className="font-semibold tracking-tight">
+          <NavLink
+            to="/dashboard"
+            className="font-display flex items-center gap-2 font-bold tracking-tight"
+          >
+            <BrandMark className="h-7 w-7" />
             AI-Native PM Academy
           </NavLink>
           <Button
