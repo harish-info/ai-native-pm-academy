@@ -230,7 +230,7 @@ export function Columns({
       {description && (
         <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">{description}</p>
       )}
-      <div className="flex gap-2">
+      <div className="flex gap-2 pt-2">
         <div
           className="relative h-44 w-10 shrink-0 text-right text-[11px] text-stone-500 tabular-nums dark:text-stone-400"
           aria-hidden
@@ -238,8 +238,8 @@ export function Columns({
           {ticks.map((t) => (
             <span
               key={t}
-              className="absolute right-0 -translate-y-1/2"
-              style={{ bottom: `calc(${(t / top) * 100}% - 0.5em)` }}
+              className="absolute right-0 translate-y-1/2"
+              style={{ bottom: `${(t / top) * 100}%` }}
             >
               {format(t)}
             </span>
@@ -307,8 +307,16 @@ export function Columns({
         className="ml-12 flex gap-[2px] text-[11px] text-stone-500 dark:text-stone-400"
         aria-hidden
       >
-        {points.map((p) => (
-          <span key={p.label} className="flex-1 truncate text-center">
+        {points.map((p, i) => (
+          <span
+            key={p.label}
+            className={
+              // On narrow screens, label every other column and let it overflow into the gap.
+              points.length > 6
+                ? `flex-1 text-center whitespace-nowrap sm:truncate ${i % 2 ? 'invisible sm:visible' : ''}`
+                : 'flex-1 truncate text-center'
+            }
+          >
             {p.label}
           </span>
         ))}
