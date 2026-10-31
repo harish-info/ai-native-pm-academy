@@ -10,9 +10,9 @@ export const level4: Level = {
   outcomes: [
     'Use Git and GitHub confidently: branches, commits, pull requests, reviews and a protected main branch.',
     'Direct Claude Code or Codex with plan-first, small, verifiable tasks, and never merge code you cannot explain.',
-    'Turn a PRD into an implementation plan, a repository AGENTS.md, session handoffs and an align check.',
-    'Verify AI-written code with automated tests, agent-assisted review, author self-review and risk-based human review.',
-    'Deploy a working demo to GitHub Pages and explain what it does, how it works and what evidence proves it.',
+    'Turn a PRD into an implementation plan, a repository AGENTS.md, session handoffs, a delegated issue and an acceptance check.',
+    'Verify AI-written code with automated tests, agent-assisted review, author self-review and an independent human approval scaled to risk.',
+    'Deploy a working demo to GitHub Pages, roll back a bad release, and explain what it does, how it works and what evidence proves it.',
   ],
   badge: {
     name: 'Spec to Ship',
@@ -57,8 +57,9 @@ export const level4: Level = {
         {
           heading: 'Why protected main matters',
           paragraphs: [
-            'Branch protection rules make `main` accept changes only through pull requests, optionally with passing checks and an approving review. That one setting turns "someone changed production" into "a reviewed, tested, recorded change was merged." When agents can write code quickly, this gate matters more, not less.',
-            'Teams where PMs and designers now change code apply the same rule to everyone: changes go through pull requests, never direct pushes to main, however small. A copy fix gets a light review; it still gets a PR.',
+            'Branch protection rules and rulesets make `main` accept changes only through pull requests, optionally with passing checks and an approving review. That one setting turns "someone changed production" into "a reviewed, tested, recorded change was merged." When agents can write code quickly, this gate matters more, not less.',
+            'One catch: by default a classic branch protection rule does not apply to repository admins, and on your own repository you are the admin. Use a ruleset with an empty bypass list, or tick "Do not allow bypassing the above settings", so the rule binds you too.',
+            'Apply the same rule to everyone who changes code, including PMs, designers and agents: changes go through pull requests, never direct pushes to main, however small. A copy fix gets a light review; it still gets a PR.',
           ],
         },
         {
@@ -105,7 +106,7 @@ export const level4: Level = {
           'Complete the GitHub Skills "Introduction to GitHub" exercise in the browser.',
           'Install GitHub Desktop or the gh CLI. If you use the CLI, run `gh auth login`. Your mentor can help with setup.',
           'Create a repository named `moneypilot`. Public is fine because it will only ever contain fictional data. Copy your PRD into `docs/prd.md` and your prototype screenshots into `docs/prototype/`, removing any private research references.',
-          'In the repository settings, add a branch protection rule or ruleset for `main` that requires a pull request before merging.',
+          'In the repository settings, add a ruleset for `main` that requires a pull request before merging, and leave its bypass list empty so it applies to you as the admin.',
           'Clone the repository, create the branch `docs/readme-intro`, and run the agent prompt below to improve the README. Read the diff before committing.',
           'Commit, push and open a pull request with a clear description. Ask your mentor to review it and request one change.',
           'Address the review comment in a new commit, merge the PR and delete the branch.',
@@ -135,7 +136,7 @@ Do not run git commit or git push. I will do that myself.`,
       ],
       artifact: 'moneypilot repository with protected main and a first merged pull request',
       verification: [
-        'A direct push to main is rejected by the branch protection rule. Try it once on purpose.',
+        'A direct push to main is rejected by the ruleset, even though you are the repository admin. Try it once on purpose.',
         'The merged PR shows at least two commits, a review comment and a resolved conversation.',
         'The README diff changed only README.md, as the prompt required.',
         'Nothing in the repository contains real names, interview notes or real financial data.',
@@ -147,13 +148,16 @@ Do not run git commit or git push. I will do that myself.`,
       ],
       checklist: [
         { id: 'gh-skills', text: 'Completed the GitHub Skills introduction exercise' },
-        { id: 'repo', text: 'Created the moneypilot repository with protected main' },
+        {
+          id: 'repo',
+          text: 'Created the moneypilot repository with a ruleset on main that has no bypass',
+        },
         { id: 'pr-url', text: 'Opened a pull request and recorded its URL as the artifact' },
         { id: 'review', text: 'Received a review comment and addressed it in a follow-up commit' },
         { id: 'merged', text: 'Merged the PR and deleted the branch' },
       ],
       mentorMove:
-        'Be the reviewer on her first PR: leave one substantive comment, such as a missing link, and one question, and approve only after she pushes a fix. Then open a real PR from your team and talk through what you look at first and why.',
+        'Be the reviewer on her first PR: leave one substantive comment, such as a missing link, and one question, and approve only after she pushes a fix. Then open a merged PR from a well-known open-source project and talk through what you look at first and why.',
     },
     {
       id: 's14',
@@ -178,7 +182,7 @@ Do not run git commit or git push. I will do that myself.`,
           ],
           bullets: [
             '**Explore**: "Read the repo and summarize its structure and how to run it."',
-            '**Plan**: "Propose steps, files to touch and how you will test it. Do not write code yet."',
+            '**Plan**: "Propose steps, files to touch and how you will test it. Do not write code yet." In Claude Code, plan mode (Shift+Tab) does this without touching files; in Codex, use the Read-only preset for this step.',
             '**Implement**: "Do step 1 only, then run the tests."',
             '**Verify**: "Show me the test output and the diff."',
           ],
@@ -187,20 +191,32 @@ Do not run git commit or git push. I will do that myself.`,
           heading: 'Small diffs and safe permissions',
           paragraphs: [
             'A 50-line change can be reviewed in minutes; a 2,000-line change gets rubber-stamped. Ask for one feature per branch and one concern per commit. If a session goes sideways, it is usually faster to discard the branch and restart with a better prompt than to argue with the agent.',
-            'Claude Code and Codex ask before running commands or editing files unless you change their permission settings. Keep approvals on while you learn. Never paste secrets into prompts, never let an agent push to main, and read every command that deletes, installs or uploads something before you approve it.',
+            'As in Level 2, check the permission mode before you start: recent Claude Code versions start in auto mode and the Codex Auto preset acts without asking. While you learn, use a mode that asks before edits and commands, or plan mode for the planning step. Never paste secrets into prompts, never let an agent push to main, and read every command that deletes, installs or uploads something before you approve it.',
+          ],
+        },
+        {
+          heading: 'Which agent surface when',
+          paragraphs: [
+            "The same agents now run in several places. The terminal is this level's default because it shows you exactly what happens, but you do not have to live there.",
+          ],
+          bullets: [
+            '**Terminal** (Claude Code, Codex CLI): works on your local clone with full visibility. Best while you learn.',
+            '**Desktop and web apps** (Claude Code desktop and on the web, the Codex app): the same agent without a terminal. The web versions run in a cloud sandbox and hand back a branch or pull request.',
+            '**Assign an issue** (GitHub Copilot cloud agent, Claude Code on the web, Codex cloud): delegate a well-specified issue and review the pull request it opens. Session 15 has you try this once.',
+            "**Editor agents** (Copilot in VS Code, Google Antigravity): the agent sits beside the code; Antigravity's Agent Manager runs several agents at once.",
           ],
         },
         {
           heading: 'Give the agent a verification loop',
           paragraphs: [
             'A unit test checks one function with concrete inputs and an expected output, such as a projected balance of 15000 minor units for a given set of bills. Your Given/When/Then criteria map directly onto tests. Ask the agent to write the test first, watch it fail, then make it pass: you get evidence rather than assurances.',
-            'Teams report that output quality improves sharply when the agent can check its own work: tests it can run, a browser session it can drive, and screenshots it can compare against the design. Web apps are cheap to verify this way, which is one reason MoneyPilot is a web app; native mobile apps are much harder to put in an automatic loop.',
+            'Output quality improves sharply when the agent can check its own work: tests it can run, a browser session it can drive, and screenshots it can compare against the design. Web apps are cheap to verify this way, which is one reason MoneyPilot is a web app; native mobile apps are much harder to put in an automatic loop.',
           ],
         },
         {
           heading: 'Do not merge code you cannot explain',
           paragraphs: [
-            'A rule worth adopting from teams doing this today: if you cannot explain what a change does and why, you do not merge it. Ask the agent to walk you through any line you do not understand, and keep asking until you can explain it back.',
+            'A rule worth adopting: if you cannot explain what a change does and why, you do not merge it. Ask the agent to walk you through any line you do not understand, and keep asking until you can explain it back.',
             'Agent-written tests need the same scrutiny. A test can pass while checking the wrong thing, for example asserting that a function returns a number rather than the right number. Read each test and confirm it checks the acceptance criterion it claims to cover.',
           ],
         },
@@ -232,7 +248,7 @@ Do not run git commit or git push. I will do that myself.`,
           'Scaffold MoneyPilot with an agent, then implement and test the projected balance calculation with a plan-first loop, and merge it through a pull request.',
         steps: [
           'Install Node.js LTS. Open Claude Code or Codex in your moneypilot clone and ask it to explain the repository.',
-          'On branch `feat/scaffold`, ask the agent for a minimal React, TypeScript and Vite app with Vitest, plus README instructions to run it. Run it yourself with `npm install` and `npm run dev`, then open a PR, self-review the diff and merge.',
+          'On branch `feat/scaffold`, ask the agent for a minimal React, TypeScript and Vite app with Vitest, plus README instructions to run it. Run it yourself with `npm install` and `npm run dev`, then open a PR, self-review the diff and merge. If setup stalls for more than 20 minutes, ask your mentor to unblock it: environment setup is not the skill this session tests.',
           'On branch `feat/projected-balance`, run the agent prompt below. Review the plan and push back on anything outside scope.',
           'Let the agent write the tests first, run them and show they fail, then implement until they pass.',
           'Read every test and confirm it checks the acceptance criterion it names. Calculate two expected values by hand.',
@@ -245,21 +261,22 @@ Do not run git commit or git push. I will do that myself.`,
         where: 'In the moneypilot repository, on branch feat/projected-balance',
         text: `Read docs/prd.md, focusing on the data definitions and the acceptance criteria about the projected balance.
 
-Task: implement a pure TypeScript function that calculates the projected balance on the day before the next payday.
+Task: implement a pure TypeScript function that builds a dated cash-flow schedule from today to the day before the next payday.
 
-Inputs: current balance, next payday date, and a list of upcoming bills (name, amount, due date, optional isVariable flag).
-Output: the projected balance, the bills included, and a shortfall flag.
+Inputs: current balance, the date the balance was last updated, today's date, next payday date, and a list of upcoming bills (name, amount, due date, optional isVariable flag with an estimated amount).
+Output: the balance after each day, the projected balance on the day before payday, the lowest balance in the period and its date, the bills included, a shortfall flag that is true if the balance goes below zero on any day (not just at the end), and an isEstimate flag if any variable bill is included.
 
 Process:
 1. Explore: tell me which files exist and where this function should live. Do not write code yet.
 2. Plan: list the steps, the files to create, and the test cases you will write, each mapped to a PRD acceptance criterion by number. Wait for my approval.
-3. Tests first: write Vitest unit tests for each mapped criterion plus edge cases (no bills, a bill due on payday, a bill after payday, a variable amount, a negative result). Run them and show me they fail.
+3. Tests first: write Vitest unit tests for each mapped criterion plus edge cases (no bills, a bill due on payday, a bill after payday, a variable amount, a balance that dips below zero mid-period and recovers, two bills on the same day, and a balance last updated more than three days ago, which must be flagged as stale). Run them and show me they fail.
 4. Implement until all tests pass. Run npm test and show me the full output.
 5. Explain each test in one sentence: which criterion it covers and what would make it fail.
 
 Constraints:
 - No UI changes in this branch. No new dependencies.
 - Store money as integers in minor units (cents or pence) to avoid floating point errors.
+- If you need to make an assumption about ordering or rounding, write it in the plan and wait for my decision.
 - Do not commit or push. I will review the diff first.`,
       },
       expectedOutput: [
@@ -330,15 +347,15 @@ Constraints:
         {
           heading: 'The repository as context',
           paragraphs: [
-            '`AGENTS.md` tells any agent what the project is, how to install, run and test it, the conventions, and the hard rules, such as "fictional data only, never add real bank APIs." Codex, Copilot and many other tools read it; Claude Code reads `CLAUDE.md`, which can simply point to AGENTS.md. Keep it short and accurate: stale instructions are worse than none.',
+            '`AGENTS.md` tells any agent what the project is, how to install, run and test it, the conventions, and the hard rules, such as "fictional data only, never add real bank APIs." Codex reads it natively, Claude Code reads it when there is no `CLAUDE.md`, and GitHub Copilot and many other tools support it too. Keep it short and accurate: stale instructions are worse than none, and an instruction is guidance, not a lock, so keep the hard rules enforced by CI and branch rules as well.',
             'Keep the PRD and the prototype in the repository next to the code, in `docs/prd.md` and `docs/prototype/`, and update them in the same PR when scope changes. Agents and engineers then build from one consistent source.',
           ],
         },
         {
-          heading: 'Handoffs and the align check',
+          heading: 'Handoffs and the acceptance check',
           paragraphs: [
             'Agent sessions have limited context and they end. A handoff note captures where the work is: what was done, what is next, decisions made and why, open questions, and how to verify the current state. It is the same discipline as the second-brain handoff from Level 2, applied to code.',
-            'Teams doing this today describe a loop, still an emerging practice: a handoff loads the merged PRD and design spec into the implementing agent; after building, an "align" check compares the build against the PRD acceptance criteria and reports what is met, partial or missing; and learnings from the work are written back to the team knowledge base so the next feature starts smarter.',
+            "Public spec-driven workflows, such as GitHub's Spec Kit and the practitioner handoff skill linked below, close the loop the same way: each session starts from the spec and the latest handoff; when a slice is done, an **acceptance check** compares the build with every acceptance criterion and reports what is met, partial or missing; and what you learned goes back into AGENTS.md or your notes, so the next session starts smarter.",
           ],
         },
         {
@@ -372,15 +389,16 @@ Constraints:
       ],
       task: {
         summary:
-          'Write the implementation plan and AGENTS.md, build the first two or three slices as separate PRs with a handoff note after each session, then run an align check against the PRD.',
+          'Write the implementation plan and AGENTS.md, build the first two slices as separate PRs with a handoff note after each session, delegate one slice as a GitHub issue to a cloud agent, then run an acceptance check against the PRD.',
         steps: [
           'Run the agent prompt below to draft `docs/plan.md` with 5 to 8 vertical slices mapped to PRD acceptance criteria.',
           'Edit the plan yourself: reorder, cut, or split slices that are too big. Merge it through a PR.',
-          'Ask the agent to draft `AGENTS.md` with project purpose, commands, conventions and hard rules. Add a `CLAUDE.md` that points to AGENTS.md if you use Claude Code. Trim anything vague, then merge through a PR.',
+          'Ask the agent to draft `AGENTS.md` with project purpose, commands, conventions and hard rules. Claude Code reads it when there is no `CLAUDE.md`; add a `CLAUDE.md` that starts with `@AGENTS.md` only if you want Claude-specific rules. Trim anything vague, then merge through a PR.',
           'Create `src/data/fictional.ts` with one fictional persona and their month of income and bills, matching your prototype dataset.',
-          'Build slices 1 and 2, and 3 if time allows, each on its own branch and PR, using the plan-first loop from Session 14. Give the agent your prototype screenshots so it can compare its result to the design.',
+          'Build slices 1 and 2, each on its own branch and PR, using the plan-first loop from Session 14. Give the agent your prototype screenshots so it can compare its result to the design.',
+          'Write slice 3 as a GitHub issue: goal, acceptance criteria, files likely to change and how to test it. Assign it to a cloud agent: the Copilot cloud agent if your plan includes it, Claude Code on the web, or Codex cloud. Review the pull request it opens exactly as you would any other, and note what the issue failed to say.',
           'At the end of each session, ask the agent to write a handoff note to `docs/handoffs/YYYY-MM-DD.md`. Start the next slice in a fresh session that reads AGENTS.md and the latest handoff.',
-          'Run an align check: in a fresh session, ask the agent to compare the running app and the code with every acceptance criterion in `docs/prd.md` and report met, partial or missing.',
+          'Run an acceptance check: in a fresh session, ask the agent to compare the running app and the code with every acceptance criterion in `docs/prd.md` and report met, partial or missing.',
           'Write two or three learnings from this session back to your second brain or `docs/learnings.md`.',
         ],
       },
@@ -407,23 +425,24 @@ After writing the plan, name the two slices most likely to go wrong and explain 
       },
       expectedOutput: [
         'docs/plan.md with 5 to 8 vertical slices mapped to acceptance criteria',
-        'AGENTS.md (and a CLAUDE.md pointer) with working commands, conventions and hard rules',
-        'At least two merged PRs that build working screens with fictional data',
-        'Handoff notes in docs/handoffs/ and an align check report against the PRD',
+        'AGENTS.md with working commands, conventions and hard rules',
+        'At least two merged PRs that build working screens with fictional data, plus one PR from a delegated issue',
+        'Handoff notes in docs/handoffs/ and an acceptance check report against the PRD',
       ],
       artifact:
-        'Implementation plan, AGENTS.md, handoff notes, align report and first working MoneyPilot screens',
+        'Implementation plan, AGENTS.md, handoff notes, acceptance report and first working MoneyPilot screens',
       verification: [
         'A fresh agent session given only AGENTS.md and the latest handoff note correctly states what to do next.',
         'Each merged slice PR references its plan slice and the acceptance criteria it satisfies.',
         'The figures on screen match a hand calculation from the fictional dataset.',
         'The install, run and test commands in AGENTS.md work when copied exactly.',
-        'The align report lists every acceptance criterion with a status, and missing items are in the plan.',
+        'The acceptance report lists every acceptance criterion with a status, and missing items are in the plan.',
+        'The delegated issue produced a pull request that you reviewed and either merged or closed with a reason.',
       ],
       reflectionPrompts: [
         'Which slice did you split or cut, and why?',
         'What did the fresh agent get wrong from your handoff note, and what did you change?',
-        'What did the align check find that you had missed, and how close are the screens to your prototype?',
+        'What did the acceptance check find that you had missed, and what did the cloud agent get wrong because the issue did not say it?',
       ],
       checklist: [
         {
@@ -433,7 +452,11 @@ After writing the plan, name the two slices most likely to go wrong and explain 
         { id: 'agents-md', text: 'Added AGENTS.md with working commands and hard rules' },
         { id: 'slices', text: 'Merged at least two slice PRs with working screens' },
         { id: 'handoff', text: 'Wrote a handoff note and resumed from it in a fresh session' },
-        { id: 'align', text: 'Ran an align check against the PRD and recorded the results' },
+        { id: 'align', text: 'Ran an acceptance check against the PRD and recorded the results' },
+        {
+          id: 'delegated',
+          text: 'Delegated one slice as an issue to a cloud agent and reviewed its PR',
+        },
         { id: 'figures', text: 'Checked on-screen figures against a hand calculation' },
       ],
       mentorMove:
@@ -471,11 +494,12 @@ After writing the plan, name the two slices most likely to go wrong and explain 
         {
           heading: 'Review is the new bottleneck',
           paragraphs: [
-            'Teams that adopted coding agents report that the bottleneck moved from writing code to reviewing it. The practices they converged on are worth copying: author self-review is mandatory before asking anyone else, PR size is capped so reviews stay fast, and "request changes" is reserved for real merge blockers, with everything else left as comments.',
-            'An agent reviewer can read a diff and flag likely bugs, missing tests and mismatches with the spec in minutes. It also produces false positives and misses context, so treat its comments as input, not a verdict. Then match the depth of human review to the risk.',
+            'When an agent writes a feature in minutes, reading it becomes the slow step. Long-standing code review practice keeps it moving: authors review their own diff before asking anyone else, PRs stay small so reviews stay fast, and reviewers mark non-blocking comments as nits so that "request changes" means a real problem.',
+            'An agent reviewer can read a diff and flag likely bugs, missing tests and mismatches with the spec in minutes. It also produces false positives and misses context, so treat its comments as input, not a verdict.',
+            "In a bank, every production change normally needs at least one independent human approval, from someone other than the author (segregation of duties). An agent's approval does not count as that human. Risk decides how deep the human review goes, not whether it happens.",
           ],
           bullets: [
-            '**Low risk**: copy, styling, docs. Automated checks, self-review and a quick look.',
+            '**Low risk**: copy, styling, docs. Automated checks, self-review and a quick human approval.',
             '**Medium risk**: new UI flows, refactors. Automated checks, agent review and one human review.',
             '**High risk**: calculations, data handling, security, permissions, anything touching money. Tests covering the change, agent review, and careful review by someone who understands the domain.',
           ],
@@ -483,14 +507,14 @@ After writing the plan, name the two slices most likely to go wrong and explain 
         {
           heading: 'Autonomy needs context',
           paragraphs: [
-            'A cautionary field note: one team let a fully autonomous agent run produce a nearly complete draft PR in under an hour. CI passed. It also silently broke a live experiment running on the same screen, because nothing in the agent context said the experiment existed. The fix was not less automation; it was giving agents context about live experiments and feature flags, and keeping a reviewer who knows the product in the loop.',
+            "An agent only knows what is in the repository and its instructions. Feature flags, experiments, other teams that depend on a screen, a regulator's wording that must not change: if none of that is written down, a green CI run tells you nothing about it. The answer is not less automation; it is writing that context into AGENTS.md or the issue, and keeping a reviewer who knows the product in the loop.",
           ],
         },
         {
-          heading: 'Debugging, deployment and feedback loops',
+          heading: 'Debugging, deployment, rollback and feedback loops',
           paragraphs: [
             'Good debugging starts with a reproducible failure: exact steps, expected result, actual result, error message. Give the agent that, ask it to form hypotheses and test them one at a time, and ask for a failing test that reproduces the bug before it fixes anything. A fix without a test tends to come back.',
-            'GitHub Pages hosts static sites for free, and a GitHub Actions workflow can build and deploy on every merge to `main`. After deploying, close the loop: share the link with two or three people from your discovery work, watch them use it, and turn what you see into issues. Shipping is the start of learning, not the end.',
+            'GitHub Pages hosts static sites for free, and a GitHub Actions workflow can build and deploy on every merge to `main`. Practise the bad day too: when a release breaks, the first move is to roll back by reverting the change through a pull request, and only then to investigate. A short incident note (what broke, who noticed, how long, what changes) is how teams learn from it. After deploying, close the loop: share the link with two or three people from your discovery work, watch them use it, and turn what you see into issues. Shipping is the start of learning, not the end.',
           ],
         },
       ],
@@ -518,15 +542,16 @@ After writing the plan, name the two slices most likely to go wrong and explain 
       ],
       task: {
         summary:
-          'Add CI and an end-to-end check, write a review policy, self-review and agent-review your PRs, fix a reproduced bug with a regression test, and deploy to GitHub Pages.',
+          'Add CI and an end-to-end check, write a review policy, self-review and agent-review your PRs, fix a reproduced bug with a regression test, deploy to GitHub Pages and practise a rollback.',
         steps: [
           'On branch `ci/tests`, ask the agent to add a GitHub Actions workflow that runs install, type check, lint and `npm test` on every pull request. Turn on "require status checks to pass" in branch protection.',
           'Add one end-to-end or integration test that loads the forecast screen with fictional data and checks the projected balance text, using Playwright or React Testing Library.',
-          'Write `docs/review-policy.md`: low, medium and high risk rules, a PR size cap, mandatory author self-review, and "request changes" only for merge blockers. Note that a change touching a screen with a live experiment is always high risk.',
+          'Write `docs/review-policy.md`: every change to main needs one human approval from someone other than the author; low, medium and high risk rules for how deep that review goes; a PR size cap; mandatory author self-review; and nits marked as non-blocking. Note that a change touching a screen behind a feature flag or experiment is always high risk.',
           'On each open PR, do your own self-review first, then run the agent review prompt below. Record a decision for every comment: fixed, rejected with a reason, or turned into an issue.',
           'Ask your mentor to review the highest-risk change, the calculation logic, as the human domain reviewer.',
           'Break something on purpose, for example a bill due exactly on payday. Reproduce it, have the agent write a failing test, then fix it.',
           'Add a GitHub Pages deployment workflow. Vite needs `base` set to `/moneypilot/`. Merge, then open the live URL on your phone.',
+          'Practise a rollback with your mentor: merge a small PR that breaks the displayed balance on purpose, confirm the live site is wrong, then use the Revert button on the merged PR to open and merge a revert PR. Write a five-line incident note in `docs/incidents/`.',
           'Share the URL with two or three people, note where they struggle, and open GitHub issues for the top findings.',
         ],
       },
@@ -541,7 +566,7 @@ Check, in this order:
 1. Correctness: does the change satisfy the acceptance criteria it claims? Recompute any money calculation by hand for at least two cases.
 2. Tests: is every changed behavior covered by a test, and does each test check the right value? Name missing cases.
 3. Scope: is anything changed that the PR description does not mention?
-4. Safety: secrets, real personal or financial data, new network calls, new dependencies, anything that could move money, or changes to a screen with a live experiment.
+4. Safety: secrets, real personal or financial data, new network calls, new dependencies, anything that could move money, or changes to a screen behind a feature flag or experiment.
 5. Accessibility: color-only signals, missing labels, small tap targets.
 
 Output a table: severity (blocker, should-fix, nit), file and line, issue, suggested fix. Only "blocker" means the PR must not merge.
@@ -553,18 +578,19 @@ Rules:
       },
       expectedOutput: [
         'A CI workflow running type check, lint and tests on every PR, required by branch protection',
-        'docs/review-policy.md with risk tiers, a PR size cap and mandatory self-review',
+        'docs/review-policy.md with an independent human approval on every change, risk tiers, a PR size cap and mandatory self-review',
         'Agent review comments with recorded decisions, and a bug reproduced by a failing test then fixed',
-        'MoneyPilot live on GitHub Pages, with issues opened from real user feedback',
+        'MoneyPilot live on GitHub Pages, a practised rollback with an incident note, and issues opened from real user feedback',
       ],
       artifact:
-        'Deployed MoneyPilot URL, passing CI, review policy and a regression-tested bug fix',
+        'Deployed MoneyPilot URL, passing CI, review policy, a regression-tested bug fix and an incident note',
       verification: [
         'A pull request with a deliberately failing test is blocked from merging by CI.',
         'The live GitHub Pages URL loads on a phone and shows the correct projected balance for the fictional dataset.',
         'Every agent review comment has a recorded decision: fixed, rejected with a reason, or turned into an issue.',
         'The bug fix PR includes a test that fails without the fix and passes with it.',
-        'docs/review-policy.md classifies calculation and data changes as high risk requiring a human domain reviewer.',
+        'docs/review-policy.md requires a human approval other than the author on every change, and classifies calculation and data changes as high risk requiring a human domain reviewer.',
+        'The revert PR restored the correct balance on the live site, and the incident note says what broke and what changes.',
       ],
       reflectionPrompts: [
         'Which agent review comment was wrong, and how did you know?',
@@ -576,13 +602,17 @@ Rules:
         { id: 'e2e', text: 'Added an end-to-end or integration test for the forecast screen' },
         {
           id: 'policy',
-          text: 'Wrote a review policy with risk tiers, a PR size cap and mandatory self-review',
+          text: 'Wrote a review policy with human approval on every change, risk tiers, a PR size cap and self-review',
         },
         {
           id: 'agent-review',
           text: 'Self-reviewed, ran an agent review and recorded a decision for every comment',
         },
         { id: 'bug-test', text: 'Fixed a reproduced bug with a regression test' },
+        {
+          id: 'rollback',
+          text: 'Rolled back a broken release with a revert PR and wrote an incident note',
+        },
         {
           id: 'deployed',
           text: 'Deployed to GitHub Pages, recorded the live URL and opened issues from real feedback',
@@ -678,17 +708,26 @@ Rules:
       prompt:
         'A designer wants to push a one-word copy fix directly to main because "it is just text". What is the best response?',
       options: [
-        { id: 'a', text: 'Allow it; text changes cannot break anything.' },
+        {
+          id: 'a',
+          text: 'Allow it for copy and styling changes only, since text changes cannot break the build or the tests.',
+        },
         {
           id: 'b',
-          text: 'Open a small pull request anyway: every change goes through a PR so checks run and there is a record, and a low-risk PR gets a light review.',
+          text: 'Open a small pull request anyway: checks run, it is recorded, and low risk means a light review.',
         },
-        { id: 'c', text: 'Ask an engineer to make the change instead.' },
-        { id: 'd', text: 'Batch it with other changes into one large monthly PR.' },
+        {
+          id: 'c',
+          text: 'Ask an engineer to make the change instead, so only engineers ever touch the codebase directly.',
+        },
+        {
+          id: 'd',
+          text: 'Collect it with other copy fixes and merge them together in one larger pull request each month.',
+        },
       ],
       correct: 'b',
       explanation:
-        'Teams where PMs and designers change code keep one rule for everyone: pull requests, never direct pushes to main. Risk-based review keeps that cheap for low-risk changes, and the history stays auditable.',
+        'One rule for everyone who changes code: pull requests, never direct pushes to main. Risk-based review keeps that cheap for low-risk changes, the checks still run, and the history stays auditable. Batching makes review harder, not easier.',
     },
     {
       id: 'q4-2',
@@ -696,17 +735,26 @@ Rules:
       prompt:
         'You asked an agent to add the forecast screen and it returned an 1,800-line diff across 30 files. What is the best next step?',
       options: [
-        { id: 'a', text: 'Merge it if CI passes; agents are usually right.' },
-        { id: 'b', text: 'Ask a colleague to review all 1,800 lines carefully.' },
+        {
+          id: 'a',
+          text: 'Merge it if CI passes, then fix anything that breaks in small follow-up pull requests.',
+        },
+        {
+          id: 'b',
+          text: 'Ask a senior engineer to set aside an afternoon and review all 1,800 lines carefully.',
+        },
         {
           id: 'c',
-          text: 'Discard or park the branch, ask for a plan, split the work into small slices, and rebuild one slice per PR.',
+          text: 'Park the branch, ask for a plan, split it into small slices and rebuild one slice per PR.',
         },
-        { id: 'd', text: 'Ask the agent to review its own diff and merge if it approves.' },
+        {
+          id: 'd',
+          text: 'Have a second agent review the diff and merge it if neither agent finds a blocking issue.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Huge diffs get rubber-stamped, not reviewed. Restarting with a plan and small vertical slices is usually faster than untangling a large change, and each slice can be verified.',
+        'Huge diffs get rubber-stamped, not reviewed, by people and agents alike. Restarting with a plan and small vertical slices is usually faster than untangling a large change, and each slice can be verified.',
     },
     {
       id: 'q4-3',
@@ -714,17 +762,26 @@ Rules:
       prompt:
         'The agent reports "All tests pass, the feature is complete." What should you do before merging?',
       options: [
-        { id: 'a', text: 'Merge; the agent ran the tests.' },
+        {
+          id: 'a',
+          text: 'Check that the number of tests went up and that code coverage did not drop, then merge the PR.',
+        },
         {
           id: 'b',
-          text: 'Run the tests yourself or check CI, read each test to confirm it checks the right value for its criterion, and make sure you can explain the change.',
+          text: 'Run the tests or check CI, read what each test asserts, and be sure you can explain the change.',
         },
-        { id: 'c', text: 'Ask the agent if it is sure.' },
-        { id: 'd', text: 'Count the tests; more tests means better coverage.' },
+        {
+          id: 'c',
+          text: 'Ask the agent to confirm it ran the full suite and to list every test it added in the PR.',
+        },
+        {
+          id: 'd',
+          text: 'Merge it, because the agent ran the tests in its own session and showed you the passing output.',
+        },
       ],
       correct: 'b',
       explanation:
-        'Agent transcripts can be wrong, and agent-written tests can pass while testing the wrong thing. Independent test runs plus a human check of what the tests assert is the minimum. If you cannot explain the change, do not merge it.',
+        'Agent transcripts can be wrong, and agent-written tests can pass while testing the wrong thing. Coverage and test counts do not tell you whether a test checks the right value. Independent test runs plus a human check of what the tests assert is the minimum.',
     },
     {
       id: 'q4-4',
@@ -732,17 +789,26 @@ Rules:
       prompt:
         'In a real bank version of MoneyPilot using customer transactions, where should the forecast calculation run?',
       options: [
-        { id: 'a', text: 'In the browser, so the bank does not need servers.' },
+        {
+          id: 'a',
+          text: 'In the browser on the customer device, so transaction data never has to leave the phone.',
+        },
         {
           id: 'b',
-          text: 'On the backend behind an authenticated API, so data access, security and audit are controlled, with the frontend displaying the result.',
+          text: 'On the backend behind an authenticated API, so access and audit are controlled centrally.',
         },
-        { id: 'c', text: 'Inside the AI model, which can read the transactions directly.' },
-        { id: 'd', text: 'In a spreadsheet the customer downloads.' },
+        {
+          id: 'c',
+          text: 'Inside the language model, which reads the transactions and works out the forecast itself.',
+        },
+        {
+          id: 'd',
+          text: 'In a nightly batch job that emails each customer a forecast spreadsheet before payday.',
+        },
       ],
       correct: 'b',
       explanation:
-        'Real financial data belongs behind authentication, authorization and audit logging on the backend. The learning version runs in the browser only because it uses fictional data.',
+        'Real financial data belongs behind authentication, authorization and audit logging on the backend, and the browser would need the full data set first anyway. Models should never do the arithmetic. The learning version runs in the browser only because it uses fictional data.',
     },
     {
       id: 'q4-5',
@@ -750,32 +816,53 @@ Rules:
       prompt:
         'Under a risk-based review policy, which change most needs careful review by a human domain expert?',
       options: [
-        { id: 'a', text: 'Fixing a typo in the README.' },
-        { id: 'b', text: 'Changing the rounding logic in the projected balance calculation.' },
-        { id: 'c', text: 'Changing a button color to match the design.' },
-        { id: 'd', text: 'Renaming a CSS class.' },
+        {
+          id: 'a',
+          text: 'Rewording the empty state message shown on the forecast screen.',
+        },
+        {
+          id: 'b',
+          text: 'Changing rounding in the projected balance calculation.',
+        },
+        {
+          id: 'c',
+          text: 'Upgrading the test runner to its latest minor version.',
+        },
+        {
+          id: 'd',
+          text: 'Moving the bill list styles into a separate CSS file.',
+        },
       ],
       correct: 'b',
       explanation:
-        'Calculations that customers rely on for money decisions are high risk: small errors compound and erode trust. Low-risk changes can rely on automated checks and a light review.',
+        'Calculations that customers rely on for money decisions are high risk: small errors compound and erode trust. The other changes still get a human approval, but automated checks and a light review are enough.',
     },
     {
       id: 'q4-6',
       competency: 'agentic-systems',
       prompt:
-        'A fully autonomous agent run produces a nearly complete PR in under an hour that reworks the home screen. CI is green. A live A/B experiment runs on that screen. What is the main risk?',
+        'You assigned a GitHub issue for the bill list to a cloud coding agent. Its pull request is green in CI, but it also changed the forecast calculation, which the issue never mentioned. What do you do?',
       options: [
-        { id: 'a', text: 'None; green CI means the change is safe.' },
-        { id: 'b', text: 'The code style may not match the team conventions.' },
+        {
+          id: 'a',
+          text: 'Merge it, since CI is green and the agent probably found a related bug while it was working.',
+        },
+        {
+          id: 'b',
+          text: 'Close the pull request and stop delegating issues to cloud agents until the tools are more reliable.',
+        },
         {
           id: 'c',
-          text: 'The agent had no context about the live experiment and may silently break it; it needs that context and a reviewer who knows the product.',
+          text: 'Treat it as high risk: ask why the calculation changed, split it out, and get a domain review.',
         },
-        { id: 'd', text: 'The PR was produced too quickly to be any good.' },
+        {
+          id: 'd',
+          text: 'Ask the cloud agent to review its own pull request and merge it if it says the change is safe.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Teams have seen exactly this: fast, plausible autonomous work that broke a running experiment no test covered. Autonomy needs context about live experiments and flags, plus product-aware review.',
+        'A delegated PR is reviewed like any other. Scope creep into a money calculation raises the risk tier, whatever CI says. Splitting it out keeps the bill list change small and lets the calculation change get a proper domain review; the issue probably needed a "do not touch" line.',
     },
     {
       id: 'q4-7',
@@ -783,17 +870,26 @@ Rules:
       prompt:
         'Agents now produce PRs faster than your team can review them and the queue keeps growing. Which set of practices best addresses this?',
       options: [
-        { id: 'a', text: 'Remove human review for anything an agent wrote.' },
+        {
+          id: 'a',
+          text: 'Let an agent reviewer approve low-risk PRs on its own and keep human review only for the high-risk ones.',
+        },
         {
           id: 'b',
-          text: 'Automated checks first, mandatory author self-review, a PR size cap, risk-based review depth, and "request changes" reserved for real merge blockers.',
+          text: 'Automated checks first, author self-review, a PR size cap, and human review depth scaled to risk.',
         },
-        { id: 'c', text: 'Approve everything at the end of each week in one batch.' },
-        { id: 'd', text: 'Stop using agents until the queue is empty.' },
+        {
+          id: 'c',
+          text: 'Batch all agent PRs into one weekly review session so reviewers can approve them together.',
+        },
+        {
+          id: 'd',
+          text: 'Pause all agent work until the review queue is empty, then limit each engineer to one agent PR a day.',
+        },
       ],
       correct: 'b',
       explanation:
-        'These are the practices teams converged on when review became the bottleneck: they keep humans focused where judgment matters without abandoning review or the speed agents bring.',
+        'These practices keep humans focused where judgment matters without giving up review or the speed agents bring. In a bank, every production change still needs an independent human approval, so an agent cannot be the only approver even for low-risk changes.',
     },
     {
       id: 'q4-8',
@@ -801,13 +897,22 @@ Rules:
       prompt:
         'Which addition is most likely to improve the quality of an agent building MoneyPilot screens?',
       options: [
-        { id: 'a', text: 'A longer, more enthusiastic prompt.' },
+        {
+          id: 'a',
+          text: 'A longer prompt that describes the whole app, every screen and the brand voice in detail.',
+        },
         {
           id: 'b',
-          text: 'A verification loop: tests it can run, a browser session it can drive, and screenshots to compare against the prototype.',
+          text: 'Tests it can run, a browser it can drive, and screenshots to compare with the prototype.',
         },
-        { id: 'c', text: 'Permission to push directly to main.' },
-        { id: 'd', text: 'A bigger task so it has more context.' },
+        {
+          id: 'c',
+          text: 'Full permissions so it can install packages, run commands and push without interruption.',
+        },
+        {
+          id: 'd',
+          text: 'One large task covering all the screens, so it has the full context in a single session.',
+        },
       ],
       correct: 'b',
       explanation:
@@ -821,7 +926,7 @@ Rules:
     deliverables: [
       {
         id: 'repo',
-        text: 'Public moneypilot repository with protected main and required CI checks',
+        text: 'Public moneypilot repository with a no-bypass ruleset on main and required CI checks',
       },
       {
         id: 'pr',
@@ -833,11 +938,11 @@ Rules:
       },
       {
         id: 'tests',
-        text: 'Automated tests mapped to PRD acceptance criteria, passing in CI, plus an align report',
+        text: 'Automated tests mapped to PRD acceptance criteria, passing in CI, plus an acceptance report',
       },
       {
         id: 'review',
-        text: 'docs/review-policy.md and evidence of self-review and agent-assisted review with triaged comments',
+        text: 'docs/review-policy.md and evidence of self-review, agent-assisted review with triaged comments, and a human approval on every merged PR',
       },
       {
         id: 'live',
