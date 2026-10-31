@@ -177,85 +177,145 @@ function ChatAgent() {
     setStep(0)
     setPlaying(true)
   }
+  const current = data.steps[step]!
+  const nodeClass = (node: string) =>
+    cx(
+      'min-w-0 rounded-lg border p-2 text-stone-900 transition-colors dark:text-stone-100',
+      current.node === node
+        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950'
+        : 'border-stone-300 bg-white dark:border-stone-600 dark:bg-stone-900',
+    )
+  const edgeClass = (active: boolean) =>
+    cx(
+      'agent-edge transition-colors',
+      active ? 'text-indigo-700 dark:text-indigo-300' : 'text-stone-500 dark:text-stone-400',
+    )
   return (
-    <div className="space-y-4">
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div className="rounded-lg border border-stone-200 p-3 dark:border-stone-700">
-          <p className="mb-3 text-sm font-semibold">Plain chat</p>
-          <div className="flex items-center justify-between gap-2">
-            <Glyph name="person" />
-            <Arrow />
-            <Glyph name="model" />
-            <Arrow />
-            <Glyph name="person" />
-          </div>
-          <p className="mt-3 text-xs text-stone-600 dark:text-stone-300">
-            Ask → answer. You supply the file contents and do any external work.
-          </p>
+    <div className="space-y-3">
+      <div role="group" aria-label="Agent tool feedback loop">
+        <div className="text-center">
+          <p className="text-sm font-semibold">You</p>
+          <p className="text-xs text-stone-600 dark:text-stone-300">Use the chat or terminal.</p>
         </div>
-        <div className="rounded-lg border border-stone-200 p-3 dark:border-stone-700">
-          <p className="mb-3 text-sm font-semibold">Agent with file tools</p>
-          <div className="relative flex items-center justify-center gap-4 pb-6 text-indigo-700 dark:text-indigo-300">
-            <Glyph name="model" />
-            <Arrow />
-            <Glyph name="tool" />
-            <svg
-              aria-hidden
-              viewBox="0 0 160 30"
-              className="absolute right-0 bottom-0 h-7 w-full"
-              fill="none"
+        <div
+          className="my-2 flex items-center justify-center gap-2 text-xs text-stone-600 dark:text-stone-300"
+          aria-hidden
+        >
+          <svg viewBox="0 0 24 28" fill="none" className="h-7 w-6">
+            <path
+              d="M7 2v23m-4-5 4 5 4-5M17 26V3m-4 5 4-5 4 5"
               stroke="currentColor"
-              strokeWidth="1.4"
-            >
-              <path d="M125 2v10c0 8-90 8-90 0V5m-4 4 4-4 4 4" />
-            </svg>
+              strokeWidth="1.5"
+            />
+          </svg>
+          <span>Request / reply</span>
+        </div>
+        <div
+          role="group"
+          aria-label="Claude Code, the agent application"
+          className="rounded-xl border border-stone-400 p-3 dark:border-stone-500"
+        >
+          <p className="mb-3 flex flex-wrap items-baseline gap-x-2 text-sm font-semibold">
+            Claude Code{' '}
+            <span className="text-xs font-normal text-stone-600 dark:text-stone-300">
+              The agent application
+            </span>
+          </p>
+          <div className="agent-interior">
+            <div className={nodeClass('model')}>
+              <p className="text-sm font-semibold">AI model</p>
+              <p className="text-xs text-stone-600 dark:text-stone-300">e.g. Claude</p>
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">Chooses actions.</p>
+            </div>
+            <div className="space-y-3" aria-hidden>
+              <div className={edgeClass(current.node === 'tools')}>
+                <span>Tool call</span>
+                <svg viewBox="0 0 100 16" fill="none">
+                  <path d="M1 8h96m-7-6 7 6-7 6" stroke="currentColor" strokeWidth="1.8" />
+                </svg>
+              </div>
+              <div className={edgeClass(current.node === 'result')}>
+                <svg viewBox="0 0 100 16" fill="none">
+                  <path d="M99 8H3m7-6-7 6 7 6" stroke="currentColor" strokeWidth="1.8" />
+                </svg>
+                <span>Tool result</span>
+              </div>
+            </div>
+            <div className={nodeClass('tools')}>
+              <p className="text-sm font-semibold">Tools</p>
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
+                {current.tool ?? 'Runs actions.'}
+              </p>
+            </div>
           </div>
-          <p className="mt-3 text-xs text-stone-600 dark:text-stone-300">
-            Choose → act → observe. Continue or stop within the allowed scope.
+          <p className="mt-2 text-center text-xs text-stone-600 dark:text-stone-300">
+            The result informs the next step. Repeat, answer or stop.
           </p>
         </div>
+        <div className="ml-auto flex w-1/3 flex-col items-center pt-1 text-center">
+          <Arrow className="rotate-90" />
+          <p className="text-xs font-semibold">Your files</p>
+          <p className="text-xs text-stone-600 dark:text-stone-300">Via tools</p>
+        </div>
       </div>
-      <ol className="grid grid-cols-5 gap-1.5" aria-label="Agent loop stages">
-        {data.steps.map((item, i) => (
-          <li
-            key={item.label}
-            aria-current={i === step ? 'step' : undefined}
-            className={cx(
-              'rounded-md border px-1 py-2 text-center text-xs transition-colors',
-              i === step
-                ? 'border-indigo-500 bg-indigo-50 font-semibold dark:bg-indigo-950'
-                : 'border-stone-200 dark:border-stone-700',
-            )}
-          >
-            <span className="block font-mono">{i + 1}</span>
-            <span className="mt-1 block">{item.label}</span>
-          </li>
+      <details
+        className="border-t border-stone-200 pt-3 dark:border-stone-700"
+        onToggle={(event) => {
+          if (!event.currentTarget.open) setPlaying(false)
+        }}
+      >
+        <summary className="cursor-pointer text-xs font-semibold">Walk through an example</summary>
+        <div className="mt-3 mb-2 flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs font-semibold text-stone-600 dark:text-stone-300">
+            Fictional walkthrough
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              className={controlClass}
+              onClick={playing ? () => setPlaying(false) : play}
+            >
+              {playing ? 'Pause example' : 'Play example'}
+            </button>
+            <button
+              type="button"
+              className={controlClass}
+              onClick={() => {
+                setPlaying(false)
+                setStep((step + 1) % data.steps.length)
+              }}
+            >
+              Next step
+            </button>
+          </div>
+        </div>
+        <div aria-live="polite" aria-atomic="true" className="min-h-24 sm:min-h-20">
+          <p aria-current="step" className="text-xs font-semibold">
+            <span className="font-mono">
+              {step + 1} / {data.steps.length}
+            </span>{' '}
+            · {current.label}
+          </p>
+          <p className="mt-1 text-sm">{current.detail}</p>
+        </div>
+      </details>
+      <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
+        Diagram references:{' '}
+        {data.sources.map((source, i) => (
+          <Fragment key={source.url}>
+            {i > 0 && ' · '}
+            <a
+              className="underline underline-offset-4"
+              href={source.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {source.title}
+            </a>
+          </Fragment>
         ))}
-      </ol>
-      <div aria-live="polite" className="min-h-20 text-sm">
-        <p key={step} className="animate-pop-in">
-          {data.steps[step]!.detail}
-        </p>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          className={controlClass}
-          onClick={playing ? () => setPlaying(false) : play}
-        >
-          {playing ? 'Pause example' : 'Play example'}
-        </button>
-        <button
-          type="button"
-          className={controlClass}
-          onClick={() => {
-            setPlaying(false)
-            setStep((step + 1) % data.steps.length)
-          }}
-        >
-          Next step
-        </button>
-      </div>
+        .
+      </p>
     </div>
   )
 }

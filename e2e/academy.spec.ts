@@ -62,18 +62,45 @@ test('lesson illustrations explain changing inputs and respect reduced motion', 
   await page.clock.install()
   await page.goto('#/lessons/s1')
   const agent = page.locator('[data-illustration="chat-agent"]')
+  await expect(
+    agent.getByRole('group', { name: 'Claude Code, the agent application', exact: true }),
+  ).toBeVisible()
+  await expect(agent.getByRole('button', { name: 'Play example' })).toBeHidden()
+  await agent.locator('summary').click()
   await agent.getByRole('button', { name: 'Play example' }).click()
   await expect(agent.locator('[aria-current="step"]')).toContainText('Choose')
   const next = agent.getByRole('button', { name: 'Next step' })
   await next.focus()
   await page.keyboard.press('Enter')
   await page.clock.runFor(8000)
-  await expect(agent.locator('[aria-current="step"]')).toContainText('Use tool')
+  await expect(agent.locator('[aria-current="step"]')).toContainText('Call the tool')
+
+  await next.click()
+  await expect(
+    agent.getByText('The tool returns tasks.csv and notes.md.', { exact: false }),
+  ).toBeVisible()
+  await next.click()
+  await expect(agent.locator('[aria-current="step"]')).toContainText('Choose again')
+  await expect(
+    agent.getByText('Filenames are not enough to answer.', { exact: false }),
+  ).toBeVisible()
 
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await agent.getByRole('button', { name: 'Play example' }).click()
-  await page.clock.runFor(7200)
-  await expect(agent.locator('[aria-current="step"]')).toContainText('Respond')
+  await expect(agent.locator('[aria-current="step"]')).toContainText('Set the goal')
+  for (const label of [
+    'Choose a tool',
+    'Call the tool',
+    'Read the result',
+    'Choose again',
+    'Call another tool',
+    'Read the new result',
+    'Respond',
+  ]) {
+    await page.clock.runFor(1400)
+    await expect(agent.locator('[aria-current="step"]')).toContainText(label)
+  }
+  await page.clock.runFor(1400)
   await expect(agent.getByRole('button', { name: 'Play example' })).toBeVisible()
 
   await page.goto('#/lessons/s11')

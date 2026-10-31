@@ -1,24 +1,72 @@
 // Original teaching diagrams. Counts, records and outcomes are invented examples, not benchmarks.
 export const lessonVisuals = {
   'chat-agent': {
-    title: 'A reply versus a loop that can act',
-    summary: 'The difference is the tools and control loop, not the chat box.',
-    caption: 'A chat product can also have tools. Review the actual capabilities and permissions.',
-    steps: [
-      { label: 'Goal', detail: 'You ask: find the three overdue items in this fictional file.' },
+    title: 'Inside an agent application',
+    sources: [
       {
-        label: 'Choose',
-        detail: 'The agent chooses a file-reading tool within its allowed scope.',
+        title: 'Anthropic',
+        url: 'https://www.anthropic.com/research/building-effective-agents',
+        status: 'verified',
+        verifiedOn: '2026-10-31',
       },
-      { label: 'Use tool', detail: 'The tool reads the file. Its result becomes new context.' },
       {
-        label: 'Check',
-        detail: 'The agent checks the result and decides whether another step is needed.',
+        title: 'Hugging Face tutorial',
+        url: 'https://huggingface.co/learn/agents-course/en/unit1/agent-steps-and-structure',
+        status: 'verified',
+        verifiedOn: '2026-10-31',
+      },
+    ],
+    summary: 'You interact with Claude Code; a model and tools work inside it.',
+    caption: 'The outlined application is the agent. Its model is one component.',
+    steps: [
+      {
+        label: 'Set the goal',
+        node: 'goal',
+        detail: 'You ask for the overdue tasks in a project folder.',
+        tool: null,
+      },
+      {
+        label: 'Choose a tool',
+        node: 'model',
+        detail: 'The model selects List files to locate the task file.',
+        tool: 'List files',
+      },
+      {
+        label: 'Call the tool',
+        node: 'tools',
+        detail: 'The app runs List files on the project folder.',
+        tool: 'List files',
+      },
+      {
+        label: 'Read the result',
+        node: 'result',
+        detail:
+          'The tool returns tasks.csv and notes.md. The app adds this result to the model’s context.',
+        tool: 'List files',
+      },
+      {
+        label: 'Choose again',
+        node: 'model',
+        detail: 'Filenames are not enough to answer. The model selects Read file for tasks.csv.',
+        tool: 'Read file',
+      },
+      {
+        label: 'Call another tool',
+        node: 'tools',
+        detail: 'The app reads tasks.csv.',
+        tool: 'Read file',
+      },
+      {
+        label: 'Read the new result',
+        node: 'result',
+        detail: 'The result contains 12 tasks, with 3 overdue. The model can now answer.',
+        tool: 'Read file',
       },
       {
         label: 'Respond',
-        detail:
-          'It reports the three items and the source. A requested write would need its own permission.',
+        node: 'answer',
+        detail: 'The agent reports the 3 overdue tasks, cites tasks.csv and stops.',
+        tool: 'Read file',
       },
     ],
   },

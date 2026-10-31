@@ -278,6 +278,22 @@ body {
   line-height: 1.6;
 }
 
+.agent-interior {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(4.5rem, 0.8fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0.4rem;
+}
+.agent-edge {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.agent-edge svg {
+  width: 100%;
+  height: 1rem;
+}
+
 .concept-tree-branches {
   position: relative;
 }
