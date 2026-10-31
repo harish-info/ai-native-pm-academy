@@ -39,7 +39,7 @@ export const level2: Level = {
         {
           heading: 'What Claude Code does that a chat cannot',
           paragraphs: [
-            'Claude Code can read files, write changes and run tools. File contents, instructions, command output and other context may be sent to the provider. Its working folder is a starting scope, not an access boundary. Check permissions, connected tools and the environment before using it.',
+            'Claude Code reads files, writes changes and runs commands on your computer. Whatever it reads, including file contents and command output, goes to the model provider. It starts in the folder you choose, but that folder is not a fence: it can be allowed to reach other files and tools, so check what it may do before you start.',
             "You do not need a terminal. The Claude desktop app has a **Code** tab: sign in with your Claude Pro plan, choose a folder and type. The terminal version is the same agent if you ever want it. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on. The [Field guide](/field-guide) compares current models and tools.",
             'The main Claude app, which now includes **Cowork**, can also act as an agent. This course uses Claude Code because your prototype lives in a folder you own, under git, where you can see and undo every change.',
           ],
@@ -67,15 +67,22 @@ export const level2: Level = {
             '**`CLAUDE.md`** is loaded at the start of every session in that folder. You write it. A line such as `@product-context.md` on its own pulls that file in too, so every session starts knowing what your product is. Other agents read a file called `AGENTS.md` instead; if you ever use one, a `CLAUDE.md` whose first line is `@AGENTS.md` keeps a single source of truth.',
             '**Auto memory** is notes Claude writes for itself as it works, for example a command that worked or a preference you corrected. It lives in your user folder rather than the workspace, and you can view and edit it with the `/memory` command.',
             'The split is simple. Anything that must hold in every session, or that someone else would need to know, you write in `CLAUDE.md` yourself: what the workspace is, the folder map, the conventions, what must never happen. Auto memory is for small things Claude picks up along the way. Look at it now and then, delete what is wrong and move anything important into `CLAUDE.md`. Status that changes weekly belongs in a workstream README, not in either.',
-            'Keep CLAUDE.md short and test that a fresh session loads it. Instructions guide the model; enforce non-negotiable boundaries through tool permissions, environment isolation and appropriate checks. Use git to inspect and recover tracked file changes.',
+            'Keep `CLAUDE.md` short and check that a fresh session picks it up. It is guidance, not a lock: Claude usually follows it, but anything that must never happen needs a real control, such as a permission setting or keeping the file out of the folder.',
           ],
         },
         {
           heading: 'Permissions, and undoing changes with git',
           paragraphs: [
-            'Check the mode in your own session: defaults depend on version, surface and settings. Auto mode uses automated action review; manual modes ask more often, and plan mode helps explore before editing. For unfamiliar or consequential changes, inspect the approach and permissions first.',
-            'Commit before a task and inspect the diff afterwards. Git restores tracked file state; it does not automatically recover ignored or untracked files, unsend messages or undo disclosure. Keep unnecessary connectors disabled and decide separately before publishing.',
+            'Check which permission mode your session is in; the default depends on your version and settings. Modes range from asking before every edit or command to approving routine actions automatically. While you are learning, use one that asks, so you see what Claude is about to do.',
+            'Commit before each task and read the diff after. Git can put tracked files back the way they were. It cannot bring back a file it never tracked, unsend a message or take back something already sent to a connected tool. Keep connectors you do not need switched off, and decide separately before anything is published.',
             'Git saves snapshots of a folder. You do not need to learn the commands: ask Claude to "commit this with a clear message", "show me what changed since the last commit" or "undo the changes to this file", and read what it reports. The workspace stays on your computer. If you want an off-machine backup, use a private repository only.',
+          ],
+        },
+        {
+          heading: 'Skills: procedures Claude can reuse',
+          paragraphs: [
+            'A **skill** is a folder with a `SKILL.md` file: a name, a one-line description of when to use it, and the steps. Claude reads only the descriptions until your request matches one, then loads the full steps. You can run a skill by name, such as `/grill-me`, or let Claude pick it when the task fits.',
+            'To install one, copy its folder into `.claude/skills/` in your workspace, or follow the install line in its README. Read it first, the way you would read a script someone emailed you, because it runs with your permissions. You will use Matt Pocock’s grill-me in Session 6 and write and test your own in Session 19.',
           ],
         },
         {
@@ -485,15 +492,15 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
       xp: 125,
       mentorReview: 'recommended',
       safetyCritical: true,
-      goal: 'Test the live prototype with real people, cover accessibility basics, get a second review from a fresh Claude session, fix bugs from reports and screenshots, and keep the repository free of secrets.',
+      goal: 'Check the live prototype the way a careful reviewer would: watch one person try it, go through your requirements and five accessibility checks, get a second opinion from a fresh Claude session, fix bugs through reviewed pull requests and keep secrets out of the repository.',
       whyItMatters:
-        'People may rely on the figures and warnings in your product even in a polished demo. Review observed behaviour, not only generated code or the agent’s explanation. Prioritise wrong decisions and missed warnings before cosmetic polish.',
+        'Agent-built work looks finished long before it is right. A total can be off by one, a warning can show only in red, an empty screen can break, and the agent will still tell you it is done. Check what the prototype actually does, not what the agent says it does, and fix whatever would mislead someone before anything cosmetic.',
       learn: [
         {
           heading: 'Test the normal path, then try to break it',
           illustration: 'review',
           paragraphs: [
-            'Watch someone use the live link on their own phone without helping. Note where they hesitate, what they tap that does nothing, and what they misread. Then go through `REQUIREMENTS.md` yourself, screen by screen: every state, every "done when" example, at laptop and phone width.',
+            'Hand the live link to one person, a friend is fine, and watch them use it on their own phone without helping. This checks that the prototype works, not whether the idea is worth building; Session 10 tests that with your target users. Note where they hesitate, what they tap that does nothing, and what they misread. Then go through `REQUIREMENTS.md` yourself, screen by screen: every state, every "done when" example, at laptop and phone width.',
             'Check the numbers. The totals, dates and status rules come from code, so they should match what you work out by hand from the fictional data, exactly. Pick the edge cases agents miss: no data at all, one item exactly on a boundary such as a due date or deadline, a very long name, two items on the same day.',
           ],
         },
@@ -557,11 +564,11 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
         summary:
           'Test the live prototype with a user and against your requirements, write `review-checklist.md`, fix the bugs you find through reviewed pull requests, and confirm the repository has no secrets.',
         steps: [
-          'Send the live link to one or two people. Watch at least one of them use it on their own phone without helping. Note every bug, hesitation and misreading.',
+          'Send the live link to one or two people; friends are fine. Watch at least one of them use it on their own phone without helping. Note every bug, hesitation and misreading.',
           'Go through `REQUIREMENTS.md` yourself on laptop and phone: every screen, state and "done when" example. Check two figures by hand and try two edge cases.',
           'Run the five accessibility checks on every screen and note what fails.',
           'Ask Claude to draft `docs/review-checklist.md` from `REQUIREMENTS.md` and this session: requirements, figures, states, accessibility, data and secrets. Edit it to one page in your own words.',
-          'Write confirmed problems as reproducible reports in docs/review-log.md and prioritise by consequence. Correct at least one meaningful defect. If none appears, ask a mentor to seed a harmless local UI fault on a disposable branch, then reproduce and correct it. Label this exercise and never introduce the fault into the live site.',
+          'Write each confirmed problem as a reproducible report in `docs/review-log.md`, most serious first: a wrong figure or a missed warning comes before a misaligned button. Fix at least one real defect. If you genuinely find none, ask your mentor to break something small on a throwaway branch and fix that instead, never on the live site.',
           'Fix them one at a time. For each, in a fresh session: paste the report and screenshot, ask Claude to reproduce and explain the cause, fix it on its own branch, add a test if it is a calculation, and open a pull request.',
           'Before merging each pull request, run the review prompt below in another fresh session. Record a decision for every comment in `docs/review-log.md`: fixed, rejected with a reason, or turned into an issue.',
           'Ask your mentor to review the change with the highest risk, usually anything touching totals, dates and status rules, as the human reviewer.',
