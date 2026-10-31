@@ -74,7 +74,15 @@ export function StatsPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Progress" title="Your stats">
+      <PageHeader
+        eyebrow="Progress"
+        title="Your stats"
+        actions={
+          <LinkButton to="/achievements" variant="secondary">
+            Badges and milestones <span aria-hidden>→</span>
+          </LinkButton>
+        }
+      >
         Everything here is computed from work you recorded: completed sessions, assessments,
         assessed projects and logged time.
       </PageHeader>

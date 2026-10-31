@@ -6,43 +6,91 @@ import { useStore } from '../state/store'
 import { BrandMark, ConfettiBurst, Icon, LevelArt } from './art'
 import { Button, Chevron, cx } from './primitives'
 
-const nav: { to: string; label: string; icon: string; end?: boolean }[] = [
-  { to: '/dashboard', label: 'Dashboard', icon: 'home' },
-  { to: '/levels', label: 'Learning path', icon: 'path' },
-  { to: '/plan', label: 'Study plan', icon: 'calendar' },
-  { to: '/moneypilot', label: 'MoneyPilot', icon: 'wallet' },
-  { to: '/wiki', label: 'Your wiki', icon: 'book' },
-  { to: '/workspace', label: 'Workspace', icon: 'pencil' },
-  { to: '/resources', label: 'Resources', icon: 'library' },
-  { to: '/stats', label: 'Progress', icon: 'chart' },
-  { to: '/achievements', label: 'Achievements', icon: 'trophy' },
-  { to: '/settings', label: 'Settings', icon: 'sliders' },
+interface NavItem {
+  to: string
+  label: string
+  icon: string
+  /** Other routes that belong to this item, so it stays highlighted on them. */
+  also?: string[]
+}
+
+// Grouped by the learner's loop: plan the week, learn, build the case study and the second brain,
+// keep a record. Every item answers a question the learner has; nothing is here for decoration.
+const nav: { heading?: string; items: NavItem[] }[] = [
+  { items: [{ to: '/dashboard', label: 'This week', icon: 'home' }] },
+  {
+    heading: 'Learn',
+    items: [
+      { to: '/levels', label: 'Course', icon: 'path', also: ['/lessons', '/challenges'] },
+      { to: '/plan', label: 'Study plan', icon: 'calendar' },
+      { to: '/resources', label: 'Resources', icon: 'library' },
+    ],
+  },
+  {
+    heading: 'Build',
+    items: [
+      { to: '/case-study', label: 'Case study', icon: 'cycle' },
+      { to: '/wiki', label: 'Second brain', icon: 'book' },
+    ],
+  },
+  {
+    heading: 'Record',
+    items: [
+      { to: '/workspace', label: 'Notebook', icon: 'pencil' },
+      { to: '/stats', label: 'Progress', icon: 'chart', also: ['/achievements'] },
+    ],
+  },
+  { items: [{ to: '/settings', label: 'Settings', icon: 'sliders' }] },
 ]
 
 function NavItems({ onNavigate }: { onNavigate?: () => void }) {
+  const { pathname } = useLocation()
   return (
-    <ul className="space-y-0.5">
-      {nav.map((item) => (
-        <li key={item.to}>
-          <NavLink
-            to={item.to}
-            end={item.end}
-            onClick={onNavigate}
-            className={({ isActive }) =>
-              cx(
-                'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-indigo-50 text-indigo-800 before:absolute before:inset-y-1.5 before:-left-4 before:w-1 before:rounded-r-full before:bg-indigo-600 dark:bg-indigo-950 dark:text-indigo-200 dark:before:bg-indigo-400'
-                  : 'text-stone-700 hover:bg-stone-100 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white',
-              )
-            }
+    <div className="space-y-4">
+      {nav.map((group, i) => (
+        <div key={group.heading ?? i}>
+          {group.heading && (
+            <p
+              id={`nav-${group.heading}`}
+              className="mb-1 px-3 font-mono text-[0.68rem] font-medium tracking-[0.14em] text-stone-500 uppercase dark:text-stone-400"
+            >
+              {group.heading}
+            </p>
+          )}
+          <ul
+            className="space-y-0.5"
+            aria-labelledby={group.heading ? `nav-${group.heading}` : undefined}
           >
-            <Icon name={item.icon} className="h-[1.15rem] w-[1.15rem] shrink-0 opacity-80" />
-            {item.label}
-          </NavLink>
-        </li>
+            {group.items.map((item) => {
+              const extra = item.also?.some((p) => pathname.startsWith(p)) ?? false
+              return (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    onClick={onNavigate}
+                    aria-current={extra ? 'page' : undefined}
+                    className={({ isActive }) =>
+                      cx(
+                        'relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                        isActive || extra
+                          ? 'bg-indigo-50 text-indigo-800 before:absolute before:inset-y-1.5 before:-left-4 before:w-1 before:rounded-r-full before:bg-indigo-600 dark:bg-indigo-950 dark:text-indigo-200 dark:before:bg-indigo-400'
+                          : 'text-stone-700 hover:bg-stone-100 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white',
+                      )
+                    }
+                  >
+                    <Icon
+                      name={item.icon}
+                      className="h-[1.15rem] w-[1.15rem] shrink-0 opacity-80"
+                    />
+                    {item.label}
+                  </NavLink>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       ))}
-    </ul>
+    </div>
   )
 }
 

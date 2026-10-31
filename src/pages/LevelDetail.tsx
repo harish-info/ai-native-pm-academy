@@ -1,11 +1,11 @@
 import { Link, useParams } from 'react-router-dom'
-import { levelById } from '../content'
+import { levelById, wikiMilestones } from '../content'
 import type { LevelId } from '../content/types'
-import { wikiMilestones } from '../content/wiki'
 import { formatDate, formatMinutes } from '../domain/dates'
 import { QUIZ_PASS_RATIO } from '../domain/progress'
 import { useLevelStatus } from '../state/hooks'
 import { useStore } from '../state/store'
+import { CaseStudyStrip } from '../ui/CaseStudyStrip'
 import { LevelArt } from '../ui/art'
 import { Bullets } from '../ui/RichText'
 import {
@@ -54,6 +54,8 @@ export function LevelDetail() {
       >
         {level.summary}
       </PageHeader>
+
+      {level.id >= 3 && <CaseStudyStrip levelId={level.id} />}
 
       {!status.unlocked && (
         <Card

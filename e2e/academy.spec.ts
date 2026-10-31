@@ -92,7 +92,7 @@ test('the study plan starts today, switches pace and keeps both after a refresh'
   await page.goto('#/plan')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('starting when you are ready')
   await page.getByRole('button', { name: 'Start Week 1 today' }).click()
-  await expect(page.getByText('This week', { exact: true })).toBeVisible()
+  await expect(page.locator('#main').getByText('This week', { exact: true })).toBeVisible()
   await page.getByRole('radio', { name: /Light: 12 weeks/ }).check()
   await expect
     .poll(async () => ((await storedData(page))?.settings as Record<string, unknown>)?.planPace)

@@ -152,7 +152,7 @@ export const planWeeks: PlanWeek[] = [
     number: 6,
     levelIds: [4, 5],
     title: 'Ship v1, then design the agent',
-    goal: 'Finish MoneyPilot v1, then design a finance agent that never acts without approval.',
+    goal: 'Finish your case study v1, then design an agent that never acts without approval.',
     mentor:
       '45 minutes: assess the Level 4 project with her. From Level 4 on, the project counts only with your sign-off as mentor, so check that the deployed app matches the PRD and that every change went through review. Then question the agent design: what can it do without asking?',
     items: [

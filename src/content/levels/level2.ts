@@ -556,7 +556,7 @@ Do not write the file until I approve the draft.`,
         steps: [
           "Run the weekly-review skill in your main agent on this week's notes. Edit the reflection in your own words and save it.",
           'Create `.agents/skills/lint/SKILL.md` that checks contradictions, stale claims, orphans, missing links, gaps and format drift. Run it, review the findings and approve fixes one group at a time.',
-          'Pick a project in progress (for example your return-to-work plan or MoneyPilot preparation) and ask the agent to write `projects/<name>/HANDOFF.md` with the prompt below.',
+          'Pick a project in progress (for example your return-to-work plan or your case study preparation) and ask the agent to write `projects/<name>/HANDOFF.md` with the prompt below.',
           'Close every session. Open a different agent (for example Codex if you used Claude Code, or Antigravity or Copilot) fresh in `~/second-brain` and say only: "Continue the <name> project. Read what you need first."',
           'Score the fresh agent from 1 to 4 on: found the right files, understood the state, followed conventions, chose a sensible next step, asked only necessary questions.',
           'Fix the gaps in AGENTS.md or HANDOFF.md, rerun in another fresh session and rescore.',
@@ -764,7 +764,7 @@ Rules:
       id: 'q2-3',
       competency: 'prompting-context',
       prompt:
-        'Where should the line "MoneyPilot: interviews done, prototype next, waiting on mentor feedback" live?',
+        'Where should the line "{{name}}: interviews done, prototype next, waiting on mentor feedback" live?',
       options: [
         {
           id: 'a',
@@ -772,7 +772,7 @@ Rules:
         },
         {
           id: 'b',
-          text: 'In projects/moneypilot/README.md or its handoff, because it is project state that changes.',
+          text: 'In projects/{{slug}}/README.md or its handoff, because it is project state that changes.',
         },
         {
           id: 'c',
@@ -970,5 +970,5 @@ Rules:
     xp: 500,
   },
   nextRecommendation:
-    'Move to Level 3. Your second brain becomes the research and decision log for MoneyPilot: create projects/moneypilot/ before Session 9, ingest every source and interview note there and record each product decision as a decision record.',
+    'Move to Level 3 and pick your case study. Your second brain becomes its research and decision log: create projects/<case>/ before Session 9, ingest every source and interview note there and record each product decision as a decision record.',
 }

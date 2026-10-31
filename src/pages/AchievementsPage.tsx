@@ -65,7 +65,7 @@ export function AchievementsPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Achievements" title="Badges and milestones">
+      <PageHeader eyebrow="Progress" title="Badges and milestones">
         {earned} of {list.length} earned. Badges mark mastered levels; milestones mark habits and
         firsts along the way. All of them come from recorded work, never from clicks alone.
       </PageHeader>

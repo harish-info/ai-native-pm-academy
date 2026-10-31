@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { allChallenges, allLessons, levels, resourceById, resources } from '.'
+import { allChallenges, allLessons, levels, resourceById, resources, setActiveCase } from '.'
+import * as active from '.'
+import { caseStages, caseStudies } from './caseStudies'
 import { competencyIds } from './competencies'
-import { agentQuestions, referenceScreens } from './moneypilot'
 import { diagnosticQuestions } from './onboarding'
 import { planWeeks } from './plan'
 import { wikiMilestones, wikiSteps } from './wiki'
@@ -93,11 +94,61 @@ describe('wiki thread', () => {
   })
 })
 
-describe('moneypilot', () => {
-  it('covers refusal and injection cases in the agent questions', () => {
-    const kinds = new Set(agentQuestions.map((q) => q.kind))
-    expect(kinds.size).toBeGreaterThanOrEqual(3)
-    expect(referenceScreens.length).toBeGreaterThan(0)
+describe('case studies', () => {
+  it('offers three cases, each with every kind of agent question and an injection case', () => {
+    expect(caseStudies.map((c) => c.id)).toEqual(['moneypilot', 'steady', 'triage'])
+    for (const c of caseStudies) {
+      expect(new Set(c.agentQuestions.map((q) => q.kind)).size, c.id).toBe(4)
+      expect(
+        c.agentQuestions.some((q) => /ignore your rules/i.test(q.question)),
+        c.id,
+      ).toBe(true)
+      expect(
+        c.screens.some((s) => s.priority === 'v1 core'),
+        c.id,
+      ).toBe(true)
+      expect(c.tokens.slug, c.id).toMatch(/^[a-z0-9-]+$/)
+      for (const { resourceId } of c.inspiration)
+        expect(resourceById(resourceId), resourceId).toBeDefined()
+    }
+  })
+
+  it('fills every token in the lessons and wiki for every case', () => {
+    for (const c of caseStudies) {
+      setActiveCase(c.id)
+      const text = allText({
+        levels: active.levels,
+        wikiSteps: active.wikiSteps,
+        wikiMilestones: active.wikiMilestones,
+        wikiRules: active.wikiRules,
+      })
+      expect(
+        text.filter((t) => /\{\{|\}\}/.test(t)),
+        c.id,
+      ).toEqual([])
+    }
+    setActiveCase('moneypilot')
+  })
+
+  it('maps every Level 3 to 5 session to exactly one stage of the cycle', () => {
+    const staged = caseStages.flatMap((s) => s.lessons)
+    const l3to5 = levels.filter((l) => l.id >= 3).flatMap((l) => l.lessons.map((x) => x.id))
+    expect([...staged].sort()).toEqual([...l3to5].sort())
+  })
+
+  it('keeps the other cases out of a case: no lesson names a different product', () => {
+    for (const c of caseStudies) {
+      setActiveCase(c.id)
+      const others = caseStudies.filter((o) => o.id !== c.id).map((o) => o.tokens.name)
+      const text = allText({ levels: active.levels.filter((l) => l.id >= 3) })
+      for (const name of others) {
+        expect(
+          text.filter((t) => new RegExp(`\\b${name}\\b`).test(t)),
+          `${name} in ${c.id}`,
+        ).toEqual([])
+      }
+    }
+    setActiveCase('moneypilot')
   })
 })
 
@@ -110,7 +161,7 @@ describe('writing style', () => {
       wikiSteps,
       wikiMilestones,
       planWeeks,
-      agentQuestions,
+      caseStudies,
     })
     const offenders = text.filter((t) => /[–—]/.test(t))
     expect(offenders).toEqual([])

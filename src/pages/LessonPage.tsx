@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { allLessons, lessonById } from '../content'
+import { allLessons, lessonById, wikiSteps } from '../content'
 import { competencyById } from '../content/competencies'
-import { wikiSteps } from '../content/wiki'
 import { formatMinutes } from '../domain/dates'
 import { useLevelStatus } from '../state/hooks'
 import { CopyButton } from '../ui/CopyButton'
@@ -10,6 +9,7 @@ import { EvidencePanel } from '../ui/EvidencePanel'
 import { BookmarkButton, ResourceRefs } from '../ui/ResourceBits'
 import { Bullets, Paragraphs, inline } from '../ui/RichText'
 import { useStore } from '../state/store'
+import { CaseStudyStrip } from '../ui/CaseStudyStrip'
 import {
   Card,
   CheckIcon,
@@ -145,7 +145,7 @@ export function LessonPage() {
     <article className="space-y-6">
       <nav aria-label="Breadcrumb" className="text-sm text-stone-600 dark:text-stone-400">
         <Link to="/levels" className={linkClass}>
-          Learning path
+          Course
         </Link>
         {' / '}
         <Link to={`/levels/${lesson.levelId}`} className={linkClass}>
@@ -177,6 +177,8 @@ export function LessonPage() {
           <Pill tone="amber">Mentor review {lesson.mentorReview}</Pill>
         )}
       </div>
+
+      {lesson.levelId >= 3 && <CaseStudyStrip lessonId={lesson.id} />}
 
       {!status.unlocked && (
         <Card

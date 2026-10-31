@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom'
-import { allLessons, levelById, resourceById } from '../content'
-import { wikiMilestones, wikiPrompts, wikiRules, wikiSteps } from '../content/wiki'
+import {
+  allLessons,
+  levelById,
+  resourceById,
+  wikiMilestones,
+  wikiPrompts,
+  wikiRules,
+  wikiSteps,
+} from '../content'
 import { useStore } from '../state/store'
 import { CopyButton } from '../ui/CopyButton'
 import { Card, CheckIcon, PageHeader, Pill, ProgressBar, linkClass } from '../ui/primitives'

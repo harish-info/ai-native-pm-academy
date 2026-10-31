@@ -17,7 +17,7 @@ import { StatsPage } from './pages/StatsPage'
 import { AchievementsPage } from './pages/AchievementsPage'
 import { SettingsPage } from './pages/SettingsPage'
 import { MonthPlanPage } from './pages/MonthPlanPage'
-import { MoneyPilotPage } from './pages/MoneyPilotPage'
+import { CaseStudyPage } from './pages/CaseStudyPage'
 import { WikiPage } from './pages/WikiPage'
 import { NotFound } from './pages/NotFound'
 
@@ -47,7 +47,8 @@ export function AppRoutes() {
         <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/plan" element={<MonthPlanPage />} />
-        <Route path="/moneypilot" element={<MoneyPilotPage />} />
+        <Route path="/case-study" element={<CaseStudyPage />} />
+        <Route path="/moneypilot" element={<Navigate to="/case-study" replace />} />
         <Route path="/wiki" element={<WikiPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>

@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { lessonById, levelById, resourceById, resources } from '../content'
+import { lessonById, levelById, resourceById, resources, wikiSteps } from '../content'
 import { paces, planNotes, planWeeks, type PlanItem, type PlanPace } from '../content/plan'
-import { wikiSteps } from '../content/wiki'
 import { addDays, formatMinutes, toDay } from '../domain/dates'
 import { levelProjectResults, quizResults } from '../domain/progress'
 import {

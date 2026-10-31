@@ -70,27 +70,27 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s9: {
     capture:
-      'The wiki becomes the MoneyPilot research log. One page per competitor or source, each claim with a link and the date you read it.',
+      'The wiki becomes the {{name}} research log. One page per competitor or source, each claim with a link and the date you read it.',
     pages: [
-      'projects/moneypilot/README.md',
-      'projects/moneypilot/research/competitors/<name>.md',
-      'projects/moneypilot/sources.md',
+      'projects/{{slug}}/README.md',
+      'projects/{{slug}}/research/competitors/<name>.md',
+      'projects/{{slug}}/sources.md',
     ],
   },
   s10: {
     capture:
-      'Pseudonymized conversation notes (P1, P2, no employers, account details or identifying stories), then the synthesis and tree that cite them.',
+      'Pseudonymized conversation notes (P1, P2, no employers, personal details or identifying stories), then the synthesis and tree that cite them.',
     pages: [
-      'projects/moneypilot/discovery/conversation-<n>.md',
-      'projects/moneypilot/opportunity-tree.md',
+      'projects/{{slug}}/discovery/conversation-<n>.md',
+      'projects/{{slug}}/opportunity-tree.md',
     ],
   },
   s11: {
     capture:
       'Your design principles, the reference mockup critique and the concept you chose, as a decision with the losing options kept.',
     pages: [
-      'projects/moneypilot/design-principles.md',
-      'projects/moneypilot/design/mockup-critique.md',
+      'projects/{{slug}}/design-principles.md',
+      'projects/{{slug}}/design/critique.md',
       'decisions/<date>-concept-direction.md',
     ],
   },
@@ -98,7 +98,7 @@ export const wikiSteps: Record<string, WikiStep> = {
     capture:
       'Link the PRD rather than copying it, and record what you cut from v1 and why. The cut list is the most valuable page you will write.',
     pages: [
-      'projects/moneypilot/prd.md',
+      'projects/{{slug}}/prd.md',
       'decisions/<date>-v1-scope.md',
       'learning/acceptance-criteria.md',
     ],
@@ -116,7 +116,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   s15: {
     capture:
       'How you hand work between sessions and agents. Project state lives in the repo; your lessons about handoffs live in the wiki.',
-    pages: ['learning/handoffs.md', 'projects/moneypilot/README.md (link to the repo HANDOFF.md)'],
+    pages: ['learning/handoffs.md', 'projects/{{slug}}/README.md (link to the repo HANDOFF.md)'],
   },
   s16: {
     capture:
@@ -126,12 +126,12 @@ export const wikiSteps: Record<string, WikiStep> = {
   s17: {
     capture:
       'Agent design patterns you can explain to an engineer: workflow versus agent, tool contracts, least privilege, approval states.',
-    pages: ['learning/agent-patterns.md', 'projects/moneypilot/agent/architecture-notes.md'],
+    pages: ['learning/agent-patterns.md', 'projects/{{slug}}/agent/architecture-notes.md'],
   },
   s18: {
     capture:
       'What structured output and deterministic tools bought you, with one example where the model would have got the number wrong.',
-    pages: ['learning/structured-output.md', 'projects/moneypilot/agent/build-log.md'],
+    pages: ['learning/structured-output.md', 'projects/{{slug}}/agent/build-log.md'],
   },
   s19: {
     capture:
@@ -187,7 +187,7 @@ export const wikiMilestones: WikiMilestone[] = [
   {
     levelId: 3,
     name: 'Research log',
-    summary: 'Every MoneyPilot claim traces to a source, a conversation or a decision record.',
+    summary: 'Every {{name}} claim traces to a source, a conversation or a decision record.',
     checks: [
       'A page per competitor and source, dated',
       'Pseudonymized conversation notes and a synthesis that cites them',
@@ -234,7 +234,7 @@ Group findings by severity and propose fixes I can approve one by one.`,
 }
 
 export const wikiRules = [
-  'Private by default. The wiki never goes into a public repository; MoneyPilot code does, the wiki does not.',
+  'Private by default. The wiki never goes into a public repository; your {{name}} code does, the wiki does not.',
   "No employer or customer data in your personal wiki. When you are back at work, keep a separate work wiki under your employer's rules.",
   'Sources first: raw material goes into 00-inbox/ unchanged, pages are written from it, and every claim keeps its link.',
   'You review every agent write: plan first, then read git diff before you commit. An instruction to wait is not a lock; the diff is the check.',

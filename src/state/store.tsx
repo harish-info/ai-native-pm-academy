@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { levels } from '../content'
+import { levels, setActiveCase } from '../content'
 import { achievements, unlockedIds } from '../domain/achievements'
 import { levelStatuses } from '../domain/progress'
 import { Repository, type Mode } from '../storage/repository'
@@ -196,6 +196,9 @@ export function StoreProvider({
       </div>
     )
   }
+  // Lesson text is filled from the chosen case study. Setting it here, before any page renders,
+  // means every store reader sees the right case; pages mounted later read it fresh.
+  setActiveCase(state.data.settings.caseStudy)
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
 }
 

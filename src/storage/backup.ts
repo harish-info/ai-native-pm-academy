@@ -25,6 +25,17 @@ export const migrations: Record<number, (raw: Record<string, unknown>) => Record
     // date the learner picks. Old data had no plan settings, so the start date stays unset and
     // the learner chooses one; all progress is keyed by stable ids and carries over unchanged.
     1: (raw) => raw,
+    // 2 to 3: MoneyPilot became one of three case studies. Anyone who already started a Level 3
+    // to 5 session did it as MoneyPilot, so they keep it; everyone else picks a case later.
+    2: (raw) => {
+      const lessons = (raw.lessons ?? {}) as Record<string, { startedAt?: string }>
+      const started = Object.entries(lessons).some(
+        ([id, r]) => Number(id.slice(1)) >= 9 && r && typeof r === 'object' && !!r.startedAt,
+      )
+      if (!started) return raw
+      const settings = (raw.settings ?? { theme: 'system' }) as Record<string, unknown>
+      return { ...raw, settings: { ...settings, caseStudy: 'moneypilot' } }
+    },
   }
 
 export function createBackup(data: LearnerData, now = new Date()): BackupFile {

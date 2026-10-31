@@ -185,7 +185,7 @@ export function WorkspacePage() {
 
   return (
     <>
-      <PageHeader eyebrow="Workspace" title="Notes, reflections and goals">
+      <PageHeader eyebrow="Notebook" title="Notes, reflections and goals">
         Everything here stays in this browser. Keep the substance in your private wiki; use this
         space for quick notes, weekly reflections and goals.
       </PageHeader>
@@ -212,7 +212,7 @@ export function WorkspacePage() {
 
       <div
         role="tablist"
-        aria-label="Workspace sections"
+        aria-label="Notebook sections"
         className="mb-5 flex flex-wrap gap-1 border-b border-stone-200 dark:border-stone-800"
       >
         {tabs.map((t, i) => (

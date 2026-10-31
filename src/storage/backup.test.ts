@@ -73,10 +73,40 @@ describe('backup export and import', () => {
     expect(r.ok).toBe(true)
     if (!r.ok) return
     expect(r.migratedFrom).toBe(1)
-    expect(r.data.schemaVersion).toBe(2)
+    expect(r.data.schemaVersion).toBe(3)
     expect(r.data.lessons.s1?.completedAt).toBe('2026-11-02T20:00:00.000Z')
     expect(r.data.masteredLevels['1']).toBe('2026-11-03T21:00:00.000Z')
     expect(r.data.settings).toEqual({ theme: 'dark' })
+  })
+
+  it('keeps MoneyPilot for a schema 2 learner who already started Level 3', () => {
+    const v2 = (lessons: Record<string, unknown>) => ({
+      schemaVersion: 2,
+      createdAt: '2026-11-01T09:00:00.000Z',
+      updatedAt: '2026-11-20T21:00:00.000Z',
+      lessons,
+      settings: { theme: 'system', planStart: '2026-11-02' },
+    })
+    const started = parseBackup(
+      JSON.stringify({
+        app: BACKUP_APP,
+        kind: BACKUP_KIND,
+        schemaVersion: 2,
+        data: v2({ s9: { startedAt: '2026-11-18T20:00:00.000Z' } }),
+      }),
+    )
+    expect(started.ok && started.data.settings.caseStudy).toBe('moneypilot')
+    expect(started.ok && started.data.settings.planStart).toBe('2026-11-02')
+
+    const early = parseBackup(
+      JSON.stringify({
+        app: BACKUP_APP,
+        kind: BACKUP_KIND,
+        schemaVersion: 2,
+        data: v2({ s2: { startedAt: '2026-11-03T20:00:00.000Z' } }),
+      }),
+    )
+    expect(early.ok && early.data.settings.caseStudy).toBeUndefined()
   })
 
   it('rejects oversized files before parsing', () => {

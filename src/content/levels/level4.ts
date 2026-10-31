@@ -6,7 +6,7 @@ export const level4: Level = {
   title: 'Agentic Product Engineering',
   theme: 'Take a product from specification to working software with AI coding agents.',
   summary:
-    'Coding agents can now implement features from a good spec, which means PMs can ship real software. The hard parts move elsewhere: clear specs, small reviewable steps, verification loops that prove behavior, and review that scales. In this level you take MoneyPilot from PRD to a tested, deployed web app through real pull requests.',
+    'Coding agents can now implement features from a good spec, which means PMs can ship real software. The hard parts move elsewhere: clear specs, small reviewable steps, verification loops that prove behavior, and review that scales. In this level you take {{name}} from PRD to a tested, deployed web app through real pull requests.',
   outcomes: [
     'Use Git and GitHub confidently: branches, commits, pull requests, reviews and a protected main branch.',
     'Direct Claude Code or Codex with plan-first, small, verifiable tasks, and never merge code you cannot explain.',
@@ -17,7 +17,7 @@ export const level4: Level = {
   badge: {
     name: 'Spec to Ship',
     description:
-      'Shipped a working MoneyPilot web app from your own PRD through real pull requests, with tests, reviews and a live deployment.',
+      'Shipped a working {{name}} web app from your own PRD through real pull requests, with tests, reviews and a live deployment.',
   },
   lessons: [
     {
@@ -37,7 +37,7 @@ export const level4: Level = {
       competencies: ['technical-collaboration', 'coding-agents'],
       xp: 200,
       mentorReview: 'required',
-      goal: 'Set up GitHub, create the moneypilot repository with a protected main branch, and complete a full branch, commit, pull request, review and merge cycle yourself.',
+      goal: 'Set up GitHub, create the {{slug}} repository with a protected main branch, and complete a full branch, commit, pull request, review and merge cycle yourself.',
       whyItMatters:
         'GitHub is where software work becomes visible: specs, decisions, reviews and releases. PMs who can open a pull request, read a diff and leave a useful review comment work with engineers and coding agents directly instead of only through tickets. The pull request history is also the audit trail regulated teams rely on.',
       learn: [
@@ -65,8 +65,8 @@ export const level4: Level = {
         {
           heading: 'Frontend, backend, APIs and databases in five minutes',
           paragraphs: [
-            'The **frontend** is what runs in the browser: screens, buttons and on-screen state. The **backend** runs on servers: business logic, security and access to data. An **API** is the contract between them, for example `GET /forecast?until=2026-11-24` returning a JSON forecast. A **database** stores data durably and lets the backend query it.',
-            'For MoneyPilot in this level, everything runs in the browser with fictional data, so you can deploy for free. In a real bank the transactions and the forecast would come from backend APIs behind authentication, consent and audit logging. Knowing where that line sits is what lets you have a sensible conversation with your engineers about effort and risk.',
+            'The **frontend** is what runs in the browser: screens, buttons and on-screen state. The **backend** runs on servers: business logic, security and access to data. An **API** is the contract between them, for example `GET /api/items?since=2026-11-01` returning a JSON list. A **database** stores data durably and lets the backend query it.',
+            'For {{name}} in this level, everything runs in the browser with {{data}}, so you can deploy for free. In a real product the data and the logic behind {{deterministic}} would sit behind backend APIs with authentication, consent and audit logging. Knowing where that line sits is what lets you have a sensible conversation with your engineers about effort and risk.',
           ],
         },
         {
@@ -100,12 +100,12 @@ export const level4: Level = {
       ],
       task: {
         summary:
-          'Complete the GitHub introduction exercise, create the moneypilot repository with protected main, and take one small change from branch to merged pull request.',
+          'Complete the GitHub introduction exercise, create the {{slug}} repository with protected main, and take one small change from branch to merged pull request.',
         steps: [
           'Create a free GitHub account if you do not have one, and turn on two-factor authentication.',
           'Complete the GitHub Skills "Introduction to GitHub" exercise in the browser.',
           'Install GitHub Desktop or the gh CLI. If you use the CLI, run `gh auth login`. Your mentor can help with setup.',
-          'Create a repository named `moneypilot`. Public is fine because it will only ever contain fictional data. Copy your PRD into `docs/prd.md` and your prototype screenshots into `docs/prototype/`, removing any private research references.',
+          'Create a repository named `{{slug}}`. Public is fine because it will only ever contain fictional data. Copy your PRD into `docs/prd.md` and your prototype screenshots into `docs/prototype/`, removing any private research references.',
           'In the repository settings, add a ruleset for `main` that requires a pull request before merging, and leave its bypass list empty so it applies to you as the admin.',
           'Clone the repository, create the branch `docs/readme-intro`, and run the agent prompt below to improve the README. Read the diff before committing.',
           'Commit, push and open a pull request with a clear description. Ask your mentor to review it and request one change.',
@@ -114,13 +114,13 @@ export const level4: Level = {
       },
       agentPrompt: {
         tool: 'Claude Code or Codex',
-        where: 'In your local clone of the moneypilot repository, on branch docs/readme-intro',
-        text: `I am a product manager learning the GitHub workflow. This repository will hold MoneyPilot, a demo web app that forecasts whether fictional income covers upcoming bills before payday.
+        where: 'In your local clone of the {{slug}} repository, on branch docs/readme-intro',
+        text: `I am a product manager learning the GitHub workflow. This repository will hold {{name}}, a demo web app version of {{product}}. It uses {{data}} only.
 
 Please improve README.md only. Do not create or change any other file.
 
 The README should contain:
-1. A one-paragraph description of MoneyPilot and the problem it solves, using docs/prd.md as the source
+1. A one-paragraph description of {{name}} and the problem it solves, using docs/prd.md as the source
 2. A "Status" section saying this is a learning project that uses fictional data only
 3. A "How we work" section: every change goes through a pull request to main, PRs stay small, the author reviews their own diff before asking for review, and tests are required once code exists
 4. A "Docs" section linking to docs/prd.md and docs/prototype/
@@ -130,16 +130,16 @@ After editing, show me the diff and explain each change in one line.
 Do not run git commit or git push. I will do that myself.`,
       },
       expectedOutput: [
-        'A moneypilot repository on GitHub with a protected main branch',
+        'A {{slug}} repository on GitHub with a protected main branch',
         'A merged pull request with a description, at least one review comment and a follow-up commit',
         'docs/prd.md and docs/prototype/ in the repository, with no private research data',
       ],
-      artifact: 'moneypilot repository with protected main and a first merged pull request',
+      artifact: '{{slug}} repository with protected main and a first merged pull request',
       verification: [
         'A direct push to main is rejected by the ruleset, even though you are the repository admin. Try it once on purpose.',
         'The merged PR shows at least two commits, a review comment and a resolved conversation.',
         'The README diff changed only README.md, as the prompt required.',
-        'Nothing in the repository contains real names, interview notes or real financial data.',
+        'Nothing in the repository contains real names, interview notes or real personal or customer data.',
       ],
       reflectionPrompts: [
         'Which Git concept clicked for you, and which still feels fuzzy?',
@@ -150,7 +150,7 @@ Do not run git commit or git push. I will do that myself.`,
         { id: 'gh-skills', text: 'Completed the GitHub Skills introduction exercise' },
         {
           id: 'repo',
-          text: 'Created the moneypilot repository with a ruleset on main that has no bypass',
+          text: 'Created the {{slug}} repository with a ruleset on main that has no bypass',
         },
         { id: 'pr-url', text: 'Opened a pull request and recorded its URL as the artifact' },
         { id: 'review', text: 'Received a review comment and addressed it in a follow-up commit' },
@@ -171,7 +171,7 @@ Do not run git commit or git push. I will do that myself.`,
       competencies: ['coding-agents', 'technical-collaboration', 'prompting-context'],
       xp: 225,
       mentorReview: 'recommended',
-      goal: 'Use Claude Code or Codex to scaffold the MoneyPilot app and implement one small, well-specified feature through a plan-first loop with small diffs, tests and a pull request you can fully explain.',
+      goal: 'Use Claude Code or Codex to scaffold the {{name}} app and implement one small, well-specified feature through a plan-first loop with small diffs, tests and a pull request you can fully explain.',
       whyItMatters:
         'Agents are good at writing code and bad at knowing when they are wrong. The skill that matters is directing them: a precise task, a plan before code, changes small enough to review, and proof that the result works. It is the same skill as leading an engineering team, compressed into minutes.',
       learn: [
@@ -209,8 +209,8 @@ Do not run git commit or git push. I will do that myself.`,
         {
           heading: 'Give the agent a verification loop',
           paragraphs: [
-            'A unit test checks one function with concrete inputs and an expected output, such as a projected balance of 15000 minor units for a given set of bills. Your Given/When/Then criteria map directly onto tests. Ask the agent to write the test first, watch it fail, then make it pass: you get evidence rather than assurances.',
-            'Output quality improves sharply when the agent can check its own work: tests it can run, a browser session it can drive, and screenshots it can compare against the design. Web apps are cheap to verify this way, which is one reason MoneyPilot is a web app; native mobile apps are much harder to put in an automatic loop.',
+            'A unit test checks one function with concrete inputs and an expected output. Your Given/When/Then criteria map directly onto tests. Take this one: {{acceptance}} The givens become inputs, and the then becomes the values the test asserts. Ask the agent to write the test first, watch it fail, then make it pass: you get evidence rather than assurances.',
+            'Output quality improves sharply when the agent can check its own work: tests it can run, a browser session it can drive, and screenshots it can compare against the design. Web apps are cheap to verify this way, which is one reason {{name}} is a web app; native mobile apps are much harder to put in an automatic loop.',
           ],
         },
         {
@@ -256,11 +256,11 @@ Do not run git commit or git push. I will do that myself.`,
       ],
       task: {
         summary:
-          'Scaffold MoneyPilot with an agent, then implement and test the projected balance calculation with a plan-first loop, and merge it through a pull request.',
+          'Scaffold {{name}} with an agent, then implement and test the core logic for {{deterministic}} with a plan-first loop, and merge it through a pull request.',
         steps: [
-          'Install Node.js LTS. Open Claude Code or Codex in your moneypilot clone and ask it to explain the repository.',
+          'Install Node.js LTS. Open Claude Code or Codex in your {{slug}} clone and ask it to explain the repository.',
           'On branch `feat/scaffold`, ask the agent for a minimal React, TypeScript and Vite app with Vitest, plus README instructions to run it. Run it yourself with `npm install` and `npm run dev`, then open a PR, self-review the diff and merge. If setup stalls for more than 20 minutes, ask your mentor to unblock it: environment setup is not the skill this session tests.',
-          'On branch `feat/projected-balance`, run the agent prompt below. Review the plan and push back on anything outside scope.',
+          'On branch `feat/core-logic`, run the agent prompt below. Review the plan and push back on anything outside scope.',
           'Let the agent write the tests first, run them and show they fail, then implement until they pass.',
           'Read every test and confirm it checks the acceptance criterion it names. Calculate two expected values by hand.',
           'Run `npm test` yourself and paste the output into the PR description.',
@@ -269,33 +269,32 @@ Do not run git commit or git push. I will do that myself.`,
       },
       agentPrompt: {
         tool: 'Claude Code or Codex',
-        where: 'In the moneypilot repository, on branch feat/projected-balance',
-        text: `Read docs/prd.md, focusing on the data definitions and the acceptance criteria about the projected balance.
+        where: 'In the {{slug}} repository, on branch feat/core-logic',
+        text: `Read docs/prd.md, focusing on the data definitions and the acceptance criteria about {{deterministic}}.
 
-Task: implement a pure TypeScript function that builds a dated cash-flow schedule from today to the day before the next payday.
+Task: implement the logic for {{deterministic}} as pure TypeScript functions. The app runs on {{data}}.
 
-Inputs: current balance, the date the balance was last updated, today's date, next payday date, and a list of upcoming bills (name, amount, due date, optional isVariable flag with an estimated amount).
-Output: the balance after each day, the projected balance on the day before payday, the lowest balance in the period and its date, the bills included, a shortfall flag that is true if the balance goes below zero on any day (not just at the end), and an isEstimate flag if any variable bill is included.
+Inputs and outputs: take them from the data definitions in docs/prd.md. Today's date and time must be an input, never read inside a function. The same inputs must always give the same outputs.
 
 Process:
-1. Explore: tell me which files exist and where this function should live. Do not write code yet.
-2. Plan: list the steps, the files to create, and the test cases you will write, each mapped to a PRD acceptance criterion by number. Wait for my approval.
-3. Tests first: write Vitest unit tests for each mapped criterion plus edge cases (no bills, a bill due on payday, a bill after payday, a variable amount, a balance that dips below zero mid-period and recovers, two bills on the same day, and a balance last updated more than three days ago, which must be flagged as stale). Run them and show me they fail.
+1. Explore: tell me which files exist and where these functions should live. Do not write code yet.
+2. Plan: list the functions with their inputs and outputs, the files to create, and the test cases you will write, each mapped to a PRD acceptance criterion by number. Wait for my approval.
+3. Tests first: write Vitest unit tests for each mapped criterion, including this example or the PRD's version of it: {{acceptance}} Add edge cases: empty data, an item exactly on a boundary such as a due date or deadline, an item just outside the period, two items at the same time, and data last updated longer ago than a limit you propose in the plan, which must be flagged as stale. Run them and show me they fail.
 4. Implement until all tests pass. Run npm test and show me the full output.
 5. Explain each test in one sentence: which criterion it covers and what would make it fail.
 
 Constraints:
 - No UI changes in this branch. No new dependencies.
-- Store money as integers in minor units (cents or pence) to avoid floating point errors.
-- If you need to make an assumption about ordering or rounding, write it in the plan and wait for my decision.
+- Store any money amount as integers in minor units (cents or pence) to avoid floating point errors.
+- If you need to make an assumption about ordering, time zones or rounding, write it in the plan and wait for my decision.
 - Do not commit or push. I will review the diff first.`,
       },
       expectedOutput: [
         'A scaffolded React and TypeScript app that runs locally',
-        'A tested projected balance function mapped to PRD acceptance criteria',
+        'Tested functions for {{deterministic}}, mapped to PRD acceptance criteria',
         'Two merged PRs: the scaffold, and the feature with test output in its description',
       ],
-      artifact: 'Merged PR implementing the projected balance calculation with passing tests',
+      artifact: 'Merged PR implementing the logic for {{deterministic}} with passing tests',
       verification: [
         'npm test passes on your machine, and you ran it yourself rather than trusting the agent transcript.',
         'Each test references a PRD acceptance criterion, and you confirmed it checks the right value, not just any value.',
@@ -338,7 +337,7 @@ Constraints:
       ],
       xp: 250,
       mentorReview: 'recommended',
-      goal: 'Turn the PRD and prototype into an implementation plan of small slices, add AGENTS.md and a handoff routine to the repository, build the first working MoneyPilot screens with fictional data, and check the build against the PRD.',
+      goal: 'Turn the PRD and prototype into an implementation plan of small slices, add AGENTS.md and a handoff routine to the repository, build the first working {{name}} screens with {{data}}, and check the build against the PRD.',
       whyItMatters:
         'Big asks produce big, wrong changes. PMs who get the most out of coding agents break work into slices that each produce a visible, testable result, and they make the repository itself carry the context: what the product is, how to run it, which rules apply. That context survives across sessions, tools and people.',
       learn: [
@@ -349,9 +348,9 @@ Constraints:
             'How much to plan before building is a live debate. Some practitioners keep research, planning and implementation as separate steps and review a written plan before any code; others argue that current models plan well enough inside a quick loop of act, inspect and adjust. For a PM supervising an agent, a short plan you can check against the PRD is the safer default. Relax it once slices are small and familiar.',
           ],
           bullets: [
-            'Slice 1: fictional data file and a forecast screen showing the projected balance.',
-            'Slice 2: bill list with dates and amounts.',
-            'Slice 3: shortfall state with words and an icon.',
+            'Slice 1: the fictional data file and a first screen showing {{mvpScreen}}.',
+            'Slice 2: the items behind the headline figures, each with its date or deadline.',
+            'Slice 3: the warning state, in words and an icon, never color alone.',
             'Slice 4: empty and uncertain states.',
             'Slice 5: responsive layout and an accessibility pass.',
           ],
@@ -359,7 +358,7 @@ Constraints:
         {
           heading: 'The repository as context',
           paragraphs: [
-            '`AGENTS.md` tells any agent what the project is, how to install, run and test it, the conventions, and the hard rules, such as "fictional data only, never add real bank APIs." Codex reads it natively, Claude Code reads it when there is no `CLAUDE.md`, and GitHub Copilot and many other tools support it too. Keep it short and accurate: stale instructions are worse than none, and an instruction is guidance, not a lock, so keep the hard rules enforced by CI and branch rules as well.',
+            '`AGENTS.md` tells any agent what the project is, how to install, run and test it, the conventions, and the hard rules, such as "fictional data only, never connect real systems or APIs." Codex reads it natively, Claude Code reads it when there is no `CLAUDE.md`, and GitHub Copilot and many other tools support it too. Keep it short and accurate: stale instructions are worse than none, and an instruction is guidance, not a lock, so keep the hard rules enforced by CI and branch rules as well.',
             'Keep the PRD and the prototype in the repository next to the code, in `docs/prd.md` and `docs/prototype/`, and update them in the same PR when scope changes. Agents and engineers then build from one consistent source.',
           ],
         },
@@ -421,7 +420,7 @@ Constraints:
           'Run the agent prompt below to draft `docs/plan.md` with 5 to 8 vertical slices mapped to PRD acceptance criteria.',
           'Edit the plan yourself: reorder, cut, or split slices that are too big. Merge it through a PR.',
           'Ask the agent to draft `AGENTS.md` with project purpose, commands, conventions and hard rules. Claude Code reads it when there is no `CLAUDE.md`; add a `CLAUDE.md` that starts with `@AGENTS.md` only if you want Claude-specific rules. Trim anything vague, then merge through a PR.',
-          'Create `src/data/fictional.ts` with one fictional persona and their month of income and bills, matching your prototype dataset.',
+          'Create `src/data/fictional.ts` with {{data}} for one fictional persona from your PRD, matching your prototype dataset.',
           'Build slices 1 and 2, each on its own branch and PR, using the plan-first loop from Session 14. Give the agent your prototype screenshots so it can compare its result to the design.',
           'Write slice 3 as a GitHub issue: goal, acceptance criteria, files likely to change and how to test it. Assign it to a cloud agent: the Copilot cloud agent if your plan includes it, Claude Code on the web, or Codex cloud. Review the pull request it opens exactly as you would any other, and note what the issue failed to say.',
           'At the end of each session, ask the agent to write a handoff note to `docs/handoffs/YYYY-MM-DD.md`. Start the next slice in a fresh session that reads AGENTS.md and the latest handoff.',
@@ -431,10 +430,10 @@ Constraints:
       },
       agentPrompt: {
         tool: 'Claude Code or Codex',
-        where: 'In the moneypilot repository, on branch docs/implementation-plan',
+        where: 'In the {{slug}} repository, on branch docs/implementation-plan',
         text: `Read docs/prd.md and the prototype screenshots and notes in docs/prototype/.
 
-Write docs/plan.md, an implementation plan for MoneyPilot v1.
+Write docs/plan.md, an implementation plan for {{name}} v1.
 
 Requirements:
 - 5 to 8 vertical slices. Each slice must produce something visible in the browser or checkable by a test.
@@ -444,7 +443,7 @@ Requirements:
 - Include a "Risks and unknowns" section.
 
 Constraints:
-- Browser only, no backend, fictional data only, no real bank APIs or credentials.
+- Browser only, no backend, fictional data only, no real systems, APIs or credentials.
 - Keep the existing stack (React, TypeScript, Vite, Vitest). Propose a new dependency only with a one-line justification.
 - Do not write any application code in this branch.
 
@@ -457,7 +456,7 @@ After writing the plan, name the two slices most likely to go wrong and explain 
         'Handoff notes in docs/handoffs/ and an acceptance check report against the PRD',
       ],
       artifact:
-        'Implementation plan, AGENTS.md, handoff notes, acceptance report and first working MoneyPilot screens',
+        'Implementation plan, AGENTS.md, handoff notes, acceptance report and first working {{name}} screens',
       verification: [
         'A fresh agent session given only AGENTS.md and the latest handoff note correctly states what to do next.',
         'Each merged slice PR references its plan slice and the acceptance criteria it satisfies.',
@@ -507,14 +506,14 @@ After writing the plan, name the two slices most likely to go wrong and explain 
       xp: 250,
       mentorReview: 'required',
       safetyCritical: true,
-      goal: 'Put automated verification in front of every change, run self-review, agent-assisted review and risk-based human review, debug a real failure, and deploy MoneyPilot to GitHub Pages with evidence that it works.',
+      goal: 'Put automated verification in front of every change, run self-review, agent-assisted review and risk-based human review, debug a real failure, and deploy {{name}} to GitHub Pages with evidence that it works.',
       whyItMatters:
         'When agents produce code faster than people can read it, review becomes the bottleneck. The answer is not to stop reviewing. It is to let machines check what machines can check, have authors review their own work first, and spend expert human attention where risk is highest. In banking, a written risk-based review policy is also what auditors and risk teams expect to see.',
       learn: [
         {
           heading: 'Layers of verification',
           paragraphs: [
-            'Unit tests check individual functions. Integration or end-to-end tests check that screens and logic work together, for example that opening the app with the fictional dataset shows the correct projected balance. Type checks and linting catch whole classes of mistakes automatically.',
+            'Unit tests check individual functions. Integration or end-to-end tests check that screens and logic work together, for example that opening the app with the fictional dataset shows the figures your acceptance criteria expect. Type checks and linting catch whole classes of mistakes automatically.',
             'Continuous integration (CI) runs all of these on every pull request, so a red check blocks a merge before a human spends any time on it. Requiring those checks in your branch protection makes the rule automatic.',
           ],
         },
@@ -529,7 +528,7 @@ After writing the plan, name the two slices most likely to go wrong and explain 
           bullets: [
             '**Low risk**: copy, styling, docs. Automated checks, self-review and a quick human approval.',
             '**Medium risk**: new UI flows, refactors. Automated checks, agent review and one human review.',
-            '**High risk**: calculations, data handling, security, permissions, anything touching money. Tests covering the change, agent review, and careful review by someone who understands the domain.',
+            '**High risk**: calculations, data handling, security, permissions, anything touching money, or {{risk}}. Tests covering the change, agent review, and careful review by someone who understands the domain.',
           ],
         },
         {
@@ -583,28 +582,28 @@ After writing the plan, name the two slices most likely to go wrong and explain 
           'Add CI and an end-to-end check, write a review policy, self-review and agent-review your PRs, fix a reproduced bug with a regression test, deploy to GitHub Pages and practise a rollback.',
         steps: [
           'On branch `ci/tests`, ask the agent to add a GitHub Actions workflow that runs install, type check, lint and `npm test` on every pull request. Turn on "require status checks to pass" in branch protection.',
-          'Add one end-to-end or integration test that loads the forecast screen with fictional data and checks the projected balance text, using Playwright or React Testing Library.',
+          'Add one end-to-end or integration test that loads your first screen with the fictional data and checks the figures from one acceptance criterion, using Playwright or React Testing Library.',
           'Write `docs/review-policy.md`: every change to main needs one human approval from someone other than the author; low, medium and high risk rules for how deep that review goes; a PR size cap; mandatory author self-review; and nits marked as non-blocking. Note that a change touching a screen behind a feature flag or experiment is always high risk.',
           'On each open PR, do your own self-review first, then run the agent review prompt below. Record a decision for every comment: fixed, rejected with a reason, or turned into an issue.',
-          'Ask your mentor to review the highest-risk change, the calculation logic, as the human domain reviewer.',
-          'Break something on purpose, for example a bill due exactly on payday. Reproduce it, have the agent write a failing test, then fix it.',
-          'Add a GitHub Pages deployment workflow. Vite needs `base` set to `/moneypilot/`. Merge, then open the live URL on your phone.',
-          'Practise a rollback with your mentor: merge a small PR that breaks the displayed balance on purpose, confirm the live site is wrong, then use the Revert button on the merged PR to open and merge a revert PR. Write a five-line incident note in `docs/incidents/`.',
+          'Ask your mentor to review the highest-risk change, the logic for {{deterministic}}, as the human domain reviewer.',
+          'Break something on purpose, for example an item that falls exactly on a due date or deadline. Reproduce it, have the agent write a failing test, then fix it.',
+          'Add a GitHub Pages deployment workflow. Vite needs `base` set to `/{{slug}}/`. Merge, then open the live URL on your phone.',
+          'Practise a rollback with your mentor: merge a small PR that breaks a displayed figure on purpose, confirm the live site is wrong, then use the Revert button on the merged PR to open and merge a revert PR. Write a five-line incident note in `docs/incidents/`.',
           'Share the URL with two or three people, note where they struggle, and open GitHub issues for the top findings.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code, Codex or GitHub Copilot code review',
-        where: 'In the moneypilot repository, on the branch of an open pull request',
-        text: `Review the changes on this branch compared with main. Act as a careful senior reviewer on a banking product team.
+        where: 'In the {{slug}} repository, on the branch of an open pull request',
+        text: `Review the changes on this branch compared with main. Act as a careful senior reviewer on the team building {{product}}.
 
 Context: read AGENTS.md, docs/prd.md, docs/plan.md and docs/review-policy.md first.
 
 Check, in this order:
-1. Correctness: does the change satisfy the acceptance criteria it claims? Recompute any money calculation by hand for at least two cases.
+1. Correctness: does the change satisfy the acceptance criteria it claims? Recheck any change to {{deterministic}} by hand for at least two cases.
 2. Tests: is every changed behavior covered by a test, and does each test check the right value? Name missing cases.
 3. Scope: is anything changed that the PR description does not mention?
-4. Safety: secrets, real personal or financial data, new network calls, new dependencies, anything that could move money, or changes to a screen behind a feature flag or experiment.
+4. Safety: secrets, real personal or customer data, new network calls, new dependencies, anything that could trigger {{action}}, or changes to a screen behind a feature flag or experiment.
 5. Accessibility: color-only signals, missing labels, small tap targets.
 
 Output a table: severity (blocker, should-fix, nit), file and line, issue, suggested fix. Only "blocker" means the PR must not merge.
@@ -618,17 +617,17 @@ Rules:
         'A CI workflow running type check, lint and tests on every PR, required by branch protection',
         'docs/review-policy.md with an independent human approval on every change, risk tiers, a PR size cap and mandatory self-review',
         'Agent review comments with recorded decisions, and a bug reproduced by a failing test then fixed',
-        'MoneyPilot live on GitHub Pages, a practised rollback with an incident note, and issues opened from real user feedback',
+        '{{name}} live on GitHub Pages, a practised rollback with an incident note, and issues opened from real user feedback',
       ],
       artifact:
-        'Deployed MoneyPilot URL, passing CI, review policy, a regression-tested bug fix and an incident note',
+        'Deployed {{name}} URL, passing CI, review policy, a regression-tested bug fix and an incident note',
       verification: [
         'A pull request with a deliberately failing test is blocked from merging by CI.',
-        'The live GitHub Pages URL loads on a phone and shows the correct projected balance for the fictional dataset.',
+        'The live GitHub Pages URL loads on a phone and shows the correct figures for the fictional dataset.',
         'Every agent review comment has a recorded decision: fixed, rejected with a reason, or turned into an issue.',
         'The bug fix PR includes a test that fails without the fix and passes with it.',
         'docs/review-policy.md requires a human approval other than the author on every change, and classifies calculation and data changes as high risk requiring a human domain reviewer.',
-        'The revert PR restored the correct balance on the live site, and the incident note says what broke and what changes.',
+        'The revert PR restored the correct figures on the live site, and the incident note says what broke and what changes.',
       ],
       reflectionPrompts: [
         'Which agent review comment was wrong, and how did you know?',
@@ -637,7 +636,7 @@ Rules:
       ],
       checklist: [
         { id: 'ci', text: 'Added CI with required status checks on main' },
-        { id: 'e2e', text: 'Added an end-to-end or integration test for the forecast screen' },
+        { id: 'e2e', text: 'Added an end-to-end or integration test for the first screen' },
         {
           id: 'policy',
           text: 'Wrote a review policy with human approval on every change, risk tiers, a PR size cap and self-review',
@@ -670,10 +669,10 @@ Rules:
       competencies: ['coding-agents', 'technical-collaboration'],
       xp: 250,
       summary:
-        'Run two coding agents at once on two independent MoneyPilot slices, using git worktrees or separate clones, then integrate both through pull requests. Learn first-hand where parallel agents save time and where coordination eats the savings.',
+        'Run two coding agents at once on two independent {{name}} slices, using git worktrees or separate clones, then integrate both through pull requests. Learn first-hand where parallel agents save time and where coordination eats the savings.',
       steps: [
         'Pick two slices from docs/plan.md that touch different files.',
-        'With your mentor, create a second working copy with `git worktree add ../moneypilot-b -b feat/slice-b`, or clone the repository twice.',
+        'With your mentor, create a second working copy with `git worktree add ../{{slug}}-b -b feat/slice-b`, or clone the repository twice.',
         'Start Claude Code in one working copy and Codex in the other, both reading the same AGENTS.md and handoff note.',
         'Self-review and agent-review each PR independently. Merge the first.',
         'Update the second branch with the latest main, and resolve any conflict with agent help while reading every conflicted line yourself.',
@@ -769,7 +768,7 @@ Rules:
       id: 'q4-2',
       competency: 'coding-agents',
       prompt:
-        'You asked an agent to add the forecast screen and it returned an 1,800-line diff across 30 files. What is the best next step?',
+        'You asked an agent to build the first {{name}} screen and it returned an 1,800-line diff across 30 files. What is the best next step?',
       options: [
         {
           id: 'a',
@@ -823,7 +822,7 @@ Rules:
       id: 'q4-4',
       competency: 'technical-collaboration',
       prompt:
-        'In a real bank version of MoneyPilot using customer transactions, where should the forecast calculation run?',
+        'Your bank wants a real bill forecast in its app, using customer transactions. Where should the forecast calculation run?',
       options: [
         {
           id: 'a',
@@ -844,7 +843,7 @@ Rules:
       ],
       correct: 'b',
       explanation:
-        'Real financial data belongs behind authentication, authorization and audit logging on the backend, and the browser would need the full data set first anyway. Models should never do the arithmetic. The learning version runs in the browser only because it uses fictional data.',
+        'Real financial data belongs behind authentication, authorization and audit logging on the backend, and the browser would need the full data set first anyway. Models should never do the arithmetic. Your case study runs in the browser only because it uses fictional data.',
     },
     {
       id: 'q4-5',
@@ -854,11 +853,11 @@ Rules:
       options: [
         {
           id: 'a',
-          text: 'Rewording the empty state message shown on the forecast screen.',
+          text: 'Rewording the empty state message shown on the first screen.',
         },
         {
           id: 'b',
-          text: 'Changing rounding in the projected balance calculation.',
+          text: 'Changing how a figure on the main screen is calculated.',
         },
         {
           id: 'c',
@@ -866,18 +865,18 @@ Rules:
         },
         {
           id: 'd',
-          text: 'Moving the bill list styles into a separate CSS file.',
+          text: 'Moving the list screen styles into a separate CSS file.',
         },
       ],
       correct: 'b',
       explanation:
-        'Calculations that customers rely on for money decisions are high risk: small errors compound and erode trust. The other changes still get a human approval, but automated checks and a light review are enough.',
+        'Calculations that users rely on for decisions are high risk: small errors compound and erode trust. The other changes still get a human approval, but automated checks and a light review are enough.',
     },
     {
       id: 'q4-6',
       competency: 'agentic-systems',
       prompt:
-        'You assigned a GitHub issue for the bill list to a cloud coding agent. Its pull request is green in CI, but it also changed the forecast calculation, which the issue never mentioned. What do you do?',
+        'You assigned a GitHub issue for a list screen to a cloud coding agent. Its pull request is green in CI, but it also changed the logic for {{deterministic}}, which the issue never mentioned. What do you do?',
       options: [
         {
           id: 'a',
@@ -889,7 +888,7 @@ Rules:
         },
         {
           id: 'c',
-          text: 'Treat it as high risk: ask why the calculation changed, split it out, and get a domain review.',
+          text: 'Treat it as high risk: ask why the core logic changed, split it out, and get a domain review.',
         },
         {
           id: 'd',
@@ -898,7 +897,7 @@ Rules:
       ],
       correct: 'c',
       explanation:
-        'A delegated PR is reviewed like any other. Scope creep into a money calculation raises the risk tier, whatever CI says. Splitting it out keeps the bill list change small and lets the calculation change get a proper domain review; the issue probably needed a "do not touch" line.',
+        'A delegated PR is reviewed like any other. Scope creep into core logic raises the risk tier, whatever CI says. Splitting it out keeps the list change small and lets the logic change get a proper domain review; the issue probably needed a "do not touch" line.',
     },
     {
       id: 'q4-7',
@@ -931,7 +930,7 @@ Rules:
       id: 'q4-8',
       competency: 'coding-agents',
       prompt:
-        'Which addition is most likely to improve the quality of an agent building MoneyPilot screens?',
+        'Which addition is most likely to improve the quality of an agent building {{name}} screens?',
       options: [
         {
           id: 'a',
@@ -956,13 +955,13 @@ Rules:
     },
   ],
   project: {
-    title: 'Working MoneyPilot Web App',
+    title: 'Working {{name}} Web App',
     brief:
-      'Ship MoneyPilot v1 as a deployed web app on GitHub Pages, built with coding agents through real pull requests from your Level 3 PRD. You should be able to explain what it does, how it works at a high level, and what evidence shows it is correct.',
+      'Ship {{name}} v1 as a deployed web app on GitHub Pages, built with coding agents through real pull requests from your Level 3 PRD. You should be able to explain what it does, how it works at a high level, and what evidence shows it is correct.',
     deliverables: [
       {
         id: 'repo',
-        text: 'Public moneypilot repository with a no-bypass ruleset on main and required CI checks',
+        text: 'Public {{slug}} repository with a no-bypass ruleset on main and required CI checks',
       },
       {
         id: 'pr',
@@ -1005,5 +1004,5 @@ Rules:
     xp: 600,
   },
   nextRecommendation:
-    'Level 5 adds an AI agent on top of MoneyPilot. Keep your calculation functions pure and tested: in Level 5 they become the deterministic tools the agent must call instead of doing the math itself.',
+    'Level 5 adds an AI agent on top of {{name}}. Keep your calculation functions pure and tested: in Level 5 they become the deterministic tools the agent must call instead of doing the math itself.',
 }

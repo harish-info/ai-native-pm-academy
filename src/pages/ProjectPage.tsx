@@ -28,6 +28,7 @@ import {
   Pill,
   linkClass,
 } from '../ui/primitives'
+import { CaseStudyStrip } from '../ui/CaseStudyStrip'
 
 function ensureProject(draft: LearnerData, key: string): ProjectRecord {
   const existing = draft.projects[key]
@@ -130,6 +131,12 @@ function ProjectPageView({ levelId }: { levelId: number }) {
         evidence, a rubric average of at least {PROJECT_PASS_AVERAGE} and no dimension below{' '}
         {PROJECT_MIN_DIMENSION}.
       </PageHeader>
+
+      {level.id >= 3 && (
+        <div className="mb-6">
+          <CaseStudyStrip levelId={level.id} />
+        </div>
+      )}
 
       {locked && (
         <Card className="mb-6 border-amber-300 dark:border-amber-800">

@@ -18,7 +18,7 @@ export function LevelMap() {
   const statuses = useLevelStatuses()
   return (
     <>
-      <PageHeader eyebrow="Learning path" title="Five levels, from fluency to mastery">
+      <PageHeader eyebrow="Course" title="Five levels, from fluency to mastery">
         Each level unlocks once you finish the required sessions of the one before it, so you can
         start the next level while a project is still open. Mastering a level needs every required
         session, at least 80% on the assessment and a passing project.
