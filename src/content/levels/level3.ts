@@ -331,7 +331,7 @@ Rules:
             '**Calendar**: upcoming bills and payday on a timeline, with a projected balance line.',
             '**Conversational**: "Will I be OK until Friday?" answered in plain language, with the figures behind the answer.',
             '**Proactive nudge**: no screen to open, just a well-timed message with one clear action.',
-            '**Safe to spend**: a single number that already accounts for every bill before payday.',
+            '**Left after known bills**: a single number that accounts for every known bill before payday. Avoid calling it "safe to spend": it cannot know about spending that is not scheduled.',
           ],
         },
         {
@@ -399,7 +399,7 @@ Rules:
 
 Target opportunity: [paste the target opportunity from your opportunity-assessment.md. The worked example in this course is: "I do not know whether my money will cover the bills that leave before my next payday."]
 
-Concept to build: [CALENDAR | CONVERSATIONAL | PROACTIVE NUDGE | SAFE TO SPEND]. Build only this concept, and make it clearly different from a generic balance dashboard.
+Concept to build: [CALENDAR | CONVERSATIONAL | PROACTIVE NUDGE | LEFT AFTER KNOWN BILLS]. Build only this concept, and make it clearly different from a generic balance dashboard.
 
 Use only the fictional data in fictional-month.md. Do not invent other accounts or transactions.
 

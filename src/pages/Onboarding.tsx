@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { competencies } from '../content/competencies'
 import { diagnosticQuestions, profileQuestions } from '../content/onboarding'
+import { shuffled } from '../domain/shuffle'
 import { useStore } from '../state/store'
 import { Button, Card, cx, inputClass } from '../ui/primitives'
 
@@ -262,7 +263,13 @@ export function Onboarding() {
                     {q.scenario}
                   </legend>
                   <div className="mt-3 grid gap-2">
-                    {q.options.map((o) => (
+                    {[
+                      ...shuffled(
+                        q.options.filter((o) => o.id !== 'unsure'),
+                        q.id,
+                      ),
+                      ...q.options.filter((o) => o.id === 'unsure'),
+                    ].map((o) => (
                       <RadioCard
                         key={o.id}
                         name={q.id}
