@@ -39,7 +39,7 @@ export const level3: Level = {
         {
           heading: 'Outcomes over features',
           paragraphs: [
-            'An outcome-led approach gives teams problems to solve rather than only feature lists. Strategy chooses which problems matter; discovery tests assumptions before committing delivery effort. The optional SVPG article describes one version of this operating model.',
+            'An outcome-led approach gives teams problems to solve rather than only feature lists. Strategy chooses which problems matter; discovery tests assumptions before committing delivery effort. The SVPG article below describes this operating model in a few pages.',
             'Your idea is a feature until you can say which outcome it moves. Choose an outcome relevant to your context, such as successful task completion, time to resolution or qualified conversion. State the population and measurement window. Leadership needs a credible path to a useful outcome, with a reason it matters now.',
           ],
         },
@@ -290,7 +290,7 @@ Rules:
         '`discovery/interview-notes/` with 3 to 5 pseudonymised one-page snapshots from real conversations, or a clearly labeled practice exercise',
         "`discovery/synthesis.md` with your synthesis, a summary of Claude's, and where the two differ",
         '`discovery/ost.md`: an Opportunity Solution Tree with every opportunity traced to participants',
-        'Three usability issues filed in the prototype repository',
+        'The usability problems you observed, filed as issues in the prototype repository',
       ],
       artifact: "`interview-notes/`, `synthesis.md` (yours compared with Claude's) and `ost.md`",
       verification: [
@@ -321,7 +321,7 @@ Rules:
           text: "Recorded where my synthesis and Claude's differ, with a decision on each",
         },
         { id: 'ost', text: 'Built an Opportunity Solution Tree traced to evidence' },
-        { id: 'issues', text: 'Filed the top three usability problems as issues' },
+        { id: 'issues', text: 'Filed the usability problems I observed as issues' },
       ],
       mentorMove:
         'Play a participant in a 10-minute mock interview before the real ones, deliberately giving vague, hypothetical answers so she practises asking "tell me about the last time." Afterwards, read the tree and challenge the opportunity with the weakest evidence.',
@@ -340,7 +340,7 @@ Rules:
       mentorReview: 'optional',
       goal: 'Generate a fictional event log for your product with Claude Code, analyse the funnel, check the key numbers yourself, estimate the impact of your opportunity as a range, and turn everything you know into an evidence-weighted list of bets.',
       whyItMatters:
-        'Your interviews say people struggle with one thing. Then an engineer asks how many people actually hit it, and how often. Interviews tell you why; data tells you how many, and when the two disagree you have found the most useful moment in discovery. Claude Code can generate a dataset, analyse it and draft a priority list in an hour. It can also produce a confident chart from a wrong denominator. The skill is knowing which numbers to check by hand before anyone makes a decision on them.',
+        'Your interviews say people struggle with one thing. Then an engineer asks how many people actually hit it, and how often. Interviews tell you why; data tells you how many. At work, the moment the two disagree is often the most useful one in discovery. Here the data is fictional, so you practise the method, not the finding. Claude Code can generate a dataset, analyse it and draft a priority list in an hour. It can also produce a confident chart from a wrong denominator. The skill is knowing which numbers to check by hand before anyone makes a decision on them.',
       learn: [
         {
           heading: 'Interviews tell you why, data tells you how many',
@@ -442,7 +442,7 @@ Use no real people, companies or figures.`,
         'The top bet links to the target opportunity on your tree.',
       ],
       reflectionPrompts: [
-        'Where did the data disagree with what people told you, and which do you believe more?',
+        'If real product data disagreed with your interviews at work, which would you trust first, and what would you check before deciding?',
         'Which definition, if you changed it, would change your conclusion?',
         'What did the blind ranking get wrong, and what does that tell you about the context only you had?',
       ],

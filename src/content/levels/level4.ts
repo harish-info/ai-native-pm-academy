@@ -176,7 +176,6 @@ Rules:
 - No invention. If the sources do not say what a state shows, write it as an open question. Never fill a gap with a plausible guess.
 - Flag every contradiction between sources with both versions and the precedence rule that applies.
 - Describe behaviour, not implementation.
-- Before writing, interview me about the gaps you find, one question at a time, until I say "write it".
 
 Done when: every screen in the PRD flows has every state with exact copy or an open question, and you have listed the five gaps that most need a decision.`,
       },
