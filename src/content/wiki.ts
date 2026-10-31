@@ -26,11 +26,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   s1: {
     capture:
       'Start the wiki today, by hand. Explain tokens, context windows and variation in your own words, with one example that surprised you.',
-    pages: [
-      'log.md',
-      'learning/how-llms-work.md',
-      'learning/context-windows-degrade-in-the-middle.md',
-    ],
+    pages: ['log.md', 'learning/how-llms-work.md', 'learning/long-context-degrades-answers.md'],
   },
   s2: {
     capture:
@@ -49,23 +45,28 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s5: {
     capture:
-      'Move everything from learning/ into the new second brain. From here on an agent helps maintain it and you approve every write.',
+      'Move everything from learning/ into the new second brain. From here on an agent helps maintain it and you review every write: a mode that asks before edits, a plan first, and git diff before you commit.',
     pages: ['AGENTS.md', 'index.md', 'log.md', '00-inbox/'],
   },
   s6: {
     capture:
-      'Run your first real ingest: drop five sources into 00-inbox/ and let the agent file them. Check one quote per page against its source.',
-    pages: ['skills/ingest/SKILL.md', 'resources/<topic>.md', '00-inbox/ingested/'],
+      'Run your first real ingest: drop at least ten sources into 00-inbox/ and let the agent file them. Check one quote per page against its source.',
+    pages: ['reading/<source-name>.md', 'index.md', '00-inbox/ingested/'],
   },
   s7: {
     capture:
       'Record decisions with the reason and the alternative you rejected. Contradictions get marked superseded, never deleted.',
-    pages: ['decisions/<date>-<decision>.md', 'goals/2027-return-to-work.md', 'CLAUDE.md'],
+    pages: [
+      'AGENTS.md',
+      'decisions/<date>-<decision>.md',
+      'goals/2027-return-to-work.md',
+      '.agents/skills/ingest/SKILL.md',
+    ],
   },
   s8: {
     capture:
-      'First lint pass: stale claims, contradictions, orphans and missing sources. Make the weekly review a skill.',
-    pages: ['skills/lint/SKILL.md', 'skills/weekly-review/SKILL.md', 'reflections/weekly/'],
+      'First lint pass: stale claims, contradictions, orphans and missing sources. Run the weekly review through its skill.',
+    pages: ['.agents/skills/lint/SKILL.md', 'projects/<name>/HANDOFF.md', 'reflections/weekly/'],
   },
   s9: {
     capture:
@@ -78,7 +79,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s10: {
     capture:
-      'Anonymized conversation notes (no names, employers or account details), then the synthesis and tree that cite them.',
+      'Pseudonymized conversation notes (P1, P2, no employers, account details or identifying stories), then the synthesis and tree that cite them.',
     pages: [
       'projects/moneypilot/discovery/conversation-<n>.md',
       'projects/moneypilot/opportunity-tree.md',
@@ -176,7 +177,7 @@ export const wikiMilestones: WikiMilestone[] = [
     levelId: 2,
     name: 'Second brain',
     summary:
-      'The LLM wiki pattern: raw sources in, agent-maintained pages out, AGENTS.md as the schema, you approving every write.',
+      'The LLM wiki pattern: raw sources in, agent-maintained pages out, AGENTS.md as the schema, you reviewing every write.',
     checks: [
       'AGENTS.md with explicit "when X, do Y" rules',
       'Ingest, lint and weekly-review skills that work',
@@ -189,7 +190,7 @@ export const wikiMilestones: WikiMilestone[] = [
     summary: 'Every MoneyPilot claim traces to a source, a conversation or a decision record.',
     checks: [
       'A page per competitor and source, dated',
-      'Anonymized conversation notes and a synthesis that cites them',
+      'Pseudonymized conversation notes and a synthesis that cites them',
       'Decision records for concept direction and v1 scope',
     ],
   },
@@ -236,6 +237,6 @@ export const wikiRules = [
   'Private by default. The wiki never goes into a public repository; MoneyPilot code does, the wiki does not.',
   "No employer or customer data in your personal wiki. When you are back at work, keep a separate work wiki under your employer's rules.",
   'Sources first: raw material goes into 00-inbox/ unchanged, pages are written from it, and every claim keeps its link.',
-  'You approve every agent write. Plan, then diff, then write.',
+  'You review every agent write: plan first, then read git diff before you commit. An instruction to wait is not a lock; the diff is the check.',
   'Ten minutes after each session beats an hour on Sunday. File while it is fresh.',
 ]

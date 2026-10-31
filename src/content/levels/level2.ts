@@ -10,7 +10,7 @@ export const level2: Level = {
   outcomes: [
     'Run a private second brain with three clear layers: raw sources, an agent-maintained wiki and a schema file.',
     'Use Claude Code or Codex to ingest sources, answer questions with verifiable citations and keep the wiki healthy.',
-    'Write AGENTS.md and CLAUDE.md instructions, with explicit triggers, that make any agent useful from its first message.',
+    'Write AGENTS.md instructions, with explicit triggers, that make any agent useful from its first message, and know where each tool looks for them.',
     'Explain retrieval, RAG, freshness, ownership and compaction well enough to shape a team knowledge strategy.',
     'Hand work between agent sessions and tools without losing context, and test that it works.',
   ],
@@ -53,8 +53,8 @@ export const level2: Level = {
           bullets: [
             '`00-inbox/`: raw sources, unedited. Ingested files may move to `00-inbox/ingested/`.',
             '`goals/`, `learning/`, `ideas/`, `decisions/`, `reflections/weekly/`, `projects/`, `reading/`, `resources/`: the wiki layer.',
-            '`skills/` and `templates/`: mechanism, meaning how work gets done, kept separate from the notes themselves.',
-            '`AGENTS.md` (schema) and `CLAUDE.md` (one line pointing to AGENTS.md).',
+            '`.agents/skills/` and `templates/`: mechanism, meaning how work gets done, kept separate from the notes themselves. The folder name matters: agents only discover skills in the places they are built to look (Session 7).',
+            '`AGENTS.md`: the schema. Codex, Copilot and Claude Code all read it; Claude Code only needs a separate `CLAUDE.md` if you want Claude-specific rules.',
           ],
         },
         {
@@ -62,6 +62,13 @@ export const level2: Level = {
           paragraphs: [
             '`index.md` at the root is a catalog with one line per page: link, type and a one-line summary. Agents read it first when answering a question, then open only the pages they need. This simple pattern works well without embeddings up to roughly a hundred sources, which covers most personal wikis for a long time.',
             '`log.md` is an append-only record of what happened, one heading per event in a fixed format such as `## [2026-11-09] ingest | Article title`. Because the format never changes, you and any agent can search it with a single text search, see what changed recently and spot gaps.',
+          ],
+        },
+        {
+          heading: 'Check who approves what before the agent touches a file',
+          paragraphs: [
+            'Do not assume an agent will ask before it acts. Recent versions of Claude Code start in **auto mode**, where a safety classifier approves most actions instead of you, and the Codex **Auto** preset edits files and runs commands inside the folder without asking. Both are reasonable defaults for experienced users and both are wrong for your first week.',
+            'For this level, pick a mode that shows you each change. In Claude Code, press Shift+Tab to cycle modes until it shows the one that asks before edits, or use plan mode to get a plan with no edits at all. In Codex, choose the Read-only preset while you explore and switch to Auto only for a task you will review. Whatever the mode, your real safety net is git: commit before a task, read `git diff` after it, and undo anything you did not want.',
           ],
         },
         {
@@ -98,7 +105,8 @@ export const level2: Level = {
         summary:
           'Scaffold `~/second-brain` with an agent, migrate your Level 1 material, write real starter content and make your first commit.',
         steps: [
-          'Confirm Claude Code or Codex runs in your terminal. If installation is new to you, do this step with your mentor.',
+          'Confirm Claude Code or Codex runs in your terminal. If installation is new to you, do this step with your mentor. If neither is available, Google Antigravity or GitHub Copilot on a free plan can run the same prompts, but check their docs for where they read instructions and skills.',
+          'Check the permission mode before you start: switch to the mode that asks before edits (Claude Code) or the Read-only preset (Codex), and write down which mode you used.',
           'Read the LLM Wiki gist and write three bullets on how its three layers map onto the folders in this lesson.',
           'Create `~/second-brain` (or reuse the folder from Level 1), start the agent inside it and run the scaffolding prompt below. Approve the plan before anything is created.',
           'Migrate your Level 1 material: originals stay unedited in `00-inbox/`, notes go to `learning/`, reflections to `reflections/weekly/`. Ask the agent to build the root `index.md` and add one `log.md` entry per migrated item.',
@@ -115,7 +123,7 @@ export const level2: Level = {
 Use three layers:
 - Raw sources in 00-inbox/: never edited. Ingested files may move to 00-inbox/ingested/.
 - Wiki pages in goals/, learning/, ideas/, decisions/, reflections/weekly/, projects/, reading/, resources/.
-- Mechanism in skills/ and templates/, kept separate from notes.
+- Mechanism in .agents/skills/ and templates/, kept separate from notes.
 
 Create:
 1. Each folder above, with a README.md stating in 1-2 sentences what belongs there and what does not.
@@ -155,7 +163,10 @@ Rules:
         'What will you deliberately keep out of this wiki, and why?',
       ],
       checklist: [
-        { id: 'agent-running', text: 'Started Claude Code or Codex inside ~/second-brain' },
+        {
+          id: 'agent-running',
+          text: 'Started Claude Code or Codex inside ~/second-brain in a mode that asks before edits',
+        },
         {
           id: 'structure',
           text: 'Created all sections with READMEs, index.md, log.md and templates after approving a plan',
@@ -169,7 +180,7 @@ Rules:
         },
       ],
       mentorMove:
-        'Sit with her for the first terminal session: starting the agent, approving a file write and reading a diff. Then hand over the keyboard for the rest of the session and only answer questions.',
+        'Sit with her for the first terminal session: starting the agent, checking the permission mode, approving a file write and reading a diff. Then hand over the keyboard for the rest of the session and only answer questions.',
     },
     {
       id: 's6',
@@ -218,7 +229,7 @@ Rules:
           heading: 'Trust is the hard part, not retrieval',
           paragraphs: [
             'Practitioners who run agent-maintained knowledge bases report the same thing: finding text is easy, trusting answers is hard. Require a file path and a short quote for every claim, then check that the quote really exists in that file. Answers that cite real files but misquote them are more dangerous than answers that cite nothing.',
-            'Gate every write behind human review: plan first, then `git diff` before you commit. Summaries also lose information by design, so state the audience and purpose and ask the agent what it left out.',
+            'Gate every write behind human review: plan first, then `git diff` before you commit. Asking the agent to wait for approval is an instruction, not a lock, so the diff is the check that cannot be skipped. Summaries also lose information by design, so state the audience and purpose and ask the agent what it left out.',
           ],
         },
       ],
@@ -327,8 +338,9 @@ Never edit raw sources, never delete pages, and show me git diff --stat before I
         {
           heading: 'AGENTS.md is the schema',
           paragraphs: [
-            '`AGENTS.md` is an open convention read by Codex, GitHub Copilot and many other agents. Claude Code reads `CLAUDE.md`, so keep one source of truth: `CLAUDE.md` contains the single line `@AGENTS.md`, which imports it. The file states what the place is, its structure, conventions, permissions and how to verify work. Keep it short; every line costs context in every session.',
+            '`AGENTS.md` is an open convention read by Codex, GitHub Copilot, recent versions of Claude Code and many other agents. Claude Code reads it when there is no `CLAUDE.md` in the folder. If you later want rules only Claude should follow, create a `CLAUDE.md` whose first line is `@AGENTS.md`, which imports the shared file, so there is still one source of truth. The file states what the place is, its structure, conventions, permissions and how to verify work. Keep it short; every line costs context in every session.',
             'Agents reliably read these files at the start of a session, but often skip the wiki in the middle of a task. Put **explicit triggers** in the file, written as rules with a condition.',
+            'Triggers make the right behavior much more likely; they do not guarantee it. An instruction is guidance the model can miss or misread. Anything that must never happen, such as deleting raw sources or pushing to a remote, needs an enforced control: a permission rule in the tool settings, a read-only folder, or review before commit.',
           ],
           bullets: [
             'Before answering anything about my goals, decisions or projects, read index.md and cite the pages you used.',
@@ -355,7 +367,7 @@ Never edit raw sources, never delete pages, and show me git diff --stat before I
           heading: 'Mechanism versus data, and when a prompt becomes a skill',
           paragraphs: [
             'Keep **mechanism** (skills, templates, instructions) separate from **data** (your notes). You can then improve how work gets done without touching your knowledge, and share a useful skill without sharing anything private.',
-            'A skill is a folder in `skills/` with a `SKILL.md` that states its name, a description of when to use it and the steps, plus any templates it needs. Agents load a skill when it is relevant, which keeps everyday context lean. A good rule: once you have used the same multi-step prompt three times, make it a skill. Your weekly review and your ingest prompt both qualify.',
+            'A skill is a folder with a `SKILL.md` file: front matter with a `name` and a `description` of when to use it, then the steps, plus any templates it needs. Agents read only the descriptions until a skill is relevant, which keeps everyday context lean. Location matters: Codex discovers skills in `.agents/skills/<name>/SKILL.md`, and Claude Code in `.claude/skills/<name>/SKILL.md`. Keep one copy in `.agents/skills/` and give Claude Code a link to it (your mentor can show you `ln -s`), or keep the skills in the folder your main tool uses. A good rule: once you have used the same multi-step prompt three times, make it a skill. Your weekly review and your ingest prompt both qualify.',
           ],
         },
       ],
@@ -371,6 +383,11 @@ Never edit raw sources, never delete pages, and show me git diff --stat before I
           required: true,
         },
         {
+          resourceId: 'claude-code-docs',
+          why: 'The memory and skills pages state exactly where Claude Code looks for AGENTS.md, CLAUDE.md and skills. Check them when something is not picked up.',
+          required: false,
+        },
+        {
           resourceId: 'aihero-skills',
           why: 'Practitioner examples of skills used in real AI engineering workflows, useful for seeing how others scope them.',
           required: false,
@@ -382,10 +399,11 @@ Never edit raw sources, never delete pages, and show me git diff --stat before I
         steps: [
           'Run the interview prompt below and answer one question at a time.',
           'Edit the draft AGENTS.md yourself. Keep explicit triggers and the required headings for each page type. Cut anything an agent will not need in most sessions.',
-          'Create CLAUDE.md containing only `@AGENTS.md`.',
+          'If you use Claude Code, confirm it picks up AGENTS.md: start a session and ask what instructions it loaded. Only create CLAUDE.md (first line `@AGENTS.md`) if you need Claude-specific rules.',
           'Write `goals/2027-return-to-work.md` with outcomes, how you will know you achieved them and a review date.',
           'Write two decision records from the template, one of which supersedes an earlier note or decision. Mark the old one superseded with a link.',
-          'Turn your weekly review prompt into `skills/weekly-review/SKILL.md` and your ingest instructions into `skills/ingest/SKILL.md`.',
+          'Turn your weekly review prompt into `.agents/skills/weekly-review/SKILL.md` and your ingest instructions into `.agents/skills/ingest/SKILL.md`, each with `name` and `description` front matter. If you use Claude Code, link `.claude/skills` to `.agents/skills`.',
+          'In a fresh session, ask the agent which skills it can see, then trigger each one by describing the task without naming the skill. If a skill is not found, fix the folder or the description before moving on.',
           'Start a new agent session and ask: "What is this folder, and how should you file a new reading note?" Check that it answers from AGENTS.md without hints.',
           'Append log.md entries and commit.',
         ],
@@ -413,15 +431,15 @@ Then draft AGENTS.md:
 Do not write the file until I approve the draft.`,
       },
       expectedOutput: [
-        'AGENTS.md with structure, triggers, page formats and boundaries, plus CLAUDE.md.',
+        'AGENTS.md with structure, triggers, page formats and boundaries.',
         'A return-to-work goal file and two decision records, one superseding another.',
-        'Two skills: skills/weekly-review/SKILL.md and skills/ingest/SKILL.md.',
+        'Two skills in .agents/skills/: weekly-review and ingest, each discovered by a fresh session.',
       ],
-      artifact: 'AGENTS.md, CLAUDE.md, a goal file, two decision records and two working skills.',
+      artifact: 'AGENTS.md, a goal file, two decision records and two working skills.',
       verification: [
         'AGENTS.md is under 150 lines and contains at least three explicit "When X, do Y" triggers.',
         'A fresh session answers the filing question correctly, citing AGENTS.md or index.md, without hints.',
-        'Each skill has a name, a description of when to use it and numbered steps, and runs end to end once.',
+        'Each skill has `name` and `description` front matter and numbered steps, a fresh session lists it, and it triggers from a task description alone.',
         'The superseded decision has status superseded and a working link to its replacement.',
       ],
       reflectionPrompts: [
@@ -433,7 +451,7 @@ Do not write the file until I approve the draft.`,
         { id: 'interview', text: 'Completed the agent interview' },
         {
           id: 'agents-md',
-          text: 'Edited and saved AGENTS.md with triggers and page formats, plus CLAUDE.md',
+          text: 'Edited and saved AGENTS.md with triggers and page formats, and confirmed my tool loads it',
         },
         { id: 'goal', text: 'Wrote the return-to-work goal with a review date' },
         { id: 'decisions', text: 'Wrote two decision records, one superseding another' },
@@ -453,7 +471,7 @@ Do not write the file until I approve the draft.`,
       title: 'Weekly review, lint and the fresh-agent test',
       difficulty: 'Advanced',
       minutes: 100,
-      tools: ['Claude Code', 'Codex'],
+      tools: ['Two different agents: Claude Code, Codex, Antigravity or Copilot'],
       prerequisites: ['s7'],
       competencies: ['knowledge-management', 'prompting-context', 'coding-agents'],
       xp: 200,
@@ -517,7 +535,7 @@ Do not write the file until I approve the draft.`,
         },
         {
           resourceId: 'claude-code-docs',
-          why: 'Reference for how Claude Code loads instruction files and handles long sessions.',
+          why: 'Reference for how Claude Code loads instruction files and skills and handles long sessions.',
           required: false,
         },
       ],
@@ -525,10 +543,10 @@ Do not write the file until I approve the draft.`,
         summary:
           'Run your weekly review through the skill, create and run a lint skill, write a handoff and score a fresh agent in a different tool twice.',
         steps: [
-          "Run the weekly-review skill in Claude Code on this week's notes. Edit the reflection in your own words and save it.",
-          'Create `skills/lint/SKILL.md` that checks contradictions, stale claims, orphans, missing links, gaps and format drift. Run it, review the findings and approve fixes one group at a time.',
+          "Run the weekly-review skill in your main agent on this week's notes. Edit the reflection in your own words and save it.",
+          'Create `.agents/skills/lint/SKILL.md` that checks contradictions, stale claims, orphans, missing links, gaps and format drift. Run it, review the findings and approve fixes one group at a time.',
           'Pick a project in progress (for example your return-to-work plan or MoneyPilot preparation) and ask the agent to write `projects/<name>/HANDOFF.md` with the prompt below.',
-          'Close every session. Open the other tool (Codex if you used Claude Code) fresh in `~/second-brain` and say only: "Continue the <name> project. Read what you need first."',
+          'Close every session. Open a different agent (for example Codex if you used Claude Code, or Antigravity or Copilot) fresh in `~/second-brain` and say only: "Continue the <name> project. Read what you need first."',
           'Score the fresh agent from 1 to 4 on: found the right files, understood the state, followed conventions, chose a sensible next step, asked only necessary questions.',
           'Fix the gaps in AGENTS.md or HANDOFF.md, rerun in another fresh session and rescore.',
           'Record both scores in a test log, append to log.md and commit.',
@@ -655,7 +673,7 @@ Rules:
         'Run the questions in a fresh session using your query rules. For each, record: correct answer, correct source, quote exists word for word.',
         'Calculate three scores out of ten: answer accuracy, source accuracy and quote faithfulness.',
         'Fix the causes of failures (titles, index summaries, triggers, superseded markers), rerun and compare.',
-        'Turn the procedure into `skills/wiki-eval/SKILL.md` so you can rerun it monthly.',
+        'Turn the procedure into `.agents/skills/wiki-eval/SKILL.md` so you can rerun it monthly.',
       ],
       deliverable:
         'A ten-question eval set, two scored runs with a comparison, and a reusable wiki-eval skill.',
@@ -685,17 +703,26 @@ Rules:
       prompt:
         'You have about eighty notes and want an agent to answer questions about them. A friend suggests setting up a vector database first. What is the best response?',
       options: [
-        { id: 'a', text: 'Agree; agents cannot search Markdown files without embeddings.' },
+        {
+          id: 'a',
+          text: 'Agree: semantic search finds ideas phrased differently, which plain file search will always miss.',
+        },
         {
           id: 'b',
-          text: 'Start with Markdown files, a one-line-per-page index.md and consistent titles; add search tooling only when you can name the failure it fixes.',
+          text: 'Start with an index.md and consistent titles; add search tooling once you can name the failure.',
         },
-        { id: 'c', text: 'Put all notes in one large file so the agent sees everything at once.' },
-        { id: 'd', text: 'Avoid agents until you have a thousand notes.' },
+        {
+          id: 'c',
+          text: 'Merge the notes into one well-structured file so the agent can read everything in a single pass.',
+        },
+        {
+          id: 'd',
+          text: 'Use the chat tool built-in project memory instead, since it already handles retrieval for you.',
+        },
       ],
       correct: 'b',
       explanation:
-        'An index read first, plus file search, works well up to roughly a hundred sources and keeps retrieval transparent. Embeddings help with scale and fuzzy matching, but they add machinery that hides why an answer was found.',
+        'An index read first, plus file search, works well up to roughly a hundred sources and keeps retrieval transparent. Embeddings do help with fuzzy matching, but at this size they add machinery that hides why an answer was found, and you have not yet seen the failure they fix.',
     },
     {
       id: 'q2-2',
@@ -703,17 +730,26 @@ Rules:
       prompt:
         'A new source contradicts a decision you recorded in March. What should your agent do when ingesting it?',
       options: [
-        { id: 'a', text: 'Delete the March decision to avoid confusion.' },
-        { id: 'b', text: 'Keep both without comment; you can sort it out later.' },
+        {
+          id: 'a',
+          text: 'Prefer the newer source automatically, since recent information is usually the more accurate.',
+        },
+        {
+          id: 'b',
+          text: 'Rewrite the March decision to match the new source, and note the change in log.md.',
+        },
         {
           id: 'c',
-          text: 'Flag the conflict, show both claims with dates and, once you decide, mark the losing claim superseded with a link.',
+          text: 'Flag the conflict with both dates; once you decide, mark the loser superseded with a link.',
         },
-        { id: 'd', text: 'Always prefer the newer source automatically.' },
+        {
+          id: 'd',
+          text: 'File the new source as usual and let the weekly lint pass pick up the contradiction later.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Contradictions are cheapest to resolve at write time. Closing superseded claims with a link, rather than deleting them, preserves the reasoning trail and stops agents from quoting stale decisions.',
+        "Contradictions are cheapest to resolve at write time, and the decision is yours, not the agent's. Closing superseded claims with a link, rather than rewriting them, preserves the reasoning trail and stops agents from quoting stale decisions.",
     },
     {
       id: 'q2-3',
@@ -721,17 +757,26 @@ Rules:
       prompt:
         'Where should the line "MoneyPilot: interviews done, prototype next, waiting on mentor feedback" live?',
       options: [
-        { id: 'a', text: 'In AGENTS.md, so every session sees it.' },
+        {
+          id: 'a',
+          text: 'In AGENTS.md under a Current work heading, so every session starts with the latest state.',
+        },
         {
           id: 'b',
-          text: 'In projects/moneypilot/README.md or its handoff, because it is project state that changes often.',
+          text: 'In projects/moneypilot/README.md or its handoff, because it is project state that changes.',
         },
-        { id: 'c', text: 'In CLAUDE.md only.' },
-        { id: 'd', text: 'Only in your chat history.' },
+        {
+          id: 'c',
+          text: 'In a dated log.md entry only, since the log already records everything that happens.',
+        },
+        {
+          id: 'd',
+          text: "In the agent tool's built-in memory feature, so it carries across all sessions without any extra files.",
+        },
       ],
       correct: 'b',
       explanation:
-        'AGENTS.md holds durable conventions that rarely change. Project status goes stale quickly, so it belongs with the project, where agents read it when they work on that project.',
+        'AGENTS.md holds durable conventions that rarely change, and status in it goes stale for every session. The log records events, not current state. Project status belongs with the project, where agents read it when they work on that project.',
     },
     {
       id: 'q2-4',
@@ -739,17 +784,26 @@ Rules:
       prompt:
         'Your agent reads the wiki at the start of a session, but halfway through a task it answers a question about your goals from general knowledge. What is the best fix?',
       options: [
-        { id: 'a', text: 'Repeat "use my wiki" in every message.' },
+        {
+          id: 'a',
+          text: 'Copy your goals into AGENTS.md itself so the agent always has them in context.',
+        },
         {
           id: 'b',
-          text: 'Add an explicit trigger to AGENTS.md: before answering anything about goals, decisions or projects, read index.md and cite the pages used.',
+          text: 'Add a trigger to AGENTS.md: before answering about goals, read index.md and cite pages.',
         },
-        { id: 'c', text: 'Switch to a model with a larger context window.' },
-        { id: 'd', text: 'Move all goals into the system prompt of every tool.' },
+        {
+          id: 'c',
+          text: 'Switch to a model with a larger context window so the wiki stays in view all session.',
+        },
+        {
+          id: 'd',
+          text: 'Remind the agent to use the wiki at the start of each message you send in long sessions.',
+        },
       ],
       correct: 'b',
       explanation:
-        'Agents reliably read instruction files at session start but often skip them mid-task. Conditional rules ("when X, do Y") in the schema make the behavior consistent without repeating yourself.',
+        'Agents reliably read instruction files at session start but often skip the wiki mid-task. A conditional rule ("when X, do Y") makes the right behavior much more likely without repeating yourself or bloating AGENTS.md. It is still guidance, not a guarantee, so you keep checking citations.',
     },
     {
       id: 'q2-5',
@@ -757,17 +811,23 @@ Rules:
       prompt:
         'The agent answers a question with a file path and a quote for each claim. What is the most important check before relying on the answer?',
       options: [
-        { id: 'a', text: 'That the answer is well written.' },
-        { id: 'b', text: 'That the cited files exist.' },
+        {
+          id: 'a',
+          text: 'That every cited file exists, is dated, and is recent enough to trust here.',
+        },
+        {
+          id: 'b',
+          text: 'That a second agent, asked the same question, gives the same answer.',
+        },
         {
           id: 'c',
-          text: 'That each quote appears word for word in the cited file and supports the claim.',
+          text: 'That each quote is in the cited file word for word and supports the claim.',
         },
-        { id: 'd', text: 'That the agent says it is confident.' },
+        { id: 'd', text: 'That the agent rates its own confidence as high for each claim.' },
       ],
       correct: 'c',
       explanation:
-        'Trust, not retrieval, is the hard part. Real file paths with misquoted or misread content are more dangerous than no citation, because they look verified.',
+        'Trust, not retrieval, is the hard part. Real file paths with misquoted or misread content are more dangerous than no citation, because they look verified. Agreement between two agents measures consistency, not faithfulness.',
     },
     {
       id: 'q2-6',
@@ -775,35 +835,53 @@ Rules:
       prompt:
         "A bank's internal assistant tells staff last year's fee for a product, although this year's fee document is in the knowledge base. Which failure is most likely?",
       options: [
-        { id: 'a', text: 'The model is too small to handle fees.' },
+        {
+          id: 'a',
+          text: 'The model memorized the old fee during training and ignored the retrieved document.',
+        },
         {
           id: 'b',
-          text: 'Retrieval returned an outdated document, a freshness and ownership problem in the knowledge base.',
+          text: 'Retrieval returned the outdated document: a freshness and ownership problem in the base.',
         },
-        { id: 'c', text: "The staff member's prompt was not polite enough." },
-        { id: 'd', text: 'The context window was too large.' },
+        {
+          id: 'c',
+          text: 'The chunk size is too small, so the fee table was split apart and its year heading was lost.',
+        },
+        {
+          id: 'd',
+          text: 'The staff member asked vaguely; a precise question would have retrieved this year.',
+        },
       ],
       correct: 'b',
       explanation:
-        'Stale retrieval is a classic RAG failure. The fixes are knowledge management fixes: owners, update dates, superseded markers and retiring old documents, not a different model.',
+        'Stale retrieval is a classic RAG failure when old and new documents both exist. Chunking and phrasing can contribute, but the root fixes are knowledge management fixes: owners, update dates, superseded markers and retiring old documents.',
     },
     {
       id: 'q2-7',
       competency: 'prompting-context',
       prompt:
-        'You have pasted the same ingest instructions and template five times this week. What should you do?',
+        'You have pasted the same ingest instructions and template five times this week, using Codex. What should you do?',
       options: [
-        { id: 'a', text: 'Keep pasting; it works.' },
-        { id: 'b', text: 'Add the instructions to every note so they are always nearby.' },
+        {
+          id: 'a',
+          text: 'Put the full ingest instructions in AGENTS.md so they load in every session.',
+        },
+        {
+          id: 'b',
+          text: 'Save them as skills/ingest/SKILL.md next to your notes, with the template.',
+        },
         {
           id: 'c',
-          text: 'Create a skill in skills/ with a SKILL.md and its template, kept separate from your notes.',
+          text: 'Make a skill in .agents/skills/ingest/ with name and description front matter.',
         },
-        { id: 'd', text: 'Put the full instructions at the top of index.md.' },
+        {
+          id: 'd',
+          text: 'Save the prompt in templates/ and paste it in from there whenever you need to ingest.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Repeated multi-step prompts are skill candidates. Keeping mechanism (skills, templates) separate from data (notes) lets you improve the process without touching your knowledge, and loads it only when needed.',
+        'Repeated multi-step prompts are skill candidates, and skills only load from the folders a tool scans: Codex looks in .agents/skills/, Claude Code in .claude/skills/. A skills/ folder at the root is never discovered. AGENTS.md would load the instructions into every session, even when you are not ingesting.',
     },
     {
       id: 'q2-8',
@@ -811,17 +889,26 @@ Rules:
       prompt:
         'Your team proposes loading customer complaint transcripts into a shared AI knowledge base. As the PM, what is your first question?',
       options: [
-        { id: 'a', text: 'Which vector database is fastest?' },
+        {
+          id: 'a',
+          text: 'Can we strip names and account numbers first, so the data counts as anonymous?',
+        },
         {
           id: 'b',
-          text: 'What are the data classification, consent, access control and retention rules for this data, and which tools are approved for it?',
+          text: 'What classification, lawful basis, access and retention rules apply, on which tools?',
         },
-        { id: 'c', text: 'How many transcripts can we fit in one prompt?' },
-        { id: 'd', text: 'Can we finish this week?' },
+        {
+          id: 'c',
+          text: 'Which retrieval setup gives the most accurate answers over long transcripts?',
+        },
+        {
+          id: 'd',
+          text: 'Which complaint themes would staff most want to search for, so we can justify the build?',
+        },
       ],
       correct: 'b',
       explanation:
-        'In banking, data governance comes before tooling. Customer data needs a lawful basis, classification, access control and retention rules. Often a de-identified summary layer is the right answer, not raw transcripts.',
+        'In banking, data governance comes before tooling or value. Removing names usually leaves data pseudonymized, not anonymous, so it is still personal data. Customer data needs classification, a lawful basis, access control and retention rules. Often a de-identified summary layer is the right answer, not raw transcripts.',
     },
   ],
   project: {
@@ -839,11 +926,11 @@ Rules:
       },
       {
         id: 'schema',
-        text: 'AGENTS.md under 150 lines with explicit triggers and page formats, plus CLAUDE.md pointing to it.',
+        text: 'AGENTS.md under 150 lines with explicit triggers and page formats, loaded by every agent you use.',
       },
       {
         id: 'skills',
-        text: 'Working skills for weekly review, ingest and lint, kept separate from your notes.',
+        text: 'Working skills for weekly review, ingest and lint in .agents/skills/, discovered by a fresh session and kept separate from your notes.',
       },
       {
         id: 'logs',
