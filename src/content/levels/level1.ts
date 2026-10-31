@@ -79,7 +79,7 @@ export const level1: Level = {
         },
         {
           resourceId: 'karpathy-deep-dive-llms',
-          why: 'The clearest long-form walkthrough of how chat models are built, from pretraining to assistant behavior. It runs over three hours, so watch it in chapters across the month; it is not part of this session.',
+          why: 'The clearest long-form walkthrough of how chat models are built, from pretraining to assistant behavior. It runs over three hours, so watch it in chapters across the course; it is not part of this session.',
           required: false,
         },
         {
@@ -232,7 +232,7 @@ Constraints:
       resources: [
         {
           resourceId: 'anthropic-ai-fluency',
-          why: 'Gives you language for discernment: judging AI output critically rather than accepting fluent text. The whole course takes about four hours; for this session, do only the Discernment lessons and finish the rest across the month.',
+          why: 'Gives you language for discernment: judging AI output critically rather than accepting fluent text. The whole course takes about four hours; for this session, do only the Discernment lessons and finish the rest across the course.',
           required: true,
         },
         {
@@ -618,7 +618,6 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       minutes: 120,
       competencies: ['ai-fundamentals', 'prompting-context'],
       xp: 150,
-      suggestedWindow: 'December 2026',
       summary:
         'Run three small experiments that turn abstract concepts into things you have seen with your own eyes: token counts across languages, output variation, and how retrieval degrades inside long context.',
       steps: [
@@ -652,7 +651,6 @@ Markdown with the headings: Summary, Priorities check, Open questions, Patterns,
       minutes: 120,
       competencies: ['ai-leadership', 'ai-fundamentals'],
       xp: 150,
-      suggestedWindow: 'January 2027',
       summary:
         'Reconstruct a typical pre-leave work week and design how you will work differently in February, task by task, with honest risk notes.',
       steps: [

@@ -9,7 +9,7 @@ import {
   scoreDiagnostic,
   testedOutLevels,
 } from './assessment'
-import { fresh } from '../test/fixtures'
+import { completeLesson, fresh } from '../test/fixtures'
 
 const ratings = Object.fromEntries(competencyIds.map((c) => [c, 2]))
 const onboarding = (answers: Record<string, string>, hours = '14') => ({
@@ -65,11 +65,17 @@ describe('diagnostic', () => {
     expect(r.estimatedWeeks).toBe(Math.ceil(r.estimatedMinutes / (14 * 60)))
   })
 
-  it('unlocks the level after a proof-only level without mastering it', () => {
+  it('does not open the next level from the diagnostic alone', () => {
     const data = fresh()
     data.onboarding = onboarding(allCorrect)
-    const s = levelStatuses(data, levels)
-    expect(s.slice(0, maxTestOutLevel + 1).every((x) => x.unlocked)).toBe(true)
-    expect(s[maxTestOutLevel + 1]?.unlocked ?? false).toBe(false)
+    let s = levelStatuses(data, levels)
+    const proofLessons = s[0]!.requiredLessons
+    expect(s[0]!.path).toBe('proof-only')
+    expect(proofLessons.length).toBeLessThan(levels[0]!.lessons.length)
+    if (proofLessons.length > 0) expect(s[1]!.unlocked).toBe(false)
+    for (const l of proofLessons) completeLesson(data, l.id)
+    s = levelStatuses(data, levels)
+    expect(s[1]!.unlocked).toBe(true)
+    expect(s[0]!.mastered).toBe(false)
   })
 })

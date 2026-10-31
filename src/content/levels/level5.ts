@@ -647,7 +647,6 @@ Rules:
       minutes: 240,
       competencies: ['agentic-systems', 'evals-safety', 'ai-leadership'],
       xp: 400,
-      suggestedWindow: 'December 2026',
       summary:
         'Describe the architecture and controls a real bank would need before MoneyPilot could touch real customer data. This is an architecture and product leadership exercise, not a claim of regulatory certification.',
       steps: [
@@ -699,7 +698,6 @@ Rules:
       minutes: 240,
       competencies: ['agentic-systems', 'coding-agents', 'ai-leadership'],
       xp: 400,
-      suggestedWindow: 'January 2027',
       summary:
         'Build a MoneyPilot feature with subagents or parallel coding agents and compare it honestly with a single-agent baseline on quality, time, cost and review effort. The point is evidence, not novelty: a small reliable workflow often beats a complex one.',
       steps: [

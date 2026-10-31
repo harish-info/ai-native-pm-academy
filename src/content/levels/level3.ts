@@ -620,7 +620,6 @@ Rules:
       minutes: 120,
       competencies: ['product-discovery', 'ai-leadership'],
       xp: 200,
-      suggestedWindow: 'December 2026',
       summary:
         'Prioritize every solution idea on your Opportunity Solution Tree using evidence, effort and risk, then compare your ranking with what an AI produces without your evidence. The gap shows exactly what product judgment adds.',
       steps: [
@@ -659,7 +658,6 @@ Rules:
       minutes: 120,
       competencies: ['product-discovery', 'technical-collaboration', 'evals-safety'],
       xp: 200,
-      suggestedWindow: 'January 2027',
       summary:
         'Generate a fictional MoneyPilot usage dataset with a hidden pattern, analyze it with an AI data tool, and verify the numbers yourself. Practice trusting AI analytics only as far as you can check it.',
       steps: [

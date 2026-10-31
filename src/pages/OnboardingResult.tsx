@@ -146,7 +146,7 @@ export function OnboardingResult() {
             <LinkButton to={`/lessons/${first.id}`}>Start session {first.number}</LinkButton>
           )}
           <LinkButton to="/plan" variant="secondary">
-            See the month plan
+            See the study plan
           </LinkButton>
           <LinkButton to="/onboarding" variant="ghost">
             Retake the diagnostic

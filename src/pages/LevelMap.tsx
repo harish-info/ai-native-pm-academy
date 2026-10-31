@@ -8,8 +8,9 @@ export function LevelMap() {
   return (
     <>
       <PageHeader eyebrow="Learning path" title="Five levels, from fluency to mastery">
-        Each level unlocks when you master the one before it: every required session, at least 80%
-        on the assessment and a passing project.
+        Each level unlocks once you finish the required sessions of the one before it, so you can
+        start the next level while a project is still open. Mastering a level needs every required
+        session, at least 80% on the assessment and a passing project.
       </PageHeader>
       <ol className="space-y-4">
         {statuses.map((s) => {
@@ -48,7 +49,7 @@ export function LevelMap() {
                     <p className="mt-1 text-stone-600 dark:text-stone-400">{s.level.summary}</p>
                     {!s.unlocked && (
                       <p className="mt-2 text-sm">
-                        Unlocks when you master Level {s.level.id - 1}.
+                        Unlocks when you finish the required sessions of Level {s.level.id - 1}.
                       </p>
                     )}
                   </div>

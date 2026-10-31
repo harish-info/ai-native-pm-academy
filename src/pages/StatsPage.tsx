@@ -7,7 +7,7 @@ import { QUIZ_PASS_RATIO, xpBreakdown, maxXp } from '../domain/progress'
 import {
   activeDays,
   competencyEvidence,
-  longestStreak,
+  activeWeeks,
   overview,
   timeline,
   weeklySeries,
@@ -46,7 +46,7 @@ export function StatsPage() {
   const today = toDay(new Date())
   const ov = overview(data, levels)
   const days = activeDays(data)
-  const longest = longestStreak(days)
+  const weeksActive = activeWeeks(days)
   const weeks = weeklySeries(data, today)
   const evidence = competencyEvidence(data, levels)
   const baseline = data.onboarding
@@ -100,8 +100,8 @@ export function StatsPage() {
             hint="Required sessions and projects not yet done"
           />
           <Stat
-            label="Longest streak"
-            value={`${longest} ${longest === 1 ? 'day' : 'days'}`}
+            label="Active weeks"
+            value={`${weeksActive} ${weeksActive === 1 ? 'week' : 'weeks'}`}
             hint={`${days.size} active ${days.size === 1 ? 'day' : 'days'} in total`}
           />
         </div>

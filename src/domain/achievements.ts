@@ -2,7 +2,7 @@ import type { Level } from '../content/types'
 import type { LearnerData } from '../storage/schema'
 import { toDay } from './dates'
 import { levelStatuses } from './progress'
-import { activeDays, longestStreak, totalMinutes } from './stats'
+import { activeDays, activeWeeks, totalMinutes } from './stats'
 
 export interface Achievement {
   id: string
@@ -27,7 +27,7 @@ export function achievements(data: LearnerData, levels: Level[]): Achievement[] 
     challengeTimes.length +
     data.notes.filter((n) => n.kind === 'reflection' || n.kind === 'weekly').length
   const minutes = totalMinutes(data)
-  const streak = longestStreak(activeDays(data))
+  const weeks = activeWeeks(activeDays(data))
   const perfect = sortedTimes(
     data.quizAttempts.filter((a) => a.correct === a.total).map((a) => a.at),
   )
@@ -86,12 +86,12 @@ export function achievements(data: LearnerData, levels: Level[]): Achievement[] 
       { value: Math.min(reflections, 10), target: 10 },
     ),
     milestone(
-      'streak-7',
-      'Seven-day rhythm',
-      'Learned on seven consecutive days.',
-      streak >= 7,
+      'steady-weeks',
+      'Steady rhythm',
+      'Learned in four different weeks. Missed days and weeks never reset it.',
+      weeks >= 4,
       undefined,
-      { value: Math.min(streak, 7), target: 7 },
+      { value: Math.min(weeks, 4), target: 4 },
     ),
     milestone(
       'ten-hours',

@@ -220,5 +220,6 @@ export function buildDemoData(now: Date): LearnerData {
   ]
   data.bookmarks = ['anthropic-ai-fluency', 'karpathy-llm-wiki']
   data.updatedAt = at(0, 10)
+  data.settings.planStart = day(9)
   return data
 }

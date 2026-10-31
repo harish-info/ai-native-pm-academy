@@ -6,6 +6,7 @@ import {
   QUIZ_PASS_XP,
   QUIZ_PERFECT_BONUS_XP,
   allMet,
+  currentLevel,
   levelStatuses,
   projectResults,
   quizResults,
@@ -127,16 +128,54 @@ describe('unlocking and mastery', () => {
     expect(s.map((x) => x.unlocked)).toEqual([true, false, false, false, false])
   })
 
-  it('unlocks the next level only when the previous one is mastered', () => {
+  it('unlocks the next level once the previous sessions are done, before mastery', () => {
     const data = fresh()
-    for (const l of level(1).lessons) completeLesson(data, l.id)
-    passQuiz(data, 1)
+    const [first, ...rest] = level(1).lessons
+    completeLesson(data, first!.id)
     expect(levelStatuses(data, levels)[1]!.unlocked).toBe(false)
-    passProject(data, 1)
-    const s = levelStatuses(data, levels)
-    expect(s[0]!.mastered).toBe(true)
+    for (const l of rest) completeLesson(data, l.id)
+    let s = levelStatuses(data, levels)
+    expect(s[0]!.mastered).toBe(false)
     expect(s[1]!.unlocked).toBe(true)
     expect(s[2]!.unlocked).toBe(false)
+    expect(currentLevel(s).level.id).toBe(2)
+    passQuiz(data, 1)
+    passProject(data, 1)
+    s = levelStatuses(data, levels)
+    expect(s[0]!.mastered).toBe(true)
+    expect(s[2]!.unlocked).toBe(false)
+  })
+
+  it('points back to an open project once every open level has its sessions done', () => {
+    const data = fresh()
+    for (const l of level(1).lessons) completeLesson(data, l.id)
+    for (const l of level(2).lessons) completeLesson(data, l.id)
+    masterLevel(data, 2)
+    expect(currentLevel(levelStatuses(data, levels)).level.id).toBe(3)
+    for (const l of level(3).lessons) completeLesson(data, l.id)
+    for (const l of level(4).lessons) completeLesson(data, l.id)
+    for (const l of level(5).lessons) completeLesson(data, l.id)
+    expect(currentLevel(levelStatuses(data, levels)).level.id).toBe(1)
+  })
+
+  it('needs mentor sign-off on the level 4 and 5 projects when the learner has a mentor', () => {
+    const data = fresh()
+    for (const id of [1, 2, 3] as const) masterLevel(data, id)
+    masterLevel(data, 4)
+    expect(levelStatuses(data, levels)[3]!.mastered).toBe(true)
+    data.onboarding = {
+      profile: { mentor: 'yes' },
+      selfRatings: {},
+      diagnostic: {},
+      completedAt: '2026-11-01T09:00:00.000Z',
+    }
+    let s = levelStatuses(data, levels)
+    expect(s[3]!.project.mentorMissing).toBe(true)
+    expect(s[3]!.mastered).toBe(false)
+    expect(s[0]!.mastered).toBe(true)
+    data.projects['4']!.assessedBy = 'mentor'
+    s = levelStatuses(data, levels)
+    expect(s[3]!.mastered).toBe(true)
   })
 
   it('does not master a level whose quiz is below 80%', () => {

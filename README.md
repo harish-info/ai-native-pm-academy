@@ -14,20 +14,21 @@ The course assumes a working PM with no coding background, studying alongside a 
 | 4     | Agentic Product Engineering               | 13 to 16 | 9 h 15 min  | Working MoneyPilot Web App        |
 | 5     | Advanced AI Agents and Product Leadership | 17 to 20 | 10 h 30 min | MoneyPilot Personal Finance Agent |
 
-- **Core path:** 20 sessions (about 40 h), plus 5 projects (about 26 h) and 5 quizzes. Total about 68 h, which is more than one month part-time. The month plan in the app spreads it out, and the onboarding diagnostic lets an experienced learner test out of early levels.
-- **Optional:** 10 challenges (about 26 h).
+- **Core path:** 20 sessions (about 40 h), plus 5 projects (about 26 h) and 5 quizzes. Total about 68 h, about 80 h with weekly reviews and mentor time. The study plan runs eight weeks at about 10 h a week from a start date the learner picks, or twelve weeks at about 7 h on the light pace. The onboarding diagnostic lets an experienced learner skip theory in early levels, but not their practical sessions or projects.
+- **Optional:** 10 stretch challenges (about 26 h), unscheduled, for after the course.
 - **Resources:** 89 free or freemium links, each with a verification status and date. The app links to resources but never copies them.
 
 ## What the app does
 
 - Onboarding diagnostic: recommends a start level, effort and weekly pace, and shows confidence gaps.
 - Level map with unlocking:
+  - The next level opens once the previous level's required sessions are done, so a project can finish while the next level starts.
   - Mastering a level needs its required sessions, a quiz score of at least 80% and a project that passes a 4-dimension rubric.
   - Badges are kept once earned.
 - Session pages: explanation, resources, task, a copyable agent prompt, expected output, verification, artifact, a wiki step and mentor notes.
 - A session completes only with evidence: checklist, reflection, an artifact reference and logged time.
-- Dashboard, progress charts (each with a table view), streaks, timeline and achievements.
-- Workspace for notes and reflections, a month plan, a MoneyPilot hub and a wiki guide.
+- Dashboard, progress charts (each with a table view), weekly rhythm (no daily streaks), timeline and achievements.
+- Workspace for notes and reflections, a study plan with a mentor role every week, a MoneyPilot hub and a wiki guide.
 - Settings:
   - versioned JSON export and import, with validation and a pre-import snapshot
   - theme

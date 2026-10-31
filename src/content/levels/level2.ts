@@ -630,7 +630,6 @@ Rules:
       minutes: 150,
       competencies: ['ai-leadership', 'knowledge-management'],
       xp: 200,
-      suggestedWindow: 'January 2027',
       summary:
         'Design, on paper, how a product team at a bank could run a shared knowledge base that both people and agents use, applying everything you learned building your own.',
       steps: [
@@ -675,7 +674,6 @@ Rules:
       minutes: 150,
       competencies: ['evals-safety', 'knowledge-management'],
       xp: 200,
-      suggestedWindow: 'December 2026',
       summary:
         'Build a small evaluation set for your second brain and measure how often a fresh agent answers correctly with faithful citations, before and after improving the wiki.',
       steps: [

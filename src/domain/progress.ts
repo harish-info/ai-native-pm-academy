@@ -9,6 +9,13 @@ export const PROJECT_MIN_DIMENSION = 2
 export const MASTERY_BONUS_XP = 200
 export const QUIZ_PASS_XP = 100
 export const QUIZ_PERFECT_BONUS_XP = 50
+/** In these levels a project counts only when a mentor assessed it, if the learner said she has one. */
+export const MENTOR_SIGNOFF_LEVELS: LevelId[] = [4, 5]
+
+export function needsMentorSignoff(data: LearnerData, levelId: LevelId): boolean {
+  const mentor = data.onboarding?.profile.mentor
+  return MENTOR_SIGNOFF_LEVELS.includes(levelId) && (mentor === 'yes' || mentor === 'sometimes')
+}
 
 export const rubricDimensions: { id: RubricDimension; label: string; question: string }[] = [
   {
@@ -84,7 +91,11 @@ export function quizResults(data: LearnerData, levelId: LevelId) {
   }
 }
 
-export function projectResults(project: LevelProject, record: ProjectRecord | undefined) {
+export function projectResults(
+  project: LevelProject,
+  record: ProjectRecord | undefined,
+  requireMentor = false,
+) {
   const scores = rubricDimensions.map((d) => record?.rubric[d.id] ?? 0)
   const assessed = scores.every((s) => s > 0)
   const avg = assessed ? scores.reduce((a, b) => a + b, 0) / scores.length : 0
@@ -92,10 +103,12 @@ export function projectResults(project: LevelProject, record: ProjectRecord | un
   const deliverablesDone = project.deliverables.filter((d) => record?.deliverables[d.id]).length
   const allDeliverables = deliverablesDone === project.deliverables.length
   const evidence = (record?.evidence.trim().length ?? 0) > 0
+  const mentorMissing = requireMentor && record?.assessedBy !== 'mentor'
   const passed =
     assessed &&
     allDeliverables &&
     evidence &&
+    !mentorMissing &&
     avg >= PROJECT_PASS_AVERAGE &&
     min >= PROJECT_MIN_DIMENSION
   return {
@@ -105,11 +118,17 @@ export function projectResults(project: LevelProject, record: ProjectRecord | un
     deliverablesDone,
     allDeliverables,
     evidence,
+    requireMentor,
+    mentorMissing,
     passed,
     assessedBy: record?.assessedBy ?? 'self',
     passedAt: passed ? record?.assessedAt : undefined,
   }
 }
+
+/** Project results for a level, applying the mentor sign-off rule. */
+export const levelProjectResults = (data: LearnerData, level: Level) =>
+  projectResults(level.project, data.projects[String(level.id)], needsMentorSignoff(data, level.id))
 
 export interface LevelStatus {
   level: Level
@@ -137,13 +156,16 @@ export function levelStatuses(data: LearnerData, levels: Level[]): LevelStatus[]
   for (const level of levels) {
     const prev = out[out.length - 1]
     const path = paths[level.id]
-    const unlocked = !prev || prev.mastered || prev.path === 'proof-only'
+    // A level opens once the previous level's required sessions are done, so its project can
+    // finish while the next level starts. The diagnostic alone never opens a level.
+    const unlocked =
+      !prev || prev.mastered || (prev.unlocked && prev.requiredDone === prev.requiredLessons.length)
     const required = new Set(requiredLessonIds(level, path))
     const requiredLessons = level.lessons.filter((l) => required.has(l.id))
     const requiredDone = requiredLessons.filter((l) => data.lessons[l.id]?.completedAt).length
     const coreDone = level.lessons.filter((l) => data.lessons[l.id]?.completedAt).length
     const quiz = quizResults(data, level.id)
-    const project = projectResults(level.project, data.projects[String(level.id)])
+    const project = levelProjectResults(data, level)
     const recorded = data.masteredLevels[String(level.id)]
     const earned =
       unlocked && requiredDone === requiredLessons.length && quiz.passed && project.passed
@@ -173,8 +195,13 @@ export function levelStatuses(data: LearnerData, levels: Level[]): LevelStatus[]
   return out
 }
 
+/** The level to work on: the first open level with sessions left, else the first one not mastered. */
 export function currentLevel(statuses: LevelStatus[]): LevelStatus {
-  return statuses.find((s) => s.unlocked && !s.mastered) ?? statuses[statuses.length - 1]!
+  return (
+    statuses.find((s) => s.unlocked && s.requiredDone < s.requiredLessons.length) ??
+    statuses.find((s) => s.unlocked && !s.mastered) ??
+    statuses[statuses.length - 1]!
+  )
 }
 
 export interface XpBreakdown {

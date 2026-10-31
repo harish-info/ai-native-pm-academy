@@ -73,10 +73,8 @@ describe('references', () => {
     for (const q of diagnosticQuestions) expect(competencyIds).toContain(q.competency)
   })
 
-  it('schedules every core session in the month plan exactly once', () => {
-    const planned = planWeeks
-      .flatMap((w) => w.days.flatMap((d) => d.items))
-      .filter((i) => i.kind === 'lesson')
+  it('schedules every core session in the study plan exactly once', () => {
+    const planned = planWeeks.flatMap((w) => w.items).filter((i) => i.kind === 'lesson')
     const ids = planned.map((i) => (i as { id: string }).id)
     expect([...ids].sort()).toEqual(allLessons.map((l) => l.id).sort())
   })

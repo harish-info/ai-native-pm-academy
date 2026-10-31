@@ -1,10 +1,19 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { lessonById, levelById, resourceById, resources } from '../content'
-import { planEnd, planNotes, planStart, planWeeks, type PlanItem } from '../content/plan'
+import { paces, planNotes, planWeeks, type PlanItem, type PlanPace } from '../content/plan'
 import { wikiSteps } from '../content/wiki'
-import { formatMinutes, toDay } from '../domain/dates'
-import { projectResults, quizResults } from '../domain/progress'
+import { addDays, formatMinutes, toDay } from '../domain/dates'
+import { levelProjectResults, quizResults } from '../domain/progress'
+import {
+  currentPlanWeek,
+  itemMinutes,
+  planEndDay,
+  planMinutes,
+  planPace,
+  weekMinutes,
+  weekWindow,
+} from '../domain/schedule'
 import type { LearnerData } from '../storage/schema'
 import { useStore } from '../state/store'
 import { ResourceCard } from '../ui/ResourceBits'
@@ -23,28 +32,12 @@ const longDay = (day: string) =>
 const shortDay = (day: string) =>
   parseDay(day).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' })
 
-/** Quizzes have no stored duration; budget about two minutes a question plus review time. */
-function quizMinutes(levelId: number): number {
-  const n = levelById(levelId)?.quiz.length ?? 10
-  return Math.max(15, Math.round((n * 2 + 10) / 5) * 5)
-}
-
-function projectMinutes(levelId: number): number {
-  return Math.round((levelById(levelId)?.project.minutes ?? 120) / 2)
-}
-
-function itemMinutes(item: PlanItem): number {
-  switch (item.kind) {
-    case 'lesson':
-      return lessonById(item.id)?.minutes ?? 0
-    case 'quiz':
-      return quizMinutes(item.levelId)
-    case 'project':
-      return projectMinutes(item.levelId)
-    default:
-      return item.minutes
-  }
-}
+const projectPartLabel = {
+  whole: 'Project',
+  start: 'Project start',
+  continue: 'Project, continued',
+  finish: 'Project finish',
+} as const
 
 const textKindLabel = { mentor: 'Mentor', review: 'Review', prep: 'Prep' } as const
 
@@ -155,12 +148,10 @@ function PlanItemRow({ item, data }: { item: PlanItem; data: LearnerData }) {
       )
     case 'project': {
       const level = levelById(item.levelId)
-      const passed = level
-        ? projectResults(level.project, data.projects[String(item.levelId)]).passed
-        : false
+      const passed = level ? levelProjectResults(data, level).passed : false
       return (
         <Row
-          label={item.part === 'start' ? 'Project start' : 'Project finish'}
+          label={projectPartLabel[item.part]}
           title={
             <Link to={`/levels/${item.levelId}/project`} className={linkClass}>
               {level?.project.title ?? `Level ${item.levelId} project`}
@@ -177,30 +168,90 @@ function PlanItemRow({ item, data }: { item: PlanItem; data: LearnerData }) {
 }
 
 export function MonthPlanPage() {
-  const { data } = useStore()
+  const { data, update } = useStore()
   const today = toDay(new Date())
-  const inRange = today >= planStart && today <= planEnd
-  const totalMinutes = planWeeks.reduce(
-    (sum, w) =>
-      sum + w.days.reduce((s, d) => s + d.items.reduce((x, i) => x + itemMinutes(i), 0), 0),
-    0,
-  )
+  const start = data.settings.planStart
+  const pace = planPace(data)
+  const current = start ? currentPlanWeek(start, pace, today) : 0
+  const totalMinutes = planMinutes()
   const follow = resources.filter(
     (r) => r.format === 'community' || r.format === 'newsletter' || r.format === 'podcast',
   )
+  const setPace = (p: PlanPace) => update((d) => void (d.settings.planPace = p))
 
   return (
     <>
-      <PageHeader eyebrow="Month plan" title={`${longDay(planStart)} to ${longDay(planEnd)}`}>
-        Five weeks, one level a week. Titles, minutes and resources come from the course itself.
-        About {formatMinutes(totalMinutes)} in total, including mentor time.
+      <PageHeader
+        eyebrow="Study plan"
+        title={
+          start
+            ? `${longDay(start)} to ${longDay(planEndDay(start, pace))}`
+            : 'Eight weeks, starting when you are ready'
+        }
+      >
+        Eight plan weeks, {paces[pace].hoursPerWeek} at the {pace} pace. About{' '}
+        {formatMinutes(totalMinutes)} in total, including mentor time. Titles, minutes and resources
+        come from the course itself.
       </PageHeader>
 
-      {!inRange && today < planStart && (
-        <p className="mb-4 text-sm text-stone-600 dark:text-stone-400">
-          The plan starts on {longDay(planStart)}.
-        </p>
-      )}
+      <Card className="mb-6" aria-labelledby="plan-settings">
+        <h2 id="plan-settings" className="mb-3 text-lg font-semibold">
+          Start date and pace
+        </h2>
+        <div className="flex flex-wrap items-end gap-6">
+          <div>
+            <label htmlFor="plan-start" className="mb-1 block text-sm font-medium">
+              Start date
+            </label>
+            <div className="flex flex-wrap items-center gap-2">
+              <input
+                id="plan-start"
+                type="date"
+                value={start ?? ''}
+                onChange={(e) => {
+                  const v = e.target.value
+                  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) update((d) => void (d.settings.planStart = v))
+                }}
+                className="rounded-lg border border-stone-300 bg-white px-3 py-1.5 dark:border-stone-700 dark:bg-stone-900"
+              />
+              {!start && (
+                <button
+                  type="button"
+                  onClick={() => update((d) => void (d.settings.planStart = today))}
+                  className="rounded-lg bg-indigo-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-800 dark:bg-indigo-500 dark:text-stone-950 dark:hover:bg-indigo-400"
+                >
+                  Start Week 1 today
+                </button>
+              )}
+              {start && (
+                <button
+                  type="button"
+                  onClick={() => update((d) => void (d.settings.planStart = addDays(start, 7)))}
+                  className="rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium hover:bg-stone-100 dark:border-stone-700 dark:hover:bg-stone-800"
+                >
+                  Push back a week
+                </button>
+              )}
+            </div>
+          </div>
+          <fieldset>
+            <legend className="mb-1 text-sm font-medium">Pace</legend>
+            <div className="flex flex-wrap gap-4">
+              {(Object.keys(paces) as PlanPace[]).map((p) => (
+                <label key={p} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="radio"
+                    name="plan-pace"
+                    checked={pace === p}
+                    onChange={() => setPace(p)}
+                  />
+                  {paces[p].label}, {paces[p].hoursPerWeek}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </div>
+      </Card>
 
       <aside
         aria-label="Plan notes"
@@ -216,61 +267,53 @@ export function MonthPlanPage() {
 
       <div className="space-y-6">
         {planWeeks.map((week) => {
-          const weekMinutes = week.days.reduce(
-            (s, d) => s + d.items.reduce((x, i) => x + itemMinutes(i), 0),
-            0,
-          )
+          const window = start ? weekWindow(start, pace, week.number) : undefined
+          const isCurrent = current === week.number
           return (
-            <Card key={week.number} aria-labelledby={`week-${week.number}`}>
+            <Card
+              key={week.number}
+              aria-labelledby={`week-${week.number}`}
+              aria-current={isCurrent ? 'step' : undefined}
+              className={cx(isCurrent && 'ring-2 ring-indigo-500 dark:ring-indigo-400')}
+            >
               <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
                 <div>
                   <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">
                     Week {week.number} ·{' '}
-                    <Link to={`/levels/${week.levelId}`} className={linkClass}>
-                      Level {week.levelId}
-                    </Link>
+                    {week.levelIds.map((id, i) => (
+                      <span key={id}>
+                        {i > 0 && ' and '}
+                        <Link to={`/levels/${id}`} className={linkClass}>
+                          Level {id}
+                        </Link>
+                      </span>
+                    ))}
+                    {window && (
+                      <span className="text-stone-600 dark:text-stone-400">
+                        {' '}
+                        · {shortDay(window.start)} to {shortDay(window.end)}
+                      </span>
+                    )}
                   </p>
                   <h2 id={`week-${week.number}`} className="text-xl font-semibold">
                     {week.title}
                   </h2>
                 </div>
-                <Pill tone="indigo">About {formatMinutes(weekMinutes)}</Pill>
+                <div className="flex gap-2">
+                  {isCurrent && <Pill tone="indigo">This week</Pill>}
+                  <Pill tone="indigo">About {formatMinutes(weekMinutes(week))}</Pill>
+                </div>
               </div>
               <p className="mb-2">
                 <strong>Goal:</strong> {week.goal}
               </p>
-              <p className="mb-4 text-sm text-stone-700 dark:text-stone-300">
-                <strong>Mentor session:</strong> {week.mentorSession}
+              <p className="mb-4 rounded-xl bg-stone-50 p-3 text-sm text-stone-700 dark:bg-stone-950/40 dark:text-stone-300">
+                <strong>What the mentor does:</strong> {week.mentor}
               </p>
-              <ol className="space-y-4">
-                {week.days.map((day) => {
-                  const isToday = inRange && day.date === today
-                  return (
-                    <li
-                      key={day.date}
-                      aria-current={isToday ? 'date' : undefined}
-                      className={cx(
-                        'rounded-xl p-3',
-                        isToday
-                          ? 'bg-indigo-50 ring-2 ring-indigo-500 dark:bg-indigo-950 dark:ring-indigo-400'
-                          : 'bg-stone-50 dark:bg-stone-950/40',
-                      )}
-                    >
-                      <h3 className="mb-2 flex flex-wrap items-baseline gap-2">
-                        <span className="font-semibold">{shortDay(day.date)}</span>
-                        <span className="text-sm text-stone-600 dark:text-stone-400">
-                          {day.focus}
-                        </span>
-                        {isToday && <Pill tone="indigo">Today</Pill>}
-                      </h3>
-                      <ul className="space-y-2">
-                        {day.items.map((item, i) => (
-                          <PlanItemRow key={i} item={item} data={data} />
-                        ))}
-                      </ul>
-                    </li>
-                  )
-                })}
+              <ol className="space-y-2">
+                {week.items.map((item, i) => (
+                  <PlanItemRow key={i} item={item} data={data} />
+                ))}
               </ol>
             </Card>
           )
@@ -278,8 +321,9 @@ export function MonthPlanPage() {
       </div>
 
       <p className="mt-4 text-xs text-stone-500 dark:text-stone-400">
-        Assessment and project times are estimates: about two minutes per quiz question, and each
-        project split evenly over its two days.
+        Assessment and project times are estimates: about two minutes per quiz question plus review,
+        and projects split across the weeks where they run. Work through a week in order; which day
+        you do what is up to you.
       </p>
 
       <section aria-labelledby="follow" className="mt-8">

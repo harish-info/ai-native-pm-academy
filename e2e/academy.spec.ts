@@ -86,6 +86,26 @@ test('a session completes only with evidence and stays complete after refresh', 
   await expect(page.getByText(/Completed on/)).toBeVisible()
 })
 
+test('the study plan starts today, switches pace and keeps both after a refresh', async ({
+  page,
+}) => {
+  await page.goto('#/plan')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('starting when you are ready')
+  await page.getByRole('button', { name: 'Start Week 1 today' }).click()
+  await expect(page.getByText('This week', { exact: true })).toBeVisible()
+  await page.getByRole('radio', { name: /Light: 12 weeks/ }).check()
+  await expect
+    .poll(async () => ((await storedData(page))?.settings as Record<string, unknown>)?.planPace)
+    .toBe('light')
+  await page.reload()
+  await expect(page.getByRole('radio', { name: /Light: 12 weeks/ })).toBeChecked()
+  await expect(page.getByLabel('Start date', { exact: true })).not.toHaveValue('')
+  const settings = (await storedData(page))?.settings as Record<string, unknown>
+  expect(settings.planPace).toBe('light')
+  expect(settings.planStart).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  await expect(page.getByText('What the mentor does:')).toHaveCount(8)
+})
+
 test('nested routes survive a refresh', async ({ page }) => {
   await page.goto('#/levels/3')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Discovery')

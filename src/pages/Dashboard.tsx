@@ -1,15 +1,22 @@
 import { Link } from 'react-router-dom'
 import { levels, lessonById, levelById } from '../content'
 import { competencies } from '../content/competencies'
-import { planEnd, planStart, planWeeks, type PlanItem } from '../content/plan'
+import { planWeeks, type PlanItem } from '../content/plan'
 import { wikiMilestones } from '../content/wiki'
 import { computeOnboardingResult } from '../domain/assessment'
 import { addDays, formatDate, formatMinutes, toDay, weekStart } from '../domain/dates'
 import { currentLevel, maxXp, xpBreakdown, type LevelStatus } from '../domain/progress'
 import {
+  currentPlanWeek,
+  itemMinutes,
+  planPace,
+  weekWindow,
+  weeklyTarget,
+} from '../domain/schedule'
+import {
   activeDays,
+  activeWeeks,
   competencyEvidence,
-  currentStreak,
   overview,
   timeline,
   weeklySeries,
@@ -71,6 +78,13 @@ function nextAction(
   }
 }
 
+const projectPartLabel = {
+  whole: 'Project',
+  start: 'Start',
+  continue: 'Continue',
+  finish: 'Finish',
+} as const
+
 function planItemView(item: PlanItem, data: LearnerData, statuses: LevelStatus[]) {
   switch (item.kind) {
     case 'lesson': {
@@ -86,15 +100,15 @@ function planItemView(item: PlanItem, data: LearnerData, statuses: LevelStatus[]
       return {
         title: `Level ${item.levelId} assessment`,
         to: `/levels/${item.levelId}/quiz`,
-        minutes: undefined,
+        minutes: itemMinutes(item),
         done: !!statuses.find((s) => s.level.id === item.levelId)?.quiz.passed,
       }
     case 'project': {
       const level = levelById(item.levelId)
       return {
-        title: `${item.part === 'start' ? 'Start' : 'Finish'}: ${level?.project.title ?? `Level ${item.levelId} project`}`,
+        title: `${projectPartLabel[item.part]}: ${level?.project.title ?? `Level ${item.levelId} project`}`,
         to: `/levels/${item.levelId}/project`,
-        minutes: level ? Math.round(level.project.minutes / 2) : undefined,
+        minutes: item.minutes,
         done: !!statuses.find((s) => s.level.id === item.levelId)?.project.passed,
       }
     }
@@ -109,15 +123,20 @@ function planItemView(item: PlanItem, data: LearnerData, statuses: LevelStatus[]
   }
 }
 
-function TodayInPlan({ today }: { today: string }) {
-  const { data } = useStore()
+function ThisWeekInPlan({ today }: { today: string }) {
+  const { data, update } = useStore()
   const statuses = useLevelStatuses()
-  const inPlan = today >= planStart && today <= planEnd
-  const day = inPlan ? planWeeks.flatMap((w) => w.days).find((d) => d.date === today) : undefined
+  const start = data.settings.planStart
+  const pace = planPace(data)
+  const n = start ? currentPlanWeek(start, pace, today) : 1
+  const week = planWeeks.find((w) => w.number === Math.max(1, n))
+  const window = start && week ? weekWindow(start, pace, week.number) : undefined
   return (
     <Card>
       <div className="mb-3 flex items-center justify-between gap-2">
-        <h2 className="text-lg font-semibold">Today in the month plan</h2>
+        <h2 className="text-lg font-semibold">
+          {week && n <= planWeeks.length ? `This week: Week ${week.number}` : 'Your plan'}
+        </h2>
         <Link
           to="/plan"
           className="text-sm font-medium text-indigo-700 hover:underline dark:text-indigo-300"
@@ -125,13 +144,39 @@ function TodayInPlan({ today }: { today: string }) {
           Full plan
         </Link>
       </div>
-      {day ? (
+      {n > planWeeks.length ? (
+        <p className="text-sm text-stone-600 dark:text-stone-400">
+          The plan has finished. Keep going at your own pace, and pick up the stretch challenges.
+        </p>
+      ) : week ? (
         <>
           <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-            {formatDate(`${day.date}T12:00:00`)} · {day.focus}
+            {week.title}
+            {window
+              ? ` · ${formatDate(`${window.start}T12:00:00`)} to ${formatDate(`${window.end}T12:00:00`)}`
+              : ''}
           </p>
+          {!start && (
+            <div className="mb-3 flex flex-wrap items-center gap-3 rounded-lg bg-indigo-50 p-3 text-sm dark:bg-indigo-950">
+              <span className="flex-1">
+                Week 1 needs only a chat account. Start whenever you are ready.
+              </span>
+              <button
+                type="button"
+                onClick={() => update((d) => void (d.settings.planStart = today))}
+                className="rounded-lg bg-indigo-700 px-3 py-1.5 font-medium text-white hover:bg-indigo-800 dark:bg-indigo-500 dark:text-stone-950 dark:hover:bg-indigo-400"
+              >
+                Start Week 1 today
+              </button>
+            </div>
+          )}
+          {start && n === 0 && (
+            <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
+              Week 1 starts on {formatDate(`${start}T12:00:00`)}.
+            </p>
+          )}
           <ul className="space-y-2">
-            {day.items.map((item, i) => {
+            {week.items.map((item, i) => {
               const v = planItemView(item, data, statuses)
               return (
                 <li
@@ -167,19 +212,7 @@ function TodayInPlan({ today }: { today: string }) {
             })}
           </ul>
         </>
-      ) : (
-        <p className="text-sm text-stone-600 dark:text-stone-400">
-          {today < planStart
-            ? `The five-week plan starts on ${formatDate(`${planStart}T12:00:00`)}. Have a look at it now so week one has no surprises.`
-            : 'The five-week plan has finished. Keep going at your own pace, and pick up the stretch challenges.'}{' '}
-          <Link
-            to="/plan"
-            className="font-medium text-indigo-700 hover:underline dark:text-indigo-300"
-          >
-            Open the month plan
-          </Link>
-        </p>
-      )}
+      ) : null}
     </Card>
   )
 }
@@ -193,7 +226,8 @@ export function Dashboard() {
   const xp = xpBreakdown(data, levels)
   const xpMax = maxXp(levels)
   const ov = overview(data, levels)
-  const streak = currentStreak(activeDays(data), today)
+  const weeksActive = activeWeeks(activeDays(data))
+  const target = weeklyTarget(planPace(data))
   const weeks = weeklySeries(data, today)
   const thisWeek = weeks.find((w) => w.weekStart === weekStart(today))?.minutes ?? 0
   const evidence = competencyEvidence(data, levels)
@@ -274,7 +308,7 @@ export function Dashboard() {
             </LinkButton>
           </div>
         </Card>
-        <TodayInPlan today={today} />
+        <ThisWeekInPlan today={today} />
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -284,14 +318,14 @@ export function Dashboard() {
           hint={`of ${xpMax.toLocaleString()} possible`}
         />
         <Stat
-          label="Current streak"
-          value={`${streak} ${streak === 1 ? 'day' : 'days'}`}
-          hint="Days with logged study, completions or assessments"
+          label="Active weeks"
+          value={`${weeksActive} ${weeksActive === 1 ? 'week' : 'weeks'}`}
+          hint="Weeks with any study. Missed days never reset it."
         />
         <Stat
           label="This week"
           value={formatMinutes(thisWeek)}
-          hint="Logged study time since Monday"
+          hint={`Logged since Monday, of about ${Math.round(target / 60)} h planned`}
         />
         <div className="flex items-center gap-4 rounded-xl border border-stone-200 p-4 dark:border-stone-800">
           <ProgressRing value={ov.completionPct} size={72} label="Course completion" />

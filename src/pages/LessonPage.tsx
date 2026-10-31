@@ -79,7 +79,7 @@ export function LessonPage() {
             <LockIcon /> Read-only preview
           </p>
           <p className="mt-1 text-sm">
-            You can read this session now. Evidence opens once you master{' '}
+            You can read this session now. Evidence opens once you finish the required sessions of{' '}
             <Link to={`/levels/${lesson.levelId - 1}`} className="underline">
               Level {lesson.levelId - 1}
             </Link>

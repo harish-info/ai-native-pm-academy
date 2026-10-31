@@ -78,9 +78,8 @@ function QuizPageView({ levelId }: { levelId: number }) {
             <LockIcon /> This assessment is locked
           </p>
           <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
-            Level {level.id} unlocks when you master Level {level.id - 1}
-            {prev ? ` (${prev.level.title})` : ''}: every required session, at least {PASS_PCT}% on
-            its assessment and a passing project.
+            Level {level.id} unlocks when you finish the required sessions of Level {level.id - 1}
+            {prev ? ` (${prev.level.title})` : ''}.
           </p>
           <div className="mt-4">{backLink}</div>
         </Card>

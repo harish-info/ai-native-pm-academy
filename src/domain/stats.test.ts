@@ -1,19 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { fresh } from '../test/fixtures'
-import { activeDays, currentStreak, longestStreak, totalMinutes, weeklySeries } from './stats'
+import { activeDays, activeWeeks, totalMinutes, weeklySeries } from './stats'
 
-describe('streaks', () => {
-  const days = new Set(['2026-11-01', '2026-11-02', '2026-11-03', '2026-11-05', '2026-11-06'])
-
-  it('counts the current streak ending today or yesterday', () => {
-    expect(currentStreak(days, '2026-11-06')).toBe(2)
-    expect(currentStreak(days, '2026-11-07')).toBe(2)
-    expect(currentStreak(days, '2026-11-08')).toBe(0)
-  })
-
-  it('finds the longest streak', () => {
-    expect(longestStreak(days)).toBe(3)
-    expect(longestStreak(new Set())).toBe(0)
+describe('weekly rhythm', () => {
+  it('counts distinct active weeks, with gaps never resetting the count', () => {
+    // Sunday 1 Nov is in the week of 26 Oct; 2 to 6 Nov is one week; 23 Nov after a two-week gap.
+    const days = new Set(['2026-11-01', '2026-11-02', '2026-11-03', '2026-11-06', '2026-11-23'])
+    expect(activeWeeks(days)).toBe(3)
+    expect(activeWeeks(new Set())).toBe(0)
   })
 })
 

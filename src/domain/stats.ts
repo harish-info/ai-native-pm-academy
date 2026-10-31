@@ -15,29 +15,9 @@ export function activeDays(data: LearnerData): Set<string> {
   return days
 }
 
-export function currentStreak(days: Set<string>, today: string): number {
-  let cursor = days.has(today) ? today : addDays(today, -1)
-  let n = 0
-  while (days.has(cursor)) {
-    n++
-    cursor = addDays(cursor, -1)
-  }
-  return n
-}
-
-export function longestStreak(days: Set<string>): number {
-  let best = 0
-  for (const d of days) {
-    if (days.has(addDays(d, -1))) continue
-    let n = 0
-    let cursor = d
-    while (days.has(cursor)) {
-      n++
-      cursor = addDays(cursor, 1)
-    }
-    best = Math.max(best, n)
-  }
-  return best
+/** Distinct calendar weeks (Monday start) with any learning activity. Breaks never reset it. */
+export function activeWeeks(days: Set<string>): number {
+  return new Set([...days].map(weekStart)).size
 }
 
 export interface WeekPoint {

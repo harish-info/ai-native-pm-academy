@@ -8,7 +8,7 @@ import { Button, cx } from './primitives'
 const nav: { to: string; label: string; end?: boolean }[] = [
   { to: '/dashboard', label: 'Dashboard' },
   { to: '/levels', label: 'Learning path' },
-  { to: '/plan', label: 'Month plan' },
+  { to: '/plan', label: 'Study plan' },
   { to: '/moneypilot', label: 'MoneyPilot' },
   { to: '/wiki', label: 'Your wiki' },
   { to: '/workspace', label: 'Workspace' },

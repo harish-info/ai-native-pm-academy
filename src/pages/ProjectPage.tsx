@@ -6,6 +6,7 @@ import { formatDate, formatMinutes } from '../domain/dates'
 import {
   PROJECT_MIN_DIMENSION,
   PROJECT_PASS_AVERAGE,
+  needsMentorSignoff,
   projectResults,
   rubricDimensions,
   rubricScale,
@@ -87,7 +88,7 @@ function ProjectPageView({ levelId }: { levelId: number }) {
 
   const project = level.project
   const locked = !status.unlocked
-  const result = projectResults(project, record)
+  const result = projectResults(project, record, needsMentorSignoff(data, level.id))
   const saved = record?.rubric ?? emptyProjectRecord().rubric
   const scores = draftScores ?? saved
   const allScored = rubricDimensions.every((d) => scores[d.id] > 0)
@@ -138,7 +139,7 @@ function ProjectPageView({ levelId }: { levelId: number }) {
             <LockIcon /> This project is locked
           </p>
           <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
-            Level {level.id} unlocks when you master Level {level.id - 1}
+            Level {level.id} unlocks when you finish the required sessions of Level {level.id - 1}
             {prev ? ` (${prev.level.title})` : ''}. You can read the brief now, but progress cannot
             be recorded yet.
           </p>
@@ -214,8 +215,10 @@ function ProjectPageView({ levelId }: { levelId: number }) {
         <Card>
           <h2 className="mb-1 text-lg font-semibold">Rubric</h2>
           <p className="mb-4 text-sm text-stone-600 dark:text-stone-400">
-            Score honestly against the descriptors. A mentor assessment counts the same as a self
-            assessment but is worth asking for: it is the closest thing to a real review.
+            Score honestly against the descriptors.{' '}
+            {result.requireMentor
+              ? 'This project counts only with a mentor assessment: it ships code and an agent that handles money, where self-scoring is least reliable.'
+              : 'A mentor assessment is worth asking for: it is the closest thing to a real review.'}
           </p>
           <fieldset disabled={locked} className="mb-5">
             <legend className="mb-2 text-sm font-medium">Who is assessing?</legend>
@@ -379,6 +382,11 @@ function ProjectPageView({ levelId }: { levelId: number }) {
                 <RequirementRow ok={result.assessed && result.min >= PROJECT_MIN_DIMENSION}>
                   No dimension below {PROJECT_MIN_DIMENSION}
                 </RequirementRow>
+                {result.requireMentor && (
+                  <RequirementRow ok={!result.mentorMissing}>
+                    Assessed by your mentor
+                  </RequirementRow>
+                )}
               </ul>
             </>
           )}

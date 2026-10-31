@@ -44,7 +44,7 @@ export function Landing() {
             to="/plan"
             className="rounded-lg px-3 py-2 text-sm hover:bg-stone-100 dark:hover:bg-stone-800"
           >
-            Month plan
+            Study plan
           </Link>
           <Link
             to="/levels"
@@ -120,9 +120,9 @@ export function Landing() {
         <section className="rounded-2xl bg-indigo-50 p-6 dark:bg-indigo-950/50">
           <h2 className="text-lg font-semibold">Learning with a mentor?</h2>
           <p className="mt-1 max-w-3xl text-stone-700 dark:text-stone-300">
-            Every session includes a short mentor move, and the month plan schedules about an hour a
-            week of mentor time: project reviews, a cold read of the PRD, a real pull request review
-            and a skeptical demo audience.
+            Every session includes a short mentor move, and every week of the study plan says what
+            the mentor does, about an hour a week: project reviews, a cold read of the PRD, a real
+            pull request review and a skeptical demo audience.
           </p>
         </section>
       </main>

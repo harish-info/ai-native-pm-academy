@@ -669,7 +669,6 @@ Rules:
       minutes: 150,
       competencies: ['coding-agents', 'technical-collaboration'],
       xp: 250,
-      suggestedWindow: 'December 2026',
       summary:
         'Run two coding agents at once on two independent MoneyPilot slices, using git worktrees or separate clones, then integrate both through pull requests. Learn first-hand where parallel agents save time and where coordination eats the savings.',
       steps: [
@@ -708,7 +707,6 @@ Rules:
       minutes: 150,
       competencies: ['product-discovery', 'technical-collaboration', 'coding-agents'],
       xp: 225,
-      suggestedWindow: 'January 2027',
       summary:
         'Take the top issue from real user feedback on the live app, write a mini-spec, ship it through the full workflow, and re-test with the same people. Add privacy-respecting local event counting for one PRD metric.',
       steps: [

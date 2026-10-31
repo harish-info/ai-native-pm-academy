@@ -55,12 +55,12 @@ export function LevelDetail() {
             <LockIcon /> This level is locked
           </p>
           <p className="mt-1 text-sm">
-            Master{' '}
+            Finish the required sessions of{' '}
             <Link to={`/levels/${level.id - 1}`} className="underline">
               Level {level.id - 1}
             </Link>{' '}
-            first: complete its required sessions, score at least {QUIZ_PASS_RATIO * 100}% on its
-            assessment and pass its project. You can still read everything here.
+            first. Its assessment and project can stay open while you start here. You can still read
+            everything here.
           </p>
         </Card>
       )}
@@ -215,7 +215,7 @@ export function LevelDetail() {
                 <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{c.summary}</p>
                 <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
                   <Pill>{formatMinutes(c.minutes)}</Pill>
-                  <Pill>{c.suggestedWindow}</Pill>
+                  <Pill>Optional</Pill>
                   {data.challenges[c.id]?.completedAt && <Pill tone="green">Done</Pill>}
                 </div>
               </Card>

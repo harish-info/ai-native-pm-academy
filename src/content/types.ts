@@ -91,7 +91,6 @@ export interface Challenge {
   minutes: number
   competencies: CompetencyId[]
   xp: number
-  suggestedWindow: 'December 2026' | 'January 2027'
   summary: string
   steps: string[]
   deliverable: string

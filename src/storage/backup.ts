@@ -17,10 +17,15 @@ export type ImportResult =
 
 /**
  * Migrations upgrade raw data from version N to N+1. Add one entry per schema bump and a test
- * with a fixture of the old shape. None exist yet: version 1 is the first released schema.
+ * with a fixture of the old shape.
  */
 export const migrations: Record<number, (raw: Record<string, unknown>) => Record<string, unknown>> =
-  {}
+  {
+    // 1 to 2: the fixed five-week month plan became an eight- or twelve-week plan from a start
+    // date the learner picks. Old data had no plan settings, so the start date stays unset and
+    // the learner chooses one; all progress is keyed by stable ids and carries over unchanged.
+    1: (raw) => raw,
+  }
 
 export function createBackup(data: LearnerData, now = new Date()): BackupFile {
   return {

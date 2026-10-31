@@ -34,7 +34,7 @@ export function ChallengePage() {
         <Pill>{formatMinutes(challenge.minutes)}</Pill>
         <Pill>{challenge.difficulty}</Pill>
         <Pill>{challenge.xp} XP</Pill>
-        <Pill tone="blue">Suggested: {challenge.suggestedWindow}</Pill>
+        <Pill tone="blue">After the core course</Pill>
       </div>
 
       <Card>
