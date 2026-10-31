@@ -17,7 +17,7 @@ export const level3: Level = {
   badge: {
     name: 'Evidence Seeker',
     description:
-      'Ran a real discovery cycle on MoneyPilot: sourced research, real conversations, an opportunity tree, tested prototypes and an agent-ready PRD.',
+      'Ran or practised a full discovery cycle on MoneyPilot: sourced research, conversations, an opportunity tree, tested prototypes and an agent-ready PRD, with any missing real-user evidence labeled as outstanding.',
   },
   lessons: [
     {
@@ -95,8 +95,8 @@ export const level3: Level = {
         steps: [
           'Create the folder `projects/moneypilot/research/` in your private second brain. It never goes into a public repository.',
           'Run a deep research prompt in ChatGPT or Claude on AI personal finance assistants in your market: neobanks, incumbents, aggregators and budgeting apps. Save the full report unchanged as `00-deep-research-raw.md`.',
-          'Pick the 6 to 8 most relevant competitors. Open the official pages for each, including the three case studies in the resources, and write what you personally confirmed into `verified-notes.md`.',
-          'Collect at least 20 real customer complaints or wishes about running short before payday, bill timing, overdrafts or budgeting apps from app store reviews, Reddit or Trustpilot. Save each quote verbatim with its link in `customer-voice.md`.',
+          'Pick the 4 to 6 most relevant competitors. Open the official pages for each, including the three case studies in the resources, and write what you personally confirmed into `verified-notes.md`.',
+          'Collect at least 12 real customer complaints or wishes about running short before payday, bill timing, overdrafts or budgeting apps from app store reviews, Reddit or Trustpilot. Save each quote verbatim with its link in `customer-voice.md`.',
           'Run the agent prompt below in Claude Code or Codex inside the research folder to build the competitor matrix and the needs list from your verified notes only.',
           'Check every row has an evidence label. Delete or flag anything you cannot source.',
           'Write a one-paragraph "so what": where is the gap, and what do you want to learn from real people next?',
@@ -124,7 +124,7 @@ Rules:
 - Finish with a 5-line summary of the biggest gap you see, labeled as a hypothesis.`,
       },
       expectedOutput: [
-        'competitors.md: a sourced matrix of 6 to 8 AI money assistants with an evidence label on every row',
+        'competitors.md: a sourced matrix of 4 to 6 AI money assistants with an evidence label on every row',
         'unmet-needs.md: 5 to 8 customer problems backed by real quotes with links',
         'A list of claims from the deep research report you dropped or still need to check',
       ],
@@ -134,7 +134,7 @@ Rules:
         'Every need statement is phrased as a customer problem with no product feature in the sentence.',
         'Every customer quote has a working link and is copied verbatim, not paraphrased by the model.',
         'The raw deep research report is kept separately and nothing from it reached the matrix without a check.',
-        'You found at least one claim in the deep research report that was wrong, outdated or unsupported, and recorded which.',
+        'You recorded every claim in the deep research report that was wrong, outdated or unsupported, or wrote down which claims you checked and that they all held up.',
       ],
       reflectionPrompts: [
         'Which claim in the deep research report looked most credible but turned out to be unsupported?',
@@ -147,7 +147,7 @@ Rules:
           text: 'Saved the raw deep research report separately from verified notes',
         },
         { id: 'matrix', text: 'Built a competitor matrix with an evidence label on every row' },
-        { id: 'quotes', text: 'Collected at least 20 real customer quotes with links' },
+        { id: 'quotes', text: 'Collected at least 12 real customer quotes with links' },
         { id: 'needs', text: 'Wrote 5 to 8 unmet needs as customer problems' },
         {
           id: 'spot-check',
@@ -175,7 +175,7 @@ Rules:
       xp: 225,
       mentorReview: 'recommended',
       practicalProof: true,
-      goal: 'Run 3 to 5 short discovery conversations with real people about managing money before payday, synthesize them honestly with AI help, and turn the evidence into an Opportunity Solution Tree with a chosen target opportunity.',
+      goal: 'Run 3 to 5 short discovery conversations with real people about managing money before payday, synthesize them honestly with AI help, and turn the evidence into an Opportunity Solution Tree with a chosen target opportunity. The conversations happen across the week before this session; the session time covers the guide, synthesis and tree.',
       whyItMatters:
         'AI makes it trivially easy to generate personas, interview transcripts and "user insights" that no human ever said. Teams that confuse those with research ship confident products for imaginary customers. In a regulated bank, a decision trail built on real evidence is also what holds up when risk, compliance or leadership asks why you built something.',
       learn: [
@@ -196,7 +196,7 @@ Rules:
             'Ask for the last specific time, then dig: what did you do, what did you check, how did it feel?',
             'Listen for workarounds such as spreadsheets, multiple accounts or calendar reminders. Workarounds signal real pain.',
             'Do not pitch MoneyPilot until the very end, if at all.',
-            'Ask for consent before taking notes or recording, and keep names out of your files.',
+            'Ask for consent before taking notes or recording, and separately before any AI tool processes the notes. Say which tool, for example "I will use Claude to help summarize my notes, without your name".',
           ],
         },
         {
@@ -239,9 +239,9 @@ Rules:
         summary:
           'Recruit real participants, run short discovery conversations, synthesize them with AI help, and build an Opportunity Solution Tree and opportunity assessment for MoneyPilot.',
         steps: [
-          'Recruit 3 to 5 people who are paid weekly or monthly and pay regular bills: friends, former colleagues, other parents. Explain it is a 20 to 30 minute learning conversation and ask for consent to take notes.',
+          'A week before this session (Level 2 is a good time), recruit 3 to 5 people who are paid weekly or monthly and pay regular bills: friends, former colleagues, other parents. Explain it is a 20 to 30 minute learning conversation, and ask for consent to take notes and to use an AI tool on the notes without their name.',
           'Draft a discussion guide with AI, then remove every leading or hypothetical question yourself. Save it as `discussion-guide.md`.',
-          'Run the conversations. Take notes, or use a transcription tool only with explicit consent. Replace names with P1, P2, P3 everywhere.',
+          'Run the conversations during the week. Take notes, or use a transcription tool only with explicit consent. Replace names with P1, P2, P3 everywhere and leave out employers, places and stories that would identify someone. This makes the notes pseudonymized, not anonymous: you still know who P1 is, so treat them as personal data.',
           'Within a day of each conversation, write a short snapshot in `snapshots/P1.md` and so on: key quotes, behaviors, workarounds and emotions.',
           'Run the agent prompt below to cluster opportunities across the snapshots, with verbatim quotes as evidence.',
           'Draw the Opportunity Solution Tree in FigJam, Miro, Excalidraw or as a Markdown outline: one outcome, 4 to 6 opportunities, 2 or 3 solutions under your target opportunity, and one assumption test per solution.',
@@ -252,7 +252,7 @@ Rules:
       agentPrompt: {
         tool: 'Claude Code or Codex',
         where: 'In your private second brain at projects/moneypilot/discovery/',
-        text: `I ran discovery conversations with real people about managing money before payday. Interview snapshots are in snapshots/ as P1.md, P2.md and so on. Names are already removed.
+        text: `I ran discovery conversations with real people about managing money before payday. Interview snapshots are in snapshots/ as P1.md, P2.md and so on. Names and identifying details are already removed.
 
 Please:
 1. Extract every distinct opportunity (need, pain point or desire). Phrase each one as the customer would say it, in the first person.
@@ -269,7 +269,7 @@ Rules:
       },
       expectedOutput: [
         'A discussion guide with no leading or hypothetical questions',
-        '3 to 5 anonymized snapshots from real conversations, or a clearly labeled practice exercise',
+        '3 to 5 pseudonymized snapshots from real conversations, or a clearly labeled practice exercise',
         'An Opportunity Solution Tree with every opportunity traced to participants',
         'opportunity-assessment.md with a chosen target opportunity and stop criteria',
       ],
@@ -278,7 +278,7 @@ Rules:
         'Every opportunity on the tree links to at least one participant id and a verbatim quote.',
         'No AI-generated persona or synthetic answer is counted as evidence anywhere.',
         'The discussion guide asks about past behavior, not hypothetical future use.',
-        'Snapshots contain no real names, employers or account details.',
+        'Snapshots contain no real names, employers, account details or identifying stories, and every participant agreed to AI processing of the notes.',
         'If participants were unavailable, every file is labeled PRACTICE and real-user validation is marked outstanding.',
       ],
       reflectionPrompts: [
@@ -292,7 +292,10 @@ Rules:
           id: 'conversations',
           text: 'Held at least 3 real conversations, or labeled the work PRACTICE with a dated plan for real ones',
         },
-        { id: 'anonymized', text: 'Anonymized all snapshots as P1, P2, P3' },
+        {
+          id: 'anonymized',
+          text: 'Pseudonymized all snapshots as P1, P2, P3 and removed identifying details',
+        },
         { id: 'ost', text: 'Built an Opportunity Solution Tree traced to evidence' },
         { id: 'assessment', text: 'Wrote an opportunity assessment with stop criteria' },
       ],
@@ -322,7 +325,7 @@ Rules:
         {
           heading: 'Divergence first',
           paragraphs: [
-            'The first idea a model generates tends to be the most average one: a dashboard with a balance, a chart and a chat box. Asking for variations of that idea gives you three versions of average. Force divergence by changing the underlying concept, not the styling.',
+            "The first idea a model generates tends to be the most average one: a dashboard with a balance, a chart and a chat box. Asking for variations of that idea gives you three versions of average. Force divergence by changing the underlying concept, not the styling. The examples below use the course's worked opportunity, payday coverage; if your evidence pointed elsewhere, invent concepts for your own opportunity.",
           ],
           bullets: [
             '**Calendar**: upcoming bills and payday on a timeline, with a projected balance line.',
@@ -381,7 +384,7 @@ Rules:
           'Write `design-principles.md` with 4 to 6 principles for MoneyPilot, each with a one-line rationale.',
           'Open the MoneyPilot brief in the academy and critique the reference mockups before you design: write `design/mockup-critique.md` with five things to borrow, five to fix (start by checking whether the numbers add up) and the one job your v1 will do better.',
           'Create a fictional dataset: one persona with a current balance, a payday date and the next 30 days of bills, saved as `fictional-month.md`. No real figures.',
-          'Use the agent prompt below to generate three divergent concepts, each in its own chat or tool, for example Claude artifacts, v0 and Figma Make.',
+          'Use the agent prompt below to generate three divergent concepts, each in a fresh chat. One tool is enough; try a second tool only if you have time left.',
           'Click through every concept on your phone and on a laptop. Save screenshots or links in `prototypes/`.',
           'Run quick accessibility checks on each: a browser contrast checker, 200% zoom, keyboard-only navigation, and warnings that do not rely on color.',
           'Score each concept 1 to 5 against each principle and against the target opportunity in `concept-comparison.md`.',
@@ -394,7 +397,7 @@ Rules:
           'A fresh chat or project for each concept, with design-principles.md and fictional-month.md attached or pasted in',
         text: `Build an interactive, mobile-first prototype for MoneyPilot, a feature inside a bank app.
 
-Target opportunity: "I do not know whether my money will cover the bills that leave before my next payday."
+Target opportunity: [paste the target opportunity from your opportunity-assessment.md. The worked example in this course is: "I do not know whether my money will cover the bills that leave before my next payday."]
 
 Concept to build: [CALENDAR | CONVERSATIONAL | PROACTIVE NUDGE | SAFE TO SPEND]. Build only this concept, and make it clearly different from a generic balance dashboard.
 
@@ -452,7 +455,7 @@ After building, list three things a real customer might misunderstand on these s
       xp: 250,
       mentorReview: 'recommended',
       practicalProof: true,
-      goal: 'Test the preferred prototype with real people, improve it based on what you observed, and write an opportunity brief plus a PRD with testable acceptance criteria that a coding agent can build from in Level 4.',
+      goal: 'Test the preferred prototype with real people, improve it based on what you observed, and write an opportunity brief plus a PRD with testable acceptance criteria that a coding agent can build from in Level 4. Book the short usability sessions in the days before; the session time covers fixing, the brief and the PRD.',
       whyItMatters:
         'A PRD used to be read by humans who filled gaps with judgment and hallway questions. Coding agents fill gaps with guesses. The emerging practice is a spec that persuades stakeholders and can also be executed by agents: precise scope, explicit non-goals, data definitions, and acceptance criteria that become automated tests.',
       learn: [
@@ -475,17 +478,17 @@ After building, list three things a real customer might misunderstand on these s
           ],
         },
         {
-          heading: 'Field notes from teams doing this today',
+          heading: 'Spec-driven development: where the PRD goes next',
           paragraphs: [
-            'Teams building with coding agents report a repeatable flow, still an emerging practice rather than a standard: a PRD plus a prototype, then a handoff that loads the merged PRD and design spec into the implementing agent, then an "align" check of the build against the PRD acceptance criteria, then learnings written back to the team knowledge base. Your PRD is the first link in that chain, so it has to stand on its own.',
-            'Detailed PRDs do help agents cover edge cases, but PMs also report that an hour of exhaustive task definition is draining, and much of it adds little. Spend the effort where it pays: **acceptance criteria and edge cases**. And keep the PRD and the prototype versioned together, in the same folder or repository, so nobody builds from a spec that disagrees with the design. Teams name drift between the two as one of their biggest gaps.',
+            "Public agent workflows have converged on a similar chain, often called spec-driven development. GitHub's open-source Spec Kit runs it as specify, plan, tasks, implement, and practitioners such as Matt Pocock publish skills that turn a PRD into a plan and small, independently buildable tasks. Whatever the tool, the steps are the same: a spec with acceptance criteria, a technical plan, small tasks an agent can finish in one session, and a check of the result against the acceptance criteria. Your PRD is the first link in that chain, so it has to stand on its own.",
+            'Specs have a cost too: long ones are slow to write, go stale, and agents follow stale detail literally. Spend the effort where it pays: **acceptance criteria and edge cases**. Keep the PRD and the prototype versioned together, in the same folder or repository, so nobody builds from a spec that disagrees with the design.',
           ],
         },
         {
           heading: 'The opportunity brief and outcome metrics',
           paragraphs: [
             'The opportunity brief is the one-page decision document you would bring to a steering meeting: the problem, who has it, the evidence, the target outcome and metric, the chosen solution direction, key risks, and what you are explicitly not doing. Keep evidence and inference visibly separate so readers can judge your reasoning, not just your conclusion.',
-            'Decide how you would know MoneyPilot works: a **leading indicator** (share of active users who check the forecast before payday), an **outcome** (fewer unplanned overdrafts among those users), and a **guardrail** (no increase in complaints or support contacts about forecasts). For each, name the analytics events you would need. AI tools can help explore the data later, but the metric definitions are a product decision you own.',
+            'Decide how you would know MoneyPilot works: a **leading indicator** (share of active users who check the forecast before payday), an **outcome** (fewer unplanned overdrafts among those users), and a **guardrail** (the rate of forecast-related complaints and support contacts per thousand users does not rise, with severe cases such as a missed bill reviewed individually). Use rates and severity, not raw counts: a launch that makes complaining easier can raise counts for good reasons. For each, name the analytics events you would need. AI tools can help explore the data later, but the metric definitions are a product decision you own.',
           ],
         },
       ],
@@ -511,7 +514,7 @@ After building, list three things a real customer might misunderstand on these s
           'Test your preferred prototype with real people, fix what they struggled with, then write a one-page opportunity brief and an agent-ready PRD with metrics.',
         steps: [
           'Write a short usability script: 3 to 5 realistic tasks based on your target opportunity and one comprehension question at the end.',
-          'Test the prototype with 3 to 5 real people, either your discovery participants or new ones. Record observations with participant ids in `usability-notes.md`.',
+          'In the days before this session, test the prototype with 3 to 5 real people for 15 minutes each, either your discovery participants or new ones. Record observations with participant ids in `usability-notes.md`.',
           'Rank the issues by severity and fix the top three in the prototype. Keep before and after screenshots.',
           'Write `opportunity-brief.md`, one page, with evidence and inference clearly separated.',
           'Run the agent prompt below to draft `prd.md`, then rewrite anything generic in your own words.',
@@ -583,7 +586,7 @@ Rules:
         { id: 'metrics', text: 'Defined leading, outcome and guardrail metrics' },
       ],
       mentorMove:
-        'Read her PRD as the engineer who has to build it tomorrow and mark the three sentences that would force you to guess. Then show her a real spec or ticket from your team that went wrong, and talk through what was missing.',
+        'Read her PRD as the engineer who has to build it tomorrow and mark the three sentences that would force you to guess. Then describe, without showing any work documents, a spec that went wrong in your experience and what was missing.',
     },
   ],
   challenges: [
@@ -672,23 +675,26 @@ Rules:
       prompt:
         'A deep research report says a competitor "launched an assistant that predicts overdrafts across all your accounts", with a citation. You want this in a steering deck tomorrow. What do you do?',
       options: [
-        { id: 'a', text: 'Include it; the report has a citation, so it has been checked.' },
+        {
+          id: 'a',
+          text: 'Include it with the citation as a footnote, since a cited report has already been checked by the research tool itself.',
+        },
         {
           id: 'b',
-          text: 'Open the cited source, confirm it says this, and label it a vendor claim if the only evidence is the company announcement.',
+          text: 'Open the cited source, confirm it says this, and label it a vendor claim if the announcement is the only evidence.',
         },
         {
           id: 'c',
-          text: 'Ask the same model whether it is confident, and include it if it says yes.',
+          text: 'Run the same research prompt in a second AI tool and include the claim only if both reports agree on it.',
         },
         {
           id: 'd',
-          text: 'Remove all competitor information, since AI research cannot be trusted.',
+          text: 'Leave all competitor claims out of the deck entirely, because AI research reports cannot be relied on for facts.',
         },
       ],
       correct: 'b',
       explanation:
-        'Citations in AI reports frequently point to pages that do not support the claim, or blur announced and shipped features. Opening the source takes minutes; labeling announcements as vendor claims keeps the deck honest. Asking the model about its confidence is not verification, and discarding everything wastes a useful lead.',
+        'Citations in AI reports often point to pages that do not support the claim, or blur announced and shipped features. Opening the source takes minutes; labeling announcements as vendor claims keeps the deck honest. Two models can repeat the same wrong source, and discarding everything wastes a useful lead.',
     },
     {
       id: 'q3-2',
@@ -696,34 +702,52 @@ Rules:
       prompt:
         'Your team is short on time and proposes replacing customer interviews with 50 AI-generated personas answering your discussion guide. What is the best response?',
       options: [
-        { id: 'a', text: 'Agree: 50 personas give more coverage than 5 interviews.' },
-        { id: 'b', text: 'Agree, as long as the personas are based on your bank segment data.' },
+        {
+          id: 'a',
+          text: 'Agree, as long as the personas are generated from your bank segment data so they reflect real customers.',
+        },
+        {
+          id: 'b',
+          text: 'Agree, but run the personas through two different models and keep only the answers that both agree on.',
+        },
         {
           id: 'c',
-          text: 'Use AI to prepare and synthesize, but run at least a few short real conversations, and treat any synthetic output as hypotheses to test.',
+          text: 'Run a few short real conversations, use AI for guides and synthesis, and treat persona output as hypotheses.',
         },
-        { id: 'd', text: 'Skip discovery entirely and learn from launch data instead.' },
+        {
+          id: 'd',
+          text: 'Skip both the interviews and the personas, ship a small version quickly, and learn from the launch data instead.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Synthetic users tend to be agreeable and generic, and they cannot reveal the surprising behaviors that make discovery valuable. AI is excellent around the interview: guides, synthesis, clustering. Even three real conversations beat fifty imagined ones as evidence.',
+        'Synthetic users tend to be agreeable and generic, and they cannot reveal the surprising behaviors that make discovery valuable, even when seeded with segment data. AI is excellent around the interview: guides, synthesis, clustering. Even three real conversations beat fifty imagined ones as evidence.',
     },
     {
       id: 'q3-3',
       competency: 'product-discovery',
       prompt: 'Which discovery question is most likely to produce reliable evidence?',
       options: [
-        { id: 'a', text: '"Would you use an app that tells you if you can afford your bills?"' },
+        {
+          id: 'a',
+          text: '"If an app warned you that a bill might bounce, how often would you check it?"',
+        },
         {
           id: 'b',
           text: '"Tell me about the last time you were unsure whether a bill would go through."',
         },
-        { id: 'c', text: '"How much would you pay for a cash flow forecast?"' },
-        { id: 'd', text: '"Do you think banks should offer AI assistants?"' },
+        {
+          id: 'c',
+          text: '"What is the most frustrating thing about how your bank shows bills?"',
+        },
+        {
+          id: 'd',
+          text: '"Would a payday forecast make you feel more in control of your money?"',
+        },
       ],
       correct: 'b',
       explanation:
-        'Questions about specific past behavior produce stories with real details: what people checked, what they did and how it felt. Hypothetical and opinion questions invite polite, unreliable answers about future behavior.',
+        'Questions about a specific past event produce stories with real details: what people checked, what they did and how it felt. Hypothetical, leading and generalized questions invite polite, unreliable answers.',
     },
     {
       id: 'q3-4',
@@ -731,13 +755,22 @@ Rules:
       prompt:
         'A colleague drafts an Opportunity Solution Tree with "AI chat assistant" as the top node. What is the main problem?',
       options: [
-        { id: 'a', text: 'Nothing; the top node should be the most important feature.' },
+        {
+          id: 'a',
+          text: 'The assistant belongs at the top only after engineering confirms it is feasible to build this quarter.',
+        },
         {
           id: 'b',
-          text: 'The top should be a measurable outcome; the chat assistant is a solution that must hang off an evidenced opportunity.',
+          text: 'The top should be a measurable outcome; the assistant is a solution under an evidenced opportunity.',
         },
-        { id: 'c', text: 'The top node should be the competitor you want to beat.' },
-        { id: 'd', text: 'The tree should start with technical feasibility.' },
+        {
+          id: 'c',
+          text: 'The top should be the target customer segment, with the assistant and other features listed underneath it.',
+        },
+        {
+          id: 'd',
+          text: 'The top should name the competitor feature you want to match, so the tree stays tied to the market.',
+        },
       ],
       correct: 'b',
       explanation:
@@ -749,17 +782,26 @@ Rules:
       prompt:
         'You asked an AI tool for three MoneyPilot prototypes and got three balance dashboards in different colors. What is the best next step?',
       options: [
-        { id: 'a', text: 'Pick the one with the nicest colors and move on.' },
-        { id: 'b', text: 'Ask for three more variations of the dashboard.' },
+        {
+          id: 'a',
+          text: 'Ask for three more dashboard variations with different layouts, then test all six with users.',
+        },
+        {
+          id: 'b',
+          text: 'Pick the clearest dashboard and spend the time on polishing it, since the layout is already familiar.',
+        },
         {
           id: 'c',
-          text: 'Prompt each concept separately with a different underlying idea, such as a calendar, a conversational answer, a proactive nudge or a safe-to-spend number.',
+          text: 'Prompt each concept in a fresh chat with a different core idea: a calendar, an answer, a nudge.',
         },
-        { id: 'd', text: 'Ask the tool which of the three is best.' },
+        {
+          id: 'd',
+          text: 'Ask the tool to rank the three against usability heuristics and keep the highest scoring one.',
+        },
       ],
       correct: 'c',
       explanation:
-        'Models default to the most average solution. Real divergence comes from changing the core concept in the prompt. Comparing genuinely different ideas is where design judgment adds value.',
+        'Models default to the most average solution, and more variations of it stay average. Real divergence comes from changing the core concept in the prompt. Comparing genuinely different ideas is where design judgment adds value.',
     },
     {
       id: 'q3-6',
@@ -767,48 +809,78 @@ Rules:
       prompt:
         'In a prototype, a predicted shortfall is shown only as the projected balance turning red. What is the most important issue?',
       options: [
-        { id: 'a', text: 'Red is too alarming; use orange instead.' },
+        {
+          id: 'a',
+          text: 'Red reads as alarming in money products, so a softer amber would cause less anxiety for users.',
+        },
         {
           id: 'b',
-          text: 'Color alone excludes users who cannot distinguish it; the shortfall needs words and an icon, and ideally the reason.',
+          text: 'Color alone excludes some users; the shortfall needs words, an icon and ideally the reason.',
         },
-        { id: 'c', text: 'There is no issue if the contrast ratio passes.' },
-        { id: 'd', text: 'The number should be hidden until the user taps it.' },
+        {
+          id: 'c',
+          text: 'The red text needs a contrast ratio of at least 4.5 to 1, and then the warning is accessible.',
+        },
+        {
+          id: 'd',
+          text: 'The shortfall should be behind a tap so users are not worried by a forecast that may change.',
+        },
       ],
       correct: 'b',
       explanation:
-        'Relying on color alone fails accessibility guidelines and color-blind users. In money products the message also needs to be understandable: say what will happen and why, with an icon as a second signal.',
+        'Relying on color alone fails accessibility guidelines and color-blind users, even when contrast passes. In money products the message also needs to be understandable: say what will happen and why, with an icon as a second signal.',
     },
     {
       id: 'q3-7',
       competency: 'technical-collaboration',
       prompt: 'Which acceptance criterion is most ready for a coding agent to implement and test?',
       options: [
-        { id: 'a', text: 'The forecast should be accurate and easy to understand.' },
-        { id: 'b', text: 'Users should feel confident about their money before payday.' },
+        {
+          id: 'a',
+          text: 'The forecast is accurate to within a reasonable margin and is explained in plain language that users understand.',
+        },
+        {
+          id: 'b',
+          text: 'Balance 1,000, pay 2,000 on the 25th, bills 850 before then: on the 10th, the 24th shows 150 and lists each bill.',
+        },
         {
           id: 'c',
-          text: 'Given a balance of 1,000, income of 2,000 on the 25th and bills of 850 due before then, when the user opens MoneyPilot on the 10th, then the projected balance for the 24th shows 150 and lists each bill.',
+          text: 'The forecast screen loads quickly on all devices, handles every possible edge case and matches the approved design.',
         },
-        { id: 'd', text: 'The AI should calculate the balance intelligently.' },
+        {
+          id: 'd',
+          text: 'The agent uses the latest model to calculate the projected balance from the transaction history it is given.',
+        },
       ],
-      correct: 'c',
+      correct: 'b',
       explanation:
-        'Concrete inputs and an observable expected result can be turned directly into an automated test. Vague criteria force the agent to guess, and an agent will guess confidently. Teams working with agents report that acceptance criteria and edge cases are the highest-leverage part of a PRD.',
+        'Concrete inputs and an observable expected result can be turned directly into an automated test. Vague criteria force the agent to guess, and an agent will guess confidently. Acceptance criteria and edge cases are the highest-leverage part of a PRD written for agents.',
     },
     {
       id: 'q3-8',
       competency: 'ai-leadership',
       prompt: 'Which is the best guardrail metric for a MoneyPilot launch?',
       options: [
-        { id: 'a', text: 'Number of screens viewed per session.' },
-        { id: 'b', text: 'Daily active users of the forecast screen.' },
-        { id: 'c', text: 'Complaints and support contacts about forecasts do not increase.' },
-        { id: 'd', text: 'Number of messages sent to the assistant.' },
+        {
+          id: 'a',
+          text: 'Share of active users who open the forecast screen at least once in the final week before payday.',
+        },
+        {
+          id: 'b',
+          text: 'Total number of forecast complaints, which should stay below the level of last quarter after the launch.',
+        },
+        {
+          id: 'c',
+          text: 'Forecast complaints per thousand users do not rise, and severe cases such as missed bills are reviewed.',
+        },
+        {
+          id: 'd',
+          text: 'Number of messages users send to the assistant each week, which should keep rising after launch.',
+        },
       ],
       correct: 'c',
       explanation:
-        'A guardrail catches harm while you chase the main outcome. Screen views and message counts are activity metrics that can go up for bad reasons, and daily active use is a leading indicator rather than a guardrail.',
+        'A guardrail catches harm while you chase the main outcome. A raw complaint count moves with the number of users and with how easy complaining is, so use a rate plus severity review. Forecast views are a leading indicator, and message counts are activity that can rise for bad reasons.',
     },
   ],
   project: {
@@ -838,7 +910,7 @@ Rules:
         'Evidence and assumptions are visibly separated, synthetic output is never presented as research, and the chosen bet has explicit non-goals and stop criteria.',
     },
     privacyNote:
-      'Use fictional financial data only. Keep participant notes anonymized in your private second brain, never in a public repository, and do not use any real customer data from your employer.',
+      'Use fictional financial data only. Keep participant notes pseudonymized in your private second brain, never in a public repository, and do not use any real customer data from your employer.',
     minutes: 240,
     xp: 500,
   },
