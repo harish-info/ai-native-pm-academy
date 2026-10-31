@@ -8,6 +8,7 @@ import { wikiMilestones, wikiSteps } from './wiki'
 import { courseArc, lessonGuides } from './teaching'
 import { lessonVisuals } from './illustrations'
 import { productLoop } from './productLoop'
+import { FIELD_GUIDE_AS_OF, fieldGuide } from './fieldGuide'
 
 const allText = (value: unknown): string[] =>
   typeof value === 'string'
@@ -128,6 +129,45 @@ describe('references', () => {
   })
 })
 
+describe('field guide', () => {
+  it('points at real sessions, challenges and verified sources checked on its date', () => {
+    const lessonRefs = [
+      ...fieldGuide.week.flatMap((w) => w.lessons),
+      ...fieldGuide.buildLevels.flatMap((b) => b.lessons),
+    ]
+    for (const id of lessonRefs)
+      expect(
+        allLessons.some((l) => l.id === id),
+        id,
+      ).toBe(true)
+    for (const id of fieldGuide.week.flatMap((w) => w.challenges ?? []))
+      expect(
+        allChallenges.some((c) => c.id === id),
+        id,
+      ).toBe(true)
+    const sourceRefs = [
+      ...fieldGuide.sources,
+      ...fieldGuide.usage.map((u) => u.resourceId),
+      ...fieldGuide.trends.flatMap((t) => t.resourceIds),
+    ]
+    for (const id of sourceRefs) {
+      const r = resourceById(id)
+      expect(r, id).toBeDefined()
+      expect(r!.status, id).toBe('verified')
+      expect(r!.verifiedOn, id).toBe(FIELD_GUIDE_AS_OF)
+    }
+    // Every source a section cites is listed at the foot of the page.
+    for (const id of sourceRefs) expect(fieldGuide.sources, id).toContain(id)
+  })
+
+  it('gives each layer scenario feedback for every option', () => {
+    for (const s of fieldGuide.scenarios)
+      for (const k of ['model', 'agent', 'brief'] as const)
+        expect(s.feedback[k].length, `${s.id} ${k}`).toBeGreaterThan(30)
+    expect(new Set(fieldGuide.scenarios.map((s) => s.correct)).size).toBe(3)
+  })
+})
+
 describe('wiki thread', () => {
   it('adds the wiki checklist item to every session and the milestone to every project', () => {
     for (const l of allLessons) expect(l.checklist.map((c) => c.id)).toContain('wiki-filed')
@@ -193,6 +233,7 @@ describe('writing style', () => {
       courseArc,
       lessonVisuals,
       productLoop,
+      fieldGuide,
     })
     const offenders = text.filter((t) => /[–—]/.test(t))
     expect(offenders).toEqual([])

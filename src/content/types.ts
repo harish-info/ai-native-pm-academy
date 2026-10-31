@@ -26,7 +26,7 @@ export type Difficulty = 'Foundational' | 'Intermediate' | 'Advanced' | 'Expert'
 
 export type MentorReview = 'optional' | 'recommended' | 'required'
 
-/** Inline text supports **bold**, `code` and [label](https://url). */
+/** Inline text supports **bold**, `code`, [label](https://url) and [label](/course-path). */
 export interface LearnSection {
   heading: string
   paragraphs: string[]

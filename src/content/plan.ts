@@ -83,6 +83,11 @@ export const planWeeks: PlanWeek[] = [
     mentor:
       '15 minutes early in the week: sit beside her for the first Claude Code session and check git is working. Midweek, 30 minutes: open the live prototype on your phone and file two bug reports she can fix in Session 8. Suggest two or three people from your own network for her user conversations in Week 4.',
     items: [
+      {
+        kind: 'prep',
+        text: 'Before Session 5, read the Field guide (under Learn in the menu): model, agent and app, the landscape as of its date, and a PM week with AI. Try the three "which layer" situations.',
+        minutes: 30,
+      },
       { kind: 'mentor', text: 'First Claude Code session together.', minutes: 15 },
       { kind: 'lesson', id: 's5' },
       { kind: 'lesson', id: 's6' },

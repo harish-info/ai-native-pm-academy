@@ -26,7 +26,14 @@ export default defineConfig({
               test: /src[\\/](content[\\/]illustrations\.ts|ui[\\/]LessonIllustration\.tsx)$/,
               priority: 20,
             },
+            {
+              // Only the lazily loaded field guide page reads it, so it stays out of the content chunk.
+              name: 'field-guide',
+              test: /src[\\/]content[\\/]fieldGuide\.ts$/,
+              priority: 20,
+            },
             { name: 'teaching', test: /src[\\/]content[\\/]teaching\.ts$/, priority: 10 },
+            { name: 'resources', test: /src[\\/]content[\\/]resources\.ts$/, priority: 10 },
             { name: 'content', test: /src[\\/]content[\\/]/ },
           ],
         },

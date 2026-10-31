@@ -1987,6 +1987,8 @@ export const resources: Resource[] = [
     status: 'verified',
     summary:
       'Overview of Cowork, the desktop knowledge-work agent: it works on local folders and connected apps, uses plugins such as product management, and runs scheduled tasks. Published 2026-06-05.',
+    notes:
+      'On 2026-09-16 Anthropic merged chat and Cowork into one Claude app; see claude-one-app. The guide predates the merge.',
   }),
   r({
     id: 'svpg-product-operating-model',
@@ -2153,5 +2155,127 @@ export const resources: Resource[] = [
     status: 'verified',
     summary:
       'Large open collection of PM framework skills for Claude Code and other agents. No standard licence is declared, so read and link it; do not copy it into your own repo.',
+  }),
+
+  // AI landscape: sources for the field guide page. These date fastest; recheck before each cohort.
+  r({
+    id: 'claude-models-overview',
+    title: 'Models overview',
+    provider: 'Anthropic (Claude docs)',
+    url: 'https://platform.claude.com/docs/en/about-claude/models/overview',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'documentation',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'The current Claude models and what each is for. On the check date it listed Fable 5.1, Opus 5.5, Sonnet 5.5 and Haiku 5.5, and suggested starting with Opus 5.5 for most work.',
+  }),
+  r({
+    id: 'claude-one-app',
+    title: 'Claude Cowork and chat are now one Claude',
+    provider: 'Anthropic (Claude resources)',
+    url: 'https://claude.com/resources/articles/cowork-is-now-claude',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'article',
+    estimatedTime: '4 min',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Announcement dated 2026-09-16: chat and Cowork merge into one Claude app, and Claude Docs and Claude Slides launch, with Claude Design working inside conversations. Rolled out on paid plans first.',
+  }),
+  r({
+    id: 'openai-gpt6-astra',
+    title: 'GPT-6 Astra: a new generation of intelligence',
+    provider: 'OpenAI',
+    url: 'https://openai.com/index/gpt-6-astra/',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      "OpenAI's launch post for GPT-6 Astra, with later updates adding GPT-6 Sol and Luna (2026-09-22) and GPT-6.1 Sol (2026-09-29). A vendor post: benchmark claims are the company's own.",
+  }),
+  r({
+    id: 'openai-gpt6-everyone',
+    title: 'GPT-6 and Intelligent UI for everyone',
+    provider: 'OpenAI',
+    url: 'https://openai.com/index/gpt-6-for-everyone/',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Dated 2026-10-07: GPT-6 comes to ChatGPT, with Sol on paid plans and Luna on Free and Go, plus interactive answers. States that more than 1.2 billion people use ChatGPT each week.',
+  }),
+  r({
+    id: 'openai-chatgpt-work',
+    title: 'ChatGPT is now a partner for your most ambitious work',
+    provider: 'OpenAI',
+    url: 'https://openai.com/index/chatgpt-for-your-most-ambitious-work/',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Dated 2026-07-09: ChatGPT Work, an agent that works across apps and files to produce docs, sheets, slides and web apps, and the Codex app merging into the ChatGPT desktop app.',
+  }),
+  r({
+    id: 'google-gemini-4-argon',
+    title: 'Gemini 4 Argon: built to solve your hardest problems',
+    provider: 'Google (The Keyword)',
+    url: 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Dated 2026-10-13: Gemini 4 Argon available through the API, in Google Antigravity for Ultra subscribers, and in the Gemini app for Pro and Ultra subscribers.',
+  }),
+  r({
+    id: 'google-gemini-4-carbon',
+    title: 'Gemini 4 Carbon: our next frontier model',
+    provider: 'Google (The Keyword)',
+    url: 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Dated 2026-10-28: Gemini 4 Carbon announced, going first to a subset of cyber defenders and trusted partners before developers, businesses and consumers.',
+  }),
+  r({
+    id: 'jetbrains-agent-adoption-2026',
+    title: 'AI coding agents: adoption trends',
+    provider: 'JetBrains Research',
+    url: 'https://blog.jetbrains.com/research/2026/08/ai-coding-agent-adoption-2026/',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'From the Developer Ecosystem Survey 2026, more than 15,000 professional developers, reweighted for global representation. Covers Claude Code, Copilot, Codex, Cursor and others, May to July 2026.',
+    notes: 'Run by a tools vendor whose own products appear in the results.',
+  }),
+  r({
+    id: 'uxtools-state-of-prototyping-2026',
+    title: 'State of Prototyping: Spring 2026',
+    provider: 'UX Tools (Tommy Geoco)',
+    url: 'https://survey.uxtools.co/spring-2026',
+    topic: 'AI landscape',
+    level: 'beginner',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Open survey of 1,478 designers and builders in 18 regions, 14 March to 6 April 2026: weekly tools, how much they vibe code, and trust in AI. Data released under CC BY 4.0.',
+    notes: 'Distributed through a newsletter and sponsor networks, so not a random sample.',
   }),
 ]

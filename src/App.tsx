@@ -41,6 +41,9 @@ const CaseStudyPage = lazy(() =>
   import('./pages/CaseStudyPage').then((m) => ({ default: m.CaseStudyPage })),
 )
 const WikiPage = lazy(() => import('./pages/WikiPage').then((m) => ({ default: m.WikiPage })))
+const FieldGuidePage = lazy(() =>
+  import('./pages/FieldGuidePage').then((m) => ({ default: m.FieldGuidePage })),
+)
 
 function Home() {
   const { data } = useStore()
@@ -72,6 +75,7 @@ export function AppRoutes() {
           <Route path="/case-study" element={<CaseStudyPage />} />
           <Route path="/moneypilot" element={<Navigate to="/case-study" replace />} />
           <Route path="/wiki" element={<WikiPage />} />
+          <Route path="/field-guide" element={<FieldGuidePage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

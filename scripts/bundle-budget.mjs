@@ -5,7 +5,9 @@ import { gzipSync } from 'node:zlib'
 
 const budget = {
   chunkKb: 450, // largest single JS chunk, minified
-  jsGzipKb: 350, // all JS, including the separately loaded lesson illustrations, gzipped
+  // All JS, gzipped, including lazily loaded pages and lesson illustrations. Raised from 350 on
+  // 2026-10-31 for the field guide page (about 12 kB gzip, loaded only when opened).
+  jsGzipKb: 370,
   cssGzipKb: 20, // all CSS, gzipped
 }
 

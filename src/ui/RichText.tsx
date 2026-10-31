@@ -1,8 +1,10 @@
 import { Fragment, type ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 const TOKEN = /(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)\s]+\))/g
 
-/** Renders the small inline subset used in course content: **bold**, `code` and [label](https://url). */
+/** Renders the small inline subset used in course content: **bold**, `code`, [label](https://url)
+ * and [label](/course-path) for a page inside the course. */
 export function inline(text: string): ReactNode {
   const parts = text.split(TOKEN)
   return parts.map((part, i) => {
@@ -19,6 +21,18 @@ export function inline(text: string): ReactNode {
       )
     }
     const link = /^\[([^\]]+)\]\(([^)\s]+)\)$/.exec(part)
+    // A path such as /field-guide is a page inside the course, so it uses the router.
+    if (link && /^\/[a-z0-9/-]*$/.test(link[2]!)) {
+      return (
+        <Link
+          key={i}
+          to={link[2]!}
+          className="font-medium text-indigo-700 underline underline-offset-2 dark:text-indigo-300"
+        >
+          {link[1]}
+        </Link>
+      )
+    }
     if (link && /^https?:\/\//.test(link[2]!)) {
       return (
         <a
