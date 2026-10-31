@@ -501,6 +501,7 @@ Rules:
           paragraphs: [
             'A simple delegation test has two axes: how much judgment the task needs, and how costly a mistake would be. High-volume, low-judgment work such as summarizing, formatting and first drafts can be delegated with spot checks. High-judgment, high-stakes work such as priorities, feedback to people and what you believe stays with you; AI can challenge your thinking but should not do it for you.',
             'Reflection sits firmly in the second group. Let the AI gather what happened and suggest questions. Write the answers yourself, because the thinking is the point.',
+            'The same rule applies to anything you pass on. Forwarding AI output to colleagues without reading it makes you what one engineer calls a meat proxy: they end up doing the review you skipped. If you send it, you own it, so read it, cut it and stand behind every claim.',
           ],
         },
         {
@@ -524,6 +525,11 @@ Rules:
         {
           resourceId: 'how-i-ai',
           why: 'Practitioners demonstrate their real AI workflows, a good source of ideas for your own routine.',
+          required: false,
+        },
+        {
+          resourceId: 'gruhn-meat-proxy',
+          why: 'A short essay on why relaying unread AI output to colleagues hands them your work.',
           required: false,
         },
       ],

@@ -155,7 +155,7 @@ export const resources: Resource[] = [
     practicalCost:
       'Free; a ChatGPT account is needed. Agents and Workflows also needs access to agent capabilities. Builder courses (API and Codex) assume development experience, and the pages do not say whether API credits are needed.',
     verifiedOn: checked,
-    status: 'verified',
+    status: 'needs-review',
     summary:
       "OpenAI's self-paced course hub, grouped into applying AI at work, the latest releases, building with the API and Codex, leading adoption, and teaching. Core-series courses end with an assessment (80% to pass) and a digital badge.",
     notes:
@@ -284,7 +284,7 @@ export const resources: Resource[] = [
     summary:
       'PM-specific course taught inside Claude itself, in five modules: getting started, fundamentals, advanced PM work, Nano Banana and vibe coding. No coding needed.',
     notes:
-      'Not affiliated with Anthropic. Course source: github.com/carlvellotti/claude-code-pm-course.',
+      "Not affiliated with Anthropic. Course source: github.com/carlvellotti/free-ai-courses, which also holds the author's Codex, Cursor and Antigravity courses.",
   }),
   r({
     id: 'vellotti-free-courses',
@@ -445,7 +445,6 @@ export const resources: Resource[] = [
     topic: 'Prototyping',
     level: 'intermediate',
     format: 'article',
-    estimatedTime: '8 min read',
     practicalCost: 'Free to read; using the skill needs a coding agent.',
     verifiedOn: checked,
     status: 'verified',
@@ -460,7 +459,6 @@ export const resources: Resource[] = [
     topic: 'Code review',
     level: 'intermediate',
     format: 'article',
-    estimatedTime: '9 min read',
     practicalCost: 'Free to read; using the skill needs a coding agent.',
     verifiedOn: checked,
     status: 'verified',
@@ -655,17 +653,18 @@ export const resources: Resource[] = [
     id: 'copilot-docs',
     title: 'GitHub Copilot documentation',
     provider: 'GitHub Docs',
-    url: 'https://docs.github.com/en/copilot',
+    url: 'https://docs.github.com/en/copilot/get-started/plans',
     topic: 'Coding agents',
     level: 'beginner',
     format: 'documentation',
     practicalCost:
-      'Copilot Free includes 2,000 completions a month, chat, agent mode and MCP. The Copilot coding agent needs a paid plan (Pro $10, Pro+ $39 or Max $100 a month).',
+      'Copilot Free includes 2,000 completions a month, chat, agent mode and an allowance of GitHub AI Credits. Copilot in the cloud (the cloud agent you can assign issues to) needs Copilot Student (free for verified students) or a paid plan: Pro $10, Pro+ $39 or Max $100 a month.',
     verifiedOn: checked,
     status: 'verified',
     summary:
-      'Official Copilot docs covering completions, chat, agent mode, MCP and the Copilot coding agent.',
-    notes: 'Using Copilot needs a GitHub account.',
+      'Official Copilot docs, linked here at the plans table: completions, chat, agent mode in the editor and Copilot in the cloud, the agent formerly called the Copilot coding agent.',
+    notes:
+      'Using Copilot needs a GitHub account. Usage is billed in GitHub AI Credits; check the plans page before relying on limits.',
   }),
   r({
     id: 'antigravity-docs',
@@ -789,7 +788,8 @@ export const resources: Resource[] = [
     status: 'verified',
     summary:
       'Separates workflows (predefined code paths) from agents (models directing their own process) and catalogs composable patterns: prompt chaining, routing, parallelization, orchestrator-workers and evaluator-optimizer. Argues for the simplest solution first, adding agentic complexity only when it pays off.',
-    notes: 'Published 19 Dec 2024. The old /engineering/ URL redirects here.',
+    notes:
+      'Published 19 Dec 2024. A note at the top now says much of the tooling has changed since then and points to "Scaling Managed Agents" (anthropic.com/engineering/managed-agents, Apr 2026). The patterns still hold; the tool names have moved on.',
   }),
   r({
     id: 'anthropic-evals-for-agents',
@@ -849,9 +849,10 @@ export const resources: Resource[] = [
     practicalCost: 'Free, also as a PDF. A companion Maven course is paid and optional.',
     verifiedOn: checked,
     status: 'verified',
-    summary: '70+ questions in eight sections on building AI evals, written for engineers and PMs.',
+    summary:
+      'A long FAQ on building AI evals, from error analysis and data collection to human annotation, tools and production, written for engineers and PMs.',
     notes:
-      'The most cited evals source in the community threads reviewed. Page dated September 2026.',
+      'Cited repeatedly in the community threads reviewed. Published 18 Sep 2026, updated 21 Sep 2026.',
   }),
   r({
     id: 'hf-agents-course',
@@ -952,6 +953,303 @@ export const resources: Resource[] = [
     notes: 'Some posts assume a technical background.',
   }),
 
+  // Practitioner sources from the community review. Each was opened on the date in `checked`;
+  // Reddit and X threads were used only to find them and are not cited.
+  r({
+    id: 'claude-code-best-practices',
+    title: 'Best practices for Claude Code',
+    provider: 'Anthropic',
+    url: 'https://code.claude.com/docs/en/best-practices',
+    topic: 'Coding agents',
+    level: 'beginner',
+    format: 'documentation',
+    practicalCost: 'Docs free. Using Claude Code needs a paid Claude plan or an API key.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Tell Claude what it cannot see, give it a check to run, and enforce the rules that cannot have exceptions. Separates advice the model may weigh (prompts, CLAUDE.md, skills) from what the tool enforces (hooks, deny rules, tests, CI), and suggests asking Claude to interview you before writing a spec.',
+    notes: 'A living page; recheck before relying on specific settings.',
+  }),
+  r({
+    id: 'claude-code-permission-modes',
+    title: 'Claude Code permission modes',
+    provider: 'Anthropic',
+    url: 'https://code.claude.com/docs/en/permission-modes',
+    topic: 'Coding agents',
+    level: 'beginner',
+    format: 'documentation',
+    practicalCost: 'Docs free. Using Claude Code needs a paid Claude plan or an API key.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'The six modes (Manual, acceptEdits, plan, auto, dontAsk and bypassPermissions), what each lets Claude do without asking, and how Shift+Tab cycles between them. Plan mode researches and proposes without editing your files.',
+    notes: 'Recent versions start interactive sessions in auto mode.',
+  }),
+  r({
+    id: 'codex-best-practices',
+    title: 'Codex best practices',
+    provider: 'OpenAI (ChatGPT Learn)',
+    url: 'https://learn.chatgpt.com/guides/best-practices',
+    topic: 'Coding agents',
+    level: 'beginner',
+    format: 'documentation',
+    practicalCost: 'Docs free. Codex is included in ChatGPT plans, with limits on Free.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'OpenAI guidance on working with Codex: give it context and a way to check its work, use Plan mode for complex tasks, let it interview you when the task is fuzzy, and automate only what already works by hand.',
+    notes: 'Undated page.',
+  }),
+  r({
+    id: 'copilot-assign-issue',
+    title: 'Kick off a task with Copilot agents on GitHub',
+    provider: 'GitHub Docs',
+    url: 'https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/kick-off-a-task',
+    topic: 'Coding agents',
+    level: 'beginner',
+    format: 'documentation',
+    contentFree: true,
+    practicalCost:
+      'Docs free. Assigning issues to Copilot needs Copilot Student or a paid Copilot plan.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'How to assign an issue to Copilot from the Assignees menu. Copilot reads the title, description and comments present at assignment, opens a pull request and asks for your review. Comments added later are not seen, so follow up on the pull request.',
+  }),
+  r({
+    id: 'github-spec-kit',
+    title: 'Spec Kit',
+    provider: 'GitHub (open source)',
+    url: 'https://github.com/github/spec-kit',
+    topic: 'Agent workflows',
+    level: 'intermediate',
+    format: 'repository',
+    practicalCost:
+      'Free (MIT). Installing it needs Python 3.11 or later, the uv package manager and a coding agent; reading the README is enough for this course.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      "GitHub's toolkit for spec-driven development: commands that take an agent from project principles through specify, plan, tasks and implement to a final check against the spec.",
+    notes: 'Read it to see the shape of the workflow; you do not need to install it.',
+  }),
+  r({
+    id: 'osmani-good-spec',
+    title: 'How to write a good spec for AI agents',
+    provider: 'Addy Osmani',
+    url: 'https://addyosmani.com/blog/good-spec/',
+    topic: 'Agent workflows',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Practical guidance on specs an agent can execute: a concise goal first, a PRD-like structure with boundaries in three tiers (always, ask first, never), small focused tasks, built-in checks, and a spec that evolves as you learn.',
+    notes: 'Dated 13 Jan 2026.',
+  }),
+  r({
+    id: 'tane-plan-first',
+    title: 'How I Use Claude Code',
+    provider: 'Boris Tane',
+    url: 'https://boristane.com/blog/how-i-use-claude-code/',
+    topic: 'Agent workflows',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      "An engineer's workflow that keeps research, planning and implementation as separate steps and reviews the written plan before any code is written. Take the phases, not the prompts.",
+    notes: 'Dated 11 Feb 2026. Read with "Plan Mode is Dead" for the other side.',
+  }),
+  r({
+    id: 'nadeem-plan-mode-is-dead',
+    title: 'Plan Mode is Dead',
+    provider: 'Ayman Nadeem',
+    url: 'https://www.aymannadeem.com/artificial/intelligence,/developer/tools/2026/09/24/plan-mode-is-dead.html',
+    topic: 'Agent workflows',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Argues that current models plan well enough inside an iterative loop (understand, act, inspect, clarify, adjust) and that long generated plan documents get in the way of understanding. The counterpoint to plan-first workflows.',
+    notes: 'Dated 24 Sep 2026. Many practitioners still plan first; treat this as a debate.',
+  }),
+  r({
+    id: 'willison-agentic-patterns',
+    title: 'Agentic Engineering Patterns',
+    provider: 'Simon Willison',
+    url: 'https://simonwillison.net/guides/agentic-engineering-patterns/',
+    topic: 'AI engineering',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'Free; the page carries a sponsor banner.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A living guide to working with coding agents. For this course, read the Principles, Testing and QA, and Understanding code chapters.',
+    notes: 'Started 23 Feb 2026; chapters are undated and some assume coding experience.',
+  }),
+  r({
+    id: 'litt-understanding',
+    title: 'Understanding is the new bottleneck',
+    provider: 'Geoffrey Litt',
+    url: 'https://www.geoffreylitt.com/2026/07/02/understanding-is-the-new-bottleneck.html',
+    topic: 'Code review',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'When agents write code faster than people can follow it, understanding becomes the scarce resource. Treats explanations of a change as a deliverable, not an afterthought.',
+    notes:
+      'Dated 2 Jul 2026. The techniques are code-centric; the argument applies to any reviewer.',
+  }),
+  r({
+    id: 'claude-code-review-post',
+    title: 'How the Claude Code team does code review',
+    provider: 'Anthropic (Addy Osmani, Morgan Westlee Lunt and Qing Wang)',
+    url: 'https://claude.dev/blog/solving-code-review-at-anthropic/',
+    topic: 'Code review',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      "Anthropic's description of its own review practice: an agent reviews every pull request and human review depth scales with risk. Reports more merged pull requests and fewer reverts over June to September 2026.",
+    notes:
+      'Dated 15 Oct 2026. A vendor describing its own tool; commenters point out that agent review on every PR costs tokens not every team can afford.',
+  }),
+  r({
+    id: 'gruhn-meat-proxy',
+    title: "Don't be a meat proxy",
+    provider: 'Niklas Gruhn',
+    url: 'https://gruhn.me/blog/2026-08-03/',
+    topic: 'AI foundations',
+    level: 'beginner',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A short essay against relaying AI output to colleagues without reading it, which hands them the review you skipped. If you send it, you own it.',
+    notes: 'Dated 3 Aug 2026.',
+  }),
+  r({
+    id: 'mckinnon-vibe-coding-pms',
+    title: 'My spicy take on vibe coding for PMs',
+    provider: 'Daniel McKinnon',
+    url: 'https://www.ddmckinnon.com/2026/02/11/my-%f0%9f%8c%b6-take-on-vibe-coding-for-pms/',
+    topic: 'Prototyping',
+    level: 'beginner',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A PM leader on where PM prototyping helps and where it misleads: a prototype can be motion mistaken for progress, and the real work of an AI product is in data, evals and scale.',
+    notes: 'Dated 11 Feb 2026. The original title uses a chili pepper symbol in place of "spicy".',
+  }),
+  r({
+    id: 'torres-ai-evals',
+    title: 'AI Evals: A Hands-On Guide for Product Teams',
+    provider: 'Teresa Torres (Product Talk)',
+    url: 'https://www.producttalk.org/ai-evals/',
+    topic: 'Evaluation',
+    level: 'intermediate',
+    format: 'article',
+    contentFree: 'partial',
+    practicalCost:
+      'Steps 1 to 3 are free to read; the end of step 3, the audio version and a test harness template are for paid subscribers.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A product-team guide to evals that starts from error analysis: read real traces, name the failure modes, then decide which ones need an automated check.',
+    notes: 'Dated 2 Sep 2026.',
+  }),
+  r({
+    id: 'willison-injection-patterns',
+    title: 'Design Patterns for Securing LLM Agents against Prompt Injections',
+    provider: 'Simon Willison',
+    url: 'https://simonwillison.net/2025/Jun/13/prompt-injection-design-patterns/',
+    topic: 'Agent security',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A readable summary of a research paper on design patterns that limit what an agent can do after it reads untrusted input, instead of hoping the prompt resists the attack.',
+    notes: 'Dated 13 Jun 2025. The paper is arXiv 2506.08837.',
+  }),
+  r({
+    id: 'blue41-bank-assistant',
+    title: 'How we helped a leading European bank secure their financial AI assistant',
+    provider: 'Blue41 (Thomas Vissers and Tim Van hamme)',
+    url: 'https://blue41.com/blog/how-we-helped-bunq-secure-their-financial-ai-assistant/',
+    topic: 'Agent security',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      "A security vendor's case study of prompt injection through transaction data in a bank's AI assistant, and how it was detected and mitigated.",
+    notes:
+      'Dated 29 Apr 2026. A vendor case study that ends with a sales pitch; read it for the attack path.',
+  }),
+  r({
+    id: 'monzo-ops-agent',
+    title: 'Engineering the Future of Customer Operations: The Monzo Ops Agent',
+    provider: 'Monzo',
+    url: 'https://monzo.com/blog/engineering-the-future-of-customer-operations-the-monzo-ops-agent',
+    topic: 'Finance AI case study',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'How a UK bank staged trust in a customer operations agent: a human reviewed every message at first, a golden set of 100 expert-approved conversations was replayed as a test, and direct replies came later with sampled quality checks.',
+    notes: 'Dated 4 Jun 2026. A bank describing its own system.',
+  }),
+  r({
+    id: 'monzo-fca-live-testing',
+    title:
+      "Helping people save with AI: what we learned through the FCA's AI Live Testing programme",
+    provider: 'Monzo (Steve Martin)',
+    url: 'https://monzo.com/blog/fca-ai-live-testing-insights',
+    topic: 'Finance AI case study',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'Lessons from testing an AI savings experience with the UK regulator: a narrow scope and clear intended benefit, evidence of accuracy and customer understanding, and an assistant that is clear about what it can and cannot do and leaves decisions to the customer.',
+    notes: 'Dated 21 Sep 2026. A bank describing its own regulatory test.',
+  }),
+  r({
+    id: 'augment-agents-md',
+    title: 'A good AGENTS.md is a model upgrade. A bad one is worse than no docs at all.',
+    provider: 'Augment Code (Slava Zhenylenko)',
+    url: 'https://www.augmentcode.com/blog/how-to-write-good-agents-dot-md-files',
+    topic: 'Context engineering',
+    level: 'intermediate',
+    format: 'article',
+    practicalCost: 'None to read.',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A vendor study of AGENTS.md files in code repositories: keep them short and limited to what the agent cannot learn from the repository itself.',
+    notes:
+      'Published 22 Apr 2026, updated 18 Jun 2026. Based on code repositories, not notes folders.',
+  }),
+
   // Discovery and design
   r({
     id: 'torres-ost',
@@ -1031,7 +1329,7 @@ export const resources: Resource[] = [
     summary:
       "Anthropic's official open-source plugins for knowledge work. The product-management plugin helps write specs and roadmaps and synthesize user research, in Cowork or Claude Code.",
     notes:
-      'Install in Claude Code with: claude plugin install product-management@knowledge-work-plugins',
+      'Install in Claude Code in two steps: claude plugin marketplace add anthropics/knowledge-work-plugins, then claude plugin install product-management@knowledge-work-plugins',
   }),
   r({
     id: 'nng-usability-testing-101',
@@ -1128,7 +1426,7 @@ export const resources: Resource[] = [
     contentFree: 'partial',
     signInRequired: true,
     practicalCost:
-      'Free plan: 7 messages a day with GitHub sync and deploy; new users get a one-time $5 credit. Plus is $30 per user a month.',
+      'Free plan: 7 messages a day, with GitHub sync and deploy to Vercel. Plus is $30 per user a month with included credits.',
     verifiedOn: checked,
     status: 'verified',
     summary: "Vercel's prompt-to-app builder for web interfaces, with GitHub sync and deploy.",
@@ -1159,15 +1457,15 @@ export const resources: Resource[] = [
     topic: 'Prototyping',
     level: 'beginner',
     format: 'tool',
-    contentFree: false,
+    contentFree: 'partial',
     signInRequired: true,
     practicalCost:
-      'Not in the free Starter plan; needs a Professional seat or higher. Starter includes 150 AI credits a day (up to 500 a month) for other AI features.',
+      'Usable on the free Starter plan, which has 500 AI credits a month with a daily limit of 150. Starter can publish to the public web only by also publishing to the Figma Community, and cannot use team libraries.',
     verifiedOn: checked,
     status: 'verified',
     summary: 'Prompt-to-prototype inside Figma.',
     notes:
-      'Paid seats only. v0, Lovable, Google AI Studio or Claude artifacts are free alternatives.',
+      'Paid seats add more credits and team libraries. v0, Lovable, Google AI Studio or Claude artifacts are other free options.',
   }),
   r({
     id: 'google-ai-studio',
@@ -1248,8 +1546,9 @@ export const resources: Resource[] = [
     verifiedOn: checked,
     status: 'verified',
     summary:
-      "Announces a white-label conversational assistant that issuing banks can embed in their apps: spending summaries, natural-language questions over card activity and in-app actions such as card locks and subscription management, built on Visa's Digital Enablement SDK.",
-    notes: 'Dated 13 Jul 2026; US pilot from August 2026, with a global rollout planned.',
+      "Announces a white-label conversational assistant that issuing banks can embed in their apps: spending summaries, natural-language questions over card activity and in-app actions such as card locks and alerts, built on Visa's Digital Enablement SDK.",
+    notes:
+      'Dated 13 Jul 2026; US pilot from August 2026, with a global rollout planned. At launch: spending insights, questions over card activity, card locks and alerts. Subscription management is a planned enhancement, not a current feature.',
   }),
   r({
     id: 'eu-ai-act',
@@ -1264,7 +1563,7 @@ export const resources: Resource[] = [
     summary:
       'Commission overview of the AI Act (Regulation (EU) 2024/1689): risk tiers (unacceptable, high, transparency, minimal), obligations for high-risk systems and the application timeline as amended by the AI Omnibus. Lists credit scoring as high-risk and requires telling people when they are talking to a chatbot.',
     notes:
-      'Last updated 19 Oct 2026. Applicable from 2 Aug 2026; prohibitions and AI literacy since 2 Feb 2025; Annex III high-risk obligations extended to 2 Dec 2027.',
+      'Last updated 19 Oct 2026. Applicable from 2 Aug 2026; prohibitions and AI literacy since 2 Feb 2025; Annex III high-risk obligations extended to 2 Dec 2027; high-risk systems built into products covered by Annex I (such as toys or lifts) from 2 Aug 2028.',
   }),
   r({
     id: 'eu-dora',

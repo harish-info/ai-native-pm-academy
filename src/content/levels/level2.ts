@@ -368,6 +368,7 @@ Never edit raw sources, never delete pages, and show me git diff --stat before I
           paragraphs: [
             'Keep **mechanism** (skills, templates, instructions) separate from **data** (your notes). You can then improve how work gets done without touching your knowledge, and share a useful skill without sharing anything private.',
             'A skill is a folder with a `SKILL.md` file: front matter with a `name` and a `description` of when to use it, then the steps, plus any templates it needs. Agents read only the descriptions until a skill is relevant, which keeps everyday context lean. Location matters: Codex discovers skills in `.agents/skills/<name>/SKILL.md`, and Claude Code in `.claude/skills/<name>/SKILL.md`. Keep one copy in `.agents/skills/` and give Claude Code a link to it (your mentor can show you `ln -s`), or keep the skills in the folder your main tool uses. A good rule: once you have used the same multi-step prompt three times, make it a skill. Your weekly review and your ingest prompt both qualify.',
+            "Instruction files and skills are advice, not enforcement. Claude Code's best practices say it plainly: the model may decide a guideline does not apply, so a rule with zero exceptions, such as never editing a source in `00-inbox/`, belongs in a permission rule, a hook or a check, not in more emphatic wording. Keep AGENTS.md short and limited to what the agent cannot learn from the files themselves; a long file buries the lines that matter.",
           ],
         },
       ],
@@ -390,6 +391,16 @@ Never edit raw sources, never delete pages, and show me git diff --stat before I
         {
           resourceId: 'aihero-skills',
           why: 'Practitioner examples of skills used in real AI engineering workflows, useful for seeing how others scope them.',
+          required: false,
+        },
+        {
+          resourceId: 'claude-code-best-practices',
+          why: 'The clearest statement of what instructions can and cannot guarantee, and what to enforce instead.',
+          required: false,
+        },
+        {
+          resourceId: 'augment-agents-md',
+          why: 'A study of what makes instruction files help or hurt; it covers code repositories, but the advice on brevity carries over.',
           required: false,
         },
       ],

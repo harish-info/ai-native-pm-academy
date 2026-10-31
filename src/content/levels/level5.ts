@@ -72,6 +72,7 @@ export const level5: Level = {
             'Design three distinct states and make them visible in the UI. Least privilege means the model in MoneyPilot has **no tool that executes anything**. Execution happens in application code, after a person clicks Approve.',
             'Be clear that the Approve button in this prototype only simulates authorization. In a real bank, approving a payment means strong customer authentication (SCA) dynamically linked to the exact amount and payee, plus limits, replay protection so one approval cannot be used twice, and payee name checks such as Confirmation of Payee or Verification of Payee. Reading data and moving money are also separate permissions: in open banking terms, account information services read data and payment initiation services start payments, each with its own consent and authorization.',
             'An **audit trail** logs every tool call with inputs and outputs, the model and prompt version, every approval or dismissal, and timestamps, kept for a defined retention period, with personal data minimized or redacted where the log does not need it. Risk and compliance teams will ask for it, and it doubles as your best debugging data.',
+            "Banks build this kind of trust in stages. Monzo's customer operations agent started with a human reviewing every message before it went out and was tested against a golden set of 100 conversations approved by experts. Only then did it reply to customers directly, with sampled quality checks that were reduced as confidence grew. Your Approve button is the first stage of the same idea.",
           ],
           bullets: [
             'Recommendation: text only, no side effects. "You could save about 40 a month by cancelling two unused subscriptions."',
@@ -99,6 +100,11 @@ export const level5: Level = {
         {
           resourceId: 'revolut-air',
           why: 'A real bank AI assistant to compare scope and controls with your design.',
+          required: false,
+        },
+        {
+          resourceId: 'monzo-ops-agent',
+          why: 'A UK bank describing how it staged human review before letting an agent reply on its own.',
           required: false,
         },
       ],
@@ -366,6 +372,7 @@ Constraints: keep changes small and readable, explain any new dependency before 
           paragraphs: [
             'A mock mode that maps questions to templates cannot fail a safety case, because no model is involved. Use mock mode as the regression test for figures, and run the safety categories against a live model at least once, so the report tests the model and not only your router.',
             'Twenty to forty well-chosen cases are a strong start. Then do **error analysis**: read actual outputs, group the failures, and add cases around each group. Track pass rate per category, because a single unauthorized action should block a release while a slightly awkward sentence should not.',
+            'Practitioners who teach evals put this step first: read real outputs and name the failure modes before writing any automated grader or LLM judge. A grader for a failure you have never seen tends to measure the wrong thing.',
             'Rerun the suite on every prompt, model or tool change. That turns your evals into a regression safety net, which is the same spirit as the measure and monitor functions in frameworks such as the NIST AI RMF.',
           ],
         },
@@ -387,8 +394,18 @@ Constraints: keep changes small and readable, explain any new dependency before 
           required: false,
         },
         {
-          resourceId: 'simon-willison-blog',
-          why: 'Background reading on prompt injection and why prompt-only defenses are not enough.',
+          resourceId: 'torres-ai-evals',
+          why: 'A product-team guide to evals that starts with error analysis; steps 1 to 3 are free.',
+          required: false,
+        },
+        {
+          resourceId: 'willison-injection-patterns',
+          why: 'Design patterns that limit what an agent can do after reading untrusted data.',
+          required: false,
+        },
+        {
+          resourceId: 'blue41-bank-assistant',
+          why: 'A vendor case study of prompt injection through transaction data in a bank assistant.',
           required: false,
         },
       ],
@@ -491,6 +508,7 @@ Rules:
           paragraphs: [
             'Most teams start with individuals using AI on their own, with private prompts and habits. The gains are real but stay private, and nobody can see the risks either. The step that matters for a team is making context, standards and learning shared: an AGENTS.md in every repository, skills for repeatable work, an agreed review policy, and a regular slot to swap what worked and what failed.',
             'Start from the bottleneck, not the tool. Ask where the team actually slows down, such as discovery turnaround, waiting for review or rework after testing, and bring AI to that constraint. Judge success by customer outcomes and delivery flow, with quality kept or improved, not by how much AI the team uses.',
+            'Widen autonomy the way you would for a new hire: start with a person checking every output, measure against a small set of examples experts have approved, and give the agent more room only as the evidence holds.',
           ],
         },
         {
@@ -536,6 +554,11 @@ Rules:
         {
           resourceId: 'nist-ai-rmf',
           why: 'A widely used, vendor-neutral reference for structuring AI risk management conversations.',
+          required: false,
+        },
+        {
+          resourceId: 'monzo-ops-agent',
+          why: 'Staged trust in practice: full human review first, more autonomy as evidence grew.',
           required: false,
         },
       ],

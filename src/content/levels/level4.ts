@@ -217,6 +217,7 @@ Do not run git commit or git push. I will do that myself.`,
           heading: 'Do not merge code you cannot explain',
           paragraphs: [
             'A rule worth adopting: if you cannot explain what a change does and why, you do not merge it. Ask the agent to walk you through any line you do not understand, and keep asking until you can explain it back.',
+            'Practitioners describe this as the new bottleneck: agents write code faster than people can follow it, so understanding becomes a deliverable in its own right. Ask the agent to explain each change in the PR description, written for you rather than for the reviewer.',
             'Agent-written tests need the same scrutiny. A test can pass while checking the wrong thing, for example asserting that a function returns a number rather than the right number. Read each test and confirm it checks the acceptance criterion it claims to cover.',
           ],
         },
@@ -240,6 +241,16 @@ Do not run git commit or git push. I will do that myself.`,
         {
           resourceId: 'codex-docs',
           why: 'Official Codex documentation for installation, permissions and configuration.',
+          required: false,
+        },
+        {
+          resourceId: 'claude-code-permission-modes',
+          why: 'The official reference for the modes in this session, including plan mode and how Shift+Tab cycles them.',
+          required: false,
+        },
+        {
+          resourceId: 'willison-agentic-patterns',
+          why: 'Read the Principles, Testing and QA, and Understanding code chapters of this practitioner guide.',
           required: false,
         },
       ],
@@ -335,6 +346,7 @@ Constraints:
           heading: 'Task decomposition',
           paragraphs: [
             'Slice vertically. Each task should deliver something a user can see or a test can check, end to end, rather than "build all the data models" followed by "build all the screens." A good slice fits in one PR and one agent session, has acceptance criteria, and lists the files it is likely to touch.',
+            'How much to plan before building is a live debate. Some practitioners keep research, planning and implementation as separate steps and review a written plan before any code; others argue that current models plan well enough inside a quick loop of act, inspect and adjust. For a PM supervising an agent, a short plan you can check against the PRD is the safer default. Relax it once slices are small and familiar.',
           ],
           bullets: [
             'Slice 1: fictional data file and a forecast screen showing the projected balance.',
@@ -377,13 +389,28 @@ Constraints:
           required: true,
         },
         {
-          resourceId: 'anthropic-context-engineering',
-          why: 'Why curated, compact context beats dumping everything into the agent.',
+          resourceId: 'aihero-skills',
+          why: 'Related skills for planning and decomposing work before implementation.',
           required: false,
         },
         {
-          resourceId: 'aihero-skills',
-          why: 'Related skills for planning and decomposing work before implementation.',
+          resourceId: 'github-spec-kit',
+          why: 'The spec-driven workflow mentioned above: specify, plan, tasks, implement, then check against the spec.',
+          required: false,
+        },
+        {
+          resourceId: 'copilot-assign-issue',
+          why: 'How assigning an issue to Copilot works, including what context it sees.',
+          required: false,
+        },
+        {
+          resourceId: 'tane-plan-first',
+          why: 'The plan-first side of the debate: review the plan before any code.',
+          required: false,
+        },
+        {
+          resourceId: 'nadeem-plan-mode-is-dead',
+          why: 'The other side: iterate instead of writing long plans.',
           required: false,
         },
       ],
@@ -496,6 +523,7 @@ After writing the plan, name the two slices most likely to go wrong and explain 
           paragraphs: [
             'When an agent writes a feature in minutes, reading it becomes the slow step. Long-standing code review practice keeps it moving: authors review their own diff before asking anyone else, PRs stay small so reviews stay fast, and reviewers mark non-blocking comments as nits so that "request changes" means a real problem.',
             'An agent reviewer can read a diff and flag likely bugs, missing tests and mismatches with the spec in minutes. It also produces false positives and misses context, so treat its comments as input, not a verdict.',
+            'Anthropic describes routing its own review this way: an agent reviews every pull request, and human depth scales with what the change touches. Read it as a vendor describing its own practice, and note the cost commenters raise: agent review on every PR uses tokens that not every team can afford.',
             "In a bank, every production change normally needs at least one independent human approval, from someone other than the author (segregation of duties). An agent's approval does not count as that human. Risk decides how deep the human review goes, not whether it happens.",
           ],
           bullets: [
@@ -537,6 +565,16 @@ After writing the plan, name the two slices most likely to go wrong and explain 
         {
           resourceId: 'copilot-docs',
           why: 'Includes GitHub Copilot code review, one way to add an agent reviewer directly on pull requests.',
+          required: false,
+        },
+        {
+          resourceId: 'claude-code-review-post',
+          why: 'A vendor account of risk-routed review; useful as a worked example, not as proof.',
+          required: false,
+        },
+        {
+          resourceId: 'litt-understanding',
+          why: 'Why understanding a change, not producing it, is now the slow step.',
           required: false,
         },
       ],

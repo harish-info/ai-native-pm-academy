@@ -88,6 +88,11 @@ export const level3: Level = {
           why: 'Grounding on where AI helps and where it misleads in research work.',
           required: false,
         },
+        {
+          resourceId: 'monzo-fca-live-testing',
+          why: 'A UK bank on what it learned testing an AI savings assistant with the regulator; a firm describing its own work.',
+          required: false,
+        },
       ],
       task: {
         summary:
@@ -326,6 +331,7 @@ Rules:
           heading: 'Divergence first',
           paragraphs: [
             "The first idea a model generates tends to be the most average one: a dashboard with a balance, a chart and a chat box. Asking for variations of that idea gives you three versions of average. Force divergence by changing the underlying concept, not the styling. The examples below use the course's worked opportunity, payday coverage; if your evidence pointed elsewhere, invent concepts for your own opportunity.",
+            'Label every prototype honestly, on screen and in the message you share it with: prototype, fictional data, not production code. A polished prototype reads as a promise, and PMs who prototype a lot warn that it can be motion mistaken for progress: the hard parts of an AI product, such as reliable data, evals and scale, are still ahead.',
           ],
           bullets: [
             '**Calendar**: upcoming bills and payday on a timeline, with a projected balance line.',
@@ -374,6 +380,11 @@ Rules:
         {
           resourceId: 'lovable',
           why: 'Builds multi-screen app prototypes from a description; good for clickable flows.',
+          required: false,
+        },
+        {
+          resourceId: 'mckinnon-vibe-coding-pms',
+          why: 'A PM leader on what prototypes prove and what they only appear to prove.',
           required: false,
         },
       ],
@@ -470,6 +481,7 @@ After building, list three things a real customer might misunderstand on these s
           heading: 'Writing a PRD agents can execute',
           paragraphs: [
             'Agents follow instructions literally and confidently. An agent-ready PRD states the problem and outcome in a few sentences, then gives user stories, explicit scope and non-goals, data definitions (what counts as a bill, a payday, a shortfall), edge cases, and acceptance criteria in Given/When/Then form with concrete numbers.',
+            "Before drafting, get grilled. Ask the agent to interview you, one question at a time, until it could write the spec itself. Both Claude Code's and Codex's best practices suggest this, and Matt Pocock's skills build a workflow on it. The questions expose decisions you have not made yet, which are cheaper to make now than after a build.",
           ],
           bullets: [
             'Given a balance of 1,000, income of 2,000 on the 25th and bills of 850 due before then, when the user opens MoneyPilot on the 10th, then the projected balance for the 24th shows 150 and lists each bill with its date.',
@@ -506,6 +518,16 @@ After building, list three things a real customer might misunderstand on these s
         {
           resourceId: 'nng-ai-study-guide',
           why: 'Useful background on using AI responsibly when analyzing usability findings.',
+          required: false,
+        },
+        {
+          resourceId: 'osmani-good-spec',
+          why: 'A concise guide to specs agents can execute, including boundaries in three tiers: always, ask first, never.',
+          required: false,
+        },
+        {
+          resourceId: 'github-spec-kit',
+          why: 'See the spec-driven workflow end to end; read the README, no install needed.',
           required: false,
         },
       ],
