@@ -210,7 +210,6 @@ Rules:
           paragraphs: [
             'Clear wording still matters: say what task to do, which material to use, the constraints and what done looks like. A role phrase such as "you are a world-class strategist" cannot supply missing evidence. Compare instructions and context on your task instead of assuming a universal prompting trick.',
             'A brief to a model has the same parts as a brief to a new colleague. If a capable person joining your team tomorrow could not do the task from what you gave them, the model cannot either.',
-            'Context also has team value: a sourced brief, current constraints and recorded decisions can serve the next teammate or agent, instead of being rebuilt in private chats. Keep an owner and update it when the evidence changes. Session 20 explores how this could support a whole product team.',
           ],
         },
         {

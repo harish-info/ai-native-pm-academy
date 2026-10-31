@@ -125,7 +125,6 @@ test('team loop stays in its lesson and supports keyboard exploration', async ({
   await expect(attention.getByText('Explore the problem together', { exact: true })).toBeVisible()
   await expect(attention.getByText('Learn into the next decision', { exact: true })).toBeVisible()
 
-  await page.goto('#/lessons/s9')
   const capacity = page.locator('[data-illustration="constraints"]')
   await expect(capacity.getByText('Whole-loop capacity: 2 items / week')).toBeVisible()
   await capacity.getByRole('button', { name: 'Build faster' }).click()
@@ -133,6 +132,9 @@ test('team loop stays in its lesson and supports keyboard exploration', async ({
   await capacity.getByRole('button', { name: 'Improve the loop' }).click()
   await expect(capacity.getByText('Whole-loop capacity: 4 items / week')).toBeVisible()
   await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
+  await page.goto('#/lessons/s9')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Strategy and market')
+  await expect(page.locator('[data-illustration="constraints"]')).toHaveCount(0)
 })
 
 test('onboarding produces a personalized path', async ({ page }) => {

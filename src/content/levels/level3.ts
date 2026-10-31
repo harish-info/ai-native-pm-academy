@@ -45,10 +45,8 @@ export const level3: Level = {
         },
         {
           heading: 'When building gets faster, choosing matters more',
-          illustration: 'constraints',
           paragraphs: [
             'Knowing what to build is central PM work. For tasks where agents speed implementation, unresolved product choices can leave the team waiting. Augment discovery and decision preparation too: gather sourced evidence, compare alternatives and make open trade-offs visible. Faster decisions still need a sound basis.',
-            'This simplified capacity model illustrates why accelerating one stage may leave overall flow unchanged. Real work varies and has feedback loops; inspect your own waiting time before drawing a conclusion. Session 20 develops this into a possible team experiment.',
           ],
         },
         {

@@ -236,7 +236,7 @@ Do not delete or rename any existing file. You are done when every page has a so
           illustration: 'access',
           paragraphs: [
             'A `kb-lookup` skill (Session 19) loads the relevant pages into any task, in any repository. The feature loop runs through the knowledge base: **plan** (the PRD and design spec are drafted from team knowledge), **handoff** (the merged plan is loaded into each platform repository, as in Session 13), **build**, then **align** (check the work against the acceptance criteria and the design spec, then against team decisions). Anyone can share at any point in the loop.',
-            "Two rituals keep it alive: a briefing before the weekly decision meeting lists the open questions, and a Friday recap compares shipped work and decisions with Monday's commitments. Session 20 builds them into a team playbook.",
+            'A briefing before a decision meeting can surface open questions; a recap can compare outcomes with commitments. Use either only if it helps the team, and choose a cadence that fits its work.',
             'Test access before retrieval: a person or job may retrieve only material it is authorised to see. A prompt cannot enforce file permissions. Keep instruction and source access scoped in the tool or environment, and assign a human owner to each maintained page.',
             'For the **trust check**, keep the expected answers outside the tested agent’s accessible files. Give a fresh session only the questions and the approved knowledge base. Score correctness, citation support, handling of contradictions and honest abstention. Diagnose retrieval, stale-content and reasoning failures separately before changing pages or prompts.',
           ],
@@ -553,10 +553,12 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         },
         {
           heading: 'The bottleneck may move upstream',
+          illustration: 'constraints',
           paragraphs: [
             'Knowing what to build remains central PM work. When agents shorten implementation for a class of tasks, an unclear problem or an unanswered trade-off can become the constraint. Review can become another queue downstream. Neither shift happens everywhere: inspect where your team waits before deciding what to augment.',
             'A PM could use agents to assemble sourced evidence, prepare alternatives, find conflicting requirements and surface open decisions before a team conversation. The aim is shorter waits for well-founded decisions, not rushed judgment or more documents. Keep consequential decisions visible, with an owner, an explanation and a route to escalate when the owner is unavailable.',
             'DORA’s 2025 report describes AI as an amplifier of the wider organisational system. METR’s February 2026 update explains why changing tools and task selection make productivity estimates difficult. Neither establishes that programming is solved. Treat faster generation as an opportunity to test, while problem solving, integration and proving value still need attention.',
+            'This simplified capacity model illustrates why accelerating one stage may leave overall flow unchanged. Real work varies and has feedback loops; inspect your own waiting time before drawing a conclusion.',
           ],
         },
         {
