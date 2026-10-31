@@ -1,0 +1,36 @@
+// Fails the build when the bundle grows past its budget. Run after `vite build`.
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { gzipSync } from 'node:zlib'
+
+const budget = {
+  chunkKb: 450, // largest single JS chunk, minified
+  jsGzipKb: 340, // all JS, gzipped
+  cssGzipKb: 20, // all CSS, gzipped
+}
+
+const dir = 'dist/assets'
+const files = readdirSync(dir).map((name) => {
+  const buf = readFileSync(join(dir, name))
+  return { name, kb: buf.length / 1024, gzipKb: gzipSync(buf).length / 1024 }
+})
+const js = files.filter((f) => f.name.endsWith('.js'))
+const css = files.filter((f) => f.name.endsWith('.css'))
+const sum = (list) => list.reduce((n, f) => n + f.gzipKb, 0)
+const largest = js.reduce((a, b) => (b.kb > a.kb ? b : a))
+
+const rows = [
+  [`largest chunk (${largest.name})`, largest.kb, budget.chunkKb],
+  ['all JS, gzip', sum(js), budget.jsGzipKb],
+  ['all CSS, gzip', sum(css), budget.cssGzipKb],
+]
+let failed = false
+for (const [label, value, limit] of rows) {
+  const ok = value <= limit
+  failed ||= !ok
+  console.log(`${ok ? 'ok  ' : 'OVER'} ${label}: ${value.toFixed(1)} kB of ${limit} kB`)
+}
+if (failed) {
+  console.error('Bundle budget exceeded. Split the chunk or raise the budget on purpose.')
+  process.exit(1)
+}

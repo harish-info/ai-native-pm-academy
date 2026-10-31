@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { Suspense, useEffect, useRef, useState, type ReactNode } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { levels } from '../content'
 import { currentLevel, levelStatuses, xpBreakdown } from '../domain/progress'
@@ -293,7 +293,9 @@ export function Layout() {
             </span>
           </Banner>
         )}
-        <Outlet />
+        <Suspense fallback={<p className="text-sm text-stone-500 dark:text-stone-400">Loading</p>}>
+          <Outlet />
+        </Suspense>
       </main>
       <CelebrationDialog />
     </div>
