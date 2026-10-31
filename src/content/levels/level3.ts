@@ -37,14 +37,14 @@ export const level3: Level = {
         'Leadership asks why this problem deserves attention now. Investigate competitors, existing workarounds and what people actually struggle with. An attractive market map can still contain wrong claims; keep a source trail and distinguish observation, vendor assertion and inference.',
       learn: [
         {
-          heading: 'Outcomes over features',
+          heading: 'Start from the outcome, not the feature',
           paragraphs: [
             'An outcome-led approach gives teams problems to solve rather than only feature lists. Strategy chooses which problems matter; discovery tests assumptions before committing delivery effort. The SVPG article below describes this operating model in a few pages.',
             'Your idea is a feature until you can say which outcome it moves. Choose an outcome relevant to your context, such as successful task completion, time to resolution or qualified conversion. State the population and measurement window. Leadership needs a credible path to a useful outcome, with a reason it matters now.',
           ],
         },
         {
-          heading: 'When building gets faster, choosing matters more',
+          heading: 'Why deciding what to build matters more now',
           paragraphs: [
             'Knowing what to build is central PM work. For tasks where agents speed implementation, unresolved product choices can leave the team waiting. Augment discovery and decision preparation too: gather sourced evidence, compare alternatives and make open trade-offs visible. Faster decisions still need a sound basis.',
           ],
@@ -63,7 +63,7 @@ export const level3: Level = {
           ],
         },
         {
-          heading: 'Research in parallel, cite everything',
+          heading: 'Research in parallel sessions and save every source',
           paragraphs: [
             'Split research into narrow slices with separate output folders. Work sequentially or in parallel if your tool and budget allow it; parallel runs do not guarantee a faster or more accurate result. Bound each slice by time and source count, then verify the material you rely on.',
             'Every claim gets a source note: one Markdown file per page in `sources/market/`, with the link, the date you read it, the exact sentence that supports the claim and an evidence label. The market map is then built only from those notes. This is the start of a habit that runs to the end of the course: raw sources in one place, synthesis in another, and every synthesised line pointing back to where it came from.',
@@ -76,7 +76,7 @@ export const level3: Level = {
           ],
         },
         {
-          heading: 'What actually differentiates AI products',
+          heading: 'What makes one AI product better than another',
           paragraphs: [
             "AI assistants differ less in their chat interface than in their data access, their action rights and their trust model. For each competitor, capture who it is for, what data it uses, what it can do (answer, summarise, plan, act on the user's behalf), what needs explicit approval, and where it draws the line on sensitive data, consequential decisions and external actions. Not every competitor is an AI product: the strongest one is often a spreadsheet, a reminder or a habit, so include the workarounds too.",
             'Compare strategic choices: deepen an existing workflow, serve an underserved segment, remove a costly handoff or make a recurring decision easier. Choose using your evidence and constraints. Your strongest alternative may be a process change rather than a new AI feature.',
@@ -173,7 +173,7 @@ Rules:
         'Your strategy contains assumptions about people and their work. Now you investigate them with people who actually experience the problem. AI can generate plausible personas, transcripts and insights that nobody ever said. Keep those separate from observations, and preserve a decision trail so another person can assess why you chose the next step.',
       learn: [
         {
-          heading: 'One session, two halves',
+          heading: 'An interview first, then a usability test',
           paragraphs: [
             'Each conversation takes about 30 minutes. Spend the first half on a story-based interview and the second half on a usability test of your prototype. Interview first, so the prototype does not shape what people tell you about their real lives.',
             'In the interview, ask about specific past behaviour, not hypothetical futures. "Tell me about the last time this went wrong for you" beats "Would you use your product?" People are poor at predicting their own behaviour and very good at telling stories about what actually happened.',
@@ -343,21 +343,21 @@ Rules:
         'Your interviews say people struggle with one thing. Then an engineer asks how many people actually hit it, and how often. Interviews tell you why; data tells you how many. At work, the moment the two disagree is often the most useful one in discovery. Here the data is fictional, so you practise the method, not the finding. Claude Code can generate a dataset, analyse it and draft a priority list in an hour. It can also produce a confident chart from a wrong denominator. The skill is knowing which numbers to check by hand before anyone makes a decision on them.',
       learn: [
         {
-          heading: 'Interviews tell you why, data tells you how many',
+          heading: 'Event logs, funnels and retention',
           paragraphs: [
             'Product analytics starts with an event log: one row per thing a user did, with a user id, a timestamp and an event name. From it you build a funnel (how many users reach each step on the way to the outcome), retention (how many come back), and segments (whether some groups behave differently).',
             'Most analysis mistakes are definition mistakes. Is a "user" anyone who signed up, or anyone active this week? Is a step counted per user or per session? A conversion rate with the wrong denominator looks just as convincing as a right one. Write the definitions down before you look at any result.',
           ],
         },
         {
-          heading: 'Fictional data, real method',
+          heading: 'Why you generate fictional data',
           paragraphs: [
             'You will not use real customer data in this course. Instead, Claude Code writes and runs a small script that generates a realistic event log for your product. Two details make it useful. A **fixed random seed** means the script produces exactly the same file every time, so your numbers can be reproduced. **Stated assumptions** in a separate file record every rate and drop-off the script used, so you can later check whether the analysis recovered them.',
             "You do not need to read the script. You do need to check its output, the same way you would check an analyst's work. Analytics tools now offer connectors that let Claude query live product data directly, and at work that is how you would do this, within your company's data rules. Here a CSV keeps it free and private.",
           ],
         },
         {
-          heading: 'Trust numbers you can check',
+          heading: 'Check two numbers by hand',
           illustration: 'funnel',
           paragraphs: [
             'Ask Claude Code to calculate with a script, not in its head, and to show the counts behind every percentage. Then recompute two of the numbers yourself in a spreadsheet pivot table. If they match, you have earned some trust in the rest. If they do not, you have found a problem before a stakeholder did.',
@@ -370,7 +370,7 @@ Rules:
           ],
         },
         {
-          heading: 'Impact as a range, prioritisation by evidence',
+          heading: 'Estimate impact as a range, then score with RICE',
           paragraphs: [
             'Make the units explicit in your impact estimate. For example, eligible users multiplied by an expected absolute increase in completion rate gives additional successful completions, not a new percentage. If you translate those completions into time or money, state and justify that conversion separately. Give it as a low, base and high range, and label every input with where it came from: the data, the interviews, the market map, or an assumption. A single precise number invites false confidence.',
             'RICE, from Intercom, scores each idea by reach, impact, confidence and effort, so competing ideas can be compared on evidence rather than on who argues loudest. Confidence is where your evidence enters: high when data and several interviews agree, medium when only interviews support it, low for a single source or an assumption. Effort comes from engineering; your mentor can give a T-shirt size. Treat the score as the start of a conversation, and override it with a written reason when something it cannot see matters, such as a regulatory risk.',
@@ -464,7 +464,7 @@ Use no real people, companies or figures.`,
       id: 's12',
       levelId: 3,
       number: 12,
-      title: 'The PRD as agent-ready context',
+      title: 'A PRD people and agents can build from',
       difficulty: 'Advanced',
       minutes: 150,
       tools: ['Claude Code', 'Your live prototype from Level 2'],
@@ -478,15 +478,15 @@ Use no real people, companies or figures.`,
         'A PRD briefs people and agents who were not in your conversations. State the behaviour, evidence and open questions so they do not have to infer your decisions. Where the domain involves sensitive data, consequential decisions and external actions, bring the relevant risk partner into the decision before delivery.',
       learn: [
         {
-          heading: 'One document, two kinds of reader',
+          heading: 'Who reads the PRD',
           paragraphs: [
             'The PRD is context, in exactly the sense of Session 2: everything a reader needs to do the work well, and nothing they would have to guess. A person and a coding agent need the same things from it: the problem, the outcome, the scope, what the product must always and never do, and how to tell when it is done. Write it once, precisely, and it briefs both.',
-            '"Demos before memos" still holds. The prototype shows what the product feels like; the PRD says what must be true. Link the prototype from the PRD, and let each do what it is good at.',
+            'The prototype shows what the product feels like; the PRD says what must be true. Link the prototype from the PRD, and let each do what it is good at.',
             'Treat the PRD as shared intent, not a private PM output. Invite design and engineering to challenge the problem, scope and unknowns while they are still cheap to change. Name decision owners and a backup, so the PM does not become the only person who can explain the plan.',
           ],
         },
         {
-          heading: 'The PRD layout',
+          heading: 'Sections of the PRD',
           paragraphs: [
             'This layout works for most features. Keep each section short, and spend your effort where agents and engineers most often go wrong: behavioural contracts, acceptance criteria and edge cases.',
           ],
@@ -507,7 +507,7 @@ Use no real people, companies or figures.`,
           ],
         },
         {
-          heading: 'Three rules',
+          heading: 'Three rules for writing it',
           paragraphs: [
             'These rules apply to you and to Claude when it drafts. They are what separates a PRD people can trust from a plausible-sounding one.',
           ],
@@ -526,7 +526,7 @@ Use no real people, companies or figures.`,
           ],
         },
         {
-          heading: 'Choose a solution the team can operate',
+          heading: 'Compare simpler options and estimate running cost',
           illustration: 'solution',
           paragraphs: [
             'Compare a deterministic baseline, a model with relevant context and, only if needed, a tool-using workflow or agent. Retrieve current facts from an authorised source; fine-tuning can adapt repeated behaviour but is not a live database. Record why the simpler option falls short before choosing more complexity.',
@@ -542,7 +542,7 @@ Use no real people, companies or figures.`,
           ],
         },
         {
-          heading: 'Review the draft from three angles',
+          heading: 'Review it as an engineer, a designer and a risk partner',
           paragraphs: [
             'Then review the draft from three angles, each in a fresh session so no review inherits the assumptions of the drafting session. The engineer asks whether every behaviour is buildable and testable without guessing. The designer asks whether every flow and state is covered and matches the prototype. The risk reviewer asks where sensitive data, consequential decisions or external actions could cause harm, and which safeguards the chosen domain needs. You decide what to accept; the reviews only advise.',
             'Last, test agent-readiness directly: a fresh session that sees only `prd/prd.md` lists every question it would need answered before building. When that list is short, the PRD is ready.',
@@ -920,7 +920,7 @@ Rules:
     {
       id: 'q3-8',
       competency: 'technical-collaboration',
-      prompt: 'Which line belongs in a PRD written as agent-ready context?',
+      prompt: 'Which line belongs in a PRD that people and coding agents will build from?',
       options: [
         {
           id: 'a',

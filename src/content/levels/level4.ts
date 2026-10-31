@@ -61,7 +61,7 @@ export const level4: Level = {
           ],
         },
         {
-          heading: 'States are where the bugs live',
+          heading: 'Specify every screen state',
           illustration: 'states',
           paragraphs: [
             'Most design reviews look at the happy path. Most production bugs live in the other states: empty, loading, error, partial data, stale data, the first visit, and the case where the number is bad news. For the main task screen, write each state as a condition and the exact copy: "When there is no data for the period, show: ...". Add an accessibility note where it matters, such as a warning that must never rely on colour alone. If you cannot write the copy, you have found a gap.',
@@ -69,7 +69,7 @@ export const level4: Level = {
           ],
         },
         {
-          heading: 'Which source wins',
+          heading: 'When the PRD and the prototype disagree',
           paragraphs: [
             'You will have four sources and they will disagree. Decide the precedence before you write and put it at the top of the spec. Contradictions are flagged in the spec, never silently resolved: "The PRD says X; the prototype shows Y; flagged for decision."',
             'Keep the PRD, design spec and prototype linked to the same current slice. After a joint decision, update the affected artifacts and record what changed and why. Tools may differ across roles; the intended behaviour and quality bar need to agree. This is one practical form of team augmentation, revisited in Session 20.',
@@ -97,7 +97,7 @@ export const level4: Level = {
           ],
         },
         {
-          heading: 'The align check, and your own pull request',
+          heading: 'Check the build against the plan',
           paragraphs: [
             'After a slice is built, run an **align check** in a fresh Claude Code session. Claude compares the work with every PRD acceptance criterion and every design spec state, then with the team decisions recorded in the repository, and lists each one as met, partly met or missing, with evidence: a file, a test or a screenshot. Missing items become tasks; contradictions go back to the spec. Spot-check the evidence yourself: the check is a fast first pass, not a verdict.',
             "Finally, open one small pull request yourself. A copy string that does not match the spec is perfect. Claude Code runs git; you write the description, read the diff and ask for review, as in Session 7. It is the quickest way to earn the right to comment on everyone else's pull requests.",
@@ -241,21 +241,21 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         'Two weeks before launch, your risk partner asks one question: "What happens when it is wrong?" The feature answers questions such as "What needs my attention, and why?", and people will act on the answer. "It worked in the demo" is not evidence. An eval set is how a PM states the quality bar in a form people and machines can check, catches regressions when the prompt or the model changes, and gives risk and compliance something concrete to review. The PM is often best placed to write it, because the PM knows what a good answer means for the customer.',
       learn: [
         {
-          heading: 'What an eval is, at PM depth',
+          heading: 'What an eval is',
           paragraphs: [
             'An eval is a set of test cases, each an input with the expected behaviour, plus a **grader** that decides pass or fail. Code graders check what is checkable: an exact figure, a forbidden action, a required hand-off. A model grader (another model with a rubric) handles qualities such as clarity. A person reads a sample, and always reads the failures.',
             'Your job is not the test runner. Engineers wire the cases into an automated suite that runs on every change. Your job is the cases, the expected behaviour, the release rules and an honest report. That is product work: it is the behavioural contracts from your PRD, written as tests.',
           ],
         },
         {
-          heading: 'Read answers before you write cases',
+          heading: 'Read real answers before writing test cases',
           paragraphs: [
             'Practitioners who teach evals put one step first: **error analysis**. Run the feature on a few dozen realistic questions, read every answer, and write down in your own words what went wrong. Then group the notes into failure modes, such as "a figure that is not in the data", "missed the hand-off" or "answered outside its scope". Cases and graders come after, aimed at failures you have actually seen. A grader for a failure you have never seen tends to measure the wrong thing.',
             'Use a **stand-in**: a Claude Project with assistant rules and fictional data. It tests the wording and model behaviour of that chat configuration. It does not test production retrieval, authorisation, action execution, retries or cross-user isolation. Mark those checks NOT TESTED and list the sandbox integration evidence engineering must supply.',
           ],
         },
         {
-          heading: 'A golden set, organised by harm',
+          heading: 'Build a test set around what could go wrong',
           illustration: 'evals',
           paragraphs: [
             'Organise test cases by the harm they prevent, so each category can have its own release rule. Start with the workflows, user questions and prohibited actions in your PRD. Include ordinary requests, missing data, ambiguous instructions and attempts to cross a permission boundary.',
@@ -268,7 +268,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
           ],
         },
         {
-          heading: 'Red-team the data, not only the chat',
+          heading: 'Test with bad data, not only bad questions',
           paragraphs: [
             'The dangerous case is **indirect prompt injection**: instructions hidden in content the assistant reads as data, such as a note, a name, an email or a PDF. Models cannot reliably tell data from instructions, so assume the assistant will sometimes be fooled.',
             'Consider unwanted actions and information disclosure separately. Remove unnecessary data access, network destinations and action tools. Enforce approval outside the model, tied to the exact proposed action. A confirmation button does not make the draft or its data handling safe. Document remaining risks in the PRD.',
@@ -406,7 +406,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         'A learning eval does not establish launch readiness. Rehearse the planning decisions for a hypothetical staged release: in two weeks someone will ask whether it worked, and the answer depends on decisions you make before anyone sees the feature. Which metric counts, what would make you stop, how many users you need before you look. Teams that decide afterwards tend to find the result they hoped for. A launch plan and a readout committed in advance keep you honest, and in a regulated product they are what your risk partner signs.',
       learn: [
         {
-          heading: 'A launch plan is a list of decisions',
+          heading: 'What goes in a launch plan',
           paragraphs: [
             'A launch plan answers, in advance: who sees the feature and in what stages, what you measure, what would make you pause or roll back, and who does what on the day. Write the rollback thresholds before launch: on a bad day nobody agrees what "bad" means.',
           ],
@@ -426,7 +426,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
           ],
         },
         {
-          heading: 'Fix the decision plan, monitor safety throughout',
+          heading: 'Set the success rule before launch',
           paragraphs: [
             'Repeatedly stopping a fixed-horizon test when success looks significant inflates false positives. Predefine the hypothesis, eligible population, randomisation unit, sample size, minimum duration and decision rule. Sequential methods are possible but need their own valid plan. Monitor incidents, telemetry and guardrails throughout; a safety stop does not wait for the success analysis.',
             'Claude Code can do the arithmetic, but you state the inputs and check the working. If the sample you need is larger than your launch audience, say so: a smaller test can still give a directional signal, as long as the readout calls it that.',
@@ -446,7 +446,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
           ],
         },
         {
-          heading: 'Close the loop',
+          heading: 'Share what you learned',
           paragraphs: [
             'The readout is not the end of the work; it is the newest source in your workspace. Update the open decisions in `product-context.md`, record the decision and its reason, file support themes and new failure modes as notes, and add eval cases for anything that went wrong in the wild. Next quarter starts from what you learned, not from memory.',
           ],
@@ -559,7 +559,7 @@ Done when: every section exists and you have listed the proposed items for my de
         'The quarterly business review is on Thursday and you have ten minutes. Leadership will remember one message and one ask, if the deck makes them obvious. Agents now produce a polished deck in minutes, which makes polish cheap and the storyline the scarce part. The PM who decides the message first, then uses the agent to build and check the slides, leaves the room with a decision. The PM who starts from a template leaves with questions about slide 7.',
       learn: [
         {
-          heading: 'Answer first',
+          heading: 'Start with the answer',
           paragraphs: [
             'Executives read top-down. Start with the answer: what you recommend and why, then the supporting arguments, then the evidence. The SCQA frame gets you there in four sentences: the **situation** everyone agrees on, the **complication** that changed it, the **question** that raises, and your **answer**. If you cannot write those four sentences, no slide design will save the deck.',
             'Nancy Duarte adds the shape of a talk: contrast what is with what could be, and move the audience from where they are to where you need them. In a QBR, "what is" is the problem and the evidence; "what could be" is the outcome if leadership backs your next step.',
@@ -574,7 +574,7 @@ Done when: every section exists and you have listed the proposed items for my de
           ],
         },
         {
-          heading: 'Build it with an agent',
+          heading: 'Build the deck with an agent',
           paragraphs: [
             'Write the outline in Markdown first: the SCQA, then one line per slide with its title sentence, the evidence and the chart it needs. Build the deck in your existing slide tool, or follow the linked **Claude Slides** tutorial. Check every generated claim and number, then export a format your audience can open, such as PPTX or PDF.',
             'Then make it pleasing to look at, on purpose:',
@@ -594,7 +594,7 @@ Done when: every section exists and you have listed the proposed items for my de
           ],
         },
         {
-          heading: 'The written update goes alongside',
+          heading: 'Send a written update with the deck',
           paragraphs: [
             'Not everyone will be in the room, and the people who are will forget. `stakeholder-update.md` carries the same story in one screen of text: the decision or ask in the first line, the result with its numbers, the risks, and what you need from whom by when. It uses the same numbers as the deck and links to the readout and the eval report.',
             'Rehearse once out loud with a timer, then once with your mentor. Ten minutes means about six content slides, with room for questions.',

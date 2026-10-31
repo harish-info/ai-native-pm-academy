@@ -37,7 +37,7 @@ export const level2: Level = {
         'Your pitch page landed and your manager wants a prototype next. From here the work spreads across research, notes, decisions and code, and an agent is only as useful as the context it can reach. A tidy folder with one short instructions file is the simplest knowledge system that works with Claude Code today and with whatever tool comes next. Every later session, and the personal PM OS you build in Level 5, grows out of this folder.',
       learn: [
         {
-          heading: 'From chat to an agent that works on your files',
+          heading: 'What Claude Code does that a chat cannot',
           paragraphs: [
             'Claude Code can read files, write changes and run tools. File contents, instructions, command output and other context may be sent to the provider. Its working folder is a starting scope, not an access boundary. Check permissions, connected tools and the environment before using it.',
             "You do not need a terminal. The Claude desktop app has a **Code** tab: sign in with your Claude Pro plan, choose a folder and type. The terminal version is the same agent if you ever want it. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on. The [Field guide](/field-guide) compares current models and tools.",
@@ -45,7 +45,7 @@ export const level2: Level = {
           ],
         },
         {
-          heading: 'Folder hygiene decides output quality',
+          heading: 'How to organise your workspace folder',
           illustration: 'workspace',
           paragraphs: [
             'Claude finds things by reading names, listing folders and searching text. A workspace with forty loose drafts gives it forty chances to quote an old decision. A workspace with one folder per workstream, each with a short `README.md` saying what belongs there, gives it a map.',
@@ -62,7 +62,7 @@ export const level2: Level = {
           ],
         },
         {
-          heading: 'Two kinds of memory: the one you write and the one Claude writes',
+          heading: 'CLAUDE.md and auto memory',
           paragraphs: [
             '**`CLAUDE.md`** is loaded at the start of every session in that folder. You write it. A line such as `@product-context.md` on its own pulls that file in too, so every session starts knowing what your product is. Other agents read a file called `AGENTS.md` instead; if you ever use one, a `CLAUDE.md` whose first line is `@AGENTS.md` keeps a single source of truth.',
             '**Auto memory** is notes Claude writes for itself as it works, for example a command that worked or a preference you corrected. It lives in your user folder rather than the workspace, and you can view and edit it with the `/memory` command.',
@@ -71,7 +71,7 @@ export const level2: Level = {
           ],
         },
         {
-          heading: 'Permissions for actions, git for file recovery',
+          heading: 'Permissions, and undoing changes with git',
           paragraphs: [
             'Check the mode in your own session: defaults depend on version, surface and settings. Auto mode uses automated action review; manual modes ask more often, and plan mode helps explore before editing. For unfamiliar or consequential changes, inspect the approach and permissions first.',
             'Commit before a task and inspect the diff afterwards. Git restores tracked file state; it does not automatically recover ignored or untracked files, unsend messages or undo disclosure. Keep unnecessary connectors disabled and decide separately before publishing.',
@@ -79,7 +79,7 @@ export const level2: Level = {
           ],
         },
         {
-          heading: 'What stays out',
+          heading: 'What never goes in the workspace',
           paragraphs: [
             'This is your own workspace on your own computer. Use public or fictional material only: no employer documents, customer data, credentials or personal details about colleagues. When Claude reads a file its contents go to the model provider, so the rule from Session 3 still applies: if you would not paste it into a chat, do not save it here.',
           ],
@@ -191,7 +191,7 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
       id: 's6',
       levelId: 2,
       number: 6,
-      title: 'Spec by interview, then build',
+      title: 'Requirements by interview, then a prototype',
       difficulty: 'Intermediate',
       minutes: 150,
       tools: ['Claude Code'],
@@ -228,21 +228,21 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
           ],
         },
         {
-          heading: 'Review the result, not a plan',
+          heading: 'Check the running prototype',
           paragraphs: [
             'With clear requirements, let Claude build. You do not need to approve a plan first: commit, let it work, then open the running prototype in your browser and click through every screen with `REQUIREMENTS.md` beside you. A running app shows you in a minute what a written plan hides for an hour.',
             'Give feedback one change at a time, with a screenshot when it helps: "On the first screen the date is missing from each item; add it under the name." Check the change, then commit it. If a change goes badly, ask Claude to undo it back to the last commit and try again with a clearer ask. That is usually faster than arguing with a confused session.',
           ],
         },
         {
-          heading: 'Fresh sessions and short handoff notes',
+          heading: 'Start fresh sessions from a handoff note',
           paragraphs: [
             'Long sessions fill the context window. Claude Code then compacts the conversation, summarising older turns to make room, and detail is lost. You cannot control what survives. The signs are familiar: it reintroduces a bug it fixed, forgets a decision or contradicts the requirements.',
             'The fix is cheap. Anything that matters goes into a file. Before you stop, or as soon as a session drifts, ask for a short `HANDOFF.md` and start a fresh session that reads it. A good handoff is written for a capable stranger with no access to the conversation: the goal, the current state with file paths, what is done, decisions and why, open questions, the next steps in order, how to check the work and what not to do. Keep it under 40 lines and overwrite it each time; git keeps the old versions.',
           ],
         },
         {
-          heading: 'Your prototype is its own small project',
+          heading: 'Give the prototype its own folder and repository',
           paragraphs: [
             'Claude builds the prototype in `prototype/` inside your workspace. Because it will be public on GitHub in Session 7, it gets its own git history, separate from your private notes, and the workspace is told to ignore that folder. Give it its own short `CLAUDE.md` with the commands to run it and the hard rules: fictional data only, no real systems, accounts or keys.',
             'Ask for a small web app that runs in the browser, built with React, TypeScript and Vite. That is a common, well-documented stack that agents handle well, and it can go live on GitHub Pages for free.',
@@ -352,7 +352,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
         'Engineers want to see the prototype and comment on it, and they want a link, not a screen share. GitHub is where software work becomes visible: changes, reviews, decisions and releases. PMs who can open a pull request and read a diff work with engineers and coding agents directly instead of only through tickets, and the pull request history is the audit trail regulated teams rely on.',
       learn: [
         {
-          heading: 'The mental model',
+          heading: 'How Git and GitHub fit together',
           illustration: 'git',
           paragraphs: [
             'A **repository** is a project folder with its full history. A **commit** is a saved snapshot with a message explaining why it was made. A **branch** is a parallel line of work, so you can change things without touching the stable version on `main`. A **pull request** (PR) proposes merging a branch into `main`, and it is where review, discussion and automated checks happen.',
@@ -367,7 +367,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
           ],
         },
         {
-          heading: 'Reading a diff',
+          heading: 'How to read a diff',
           paragraphs: [
             'A diff shows removed lines in red and added lines in green. You do not need to understand every line to review usefully. Ask four questions: does this change match the pull request description, is anything changed that should not be, is there a way to check it works, and is there anything secret or real in it? Those four questions catch a surprising amount.',
             'If you cannot explain what a change does and why, do not merge it. Ask Claude to walk you through any line you do not understand, and keep asking until you can explain it back.',
@@ -489,7 +489,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
         'People may rely on the figures and warnings in your product even in a polished demo. Review observed behaviour, not only generated code or the agent’s explanation. Prioritise wrong decisions and missed warnings before cosmetic polish.',
       learn: [
         {
-          heading: 'Test like a user, then like a sceptic',
+          heading: 'Test the normal path, then try to break it',
           illustration: 'review',
           paragraphs: [
             'Watch someone use the live link on their own phone without helping. Note where they hesitate, what they tap that does nothing, and what they misread. Then go through `REQUIREMENTS.md` yourself, screen by screen: every state, every "done when" example, at laptop and phone width.',
@@ -510,7 +510,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
           ],
         },
         {
-          heading: 'A second opinion from a fresh session',
+          heading: 'Ask a fresh session to review the change',
           paragraphs: [
             'The session that wrote the code is the worst one to review it: it remembers what it meant, not what it wrote. Open a fresh session, give it the requirements and your checklist, and ask it to review the changes against `main` without editing anything. Claude Code also has a built-in review command; a plain prompt in a fresh session works just as well.',
             'An agent reviewer can find likely bugs, missing states and scope creep. It also raises false alarms and misses context only you have. Treat each comment as input, not a verdict, and record a decision for every one: fixed, rejected with a reason, or turned into an issue. Follow your team’s review policy; an agent approval does not replace a required human approval.',
@@ -523,7 +523,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
           ],
         },
         {
-          heading: 'Never commit a secret',
+          heading: 'Keep secrets out of the repository',
           paragraphs: [
             "A public repository is public forever: bots scan GitHub for keys within minutes, and deleting a file later does not remove it from history. Keep keys, tokens, passwords and `.env` files out, list them in `.gitignore`, and turn on secret scanning and push protection in the repository's security settings so GitHub blocks a push that contains a known key format.",
             'If a secret does get pushed, revoke it at the provider first, then clean up the repository. Real personal data follows the same rule: none, ever, because the prototype runs on fictional records and events.',

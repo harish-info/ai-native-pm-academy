@@ -37,14 +37,14 @@ export const level1: Level = {
         'Before you use an assistant for anything that matters in your PM work, you need to know what it actually is. Product teams need a shared understanding of its limits. A PM who can explain tokens, context windows and hallucination in two minutes makes better calls about what to automate and what to check.',
       learn: [
         {
-          heading: 'Next-token prediction, at enormous scale',
+          heading: 'How a model writes an answer',
           paragraphs: [
             'A large language model is trained on a vast amount of text to predict the next small chunk of text, called a **token**. A token is roughly three quarters of an English word; numbers, code and non-English text often use more tokens per word. After this pretraining, the model is further trained on examples and human feedback so that it follows instructions and behaves like an assistant.',
             'When you send a message, the model reads everything in its context and generates the reply one token at a time, each choice conditioned on everything before it. That single mechanism explains a lot. Models are fluent because fluency is what they were trained on. They can be confidently wrong because a plausible sentence and a true sentence look the same to the generation process. And two runs of the same request can differ because generation involves sampling from likely continuations, not looking up a stored answer.',
           ],
         },
         {
-          heading: "Context windows: the model's working memory",
+          heading: 'The context window: what the model can see',
           paragraphs: [
             'The **context window** is everything the model can see at once: the instructions the product adds, your messages, attached documents, tool results and its own previous replies. Windows of hundreds of thousands of tokens are now common, but bigger is not the same as better. Practitioners call the effect **context rot**: as a conversation fills with long, loosely relevant or contradictory material, answers get less precise, and stale content competes with what you actually want.',
             "The model does not remember yesterday's chat unless the product deliberately adds a memory feature or you bring the material back in. Treat each conversation as a fresh briefing. Session 2 turns this into the core skill of the course: deciding what the model sees.",
@@ -64,7 +64,7 @@ export const level1: Level = {
           ],
         },
         {
-          heading: 'Two choices: model and effort',
+          heading: 'Choosing a model and an effort level',
           paragraphs: [
             '**Model choice** selects a particular trained model. Companies offer different models that balance capability, speed and cost. Try a more capable model for difficult analysis, a balanced model for everyday work, and a fast, lower-cost model for clear, repeated tasks. Compare their results on the work you need to do.',
             '**Effort** controls how much work a supported model spends on a response. Raising it keeps the same model. It can help with difficult reasoning and checking, while taking longer and consuming more usage. It cannot supply missing context or make a factual answer automatically trustworthy.',
@@ -77,14 +77,14 @@ export const level1: Level = {
           ],
         },
         {
-          heading: 'Capabilities and failure modes',
+          heading: 'What models do well, and where they fail',
           paragraphs: [
             'Current models are strong at drafting, restructuring, summarizing, explaining a topic at different levels, generating options, translating between audiences and writing code.',
             'They remain risky for exact arithmetic over many figures without a calculator tool, recent events unless web search is on, citations (which can be invented or misattributed), facts specific to your organization, and consistent judgment on ambiguous policy questions. A confident tone is not evidence of accuracy.',
           ],
         },
         {
-          heading: 'Compare models like a PM, not a fan',
+          heading: 'How to compare two models on your own task',
           paragraphs: [
             'Asking which model is best is the wrong question. Define criteria for the task first: factual accuracy, following constraints, usefulness for the audience and honesty about uncertainty. Run the same request in two models or two settings, blind if someone can relabel the outputs, and score each one.',
             'Be honest about what you are comparing. Two products differ in model, but also in reasoning setting, web search, memory and the instructions the product adds. Unless you control those, you are comparing products, not models, which is still useful as long as you say so.',
@@ -189,7 +189,7 @@ Rules:
       id: 's2',
       levelId: 1,
       number: 2,
-      title: 'Context, not prompts',
+      title: 'Give AI your product context',
       difficulty: 'Foundational',
       minutes: 90,
       tools: ['Claude (Projects)', 'A text editor'],
@@ -224,14 +224,14 @@ Rules:
           ],
         },
         {
-          heading: 'Context beats wording',
+          heading: 'Role phrases versus real context',
           paragraphs: [
             'Clear wording still matters: say what task to do, which material to use, the constraints and what done looks like. A role phrase such as "you are a world-class strategist" cannot supply missing evidence. Compare instructions and context on your task instead of assuming a universal prompting trick.',
             'A brief to a model has the same parts as a brief to a new colleague. If a capable person joining your team tomorrow could not do the task from what you gave them, the model cannot either.',
           ],
         },
         {
-          heading: 'One page of product context',
+          heading: 'Write product-context.md',
           paragraphs: [
             '`product-context.md` is a single page that tells any assistant what it needs to know about your product. Keep it short: context rot applies to your own files too. Write "Unknown" where you do not know something, instead of a plausible guess, and list where each fact came from.',
             'In a **Claude Project**, files in project knowledge and the project instructions are available to every chat in that project, so you stop pasting the same background every time. In Session 5 the same file sits at the top of your workspace, and in Level 5 it grows into a personal and a team knowledge base.',
@@ -365,7 +365,7 @@ Done when: every table row has a source URL and every implication names the cont
           ],
         },
         {
-          heading: 'Claim-level verification',
+          heading: 'Check each claim, not the whole answer',
           illustration: 'verification',
           paragraphs: [
             'Break any AI report into atomic claims, then sort them. **Material claims** would change a decision if they were wrong; **background claims** would not. You verify every material claim and sample the rest.',
@@ -379,7 +379,7 @@ Done when: every table row has a source URL and every implication names the cont
           ],
         },
         {
-          heading: 'Judge the source by its relationship to the claim',
+          heading: 'Which sources to trust for which claims',
           paragraphs: [
             "A source is strong for a claim when it observed the thing directly. A national statistics survey is primary evidence for how many people face a problem. A company's own page is primary evidence for what that company says it launched, but only an assertion about how well it works. Reputable journalism and analyst reports are secondary: they interpret someone else's evidence.",
             'So ask three questions of every source: did it observe this, does it gain from the claim, and has anyone independent confirmed it? A forum thread full of people describing the problem is a great discovery signal. It is not a market size.',
@@ -505,14 +505,14 @@ Rules:
         'You have a feature idea and a problem hypothesis in product-context.md. A prototype can make the idea easier to discuss, but it does not establish that users have the problem. A simple pitch page helps people inspect the proposed flow and challenge its assumptions. Use it when interaction is the question; keep a short written argument for decisions the interface cannot show.',
       learn: [
         {
-          heading: 'Demos before memos',
+          heading: 'Why build a page instead of writing a memo',
           paragraphs: [
             'A page people can click answers questions a memo leaves open: what would the user actually see, what would it say, where would it break. It also exposes weak ideas faster, which is the point. You will meet this idea again in Session 12, where the prototype is linked from the PRD.',
             '**Vibe coding**, a term Andrej Karpathy coined in early 2025, means describing what you want in plain language, letting the AI write the code, and judging the result by using it rather than by reading the code. It is ideal for pitches and throwaway prototypes. It is not how production software gets built, and Level 2 shows the more careful version.',
           ],
         },
         {
-          heading: 'Feed it context, then change one thing at a time',
+          heading: 'Start from your files, then change one thing at a time',
           paragraphs: [
             'Start from the files you already have. Building inside your PM workspace Project means `product-context.md` is already in context; attach `fact-sheet.md` so the page uses only checked facts. Say what the page is for, who will see it and what each section must contain.',
             'Then iterate in small steps. Ask for one change per message and check the result before the next. A request that changes five things at once makes it impossible to tell which change broke the layout. Artifacts keep earlier versions, so you can step back. When the chat gets long, start a fresh one with the current version and your context files: context rot applies here too.',
