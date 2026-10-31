@@ -66,9 +66,9 @@ export const level1: Level = {
         {
           heading: 'Two choices: model and effort',
           paragraphs: [
-            '**Model choice** selects a particular trained model. Providers offer families for different balances of capability, speed and cost. A flagship is a sensible candidate for difficult analysis; a balanced tier for everyday work; a fast, lower-cost tier for clear, repeated tasks. These are starting points to test, not a permanent ranking.',
+            '**Model choice** selects a particular trained model. Companies offer different models that balance capability, speed and cost. Try a more capable model for difficult analysis, a balanced model for everyday work, and a fast, lower-cost model for clear, repeated tasks. Compare their results on the work you need to do.',
             '**Effort** controls how much work a supported model spends on a response. Raising it keeps the same model. It can help with difficult reasoning and checking, while taking longer and consuming more usage. It cannot supply missing context or make a factual answer automatically trustworthy.',
-            'The dated [model and effort guide](/field-guide) shows current Claude and GPT families, their roles, and four PM task examples. Your available choices depend on the app and plan.',
+            'The dated [model and effort guide](/field-guide) shows current Claude and GPT models, when to use each, and four PM task examples. Your available choices depend on the app and plan.',
           ],
           bullets: [
             '**Low:** try a quick rewrite with all facts supplied. Check that no facts changed.',

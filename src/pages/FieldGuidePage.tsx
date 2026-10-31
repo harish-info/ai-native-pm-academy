@@ -307,26 +307,13 @@ export function FieldGuidePage() {
               </h2>
             </div>
             <Pill tone="amber">
-              As of <time dateTime={FIELD_GUIDE_AS_OF}>{FIELD_GUIDE_AS_OF_LABEL}</time>
+              <span>
+                As of <time dateTime={FIELD_GUIDE_AS_OF}>{FIELD_GUIDE_AS_OF_LABEL}</time>
+              </span>
             </Pill>
           </div>
           <div className="mt-3 max-w-3xl">
             <Paragraphs items={g.landscapeIntro} />
-            <dl
-              aria-label="How to read a model name"
-              className="mt-4 grid grid-cols-3 divide-x divide-stone-300 rounded-xl bg-stone-100 py-3 dark:divide-stone-700 dark:bg-stone-800/60"
-            >
-              {g.modelNameParts.map((part) => (
-                <div key={part.label} className="px-4">
-                  <dt className="text-xs text-stone-600 dark:text-stone-400">{part.label}</dt>
-                  <dd className="mt-1 text-lg font-semibold">{part.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-3 leading-relaxed">{g.modelChoiceIntro}</p>
-            <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-              {g.modelChoiceCaveat}
-            </p>
           </div>
           <div className="mt-5 divide-y divide-stone-200 dark:divide-stone-800">
             {g.labs.map((lab) => (
@@ -336,13 +323,14 @@ export function FieldGuidePage() {
                 className="py-5 first:pt-0"
               >
                 <h3 className="text-lg font-semibold">{lab.company}</h3>
+                <p className="mt-2 max-w-3xl text-sm leading-relaxed">{lab.modelIntro}</p>
                 <ul className="mt-3 grid gap-5 md:grid-cols-3">
                   {lab.models.map((model) => (
                     <li key={model.name}>
-                      <p className="text-xs font-medium text-stone-600 dark:text-stone-400">
+                      <h4 className="text-lg font-semibold tracking-tight">{model.name}</h4>
+                      <p className="mt-1 text-xs font-medium text-stone-600 dark:text-stone-400">
                         {model.role}
                       </p>
-                      <h4 className="mt-1 text-lg font-semibold tracking-tight">{model.name}</h4>
                       <p className="mt-2 text-sm leading-relaxed">{model.useFor}</p>
                     </li>
                   ))}
@@ -366,6 +354,9 @@ export function FieldGuidePage() {
               </section>
             ))}
           </div>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+            {g.modelChoiceNote}
+          </p>
 
           <EffortGuide />
 

@@ -21,6 +21,7 @@ export interface LayerScenario {
 
 export interface LabRow {
   company: string
+  modelIntro: string
   models: { name: string; role: string; useFor: string }[]
   also: string
   assistant: string
@@ -124,29 +125,31 @@ export const fieldGuide = {
   ] satisfies LayerScenario[],
 
   landscapeIntro: [
-    'A dated map of current models and the products around them. Choose from what your approved tools offer, then use the Session 1 comparison to check the fit for your work.',
+    'Choose a specific model for the work you need to do. Compare the options below, then use the PM task examples to choose an effort setting.',
   ],
   labs: [
     {
       company: 'Anthropic',
+      modelIntro:
+        'Claude is the name for Anthropic’s AI models. Opus, Sonnet and Haiku are different Claude models. The full name, such as Claude Sonnet 5.5, tells you which model and version you are using.',
       models: [
         {
           name: 'Claude Opus 5.5',
-          role: 'Flagship generalist',
+          role: 'Flagship model for demanding work',
           useFor:
-            'Complex analysis and agent work. A PM starting point for difficult PRD trade-offs or a prototype with many constraints.',
+            'Try it for difficult PRD trade-offs, conflicting requirements or a prototype with many constraints.',
         },
         {
           name: 'Claude Sonnet 5.5',
-          role: 'Balanced everyday tier',
+          role: 'Balanced model for everyday work',
           useFor:
-            'Speed and capability at lower API cost than Opus. Try it for a clear feature brief, everyday prototyping and iteration.',
+            'Balances capability, speed and cost. Try it for drafting a feature brief, analysing feedback or building a small prototype.',
         },
         {
           name: 'Claude Haiku 5.5',
-          role: 'Fast, lower-cost tier',
+          role: 'Fast, lower-cost model',
           useFor:
-            'Focused, repeated work. Try tagging feedback against agreed themes or extracting fields, after checking a sample.',
+            'Try it for extracting fields, formatting notes or tagging feedback using categories you have already defined. Check a sample first.',
         },
       ],
       also: 'Claude Fable 5.1 is a further step up for demanding reasoning and long agent tasks. Anthropic recommends starting with Opus 5.5 for most workloads, then testing Fable if Opus still falls short.',
@@ -157,33 +160,37 @@ export const fieldGuide = {
     },
     {
       company: 'OpenAI',
+      modelIntro:
+        'OpenAI makes GPT models. Astra, Sol and Luna are different model choices. ChatGPT is the app where you can use GPT models; the choices available depend on your plan.',
       models: [
         {
           name: 'GPT-6 Astra',
-          role: 'Flagship generalist',
+          role: 'Flagship model for demanding work',
           useFor:
-            'The most demanding reasoning and agent work. Try it when a difficult product decision or build needs a stronger model.',
+            'Try it for a difficult product decision, deep analysis or a complex task you want an agent to work through.',
         },
         {
           name: 'GPT-6.1 Sol',
-          role: 'Balanced everyday tier',
+          role: 'Balanced model for everyday work',
           useFor:
-            'Complex work at lower API cost than Astra. A practical starting point for a PM brief, analysis or prototype.',
+            'Balances capability and cost. Try it for a PM brief, feedback analysis or a small prototype.',
         },
         {
           name: 'GPT-6 Luna',
-          role: 'Fast, lower-cost tier',
+          role: 'Fast, lower-cost model',
           useFor:
-            'Focused, high-volume tasks. Try routine extraction or first-pass feedback tagging with a checked sample.',
+            'Try it for repeated, well-defined tasks such as extracting fields or tagging feedback. Check a sample before processing the full set.',
         },
       ],
-      also: 'GPT-6.1 Terra is another current option, focused on visual reasoning, computer use and writing. GPT-6 Sol is the earlier Sol release. Similar tier labels across labs do not imply equal performance.',
+      also: 'GPT-6.1 Terra is another current option, focused on visual reasoning, computer use and writing. GPT-6 Sol is the earlier Sol release.',
       assistant: 'ChatGPT, including ChatGPT Work for longer tasks across apps and files.',
       agent: 'Codex, available in the ChatGPT desktop app.',
       resourceIds: ['openai-current-models', 'openai-chatgpt-work'],
     },
     {
       company: 'Google',
+      modelIntro:
+        'Google makes Gemini models. The Gemini app is one place to use them. Check whether a model has been released for your account before planning to use it.',
       models: [
         {
           name: 'Gemini 4 Argon',
@@ -204,18 +211,11 @@ export const fieldGuide = {
       resourceIds: ['google-gemini-4-argon', 'google-gemini-4-carbon'],
     },
   ] satisfies LabRow[],
-  modelNameParts: [
-    { label: 'Brand', value: 'Claude' },
-    { label: 'Family', value: 'Sonnet' },
-    { label: 'Version', value: '5.5' },
-  ],
-  modelChoiceIntro:
-    'Opus 5.5 and Haiku 5.5 are other families, not effort settings for Sonnet. Version numbers identify releases within a family; they are not capability scores you can compare across families or companies.',
-  modelChoiceCaveat:
-    'Roles reflect vendor positioning. PM examples are course suggestions to test. API cost tiers do not directly describe subscription prices or cost per finished task. One approved assistant is enough to start.',
+  modelChoiceNote:
+    'These PM task suggestions are starting points to compare on your own work. Model availability and usage limits depend on your app and plan.',
   effort: {
     intro:
-      'Model chooses the engine. Effort asks that same engine to spend more or less work on its response. For example, Sonnet 5.5 at high effort is still Sonnet 5.5. It does not become Opus, gain missing context or get permission to use new tools.',
+      'The model setting chooses which AI does the work. Effort controls how much work that model spends on its response. For example, Sonnet 5.5 at high effort is still Sonnet 5.5. It does not switch to Opus or gain access to new information or tools.',
     levels: [
       {
         name: 'Low',
