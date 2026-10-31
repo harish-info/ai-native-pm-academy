@@ -25,6 +25,8 @@ const demoRoutes = [
 async function audit(page: Page, route: string) {
   await page.goto(route)
   await page.waitForLoadState('networkidle')
+  // Secondary pages load lazily; audit the rendered page, not the loading state.
+  await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible()
   const result = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze()
