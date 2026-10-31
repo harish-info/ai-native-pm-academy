@@ -28,7 +28,7 @@ Apply the methods to a product, service or workflow you understand. Lessons addr
   - The next level opens once the previous level's required sessions are done, so a project can finish while the next level starts.
   - Mastering a level needs its required sessions, a quiz score of at least 80% and a project that passes a 4-dimension rubric.
   - Badges are kept once earned.
-- Session pages: decision brief, recall, visible sources and tutorials, explanation, worked example, interactive decision practice, task, optional agent prompt, verification and evidence. One suggested excerpt helps with pacing; additional sources stay visible.
+- Session pages: decision brief, recall, lesson explanation, visible tutorials and sources, worked example, interactive decision practice, task, optional agent prompt, verification and evidence. The lesson introduces the concepts before the links. One suggested excerpt helps with pacing; additional sources stay visible.
 - A session completes only with evidence: checklist, reflection, an artifact reference and logged time.
 - Dashboard, progress charts (each with a table view), weekly rhythm (no daily streaks), timeline and achievements.
 - Workspace for notes and reflections, a study plan with a mentor role every week, a case-study hub and a PM workspace guide.

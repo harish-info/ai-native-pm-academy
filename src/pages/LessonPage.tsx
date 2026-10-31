@@ -25,7 +25,7 @@ import { NotFound } from './NotFound'
 
 const steps = [
   { id: 'overview', label: 'Overview' },
-  { id: 'learn', label: 'Sources and lesson' },
+  { id: 'learn', label: 'Lesson and tutorials' },
   { id: 'task', label: 'Practical task' },
   { id: 'prompt', label: 'Agent prompt' },
   { id: 'verify', label: 'Verify and complete' },
@@ -215,15 +215,6 @@ export function LessonPage() {
           </Step>
 
           <Step id="learn">
-            <Section title="Sources and tutorials">
-              <p className="text-sm text-stone-600 dark:text-stone-400">
-                Start with the suggested excerpt, then explore the other tutorials for another
-                explanation or more depth. The excerpt time is included in this session; the
-                additional reading is yours to choose.
-              </p>
-              <ResourceRefs refs={lesson.resources} />
-            </Section>
-
             <div className="lesson-reader space-y-8 rounded-2xl border border-stone-200 bg-white px-5 py-7 sm:px-8 dark:border-stone-800 dark:bg-stone-900">
               {lesson.learn.map((s) => (
                 <section key={s.heading} className="mx-auto max-w-prose">
@@ -235,6 +226,15 @@ export function LessonPage() {
                 </section>
               ))}
             </div>
+
+            <Section title="Tutorials and sources">
+              <p className="text-sm text-stone-600 dark:text-stone-400">
+                Explore the ideas above with these tutorials and original sources. The suggested
+                excerpt is included in this session’s time; follow the other links for another
+                explanation or more depth.
+              </p>
+              <ResourceRefs refs={lesson.resources} />
+            </Section>
 
             <WorkedExample guide={guide} />
             <DecisionPractice key={lesson.id} guide={guide} />

@@ -47,12 +47,12 @@ test('decision practice explains choices without completing a lesson', async ({ 
   await expect(page.getByText('Good judgement')).toBeVisible()
   await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
   await expect(page.getByRole('link', { name: /AI capabilities and limitations/ })).toBeVisible()
-  const sourcesPrecedeLesson = await page.locator('#step-learn').evaluate((section) => {
+  const lessonPrecedesSources = await page.locator('#step-learn').evaluate((section) => {
     const sources = section.querySelector('a[target="_blank"]')!
     const reader = section.querySelector('.lesson-reader')!
-    return !!(sources.compareDocumentPosition(reader) & Node.DOCUMENT_POSITION_FOLLOWING)
+    return !!(reader.compareDocumentPosition(sources) & Node.DOCUMENT_POSITION_FOLLOWING)
   })
-  expect(sourcesPrecedeLesson).toBe(true)
+  expect(lessonPrecedesSources).toBe(true)
 })
 
 test('onboarding produces a personalized path', async ({ page }) => {
