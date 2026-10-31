@@ -1,0 +1,9 @@
+node_modules
+dist
+playwright-report
+test-results
+*.local
+.DS_Store
+# Never commit learner data or backups
+*academy-backup*.json
+private/
