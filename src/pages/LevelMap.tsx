@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 import { formatDate, formatMinutes } from '../domain/dates'
 import { useLevelStatuses } from '../state/hooks'
 import { LevelArt } from '../ui/art'
@@ -16,6 +17,10 @@ import {
   stretchedLink,
 } from '../ui/primitives'
 
+const ProductLoop = lazy(() =>
+  import('../ui/ProductLoop').then((m) => ({ default: m.ProductLoop })),
+)
+
 export function LevelMap() {
   const statuses = useLevelStatuses()
   return (
@@ -25,6 +30,23 @@ export function LevelMap() {
         start the next level while a project is still open. Mastering a level needs every required
         session, at least 80% on the assessment and a passing project.
       </PageHeader>
+      <section
+        aria-labelledby="team-loop-heading"
+        className="mb-8 rounded-xl border border-stone-200 p-5 dark:border-stone-700"
+      >
+        <h2 id="team-loop-heading" className="text-xl font-semibold">
+          What could a product team with agents look like?
+        </h2>
+        <p className="mt-2 mb-5 max-w-3xl text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+          One possible loop connects the skills in this course. Start with context, work on the
+          problem together, make intent visible, build, verify and learn. Try it against your team’s
+          bottleneck, adapt it and revisit it as the work changes. Session 20 turns this into a
+          small team experiment.
+        </p>
+        <Suspense fallback={<p className="text-sm">Loading the suggested product loop…</p>}>
+          <ProductLoop compact />
+        </Suspense>
+      </section>
       <ol className="space-y-4">
         {statuses.map((s) => {
           const minutes =

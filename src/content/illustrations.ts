@@ -268,6 +268,40 @@ export const lessonVisuals = {
       },
     ],
   },
+  'team-loop': {
+    title: 'A possible product loop with agents',
+    summary:
+      'Explore a PM contribution and a team conversation at each stage. Adapt this model as your work changes.',
+    caption:
+      'A suggested way of working, adapted from the course creator’s practice. Stages overlap and repeat; stopping or returning to the problem can be the right move.',
+  },
+  constraints: {
+    title: 'Faster building can leave the same constraint',
+    summary: 'Change the scenario and compare the capacity of the whole workflow.',
+    caption:
+      'Toy model: comparable items per week at a steady state, no buffers or feedback. Throughput is capped by the smallest stage capacity. These are illustrative numbers, not measured productivity or a forecast.',
+    stages: ['Decision-ready', 'Build', 'Verify'],
+    scenarios: [
+      {
+        label: 'Starting point',
+        capacities: [2, 2, 2],
+        explanation:
+          'Each stage can handle two items. The simplified whole-loop capacity is two per week.',
+      },
+      {
+        label: 'Build faster',
+        capacities: [2, 6, 2],
+        explanation:
+          'Building capacity triples, but decision preparation and verification still cap the flow at two. More generation could add to the queue.',
+      },
+      {
+        label: 'Improve the loop',
+        capacities: [4, 6, 4],
+        explanation:
+          'Improving decision preparation and verification raises the model’s capacity to four. Check quality and workload before claiming a real gain.',
+      },
+    ],
+  },
   team: {
     title: 'Count the whole task, not just the draft',
     summary: 'Faster generation can still leave the team with more work.',

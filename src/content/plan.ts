@@ -194,7 +194,7 @@ export const planWeeks: PlanWeek[] = [
   {
     number: 8,
     levelIds: [5],
-    title: 'Lead the AI-native team',
+    title: 'Product teams with agents',
     goal: 'Write the team playbook, finish the PM OS project and demo it, and leave with a kit you could take back to work.',
     mentor:
       '60 minutes: play the sceptical head of engineering at her demo of the PM OS and team knowledge base. Would you let your team adopt it? What would change your mind? Then sign off the Level 5 project against the rubric.',

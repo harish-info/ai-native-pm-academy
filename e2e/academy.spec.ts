@@ -88,6 +88,45 @@ test('lesson illustrations explain changing inputs and respect reduced motion', 
   await expect(states.getByText('Could not load your items', { exact: true })).toBeVisible()
 })
 
+test('suggested team loop supports keyboard exploration and shows workflow constraints', async ({
+  page,
+}) => {
+  await page.goto('#/levels')
+  const overview = page.getByRole('tablist', { name: 'Product loop stages' })
+  await expect(overview.getByRole('tab')).toHaveCount(6)
+  await overview.getByRole('tab', { name: '1 Context' }).focus()
+  await page.keyboard.press('ArrowLeft')
+  await expect(overview.getByRole('tab', { name: '6 Learn' })).toBeFocused()
+  await expect(page.getByRole('tabpanel')).toContainText('Updated context')
+  await page.keyboard.press('Home')
+  await expect(overview.getByRole('tab', { name: '1 Context' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  )
+
+  await page.goto('#/lessons/s20')
+  const loop = page.locator('[data-illustration="team-loop"]')
+  await loop.getByRole('tab', { name: '3 PRD, spec, prototype' }).click()
+  await expect(loop.getByRole('tabpanel')).toContainText('GrillMe')
+  await expect(loop.getByRole('link', { name: 'Session 12' })).toHaveAttribute(
+    'href',
+    '#/lessons/s12',
+  )
+  await loop.getByRole('tab', { name: '3 PRD, spec, prototype' }).focus()
+  await page.keyboard.press('End')
+  await page.keyboard.press('ArrowRight')
+  await expect(loop.getByRole('tab', { name: '1 Context' })).toBeFocused()
+
+  await page.goto('#/lessons/s9')
+  const capacity = page.locator('[data-illustration="constraints"]')
+  await expect(capacity.getByText('Whole-loop capacity: 2 items / week')).toBeVisible()
+  await capacity.getByRole('button', { name: 'Build faster' }).click()
+  await expect(capacity.getByText('Whole-loop capacity: 2 items / week')).toBeVisible()
+  await capacity.getByRole('button', { name: 'Improve the loop' }).click()
+  await expect(capacity.getByText('Whole-loop capacity: 4 items / week')).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
+})
+
 test('onboarding produces a personalized path', async ({ page }) => {
   await page.goto('#/onboarding')
   await page.getByRole('button', { name: 'Continue' }).click()

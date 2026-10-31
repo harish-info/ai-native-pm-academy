@@ -15,7 +15,12 @@ export default defineConfig({
       output: {
         codeSplitting: {
           groups: [
-            { name: 'vendor', test: /node_modules/ },
+            { name: 'vendor', test: /node_modules/, priority: 100 },
+            {
+              name: 'product-loop',
+              test: /src[\\/](content[\\/]productLoop\.ts|ui[\\/]ProductLoop\.tsx)$/,
+              priority: 20,
+            },
             {
               name: 'lesson-visuals',
               test: /src[\\/](content[\\/]illustrations\.ts|ui[\\/]LessonIllustration\.tsx)$/,

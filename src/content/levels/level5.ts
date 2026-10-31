@@ -6,13 +6,13 @@ export const level5: Level = {
   title: "Your PM OS and your team's knowledge",
   theme: 'Turn a quarter of work into a knowledge system you, your team and your agents can trust.',
   summary:
-    'Your workspace now holds research, decisions and delivery artifacts from the course. Turn it into a personal PM OS that an agent keeps current, design a team knowledge base that people and agents share, package your recurring work as tested skills with a scheduled weekly briefing, and write the playbook for leading a team that works this way.',
+    'Your workspace now holds research, decisions and delivery artifacts from the course. Turn it into a personal PM OS that an agent keeps current, design a team knowledge base that people and agents share, package your recurring work as tested skills with a scheduled weekly briefing, and propose a way of working that your team can test and adapt.',
   outcomes: [
     'Run a personal knowledge base with three layers (sources, wiki, instructions) and use Claude Code to ingest, query and lint it.',
     'Decide what belongs in instructions, in auto memory and in the wiki.',
     'Design a team knowledge base with immutable sources, a sourced wiki, people-only instructions, a share-and-review flow and maintenance jobs, and test it with a fresh agent.',
     'Write, check and schedule skills for recurring PM work, with least access and defences against injected content.',
-    'Lead a team into AI-native work: shared context and skills, review as the bottleneck, rituals, measures and what stays human.',
+    'Explore how a product team could work with agents: shared context, joint decisions, changing bottlenecks and a measured workflow experiment.',
   ],
   badge: {
     name: 'AI-Native PM',
@@ -522,7 +522,7 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
       id: 's20',
       levelId: 5,
       number: 20,
-      title: 'Lead the AI-native team',
+      title: 'Product teams with agents',
       difficulty: 'Advanced',
       minutes: 120,
       tools: ['Claude Code', 'Slides or a Markdown document'],
@@ -530,63 +530,96 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
       competencies: ['ai-leadership'],
       xp: 150,
       mentorReview: 'recommended',
-      goal: 'Write a team playbook for how a product team works with shared context, skills and agents, and give a 10-minute live demo of your PM OS to your mentor.',
+      goal: 'Explore what a product team with agents could look like, adapt one possible working loop to a real bottleneck, and propose a measured pilot with a 10-minute demo.',
       whyItMatters:
-        'The quarter is over, and the team has noticed how you work: answers with sources, plans agents can build from, a briefing ready on Monday. They ask how to do it too. Back at work, the leverage is not that you can do this alone. It is that you can help a team work this way safely, with review and judgment where they matter. A playbook and a live demo make a stronger story than any certificate.',
+        'Faster building can leave a team waiting for product decisions or trustworthy reviews. PM augmentation matters because the whole team needs to learn and decide well. Explore one possible way of working, then adapt it as your team, tools and constraints change.',
       learn: [
         {
-          heading: 'From individual use to team practice',
+          heading: 'What could a product team with agents look like?',
           paragraphs: [
-            'Most teams start with individuals using AI on their own, with private prompts and habits. The gains are real but stay private, and nobody can see the risks either. The step that matters for a team is making context, standards and learning shared: the team knowledge base, an `AGENTS.md` in every repository that points to it, shared skills, an agreed review policy, and a regular slot to swap what worked and what failed.',
-            'Start from the bottleneck, not the tool. Ask where the team actually slows down, such as discovery turnaround, waiting for review, or questions answered three times, and bring AI to that constraint. Widen autonomy the way you would for a new hire: a person checks every output at first, and the agent gets more room only as the evidence holds.',
+            'A team could share context, explore the problem together, align its PRD, spec and prototype, build small slices, verify and learn. Adapt this model to your team. Stages often overlap; revisiting the problem or stopping can be the right move.',
+            'The loop connects the skills from earlier sessions. Select a stage for a possible PM contribution, a team conversation and links back to the relevant lessons.',
+          ],
+          illustration: 'team-loop',
+        },
+        {
+          heading: 'The bottleneck may move upstream',
+          paragraphs: [
+            'Knowing what to build remains central PM work. When agents shorten implementation for a class of tasks, an unclear problem or an unanswered trade-off can become the constraint. Review can become another queue downstream. Neither shift happens everywhere: inspect where your team waits before deciding what to augment.',
+            'A PM could use agents to assemble sourced evidence, prepare alternatives, find conflicting requirements and surface open decisions before a team conversation. The aim is shorter waits for well-founded decisions, not rushed judgment or more documents. Keep consequential decisions visible, with an owner, an explanation and a route to escalate when the owner is unavailable.',
+            'DORA’s 2025 report describes AI as an amplifier of the wider organisational system. METR’s February 2026 update explains why changing tools and task selection make productivity estimates difficult. Neither establishes that programming is solved. Treat faster generation as an opportunity to test, while problem solving, integration and proving value still need attention.',
           ],
         },
         {
-          heading: 'Review is the bottleneck',
+          heading: 'Taste, judgment and a wider range of skills',
           paragraphs: [
-            'More generated work can move the constraint to review and understanding. Check whether that is your team’s actual bottleneck. This course recommends independent human approval for production changes; the organisation’s policy and risk owners decide the real requirements. An agent review is additional input, not a human approval.',
+            'When several plausible solutions are cheap to generate, selecting and refining the right one becomes more valuable. Make taste discussable: compare alternatives against a real user task, explain what earns attention, test states beyond the happy path, and reject a polished result that solves the wrong problem. An agent can critique; you still need evidence and reasons for the choice.',
+            'Role boundaries may become more fluid: a PM can explore a prototype, a designer can challenge a requirement, and an engineer can contribute to discovery. Generalists may find more ways to contribute across this loop. That does not make specialist expertise obsolete. Bring deep design, engineering, research, accessibility, security and domain judgment to the decisions that need it, and agree who is accountable.',
+          ],
+        },
+        {
+          heading: 'From private assistance to shared augmentation',
+          paragraphs: [
+            'Individual AI use can help a person without changing team flow. Shared augmentation connects the work: people and agents can find current context, understand the same intended behaviour, see decisions and reuse what the team learned. The knowledge base and skills you built are ingredients, not a requirement to adopt a particular stack.',
           ],
           bullets: [
-            'Author self-review is mandatory: whoever asked the agent owns the change and can explain it.',
-            'Pull request size caps keep reviews meaningful; large changes get split.',
-            'An agent reviews first, so humans spend their attention on judgment, not typos.',
-            'Low risk (copy, styling, internal tooling): automated checks, agent review and a quick human approval.',
-            'Medium risk (features with no sensitive data or actions): a human reviews the plan and the full change.',
-            'High risk (model behaviour changes, or anything involving sensitive data, consequential decisions and external actions): mandatory human review, a passing eval suite, risk sign-off and an audit record.',
+            '**Shared context:** a small, sourced entry point with owners, dates, constraints and unresolved questions. Update it when evidence changes; do not dump every chat into it.',
+            '**Shared intent:** link the version of the PRD, design spec and prototype that describe the current slice. Reconcile conflicts with their owners before building. A PM should not be the only person able to contribute or explain the plan.',
+            '**Shared quality:** agree acceptance rules, evidence and decision rights. People can use different tools while producing work the team can understand and verify.',
+            '**Shared learning:** show a useful experiment and a failure, then improve the context, checks or skill. Try the process manually before automating it. Keep rituals only while they help.',
           ],
         },
         {
-          heading: 'Rituals that keep shared context alive',
-          paragraphs: [],
+          heading: 'Review practices may change too',
+          paragraphs: [
+            'If generated changes arrive faster than the team can understand them, generating still more work increases the queue. Start with small changes, author self-review and automated or agent checks before scarce expert attention. An agent review is evidence to inspect; it does not grant release authority.',
+            'For the course exercises, retain an independent human approval for production changes. In a real organisation, the review policy is a decision for its accountable owners. A possible future experiment is exception-based human review for a narrowly bounded class of changes, where policy permits it. It would need evidence of reliability, enforced scope, monitoring, sampling, rollback and a named owner before widening. Removing review because the queue is long is not that evidence.',
+          ],
           bullets: [
-            'Monday: the scheduled briefing lists the open questions before the weekly decision meeting, so the meeting decides instead of discovering.',
-            'Straight after the meeting: each decision is shared as a one-liner ("We decided X because Y") and reaches the knowledge base by pull request.',
-            "Friday: the recap compares shipped work and decisions with Monday's commitments. Misses are discussed, not hidden.",
-            'Monthly: rerun the trust check and fix the pages behind the misses.',
+            '**Lower impact:** define the eligible scope and checks; start with a quick independent human review under the course baseline.',
+            '**Moderate impact:** review the intended behaviour and change, including failure states and missing evidence.',
+            '**High impact:** use the relevant experts and approval policy for sensitive data, consequential decisions, external actions and model behaviour changes.',
           ],
         },
         {
-          heading: 'What to measure, and what stays human',
+          heading: 'Run a small team workshop, then test one change',
+          paragraphs: [
+            'In a 30-minute discussion, ask three questions: what would augmentation mean for us, what already helps, and where does work still wait? Walk one recent piece of work through the loop and mark missing evidence, decision delays, artifact drift, review queues and repeated questions. Choose one constraint together. If working alone, rehearse with a mentor and label the team assumptions.',
+            'Try one response for a short, agreed pilot. For a decision queue, that might be a sourced decision brief before the team discussion. For artifact drift, it might be a joint PRD, spec and prototype check after a change. For repeated questions, it might be a shared context page with a backup owner. Do not roll out all three simply because agents can produce them.',
+            'Record an owner and backup, baseline, intended benefit, quality bar, cost and stop signal. Pick a review date appropriate to the work, such as two delivery cycles; six weeks is one option, not a prescribed cadence. Ask teammates whether understanding, confidence and workload improved, then keep, change or stop the experiment. Revisit the workflow as capabilities and constraints change.',
+          ],
+        },
+        {
+          heading: 'Count the whole workflow',
           illustration: 'team',
           paragraphs: [
-            'Measure outcomes and flow, not AI use. Delivery metrics such as lead time and change failure rate show whether flow improved; product metrics such as discovery turnaround and time to first prototype show whether learning sped up. Health signals catch hidden costs: rework, review confidence, whether people understand what they ship, and trust-check scores. The share of work done by AI is an activity metric that says nothing about customers.',
-            'Some things stay human: deciding what to build and why, judging evidence from customers, approving every production change, anything about people (performance, hiring, conflict), and the final word on anything sent to customers, regulators or senior leaders. Governance can reference frameworks such as the NIST AI RMF, while risk and legal teams own their interpretation.',
-            'Adoption is a change-management problem as much as a tooling one. Not everyone finds it easy to let go of hand-written work, and that reaction deserves respect. Start with one team and one bottleneck, measure a baseline, run a six-week pilot, and decide with data.',
+            'Measure the outcome you wanted and the work needed to achieve it. Useful signals include time waiting for a decision, time to a tested prototype, end-to-end lead time, review wait and rework. Pair these with quality, cost, team understanding and fatigue. Generated code, documents and AI usage are activity counts; they do not establish customer value.',
+            'Compare similar tasks at a stated quality bar, include failures and label guesses. Avoid ranking people by tool adoption.',
           ],
         },
         {
-          heading: 'Demo the system, not the tools',
+          heading: 'Demo a possible way of working',
           paragraphs: [
-            'Use Session 16: lead with the answer, then show the evidence. Live, ask the knowledge base a real question and open the source it cites, share a one-line decision and show the pull request it produces, then show the Monday briefing and the trust-check scores.',
-            'Show one failure on purpose, such as a question the knowledge base cannot answer, or a hostile input a skill refused. It proves you designed for failure, which builds more trust than a flawless run.',
+            'State the bottleneck and proposal first. Show a cited answer, a shared decision, a tested skill and a deliberate failure. Explain who decides next and what would change your proposal.',
+            'Invite a bounded experiment. Your PM OS should make the next team decision easier, and evolve when it stops helping.',
           ],
         },
       ],
       resources: [
         {
           resourceId: 'litt-understanding',
-          why: 'A short argument that understanding, not output, is now the scarce resource, which is the case for the review model in your playbook.',
+          why: 'A practitioner argument about understanding as a constraint. Compare it with your own evidence, rather than treating it as a universal review policy.',
           required: true,
+        },
+        {
+          resourceId: 'dora-ai-assisted-development',
+          why: 'Research framing for improving the organisational system around AI. Start with the overview, then follow the full report if useful.',
+          required: false,
+        },
+        {
+          resourceId: 'metr-productivity-update',
+          why: 'A primary research update explaining measurement and selection limits. Use it to question universal productivity claims and design a local baseline.',
+          required: false,
         },
         {
           resourceId: 'catwu-pm-ai-exponential',
@@ -608,12 +641,12 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         summary:
           'Draft `team-playbook.md` with Claude from your own evidence, rewrite it in your words, then give a 10-minute live demo of your PM OS to your mentor.',
         steps: [
-          'Name the bottleneck first: picture a team you work with or know well, and write two sentences on where the work actually slows down and how far the team has moved from private AI use to shared practice. Keep it free of confidential details.',
+          'Spend 30 minutes with teammates or a mentor on the three workshop questions. Map one recent task to the suggested loop, adapt its stages to your context, and choose one evidenced wait point or gap. Record assumptions and keep confidential details out.',
           'Run the agent prompt below. Claude drafts the playbook from your quarter: the wiki, the team knowledge base, the skill checks and the trust-check scores.',
           'Rewrite the draft in your own words. Claude drafts; you own the substance. Read it aloud and rewrite any sentence that sounds like the agent rather than you.',
-          'Check the review model: an independent human approval on every production change, author self-review, a pull request size cap, agent review first, and three risk tiers, each with an example and a gate.',
-          'Check the pilot: one team, one bottleneck, outcome and health metrics with a baseline, success criteria and the signal that would make you stop.',
-          'Script the demo in five beats (the answer first, a cited query, a share, the Monday briefing with the trust-check scores, one deliberate failure) and rehearse it once.',
+          'Check the review model: use the course human-approval baseline, keep changes small and explain three risk tiers with owners and gates. Label any proposed future automation as an experiment requiring policy permission and evidence.',
+          'Check the pilot: one workflow change, an owner and backup, outcome and health metrics with a baseline, a review date and evidence for keeping, changing or stopping. Explain where you adapted the suggested loop.',
+          'Script a short demo: the bottleneck and proposal, a cited query, a shared decision, a tested skill and one deliberate failure. Rehearse once and keep the invitation to experiment explicit.',
           'Give the demo live to your mentor, take their questions, and record the three changes you would make before showing it at work.',
         ],
       },
@@ -623,29 +656,29 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         text: `I am preparing team-playbook.md: a proposal for how a product team in my organization could work with shared context, skills and agents. Read my evidence first: wiki/index.md and the pages it lists, team-kb/AGENTS.md, team-kb/kb-trust-check.md and team-kb/skill-checks.md. My notes on the team's bottleneck: [paste your two sentences].
 
 Draft the playbook in about two pages, with these sections:
-1. Bottleneck: where the team slows down today. Open with this, not with a tool. Mark assumptions.
-2. Shared context: the team knowledge base (layers, share flow, maintenance jobs), an AGENTS.md in every repository that points to it, and how PMs and designers contribute, not only engineers.
-3. Shared skills: which skills the team installs, who owns each, and how each is checked.
-4. Review model: an independent human approval on every production change, author self-review, a pull request size cap, agent review first, and three risk tiers (low, medium, high, where high includes anything involving sensitive data, consequential decisions and external actions), each with an example and a gate.
-5. Rituals: the Monday briefing before the weekly decision meeting, decisions shared as one-liners, a Friday recap against Monday's commitments, a monthly trust check.
-6. What stays human, as a short list.
+1. Workshop and bottleneck: what augmentation could mean for this team, what already helps, and where work waits. Map one task to Context, Problem together, PRD/spec/prototype, Build, Verify and Learn. Adapt or omit stages with a reason. Mark assumptions.
+2. Shared context: reuse the team knowledge base and repository pointers where they help this bottleneck. Explain how product, design and engineering contribute.
+3. Shared skills: reuse a tested skill only if it helps the chosen constraint. Name its owner and checks.
+4. Review model: retain independent human approval for production changes in this course, small changes, author self-review and agent checks before human review. Give three risk tiers, each with an example, owner and gate. Any possible future automated lane needs policy permission, enforced scope, reliability evidence, monitoring and rollback; label it as a proposal, not a forecast.
+5. Working agreements: one optional briefing, decision capture and learning review that fit the bottleneck. Shared artifact versions and backup owners; no mandated toolset or fixed ritual schedule.
+6. Accountability: who owns problem choice, evidence judgment, quality, release authority and people decisions. Explain where specialist expertise is needed even when roles overlap.
 7. Measures: outcome and flow metrics and health signals, each with a baseline. No targets for AI usage.
-8. Adoption: a six-week pilot with one team and no mandated toolset, with success criteria and a stop signal.
+8. Adoption: one workflow change with an owner and backup, an agreed duration and review date, success criteria and keep/change/stop signals. Six weeks is an option, not a rule. Explain when to revisit the operating model.
 9. Objections from engineering, risk and people who prefer hand-written work, with honest responses.
 
-Use only my evidence and mark anything else as an assumption. Do not present predictions about jobs or the future of engineering as facts, and do not claim regulatory compliance. After the draft, review it from the point of view of a sceptical head of engineering and list the five weakest points, with the evidence that would strengthen each.`,
+Use only my evidence and mark anything else as an assumption. Present the loop as one evolving model to try, not the correct way for every team. Do not present predictions about jobs, solved programming or the end of human review as facts, and do not claim regulatory compliance. After the draft, review it from the point of view of a sceptical head of engineering and list the five weakest points, with the evidence that would strengthen each.`,
       },
       expectedOutput: [
         '`team-playbook.md`, bottleneck first, rewritten in your own words',
-        'A review model with three risk tiers, and a six-week pilot with a stop signal',
+        'An adapted team loop, three review risk tiers, and a bounded pilot with a review date and keep/change/stop criteria',
         'A 10-minute live demo of your PM OS, including one deliberate failure',
         'Mentor feedback and three changes you would make before showing it at work',
       ],
       artifact: '`team-playbook.md` and a live demo of your PM OS',
       verification: [
         'The playbook opens with a named bottleneck, not with a tool.',
-        'The review model keeps a human approval on every production change and has three tiers, each with an example and a gate.',
-        'The measures include a baseline and at least one health signal, and no target for AI usage.',
+        'The review model retains the course human-approval baseline, names decision owners and labels future automation as a proposal requiring evidence and policy permission.',
+        'The pilot tests one change, has an owner and backup, a review date, a baseline and at least one health signal. The loop is adapted, with a reason, rather than prescribed.',
         'Every claim in the demo is backed by something on screen: a cited page, a pull request, a briefing or a score.',
         'Read aloud, no sentence of the playbook sounds like the agent rather than you.',
       ],
@@ -660,13 +693,13 @@ Use only my evidence and mark anything else as an assumption. Do not present pre
         { id: 'review-model', text: 'Defined the review model with three risk tiers and gates' },
         {
           id: 'pilot',
-          text: 'Planned a six-week pilot with metrics, a baseline and a stop signal',
+          text: 'Planned a bounded workflow pilot with an owner, review date, baseline and stop signal',
         },
         { id: 'demo', text: 'Gave the 10-minute live demo, including one deliberate failure' },
         { id: 'feedback', text: 'Recorded mentor feedback and three changes' },
       ],
       mentorMove:
-        'Play the sceptical head of engineering for 15 minutes: interrupt the demo with "how do you know that page is still true?" and "what stops a skill from merging its own change?", then push on the playbook with "what is the bottleneck, and how will we know in six weeks whether this helped?" Say whether you would back the pilot and what would change your mind.',
+        'Play the sceptical head of engineering for 15 minutes: interrupt the demo with "how do you know that page is still true?" and "what stops a skill from merging its own change?", then push on the playbook with "what is the bottleneck, what did you adapt, and what would make you change this after the pilot?" Say whether you would back the pilot and what would change your mind.',
     },
   ],
   challenges: [
@@ -1001,7 +1034,7 @@ Use only my evidence and mark anything else as an assumption. Do not present pre
       ],
       correct: 'c',
       explanation:
-        'Every production change keeps an independent human approval, which an agent cannot provide. Self-review and size caps make each human review cheaper, agent review catches routine issues first, and risk decides how deep the human goes. Blanket rules either throttle the benefit or remove essential controls.',
+        'For this course and the stated regulated setting, retain the human-approval baseline unless the accountable policy owners authorise a different process. Small changes and self-review reduce review load, with agent checks as evidence and human depth scaled to risk. An agent approval alone does not establish that a change is eligible for autonomous release.',
     },
     {
       id: 'q5-10',
@@ -1128,5 +1161,5 @@ Use only my evidence and mark anything else as an assumption. Do not present pre
     xp: 400,
   },
   nextRecommendation:
-    'In the weeks you have left, try the two challenges, then keep two small habits: a weekly lint of your personal wiki and a monthly trust check. In your first 30 days back at work, listen before proposing: find where your team actually slows down, find one ally, and offer the six-week pilot from your playbook, with a baseline and no mandated toolset. Keep work knowledge in a work-approved tool, separate from your personal PM OS.',
+    'In the weeks you have left, try the two challenges, then keep two small habits: a weekly lint of your personal wiki and a monthly trust check. In your first 30 days back at work, listen before proposing: find where your team actually slows down, find one ally, and offer the bounded pilot from your playbook, with a baseline, review date and no mandated toolset. Adapt it with the team rather than presenting it as the only way to work. Keep work knowledge in a work-approved tool, separate from your personal PM OS.',
 }

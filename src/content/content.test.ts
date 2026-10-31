@@ -7,6 +7,7 @@ import { planWeeks } from './plan'
 import { wikiMilestones, wikiSteps } from './wiki'
 import { courseArc, lessonGuides } from './teaching'
 import { lessonVisuals } from './illustrations'
+import { productLoop } from './productLoop'
 
 const allText = (value: unknown): string[] =>
   typeof value === 'string'
@@ -48,6 +49,17 @@ describe('curriculum shape', () => {
 })
 
 describe('references', () => {
+  it('connects every suggested loop stage to existing course sessions', () => {
+    expect(productLoop).toHaveLength(6)
+    for (const stage of productLoop) {
+      expect(stage.lessons.length).toBeGreaterThan(0)
+      for (const id of stage.lessons)
+        expect(
+          allLessons.some((l) => l.id === id),
+          id,
+        ).toBe(true)
+    }
+  })
   it('places a relevant illustration in every session with no orphaned diagrams', () => {
     const used = new Set<string>()
     for (const lesson of allLessons) {
@@ -180,6 +192,7 @@ describe('writing style', () => {
       lessonGuides,
       courseArc,
       lessonVisuals,
+      productLoop,
     })
     const offenders = text.filter((t) => /[–—]/.test(t))
     expect(offenders).toEqual([])

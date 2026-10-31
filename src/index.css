@@ -317,3 +317,58 @@ body {
 .concept-skeleton {
   animation: concept-loading 0.85s ease-in-out 2;
 }
+
+.product-loop {
+  container-type: inline-size;
+}
+.product-loop-map {
+  position: relative;
+}
+.product-loop-stages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+.product-loop-orbit,
+.product-loop-centre {
+  display: none;
+}
+.product-loop-node {
+  min-width: 0;
+}
+@container (min-width: 560px) {
+  .product-loop:not(.product-loop-compact) .product-loop-map {
+    height: 440px;
+    margin: 0 1rem;
+  }
+  .product-loop:not(.product-loop-compact) .product-loop-orbit {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--n-400);
+  }
+  .product-loop:not(.product-loop-compact) .product-loop-centre {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 40%;
+  }
+  .product-loop:not(.product-loop-compact) .product-loop-node {
+    position: absolute;
+    left: var(--loop-x);
+    top: var(--loop-y);
+    transform: translate(-50%, -50%);
+    width: 29%;
+    max-width: 190px;
+  }
+}
+@container (min-width: 440px) {
+  .product-loop-compact .product-loop-stages {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -72,6 +72,7 @@ export const level4: Level = {
           heading: 'Which source wins',
           paragraphs: [
             'You will have four sources and they will disagree. Decide the precedence before you write and put it at the top of the spec. Contradictions are flagged in the spec, never silently resolved: "The PRD says X; the prototype shows Y; flagged for decision."',
+            'Keep the PRD, design spec and prototype linked to the same current slice. After a joint decision, update the affected artifacts and record what changed and why. Tools may differ across roles; the intended behaviour and quality bar need to agree. This is one practical form of team augmentation, revisited in Session 20.',
           ],
           bullets: [
             '**The PRD wins wherever it speaks**: scope, rules, thresholds and acceptance criteria.',

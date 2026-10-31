@@ -40,6 +40,34 @@ export const resources: Resource[] = [
       "Not affiliated with Anthropic. Course source: github.com/carlvellotti/free-ai-courses, which also holds the author's Codex, Cursor and Antigravity courses.",
   }),
   r({
+    id: 'dora-ai-assisted-development',
+    title: 'State of AI-assisted Software Development 2025',
+    provider: 'DORA, Google Cloud',
+    url: 'https://dora.dev/research/2025/dora-report/',
+    topic: 'Team augmentation',
+    level: 'advanced',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'DORA’s report overview frames AI as an amplifier of the surrounding organisational system. Links to the full report and a companion capabilities model for further reading.',
+    notes:
+      'Overview page opened. The full report has not been independently reviewed for this course. DORA is run by Google Cloud.',
+  }),
+  r({
+    id: 'metr-productivity-update',
+    title: 'Why METR is changing its developer productivity experiment',
+    provider: 'METR',
+    url: 'https://metr.org/blog/2026-02-24-uplift-update/',
+    topic: 'Team augmentation',
+    level: 'advanced',
+    format: 'article',
+    verifiedOn: checked,
+    status: 'verified',
+    summary:
+      'A February 2026 research update on selection effects, changing tools and the difficulty of estimating productivity. A useful reminder to measure comparable work and qualify broad speedup claims.',
+  }),
+  r({
     id: 'product-templates',
     title: 'Product Templates: PRD, design spec and drafting skill',
     provider: 'harish-info on GitHub',

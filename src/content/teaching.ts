@@ -1226,9 +1226,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
       'Finish by deciding whether this way of working creates enough net value for a team to adopt it.',
   },
   s20: {
-    decision: 'What would convince a team to keep, change or stop the pilot?',
+    decision: 'How could your team work with agents, and what would make you adapt that model?',
     bring:
-      'Your decision trail, trust-check results, skill checks and one proposed team bottleneck.',
+      'Your decision trail, trust-check results, skill checks and one recent task to map with teammates or a mentor.',
     recall: {
       question:
         'From Session 12: why measure cost per acceptable result rather than cost per attempt?',

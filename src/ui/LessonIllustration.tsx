@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useId, useState, type ReactNode } from 'react'
 import { lessonVisuals, type LessonVisualId } from '../content/illustrations'
 import { cx } from './cx'
+import { ProductLoop } from './ProductLoop'
 
 type GlyphName = 'person' | 'model' | 'tool' | 'file' | 'shield' | 'check' | 'search' | 'clock'
 
@@ -977,6 +978,44 @@ function TeamTime() {
   )
 }
 
+function Constraints() {
+  const [selected, setSelected] = useState(0)
+  const data = lessonVisuals.constraints
+  const scenario = data.scenarios[selected]!
+  const capacity = Math.min(...scenario.capacities)
+  return (
+    <div className="space-y-4">
+      <Choices
+        label="Workflow scenario"
+        labels={data.scenarios.map((s) => s.label)}
+        value={selected}
+        onChange={setSelected}
+      />
+      {data.stages.map((stage, i) => (
+        <div key={stage}>
+          <p className="mb-2 flex justify-between gap-3 text-xs">
+            <span>{stage}</span>
+            <strong>{scenario.capacities[i]} items / week</strong>
+          </p>
+          <div className="h-6 rounded bg-stone-200 dark:bg-stone-800">
+            <div
+              className="h-full rounded bg-indigo-600 transition-all dark:bg-indigo-400"
+              style={{ width: `${(scenario.capacities[i]! / 6) * 100}%` }}
+            />
+          </div>
+        </div>
+      ))}
+      <div
+        aria-live="polite"
+        className="rounded-lg border border-stone-300 p-3 dark:border-stone-600"
+      >
+        <p className="font-semibold">Whole-loop capacity: {capacity} items / week</p>
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{scenario.explanation}</p>
+      </div>
+    </div>
+  )
+}
+
 const drawings: Record<LessonVisualId, () => ReactNode> = {
   'chat-agent': ChatAgent,
   context: ContextWindow,
@@ -998,6 +1037,8 @@ const drawings: Record<LessonVisualId, () => ReactNode> = {
   access: AccessGate,
   skills: SkillRun,
   team: TeamTime,
+  constraints: Constraints,
+  'team-loop': () => <ProductLoop />,
 }
 
 export function LessonIllustration({ id }: { id: LessonVisualId }) {

@@ -44,6 +44,14 @@ export const level3: Level = {
           ],
         },
         {
+          heading: 'When building gets faster, choosing matters more',
+          illustration: 'constraints',
+          paragraphs: [
+            'Knowing what to build is central PM work. For tasks where agents speed implementation, unresolved product choices can leave the team waiting. Augment discovery and decision preparation too: gather sourced evidence, compare alternatives and make open trade-offs visible. Faster decisions still need a sound basis.',
+            'This simplified capacity model illustrates why accelerating one stage may leave overall flow unchanged. Real work varies and has feedback loops; inspect your own waiting time before drawing a conclusion. Session 20 develops this into a possible team experiment.',
+          ],
+        },
+        {
           heading: 'The strategy kernel',
           illustration: 'strategy',
           paragraphs: [
@@ -476,6 +484,7 @@ Use no real people, companies or figures.`,
           paragraphs: [
             'The PRD is context, in exactly the sense of Session 2: everything a reader needs to do the work well, and nothing they would have to guess. A person and a coding agent need the same things from it: the problem, the outcome, the scope, what the product must always and never do, and how to tell when it is done. Write it once, precisely, and it briefs both.',
             '"Demos before memos" still holds. The prototype shows what the product feels like; the PRD says what must be true. Link the prototype from the PRD, and let each do what it is good at.',
+            'Treat the PRD as shared intent, not a private PM output. Invite design and engineering to challenge the problem, scope and unknowns while they are still cheap to change. Name decision owners and a backup, so the PM does not become the only person who can explain the plan.',
           ],
         },
         {
