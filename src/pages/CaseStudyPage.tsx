@@ -312,7 +312,12 @@ export function CaseStudyPage() {
             Seeds for your eval suite in Sessions 18 and 19. Each names the kind of answer that is
             acceptable; add your own from discovery.
           </p>
-          <div className="relative overflow-x-auto">
+          <div
+            className="relative overflow-x-auto"
+            tabIndex={0}
+            role="region"
+            aria-label="Agent questions table, scrolls sideways"
+          >
             <table className="w-full min-w-[40rem] text-left text-sm">
               <caption className="sr-only">
                 Agent questions for {t.name} with the expected kind of answer and behavior

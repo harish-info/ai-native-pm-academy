@@ -119,7 +119,7 @@ test('export and import round-trip progress', async ({ page }, testInfo) => {
   await page.goto('#/lessons/s1')
   const bookmark = page.getByRole('button', { name: /Bookmark: / })
   await bookmark.first().click()
-  await expect(page.getByRole('button', { name: /Remove bookmark: / }).first()).toBeVisible()
+  await expect(page.getByRole('button', { name: /Bookmarked: / }).first()).toBeVisible()
 
   await page.goto('#/settings')
   const downloadPromise = page.waitForEvent('download')
@@ -136,10 +136,10 @@ test('export and import round-trip progress', async ({ page }, testInfo) => {
 
   await page.goto('#/lessons/s1')
   await page
-    .getByRole('button', { name: /Remove bookmark: / })
+    .getByRole('button', { name: /Bookmarked: / })
     .first()
     .click()
-  await expect(page.getByRole('button', { name: /Remove bookmark: / })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: /Bookmarked: / })).toHaveCount(0)
 
   await page.goto('#/settings')
   const input = page.getByLabel('Backup file (.json)')
@@ -155,7 +155,7 @@ test('export and import round-trip progress', async ({ page }, testInfo) => {
   await expect(page.getByText(/Import complete/)).toBeVisible()
 
   await page.goto('#/lessons/s1')
-  await expect(page.getByRole('button', { name: /Remove bookmark: / }).first()).toBeVisible()
+  await expect(page.getByRole('button', { name: /Bookmarked: / }).first()).toBeVisible()
 })
 
 test('demo mode uses sample progress and can be exited', async ({ page }) => {

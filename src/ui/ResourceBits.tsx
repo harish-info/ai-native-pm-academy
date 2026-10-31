@@ -43,7 +43,7 @@ export function BookmarkButton({ id, label }: { id: string; label: string }) {
       variant="secondary"
       className="min-h-8 gap-1.5 px-2.5 py-1 text-xs"
       aria-pressed={on}
-      aria-label={`${on ? 'Remove bookmark' : 'Bookmark'}: ${label}`}
+      aria-label={`${on ? 'Bookmarked' : 'Bookmark'}: ${label}`}
       onClick={() =>
         update((d) => {
           d.bookmarks = on ? d.bookmarks.filter((b) => b !== id) : [...d.bookmarks, id]

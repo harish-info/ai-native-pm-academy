@@ -239,7 +239,10 @@ export function LessonPage() {
               <p className="text-sm text-stone-600 dark:text-stone-400">
                 For {lesson.agentPrompt.tool}. {lesson.agentPrompt.where}.
               </p>
-              <pre className="max-h-96 overflow-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950">
+              <pre
+                tabIndex={0}
+                className="max-h-96 overflow-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
+              >
                 <code>{lesson.agentPrompt.text}</code>
               </pre>
               <CopyButton text={lesson.agentPrompt.text} label="Copy prompt" />

@@ -165,7 +165,10 @@ export function WikiPage() {
                     label={`Copy ${p.title.toLowerCase()} prompt`}
                   />
                 </div>
-                <pre className="overflow-x-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950">
+                <pre
+                  tabIndex={0}
+                  className="overflow-x-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
+                >
                   {wikiPrompts[p.id]}
                 </pre>
               </Card>
