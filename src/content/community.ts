@@ -1,4 +1,4 @@
-// What practitioners in public forums say about learning AI-native product work, summarized from
+// A sample of what practitioners in public forums say about learning AI-native product work, summarized from
 // docs/research/community-and-extras.json on 2026-10-31. This is community opinion, not fact and
 // not an endorsement. Points are paraphrased, and no usernames are kept.
 // fetchedDirectly is true when the thread itself was read, and false when it was read through a
@@ -18,7 +18,7 @@ export interface CommunityPoint {
 export const communityConsensus: CommunityPoint[] = [
   {
     point:
-      'PM forums widely see certificates and paid AI PM bootcamps as weak hiring signals. Building and shipping real prototypes or artifacts is considered better value for the money and time.',
+      'One roundup of PM subreddit threads reports that commenters see certificates and paid AI PM bootcamps as weak hiring signals, and value shipped prototypes or artifacts more. This rests on a single summary by an author who sells a course, so treat it as a lead, not a finding.',
     sources: [
       {
         label:
@@ -30,7 +30,7 @@ export const communityConsensus: CommunityPoint[] = [
   },
   {
     point:
-      'Claude Code is often called useful for PM work that involves no coding, such as notes, research synthesis, organizing files and processing transcripts, because it works directly on local files. Non-coders still find it intimidating. The usual advice: keep project memory in CLAUDE.md, use plan mode and read the plan before approving, work on a copy of the folder, or use the Desktop or web version instead of the terminal.',
+      'In these threads Claude Code is often called useful for PM work that involves no coding, such as notes, research synthesis, organizing files and processing transcripts, because it works directly on local files. Non-coders still find it intimidating. The usual advice: keep project memory in CLAUDE.md, use plan mode and read the plan before approving, work on a copy of the folder, or use the Desktop or web version instead of the terminal.',
     sources: [
       {
         label: 'Hacker News: What non coding tasks do you use Claude Code for? (Nov 2025)',
@@ -69,7 +69,7 @@ export const communityConsensus: CommunityPoint[] = [
   },
   {
     point:
-      "Practitioners say evals are learned by doing: review real traces for errors, build a small golden dataset and label results pass or fail before trusting an LLM judge. Hamel Husain's material is the most recommended. Many teams admit they still judge quality by feel and find agent evals expensive and hard to measure.",
+      "Practitioners say evals are learned by doing: review real traces for errors, build a small golden dataset and label results pass or fail before trusting an LLM judge. Hamel Husain's material comes up repeatedly in these threads. Many teams admit they still judge quality by feel and find agent evals expensive and hard to measure.",
     sources: [
       {
         label: 'Hacker News: About AI Evals (Jul 2025)',
@@ -102,7 +102,7 @@ export const communityConsensus: CommunityPoint[] = [
   },
   {
     point:
-      'For understanding how LLMs work, Andrej Karpathy and 3Blue1Brown are the most trusted free sources. The catch commenters mention: videos of two to three and a half hours are hard to finish.',
+      'For understanding how LLMs work, commenters in these threads often point to Andrej Karpathy and 3Blue1Brown. The catch they mention: videos of two to three and a half hours are hard to finish.',
     sources: [
       {
         label: 'Hacker News: discussion of Deep Dive into LLMs Like ChatGPT (Feb 2025)',
@@ -118,7 +118,7 @@ export const communityConsensus: CommunityPoint[] = [
   },
   {
     point:
-      'Users report that Codex does best with fully specified, self-contained tasks, while Claude Code copes better with looser direction. In 2026 the comparison is mostly about pricing and rate limits rather than capability.',
+      'One summary of Reddit threads reports that Codex does best with fully specified, self-contained tasks, while Claude Code copes better with looser direction, and that the comparison often comes down to pricing and rate limits. Single summary, so treat it as a lead.',
     sources: [
       {
         label:

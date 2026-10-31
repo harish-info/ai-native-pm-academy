@@ -83,7 +83,7 @@ e2e/            Playwright tests
 
 ## Content status
 
-The structure follows the original brief. Lesson text, quizzes and projects were drafted with AI assistance from the linked sources and checked against them, but **no subject-matter expert has reviewed them yet**. Treat them as a strong first draft.
+The structure follows the original brief. Lesson text, quizzes and projects were drafted with AI assistance from the linked sources. A later review pass checked the main tool, banking and regulatory claims against the sources it links, but not every sentence has been checked, and **no subject-matter expert has reviewed them yet**. Treat them as a strong first draft.
 
 - **Most in need of review:** Level 5 material on regulated financial advice, consent and safety.
 - **Estimates:** time estimates and quiz difficulty have not been tested with learners.

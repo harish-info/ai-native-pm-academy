@@ -253,11 +253,11 @@ export function ResourcesPage() {
       </Card>
 
       <Card>
-        <h2 className="mb-2 text-lg font-semibold">What practitioners say</h2>
+        <h2 className="mb-2 text-lg font-semibold">Sampled practitioner views</h2>
         <p className="mb-3 text-sm text-stone-700 dark:text-stone-300">
-          Recurring advice from public forums such as Reddit and Hacker News, paraphrased. This is
-          community opinion, not fact. Sources marked "via a summary" were read through a
-          third-party write-up, not the thread itself.
+          Advice from a small sample of public threads on Hacker News and Reddit, paraphrased. This
+          is community opinion from a handful of threads, not a survey and not fact. Sources marked
+          "via a summary" were read through a third-party write-up, not the thread itself.
         </p>
         <ul className="space-y-4">
           {communityConsensus.map((c) => (
