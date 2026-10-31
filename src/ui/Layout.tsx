@@ -1,0 +1,236 @@
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { levels } from '../content'
+import { currentLevel, levelStatuses, xpBreakdown } from '../domain/progress'
+import { useStore } from '../state/store'
+import { Button, cx } from './primitives'
+
+const nav: { to: string; label: string; end?: boolean }[] = [
+  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/levels', label: 'Learning path' },
+  { to: '/plan', label: 'Month plan' },
+  { to: '/moneypilot', label: 'MoneyPilot' },
+  { to: '/wiki', label: 'Your wiki' },
+  { to: '/workspace', label: 'Workspace' },
+  { to: '/resources', label: 'Resources' },
+  { to: '/stats', label: 'Progress' },
+  { to: '/achievements', label: 'Achievements' },
+  { to: '/settings', label: 'Settings' },
+]
+
+function NavItems({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <ul className="space-y-0.5">
+      {nav.map((item) => (
+        <li key={item.to}>
+          <NavLink
+            to={item.to}
+            end={item.end}
+            onClick={onNavigate}
+            className={({ isActive }) =>
+              cx(
+                'block rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                isActive
+                  ? 'bg-indigo-50 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-200'
+                  : 'text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800',
+              )
+            }
+          >
+            {item.label}
+          </NavLink>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function Banner({ tone, children }: { tone: 'amber' | 'red' | 'indigo'; children: ReactNode }) {
+  const styles = {
+    amber:
+      'border-amber-300 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100',
+    red: 'border-red-300 bg-red-50 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100',
+    indigo:
+      'border-indigo-300 bg-indigo-50 text-indigo-900 dark:border-indigo-800 dark:bg-indigo-950 dark:text-indigo-100',
+  }
+  return (
+    <div
+      className={cx(
+        'mb-4 flex flex-wrap items-center gap-3 rounded-xl border px-4 py-3 text-sm',
+        styles[tone],
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
+function CelebrationDialog() {
+  const { celebration, dismissCelebration } = useStore()
+  const closeRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    if (!celebration) return
+    const previous = document.activeElement as HTMLElement | null
+    closeRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && dismissCelebration()
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      previous?.focus?.()
+    }
+  }, [celebration, dismissCelebration])
+  if (!celebration) return null
+  return (
+    <div
+      className="fixed inset-0 z-50 grid place-items-center bg-stone-950/40 p-4"
+      onClick={dismissCelebration}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="celebration-title"
+        aria-describedby="celebration-body"
+        onClick={(e) => e.stopPropagation()}
+        className="animate-pop-in w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-xl dark:bg-stone-900"
+      >
+        <div
+          aria-hidden
+          className="mx-auto mb-3 grid h-14 w-14 place-items-center rounded-full bg-indigo-100 text-2xl font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300"
+        >
+          {celebration.kind === 'level' ? 'L' : '+'}
+        </div>
+        <h2 id="celebration-title" className="text-xl font-semibold">
+          {celebration.title}
+        </h2>
+        <p id="celebration-body" className="mt-2 text-stone-600 dark:text-stone-400">
+          {celebration.description}
+        </p>
+        <Button ref={closeRef} className="mt-5" onClick={dismissCelebration}>
+          Keep going
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+export function Layout() {
+  const { data, mode, persistent, recoveredKey, saveError, switchMode } = useStore()
+  const location = useLocation()
+  // The menu belongs to the page it was opened on, so any navigation closes it.
+  const [menuPath, setMenuPath] = useState<string | null>(null)
+  const menuOpen = menuPath === location.pathname
+  const mainRef = useRef<HTMLElement>(null)
+  const statuses = levelStatuses(data, levels)
+  const current = currentLevel(statuses)
+  const xp = xpBreakdown(data, levels).total
+
+  useEffect(() => {
+    window.scrollTo?.(0, 0)
+  }, [location.pathname])
+
+  return (
+    <div className="min-h-screen lg:grid lg:grid-cols-[16rem_1fr]">
+      <a
+        href="#main"
+        onClick={(e) => {
+          e.preventDefault()
+          mainRef.current?.focus()
+        }}
+        className="sr-only z-50 rounded-lg bg-indigo-600 px-4 py-2 text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+      >
+        Skip to content
+      </a>
+
+      <aside className="hidden border-r border-stone-200 bg-white px-4 py-6 lg:block dark:border-stone-800 dark:bg-stone-900">
+        <div className="sticky top-6">
+          <NavLink to="/dashboard" className="mb-6 block px-3">
+            <span className="block text-base font-semibold tracking-tight">
+              AI-Native PM Academy
+            </span>
+            <span className="text-xs text-stone-500 dark:text-stone-400">
+              Level {current.level.id} · {xp.toLocaleString()} XP
+            </span>
+          </NavLink>
+          <nav aria-label="Main">
+            <NavItems />
+          </nav>
+          {mode === 'demo' && (
+            <p className="mt-6 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:bg-amber-950 dark:text-amber-200">
+              Demo mode
+            </p>
+          )}
+        </div>
+      </aside>
+
+      <div className="sticky top-0 z-40 border-b border-stone-200 bg-white/90 backdrop-blur lg:hidden dark:border-stone-800 dark:bg-stone-900/90">
+        <div className="flex items-center justify-between px-4 py-3">
+          <NavLink to="/dashboard" className="font-semibold tracking-tight">
+            AI-Native PM Academy
+          </NavLink>
+          <Button
+            variant="secondary"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            onClick={() => setMenuPath(menuOpen ? null : location.pathname)}
+            className="min-h-9 px-3 py-1"
+          >
+            {menuOpen ? 'Close' : 'Menu'}
+          </Button>
+        </div>
+        {menuOpen && (
+          <nav
+            id="mobile-nav"
+            aria-label="Main"
+            className="border-t border-stone-200 px-3 py-3 dark:border-stone-800"
+          >
+            <NavItems onNavigate={() => setMenuPath(null)} />
+          </nav>
+        )}
+      </div>
+
+      <main
+        id="main"
+        ref={mainRef}
+        tabIndex={-1}
+        className="mx-auto w-full max-w-6xl px-4 py-6 outline-none sm:px-6 lg:px-10 lg:py-10"
+      >
+        {mode === 'demo' && (
+          <Banner tone="amber">
+            <span>
+              <strong>Demo mode.</strong> You are looking at sample progress in a separate database.
+              Your real progress is untouched.
+            </span>
+            <Button
+              variant="secondary"
+              className="min-h-8 px-3 py-1"
+              onClick={() => switchMode('real')}
+            >
+              Exit demo
+            </Button>
+          </Banner>
+        )}
+        {!persistent && (
+          <Banner tone="amber">
+            This browser is not allowing local storage (private browsing can do this), so progress
+            will be lost when you close the tab. Export a backup from Settings.
+          </Banner>
+        )}
+        {recoveredKey && (
+          <Banner tone="red">
+            Saved progress could not be read, so the academy started fresh. The unreadable copy was
+            kept in this browser; see Settings to download it.
+          </Banner>
+        )}
+        {saveError && (
+          <Banner tone="red">
+            <span role="alert">
+              Your latest change could not be saved: {saveError}. Export a backup from Settings to
+              be safe.
+            </span>
+          </Banner>
+        )}
+        <Outlet />
+      </main>
+      <CelebrationDialog />
+    </div>
+  )
+}
