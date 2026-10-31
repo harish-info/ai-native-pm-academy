@@ -1,0 +1,878 @@
+[
+  {
+    "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+    "finalUrl": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Effective context engineering for AI agents",
+    "provider": "Anthropic (Applied AI team)",
+    "summary": "Explains context engineering as the successor to prompt engineering: deliberately curating the limited tokens an agent sees across system prompts, tools, examples and just-in-time retrieval. Covers techniques for long-horizon tasks such as compaction, structured note-taking and sub-agent architectures.",
+    "format": "article",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None; reading only.",
+    "prerequisites": "Basic familiarity with LLMs and agents; no coding required to read.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Title tag 'Effective context engineering for AI agents \\ Anthropic'; canonical link is the /research/ URL. Byline Prithvi Rajasekaran, Ethan Dixon, Carly Ryan, Jeremy Hadfield; dated September 29, 2025. The /engineering/ variant of the same slug redirects to this /research/ URL. No reading time shown.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+    "finalUrl": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Introduction to agent skills",
+    "provider": "Anthropic Academy (hosted on Skilljar)",
+    "summary": "Teaches how to build, configure and share Skills in Claude Code: reusable markdown instructions (SKILL.md) that Claude applies automatically. Covers frontmatter and descriptions, progressive disclosure, allowed-tools, sharing via repos and plugins, enterprise managed settings and troubleshooting.",
+    "format": "course",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": true,
+    "practicalCost": "Course is free. Hands-on use needs Claude Code, which claude.com/pricing (checked 2026-10-31) shows is not in the Free plan; cheapest plan with Claude Code is Pro at $17/month billed annually or $20 billed monthly. Course page itself does not mention a paid requirement.",
+    "prerequisites": "None stated on page. In practice assumes you have Claude Code installed and are comfortable with a terminal and files.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "What are skills?",
+        "url": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+        "note": "Curriculum item 1"
+      },
+      {
+        "title": "Creating your first skill",
+        "url": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+        "note": "Curriculum item 2"
+      },
+      {
+        "title": "Configuration and multi-file skills",
+        "url": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+        "note": "Curriculum item 3"
+      },
+      {
+        "title": "Skills vs. other Claude Code features",
+        "url": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+        "note": "Curriculum item 4"
+      },
+      {
+        "title": "Sharing skills",
+        "url": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+        "note": "Curriculum item 5"
+      },
+      {
+        "title": "Troubleshooting skills",
+        "url": "https://anthropic.skilljar.com/introduction-to-agent-skills",
+        "note": "Curriculum item 6"
+      }
+    ],
+    "evidence": "HTTP 200, no redirect. Page shows 'Register | FREE' and 'Already registered? Sign In'. FAQ states a Skilljar account is required and an Anthropic account is not. No duration or level shown. Curriculum list copied from page.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook",
+    "finalUrl": "https://academy.claude.com/courses/ai-native-sdlc-playbook",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "The AI-native SDLC playbook",
+    "provider": "Claude Academy (Anthropic)",
+    "summary": "Twelve plays for using Claude at each of six SDLC stages (plan, design, build, test, deploy, maintain), from capturing intent in an intent.md file to evals in CI, Claude in PR review and hooks as approval gates. Written for engineering, platform and security leads in large, especially regulated, enterprises already using Claude Code.",
+    "format": "course",
+    "level": "advanced",
+    "estimatedTime": "1 hr (14 lessons)",
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "Reading is free and lessons load without sign-in (sign-in only saves progress). Running the plays needs Claude Code (Pro plan or higher per claude.com/pricing) plus a Git repo and CI pipeline you can change.",
+    "prerequisites": "Page states: 'comfortable working in Claude Code day to day, and have a Git repository and CI pipeline you are allowed to change. Each play names its own prerequisites under Getting started, and several have none.' Level 'advanced' is my assessment from the stated audience; page shows no level label.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "What changes and where to start",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction",
+        "note": "Introduction"
+      },
+      {
+        "title": "Capture as intent.md",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/capture-intent",
+        "note": "Stage 1: Plan; lesson page shows 4 min"
+      },
+      {
+        "title": "Requirements and design",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/requirements-and-design",
+        "note": "Stage 2: Design"
+      },
+      {
+        "title": "Claude Code plan mode as the default starting point",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/plan-mode",
+        "note": "Stage 3: Build"
+      },
+      {
+        "title": "The CLAUDE.md",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/claude-md",
+        "note": "Stage 3: Build"
+      },
+      {
+        "title": "Skills as institutional knowledge",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/skills-as-institutional-knowledge",
+        "note": "Stage 3: Build"
+      },
+      {
+        "title": "Parallel sessions and subagents",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/parallel-sessions-and-subagents",
+        "note": "Stage 3: Build"
+      },
+      {
+        "title": "Give Claude a feedback loop",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/give-claude-a-feedback-loop",
+        "note": "Stage 4: Test"
+      },
+      {
+        "title": "Continuous evals in CI",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/continuous-evals-in-ci",
+        "note": "Stage 4: Test"
+      },
+      {
+        "title": "AI in the PR review loop",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/ai-in-the-pr-review-loop",
+        "note": "Stage 5: Deploy"
+      },
+      {
+        "title": "Hooks as approval gates",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/hooks-as-approval-gates",
+        "note": "Stage 5: Deploy"
+      },
+      {
+        "title": "CI/CD integration and deployment",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/ci-cd-integration-and-deployment",
+        "note": "Stage 5: Deploy"
+      },
+      {
+        "title": "Closing the loop on metrics",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/closing-the-loop-on-metrics",
+        "note": "Stage 6: Maintain"
+      },
+      {
+        "title": "Closing thoughts and resources",
+        "url": "https://academy.claude.com/courses/ai-native-sdlc-playbook/closing-thoughts-and-resources",
+        "note": "Closing"
+      },
+      {
+        "title": "The AI-native SDLC playbook (single-page version)",
+        "url": "https://claude.com/resources/articles/the-ai-native-sdlc-playbook",
+        "note": "Linked from course page as https://claude.com/blog/the-ai-native-sdlc-playbook, which redirects (HTTP 200) to this /resources/articles/ URL"
+      }
+    ],
+    "evidence": "HTTP 200, no redirect. Title tag 'The AI-native SDLC playbook · Claude Academy'. Header shows '14 lessons', '1 hr', 'No completion badge', 'Start course', 'Sign in to save progress'. Lesson titles copied from the raw HTML curriculum and each lesson page title; the lesson page /capture-intent loaded without sign-in.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.anthropic.com/research/building-effective-agents",
+    "finalUrl": "https://www.anthropic.com/research/building-effective-agents",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Building effective AI agents",
+    "provider": "Anthropic (Erik Schluntz and Barry Zhang)",
+    "summary": "Distinguishes workflows (predefined code paths) from agents (LLMs directing their own process) and catalogues composable patterns such as prompt chaining, routing, parallelization, orchestrator-workers and evaluator-optimizer. Argues for starting with the simplest solution and adding agentic complexity only when it pays off.",
+    "format": "article",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None; reading only.",
+    "prerequisites": "None beyond basic LLM familiarity.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Title tag 'Building effective AI agents \\ Anthropic'; canonical is the /research/ URL; dated December 19, 2024. The /engineering/ variant redirects here. No reading time shown. Page byline shows authors as 'Erik S.' and Barry Zhang.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents",
+    "finalUrl": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Demystifying evals for AI agents",
+    "provider": "Anthropic (Mikaela Grace, Jeremy Hadfield, Rodrigo Olivares, Jiri De Jonghe)",
+    "summary": "Practical guide to designing, building and maintaining evaluations for coding, conversational and research agents. Recommends starting early with realistic tasks, combining code-based, model-based and human graders, and pairing automated evals with production monitoring.",
+    "format": "article",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None; reading only.",
+    "prerequisites": "Basic understanding of agents; helpful to read Building effective AI agents first.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Title tag 'Demystifying evals for AI agents \\ Anthropic'; canonical is the /research/ URL; dated January 9, 2026. The /engineering/ variant redirects here. No reading time shown.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://huggingface.co/learn/agents-course",
+    "finalUrl": "https://huggingface.co/learn/agents-course/unit0/introduction",
+    "replacementUrl": null,
+    "status": "redirected",
+    "title": "Welcome to the AI Agents Course",
+    "provider": "Hugging Face",
+    "summary": "Free course on understanding, using and building AI agents, from agent fundamentals through frameworks, use cases and a final assignment, with bonus units on function-calling fine-tuning, observability and evaluation, and agents in games. Offers audit mode or two certificates.",
+    "format": "course",
+    "level": "beginner",
+    "estimatedTime": "Each chapter designed for 1 week, approximately 3-4 hours of work per week",
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "Free; a free Hugging Face account is needed 'to push and load models, agents, and create Spaces'. Page lists only a computer, internet and that account as required tools; it does not state paid compute or API keys.",
+    "prerequisites": "Page states: basic knowledge of Python; basic knowledge of LLMs (recapped in Unit 1). Hands-on units are Python code, so heavy for a limited-coding learner.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "Chapter 0: Onboarding",
+        "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+        "note": "Set up tools and platforms"
+      },
+      {
+        "title": "Chapter 1: Agent Fundamentals",
+        "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+        "note": "Tools, thoughts, actions, observations; LLM basics; completing Unit 1 earns the fundamentals certificate"
+      },
+      {
+        "title": "Chapter 2: Frameworks",
+        "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+        "note": "smolagents, LangGraph, LlamaIndex; coding"
+      },
+      {
+        "title": "Chapter 3: Use Cases",
+        "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+        "note": "Real-life use cases; coding"
+      },
+      {
+        "title": "Chapter 4: Final Assignment",
+        "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+        "note": "Build an agent for a benchmark; student leaderboard"
+      },
+      {
+        "title": "Bonus Unit 1: Fine-tuning an LLM for Function-calling",
+        "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+        "note": "Bonus"
+      },
+      {
+        "title": "Bonus Unit 2: Agent Observability and Evaluation",
+        "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+        "note": "Bonus; most PM-relevant unit"
+      },
+      {
+        "title": "Bonus Unit 3: Agents in Games with Pokemon",
+        "url": "https://huggingface.co/learn/agents-course/unit0/introduction",
+        "note": "Bonus"
+      }
+    ],
+    "evidence": "Root URL 301s to /unit0/introduction (HTTP 200). Title tag 'Welcome to the [Hugging Face emoji] AI Agents Course · Hugging Face' (emoji omitted here). Page text: 'This free course will take you on a journey, from beginner to expert'; pace '1 week, with approximately 3-4 hours of work per week'. Unit content readable without sign-in. Syllabus topics copied from the page's chapter table (chapter number plus topic) and bonus-unit list.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://huggingface.co/learn/mcp-course",
+    "finalUrl": "https://huggingface.co/learn/mcp-course/unit0/introduction",
+    "replacementUrl": null,
+    "status": "redirected",
+    "title": "Welcome to the Model Context Protocol (MCP) Course",
+    "provider": "Hugging Face, built in partnership with Anthropic",
+    "summary": "Free course on MCP fundamentals, architecture and core concepts, followed by an end-to-end and a deployed MCP use case and bonus units with partner libraries. Offers audit mode or two free certificates.",
+    "format": "course",
+    "level": "intermediate",
+    "estimatedTime": "Each chapter designed for 1 week, approximately 3-4 hours of work per week",
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "Free; certification 'completely free'. A free account is needed 'to access the course resources and create projects'. No paid compute or API keys stated on the intro page.",
+    "prerequisites": "Page states: basic understanding of AI and LLM concepts; familiarity with software development principles and API concepts; experience with at least one programming language (Python or TypeScript examples).",
+    "license": null,
+    "subItems": [
+      {
+        "title": "Chapter 0: Onboarding",
+        "url": "https://huggingface.co/learn/mcp-course/unit0/introduction",
+        "note": "Syllabus table entry"
+      },
+      {
+        "title": "Chapter 1: MCP Fundamentals, Architecture and Core Concepts",
+        "url": "https://huggingface.co/learn/mcp-course/unit0/introduction",
+        "note": "Syllabus table entry; the conceptual unit suitable for a PM"
+      },
+      {
+        "title": "Chapter 2: End-to-end Use case: MCP in Action",
+        "url": "https://huggingface.co/learn/mcp-course/unit0/introduction",
+        "note": "Syllabus table entry; coding"
+      },
+      {
+        "title": "Chapter 3: Deployed Use case: MCP in Action",
+        "url": "https://huggingface.co/learn/mcp-course/unit0/introduction",
+        "note": "Syllabus table entry; coding"
+      },
+      {
+        "title": "Chapter 4: Bonus Units",
+        "url": "https://huggingface.co/learn/mcp-course/unit0/introduction",
+        "note": "Syllabus table entry"
+      }
+    ],
+    "evidence": "Root URL 301s to /unit0/introduction (HTTP 200). Title tag 'Welcome to the [Hugging Face emoji] Model Context Protocol (MCP) Course · Hugging Face'. Page text: 'This free course, built in partnership with Anthropic, will take you on a journey, from beginner to informed'. Page also says 'Since there's a deadline, we provide you a recommended pace' without a date in the extracted text; check the schedule page if certification matters.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+    "finalUrl": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "OWASP Top 10 for Agentic Applications for 2026",
+    "provider": "OWASP Gen AI Security Project",
+    "summary": "Peer-reviewed framework listing the ten most critical security risks for autonomous, tool-using AI agents, distributed as a downloadable PDF. Useful as a threat checklist when specifying guardrails for a finance agent that can take actions.",
+    "format": "documentation",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None. PDF download returned HTTP 200 application/pdf (OWASP-Top-10-for-Agentic-Applications-2026-12.6-1.pdf, about 1.27 MB) with no form or sign-in.",
+    "prerequisites": "Basic understanding of agents and tool use; security background helpful but not required.",
+    "license": "CC BY-SA 4.0 (site footer: 'Unless otherwise specified, all content on the site is Creative Commons Attribution-ShareAlike v4.0')",
+    "subItems": [
+      {
+        "title": "ASI01: Agent Goal Hijack",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 1; name as written on OWASP launch post"
+      },
+      {
+        "title": "ASI02: Tool Misuse",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 2; third-party summaries write 'Tool Misuse & Exploitation'"
+      },
+      {
+        "title": "ASI03: Identity & Privilege Abuse",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 3"
+      },
+      {
+        "title": "ASI04: Agentic Supply Chain Vulnerabilities",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 4"
+      },
+      {
+        "title": "ASI05: Unexpected Code Execution",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 5; some summaries append '(RCE)'"
+      },
+      {
+        "title": "ASI06: Memory & Context Poisoning",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 6"
+      },
+      {
+        "title": "ASI07: Insecure Inter-Agent Communication",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 7"
+      },
+      {
+        "title": "ASI08: Cascading Failures",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 8"
+      },
+      {
+        "title": "ASI09: Human-Agent Trust Exploitation",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 9"
+      },
+      {
+        "title": "ASI10: Rogue Agents",
+        "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+        "note": "Risk 10"
+      }
+    ],
+    "evidence": "HTTP 200, no redirect. Resource page shows title, description, cover image and Download button (genai.owasp.org/download/52117/) but does NOT list the ten risks in its text. Risk names extracted from raw HTML of the OWASP launch post dated December 9, 2025, where they appear as 'ASI01 [en dash] Agent Goal Hijack' etc. (dash rendered as colon here). Resource page schema datePublished 2025-12-10.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.producttalk.org/opportunity-solution-trees/",
+    "finalUrl": "https://www.producttalk.org/opportunity-solution-trees/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Opportunity Solution Trees: Visualize Your Discovery to Stay Aligned and Drive Outcomes",
+    "provider": "Product Talk (Teresa Torres)",
+    "summary": "In-depth guide to the opportunity solution tree: mapping a desired outcome to customer opportunities, candidate solutions and assumption tests. Shows how the tree keeps continuous discovery aligned with business outcomes.",
+    "format": "article",
+    "level": "beginner",
+    "estimatedTime": "22 min",
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None. Page promotes paid courses (e.g. Product Discovery Fundamentals) but the article is free.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200. Raw HTML article meta: '<time datetime=\"2023-12-06\">06 Dec 2023</time>' and '<span class=\"gh-article-length\">22 min</span>'. article:modified_time 2026-09-29. No paywall markers.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.nngroup.com/articles/ai-work-study-guide/",
+    "finalUrl": "https://www.nngroup.com/articles/ai-work-study-guide/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Using AI for UX Work: Study Guide",
+    "provider": "Nielsen Norman Group (Tanner Kohler)",
+    "summary": "Curated index of NN/g articles, videos and podcast episodes on applying AI to UX work, organised by workflow integration, career strategy, design, research, writing, service design, ideation and the state of AI for UX. Stresses augmenting work with human oversight rather than full automation.",
+    "format": "article",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200. Title tag 'Using AI for UX Work: Study Guide - NN/G'. Dated September 4, 2026. Minute counts on the page belong to related-article cards, not this article; no own reading time found.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.nngroup.com/articles/synthetic-users/",
+    "finalUrl": "https://www.nngroup.com/articles/synthetic-users/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Synthetic Users: If, When, and How to Use AI-Generated “Research”",
+    "provider": "Nielsen Norman Group (Maria Rosala and Kate Moran)",
+    "summary": "Assesses AI-generated 'synthetic users' and concludes they cannot replace research with real people because they model behaviour and priorities poorly. Suggests limited use for desk research and hypothesis generation, with findings validated by real users.",
+    "format": "article",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200. Title tag 'Synthetic Users: If, When, and How to Use AI-Generated “Research” - NN/G'. Dated June 21, 2024 (over two years old at verification). No own reading time found.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.nngroup.com/articles/ai-in-ux-survey-26/",
+    "finalUrl": "https://www.nngroup.com/articles/ai-in-ux-survey-26/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "AI in UX: Work Is Faster, But Practitioners Have Mixed Feelings",
+    "provider": "Nielsen Norman Group (Maria Rosala and Rachel Banawa)",
+    "summary": "Reports a 2026 survey of 521 UX practitioners: AI access is near universal and saves time, yet sentiment is lukewarm because of output quality, verification burden, mandated adoption and rising expectations. Includes adoption rates for agentic tools and job-security concerns by role, including product managers.",
+    "format": "article",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200. Title tag 'AI in UX: Work Is Faster, But Practitioners Have Mixed Feelings - NN/G'. Dated October 23, 2026. No own reading time found.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.revolut.com/air-ai-by-revolut/",
+    "finalUrl": "https://www.revolut.com/air-ai-by-revolut/",
+    "replacementUrl": null,
+    "status": "needs-review",
+    "title": "AIR | AI by Revolut | Revolut GB",
+    "provider": "Revolut",
+    "summary": "Product page for AIR, Revolut's in-app AI assistant for spending insights and conversational money tasks. Page body could not be read; details below come from search-index snippets only.",
+    "format": "article",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None to read. Using AIR requires being a Revolut customer where it has rolled out (not verified from page).",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "AIR - AI by Revolut (blog post)",
+        "url": "https://www.revolut.com/blog/post/air-ai-by-revolut/",
+        "note": "Also HTTP 403 to fetch; search snippet says rollout to 13 million UK customers began April 2026"
+      },
+      {
+        "title": "Revolut enters new era of money intelligence with launch of AI assistant",
+        "url": "https://www.revolut.com/news/revolut_enters_new_era_of_money_intelligence_with_launch_of_ai_assistant/",
+        "note": "Press release; HTTP 403 to fetch"
+      },
+      {
+        "title": "Getting started with AIR",
+        "url": "https://help.revolut.com/help/profile-and-plan/getting-started-with-air/",
+        "note": "Help centre; HTTP 403 to fetch"
+      }
+    ],
+    "evidence": "WebFetch and curl both got HTTP 403; curl with browser headers returned a 'Just a quick security check | Revolut' bot challenge. Page title 'AIR | AI by Revolut | Revolut GB' confirmed only via search index. Search snippets (unverified) mention biometric approval for sensitive actions, zero data retention by third-party AI partners, and gradual UK rollout from April 2026. Open in a browser to confirm content before use.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.starlingbank.com/news/starling-launches-agentic-ai-assistant-for-business/",
+    "finalUrl": "https://www.starlingbank.com/news/starling-launches-agentic-ai-assistant-for-business/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Starling launches agentic AI assistant for business",
+    "provider": "Starling Bank",
+    "summary": "Press release announcing Starling Assistant, a free, opt-in agentic AI tool in the app for all Starling business customers, built on Google Gemini via Google Cloud. Capabilities include VAT ring-fencing, invoice fraud and scam checks, Making Tax Digital guidance, with a receipt tracker due later in 2026.",
+    "format": "article",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None to read.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Dated '24th August 2026' in raw HTML. Page states data stays within Starling's cloud environment and is not used for training; opt-in with no obligation.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://corporate.visa.com/en/sites/visa-perspectives/newsroom/ai-financial-assistant-sdk.html",
+    "finalUrl": "https://corporate.visa.com/en/sites/visa-perspectives/newsroom/ai-financial-assistant-sdk.html",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Visa Introduces AI Financial Assistant, Helping Banks Guide Customers from Insight to Action",
+    "provider": "Visa",
+    "summary": "Announces AI Financial Assistant, a value-added service that lets issuing banks embed a white-label conversational assistant in their apps, offering spending summaries, natural-language Q&A over cardholder activity and in-app actions such as card locks and subscription management. It sits on Visa's Digital Enablement SDK.",
+    "format": "article",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None to read.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Title tag 'Visa Introduces AI Financial Assistant | Visa'. Dateline '07/13/2026 SAN FRANCISCO'. Text: 'will be available to U.S. financial institutions for pilot in August 2026, with a planned global rollout to follow.'",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.reddit.com/r/ProductManagement/",
+    "finalUrl": "https://www.reddit.com/r/ProductManagement/",
+    "replacementUrl": null,
+    "status": "gated",
+    "title": "r/ProductManagement",
+    "provider": "Reddit (community-run)",
+    "summary": "Subreddit for product management discussion: career advice, job-situation questions and tooling. Content not verified directly; description based on third-party directory snippets.",
+    "format": "community",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None.",
+    "prerequisites": "None; posting needs a free Reddit account.",
+    "license": null,
+    "subItems": [],
+    "evidence": "WebFetch refuses reddit.com and old.reddit.com. curl got HTTP 200 but only an 8 KB JS shell titled 'Reddit' with no subreddit content; about.json returned the same shell. Search returned only third-party stats sites (e.g. GummySearch ~285k, reddapi 279,775 members); member counts unverified.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.reddit.com/r/ClaudeCode/",
+    "finalUrl": "https://www.reddit.com/r/ClaudeCode/",
+    "replacementUrl": null,
+    "status": "gated",
+    "title": "r/ClaudeCode",
+    "provider": "Reddit (community-run)",
+    "summary": "Subreddit focused on the Claude Code CLI and agentic coding: workflows, skills and plugins, bug reports and build showcases. Content not verified directly; description based on third-party snippets.",
+    "format": "community",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None to read.",
+    "prerequisites": "None; posting needs a free Reddit account.",
+    "license": null,
+    "subItems": [],
+    "evidence": "Same block as r/ProductManagement: WebFetch refuses reddit.com/old.reddit.com; curl returned a contentless 'Reddit' JS shell. Third-party snippets (GummySearch) cite ~395k members; unverified. Snippets also note the sub skews pro-Claude.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.lennysnewsletter.com/",
+    "finalUrl": "https://www.lennysnewsletter.com/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Lenny's Newsletter",
+    "provider": "Lenny Rachitsky (Substack)",
+    "summary": "Substack newsletter of in-depth product, growth and career advice for product leaders and founders, with a linked podcast (Lenny's Podcast). Has free and paid subscription options.",
+    "format": "newsletter",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": "partial",
+    "signInRequired": false,
+    "practicalCost": "Free tier available; paid subscription exists but the price was not visible in the rendered page. Embedded Stripe plan data on /subscribe references '$20 a month' and '$200 a year' plans; treat as unconfirmed.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200. Meta description: 'Deeply researched product, growth, and career advice for product leaders, founders, and ambitious builders.' Page shows 'Over 1,200,000 subscribers'. Author name 'Lenny Rachitsky' and 'Lenny's Podcast' found in page HTML.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.producttalk.org/",
+    "finalUrl": "https://www.producttalk.org/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Product Talk | Make better product decisions.",
+    "provider": "Product Talk (Teresa Torres)",
+    "summary": "Teresa Torres's site on continuous product discovery: free articles and guides, podcasts ('Just Now Possible', 'All Things Product'), a 2026 book club for Continuous Discovery Habits and paid courses. Increasingly covers AI product work.",
+    "format": "newsletter",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": "partial",
+    "signInRequired": false,
+    "practicalCost": "Articles and podcasts free; courses paid (prices not shown on homepage); book sold via Amazon.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Site title 'Product Talk | Make better product decisions.' Header has Subscribe link; homepage lists blog, courses, podcasts and book club. No prices displayed.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.aihero.dev/",
+    "finalUrl": "https://www.aihero.dev/",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Become a Real AI Hero",
+    "provider": "AI Hero (Matt Pocock)",
+    "summary": "Matt Pocock's site on engineering with coding agents (Claude Code, Codex): paid cohort, free email course, 27 free installable agent skills, and free articles and videos on LLM basics, AGENTS.md, plan mode and shipping solid code. Aimed at professional developers.",
+    "format": "course",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": "partial",
+    "signInRequired": false,
+    "practicalCost": "Free email course, skills, articles and videos; cohort is paid (price not shown on homepage). Using the skills needs a coding agent such as Claude Code (paid plan).",
+    "prerequisites": "Software engineering experience assumed (meta description: 'AI Engineering for Curious Professional Developers'). Only the 'Learn how LLMs think' and setup articles suit a limited-coding learner.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200. Title tag 'Become a Real AI Hero'; page text 'Real AI Engineering · by Matt Pocock', 'Join the cohort', 'Start the free email course', '135,500+ Developers learning', '27 Free skills', 'Every skill here is free'.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://vite.dev/guide/static-deploy",
+    "finalUrl": "https://vite.dev/guide/static-deploy",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Deploying a Static Site | Vite",
+    "provider": "Vite (official docs)",
+    "summary": "Official guide to building a Vite app and deploying the static output to hosts including GitHub Pages, GitLab Pages, Netlify, Vercel, Cloudflare, Firebase and others. GitHub Pages section covers setting base to '/<REPO>/' and a sample Actions workflow that builds and deploys on push to main.",
+    "format": "documentation",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None; GitHub Pages hosting is free for public repos.",
+    "prerequisites": "Page assumes default 'dist' output, npm, and Vite installed as a local dev dependency with build and preview scripts.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Page quote: 'If you are deploying to https://<USERNAME>.github.io/<REPO>/ ... then set base to '/<REPO>/'.'",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site",
+    "finalUrl": "https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Creating a GitHub Pages site",
+    "provider": "GitHub Docs",
+    "summary": "Step-by-step guide to creating a repository for a Pages site, choosing a publishing source, adding an entry file and viewing the published site. Also touches on static site generators and MIME types.",
+    "format": "documentation",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "Free for public repos. Page: 'If the account that owns the repository uses GitHub Free or GitHub Free for organizations, the repository must be public.'",
+    "prerequisites": "A free GitHub account.",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Headings: Creating a repository for your site; Creating your site; Viewing your published site; Static site generators; MIME types on GitHub Pages; Next steps; Further reading.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+    "finalUrl": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Configuring a publishing source for your GitHub Pages site",
+    "provider": "GitHub Docs",
+    "summary": "Explains the two publishing sources: a branch and folder (root or /docs), or a custom GitHub Actions workflow for sites that need a build step (such as Vite). Includes troubleshooting for each.",
+    "format": "documentation",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "Free for public repos.",
+    "prerequisites": "An existing repo; branch must exist for branch publishing. Page warns sites are public even if the repo is private (where plan allows).",
+    "license": null,
+    "subItems": [],
+    "evidence": "HTTP 200, no redirect. Headings: About publishing sources; Publishing from a branch; Publishing with a custom GitHub Actions workflow; Creating a custom GitHub Actions workflow to publish your site; plus troubleshooting sections.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://modelcontextprotocol.io/",
+    "finalUrl": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+    "replacementUrl": null,
+    "status": "redirected",
+    "title": "What is the Model Context Protocol (MCP)?",
+    "provider": "Model Context Protocol (official open-source project docs)",
+    "summary": "Official MCP documentation home: explains MCP as an open standard (the 'USB-C port for AI applications') for connecting AI apps to data, tools and workflows, then routes to building servers, clients and MCP Apps, architecture and security best practices.",
+    "format": "documentation",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None to read; building servers needs coding.",
+    "prerequisites": "Intro and architecture pages need none; develop pages assume programming.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "Architecture",
+        "url": "https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture",
+        "note": "Linked from intro; PM-suitable"
+      },
+      {
+        "title": "Security best practices",
+        "url": "https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices",
+        "note": "Linked from intro"
+      }
+    ],
+    "evidence": "Root redirects (1 hop) to a version-pinned path /docs/2026-07-28/getting-started/intro, HTTP 200. Title tag 'What is the Model Context Protocol (MCP)? - Model Context Protocol'. Keep linking the root URL; pinned paths will change with new spec versions. Sub-item links taken from the intro page cards (.md suffix dropped), not fetched individually.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "finalUrl": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "AI Act | Shaping Europe's digital future",
+    "provider": "European Commission (DG CONNECT)",
+    "summary": "Commission overview of the AI Act (Regulation (EU) 2024/1689): risk-based tiers (unacceptable, high, transparency, minimal), obligations for high-risk systems, and the application timeline as amended by the AI Omnibus. Lists credit scoring as a high-risk use case and requires telling people when they interact with a chatbot.",
+    "format": "documentation",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "AI Act (EUR-Lex, CELEX 32024R1689)",
+        "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689",
+        "note": "Link from Commission page; EUR-Lex returned HTTP 202 bot challenge so not fetched"
+      },
+      {
+        "title": "AI Omnibus Regulation (EUR-Lex)",
+        "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+        "note": "Link from Commission page; not fetched"
+      }
+    ],
+    "evidence": "HTTP 200. Title tag 'AI Act | Shaping Europe's digital future'; 'Last update 19 October 2026'. Timeline text: 'entered into force on 1 August 2024 and became applicable on 2 August 2026'; prohibitions and AI literacy from 2 February 2025; GPAI from 2 August 2025; Annex III high-risk 'extended to 2 December 2027'; Annex I 'until 2 August 2028'. High-risk examples include 'credit scoring denying citizens opportunity to obtain a loan'.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.eiopa.europa.eu/digital-operational-resilience-act-dora_en",
+    "finalUrl": "https://www.eiopa.europa.eu/digital-operational-resilience-act-dora_en",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "Digital Operational Resilience Act (DORA)",
+    "provider": "European Insurance and Occupational Pensions Authority (EIOPA), EU supervisory authority",
+    "summary": "Official EU-authority overview of DORA (Regulation (EU) 2022/2554), applicable from 17 January 2025, which requires banks, insurers, investment firms and other financial entities to withstand, respond to and recover from ICT disruptions. Covers ICT risk management, third-party risk, resilience testing, incident reporting, information sharing and oversight of critical ICT providers, with links to Level 1 and Level 2 texts.",
+    "format": "documentation",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None.",
+    "prerequisites": "None; relevant when an agent depends on third-party AI or cloud providers.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "Regulation (EU) 2022/2554 (EUR-Lex)",
+        "url": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj/eng",
+        "note": "Official legal text; linked from EIOPA page; EUR-Lex returned HTTP 202 bot challenge so not fetched"
+      },
+      {
+        "title": "Digital Operational Resilience Act (DORA), ESMA",
+        "url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/digital-operational-resilience-act-dora",
+        "note": "Alternative ESA page found via search; not fetched"
+      }
+    ],
+    "evidence": "HTTP 200. Title tag 'Digital Operational Resilience Act (DORA) - European Insurance and Occupational Pensions Authority'. Page states application date 17 January 2025 and links Regulation (EU) 2022/2554 and Directive (EU) 2022/2556. No European Commission DORA page surfaced in search; EIOPA chosen as the readable official overview.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.fca.org.uk/firms/innovation/ai-approach",
+    "finalUrl": "https://www.fca.org.uk/firms/innovation/ai-approach",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "AI and the FCA: our approach",
+    "provider": "Financial Conduct Authority (UK)",
+    "summary": "States the FCA's principles-based, outcomes-focused stance on AI: no AI-specific rules, with existing frameworks such as the Consumer Duty and SM&CR applying to AI use. Links to the AI Lab, the 2024 AI Update and domestic and international partner work.",
+    "format": "documentation",
+    "level": "beginner",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None.",
+    "prerequisites": "None; Consumer Duty familiarity helps.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "AI Lab",
+        "url": "https://www.fca.org.uk/firms/innovation/ai-lab",
+        "note": "Linked from page"
+      },
+      {
+        "title": "AI Update on how our rules apply",
+        "url": "https://www.fca.org.uk/publication/corporate/ai-update.pdf",
+        "note": "2024 PDF linked from page"
+      },
+      {
+        "title": "AI: artificial intelligence in financial services",
+        "url": "https://www.fca.org.uk/firms/ai-financial-services",
+        "note": "FCA AI hub linked from page"
+      },
+      {
+        "title": "Consumer Duty",
+        "url": "https://www.fca.org.uk/firms/consumer-duty",
+        "note": "Linked from page"
+      }
+    ],
+    "evidence": "HTTP 200. Title tag 'AI and the FCA: our approach | FCA'. 'First published: 08/09/2025', 'Last updated: 02/10/2026'. Headings: How do our current rules apply?; Domestic and international partners; How AI is helping us become a smarter regulator.",
+    "verifiedOn": "2026-10-31"
+  },
+  {
+    "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+    "finalUrl": "https://www.nist.gov/itl/ai-risk-management-framework",
+    "replacementUrl": null,
+    "status": "verified",
+    "title": "AI Risk Management Framework",
+    "provider": "NIST (U.S. National Institute of Standards and Technology), Information Technology Laboratory",
+    "summary": "Landing page for the voluntary NIST AI RMF 1.0 (released January 26, 2023) for building trustworthiness into AI design, development, use and evaluation. Links the Playbook, the Generative AI Profile (NIST-AI-600-1, July 26, 2024), roadmap, crosswalks and an April 2026 concept note for a critical-infrastructure profile.",
+    "format": "documentation",
+    "level": "intermediate",
+    "estimatedTime": null,
+    "contentFree": true,
+    "signInRequired": false,
+    "practicalCost": "None; all documents free to download.",
+    "prerequisites": "None.",
+    "license": null,
+    "subItems": [
+      {
+        "title": "AI RMF 1.0 (NIST AI 100-1) PDF",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+        "note": "'Download the AI RMF 1.0' link on page"
+      },
+      {
+        "title": "NIST AI RMF Playbook",
+        "url": "https://airc.nist.gov/airmf-resources/playbook/",
+        "note": "'View the AI RMF Playbook' link on page"
+      },
+      {
+        "title": "NIST-AI-600-1, Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+        "url": "https://doi.org/10.6028/NIST.AI.600-1",
+        "note": "Released July 26, 2024 per page"
+      },
+      {
+        "title": "AI RMF Profile on Trustworthy AI in Critical Infrastructure (concept note)",
+        "url": "https://www.nist.gov/programs-projects/concept-note-ai-rmf-profile-trustworthy-ai-critical-infrastructure",
+        "note": "Released April 7, 2026 per page"
+      }
+    ],
+    "evidence": "HTTP 200. Title tag 'AI Risk Management Framework | NIST'. Text: 'Released on January 26, 2023'; 'On July 26, 2024, NIST released NIST-AI-600-1'; 'On April 7, 2026, NIST released a concept note for an AI RMF Profile on Trustworthy AI in Critical Infrastructure.' Sub-item URLs from page links, not individually fetched.",
+    "verifiedOn": "2026-10-31"
+  }
+]

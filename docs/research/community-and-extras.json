@@ -1,0 +1,1131 @@
+{
+  "threads": [
+    {
+      "url": "https://news.ycombinator.com/item?id=42952960",
+      "title": "Andrej Karpathy: Deep Dive into LLMs Like ChatGPT [video]",
+      "date": "2025-02-05",
+      "community": "Hacker News",
+      "recommended": [
+        "Karpathy's free 3.5 hour Deep Dive as a top-tier general-audience explainer; commenters report friends without ML background came away with 'some idea' of how LLMs work",
+        "Follow-ups suggested for the curious: minGPT / nanoGPT and makemore"
+      ],
+      "difficulties": [
+        "Hard to stay focused through long-form video",
+        "Some felt Karpathy has made several videos covering the same topic"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=44430117",
+      "title": "About AI Evals",
+      "date": "2025-07-01",
+      "community": "Hacker News",
+      "recommended": [
+        "Hamel Husain's evals FAQ (hamel.dev) as practical guidance; one commenter shares it with every new team",
+        "Off-the-shelf annotation tools such as Label Studio instead of building a custom one",
+        "An open-source tracing platform for collecting traces"
+      ],
+      "difficulties": [
+        "The page did not define what an eval is up front",
+        "Advice to build a custom annotation tool was called bad advice",
+        "Some called the guidance ad hoc or overfitted to the author's experience"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=47319587",
+      "title": "Ask HN: How are people doing AI evals these days?",
+      "date": "2026-03-10",
+      "community": "Hacker News",
+      "recommended": [
+        "Tools named: promptfoo, Langfuse, Braintrust, Arize Phoenix, deepeval",
+        "PMs write question sets, then pass/fail labels, then LLM-as-judge",
+        "Golden dataset built from real production traces",
+        "Use business users' own phrasing as a test suite"
+      ],
+      "difficulties": [
+        "Many teams admit evals are still mostly vibes",
+        "Running thousands of prompts is expensive",
+        "Field moves fast; practices go stale",
+        "Hard to pick a single metric for multi-step agent pipelines"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=44427757",
+      "title": "The new skill in AI is not prompting, it's context engineering",
+      "date": "2025-06-30",
+      "community": "Hacker News",
+      "recommended": [
+        "Simon Willison's context engineering post (simonwillison.net/2025/Jun/27/context-engineering/)",
+        "Drew Breunig's 'How Long Contexts Fail'",
+        "Heuristic: is this enough information for a human to solve the task?"
+      ],
+      "difficulties": [
+        "'Right information at the right time' felt vague and magic-like",
+        "Many dismissed context engineering as a buzzword or rebrand",
+        "General skepticism about the durability of the skill"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=50235780",
+      "title": "The State of Context Engineering",
+      "date": "2026-10-25",
+      "community": "Hacker News",
+      "recommended": [
+        "Reset sessions often and checkpoint artifacts (design doc, plan) before starting fresh",
+        "Keep context lean because long contexts degrade model quality"
+      ],
+      "difficulties": [
+        "Some find elaborate harness setup unnecessary with current models",
+        "Some readers are uninterested in 'prompt better' style knowledge"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=48662310",
+      "title": "Ask HN: How much coding should beginners learn in the AI era?",
+      "date": "2026-06-24",
+      "community": "Hacker News",
+      "recommended": [
+        "Learn enough to supervise agents (roughly CS101 level)",
+        "Learn core vocabulary (function, loop) to talk to AI precisely"
+      ],
+      "difficulties": [
+        "Students crank out a v0.01 with agents, then do not know what to do next",
+        "You cannot supervise a coding agent without some coding knowledge",
+        "A minority argued beginners need no coding at all"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=47579229",
+      "title": "Learn Claude Code by doing, not reading",
+      "date": "2026-03-30",
+      "community": "Hacker News",
+      "recommended": [
+        "Hands-on interactive tutorial (claude.nagdy.me) over reading docs",
+        "Some replied that the official manual is enough"
+      ],
+      "difficulties": [
+        "Quota burns fast even on Max 5x",
+        "The site's level quiz was reported broken",
+        "Beginners need terminal basics first: how to open a terminal, what a command is",
+        "Tool churn makes tutorials age quickly"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=45977810",
+      "title": "What non coding tasks do you use Claude Code for? Genuinely curious.",
+      "date": "2025-11-19",
+      "community": "Hacker News",
+      "recommended": [
+        "Notes and TODO management",
+        "File organization",
+        "Creating reusable skills",
+        "Editing large transcripts; better than web chat because it has filesystem access"
+      ],
+      "difficulties": [],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=50309534",
+      "title": "Product Managers aren't safe either",
+      "date": "2026-10-30",
+      "community": "Hacker News",
+      "recommended": [
+        "PMs remain needed to steer what gets built; AI-built products ship buggy without that judgment"
+      ],
+      "difficulties": [
+        "Some claim PMs are becoming redundant",
+        "A manager of 50 PMs said AI does not yet make better product bets"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=45935763",
+      "title": "Spec-Driven Development: The Waterfall Strikes Back",
+      "date": "2025-11-15",
+      "community": "Hacker News",
+      "recommended": [
+        "Spec as the context entry point for agents",
+        "2 to 3 hours writing acceptance criteria can yield a working feature the same day"
+      ],
+      "difficulties": [
+        "Spec-Kit took many hours before any code appeared",
+        "Writing good specs can be harder than writing the code",
+        "Real specs are scattered across Jira and other tools"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=42827913",
+      "title": "Ask HN: How to learn AI from first principles?",
+      "date": "2025-01-26",
+      "community": "Hacker News",
+      "recommended": [
+        "3Blue1Brown neural networks series",
+        "AIMA (Artificial Intelligence: A Modern Approach)",
+        "'Why Machines Learn'",
+        "Andrew Ng's Coursera Machine Learning course"
+      ],
+      "difficulties": [
+        "Math prerequisites are a barrier for first-principles routes"
+      ],
+      "fetchedDirectly": true
+    },
+    {
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1q403xw/claude_code_for_noncoding_projectswork_a_complete/",
+      "title": "claude_code_for_noncoding_projectswork_a_complete (URL slug only; full title not fetched; summarized via XDA Developers, https://www.xda-developers.com/tried-claude-code-as-non-coder-nothing-to-do-with-building-apps/, 2026-06-15)",
+      "date": null,
+      "community": "r/ClaudeAI",
+      "recommended": [
+        "CLAUDE.md for persistent project memory",
+        "Skills for reusable workflows"
+      ],
+      "difficulties": [
+        "Non-coders tend to use Claude Code like a regular chat and miss its file-based strengths"
+      ],
+      "fetchedDirectly": false
+    },
+    {
+      "url": "https://www.reddit.com/r/ChatGPTCoding/comments/1sie75z/openai_codex_vs_claude_code_in_2026_spring/",
+      "title": "openai_codex_vs_claude_code_in_2026_spring (URL slug only; quoted by https://duply.ai/blog/claude-code-vs-codex-reddit)",
+      "date": null,
+      "community": "r/ChatGPTCoding",
+      "recommended": [
+        "Codex for precise, fast execution of well-scoped work"
+      ],
+      "difficulties": [
+        "Quoted: 'Codex is precise and fast, but it needs you break down task into atomic steps'"
+      ],
+      "fetchedDirectly": false
+    },
+    {
+      "url": "https://www.reddit.com/r/codex/comments/1u3q06l/the_real_difference_between_codex_claude_code/",
+      "title": "the_real_difference_between_codex_claude_code (URL slug only; quoted by https://duply.ai/blog/claude-code-vs-codex-reddit)",
+      "date": null,
+      "community": "r/codex",
+      "recommended": [
+        "Hand Codex a fully specified task"
+      ],
+      "difficulties": [
+        "Quoted: 'Codex is sharper when you hand it a fully specified task'; vaguer prompts work less well"
+      ],
+      "fetchedDirectly": false
+    },
+    {
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1qcqdar/is_it_just_me_or_is_openai_codex_52_better_than/",
+      "title": "is_it_just_me_or_is_openai_codex_52_better_than (URL slug only; quoted by https://duply.ai/blog/claude-code-vs-codex-reddit)",
+      "date": null,
+      "community": "r/ClaudeAI",
+      "recommended": [
+        "Quoted: 'Codex is the slow, methodical genius, while Claude is the fast, creative' one; pick per task"
+      ],
+      "difficulties": [],
+      "fetchedDirectly": false
+    },
+    {
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1vptwlz/the_absurd_math_of_20_ai_coding_subs_codex_vs/",
+      "title": "the_absurd_math_of_20_ai_coding_subs_codex_vs (URL slug only; cited by https://duply.ai/blog/claude-code-vs-codex-reddit)",
+      "date": null,
+      "community": "r/ClaudeAI",
+      "recommended": [
+        "Compare $20 tiers on usage limits, not just model quality"
+      ],
+      "difficulties": [
+        "Per duply.ai, the 2026 Codex vs Claude Code debate shifted to pricing and rate limits"
+      ],
+      "fetchedDirectly": false
+    },
+    {
+      "url": "https://www.allthingspm.app/blog/best-ai-product-management-courses",
+      "title": "Are AI Product Management courses/bootcamps worth it? (title as quoted by AllthingsPM; thread URL not given; AllthingsPM sells its own course)",
+      "date": null,
+      "community": "r/ProductManagement",
+      "recommended": [
+        "Building prototypes 'might be better value for money than any certification'"
+      ],
+      "difficulties": [
+        "Doubt that paid AI PM bootcamps are worth the cost"
+      ],
+      "fetchedDirectly": false
+    },
+    {
+      "url": "https://www.allthingspm.app/blog/best-ai-product-management-courses",
+      "title": "Why is this sub so overwhelmingly against PM certifications? (title as quoted by AllthingsPM; thread URL not given)",
+      "date": "2025-11",
+      "community": "r/ProductManagement",
+      "recommended": [
+        "Demonstrated work over certificates"
+      ],
+      "difficulties": [
+        "Hiring manager quoted: 'I've never once thought someone has a better profile because they have certifications.'"
+      ],
+      "fetchedDirectly": false
+    },
+    {
+      "url": "https://www.allthingspm.app/blog/best-ai-product-management-courses",
+      "title": "AI Product management vs other Product Management certifications (title as quoted by AllthingsPM; thread URL not given)",
+      "date": "2025-11",
+      "community": "r/prodmgmt",
+      "recommended": [
+        "Skills and portfolio over credentials"
+      ],
+      "difficulties": [
+        "Quoted: 'It's not a certification driven industry.'"
+      ],
+      "fetchedDirectly": false
+    },
+    {
+      "url": "https://www.allthingspm.app/blog/best-ai-product-management-courses",
+      "title": "Considering Product Faculty's AI PM cert for June (title as quoted by AllthingsPM; thread URL not given)",
+      "date": "2026-05",
+      "community": "r/AIProductManagers",
+      "recommended": [
+        "Judge courses by whether the capstone is a real working artifact"
+      ],
+      "difficulties": [
+        "Concern that paid capstones are 'slide-deck-shaped' rather than 'a real working artifact'"
+      ],
+      "fetchedDirectly": false
+    }
+  ],
+  "consensus": [
+    "Community opinion: certificates and paid AI PM bootcamps carry little hiring weight; building and shipping real prototypes or artifacts is seen as better value (r/ProductManagement, r/prodmgmt via AllthingsPM, a seller of its own course).",
+    "Community opinion: Claude Code is genuinely useful for non-coding PM work (notes, research synthesis, file organization, transcripts) because it works on local files, but non-coders find it daunting; common advice is CLAUDE.md for project memory, plan mode, reading plans before approving, working on a copy of the folder, or using the Desktop or web Code surface instead of the terminal.",
+    "Community opinion: learn enough coding vocabulary, terminal and Git basics to supervise agents; without them, beginners stall after an agent-built first version.",
+    "Community opinion: evals are learned by doing error analysis on real traces, small golden datasets and pass/fail labels before LLM-as-judge; Hamel Husain's material is the most cited, yet many teams still run on vibes and find agent evals costly and hard to measure.",
+    "Community opinion: context management (fresh sessions, checkpointed plan or design docs, lean instruction files) matters more than prompt tricks; a vocal minority calls context engineering a buzzword.",
+    "Community opinion: Karpathy and 3Blue1Brown are the trusted free foundations for how LLMs work, though 2 to 3.5 hour videos are hard to finish.",
+    "Community opinion: Codex works best with fully specified, atomic tasks while Claude Code tolerates vaguer direction; by 2026 the debate is mostly about pricing and rate limits.",
+    "Community opinion: writing a spec before agent work helps (a few hours on acceptance criteria can yield a working feature the same day), but heavy spec tooling can feel like waterfall."
+  ],
+  "resources": [
+    {
+      "url": "https://www.youtube.com/@mattpocockuk",
+      "finalUrl": "https://www.youtube.com/@mattpocockuk",
+      "status": "verified",
+      "title": "Matt Pocock",
+      "provider": "Matt Pocock (YouTube)",
+      "summary": "Channel on AI coding workflows with Claude Code. Self-description: 'Become an AI Hero with tips, tricks and tutorials. We don't do vibe coding - this is a channel for real engineers solving real problems.'",
+      "format": "YouTube videos",
+      "level": "Intermediate; engineer-oriented, a stretch for non-coders",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free to watch; following along needs Claude Code (paid Claude plan or API). His aihero.dev course 'Claude Code for Real Engineers' is paid; his skills repo (github.com/mattpocock/skills) is free.",
+      "prerequisites": "Terminal, Git and some TypeScript familiarity helps",
+      "topic": "AI coding workflows",
+      "subItems": [
+        {"title": "Building a REAL feature with Claude Code: every step explained", "url": "https://www.youtube.com/watch?v=hX7yG1KVYhI", "note": "44:16, published 2026-03-18"},
+        {"title": "How I use Claude Code for real engineering", "url": "https://www.youtube.com/watch?v=kZ-zzHVUrO4", "note": "10:11, published 2025-10-27"},
+        {"title": "I was an AI skeptic. Then I tried plan mode", "url": "https://www.youtube.com/watch?v=WNx-s-RxVxk", "note": "12:20, published 2026-01-15; most accessible for a PM"},
+        {"title": "The 7 phases of AI-driven development", "url": "https://www.youtube.com/watch?v=Ah9p7v7nJWg", "note": "8:26, published 2026-03-03"},
+        {"title": "mattpocock/skills: A complete AI Coding workflow, end-to-end", "url": "https://www.youtube.com/watch?v=M6mYodf0dJM", "note": "17:17, published 2026-07-16"},
+        {"title": "Don't waste time on specs: /prototype instead", "url": "https://www.youtube.com/watch?v=n0VhIVtviC0", "note": "10:59; useful counterpoint to spec-first work"}
+      ],
+      "evidence": "Channel page fetched with curl (consent cookies); channel id UCswG6FSbgZjbWtdf_hMLaow; titles, lengths and publish dates read from page data and confirmed via YouTube oEmbed.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=7xTGNNLPyMI",
+      "finalUrl": "https://www.youtube.com/watch?v=7xTGNNLPyMI",
+      "status": "verified",
+      "title": "Deep Dive into LLMs like ChatGPT",
+      "provider": "Andrej Karpathy (YouTube)",
+      "summary": "General-audience walkthrough of how LLMs are built and behave: pretraining, post-training, RLHF, tool use.",
+      "format": "Video lecture",
+      "level": "Beginner; general audience",
+      "estimatedTime": "3h31m (video length)",
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "None",
+      "topic": "LLM foundations",
+      "subItems": [
+        {"title": "[1hr Talk] Intro to Large Language Models", "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g", "note": "Shorter Karpathy alternative"}
+      ],
+      "evidence": "Video page fetched; lengthSeconds 12683, publishDate 2025-02-05, about 10.1M views. HN thread 42952960 praises it (community opinion).",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=EWvNQjAaOHw",
+      "finalUrl": "https://www.youtube.com/watch?v=EWvNQjAaOHw",
+      "status": "verified",
+      "title": "How I use LLMs",
+      "provider": "Andrej Karpathy (YouTube)",
+      "summary": "Practical guide to how Karpathy uses LLM apps day to day.",
+      "format": "Video lecture",
+      "level": "Beginner",
+      "estimatedTime": "2h11m (video length)",
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "None",
+      "topic": "LLM practical use",
+      "subItems": [],
+      "evidence": "Video page fetched; lengthSeconds 7872, publishDate 2025-02-27.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=LPZh9BOjkQs",
+      "finalUrl": "https://www.youtube.com/watch?v=LPZh9BOjkQs",
+      "status": "verified",
+      "title": "Large Language Models explained briefly",
+      "provider": "3Blue1Brown (YouTube)",
+      "summary": "Short visual explainer of what an LLM is and how it is trained.",
+      "format": "Video",
+      "level": "Beginner",
+      "estimatedTime": "7:58 (video length)",
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "None",
+      "topic": "LLM foundations",
+      "subItems": [
+        {"title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5", "url": "https://www.youtube.com/watch?v=wjZofJX0v4M", "note": "Optional deeper follow-up"},
+        {"title": "Attention in transformers, step-by-step | Deep Learning Chapter 6", "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc", "note": "Optional deeper follow-up"}
+      ],
+      "evidence": "Video page fetched; lengthSeconds 478, publishDate 2024-11-20; sub-item titles confirmed via oEmbed.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://github.com/anthropics/prompt-eng-interactive-tutorial",
+      "finalUrl": "https://github.com/anthropics/prompt-eng-interactive-tutorial",
+      "status": "verified",
+      "title": "Anthropic's Prompt Engineering Interactive Tutorial",
+      "provider": "Anthropic (GitHub)",
+      "summary": "9 chapters (Beginner 1-3, Intermediate 4-7, Advanced 8-9) plus appendix on chaining, tool use and search/retrieval, with exercises.",
+      "format": "Jupyter notebooks (Anthropic API and Amazon Bedrock versions); Google Sheets version via Claude for Sheets",
+      "level": "Beginner to advanced",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Reading is free; running exercises needs an Anthropic API key (small pay-as-you-go cost). Examples target Claude 3 Haiku, an older model.",
+      "prerequisites": "Ability to run Jupyter notebooks, or use the Google Sheets version",
+      "topic": "Prompting fundamentals",
+      "subItems": [],
+      "evidence": "Repo page fetched: about 38.9k stars, chapter structure and API key requirement in README.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://github.com/anthropics/courses",
+      "finalUrl": "https://github.com/anthropics/courses",
+      "status": "needs-review",
+      "title": "anthropics/courses",
+      "provider": "Anthropic (GitHub)",
+      "summary": "Five notebook courses: API Fundamentals, Prompt Engineering Interactive Tutorial, Real World Prompting, Prompt Evaluations, Tool Use. Repository archived Sept 15, 2026 (read-only), so content may age; Claude Academy is the maintained path.",
+      "format": "Jupyter notebooks",
+      "level": "Beginner to intermediate; developer-oriented",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free to read; exercises need an Anthropic API key",
+      "prerequisites": "Basic Python and Jupyter",
+      "topic": "Prompting and evals fundamentals",
+      "subItems": [],
+      "evidence": "Repo page fetched; shows archived banner dated Sept 15, 2026.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://anthropic.skilljar.com/ai-fluency-framework-foundations",
+      "finalUrl": "https://academy.claude.com/courses/ai-fluency-framework-foundations",
+      "status": "replaced",
+      "title": "AI Fluency: Framework and foundations",
+      "provider": "Anthropic (Claude Academy); Prof. Joseph Feller and Prof. Rick Dakan",
+      "summary": "Teaches the 4D AI Fluency framework (Delegation, Description, Discernment, Diligence) for working with AI effectively and responsibly.",
+      "format": "Self-paced online course: 14 lessons, 1 quiz",
+      "level": "Foundational",
+      "estimatedTime": "4 hours",
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Free; account needed to enroll and track progress",
+      "prerequisites": "None",
+      "topic": "AI fluency foundations",
+      "subItems": [
+        {"title": "AI capabilities and limitations", "url": "https://academy.claude.com/", "note": "Listed in Claude Academy catalog: 13 lessons, 3.5 hours"},
+        {"title": "Building effective human-agent teams (beta)", "url": "https://academy.claude.com/", "note": "Listed in Claude Academy catalog: 5 lessons, 45 minutes"}
+      ],
+      "evidence": "Claude Academy (academy.claude.com) launched Aug 20, 2026; course page fetched. Legacy Skilljar page 'AI Fluency: Framework & Foundations' still lists the course.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://anthropic.skilljar.com/claude-code-in-action",
+      "finalUrl": "https://academy.claude.com/courses/claude-code-in-action",
+      "status": "replaced",
+      "title": "Claude Code in action",
+      "provider": "Anthropic (Claude Academy)",
+      "summary": "Rewritten curriculum on steering long sessions, CLAUDE.md, permission modes, hooks, routines, GitHub Actions and plugins.",
+      "format": "Self-paced online course: 9 lessons",
+      "level": "Intermediate",
+      "estimatedTime": "1 hour",
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Course free; practice needs Claude Code access (paid Claude plan or API)",
+      "prerequisites": "Already using Claude Code; basic command line and Git",
+      "topic": "Claude Code",
+      "subItems": [
+        {"title": "Claude Code 101", "url": "https://academy.claude.com/courses/claude-code-101", "note": "Better starting point for this learner: 12 lessons, 1.5 hours; needs basic editor/command line and a Claude Pro/Max/Team/Enterprise or API account"},
+        {"title": "Claude Code 101 (Coursera)", "url": "https://www.coursera.org/learn/claude-code-101", "note": "Coursera listing: Beginner, 2 hours, 4 modules; audit terms not checked"}
+      ],
+      "evidence": "Claude Academy course pages fetched; legacy Skilljar URL still lists the course.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.deeplearning.ai/short-courses/claude-code-a-highly-agentic-coding-assistant/",
+      "finalUrl": "https://www.deeplearning.ai/short-courses/claude-code-a-highly-agentic-coding-assistant/",
+      "status": "verified",
+      "title": "Claude Code: A Highly Agentic Coding Assistant",
+      "provider": "DeepLearning.AI with Anthropic (instructor Elie Schoppik)",
+      "summary": "Short course on using Claude Code as an agentic coding assistant, taught by Anthropic's Elie Schoppik.",
+      "format": "Video short course: 10 video lessons",
+      "level": "Intermediate",
+      "estimatedTime": "2 hours",
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Free during DeepLearning.AI beta (page says limited time); hands-on needs Claude Code access",
+      "prerequisites": "Python and Git familiarity",
+      "topic": "Claude Code",
+      "subItems": [],
+      "evidence": "Course page fetched; level, duration, lesson count and beta free access stated on page.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/",
+      "finalUrl": "https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/",
+      "status": "verified",
+      "title": "MCP: Build Rich-Context AI Apps with Anthropic",
+      "provider": "DeepLearning.AI with Anthropic",
+      "summary": "Short course on the Model Context Protocol for connecting AI apps to tools and data.",
+      "format": "Video short course: 11 lessons",
+      "level": "Intermediate",
+      "estimatedTime": "1h58m",
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Free during DeepLearning.AI beta",
+      "prerequisites": "Python",
+      "topic": "MCP and agent tooling",
+      "subItems": [],
+      "evidence": "Course page fetched; level, duration and lesson count stated on page.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.deeplearning.ai/short-courses/evaluating-ai-agents/",
+      "finalUrl": "https://www.deeplearning.ai/short-courses/evaluating-ai-agents/",
+      "status": "verified",
+      "title": "Evaluating AI Agents",
+      "provider": "DeepLearning.AI with Arize AI (John Gilhuly, Aman Khan)",
+      "summary": "Short course from Arize AI on evaluating AI agents, with 6 code examples.",
+      "format": "Video short course: 15 lessons, 6 code examples",
+      "level": "Beginner",
+      "estimatedTime": "2h36m",
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Free during DeepLearning.AI beta",
+      "prerequisites": "Basic Python",
+      "topic": "AI evals",
+      "subItems": [],
+      "evidence": "Course page fetched; level, duration and lesson count stated on page.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.deeplearning.ai/courses/agent-skills-with-anthropic",
+      "finalUrl": "https://www.deeplearning.ai/courses/agent-skills-with-anthropic",
+      "status": "verified",
+      "title": "Agent Skills with Anthropic",
+      "provider": "DeepLearning.AI with Anthropic (instructor Elie Schoppik)",
+      "summary": "Creating and using Agent Skills to package reusable workflows for Claude.",
+      "format": "Video course: 10 lessons plus graded assignment",
+      "level": "Beginner",
+      "estimatedTime": "2h19m",
+      "contentFree": "partial",
+      "signInRequired": true,
+      "practicalCost": "Lessons free to audit; graded assignment needs DeepLearning.AI Pro",
+      "prerequisites": "Not recorded beyond the Beginner level label",
+      "topic": "Agent skills",
+      "subItems": [],
+      "evidence": "Course page fetched; audit vs Pro split stated on page.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.deeplearning.ai/courses/generative-ai-for-everyone/",
+      "finalUrl": "https://www.deeplearning.ai/courses/generative-ai-for-everyone/",
+      "status": "verified",
+      "title": "Generative AI for Everyone",
+      "provider": "DeepLearning.AI (Andrew Ng)",
+      "summary": "Non-technical overview of what generative AI can and cannot do, and how to use it in work and business.",
+      "format": "Video course over 3 weeks",
+      "level": "Beginner",
+      "estimatedTime": "5h1m",
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Free to audit",
+      "prerequisites": "None; no coding",
+      "topic": "AI foundations for non-engineers",
+      "subItems": [],
+      "evidence": "Course page fetched; level, duration and audit option stated on page.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/overview",
+      "finalUrl": "https://code.claude.com/docs/en/overview",
+      "status": "verified",
+      "title": "Claude Code overview",
+      "provider": "Anthropic",
+      "summary": "Official Claude Code docs. Surfaces: terminal, VS Code, JetBrains, Desktop app (Code tab) and web at claude.ai/code. Includes a terminal guide for newcomers and links to Claude Academy.",
+      "format": "Documentation",
+      "level": "Beginner to advanced",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Docs free; using Claude Code needs a paid Claude plan or API (no free tier); Desktop Code tab requires a paid subscription",
+      "prerequisites": "None to read; terminal guide covers basics",
+      "topic": "Coding agent docs",
+      "subItems": [
+        {"title": "Best practices for Claude Code", "url": "https://code.claude.com/docs/en/best-practices", "note": "Context, planning and verification habits"}
+      ],
+      "evidence": "Docs pages fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://developers.openai.com/codex",
+      "finalUrl": "https://learn.chatgpt.com/docs",
+      "status": "replaced",
+      "title": "Codex docs (ChatGPT Learn)",
+      "provider": "OpenAI",
+      "summary": "Codex documentation, now hosted on ChatGPT Learn. Surfaces: ChatGPT desktop, mobile and web, CLI, IDE extension, cloud. Includes AGENTS.md guidance and a prompting guide.",
+      "format": "Documentation",
+      "level": "Beginner to advanced",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Docs free. Codex is included in ChatGPT Free ('Explore Codex capabilities on quick coding tasks'), Go, Plus, Pro, Business, Edu and Enterprise",
+      "prerequisites": "None to read",
+      "topic": "Coding agent docs",
+      "subItems": [
+        {"title": "Pricing | ChatGPT Learn", "url": "https://learn.chatgpt.com/docs/pricing", "note": "Plan availability for Codex"}
+      ],
+      "evidence": "developers.openai.com/codex returns HTTP 308 to learn.chatgpt.com/docs; pricing page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://docs.github.com/en/copilot",
+      "finalUrl": "https://docs.github.com/en/copilot",
+      "status": "verified",
+      "title": "GitHub Copilot documentation",
+      "provider": "GitHub",
+      "summary": "Official Copilot docs covering completions, chat, agent mode, MCP and the Copilot coding agent.",
+      "format": "Documentation",
+      "level": "Beginner to advanced",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Copilot Free: 2,000 completions per month, auto model only, chat, agent mode, MCP. Copilot coding agent needs a paid plan (Pro $10, Pro+ $39, Max $100 per month)",
+      "prerequisites": "GitHub account to use Copilot",
+      "topic": "Coding agent docs",
+      "subItems": [
+        {"title": "Plans for GitHub Copilot", "url": "https://docs.github.com/en/copilot/get-started/plans", "note": "Free vs paid feature split"}
+      ],
+      "evidence": "Docs and plans pages fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://antigravity.google/docs",
+      "finalUrl": "https://antigravity.google/docs/getting-started",
+      "status": "verified",
+      "title": "Get started | Google Antigravity Docs",
+      "provider": "Google",
+      "summary": "Official Antigravity docs. Surfaces: desktop app, CLI, IDE extensions, Python SDK; supports Agent Skills and Rules.",
+      "format": "Documentation",
+      "level": "Beginner to advanced",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Individual Free $0 with basic weekly rate limits; Google AI Pro or Ultra for higher limits",
+      "prerequisites": "Google account to use the product",
+      "topic": "Coding agent docs",
+      "subItems": [
+        {"title": "Google Antigravity pricing", "url": "https://antigravity.google/pricing", "note": "Free individual tier details"}
+      ],
+      "evidence": "/docs redirects to /docs/getting-started; pricing page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://agents.md/",
+      "finalUrl": "https://agents.md/",
+      "status": "verified",
+      "title": "AGENTS.md",
+      "provider": "Agentic AI Foundation (Linux Foundation)",
+      "summary": "Open format for a README-style instruction file for coding agents; used by 60,000+ projects and supported by Codex, Jules, Aider, VS Code, Cursor and others; nested files for monorepos.",
+      "format": "Specification web page",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "None",
+      "topic": "Specs and instructions for coding agents",
+      "subItems": [],
+      "evidence": "Page fetched; stewardship, adoption count and supported tools stated on page.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.lennysnewsletter.com/podcast",
+      "finalUrl": "https://www.lennysnewsletter.com/podcast",
+      "status": "verified",
+      "title": "Lenny's Podcast",
+      "provider": "Lenny Rachitsky",
+      "summary": "Weekly interviews with product leaders; frequent AI topics and guests from AI labs.",
+      "format": "Weekly podcast (audio and YouTube)",
+      "level": "All levels",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Podcast free; Lenny's Newsletter is partly paywalled",
+      "prerequisites": "None",
+      "topic": "Product leadership and AI",
+      "subItems": [
+        {"title": "Lenny's Podcast on Apple Podcasts", "url": "https://podcasts.apple.com/us/podcast/lennys-podcast-product-career-growth/id1627920305", "note": "Recent: 'Inside the black box of AI' (Emmanuel Ameisen, Anthropic, Oct 18, 1h12m); 'OpenAI's Head of ChatGPT: We're entering a new era of AI' (Oct 4)"},
+        {"title": "Lenny's Podcast on YouTube", "url": "https://www.youtube.com/@LennysPodcast", "note": "Video versions"}
+      ],
+      "evidence": "Apple listing fetched: 4.9/5 rating, weekly, 367 episodes (ratings are popularity, not quality evidence).",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.chatprd.ai/how-i-ai",
+      "finalUrl": "https://www.chatprd.ai/how-i-ai",
+      "status": "verified",
+      "title": "How I AI",
+      "provider": "Claire Vo (ChatPRD)",
+      "summary": "Screen-share episodes where practitioners show their actual AI workflows, many PM-focused.",
+      "format": "Podcast and YouTube video",
+      "level": "Beginner to intermediate",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "None",
+      "topic": "AI workflows for PMs",
+      "subItems": [
+        {"title": "Claude Code for product managers: research, writing, context libraries, custom to-do system, more", "url": "https://www.youtube.com/watch?v=oBho3hZ7MHM", "note": "With Teresa Torres; 43:13; published 2026-01-19; strongest single episode for this learner"},
+        {"title": "This week on How I AI: Claude Code (Lenny's Newsletter write-up)", "url": "https://www.lennysnewsletter.com/p/this-week-on-how-i-ai-claude-code", "note": "Written summary of the Teresa Torres episode"},
+        {"title": "How I AI on YouTube", "url": "https://www.youtube.com/@howiaipodcast", "note": "Full episode list"}
+      ],
+      "evidence": "Episode index and YouTube video fetched; video length and date from page data.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.behindthecraft.com/",
+      "finalUrl": "https://www.behindthecraft.com/",
+      "status": "verified",
+      "title": "Behind the Craft",
+      "provider": "Peter Yang",
+      "summary": "Newsletter and YouTube with practical AI tutorials and expert interviews for product people.",
+      "format": "Newsletter and YouTube",
+      "level": "Beginner to intermediate",
+      "estimatedTime": null,
+      "contentFree": "partial",
+      "signInRequired": false,
+      "practicalCost": "Free newsletter posts, YouTube and prompts; paid tier $200/yr for course, workshops and archive",
+      "prerequisites": "None",
+      "topic": "AI workflows for PMs",
+      "subItems": [
+        {"title": "Peter Yang on YouTube", "url": "https://www.youtube.com/@PeterYangYT", "note": "Channel tagline: 'Practical AI tutorials and expert interviews for busy people.'"}
+      ],
+      "evidence": "Site and YouTube channel fetched; paid tier price shown on site.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.news.aakashg.com/",
+      "finalUrl": "https://www.news.aakashg.com/",
+      "status": "verified",
+      "title": "Product Growth",
+      "provider": "Aakash Gupta",
+      "summary": "PM newsletter with heavy AI PM coverage; 242,000+ subscribers.",
+      "format": "Substack newsletter and podcast",
+      "level": "Intermediate",
+      "estimatedTime": null,
+      "contentFree": "partial",
+      "signInRequired": false,
+      "practicalCost": "Free tier plus paid subscription; many deep dives paywalled",
+      "prerequisites": "None",
+      "topic": "AI product management",
+      "subItems": [
+        {"title": "How to Use Claude Code: Complete Tutorial for Product Managers", "url": "https://www.aakashg.com/cloud-code-tutorial-for-pm/", "note": "Free tutorial with Carl Vellotti"}
+      ],
+      "evidence": "Substack home and tutorial page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://simonwillison.net/",
+      "finalUrl": "https://simonwillison.net/",
+      "status": "verified",
+      "title": "Simon Willison's Weblog",
+      "provider": "Simon Willison",
+      "summary": "Daily practitioner notes on LLMs, coding agents, prompt injection and tooling; widely cited on HN.",
+      "format": "Blog and guides",
+      "level": "Intermediate",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free; optional $10/month sponsor briefing",
+      "prerequisites": "None; some posts assume technical background",
+      "topic": "Agentic engineering and agent security",
+      "subItems": [
+        {"title": "Agentic Engineering Patterns", "url": "https://simonwillison.net/guides/agentic-engineering-patterns/", "note": "Guide started Feb 23, 2026; chapters include Principles, Working with coding agents (incl. Using Git with coding agents), Testing and QA, Understanding code, Annotated prompts"},
+        {"title": "The lethal trifecta for AI agents: private data, untrusted content, and external communication", "url": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/", "note": "Core agent security mental model"},
+        {"title": "Context engineering", "url": "https://simonwillison.net/2025/Jun/27/context-engineering/", "note": "Recommended in HN thread 44427757"}
+      ],
+      "evidence": "Home page and guide pages fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://hamel.dev/blog/posts/evals-faq/",
+      "finalUrl": "https://hamel.dev/blog/posts/evals-faq/",
+      "status": "verified",
+      "title": "AI Evals: Everything You Need to Know",
+      "provider": "Hamel Husain and Shreya Shankar",
+      "summary": "70+ questions in 8 sections on building AI evals; written for engineers and PMs.",
+      "format": "Long-form web FAQ; free PDF",
+      "level": "Beginner to intermediate",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free; companion Maven course is paid (about $4,200 to $5,000 per third-party roundups, not checked on Maven)",
+      "prerequisites": "None for the FAQ",
+      "topic": "AI evals",
+      "subItems": [
+        {"title": "Your AI Product Needs Evals", "url": "https://hamel.dev/blog/posts/evals/", "note": "Mar 29, 2024; includes code examples"},
+        {"title": "AI Evals For Engineers & PMs (Maven)", "url": "https://maven.com/parlance-labs/evals", "note": "Paid; optional"}
+      ],
+      "evidence": "FAQ page fetched: published Sep 18, 2026, modified Sep 21, 2026. Most-cited evals source in HN threads 44430117 and 47319587 (community opinion).",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://obsidian.md/",
+      "finalUrl": "https://obsidian.md/pricing",
+      "status": "verified",
+      "title": "Obsidian",
+      "provider": "Obsidian",
+      "summary": "Local Markdown note-taking app; works well as a context library that coding agents can read.",
+      "format": "Desktop and mobile app",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free for personal and commercial use, no sign-up; optional Sync $4-5/month, Publish $8-10/month, Commercial license $50/user/year",
+      "prerequisites": "None",
+      "topic": "Personal knowledge and context management",
+      "subItems": [
+        {"title": "Obsidian Help", "url": "https://obsidian.md/help/", "note": "Official docs"}
+      ],
+      "evidence": "Pricing page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://docs.github.com/en/get-started/start-your-journey/hello-world",
+      "finalUrl": "https://docs.github.com/en/get-started/start-your-journey/hello-world",
+      "status": "verified",
+      "title": "Hello World",
+      "provider": "GitHub Docs",
+      "summary": "Browser-only walkthrough of repository, branch, commit, pull request and merge.",
+      "format": "Step-by-step tutorial",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Free; needs a free GitHub account",
+      "prerequisites": "Page states: 'You don't need to know how to code, use the command line, or install Git'",
+      "topic": "Git and GitHub basics",
+      "subItems": [],
+      "evidence": "Page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+      "finalUrl": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+      "status": "verified",
+      "title": "About pull requests",
+      "provider": "GitHub Docs",
+      "summary": "What a pull request is, draft pull requests, and fork vs shared repository models.",
+      "format": "Documentation",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "Hello World tutorial first",
+      "topic": "Git and GitHub basics",
+      "subItems": [],
+      "evidence": "Page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://v0.app/pricing",
+      "finalUrl": "https://v0.app/pricing",
+      "status": "verified",
+      "title": "v0 pricing",
+      "provider": "Vercel",
+      "summary": "Prompt-to-app builder for web UIs with GitHub sync and deploy.",
+      "format": "Web app",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": "partial",
+      "signInRequired": true,
+      "practicalCost": "Free $0: 7 messages/day, GitHub sync, deploy; $5 one-time credit for new users; Plus $30/user/month",
+      "prerequisites": "None",
+      "topic": "AI prototyping",
+      "subItems": [],
+      "evidence": "Pricing page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://lovable.dev/pricing",
+      "finalUrl": "https://lovable.dev/pricing",
+      "status": "verified",
+      "title": "Lovable pricing",
+      "provider": "Lovable",
+      "summary": "Prompt-to-app builder for web apps.",
+      "format": "Web app",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": "partial",
+      "signInRequired": true,
+      "practicalCost": "Free: 5 build credits/day (up to 30/month), 20 cloud credits, unlimited public and private projects; paid plan prices not captured",
+      "prerequisites": "None",
+      "topic": "AI prototyping",
+      "subItems": [],
+      "evidence": "Pricing page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.figma.com/make/",
+      "finalUrl": "https://www.figma.com/make/",
+      "status": "gated",
+      "title": "Figma Make",
+      "provider": "Figma",
+      "summary": "Prompt-to-prototype inside Figma.",
+      "format": "Web and desktop app",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": false,
+      "signInRequired": true,
+      "practicalCost": "Not on the free Starter plan; requires Professional or higher. Starter has 150 AI credits/day (up to 500/month) for other AI features",
+      "prerequisites": "Figma account",
+      "topic": "AI prototyping",
+      "subItems": [],
+      "evidence": "Product and pricing pages fetched; Make listed for paid seats only.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://aistudio.google.com/",
+      "finalUrl": "https://aistudio.google.com/",
+      "status": "verified",
+      "title": "Google AI Studio | Build with the Gemini API",
+      "provider": "Google",
+      "summary": "Build mode generates React/Node web apps or Kotlin/Compose Android apps from prompts; deploy to Cloud Run or GitHub.",
+      "format": "Web app",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Free with a Google account; paid models or deployment may cost",
+      "prerequisites": "Google account",
+      "topic": "AI prototyping",
+      "subItems": [
+        {"title": "Build mode in Google AI Studio", "url": "https://ai.google.dev/gemini-api/docs/aistudio-build-mode", "note": "Official docs"}
+      ],
+      "evidence": "AI Studio and build mode docs fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them",
+      "finalUrl": "https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them",
+      "status": "verified",
+      "title": "What are artifacts and how do I use them?",
+      "provider": "Anthropic (Claude Help Center)",
+      "summary": "Artifacts create interactive apps, documents and visualizations inside Claude chat; can be published and shared.",
+      "format": "Help article; in-product feature",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": true,
+      "practicalCost": "Available on Free and paid Claude plans; AI-powered artifacts bill usage to the viewer's own plan",
+      "prerequisites": "Claude account",
+      "topic": "AI prototyping",
+      "subItems": [],
+      "evidence": "Help article fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://ccforpms.com/",
+      "finalUrl": "https://ccforpms.com/",
+      "status": "verified",
+      "title": "Claude Code for Product Managers",
+      "provider": "Carl Vellotti (independent; not affiliated with Anthropic)",
+      "summary": "PM-specific course taught inside Claude itself. Modules: 0 Getting Started, 1 Fundamentals, 2 Advanced PM Work, 3 Nano Banana, 4 Vibe Coding.",
+      "format": "Interactive course run in Claude Desktop, plus GitHub repo",
+      "level": "Beginner; no coding needed",
+      "estimatedTime": "10-12 hours",
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Course free; needs a Claude Pro or Max plan (from $20/month)",
+      "prerequisites": "Claude Desktop with a paid plan",
+      "topic": "Claude Code and AI prototyping for PMs",
+      "subItems": [
+        {"title": "carlvellotti/claude-code-pm-course", "url": "https://github.com/carlvellotti/claude-code-pm-course", "note": "Course source"}
+      ],
+      "evidence": "Site fetched; modules, duration, cost and non-affiliation stated on site.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://amankhan1.substack.com/p/beyond-vibe-checks-a-pms-complete",
+      "finalUrl": "https://amankhan1.substack.com/p/beyond-vibe-checks-a-pms-complete",
+      "status": "verified",
+      "title": "Beyond vibe checks: A PM's complete guide to evals",
+      "provider": "Aman Khan (Arize AI)",
+      "summary": "PM-oriented guide: three eval approaches, a four-part eval formula and an end-to-end eval workflow.",
+      "format": "Article",
+      "level": "Beginner",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free on the author's Substack (the Lenny's Newsletter version is paywalled)",
+      "prerequisites": "None",
+      "topic": "AI evals for PMs",
+      "subItems": [
+        {"title": "Evaluating AI Agents (DeepLearning.AI)", "url": "https://www.deeplearning.ai/short-courses/evaluating-ai-agents/", "note": "Hands-on follow-up co-taught by the same author"}
+      ],
+      "evidence": "Article page fetched; full text accessible without sign-in.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "finalUrl": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "status": "verified",
+      "title": "Demystifying evals for AI agents",
+      "provider": "Anthropic Engineering (Mikaela Grace, Jeremy Hadfield, Rodrigo Olivares, Jiri De Jonghe)",
+      "summary": "How to design agent evals: start with 20-50 tasks drawn from real failures, choose graders, and iterate.",
+      "format": "Article",
+      "level": "Beginner to intermediate; no coding required to follow",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "None",
+      "topic": "AI evals for PMs",
+      "subItems": [],
+      "evidence": "Article fetched; published Jan 9, 2026.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.deeplearning.ai/courses/spec-driven-development-with-coding-agents",
+      "finalUrl": "https://www.deeplearning.ai/courses/spec-driven-development-with-coding-agents",
+      "status": "verified",
+      "title": "Spec-Driven Development with Coding Agents",
+      "provider": "DeepLearning.AI with JetBrains (instructor Paul Everitt)",
+      "summary": "Course on writing specs for coding agents and building against them.",
+      "format": "Video course: 15 lessons plus graded assignment",
+      "level": "Beginner",
+      "estimatedTime": "1h16m",
+      "contentFree": "partial",
+      "signInRequired": true,
+      "practicalCost": "Free to enroll; badge and graded part need DeepLearning.AI Pro",
+      "prerequisites": "Page lists a programming language and some LLM coding tool experience",
+      "topic": "Specs and PRDs for coding agents",
+      "subItems": [
+        {"title": "How to write a good spec for AI agents", "url": "https://addyosmani.com/blog/good-spec/", "note": "Addy Osmani, Jan 13, 2026, free; spec as PRD, modular tasks, boundaries tiered always / ask first / never"}
+      ],
+      "evidence": "Course page fetched; announced Apr 15, 2026. A forum learner complained the spec file structure was never shown. Osmani post fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "finalUrl": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "status": "verified",
+      "title": "OWASP Top 10 for Agentic Applications for 2026",
+      "provider": "OWASP Gen AI Security Project",
+      "summary": "Industry reference list of the top security risks for agentic AI applications.",
+      "format": "Web page and free PDF",
+      "level": "Intermediate; readable by non-engineers",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "Pair with the lethal trifecta post for an accessible entry point",
+      "topic": "Agent security",
+      "subItems": [
+        {"title": "The lethal trifecta for AI agents: private data, untrusted content, and external communication", "url": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/", "note": "Simon Willison; plain-language mental model"}
+      ],
+      "evidence": "Resource page fetched; published Dec 9, 2025. Individual risk names not confirmed from the page.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.fca.org.uk/publications/good-poor-practice/ai-financial-services",
+      "finalUrl": "https://www.fca.org.uk/publications/good-poor-practice/ai-financial-services",
+      "status": "verified",
+      "title": "AI in financial services: good practice and areas for improvement",
+      "provider": "UK Financial Conduct Authority (FCA)",
+      "summary": "Regulator's observations on AI use by firms, covering Consumer Duty and vulnerable consumers, governance and accountability, and operational resilience.",
+      "format": "Web publication",
+      "level": "Intermediate; directly relevant to a banking PM",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "None",
+      "topic": "Personal-finance AI products",
+      "subItems": [
+        {"title": "Chatbots in consumer finance", "url": "https://www.consumerfinance.gov/data-research/research-reports/chatbots-in-consumer-finance/", "note": "US CFPB, June 6, 2023; consumer harms from bank chatbots"}
+      ],
+      "evidence": "FCA page fetched: first published 19 October 2026. CFPB report page fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "finalUrl": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "status": "verified",
+      "title": "Effective context engineering for AI agents",
+      "provider": "Anthropic Engineering",
+      "summary": "Anthropic guidance on curating what goes into an agent's context window.",
+      "format": "Article",
+      "level": "Intermediate",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Free",
+      "prerequisites": "Some hands-on use of Claude Code or similar",
+      "topic": "Context engineering",
+      "subItems": [
+        {"title": "The State of Context Engineering", "url": "https://www.dbreunig.com/2026/10/24/the-state-of-context-engineering.html", "note": "Drew Breunig, Oct 24, 2026, AGNTCon talk transcript; discussed in HN thread 50235780"}
+      ],
+      "evidence": "Article fetched; published Sep 29, 2025. Breunig post fetched.",
+      "verifiedOn": "2026-10-31"
+    },
+    {
+      "url": "https://github.com/anthropics/knowledge-work-plugins",
+      "finalUrl": "https://github.com/anthropics/knowledge-work-plugins",
+      "status": "verified",
+      "title": "knowledge-work-plugins (product-management plugin)",
+      "provider": "Anthropic (GitHub)",
+      "summary": "Official plugins for knowledge work; the product-management plugin helps write specs and roadmaps and synthesize user research. Works in Cowork and Claude Code.",
+      "format": "Installable plugin (open source)",
+      "level": "Beginner to intermediate",
+      "estimatedTime": null,
+      "contentFree": true,
+      "signInRequired": false,
+      "practicalCost": "Plugin free; needs a paid Claude plan for Cowork or Claude Code",
+      "prerequisites": "Install with: claude plugin install product-management@knowledge-work-plugins",
+      "topic": "AI-native discovery and PM workflows",
+      "subItems": [
+        {"title": "Claude Code: What It Is, How It's Different, and Why Non-Technical People Should Use It", "url": "https://www.producttalk.org/claude-code-what-it-is-and-how-its-different/", "note": "Teresa Torres, Product Talk, 29 Oct 2025; partial paywall on the recipe section"},
+        {"title": "How to use Claude Code: 50 practical use cases", "url": "https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code", "note": "Lenny's Newsletter, Oct 14, 2025; paywalled after use case 16"}
+      ],
+      "evidence": "Repo README fetched; install command and plugin scope stated. Product Talk and Lenny pages fetched.",
+      "verifiedOn": "2026-10-31"
+    }
+  ]
+}
