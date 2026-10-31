@@ -55,6 +55,39 @@ test('decision practice explains choices without completing a lesson', async ({ 
   expect(lessonPrecedesSources).toBe(true)
 })
 
+test('model guide separates model choice from effort and supports keyboard navigation', async ({
+  page,
+}) => {
+  await page.goto('#/field-guide')
+  const jump = page.getByRole('button', { name: 'Go to model choices and effort settings' })
+  await jump.focus()
+  await page.keyboard.press('Enter')
+  const heading = page.getByRole('heading', { name: 'Choose a model, then choose effort' })
+  await expect(heading).toBeFocused()
+  await expect(page).toHaveURL(/#\/field-guide$/)
+  await expect(page.getByRole('heading', { name: 'Claude Sonnet 5.5', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'GPT-6.1 Sol', exact: true })).toBeVisible()
+
+  const choices = page.getByRole('group', { name: 'Choose a PM task' })
+  const example = page.locator('#fg-task-example')
+  await choices.getByRole('button', { name: 'Challenge a PRD' }).focus()
+  await page.keyboard.press('Enter')
+  await expect(example).toContainText('Opus 5.5 or GPT-6 Astra')
+  await expect(example).toContainText('High')
+  await expect(example).toContainText('Check the result:')
+  await choices.getByRole('button', { name: 'Build a prototype' }).click()
+  await expect(example).toContainText('Sonnet 5.5 or GPT-6.1 Sol in a building agent')
+  await expect(example).toContainText('Medium, then high if needed')
+  await expect(choices.getByRole('button', { name: 'Challenge a PRD' })).toHaveAttribute(
+    'aria-pressed',
+    'false',
+  )
+  await expect(
+    page.getByRole('link', { name: /Effort: response thoroughness/ }).first(),
+  ).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})
+
 test('lesson illustrations explain changing inputs and respect reduced motion', async ({
   page,
 }) => {

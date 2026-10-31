@@ -147,6 +147,8 @@ describe('field guide', () => {
       ).toBe(true)
     const sourceRefs = [
       ...fieldGuide.sources,
+      ...fieldGuide.labs.flatMap((lab) => lab.resourceIds),
+      ...fieldGuide.effort.resourceIds,
       ...fieldGuide.usage.map((u) => u.resourceId),
       ...fieldGuide.trends.flatMap((t) => t.resourceIds),
     ]

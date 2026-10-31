@@ -65,6 +65,19 @@ export const level1: Level = {
           ],
         },
         {
+          heading: 'Two choices: model and effort',
+          paragraphs: [
+            '**Model choice** selects a particular trained model. Providers offer families for different balances of capability, speed and cost. A flagship is a sensible candidate for difficult analysis; a balanced tier for everyday work; a fast, lower-cost tier for clear, repeated tasks. These are starting points to test, not a permanent ranking.',
+            '**Effort** controls how much work a supported model spends on a response. Raising it keeps the same model. It can help with difficult reasoning and checking, while taking longer and consuming more usage. It cannot supply missing context or make a factual answer automatically trustworthy.',
+            'The dated [model and effort guide](/field-guide) shows current Claude and GPT families, their roles, and four PM task examples. Your available choices depend on the app and plan.',
+          ],
+          bullets: [
+            '**Low:** try a quick rewrite with all facts supplied. Check that no facts changed.',
+            '**Medium or the app default:** start with a defined brief or small prototype. Review the result against your criteria.',
+            '**High:** try it when competing constraints or a persistent bug need deeper reasoning. Supply the failing example first. Some models offer further levels, but maximum is not the default choice for every task.',
+          ],
+        },
+        {
           heading: 'Capabilities and failure modes',
           paragraphs: [
             'Current models are strong at drafting, restructuring, summarizing, explaining a topic at different levels, generating options, translating between audiences and writing code.',
@@ -101,6 +114,11 @@ export const level1: Level = {
           why: 'A short primer on why context windows fill up and degrade and when an agent is the right shape. Written for engineers, but readable.',
           required: false,
         },
+        {
+          resourceId: 'claude-code-model-effort',
+          why: 'Optional reference for the model picker and effort controls you will use in Level 2. Start with the choosing-an-effort-level section; skip the configuration details.',
+          required: false,
+        },
       ],
       task: {
         summary:
@@ -110,7 +128,7 @@ export const level1: Level = {
           'Watch the short 3Blue1Brown explainer. The longer capabilities course is optional; use the worked example and decision check here before the practical task.',
           'Write `glossary.md` in your own words: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (one line: retrieval-augmented generation, fetching documents into the context before answering). One or two sentences each, plus one example that surprised you.',
           "See a tool at work: ask Claude a question that needs this week's news with web search switched off, then on. Note which answer used a tool and how you could tell.",
-          'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for [target users] about [specific problem]." Replace the brackets with a context you know. Run it in two models or two settings, each in a fresh chat: Claude with extended thinking on and off, two Claude models if your plan offers them, or Claude and ChatGPT. Record the model names, settings and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
+          'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for [target users] about [specific problem]." Replace the brackets with a context you know. Run it in two models or two settings, each in a fresh chat. Try the same model at two effort levels if your app offers them, two Claude models if your plan offers them, or Claude and ChatGPT. Record the full model names, effort settings (or "not exposed"), other enabled features and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
           'Score both outputs from 1 to 5 on factual accuracy, constraint following, usefulness and honesty about uncertainty. Quote the sentence behind any low score.',
           'Rerun the same request once in the same model and note how much the answer changes.',
           'Write `model-comparison.md`: the date, what you compared (models or products), the scores, the variation you saw, and which you would use for this kind of task and why.',

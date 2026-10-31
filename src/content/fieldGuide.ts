@@ -22,9 +22,11 @@ export interface LayerScenario {
 
 export interface LabRow {
   company: string
-  models: string
+  models: { name: string; role: string; useFor: string }[]
+  also: string
   assistant: string
   agent: string
+  resourceIds: string[]
 }
 
 export interface UsageFigure {
@@ -68,8 +70,8 @@ export const fieldGuide = {
     {
       name: 'Model',
       analogy: 'The engine',
-      what: 'A trained network that reads its context and predicts the next token, as in Session 1. On its own it cannot open a file, search the web or remember yesterday. Labs sell each generation in tiers: a large, slower, more capable model and smaller, faster, cheaper ones.',
-      examples: 'Claude Opus 5.5, GPT-6 Sol, Gemini 4 Argon.',
+      what: 'A trained network that reads its context and predicts the next token, as in Session 1. On its own it cannot open a file, search the web or remember yesterday. A model family can include several tiers, trading capability against speed and cost. The version number identifies a release within that family.',
+      examples: 'Claude Opus 5.5, GPT-6.1 Sol, Gemini 4 Argon.',
     },
     {
       name: 'Agent',
@@ -152,34 +154,156 @@ export const fieldGuide = {
   ] satisfies LayerScenario[],
 
   landscapeIntro: [
-    "These are the names you will hear in stand-ups and see on engineers' screens when you are back. Everything here has a date: model names change every few months, the shape of the market more slowly. Read it for the shape, and check which of these tools your employer has approved.",
+    'A dated map of current models and the products around them. Choose from what your approved tools offer, then use the Session 1 comparison to check the fit for your work.',
   ],
   labs: [
     {
       company: 'Anthropic',
-      models:
-        'Claude Fable 5.1 for the most demanding, long-running work; Claude Opus 5.5, which Anthropic suggests as the starting point; Claude Sonnet 5.5, balancing speed and intelligence; Claude Haiku 5.5 for fast, high-volume jobs.',
+      models: [
+        {
+          name: 'Claude Opus 5.5',
+          role: 'Flagship generalist',
+          useFor:
+            'Complex analysis and agent work. A PM starting point for difficult PRD trade-offs or a prototype with many constraints.',
+        },
+        {
+          name: 'Claude Sonnet 5.5',
+          role: 'Balanced everyday tier',
+          useFor:
+            'Speed and capability at lower API cost than Opus. Try it for a clear feature brief, everyday prototyping and iteration.',
+        },
+        {
+          name: 'Claude Haiku 5.5',
+          role: 'Fast, lower-cost tier',
+          useFor:
+            'Focused, repeated work. Try tagging feedback against agreed themes or extracting fields, after checking a sample.',
+        },
+      ],
+      also: 'Claude Fable 5.1 is a further step up for demanding reasoning and long agent tasks. Anthropic recommends starting with Opus 5.5 for most workloads, then testing Fable if Opus still falls short.',
       assistant:
-        'The Claude app. Since 16 September 2026 chat and Cowork are one app: a conversation can hand a longer task to Claude in the cloud and return a finished document, deck or design.',
+        'The Claude app combines chat and Cowork, including longer tasks that return documents, decks or designs.',
       agent: 'Claude Code, used from Session 5 of this course.',
+      resourceIds: ['claude-models-overview', 'claude-one-app'],
     },
     {
       company: 'OpenAI',
-      models:
-        'The GPT-6 family, released from September 2026: GPT-6 Astra at the top, GPT-6 Sol and GPT-6 Luna as cheaper models, and GPT-6.1 Sol from 29 September.',
-      assistant:
-        'ChatGPT, which OpenAI says more than 1.2 billion people use each week. ChatGPT Work (9 July 2026) is its agent for longer tasks across your apps and files.',
-      agent:
-        'Codex, merged into the ChatGPT desktop app on 9 July 2026. It does most of what Claude Code does.',
+      models: [
+        {
+          name: 'GPT-6 Astra',
+          role: 'Flagship generalist',
+          useFor:
+            'The most demanding reasoning and agent work. Try it when a difficult product decision or build needs a stronger model.',
+        },
+        {
+          name: 'GPT-6.1 Sol',
+          role: 'Balanced everyday tier',
+          useFor:
+            'Complex work at lower API cost than Astra. A practical starting point for a PM brief, analysis or prototype.',
+        },
+        {
+          name: 'GPT-6 Luna',
+          role: 'Fast, lower-cost tier',
+          useFor:
+            'Focused, high-volume tasks. Try routine extraction or first-pass feedback tagging with a checked sample.',
+        },
+      ],
+      also: 'GPT-6.1 Terra is another current option, focused on visual reasoning, computer use and writing. GPT-6 Sol is the earlier Sol release. Similar tier labels across labs do not imply equal performance.',
+      assistant: 'ChatGPT, including ChatGPT Work for longer tasks across apps and files.',
+      agent: 'Codex, available in the ChatGPT desktop app.',
+      resourceIds: ['openai-current-models', 'openai-chatgpt-work'],
     },
     {
       company: 'Google',
-      models:
-        'Gemini 4 Argon, available from 13 October 2026. Gemini 4 Carbon was announced on 28 October 2026 and is going first to a small group of cyber defenders before a wider release.',
+      models: [
+        {
+          name: 'Gemini 4 Argon',
+          role: 'Released',
+          useFor:
+            'Available from 13 October 2026. An alternative to include in your Session 1 task comparison if your approved tools offer it.',
+        },
+        {
+          name: 'Gemini 4 Carbon',
+          role: 'Limited access',
+          useFor:
+            'Announced on 28 October 2026, initially for selected cyber defenders. Do not assume it is available in your app.',
+        },
+      ],
+      also: 'Release status matters as much as the name: an announcement does not mean you can select that model today.',
       assistant: 'The Gemini app, and Gemini inside Google Workspace and Search.',
       agent: 'Google Antigravity for building; Google AI Studio for quick prototypes.',
+      resourceIds: ['google-gemini-4-argon', 'google-gemini-4-carbon'],
     },
   ] satisfies LabRow[],
+  modelNameParts: [
+    { label: 'Brand', value: 'Claude' },
+    { label: 'Family', value: 'Sonnet' },
+    { label: 'Version', value: '5.5' },
+  ],
+  modelChoiceIntro:
+    'Opus 5.5 and Haiku 5.5 are other families, not effort settings for Sonnet. Version numbers identify releases within a family; they are not capability scores you can compare across families or companies.',
+  modelChoiceCaveat:
+    'Roles reflect vendor positioning. PM examples are course suggestions to test. API cost tiers do not directly describe subscription prices or cost per finished task. One approved assistant is enough to start.',
+  effort: {
+    intro:
+      'Model chooses the engine. Effort asks that same engine to spend more or less work on its response. For example, Sonnet 5.5 at high effort is still Sonnet 5.5. It does not become Opus, gain missing context or get permission to use new tools.',
+    levels: [
+      {
+        name: 'Low',
+        meaning: 'A quick first pass',
+        example: 'A rewrite or a small, clear change you can check immediately.',
+      },
+      {
+        name: 'Medium',
+        meaning: 'A balanced starting point',
+        example: 'An everyday brief, a defined analysis or a first prototype.',
+      },
+      {
+        name: 'High',
+        meaning: 'More reasoning and checking',
+        example: 'Competing constraints, edge cases or a stubborn prototype bug.',
+      },
+    ],
+    extra:
+      'Some models offer xhigh or max for harder work, and some offer none. Use the options your app actually shows. Higher effort can take longer and consume more usage; it is not a guarantee of correctness or a request for a longer answer. The same label is not calibrated identically across models.',
+    defaults:
+      'Checked 31 October 2026: Claude Code defaults to medium for Opus 5.5, Sonnet 5.5 and Haiku 5.5. In its terminal interface, `/model` changes the model and `/effort` changes effort. In desktop apps, use the model picker and available effort control. GPT-6.1 Sol has a medium API default. Defaults and controls can differ by product and account policy.',
+    method:
+      'Keep the brief, files and success criteria fixed. If facts or context are missing, supply them first. If reasoning still fails, try one higher effort setting on the same model and compare. If it still misses the criteria, try a more capable tier. Keep the least expensive combination that reliably passes your checks.',
+    resourceIds: ['claude-effort', 'claude-code-model-effort', 'openai-current-models'],
+    tasks: [
+      {
+        name: 'Rewrite an update',
+        model: 'Your current everyday model',
+        effort: 'Low',
+        why: 'The facts are already supplied and the output is short. Start here rather than paying for deeper analysis.',
+        check: 'Did it preserve every fact, owner and date, and fit the intended audience?',
+      },
+      {
+        name: 'Analyse feedback',
+        model: 'Sonnet 5.5 or GPT-6.1 Sol',
+        effort: 'Medium',
+        why: 'Discover themes on a small sample first. Once the categories are clear, test Haiku 5.5 or GPT-6 Luna for repeated tagging.',
+        check:
+          'Check quotes against the source, inspect ambiguous comments and use code to reconcile totals.',
+      },
+      {
+        name: 'Challenge a PRD',
+        model: 'Opus 5.5 or GPT-6 Astra',
+        effort: 'High',
+        why: 'An intentionally stronger starting point for conflicting requirements and costly decisions. Give it the evidence, constraints and alternatives.',
+        check:
+          'Did it find real contradictions and untested assumptions, with evidence rather than invented user needs?',
+      },
+      {
+        name: 'Build a prototype',
+        model: 'Sonnet 5.5 or GPT-6.1 Sol in a building agent',
+        effort: 'Medium, then high if needed',
+        why: 'Begin with one small, defined flow. For a persistent bug, keep the model and supply the failing steps before raising effort.',
+        check:
+          'Run the flow, including empty and error states. A screenshot alone does not prove the interactions work.',
+      },
+    ],
+  },
   othersHeading: 'Other names you will hear',
   others: [
     '**Microsoft and GitHub.** Copilot in Microsoft 365 and GitHub Copilot for code. Both run models from more than one lab.',
@@ -228,7 +352,7 @@ export const fieldGuide = {
       evidence:
         'Between September and the end of October 2026 OpenAI released the GPT-6 family, Google released Gemini 4 Argon and announced Carbon, and Anthropic released its 5.5 models.',
       forYou:
-        'The leader changes often and the gaps at the top are small. Keep your method, not your favourite: rerun your Session 1 comparison when a big release lands, and record the date.',
+        'Model strengths and trade-offs change. Keep your method, not your favourite: rerun your Session 1 comparison when a big release lands, and record the date.',
       resourceIds: ['openai-gpt6-astra', 'google-gemini-4-argon', 'google-gemini-4-carbon'],
     },
     {
@@ -252,14 +376,14 @@ export const fieldGuide = {
   whyHeading: 'Why a PM needs this map',
   why: [
     '**Diagnose before you fix.** Knowing the three layers tells you whether to improve your brief, change the model tier or change what the agent is allowed to do.',
-    '**Pick the right tier for the job.** The largest model for long agent tasks and ambiguous analysis; the middle tier for most everyday work; the smallest for high-volume simple jobs such as tagging five hundred feedback comments.',
+    '**Choose model and effort separately.** Use the task examples above, compare results against your criteria, and record both settings. A more expensive run needs to earn its place.',
     '**Talk to engineers in their terms.** They use Claude Code, Codex, Cursor or Copilot daily. In Level 4 you review what their agents build.',
     "**Judge claims, including your own product's.** Vendor launch posts lead with benchmarks. Session 14 teaches you to test your own task instead.",
     "**Know what you are allowed to use.** At work your employer's approved tools decide, not the leaderboard. Open-weight and enterprise plans exist largely for that reason.",
   ],
   noPmModelHeading: 'Is there a best model for product managers?',
   noPmModel: [
-    'No. No model is built for product management. Any current frontier model from the big three labs handles PRDs, analysis and code well, and on everyday PM tasks the gap between them is usually smaller than the gap between a vague brief and a grounded one. What differs more is the app and agent around the model: what it can connect to, whether it can work on your files, and what your employer has approved.',
+    'There is no single winner across all PM tasks. A good model for drafting a brief may not be your best choice for visual prototyping, analysing a large file or a long agent task. Compare the output on your own work. Also check the app: its available tools, access to your material and employer approval can decide whether it is usable at all.',
     'So pick one main assistant and one building agent, and learn them deeply rather than sampling everything. This course uses Claude and Claude Code. ChatGPT and Codex can do nearly all of the same work, and every method in the course transfers.',
   ],
 
@@ -396,7 +520,7 @@ Report: what you did, which files changed and anything you were unsure about.`,
     'Facts on this page were checked on 31 October 2026. When it is more than a couple of months old, refresh it the way you checked your fact sheet in Session 3: run the prompt below with web search on, then open every vendor page it cites yourself before you believe a change.',
   refreshPrompt: `I keep a one-page map of the AI landscape for my work as a product manager. It was last checked on 31 October 2026 and listed:
 - Anthropic: Claude Fable 5.1, Opus 5.5, Sonnet 5.5, Haiku 5.5; the Claude app; Claude Code
-- OpenAI: GPT-6 Astra, GPT-6 Sol, GPT-6.1 Sol, GPT-6 Luna; ChatGPT and ChatGPT Work; Codex
+- OpenAI: GPT-6 Astra, GPT-6 Sol, GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Luna; ChatGPT and ChatGPT Work; Codex
 - Google: Gemini 4 Argon, Gemini 4 Carbon (limited); the Gemini app; Antigravity
 
 Using web search, tell me what has changed since then.
@@ -405,12 +529,16 @@ Rules:
 - Use the companies' own announcement or documentation pages as sources. Use press only for context, and label it.
 - For every change: what changed, the date, and the exact URL of the vendor page.
 - Separate "released and generally available" from "announced" and "limited access".
+- Check model and effort choices separately. Say which app or API a default or control applies to.
 - Add any new usage survey of developers, designers or product managers with its sample size and dates.
 - If you cannot find a vendor source for something, say so. Never guess a model name or a date.`,
 
   sources: [
     'claude-models-overview',
+    'claude-effort',
+    'claude-code-model-effort',
     'claude-one-app',
+    'openai-current-models',
     'openai-gpt6-astra',
     'openai-gpt6-everyone',
     'openai-chatgpt-work',
