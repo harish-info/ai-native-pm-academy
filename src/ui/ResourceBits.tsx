@@ -80,27 +80,29 @@ export function ResourceCard({
 }) {
   return (
     <li className="rounded-xl border border-stone-200 p-4 dark:border-stone-800">
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <div>
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-2">
+        <div className="min-w-0 break-words">
           <a href={resource.url} target="_blank" rel="noopener noreferrer" className={linkClass}>
             {resource.title}
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
-          <div className="text-sm text-stone-600 dark:text-stone-400">
-            {resource.provider}
-            {minutes ? ` · Read and reflect: about ${minutes} min` : ''}
-            {resource.estimatedTime ? ` · Full resource: ${resource.estimatedTime}` : ''} ·{' '}
-            {costLabel(resource)}
-          </div>
         </div>
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="justify-self-end">
+          <BookmarkButton id={resource.id} label={resource.title} />
+        </div>
+        <div className="col-span-2 text-sm text-stone-600 dark:text-stone-400">
+          {resource.provider}
+          {minutes ? ` · Read and reflect: about ${minutes} min` : ''}
+          {resource.estimatedTime ? ` · Full resource: ${resource.estimatedTime}` : ''} ·{' '}
+          {costLabel(resource)}
+        </div>
+        <div className="col-span-2 flex flex-wrap items-center gap-1.5">
           {required !== undefined && (
             <Pill tone={required ? 'indigo' : 'neutral'}>
               {required ? 'Start here' : 'Go deeper'}
             </Pill>
           )}
           <StatusPill resource={resource} />
-          <BookmarkButton id={resource.id} label={resource.title} />
         </div>
       </div>
       {why && <p className="mt-2 text-sm">{inline(why)}</p>}
