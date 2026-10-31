@@ -532,15 +532,24 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
       mentorReview: 'recommended',
       goal: 'Explore what a product team with agents could look like, adapt one possible working loop to a real bottleneck, and propose a measured pilot with a 10-minute demo.',
       whyItMatters:
-        'Faster building can leave a team waiting for product decisions or trustworthy reviews. PM augmentation matters because the whole team needs to learn and decide well. Explore one possible way of working, then adapt it as your team, tools and constraints change.',
+        'When building becomes easier, a team can spend more attention on what deserves to be built and what it learns from the result. Explore a way of working where the whole team shapes the problem, agents support the build, and evidence informs the next decision. Adapt it as the work changes.',
       learn: [
         {
           heading: 'What could a product team with agents look like?',
           paragraphs: [
-            'A team could share context, explore the problem together, align its PRD, spec and prototype, build small slices, verify and learn. Adapt this model to your team. Stages often overlap; revisiting the problem or stopping can be the right move.',
-            'The loop connects the skills from earlier sessions. Select a stage for a possible PM contribution, a team conversation and links back to the relevant lessons.',
+            'This example assumes shared team context is already in place. The shift is in where the team spends its attention: more time exploring the user’s problem and what to build together, then shaping a solution, building, verifying and learning.',
+            'Select a stage to explore the lifecycle. This is one evolving team example, not a fixed sequence: stages can overlap and repeat as the team learns.',
           ],
           illustration: 'team-loop',
+        },
+        {
+          heading: 'Explore the problem with the whole team',
+          illustration: 'team-attention',
+          paragraphs: [
+            '“Problem, together” means PMs, designers and engineers spending time exploring the user’s problem and what to build in the same conversation. The PM brings user evidence and frames the decision; the whole team challenges assumptions and shapes the direction. Easier implementation creates room to spend more attention here before jumping into a build.',
+            'For example, a request arrives to “add an AI assistant”. Explore which user task is difficult, why it matters, how people handle it today and whether an assistant would help. Use a live prototype to make uncertain ideas concrete and try them together. The discussion should improve the problem and solution, rather than simply approve something already decided.',
+            'After building, treat the feature as a hypothesis to learn from. Compare the result and user feedback with the intended outcome, then carry that learning into the next problem conversation.',
+          ],
         },
         {
           heading: 'The bottleneck may move upstream',
@@ -558,18 +567,6 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
           ],
         },
         {
-          heading: 'From private assistance to shared augmentation',
-          paragraphs: [
-            'Individual AI use can help a person without changing team flow. Shared augmentation connects the work: people and agents can find current context, understand the same intended behaviour, see decisions and reuse what the team learned. The knowledge base and skills you built are ingredients, not a requirement to adopt a particular stack.',
-          ],
-          bullets: [
-            '**Shared context:** a small, sourced entry point with owners, dates, constraints and unresolved questions. Update it when evidence changes; do not dump every chat into it.',
-            '**Shared intent:** link the version of the PRD, design spec and prototype that describe the current slice. Reconcile conflicts with their owners before building. A PM should not be the only person able to contribute or explain the plan.',
-            '**Shared quality:** agree acceptance rules, evidence and decision rights. People can use different tools while producing work the team can understand and verify.',
-            '**Shared learning:** show a useful experiment and a failure, then improve the context, checks or skill. Try the process manually before automating it. Keep rituals only while they help.',
-          ],
-        },
-        {
           heading: 'Review practices may change too',
           paragraphs: [
             'If generated changes arrive faster than the team can understand them, generating still more work increases the queue. Start with small changes, author self-review and automated or agent checks before scarce expert attention. An agent review is evidence to inspect; it does not grant release authority.',
@@ -584,8 +581,8 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         {
           heading: 'Run a small team workshop, then test one change',
           paragraphs: [
-            'In a 30-minute discussion, ask three questions: what would augmentation mean for us, what already helps, and where does work still wait? Walk one recent piece of work through the loop and mark missing evidence, decision delays, artifact drift, review queues and repeated questions. Choose one constraint together. If working alone, rehearse with a mentor and label the team assumptions.',
-            'Try one response for a short, agreed pilot. For a decision queue, that might be a sourced decision brief before the team discussion. For artifact drift, it might be a joint PRD, spec and prototype check after a change. For repeated questions, it might be a shared context page with a backup owner. Do not roll out all three simply because agents can produce them.',
+            'In a 30-minute discussion, ask three questions: what would augmentation mean for us, what already helps, and where does work still wait? Walk one recent feature through the loop: who explored the problem, when the team jumped to a solution, and what it learned after release. Choose one constraint together. If working alone, rehearse with a mentor and label the team assumptions.',
+            'Try one change in a short pilot: bring the whole team into a problem conversation earlier, explore the uncertain part with a live prototype, or review user feedback together after release. Choose the change that addresses your team’s gap.',
             'Record an owner and backup, baseline, intended benefit, quality bar, cost and stop signal. Pick a review date appropriate to the work, such as two delivery cycles; six weeks is one option, not a prescribed cadence. Ask teammates whether understanding, confidence and workload improved, then keep, change or stop the experiment. Revisit the workflow as capabilities and constraints change.',
           ],
         },
@@ -641,7 +638,7 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         summary:
           'Draft `team-playbook.md` with Claude from your own evidence, rewrite it in your words, then give a 10-minute live demo of your PM OS to your mentor.',
         steps: [
-          'Spend 30 minutes with teammates or a mentor on the three workshop questions. Map one recent task to the suggested loop, adapt its stages to your context, and choose one evidenced wait point or gap. Record assumptions and keep confidential details out.',
+          'Spend 30 minutes with teammates or a mentor on the three workshop questions. Map one recent feature to the suggested loop. Check who explored the problem and what the team learned, then choose one change to try. Record assumptions and keep confidential details out.',
           'Run the agent prompt below. Claude drafts the playbook from your quarter: the wiki, the team knowledge base, the skill checks and the trust-check scores.',
           'Rewrite the draft in your own words. Claude drafts; you own the substance. Read it aloud and rewrite any sentence that sounds like the agent rather than you.',
           'Check the review model: use the course human-approval baseline, keep changes small and explain three risk tiers with owners and gates. Label any proposed future automation as an experiment requiring policy permission and evidence.',
@@ -653,14 +650,14 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In your workspace, with access to team-kb',
-        text: `I am preparing team-playbook.md: a proposal for how a product team in my organization could work with shared context, skills and agents. Read my evidence first: wiki/index.md and the pages it lists, team-kb/AGENTS.md, team-kb/kb-trust-check.md and team-kb/skill-checks.md. My notes on the team's bottleneck: [paste your two sentences].
+        text: `I am preparing team-playbook.md: a proposal for how a product team in my organization could work with shared context, skills and agents. Read my evidence first: wiki/index.md and the pages it lists, team-kb/AGENTS.md, team-kb/kb-trust-check.md and team-kb/skill-checks.md. My workshop notes: [paste who explored the problem, where work waited and what the team learned].
 
 Draft the playbook in about two pages, with these sections:
 1. Workshop and bottleneck: what augmentation could mean for this team, what already helps, and where work waits. Map one task to Context, Problem together, PRD/spec/prototype, Build, Verify and Learn. Adapt or omit stages with a reason. Mark assumptions.
-2. Shared context: reuse the team knowledge base and repository pointers where they help this bottleneck. Explain how product, design and engineering contribute.
+2. Problem, together: assume shared context exists. Explain how the whole team will explore the user problem and what to build, using live prototypes where helpful.
 3. Shared skills: reuse a tested skill only if it helps the chosen constraint. Name its owner and checks.
 4. Review model: retain independent human approval for production changes in this course, small changes, author self-review and agent checks before human review. Give three risk tiers, each with an example, owner and gate. Any possible future automated lane needs policy permission, enforced scope, reliability evidence, monitoring and rollback; label it as a proposal, not a forecast.
-5. Working agreements: one optional briefing, decision capture and learning review that fit the bottleneck. Shared artifact versions and backup owners; no mandated toolset or fixed ritual schedule.
+5. Working agreements: how the team shapes the solution, verifies the result and learns from user feedback. Feed learning into the next decision; no mandated toolset or fixed cadence.
 6. Accountability: who owns problem choice, evidence judgment, quality, release authority and people decisions. Explain where specialist expertise is needed even when roles overlap.
 7. Measures: outcome and flow metrics and health signals, each with a baseline. No targets for AI usage.
 8. Adoption: one workflow change with an owner and backup, an agreed duration and review date, success criteria and keep/change/stop signals. Six weeks is an option, not a rule. Explain when to revisit the operating model.

@@ -1,63 +1,52 @@
-// An exploratory teaching model adapted from the operator's supplied lifecycle.
-// These are suggested working agreements, not a mandatory process or a maturity standard.
+// An evolving team example, adapted from the course creator's supplied lifecycle.
+// Shared team context is assumed throughout; this is not a process to adopt wholesale.
 export const productLoop = [
   {
     label: 'Context',
-    question: 'What do we know, and what may have changed?',
-    pm: 'Curate the problem, evidence, goals, constraints and decisions. Make unknowns visible.',
-    together: 'Product, design and engineering check whether the context is current and usable.',
-    output: 'A short, sourced brief and a shared decision trail.',
-    risk: 'Private prompts or stale documents make each person and agent start from a different picture.',
+    question: 'What do we already know about the user and the situation?',
+    description:
+      'Start from the team’s existing understanding of users, product goals and constraints. Bring the relevant context into the conversation about this piece of work.',
+    output: 'A common starting point and the questions worth exploring.',
     lessons: ['s2', 's17', 's18'],
   },
   {
     label: 'Problem, together',
-    question: 'Which problem deserves attention now?',
-    pm: 'Bring user evidence, clarify the outcome and compare the bet with doing nothing.',
-    together:
-      'Explore value, usability and feasibility together. Use domain specialists where their judgment matters.',
-    output: 'A problem hypothesis, alternatives and the next uncertainty to test.',
-    risk: 'A queue of unresolved product decisions can leave a fast build team waiting.',
+    question: 'What problem are we solving, and what should we build for the user?',
+    description:
+      'Spend time as a whole team exploring the user’s problem before committing to a solution. PMs, designers and engineers work out the problem and what to build together. In this example, easier building creates room to spend more attention here.',
+    output: 'A shared understanding of the problem and a reasoned direction to explore.',
     lessons: ['s9', 's10'],
   },
   {
     label: 'PRD, spec, prototype',
-    question: 'Can people and agents understand the same intended behaviour?',
-    pm: 'Use a GrillMe session to expose gaps, then record scope, acceptance criteria and open decisions.',
-    together:
-      'Prototype uncertain interactions and reconcile the PRD, design spec and prototype with their owners.',
-    output: 'A versioned plan, a visible prototype and an agreed next slice.',
-    risk: 'Silent changes across artifacts cause fast, confident implementation of an outdated decision.',
+    question: 'How can we make the idea concrete enough to challenge?',
+    description:
+      'Explore the solution through a live prototype, PRD and design spec. Use a GrillMe session to question assumptions, try the experience together and refine the direction before committing to the build.',
+    output: 'A solution to try, with the important unknowns made explicit.',
     lessons: ['s4', 's6', 's12', 's13'],
   },
   {
     label: 'Build',
-    question: 'What is the smallest change we can inspect?',
-    pm: 'Stay available for consequential questions and help resolve scope without inventing certainty.',
-    together:
-      'Choose tools freely, keep changes reviewable, and work from the agreed behaviour and constraints.',
-    output: 'A small running slice with its checks and evidence.',
-    risk: 'Generating more code can increase review queues, rework and coordination cost.',
+    question: 'How do we turn the agreed direction into working software?',
+    description:
+      'Use agents to implement a small slice. Keep the team involved as new questions surface, and use the running result to clarify decisions.',
+    output: 'A working increment the team can try.',
     lessons: ['s7', 's8'],
   },
   {
     label: 'Verify',
-    question: 'Does the result meet the intent and quality bar?',
-    pm: 'Check user value, acceptance rules and metric meaning. Make a release recommendation within the team policy.',
-    together:
-      'Combine tests, evals, observation and specialist judgment; keep approval and rollback responsibilities explicit.',
-    output: 'Evidence for a bounded release, another iteration or stopping.',
-    risk: 'A convincing demo or agent approval can hide an untested action, failed state or unsupported claim.',
+    question: 'Does what we built solve the problem as intended?',
+    description:
+      'Have agents run checks against the intended behaviour and show evidence. People judge the experience, intent and risk, with the relevant experts and review policy for the change.',
+    output: 'Evidence for releasing, refining or stopping.',
     lessons: ['s8', 's14', 's15'],
   },
   {
     label: 'Learn',
-    question: 'What should change in the next loop?',
-    pm: 'Compare outcomes and costs with the hypothesis, then update the next decision and its context.',
-    together:
-      'Share failures, improve instructions and skills, and change the way of working when evidence warrants it.',
-    output: 'Updated context, a recorded decision and one useful workflow improvement.',
-    risk: 'Keeping the learning in one person’s chat makes the team repeat the same mistakes.',
+    question: 'What happened for users, and what should we do next?',
+    description:
+      'Compare the result with the problem you set out to solve. Bring user feedback and what the team learned back into the shared context, then refine the idea, change direction or stop.',
+    output: 'Learning that informs the team’s next problem conversation.',
     lessons: ['s16', 's19', 's20'],
   },
 ]

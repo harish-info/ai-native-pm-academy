@@ -321,6 +321,21 @@ body {
 .product-loop {
   container-type: inline-size;
 }
+.attention-model {
+  container-type: inline-size;
+}
+.attention-label {
+  display: none;
+}
+@container (min-width: 560px) {
+  .attention-label {
+    display: inline;
+  }
+  .attention-number,
+  .attention-key {
+    display: none;
+  }
+}
 .product-loop-map {
   position: relative;
 }

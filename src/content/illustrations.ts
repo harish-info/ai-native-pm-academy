@@ -268,12 +268,49 @@ export const lessonVisuals = {
       },
     ],
   },
+  'team-attention': {
+    title: 'Building gets easier. Judgment still matters.',
+    summary:
+      'One possible shift: more team attention on understanding the problem and learning from the result.',
+    caption:
+      'Illustrative attention, not measured time or a productivity forecast. Verification remains part of the work.',
+    stages: ['Problem', 'Plan', 'Build', 'Verify', 'Learn'],
+    rows: [
+      {
+        label: 'Build-heavy',
+        weights: [14, 11, 53, 14, 8],
+        description: 'Most team attention goes into implementation.',
+      },
+      {
+        label: 'With agents',
+        weights: [28, 13, 13, 13, 33],
+        description:
+          'Agents support more of the build, creating room for problem exploration and learning.',
+      },
+    ],
+    principles: [
+      {
+        title: 'Explore the problem together',
+        detail:
+          'PMs, designers and engineers shape the problem and try ideas through live prototypes.',
+      },
+      {
+        title: 'Verify against intent',
+        detail: 'Agents supply checks and evidence. People judge the experience, intent and risk.',
+      },
+      {
+        title: 'Learn into the next decision',
+        detail:
+          'User feedback and results improve the team’s understanding and what it chooses to do next.',
+      },
+    ],
+  },
   'team-loop': {
     title: 'A possible product loop with agents',
     summary:
-      'Explore a PM contribution and a team conversation at each stage. Adapt this model as your work changes.',
+      'Spend more time on the problem together, then shape a solution, build, verify and learn.',
     caption:
-      'A suggested way of working, adapted from the course creator’s practice. Stages overlap and repeat; stopping or returning to the problem can be the right move.',
+      'One evolving team example, adapted from the course creator’s practice. Adapt the loop to your team.',
   },
   constraints: {
     title: 'Faster building can leave the same constraint',

@@ -978,6 +978,54 @@ function TeamTime() {
   )
 }
 
+function TeamAttention() {
+  const data = lessonVisuals['team-attention']
+  return (
+    <div className="attention-model space-y-5">
+      {data.rows.map((row, rowIndex) => (
+        <div key={row.label} className="grid grid-cols-[5rem_1fr] items-center gap-3">
+          <p className="text-xs font-semibold">{row.label}</p>
+          <p className="sr-only">{row.description}</p>
+          <div
+            aria-hidden
+            className="grid gap-1"
+            style={{ gridTemplateColumns: row.weights.map((w) => `${w}fr`).join(' ') }}
+          >
+            {data.stages.map((stage, i) => (
+              <div
+                key={stage}
+                className={cx(
+                  'min-w-0 rounded-lg border px-0.5 py-4 text-center text-xs font-semibold',
+                  rowIndex === 1 && (i === 0 || i === 4)
+                    ? 'border-indigo-500 bg-indigo-50 text-indigo-950 dark:bg-indigo-950 dark:text-indigo-100'
+                    : rowIndex === 0 && i === 2
+                      ? 'border-stone-400 bg-stone-300 dark:border-stone-500 dark:bg-stone-600'
+                      : 'border-stone-300 dark:border-stone-600',
+                  rowIndex === 1 && i === 2 && 'border-dashed',
+                )}
+              >
+                <span className="attention-label">{stage}</span>
+                <span className="attention-number">{i + 1}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <p className="attention-key text-xs text-stone-600 dark:text-stone-300">
+        {data.stages.map((stage, i) => `${i + 1} ${stage}`).join(' · ')}
+      </p>
+      <div className="grid gap-4 border-t border-stone-200 pt-4 sm:grid-cols-3 dark:border-stone-700">
+        {data.principles.map((p) => (
+          <div key={p.title}>
+            <p className="text-sm font-semibold">{p.title}</p>
+            <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">{p.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function Constraints() {
   const [selected, setSelected] = useState(0)
   const data = lessonVisuals.constraints
@@ -1039,6 +1087,7 @@ const drawings: Record<LessonVisualId, () => ReactNode> = {
   team: TeamTime,
   constraints: Constraints,
   'team-loop': () => <ProductLoop />,
+  'team-attention': TeamAttention,
 }
 
 export function LessonIllustration({ id }: { id: LessonVisualId }) {

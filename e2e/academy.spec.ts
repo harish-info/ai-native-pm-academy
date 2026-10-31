@@ -97,7 +97,7 @@ test('suggested team loop supports keyboard exploration and shows workflow const
   await overview.getByRole('tab', { name: '1 Context' }).focus()
   await page.keyboard.press('ArrowLeft')
   await expect(overview.getByRole('tab', { name: '6 Learn' })).toBeFocused()
-  await expect(page.getByRole('tabpanel')).toContainText('Updated context')
+  await expect(page.getByRole('tabpanel')).toContainText('user feedback')
   await page.keyboard.press('Home')
   await expect(overview.getByRole('tab', { name: '1 Context' })).toHaveAttribute(
     'aria-selected',
@@ -106,6 +106,9 @@ test('suggested team loop supports keyboard exploration and shows workflow const
 
   await page.goto('#/lessons/s20')
   const loop = page.locator('[data-illustration="team-loop"]')
+  await loop.getByRole('tab', { name: '2 Problem, together' }).click()
+  await expect(loop.getByRole('tabpanel')).toContainText('as a whole team')
+  await expect(loop.getByRole('tabpanel')).toContainText('PMs, designers and engineers')
   await loop.getByRole('tab', { name: '3 PRD, spec, prototype' }).click()
   await expect(loop.getByRole('tabpanel')).toContainText('GrillMe')
   await expect(loop.getByRole('link', { name: 'Session 12' })).toHaveAttribute(
@@ -116,6 +119,9 @@ test('suggested team loop supports keyboard exploration and shows workflow const
   await page.keyboard.press('End')
   await page.keyboard.press('ArrowRight')
   await expect(loop.getByRole('tab', { name: '1 Context' })).toBeFocused()
+  const attention = page.locator('[data-illustration="team-attention"]')
+  await expect(attention.getByText('Explore the problem together', { exact: true })).toBeVisible()
+  await expect(attention.getByText('Learn into the next decision', { exact: true })).toBeVisible()
 
   await page.goto('#/lessons/s9')
   const capacity = page.locator('[data-illustration="constraints"]')

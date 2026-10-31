@@ -55,13 +55,11 @@ export function ProductLoop({ compact = false }: { compact?: boolean }) {
           />
         </svg>
         <div className="product-loop-centre" aria-hidden>
-          <p className="text-sm font-semibold">One possible loop</p>
+          <p className="text-sm font-semibold">Shared team context</p>
           <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
-            Adapt the sequence.
+            A foundation throughout
             <br />
-            Revisit the problem.
-            <br />
-            Learn into the next round.
+            this evolving loop.
           </p>
         </div>
         <div
@@ -110,30 +108,11 @@ export function ProductLoop({ compact = false }: { compact?: boolean }) {
         className="mt-4 rounded-xl border border-stone-200 bg-white p-4 dark:border-stone-700 dark:bg-stone-900"
       >
         <p className="mb-3 text-base font-semibold">{step.question}</p>
+        <p className="text-sm leading-relaxed">{step.description}</p>
         {!compact && (
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <p className="mb-1 text-xs font-semibold text-indigo-800 dark:text-indigo-200">
-                The PM could help by
-              </p>
-              <p className="text-sm leading-relaxed">{step.pm}</p>
-            </div>
-            <div>
-              <p className="mb-1 text-xs font-semibold text-indigo-800 dark:text-indigo-200">
-                Work together on
-              </p>
-              <p className="text-sm leading-relaxed">{step.together}</p>
-            </div>
-          </div>
-        )}
-        <p className="mt-4 text-sm">
-          <strong>Useful output: </strong>
-          {step.output}
-        </p>
-        {!compact && (
-          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
-            <strong>Watch for: </strong>
-            {step.risk}
+          <p className="mt-4 text-sm">
+            <strong>Move forward with: </strong>
+            {step.output}
           </p>
         )}
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs">
@@ -145,8 +124,8 @@ export function ProductLoop({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
       <p className="mt-3 text-xs text-stone-600 dark:text-stone-300">
-        Select a stage, or focus the loop and use ← / →. Verification and shared learning can happen
-        throughout; the arrows are a guide to discussion.
+        Select a stage, or use ← / → when focused. Stages can overlap, repeat or change as the team
+        learns.
       </p>
     </div>
   )

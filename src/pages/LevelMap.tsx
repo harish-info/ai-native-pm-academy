@@ -38,10 +38,9 @@ export function LevelMap() {
           What could a product team with agents look like?
         </h2>
         <p className="mt-2 mb-5 max-w-3xl text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-          One possible loop connects the skills in this course. Start with context, work on the
-          problem together, make intent visible, build, verify and learn. Try it against your team’s
-          bottleneck, adapt it and revisit it as the work changes. Session 20 turns this into a
-          small team experiment.
+          With shared context already in place, a team can spend more time exploring the user’s
+          problem and what to build together. Then prototype, build, verify and learn. This is one
+          evolving example to adapt, explored in Session 20.
         </p>
         <Suspense fallback={<p className="text-sm">Loading the suggested product loop…</p>}>
           <ProductLoop compact />
