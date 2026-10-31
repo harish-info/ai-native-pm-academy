@@ -171,7 +171,7 @@ Rules:
       safetyCritical: true,
       goal: 'Interview five real people who match your target users and test your prototype with them, handle their personal data properly, synthesise by hand before comparing with Claude, and turn the evidence into an Opportunity Solution Tree. The conversations happen in the week before this session; the session time covers the guide, synthesis and tree.',
       whyItMatters:
-        'Your strategy contains assumptions about people and their work. Now you investigate them with people who actually experience the problem. AI can generate plausible personas, transcripts and insights that nobody ever said. Keep those separate from observations, and preserve a decision trail so another person can assess why you chose the next step.',
+        'Your strategy rests on guesses about people and their work. Now you talk to people who actually have the problem. Claude can write a convincing persona or interview transcript in seconds, and none of it happened. Keep what you heard and saw apart from anything generated, so anyone can trace why you picked the next step.',
       learn: [
         {
           heading: 'An interview first, then a usability test',
@@ -190,7 +190,7 @@ Rules:
         {
           heading: 'Consent and personal data',
           paragraphs: [
-            'Interview notes can contain personal and confidential information, whatever the product domain. Explain how the notes will be used, collect only what you need, remove identifying details and follow the participant’s consent and your organization’s policy.',
+            'Interview notes hold personal details, whatever your product. Tell people how you will use the notes, write down only what you need, and strip anything that identifies them.',
           ],
           bullets: [
             'Ask for consent to take notes, separately for any recording or transcription, and separately again before any AI tool processes the notes. Name the tool: "I will use Claude to help summarise my notes, without your name."',
@@ -204,14 +204,14 @@ Rules:
         {
           heading: 'Synthesise by hand first, then with Claude',
           paragraphs: [
-            'Reading an AI synthesis first can anchor your interpretation. Write snapshots and your own themes before comparing with a fresh AI pass. Fresh sessions reduce conversational carry-over; they do not make the model an independent witness. Check both interpretations against the same original observations.',
-            'Agreement can help locate a theme but does not add new participant evidence. Check its supporting quotes, context, consequence and alternative explanations. A severe problem reported once may deserve attention; frequency alone does not decide importance.',
+            'If you read Claude’s synthesis first, you will start seeing your interviews through it. So write your snapshots and your own themes first, then ask a fresh session for its version. A fresh session has not heard your opinions, but it is reading the same notes you wrote, so check both versions against the original quotes.',
+            'When you and Claude agree on a theme, that tells you where to look, not that it is more true: no new participant said anything. Check the quotes behind it. One person describing a serious problem can matter more than five mentioning a small annoyance.',
           ],
         },
         {
           heading: 'Synthetic users: when they help and when they mislead',
           paragraphs: [
-            'Synthetic users are generated personas, not observations of your customers. They can produce plausible, emotional or surprising stories, but those stories remain invented. Fluency and realism do not establish authenticity or prevalence.',
+            'Synthetic users are personas a model makes up. They tell vivid, emotional and surprising stories, and every one of them is invented. However convincing the story, it tells you nothing about whether real people have the problem, or how many.',
             'They help with the work around research: rehearsing your discussion guide, spotting leading questions, and listing hypotheses to test with real people. They mislead the moment they are counted as evidence. If you rehearse with a synthetic participant, label it practice and keep it out of your synthesis. Challenge c6 lets you compare the two directly.',
           ],
         },
@@ -219,8 +219,8 @@ Rules:
           heading: 'Opportunity Solution Trees',
           illustration: 'discovery',
           paragraphs: [
-            "Teresa Torres's Opportunity Solution Tree connects a desired outcome at the top, to opportunities (customer needs, pain points and desires) in the middle, to solutions and assumption tests at the bottom. Its power is discipline: every solution must hang off an opportunity, and every opportunity should trace back to something a real person said or did.",
-            'Take the outcome from your strategy kernel. Opportunities come from specific difficulties observed in your conversations. Preserve the situation and consequence, such as a person having to reopen several tools to finish one task; do not replace evidence with a generic complaint. Your prototype is one solution under one opportunity, not the root of the tree. Put two or three alternatives next to it, and compare them by how well they address the target opportunity, not by how exciting they look in a demo.',
+            "Teresa Torres's Opportunity Solution Tree connects a desired outcome at the top, to opportunities (customer needs, pain points and desires) in the middle, to solutions and assumption tests at the bottom. The rule that makes it useful: every solution hangs off an opportunity, and every opportunity traces back to something a real person said or did.",
+            'Take the outcome from your strategy kernel. Each opportunity is a specific difficulty you heard or saw, kept concrete: "has to open three tools to finish one task", not "finds it inefficient". Your prototype is one solution under one opportunity, not the top of the tree. Put two or three alternatives next to it and compare them on how well they address the opportunity, not on how good they look in a demo.',
           ],
         },
       ],
