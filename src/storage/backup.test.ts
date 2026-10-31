@@ -49,7 +49,7 @@ describe('backup export and import', () => {
     if (!r.ok) expect(r.details?.some((d) => d.startsWith('studyLog'))).toBe(true)
   })
 
-  it('imports a schema 1 backup from the five-week plan and keeps every record', () => {
+  it('imports a schema 1 backup from the five-week plan through every migration', () => {
     const v1 = {
       schemaVersion: 1,
       createdAt: '2026-11-01T09:00:00.000Z',
@@ -73,10 +73,66 @@ describe('backup export and import', () => {
     expect(r.ok).toBe(true)
     if (!r.ok) return
     expect(r.migratedFrom).toBe(1)
-    expect(r.data.schemaVersion).toBe(3)
-    expect(r.data.lessons.s1?.completedAt).toBe('2026-11-02T20:00:00.000Z')
-    expect(r.data.masteredLevels['1']).toBe('2026-11-03T21:00:00.000Z')
+    expect(r.data.schemaVersion).toBe(CURRENT_SCHEMA_VERSION)
+    expect(r.data.studyLog).toHaveLength(1)
     expect(r.data.settings).toEqual({ theme: 'dark' })
+  })
+
+  it('clears progress from before the storyline v2 restructure and keeps the rest', () => {
+    const v3 = {
+      schemaVersion: 3,
+      createdAt: '2026-11-01T09:00:00.000Z',
+      updatedAt: '2026-11-10T21:00:00.000Z',
+      onboarding: {
+        profile: { role: 'pm' },
+        selfRatings: { 'ai-fundamentals': 2 },
+        diagnostic: { d1: 'a' },
+        completedAt: '2026-11-01T09:30:00.000Z',
+      },
+      lessons: { s1: { completedAt: '2026-11-02T20:00:00.000Z' } },
+      challenges: { c1: { startedAt: '2026-11-03T20:00:00.000Z' } },
+      quizAttempts: [
+        {
+          id: 'q',
+          levelId: 1,
+          answers: {},
+          correct: 8,
+          total: 8,
+          at: '2026-11-03T21:00:00.000Z',
+        },
+      ],
+      projects: { '1': { evidence: 'old pitch' } },
+      masteredLevels: { '1': '2026-11-03T21:00:00.000Z' },
+      bookmarks: ['s4'],
+      notes: [
+        {
+          id: 'n',
+          kind: 'note',
+          title: 'Keep me',
+          body: 'mine',
+          createdAt: '2026-11-02T20:00:00.000Z',
+          updatedAt: '2026-11-02T20:00:00.000Z',
+        },
+      ],
+      studyLog: [{ id: 'a', date: '2026-11-02', minutes: 75, lessonId: 's1' }],
+      settings: { theme: 'dark', planStart: '2026-11-02', caseStudy: 'steady' },
+    }
+    const r = parseBackup(
+      JSON.stringify({ app: BACKUP_APP, kind: BACKUP_KIND, schemaVersion: 3, data: v3 }),
+    )
+    expect(r.ok).toBe(true)
+    if (!r.ok) return
+    expect(r.migratedFrom).toBe(3)
+    expect(r.data.lessons).toEqual({})
+    expect(r.data.challenges).toEqual({})
+    expect(r.data.quizAttempts).toEqual([])
+    expect(r.data.projects).toEqual({})
+    expect(r.data.masteredLevels).toEqual({})
+    expect(r.data.bookmarks).toEqual([])
+    expect(r.data.onboarding?.diagnostic).toEqual({ d1: 'a' })
+    expect(r.data.notes.map((n) => n.title)).toEqual(['Keep me'])
+    expect(r.data.studyLog).toHaveLength(1)
+    expect(r.data.settings).toEqual({ theme: 'dark', planStart: '2026-11-02', caseStudy: 'steady' })
   })
 
   it('keeps MoneyPilot for a schema 2 learner who already started Level 3', () => {

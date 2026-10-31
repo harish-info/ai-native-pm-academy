@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const CURRENT_SCHEMA_VERSION = 3
+export const CURRENT_SCHEMA_VERSION = 4
 
 const isoDate = z.string().min(10).max(40)
 const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
@@ -81,7 +81,7 @@ export const settingsSchema = z.object({
   planStart: day.optional(),
   /** Plan pace. Unset means derived from the weekly hours given in onboarding. Added in schema 2. */
   planPace: z.enum(['standard', 'light']).optional(),
-  /** The case study carried through Levels 3 to 5. Unset until the learner picks one. Added in schema 3. */
+  /** The case study carried through the course. Unset until the learner picks one. Added in schema 3. */
   caseStudy: z.enum(['moneypilot', 'steady', 'triage']).optional(),
 })
 

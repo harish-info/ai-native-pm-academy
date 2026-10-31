@@ -36,6 +36,19 @@ export const migrations: Record<number, (raw: Record<string, unknown>) => Record
       const settings = (raw.settings ?? { theme: 'system' }) as Record<string, unknown>
       return { ...raw, settings: { ...settings, caseStudy: 'moneypilot' } }
     },
+    // 3 to 4: the curriculum was restructured (storyline v2). Session and challenge ids were
+    // reused for different content, so old progress no longer describes the same work. Lesson,
+    // challenge, quiz, project, mastery and bookmark records are cleared; onboarding, notes,
+    // goals, the study log and settings are kept.
+    3: (raw) => ({
+      ...raw,
+      lessons: {},
+      challenges: {},
+      quizAttempts: [],
+      projects: {},
+      masteredLevels: {},
+      bookmarks: [],
+    }),
   }
 
 export function createBackup(data: LearnerData, now = new Date()): BackupFile {
