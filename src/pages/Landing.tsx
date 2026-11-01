@@ -62,10 +62,10 @@ export function Landing() {
           <div className="relative">
             <div>
               <p className="mb-3 font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
-                A practical field course for product managers
+                AI for product managers
               </p>
               <h1 className="max-w-3xl text-4xl leading-[1.1] font-bold tracking-[-0.04em] text-balance sm:text-5xl">
-                Become the product manager who knows what to build, and can build it with agents.
+                Everything a PM needs to work with AI agents, from foundations to team practice.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
                 A structured, practical course in five levels and twenty sessions, built on curated
