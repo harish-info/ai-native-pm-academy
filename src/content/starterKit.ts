@@ -29,7 +29,7 @@ export interface StarterKit {
 
 export const starterKit: StarterKit = {
   intro:
-    'Install each tool when you reach the session that uses it, not all on day one. The session shows you how to use it.',
+    'Every tool here also appears at the top of the session that first uses it, so you can install as you go. This page is the whole list in one place.',
   stages: [
     {
       id: 'week-1',
@@ -60,13 +60,13 @@ export const starterKit: StarterKit = {
       when: 'Before Session 5',
       title: 'Let Claude work on your files',
       intro:
-        'Session 5 sets up Claude Code, which needs a Claude Pro plan (from $20 a month). The Code tab in the desktop app needs nothing else. If you would rather use a terminal, use Warp instead of the one that came with your computer. Sessions 5 to 7 also set up Git, Node.js and a GitHub account, with Claude and your mentor.',
+        'Session 5 installs Claude Code, which needs a Claude Pro plan (from $20 a month), and runs it in Warp. If the terminal stops you, the Code tab in the desktop app is the same agent. Sessions 5 to 7 also set up Git, Node.js and a GitHub account, with Claude and your mentor.',
       lessons: ['s5'],
       tools: [
         {
           name: 'Warp',
-          need: 'Optional',
-          what: 'The terminal to use if you choose one. It feels like a modern app: you click to place the cursor and edit what you typed like normal text. Claude Code runs inside it.',
+          need: 'Recommended',
+          what: 'The terminal for this course, instead of the one that came with your computer. It feels like a modern app: you click to place the cursor and edit what you typed like normal text. Claude Code runs inside it.',
           facts:
             'Free for Mac, Windows and Linux. Its own AI features are optional and need an account.',
           resourceId: 'warp',

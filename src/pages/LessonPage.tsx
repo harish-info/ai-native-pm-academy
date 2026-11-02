@@ -21,6 +21,7 @@ import {
   linkClass,
   stretchedLink,
 } from '../ui/primitives'
+import { KitCallout } from '../ui/KitCallout'
 import { NotFound } from './NotFound'
 
 const LessonIllustration = lazy(() =>
@@ -183,6 +184,8 @@ export function LessonPage() {
           {lesson.practicalProof ? ' · Practical proof' : ''}
         </p>
       </details>
+
+      <KitCallout lessonId={lesson.id} />
 
       {!status.unlocked && (
         <Card

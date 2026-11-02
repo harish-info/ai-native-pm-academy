@@ -114,7 +114,7 @@ export const level5: Level = {
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In your workspace folder (desktop Code tab or terminal)',
+        where: 'In Claude Code, in your workspace folder',
         text: `This is my PM workspace. Read product-context.md for the context I have chosen. The folder holds my learning work: research, interview notes, analyses, the PRD, the design spec, eval and launch documents and a stakeholder update. I want it to become a personal knowledge base that you maintain, with three layers.
 
 Layers:

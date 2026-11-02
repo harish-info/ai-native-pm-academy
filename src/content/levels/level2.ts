@@ -27,7 +27,7 @@ export const level2: Level = {
       title: 'Your workspace and Claude Code',
       difficulty: 'Intermediate',
       minutes: 120,
-      tools: ['Claude Code (desktop Code tab or terminal)', 'Git'],
+      tools: ['Claude Code in Warp (or the desktop Code tab)', 'Git'],
       prerequisites: ['s4'],
       competencies: ['coding-agents', 'knowledge-management'],
       xp: 125,
@@ -40,7 +40,7 @@ export const level2: Level = {
           heading: 'What Claude Code does that a chat cannot',
           paragraphs: [
             'Claude Code reads files, writes changes and runs commands on your computer. Whatever it reads, including file contents and command output, goes to the model provider. It starts in the folder you choose, but that folder is not a fence: it can be allowed to reach other files and tools, so check what it may do before you start.',
-            "You do not need a terminal. The Claude desktop app has a **Code** tab: sign in with your Claude Pro plan, choose a folder and type. The terminal version is the same agent if you ever want it. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on. The [Field guide](/field-guide) compares current models and tools.",
+            "This course runs Claude Code in a terminal, and the next section shows why that is easier than it sounds. If the terminal ever stops you, the Claude desktop app has a **Code** tab with the same agent: sign in with your Claude Pro plan, choose a folder and type. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on. The [Field guide](/field-guide) compares current models and tools.",
             'The main Claude app, which now includes **Cowork**, can also act as an agent. This course uses Claude Code because your prototype lives in a folder you own, under git, where you can see and undo every change.',
           ],
         },
@@ -48,8 +48,8 @@ export const level2: Level = {
           heading: 'A terminal is just another chat window',
           paragraphs: [
             'Claude Code also runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. Two words you will hear: a **CLI** (command line interface) is any program you use by typing instead of clicking, and a **TUI** (text user interface) is a CLI that draws boxes and menus inside the terminal. Claude Code is a TUI, which is why it feels like a chat app once it is running: you type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks first.',
-            "If you use a terminal, use **Warp** rather than the one that came with your computer; it is free, and the [Starter kit](/starter-kit) links it. Setup is the only part where you type commands. Once, paste the install line from [Anthropic's terminal guide](https://code.claude.com/docs/en/terminal-guide). Each time after that, type `cd` and a space, drag your workspace folder onto the window, press Enter, and type `claude`. From then on you type sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran.",
-            'Use whichever feels calmer, the desktop **Code** tab or a terminal. It is the same agent, reading the same `CLAUDE.md`, and you can switch at any time. In the terminal, five keys are worth knowing:',
+            "Use **Warp** rather than the terminal that came with your computer: it is free, and you click and edit what you typed like normal text. Setup is the only part where you type commands. Once, paste the install line from [Anthropic's terminal guide](https://code.claude.com/docs/en/terminal-guide). Each time after that, type `cd` and a space, drag your workspace folder onto the window, press Enter, and type `claude`. From then on you type sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran.",
+            'If you switch to the desktop **Code** tab, nothing else changes: same agent, same `CLAUDE.md`, and you can switch back at any time. In the terminal, five keys are worth knowing:',
           ],
           bullets: [
             '**Esc** stops Claude mid-task, safely. Then say what you want instead.',
@@ -125,8 +125,8 @@ export const level2: Level = {
         },
         {
           resourceId: 'claude-code-terminal-guide',
-          why: 'If you choose the terminal: how to open one, install Claude Code and start it in your folder, written for first-time users.',
-          required: false,
+          why: 'How to open a terminal, install Claude Code and start it in your folder, written for first-time users.',
+          required: true,
         },
         {
           resourceId: 'claude-code-interactive-mode',
@@ -148,7 +148,7 @@ export const level2: Level = {
         summary:
           'Install Claude Code, create `workspace/`, move your Level 1 files in, write `CLAUDE.md` with Claude, and make your first commits.',
         steps: [
-          'Install the Claude desktop app, sign in with your Claude Pro plan and open the **Code** tab. Claude Code needs Git on your computer; if it reports that Git is missing, install it with your mentor before going further.',
+          'Open Warp, install Claude Code with the line from the terminal guide and sign in with your Claude Pro plan. If the terminal stops you, use the **Code** tab in the Claude desktop app instead. Claude Code needs Git on your computer; if it reports that Git is missing, install it with your mentor before going further.',
           'Create a folder called `workspace` somewhere private on your own computer, not in a shared or synced work folder. Copy in everything from your Level 1 `learning-notes/` folder: `product-context.md`, `glossary.md`, `model-comparison.md`, `delegation-audit.md`, `fact-sheet.md`, `pitch-notes.md` and anything else you kept there.',
           'Open the folder in Claude Code. Ask it to start a git repository and commit the files exactly as they are, before anything moves. This is your first save point.',
           'Run the prompt below. Read the proposed folder map and `CLAUDE.md` draft, push back on anything that does not match how you work, then let Claude make the changes.',
@@ -160,7 +160,7 @@ export const level2: Level = {
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In the Code tab, with the workspace folder open',
+        where: 'In Claude Code, with the workspace folder open',
         text: `This is my private PM workspace. Read product-context.md for the product, users and constraints I have chosen. Everything in it is fictional or public material. It will hold research, notes, decisions and a prototype, and you will work in it across the course.
 
 Read every file in the folder first, starting with product-context.md.
@@ -315,7 +315,7 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In the Code tab, with the workspace folder open',
+        where: 'In Claude Code, with the workspace folder open',
         text: `I am a PM exploring a feature idea. Read product-context.md for my product, target users and the problem I have chosen. If the problem is missing, ask me to define it before proposing screens. I want a clickable prototype that people can use to understand and challenge the idea. It must be honest and simple.
 
 Read product-context.md and pitch/pitch-notes.md first.

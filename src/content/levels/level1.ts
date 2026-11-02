@@ -990,5 +990,5 @@ Build the whole page now. After that I will ask for one change at a time: change
     xp: 300,
   },
   nextRecommendation:
-    'Move to Level 2. From here the course uses Claude Code, which needs a paid Claude Pro plan. Before Session 5, use the Field guide to check current models and tools and find where each everyday PM job is practised. In Session 5 your `learning-notes/` files move into a workspace, and `product-context.md` becomes the first thing every agent reads.',
+    'Move to Level 2. From here the course uses Claude Code, which needs a paid Claude Pro plan. Before Session 5, install Warp, linked at the top of Session 5. In Session 5 your `learning-notes/` files move into a workspace, and `product-context.md` becomes the first thing every agent reads.',
 }
