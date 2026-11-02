@@ -518,7 +518,7 @@ Done when: every section exists and you have listed the proposed items for my de
         'experiment-readout.md with the decision first, evidence against the thresholds, and a next step',
         'product-context.md, the decision log and eval-set.md updated with what you learned',
       ],
-      artifact: 'launch-plan.md and experiment-readout.md',
+      artifact: 'launch-plan.md, launch-dashboard.html and experiment-readout.md',
       verification: [
         'Every threshold in the launch plan was written before you generated the results.',
         'You recomputed the sample size and one readout metric yourself, and they match.',
@@ -667,7 +667,7 @@ Done when: every section exists and you have listed the proposed items for my de
         steps: [
           'Write the SCQA for your quarter, in four sentences, at the top of `qbr-outline.md`. Write it yourself, then ask Claude to challenge it, not rewrite it.',
           'Run the agent prompt below to turn your SCQA and workspace into a slide-by-slide outline. Edit it until the titles alone tell the story in six to eight slides, plus an appendix.',
-          'Build the deck from `qbr-outline.md`, the readout and the eval report in Claude Slides or your existing slide tool.',
+          'Build the deck from `qbr-outline.md`, the readout and the eval report by the route you chose: Claude Slides or your slide tool, the `pptx` skill, or one HTML file printed to PDF.',
           'Use one palette, charts computed from experiment-results.csv with SIMULATED visibly labelled, and speaker notes. Animation is optional. Check each slide communicates one point and that all numbers match the readout.',
           'In a fresh session, ask Claude to review the deck for clarity, consistency, numbers that do not match the readout, and AI-slide tells. Record a decision for each comment, then check every number yourself.',
           'Write `stakeholder-update.md`: one screen, the ask first, the same numbers as the deck, and links to the readout and the eval report.',

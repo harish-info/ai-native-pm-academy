@@ -38,7 +38,7 @@ function SessionLinks({ ids }: { ids: string[] }) {
 export function StarterKitPage() {
   return (
     <>
-      <PageHeader eyebrow="Set up once" title="Starter kit">
+      <PageHeader eyebrow="What to install" title="Starter kit">
         {k.intro} Facts about apps were checked on{' '}
         <time dateTime={STARTER_KIT_AS_OF}>{STARTER_KIT_AS_OF_LABEL}</time>.
       </PageHeader>

@@ -32,6 +32,12 @@ export default defineConfig({
               test: /src[\\/]content[\\/]fieldGuide\.ts$/,
               priority: 20,
             },
+            {
+              // Same for the starter kit page.
+              name: 'starter-kit',
+              test: /src[\\/]content[\\/]starterKit\.ts$/,
+              priority: 20,
+            },
             { name: 'teaching', test: /src[\\/]content[\\/]teaching\.ts$/, priority: 10 },
             { name: 'resources', test: /src[\\/]content[\\/]resources\.ts$/, priority: 10 },
             { name: 'content', test: /src[\\/]content[\\/]/ },

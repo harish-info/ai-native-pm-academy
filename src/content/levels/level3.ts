@@ -472,7 +472,8 @@ Use no real people, companies or figures.`,
         '`data/impact-estimate.md`: a low, base and high range with every input labeled by source',
         '`data/prioritised-bets.md`: at least eight bets scored with RICE, compared with a blind AI ranking',
       ],
-      artifact: '`funnel-analysis.md`, `impact-estimate.md` and `prioritised-bets.md`',
+      artifact:
+        '`funnel-analysis.md`, `data/funnel-dashboard.html`, `impact-estimate.md` and `prioritised-bets.md`',
       verification: [
         'Two numbers reported by Claude match your own pivot table, or the difference is explained.',
         'Every percentage in the analysis shows the counts behind it.',

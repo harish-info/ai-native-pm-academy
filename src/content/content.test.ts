@@ -197,7 +197,7 @@ describe('starter kit', () => {
       const r = resourceById(id)
       expect(r, id).toBeDefined()
       expect(r!.status, id).toBe('verified')
-      if (id !== 'obsidian') expect(r!.verifiedOn, id).toBe(STARTER_KIT_AS_OF)
+      expect(r!.verifiedOn, id).toBe(STARTER_KIT_AS_OF)
     }
   })
 })

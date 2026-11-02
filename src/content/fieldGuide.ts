@@ -373,7 +373,7 @@ Report: what you did, which files changed and anything you were unsure about.`,
       job: 'Dashboards and charts',
       ai: 'Turn a data file into charts or a one-page dashboard. A copyable brief follows this map.',
       you: 'What the reader has to decide, the metric definitions, and whether every number adds up.',
-      lessons: ['s11', 's16'],
+      lessons: ['s11', 's15', 's16'],
     },
     {
       job: 'Prototypes',

@@ -954,7 +954,7 @@ export const resources: Resource[] = [
     format: 'tool',
     practicalCost:
       'Free for personal and commercial use, no sign-up. Optional paid Sync ($4 to $5 a month), Publish ($8 to $10 a month) and a commercial license ($50 per user a year).',
-    verifiedOn: checked,
+    verifiedOn: kitChecked,
     status: 'verified',
     summary:
       'Local Markdown note-taking app. Notes stay as files on your computer, so it works well as a context library that coding agents can read.',

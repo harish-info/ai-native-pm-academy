@@ -60,13 +60,13 @@ export const starterKit: StarterKit = {
       when: 'Before Session 5',
       title: 'Let Claude work on your files',
       intro:
-        'Session 5 installs Claude Code, which needs a Claude Pro plan (from $20 a month). Run it in Warp rather than the terminal that came with your computer.',
+        'Session 5 sets up Claude Code, which needs a Claude Pro plan (from $20 a month). The Code tab in the desktop app needs nothing else. If you would rather use a terminal, use Warp instead of the one that came with your computer. Sessions 5 to 7 also set up Git, Node.js and a GitHub account, with Claude and your mentor.',
       lessons: ['s5'],
       tools: [
         {
           name: 'Warp',
-          need: 'Recommended',
-          what: 'A terminal that feels like a modern app: you click to place the cursor and edit what you typed like normal text. Claude Code runs inside it.',
+          need: 'Optional',
+          what: 'The terminal to use if you choose one. It feels like a modern app: you click to place the cursor and edit what you typed like normal text. Claude Code runs inside it.',
           facts:
             'Free for Mac, Windows and Linux. Its own AI features are optional and need an account.',
           resourceId: 'warp',
@@ -85,7 +85,7 @@ export const starterKit: StarterKit = {
       when: 'Session 16',
       title: 'Make presentations with Claude',
       intro:
-        'A skill is a set of instructions Claude loads for one kind of job. Ask Claude to install these for you.',
+        'A skill is a set of instructions Claude loads for one kind of job. Read its `SKILL.md` first, as Session 5 teaches, then ask Claude to install it.',
       lessons: ['s16'],
       tools: [
         {
