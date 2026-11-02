@@ -85,7 +85,7 @@ export const planWeeks: PlanWeek[] = [
     items: [
       {
         kind: 'prep',
-        text: 'Before Session 5, set up Claude Code with the Starter kit: the desktop Code tab, or a terminal if you prefer, and the keys worth knowing. Then use the Field guide (under Learn in the menu) to check current models, effort settings and the PM work map. Open the three diagnostic practice cases if you want to test which part of a disappointing result to fix.',
+        text: 'Before Session 5, install Warp from the Starter kit (under Learn in the menu); Session 5 sets up Claude Code inside it. Then use the Field guide (under Learn in the menu) to check current models, effort settings and the PM work map. Open the three diagnostic practice cases if you want to test which part of a disappointing result to fix.',
         minutes: 30,
       },
       { kind: 'mentor', text: 'First Claude Code session together.', minutes: 15 },

@@ -47,9 +47,16 @@ export const level2: Level = {
         {
           heading: 'A terminal is just another chat window',
           paragraphs: [
-            'Claude Code also runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. With Claude Code inside, it is a chat box. You type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks before it runs.',
-            'Getting started takes two typed steps, once: paste the install line from Anthropic, then type `claude` in your workspace folder. After that you type plain sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran. The few keys worth knowing, such as Esc to stop a task, how to paste a screenshot and which terminal app to use, fit on one screen in the [Starter kit](/starter-kit).',
-            'Use whichever feels calmer, the desktop **Code** tab or a terminal. It is the same agent, reading the same `CLAUDE.md`, and you can switch at any time.',
+            'Claude Code also runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. Two words you will hear: a **CLI** (command line interface) is any program you use by typing instead of clicking, and a **TUI** (text user interface) is a CLI that draws boxes and menus inside the terminal. Claude Code is a TUI, which is why it feels like a chat app once it is running: you type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks first.',
+            "Use **Warp** as your terminal rather than the one that came with your computer; it is free, and the [Starter kit](/starter-kit) links it. Setup is the only part where you type commands. Once, paste the install line from [Anthropic's terminal guide](https://code.claude.com/docs/en/terminal-guide). Each time after that, type `cd` and a space, drag your workspace folder onto the window, press Enter, and type `claude`. From then on you type sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran.",
+            'Use whichever feels calmer, the desktop **Code** tab or a terminal. It is the same agent, reading the same `CLAUDE.md`, and you can switch at any time. In the terminal, five keys are worth knowing:',
+          ],
+          bullets: [
+            '**Esc** stops Claude mid-task, safely. Then say what you want instead.',
+            '**Enter** sends; **Ctrl+J** starts a new line without sending.',
+            '**Shift+Tab** switches to plan mode, where Claude proposes a plan before changing anything.',
+            '**Ctrl+V** pastes a screenshot (Alt+V on Windows), or drag the image file onto the window. On a Mac, Cmd+Ctrl+Shift+4 copies a screenshot ready to paste.',
+            '**Up arrow** brings back your last message, `/help` lists commands, and **Ctrl+C** twice quits.',
           ],
         },
         {
@@ -119,6 +126,11 @@ export const level2: Level = {
         {
           resourceId: 'claude-code-terminal-guide',
           why: 'If you choose the terminal: how to open one, install Claude Code and start it in your folder, written for first-time users.',
+          required: false,
+        },
+        {
+          resourceId: 'claude-code-interactive-mode',
+          why: 'Every key and command inside a Claude Code session, when you want more than the five above.',
           required: false,
         },
         {

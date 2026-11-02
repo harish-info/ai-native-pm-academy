@@ -594,7 +594,7 @@ Done when: every section exists and you have listed the proposed items for my de
           bullets: [
             '**Your existing slide tool, or Claude Slides.** Follow the linked tutorial. Best when others will edit the deck.',
             "**A PowerPoint file from Claude Code.** Install Anthropic's `pptx` skill and ask Claude to build the deck from your outline and your charts.",
-            '**One HTML file.** Ask for "a single self-contained HTML deck, arrow keys to move, styles inline". It opens in any browser, the charts can be the real ones from your dashboard, and you print it to PDF to share. The `frontend-slides` skill does this well, and `frontend-design` keeps it from looking like every other AI deck.',
+            '**One HTML file.** Ask for "a single self-contained HTML deck, arrow keys to move, styles inline". It opens in any browser, the charts can be the real ones from your dashboard, and you print it to PDF to share. The `frontend-slides` skill does this well.',
           ],
         },
         {
@@ -652,7 +652,7 @@ Done when: every section exists and you have listed the proposed items for my de
         },
         {
           resourceId: 'anthropic-skills',
-          why: 'The `pptx` skill for real PowerPoint files and `frontend-design` for slides that do not look generic.',
+          why: 'The `pptx` skill, for real PowerPoint files built from your outline.',
           required: false,
         },
         {

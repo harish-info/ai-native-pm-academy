@@ -249,7 +249,7 @@ Rules:
           heading: 'Write it in Markdown',
           paragraphs: [
             'Write `product-context.md` in **Markdown**: plain text with a few marks for structure. It opens in any editor on any computer, it is the format Claude and other agents read and write most reliably, and its headings let an agent jump straight to the part of a long file it needs. You already used it for your Session 1 notes.',
-            'Six marks cover almost everything: `#` and `##` for headings, `-` at the start of a line for a bullet, `1.` for a numbered step, `**bold**` for the one thing nobody should miss, `[label](link)` for a link, and a blank line between paragraphs. Any text editor works. Obsidian, a free notes app, shows the formatting as you type, and the [Starter kit](/starter-kit) has a one-screen cheat sheet.',
+            'Six marks cover almost everything: `#` and `##` for headings, `-` at the start of a line for a bullet, `1.` for a numbered step, `**bold**` for the one thing nobody should miss, `[label](link)` for a link, and a blank line between paragraphs. Any text editor works. Obsidian, a free notes app in the [Starter kit](/starter-kit), shows the formatting as you type.',
           ],
         },
         {

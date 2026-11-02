@@ -192,12 +192,7 @@ describe('starter kit', () => {
         allLessons.some((l) => l.id === id),
         id,
       ).toBe(true)
-    const ids = [
-      ...starterKit.stages.flatMap((s) =>
-        s.tools.flatMap((t) => (t.resourceId ? [t.resourceId] : [])),
-      ),
-      ...starterKit.tips.flatMap((t) => t.resourceIds ?? []),
-    ]
+    const ids = starterKit.stages.flatMap((s) => s.tools.map((t) => t.resourceId))
     for (const id of ids) {
       const r = resourceById(id)
       expect(r, id).toBeDefined()
