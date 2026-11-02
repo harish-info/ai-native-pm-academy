@@ -39,7 +39,7 @@ export function KitCallout({ lessonId }: { lessonId: string }) {
                 <Pill tone={t.need === 'Recommended' ? 'green' : 'neutral'}>{t.need}</Pill>
               </span>
               <span className="block">{inline(t.what)}</span>
-              <span className="block text-stone-600 dark:text-stone-400">{t.facts}</span>
+              <span className="block text-stone-600 dark:text-stone-400">{inline(t.facts)}</span>
             </li>
           )
         })}

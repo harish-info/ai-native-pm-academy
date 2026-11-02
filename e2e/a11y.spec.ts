@@ -7,6 +7,7 @@ const demoRoutes = [
   '#/levels',
   '#/levels/2',
   '#/levels/4',
+  '#/lessons/s5',
   '#/lessons/s6',
   '#/levels/2/quiz',
   '#/levels/2/project',

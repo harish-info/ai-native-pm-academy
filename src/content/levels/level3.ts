@@ -95,7 +95,7 @@ export const level3: Level = {
         summary:
           'Run competitor research in three parallel Claude Code sessions with every claim saved as a source note, build a market map from those notes only, and write a one-page strategy kernel for your product feature.',
         steps: [
-          'In your `workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `AGENTS.md`: "Market research notes live in sources/market/, one file per source page."',
+          'In your `workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `AGENTS.md`: "Market research notes live in sources/market/, one file per source page." If your folder still has a `CLAUDE.md` from an earlier version of this course, first ask your agent to move its contents into `AGENTS.md` and leave `@AGENTS.md` as the only line in `CLAUDE.md`.',
           'Open three Claude Code sessions in the workspace at the same time (a new Warp tab for each, or a new session in the desktop app). Paste the agent prompt below into each one, choosing a different slice each time: AI assistants that compete, established apps and incumbents, and workarounds and the customer voice.',
           'Draft the diagnosis in strategy/strategy-kernel.md in your own words. Use the Google PAIR core excerpt to compare AI with a simpler baseline. Mark what you do not yet know about your target users.',
           'When the sessions finish, pick five source notes at random and open their links yourself. Does the page say what the note says? Correct any wrong label and note what was wrong. If more than one of the five is wrong, check the rest of that slice too.',

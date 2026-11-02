@@ -47,7 +47,7 @@ export const level2: Level = {
         {
           heading: 'A terminal is just another chat window',
           paragraphs: [
-            'Claude Code also runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. Two words you will hear: a **CLI** (command line interface) is any program you use by typing instead of clicking, and a **TUI** (text user interface) is a CLI that draws boxes and menus inside the terminal. Claude Code is a TUI, which is why it feels like a chat app once it is running: you type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks first.',
+            'Claude Code runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. Two words you will hear: a **CLI** (command line interface) is any program you use by typing instead of clicking, and a **TUI** (text user interface) is a CLI that draws boxes and menus inside the terminal. Claude Code is a TUI, which is why it feels like a chat app once it is running: you type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks first.',
             "Use **Warp** rather than the terminal that came with your computer: it is free, and you click and edit what you typed like normal text. Setup is the only part where you type commands. Once, paste the install line from [Anthropic's terminal guide](https://code.claude.com/docs/en/terminal-guide). Each time after that, type `cd` and a space, drag your workspace folder onto the window, press Enter, and type `claude`. From then on you type sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran.",
             'If you switch to the desktop **Code** tab, nothing else changes: same agent, same `AGENTS.md`, and you can switch back at any time. In the terminal, five keys are worth knowing:',
           ],
@@ -80,7 +80,7 @@ export const level2: Level = {
           heading: 'AGENTS.md, CLAUDE.md and auto memory',
           paragraphs: [
             '**`AGENTS.md`** is the instructions file for your workspace, and you write it. It is an open format that most coding agents, including Claude Code, Codex and Cursor, read at the start of every session in that folder, so one file works whichever agent you use. Tell it to read `product-context.md` first. In Claude Code, a line such as `@product-context.md` on its own also pulls that file in, so every session starts knowing what your product is.',
-            '**`CLAUDE.md`** is for Claude only. Recent versions of Claude Code read `AGENTS.md` directly, as long as the folder has no `CLAUDE.md`; once one exists, Claude reads that instead. So skip it unless you need a rule only Claude should follow, or your version cannot read `AGENTS.md`. If you add one, make its first line `@AGENTS.md`, so `AGENTS.md` stays the single source of truth.',
+            '**`CLAUDE.md`** is for Claude only. Recent versions of Claude Code read `AGENTS.md` directly, as long as there is no `CLAUDE.md` or `CLAUDE.local.md` in that folder or any folder above it; once one exists, Claude reads that instead. So skip it unless you need a rule only Claude should follow, or your version cannot read `AGENTS.md`. If you add one, make its first line `@AGENTS.md`, so `AGENTS.md` stays the single source of truth. If your folder still has a `CLAUDE.md` from an earlier version of this course, first ask your agent to move its contents into `AGENTS.md` and leave `@AGENTS.md` as the only line in `CLAUDE.md`.',
             '**Auto memory** is notes Claude writes for itself as it works, for example a command that worked or a preference you corrected. It lives in your user folder rather than the workspace, and you can view and edit it with the `/memory` command.',
             'The split is simple. Anything that must hold in every session, or that someone else would need to know, you write in `AGENTS.md` yourself: what the workspace is, the folder map, the conventions, what must never happen. Auto memory is for small things Claude picks up along the way. Look at it now and then, delete what is wrong and move anything important into `AGENTS.md`. Status that changes weekly belongs in a workstream README, not in either.',
             'Keep `AGENTS.md` short and check that a fresh session picks it up. It is guidance, not a lock: Claude usually follows it, but anything that must never happen needs a real control, such as a permission setting or keeping the file out of the folder.',
@@ -127,7 +127,7 @@ export const level2: Level = {
         {
           resourceId: 'claude-code-terminal-guide',
           why: 'How to open a terminal, install Claude Code and start it in your folder, written for first-time users.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'claude-code-interactive-mode',
@@ -456,7 +456,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In the Code tab, with the prototype folder open',
+        where: 'In Claude Code, with the prototype folder open',
         text: `This is my product prototype, a React, TypeScript and Vite app that runs in the browser on fictional records and events only. It is now a public GitHub repository called product-prototype, and main only accepts pull requests.
 
 Goal: publish the prototype on GitHub Pages so that every merge into main updates the live site.

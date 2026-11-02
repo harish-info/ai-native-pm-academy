@@ -62,7 +62,7 @@ export const planWeeks: PlanWeek[] = [
     title: 'AI foundations',
     goal: "Understand how today's AI works, write the context file every later session reads, and ship a vibe-coded pitch page.",
     mentor:
-      'Day 1, 15 minutes: agree a fixed weekly mentor slot and check she can sign in to Claude; the free plan is enough this week. End of the week, 45 minutes: review the Level 1 project together and ask her to show one answer she rejected and why. Then set up Week 2: a Claude Pro plan, the Claude desktop app and a GitHub account. Sessions 1, 5 and 16 list what to install at the top.',
+      'Day 1, 15 minutes: agree a fixed weekly mentor slot and check she can sign in to Claude; the free plan is enough this week. End of the week, 45 minutes: review the Level 1 project together and ask her to show one answer she rejected and why. Then set up Week 2: a Claude Pro plan, Warp and a GitHub account. Sessions 1, 5 and 16 list what to install at the top.',
     items: [
       { kind: 'mentor', text: 'Kick-off: weekly slot and a working Claude account.', minutes: 15 },
       { kind: 'lesson', id: 's1' },

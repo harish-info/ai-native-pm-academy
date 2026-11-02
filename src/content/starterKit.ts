@@ -29,7 +29,7 @@ export interface StarterKit {
 
 export const starterKit: StarterKit = {
   intro:
-    'Every tool here also appears at the top of the session that first uses it, so you can install as you go. This page is the whole list in one place.',
+    'Every tool here also appears at the top of Session 1, 5 or 16, when you first need it, so you can install as you go. This page is the whole list in one place.',
   stages: [
     {
       id: 'week-1',
@@ -74,8 +74,9 @@ export const starterKit: StarterKit = {
         {
           name: 'VS Code',
           need: 'Optional',
-          what: 'A free editor that shows your folder and every change your agent makes, side by side. Worth adding once you want to see exactly what changed. Add the [Claude Code extension](https://code.claude.com/docs/en/vs-code) to it.',
-          facts: 'Free. The extension needs VS Code 1.94 or later and a paid Claude plan.',
+          what: 'A free editor that shows your folder and every change your agent makes, side by side. Worth adding once you want to see exactly what changed. If you use Claude Code, add the [Claude Code extension](https://code.claude.com/docs/en/vs-code) to it.',
+          facts:
+            'Free. The Claude Code extension needs VS Code 1.94 or later and a paid Claude plan.',
           resourceId: 'vs-code',
         },
       ],

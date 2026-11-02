@@ -291,7 +291,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       resourceId: 'claude-code-memory',
       minutes: 12,
       focus:
-        'Read CLAUDE.md versus auto memory and importing files. Test the loaded instructions in a fresh session rather than reading the entire reference.',
+        'Read when Claude Code loads AGENTS.md instead of CLAUDE.md, auto memory, and importing files. Test the loaded instructions in a fresh session rather than reading the entire reference.',
     },
     example: {
       title: 'A save point has limits',
