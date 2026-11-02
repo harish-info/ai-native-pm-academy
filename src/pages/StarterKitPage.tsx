@@ -66,7 +66,7 @@ export function StarterKitPage() {
             <p className="mt-1 max-w-3xl text-sm leading-relaxed text-stone-700 dark:text-stone-300">
               {inline(stage.intro)} Used from <SessionLinks ids={stage.lessons} />.
             </p>
-            <ul className="mt-3 grid gap-3 md:grid-cols-2">
+            <ul className="mt-3 grid items-start gap-3 md:grid-cols-2">
               {stage.tools.map((t) => (
                 <li
                   key={t.name}
@@ -78,15 +78,25 @@ export function StarterKitPage() {
                     </h3>
                     <Pill tone={t.need === 'Recommended' ? 'green' : 'neutral'}>{t.need}</Pill>
                   </div>
-                  <p className="mt-2">{inline(t.what)}</p>
-                  <p className="mt-2 text-stone-600 dark:text-stone-400">{inline(t.facts)}</p>
-                  {t.steps && (
-                    <ol className="mt-3 list-decimal space-y-1 border-t border-stone-200 pt-3 pl-5 dark:border-stone-700">
-                      {t.steps.map((s) => (
-                        <li key={s}>{inline(s)}</li>
-                      ))}
-                    </ol>
+                  <p className="mt-1">{inline(t.what)}</p>
+                  {t.alternatives && (
+                    <p className="mt-1 text-stone-600 dark:text-stone-400">
+                      {inline(t.alternatives)}
+                    </p>
                   )}
+                  <details className="mt-2">
+                    <summary className="cursor-pointer font-medium text-stone-700 dark:text-stone-300">
+                      Cost and setup
+                    </summary>
+                    <p className="mt-2 text-stone-600 dark:text-stone-400">{inline(t.facts)}</p>
+                    {t.steps && (
+                      <ol className="mt-2 list-decimal space-y-1 pl-5">
+                        {t.steps.map((s) => (
+                          <li key={s}>{inline(s)}</li>
+                        ))}
+                      </ol>
+                    )}
+                  </details>
                 </li>
               ))}
             </ul>

@@ -12,6 +12,8 @@ export interface KitTool {
   facts: string
   resourceId: string
   steps?: string[]
+  // Other apps that do the same job, shown in the card under the description.
+  alternatives?: string
   // The session that first needs this tool, when it is not the stage's first session.
   lesson?: string
 }
@@ -53,7 +55,7 @@ export const starterKit: StarterKit = {
         {
           name: 'Claude desktop app',
           need: 'Recommended',
-          what: 'Where you chat with Claude in Weeks 1 and 2: projects, files and artifacts. From Session 5, work on your files moves to Claude Code; keep the app for chat.',
+          what: 'Chat with Claude, with projects, files and artifacts. Your main tool in Weeks 1 and 2.',
           facts: 'Free app for Mac and Windows. The free plan is enough in Week 1.',
           resourceId: 'claude-download',
           steps: [
@@ -64,9 +66,11 @@ export const starterKit: StarterKit = {
         {
           name: 'Handy',
           need: 'Recommended',
-          what: 'Turns your speech into text in any app: the Claude chat, the terminal, your notes. Speaking is faster than typing, and you naturally say more, so the agent gets the context it needs.',
+          what: 'Dictation: hold a key, speak, and your words appear in any app.',
           facts:
-            'Free and open source, for Mac, Windows and Linux. It runs on your computer, so your voice stays there.',
+            'Free and open source, for Mac, Windows and Linux. It runs on your computer, so your voice stays there. Speaking is faster than typing and you naturally say more, so the agent gets more context. OpenWhispr is also free and open source, for Mac, Windows and Linux. Wispr Flow has a limited free plan; Pro costs $15 a month, or $12 a month billed yearly.',
+          alternatives:
+            'Also free: [OpenWhispr](https://github.com/OpenWhispr/openwhispr). Paid: [Wispr Flow](https://wisprflow.ai/pricing), from $12 a month. Neither is sponsored.',
           resourceId: 'handy',
           steps: [
             'Download Handy for your computer, install it and allow microphone access when it asks.',
@@ -76,7 +80,7 @@ export const starterKit: StarterKit = {
         {
           name: 'Obsidian',
           need: 'Recommended',
-          what: 'A notes app that keeps every note as a plain Markdown file on your computer, so your agent can read your notes directly from Session 5.',
+          what: 'A notes app that saves each note as a plain file your agent can read.',
           facts:
             'Free, no account needed. Optional Sync costs $4 to $5 a month; you do not need it.',
           resourceId: 'obsidian',
@@ -88,10 +92,13 @@ export const starterKit: StarterKit = {
         {
           name: 'Claude Code in the terminal',
           need: 'Optional',
-          what: 'Already comfortable in a terminal? You can use Claude Code from Session 1 instead of the app. Where a session uses a project or an artifact, ask it to write files in your folder instead.',
-          facts:
-            'Needs a Claude Pro plan (from $20 a month). Setup steps are under Before Session 5.',
+          what: 'Use Claude Code from Session 1 instead of the app, if you already use a terminal.',
+          facts: 'Needs a Claude Pro plan (from $20 a month).',
           resourceId: 'claude-code-terminal-guide',
+          steps: [
+            'Follow the Claude Code steps under Before Session 5.',
+            'Where a session uses a project or an artifact, ask Claude Code to write files in your folder instead.',
+          ],
         },
       ],
     },
@@ -106,7 +113,7 @@ export const starterKit: StarterKit = {
         {
           name: 'Claude Code',
           need: 'Recommended',
-          what: 'The coding agent this course uses. You type requests in plain English; it reads your files, makes changes and asks before running commands.',
+          what: 'The coding agent this course uses: it reads and changes the files in your folder.',
           facts: 'Needs a Claude Pro plan (from $20 a month).',
           resourceId: 'claude-code-terminal-guide',
           steps: [
@@ -118,7 +125,7 @@ export const starterKit: StarterKit = {
         {
           name: 'Warp',
           need: 'Recommended',
-          what: 'The terminal to run Claude Code in, instead of the one that came with your computer. It feels like a modern app: you click to place the cursor and edit what you typed like normal text.',
+          what: 'A modern terminal to run Claude Code in.',
           facts:
             'Free for Mac, Windows and Linux. Its own AI features are optional and need an account.',
           resourceId: 'warp',
@@ -130,7 +137,7 @@ export const starterKit: StarterKit = {
         {
           name: 'Git',
           need: 'Recommended',
-          what: 'Saves versions of your folder, so you can see what the agent changed and undo it. Needed from Session 5.',
+          what: 'Saves versions of your folder, so you can see and undo what the agent changed.',
           facts: 'Free and open source, for Mac, Windows and Linux.',
           resourceId: 'git-install',
           steps: [
@@ -141,9 +148,9 @@ export const starterKit: StarterKit = {
         {
           name: 'Codex, if you use ChatGPT',
           need: 'Optional',
-          what: "Already work in ChatGPT? Codex is OpenAI's coding agent, built into the ChatGPT desktop app. It reads `AGENTS.md` too, so you can follow the sessions with it: where a step says Claude Code, use Codex.",
+          what: "OpenAI's coding agent, in the ChatGPT app. Use it instead of Claude Code if you already work in ChatGPT.",
           facts:
-            'Included in ChatGPT plans, including Free for quick tasks. The app runs on Mac, Windows and Linux.',
+            'Included in ChatGPT plans, including Free for quick tasks. The app runs on Mac, Windows and Linux. Codex reads `AGENTS.md` too, so where a step says Claude Code, use Codex.',
           resourceId: 'chatgpt-desktop-codex',
           steps: [
             'Install the ChatGPT desktop app and sign in.',
@@ -153,7 +160,7 @@ export const starterKit: StarterKit = {
         {
           name: 'VS Code',
           need: 'Optional',
-          what: 'A free editor that shows your folder and every change your agent makes, side by side. Worth adding once you want to see exactly what changed.',
+          what: 'An editor that shows your files and every change the agent makes.',
           facts:
             'Free. The Claude Code extension needs VS Code 1.94 or later and a paid Claude plan.',
           resourceId: 'vs-code',
@@ -175,7 +182,7 @@ export const starterKit: StarterKit = {
         {
           name: 'Node.js',
           need: 'Recommended',
-          what: 'Runs the prototype you build in Session 6 on your own computer.',
+          what: 'Runs your prototype on your own computer.',
           facts: 'Free and open source. Choose the LTS version.',
           resourceId: 'nodejs-download',
           steps: [
@@ -186,7 +193,7 @@ export const starterKit: StarterKit = {
         {
           name: 'GitHub account and CLI',
           need: 'Recommended',
-          what: 'GitHub keeps your prototype online and publishes it in Session 7. The GitHub CLI signs your computer in once, so Claude Code can push to it.',
+          what: 'Puts your prototype online. The CLI signs your computer in so your agent can publish.',
           facts: 'Free account. The CLI is free and open source.',
           resourceId: 'github-cli',
           lesson: 's7',
@@ -209,7 +216,7 @@ export const starterKit: StarterKit = {
         {
           name: 'Anthropic pptx skill',
           need: 'Recommended',
-          what: 'Builds real PowerPoint files from your outline and charts, ready to hand to anyone.',
+          what: 'Builds PowerPoint files from your outline and charts.',
           facts:
             'Free, from Anthropic. Works in Claude Code and in Claude apps with skills turned on.',
           resourceId: 'anthropic-skills',
@@ -221,7 +228,7 @@ export const starterKit: StarterKit = {
         {
           name: 'frontend-slides',
           need: 'Optional',
-          what: 'Builds the deck as one HTML file that opens in any browser: arrow keys to move, print to PDF to share.',
+          what: 'Builds a deck as one HTML file that opens in any browser.',
           facts: 'Free, MIT licence. A Claude Code skill.',
           resourceId: 'frontend-slides',
           steps: [
