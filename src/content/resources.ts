@@ -2364,7 +2364,7 @@ export const resources: Resource[] = [
     id: 'warp',
     title: 'Warp',
     provider: 'Warp',
-    url: 'https://www.warp.dev/pricing',
+    url: 'https://www.warp.dev/terminal',
     topic: 'Coding agents',
     level: 'beginner',
     format: 'tool',
@@ -2374,7 +2374,8 @@ export const resources: Resource[] = [
     status: 'verified',
     summary:
       'A terminal with editor-style text input, for Mac, Windows and Linux. The recommended terminal for running Claude Code in this course. Its own AI features are optional.',
-    notes: 'Vendor pricing page; plans change often.',
+    notes:
+      'Vendor terminal page. Free tier and AI pricing were checked on the pricing page; plans change often.',
   }),
   r({
     id: 'vs-code',
