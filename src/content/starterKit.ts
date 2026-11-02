@@ -38,7 +38,7 @@ export const starterKit: StarterKit = {
   start: [
     'Install the Week 1 tools below. It takes about 15 minutes.',
     'Open [Session 1](/lessons/s1) and work through the sessions in order. Each one starts with what to bring.',
-    'Before Session 5, come back for Claude Code, Warp and Git. Sessions 6 and 7 add Node.js and a GitHub account, and Session 16 adds a presentation skill.',
+    'Before Session 5, come back for Claude Code, Warp and Git, or Codex if you already work in ChatGPT. Sessions 6 and 7 add Node.js and a GitHub account, and Session 16 adds a presentation skill.',
     'Talk instead of type. Hold the Handy shortcut and say what you want: you will give the agent more context than you would bother to type, and better context gets better answers.',
   ],
   stages: [
@@ -139,6 +139,18 @@ export const starterKit: StarterKit = {
           ],
         },
         {
+          name: 'Codex, if you use ChatGPT',
+          need: 'Optional',
+          what: "Already work in ChatGPT? Codex is OpenAI's coding agent, built into the ChatGPT desktop app. It reads `AGENTS.md` too, so you can follow the sessions with it: where a step says Claude Code, use Codex.",
+          facts:
+            'Included in ChatGPT plans, including Free for quick tasks. The app runs on Mac, Windows and Linux.',
+          resourceId: 'chatgpt-desktop-codex',
+          steps: [
+            'Install the ChatGPT desktop app and sign in.',
+            'Open your workspace folder in the app, choose Codex and send your first request.',
+          ],
+        },
+        {
           name: 'VS Code',
           need: 'Optional',
           what: 'A free editor that shows your folder and every change your agent makes, side by side. Worth adding once you want to see exactly what changed.',
@@ -222,6 +234,5 @@ export const starterKit: StarterKit = {
   ],
   otherAgents: [
     '**Cowork**, in the Claude desktop app, runs longer multi-step tasks on your files. It needs a paid plan. This course uses Claude Code because you see and keep every file it writes. [Cowork guide](https://claude.com/blog/the-claude-cowork-product-guide).',
-    "**Codex** is OpenAI's coding agent, inside the ChatGPT desktop app. The ideas in this course carry over, including `AGENTS.md`, the instructions file both agents read. [Codex docs](https://learn.chatgpt.com/docs).",
   ],
 }

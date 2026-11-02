@@ -2585,4 +2585,19 @@ export const resources: Resource[] = [
     summary:
       'Free, open source command line tool for GitHub, for Mac, Windows and Linux. Used once to sign your computer in to GitHub.',
   }),
+  r({
+    id: 'chatgpt-desktop-codex',
+    title: 'ChatGPT desktop app quickstart',
+    provider: 'OpenAI',
+    url: 'https://learn.chatgpt.com/docs/app',
+    topic: 'Coding agents',
+    level: 'beginner',
+    format: 'documentation',
+    practicalCost:
+      'Codex is included in ChatGPT plans, including Free, with usage limits that grow with the plan.',
+    verifiedOn: kitChecked,
+    status: 'verified',
+    summary:
+      'Install the ChatGPT desktop app for Mac, Windows or Linux, sign in, open a folder and choose ChatGPT or Codex for each message.',
+  }),
 ]
