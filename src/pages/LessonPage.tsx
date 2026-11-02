@@ -166,7 +166,9 @@ export function LessonPage() {
       <div className="flex flex-wrap gap-1.5 text-xs">
         <Pill>{formatMinutes(lesson.minutes)}</Pill>
         <Pill>{lesson.difficulty}</Pill>
-        {status.standing === 'strong' && <Pill tone="blue">Familiar: skim the reading</Pill>}
+        {status.standing === 'strong' && !lesson.safetyCritical && (
+          <Pill tone="blue">Familiar: skim the reading</Pill>
+        )}
         {lesson.safetyCritical && <Pill tone="red">Safety critical</Pill>}
       </div>
 

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { levels, lessonById, levelById, wikiMilestones } from '../content'
 import { planWeeks, type PlanItem } from '../content/plan'
 import { achievements, closestRewards } from '../domain/achievements'
+import { isDiagnosticCurrent } from '../domain/assessment'
 import { addDays, formatDate, formatMinutes, toDay, weekStart } from '../domain/dates'
 import {
   currentLevel,
@@ -266,6 +267,19 @@ export function Dashboard() {
           </p>
           <LinkButton to="/onboarding" className="mt-4">
             Take the diagnostic
+          </LinkButton>
+        </Card>
+      )}
+
+      {data.onboarding && !isDiagnosticCurrent(data.onboarding) && (
+        <Card className="border-indigo-300 dark:border-indigo-800">
+          <h2 className="text-lg font-semibold">The diagnostic has new scenarios</h2>
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+            Retake it to see where you stand in each level. Your answers about yourself are kept,
+            and completed work is never lost.
+          </p>
+          <LinkButton to="/onboarding" className="mt-4">
+            Retake the diagnostic
           </LinkButton>
         </Card>
       )}

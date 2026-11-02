@@ -165,11 +165,15 @@ export function levelStatuses(data: LearnerData, levels: Level[]): LevelStatus[]
   for (const level of levels) {
     const prev = out[out.length - 1]
     // A level opens once the previous level's sessions are done, so its project can finish while
-    // the next level starts. The diagnostic never opens a level.
-    const unlocked =
-      !prev || prev.mastered || (prev.unlocked && prev.requiredDone === prev.requiredLessons.length)
+    // the next level starts. Once one of its sessions is done it stays open, so learners who
+    // tested out under the earlier diagnostic keep their access. The diagnostic never opens a level.
     const requiredLessons = level.lessons
     const requiredDone = requiredLessons.filter((l) => data.lessons[l.id]?.completedAt).length
+    const unlocked =
+      !prev ||
+      prev.mastered ||
+      (prev.unlocked && prev.requiredDone === prev.requiredLessons.length) ||
+      requiredDone > 0
     const coreDone = level.lessons.filter((l) => data.lessons[l.id]?.completedAt).length
     const quiz = quizResults(data, level.id)
     const project = levelProjectResults(data, level)
@@ -202,10 +206,14 @@ export function levelStatuses(data: LearnerData, levels: Level[]): LevelStatus[]
   return out
 }
 
-/** The level to work on: the first open level with sessions left, else the first one not mastered. */
+/**
+ * The level to work on: the first open, unmastered level with sessions left, else the first one
+ * not mastered. A badge earned under the earlier diagnostic can leave sessions undone; those do
+ * not pull the learner back.
+ */
 export function currentLevel(statuses: LevelStatus[]): LevelStatus {
   return (
-    statuses.find((s) => s.unlocked && s.requiredDone < s.requiredLessons.length) ??
+    statuses.find((s) => s.unlocked && !s.mastered && s.requiredDone < s.requiredLessons.length) ??
     statuses.find((s) => s.unlocked && !s.mastered) ??
     statuses[statuses.length - 1]!
   )

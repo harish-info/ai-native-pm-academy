@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { levels } from '../content'
-import { completeLesson, fresh, level, masterLevel, passProject, passQuiz } from '../test/fixtures'
+import {
+  AT,
+  completeLesson,
+  fresh,
+  level,
+  masterLevel,
+  passProject,
+  passQuiz,
+} from '../test/fixtures'
 import {
   MASTERY_BONUS_XP,
   QUIZ_PASS_XP,
@@ -188,10 +196,28 @@ describe('unlocking and mastery', () => {
     expect(levelStatuses(data, levels)[0]!.mastered).toBe(false)
   })
 
-  it('cannot master a locked level even with all the evidence', () => {
+  it('does not open a level from its quiz or project alone', () => {
     const data = fresh()
-    masterLevel(data, 2)
-    expect(levelStatuses(data, levels)[1]!.mastered).toBe(false)
+    passQuiz(data, 2)
+    passProject(data, 2)
+    const s = levelStatuses(data, levels)[1]!
+    expect(s.unlocked).toBe(false)
+    expect(s.mastered).toBe(false)
+  })
+
+  it('keeps a level open once one of its sessions is done, as after an earlier test-out', () => {
+    const data = fresh()
+    completeLesson(data, level(2).lessons[0]!.id)
+    const s = levelStatuses(data, levels)
+    expect(s[1]!.unlocked).toBe(true)
+    expect(s[2]!.unlocked).toBe(false)
+  })
+
+  it('does not send a learner back to sessions a badge was earned without', () => {
+    const data = fresh()
+    data.masteredLevels['1'] = AT
+    completeLesson(data, level(2).lessons[0]!.id)
+    expect(currentLevel(levelStatuses(data, levels)).level.id).toBe(2)
   })
 })
 

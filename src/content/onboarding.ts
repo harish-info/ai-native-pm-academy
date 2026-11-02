@@ -208,7 +208,7 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
     ],
     correct: 'c',
     explanation:
-      'Session 1: as a chat fills up, answers get less precise and earlier material competes with what you want. A bigger window does not fix that; a fresh, short context does.',
+      'Sessions 1 and 6: as a chat fills up, answers get less precise and earlier material competes with what you want. A bigger window does not fix that; a fresh, short context does.',
   },
   {
     id: 'd17',
@@ -347,13 +347,13 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
       },
       {
         id: 'd',
-        text: 'A market-size estimate showing the opportunity is big enough to matter.',
+        text: 'The market size, three competitor launches and a target launch date.',
       },
       notSure,
     ],
     correct: 'c',
     explanation:
-      'Session 9: a strategy kernel names the diagnosis, the guiding policy and coherent actions, including what is ruled out. A prototype is still a guess, and competitor moves are not a reason.',
+      'Session 9: a strategy kernel names the diagnosis, the guiding policy and coherent actions, including what is ruled out. A prototype is still a guess, and market size or competitor moves are not a diagnosis.',
   },
   {
     id: 'd22',
@@ -389,15 +389,15 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
     level: 3,
     competency: 'technical-collaboration',
     scenario:
-      'Claude is drafting your PRD. Nobody has decided what a screen shows when a record has no data. What should the draft say?',
+      'Claude is drafting your PRD. Nobody has decided whether a deleted record still counts in the monthly total. What should the draft say?',
     options: [
       {
         id: 'a',
-        text: 'The pattern most similar products use, so that engineering is not blocked.',
+        text: 'The rule most similar products use, so that engineering is not blocked.',
       },
       {
         id: 'b',
-        text: 'Nothing yet: empty states belong in the design spec, not in the PRD.',
+        text: 'Nothing yet: metric definitions belong to the data team, not the PRD.',
       },
       {
         id: 'c',
@@ -405,7 +405,7 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
       },
       {
         id: 'd',
-        text: 'That it is undecided, as an open question with who will decide it.',
+        text: 'That it is undecided, as an open question and who will decide it.',
       },
       notSure,
     ],

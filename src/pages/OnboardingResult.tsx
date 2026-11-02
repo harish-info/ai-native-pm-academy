@@ -21,7 +21,7 @@ export function OnboardingResult() {
         title="No diagnostic yet"
         action={<LinkButton to="/onboarding">Take the diagnostic</LinkButton>}
       >
-        Your personalized path appears here once you finish it.
+        Where you stand in each level appears here once you finish it.
       </EmptyState>
     )
   }
@@ -65,7 +65,7 @@ export function OnboardingResult() {
         <Stat
           label="Estimated effort"
           value={formatMinutes(result.estimatedMinutes)}
-          hint="Required sessions, projects and assessments"
+          hint="All 20 sessions, projects and assessments"
         />
         <Stat
           label="At your pace"

@@ -244,8 +244,10 @@ export function StatsPage() {
           title="Skills"
           description={
             baseline
-              ? 'How much coursework evidence you have per competency. The tick is where the diagnostic placed you.'
-              : 'How much coursework evidence you have per competency. Take the diagnostic to add your baseline.'
+              ? 'How much coursework evidence you have per competency. The tick is your diagnostic result.'
+              : data.onboarding
+                ? 'How much coursework evidence you have per competency. The diagnostic has new scenarios: retake it to add your baseline.'
+                : 'How much coursework evidence you have per competency. Take the diagnostic to add your baseline.'
           }
           valueLabel="Coursework evidence"
           markerLabel="Diagnostic baseline"
