@@ -1,6 +1,6 @@
 import { useId, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { allChallenges, allLessons, resources } from '../content'
+import { allChallenges, allLessons, featuredFirst, resources } from '../content'
 import { communityConsensus } from '../content/community'
 import type { Resource, ResourceFormat, VerificationStatus } from '../content/types'
 import { ResourceCard } from '../ui/ResourceBits'
@@ -77,7 +77,7 @@ export function ResourcesPage() {
   }, [])
 
   const q = query.trim().toLowerCase()
-  const results = resources.filter(
+  const results = featuredFirst(resources).filter(
     (r) =>
       (!coreOnly || coreIds.has(r.id)) &&
       (!q || [r.title, r.provider, r.topic, r.summary].some((f) => f.toLowerCase().includes(q))) &&

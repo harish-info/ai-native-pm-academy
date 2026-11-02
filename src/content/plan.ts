@@ -62,7 +62,7 @@ export const planWeeks: PlanWeek[] = [
     title: 'AI foundations',
     goal: "Understand how today's AI works, write the context file every later session reads, and ship a vibe-coded pitch page.",
     mentor:
-      'Day 1, 15 minutes: agree a fixed weekly mentor slot and check she can sign in to Claude; the free plan is enough this week. End of the week, 45 minutes: review the Level 1 project together and ask her to show one answer she rejected and why. Then set up Week 2: a Claude Pro plan, Warp and a GitHub account. Sessions 1, 5 and 16 list what to install at the top.',
+      'Day 1, 15 minutes: agree a fixed weekly mentor slot and check she can sign in to Claude; the free plan is enough this week. End of the week, 45 minutes: review the Level 1 project together and ask her to show one answer she rejected and why. Then set up Week 2 together with the Before Session 5 steps in the Starter kit.',
     items: [
       { kind: 'mentor', text: 'Kick-off: weekly slot and a working Claude account.', minutes: 15 },
       { kind: 'lesson', id: 's1' },
@@ -85,7 +85,7 @@ export const planWeeks: PlanWeek[] = [
     items: [
       {
         kind: 'prep',
-        text: 'Before Session 5, install Warp; the top of Session 5 links it. Optional: the Field guide, under Learn in the menu, compares current models and maps everyday PM jobs to sessions. Open the three diagnostic practice cases if you want to test which part of a disappointing result to fix.',
+        text: 'Before Session 5, install Claude Code, Warp and Git with the Starter kit steps. Optional: the Field guide, under Learn in the menu, compares current models and maps everyday PM jobs to sessions.',
         minutes: 30,
       },
       { kind: 'mentor', text: 'First Claude Code session together.', minutes: 15 },

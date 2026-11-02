@@ -8,7 +8,8 @@ const budget = {
   // All JS, gzipped, including lazily loaded pages and lesson illustrations. Raised from 350 on
   // 2026-10-31 for the field guide page (about 12 kB gzip, loaded only when opened). Raised to 375
   // on 2026-11-02 for the starter kit page, its resources and the dashboard sections (about 1 kB).
-  jsGzipKb: 375,
+  // Raised to 380 on 2026-11-02 for the study plan roadmap and week checklists (about 2 kB).
+  jsGzipKb: 380,
   cssGzipKb: 20, // all CSS, gzipped
 }
 

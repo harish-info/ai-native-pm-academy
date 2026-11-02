@@ -143,7 +143,7 @@ const sections = [
   { id: 'fg-effort', label: 'Choose effort' },
   { id: 'fg-landscape', label: 'The wider landscape' },
   { id: 'fg-week', label: "A PM's week" },
-  { id: 'fg-refresh', label: 'Keep this page honest' },
+  { id: 'fg-refresh', label: 'Keep this page up to date' },
 ] as const
 
 function LabTabs() {

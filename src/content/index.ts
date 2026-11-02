@@ -1,4 +1,4 @@
-import type { Challenge, Lesson, Level, LevelId } from './types'
+import type { Challenge, Lesson, Level, LevelId, Resource } from './types'
 import { level1 } from './levels/level1'
 import { level2 } from './levels/level2'
 import { level3 } from './levels/level3'
@@ -49,6 +49,13 @@ export const lessonById = (id: string): Lesson | undefined => allLessons.find((l
 export const challengeById = (id: string): Challenge | undefined =>
   allChallenges.find((c) => c.id === id)
 export const resourceById = (id: string) => resources.find((r) => r.id === id)
+
+// Resources listed first wherever the catalog is shown, ahead of catalog order.
+const featuredResourceIds = ['lennys-podcast']
+export const featuredFirst = (list: Resource[]) => [
+  ...featuredResourceIds.flatMap((id) => list.filter((r) => r.id === id)),
+  ...list.filter((r) => !featuredResourceIds.includes(r.id)),
+]
 
 export { resources }
 export const wikiPrompts = wiki.wikiPrompts

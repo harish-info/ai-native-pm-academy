@@ -409,7 +409,7 @@ Report: what you did, which files changed and anything you were unsure about.`,
     },
   ] satisfies WeekJob[],
 
-  refreshHeading: 'Keep this page honest',
+  refreshHeading: 'Keep this page up to date',
   refresh:
     'Facts on this page were checked on 31 October 2026. When it is more than a couple of months old, refresh it the way you checked your fact sheet in Session 3: run the prompt below with web search on, then open every vendor page it cites yourself before you believe a change.',
   refreshPrompt: `I keep a one-page map of the AI landscape for my work as a product manager. It was last checked on 31 October 2026 and listed:
