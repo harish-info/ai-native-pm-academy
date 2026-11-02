@@ -7,7 +7,7 @@ function hash(text: string): number {
   return h >>> 0
 }
 
-/** Deterministic Fisher-Yates shuffle, so a retake reorders questions without memory tricks working. */
+/** Seeded Fisher-Yates shuffle: the same seed always gives the same order. */
 export function shuffled<T>(items: readonly T[], seed: string): T[] {
   let state = hash(seed) || 1
   const next = () => {

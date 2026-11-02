@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom'
 import { lessonById, levels } from '../content'
 import { competencyById, competencyIds } from '../content/competencies'
-import { computeOnboardingResult } from '../domain/assessment'
+import { computeOnboardingResult, isDiagnosticCurrent, type Standing } from '../domain/assessment'
 import { formatMinutes } from '../domain/dates'
 import { useStore } from '../state/store'
 import { PairedBars } from '../ui/charts'
 import { Card, EmptyState, LinkButton, PageHeader, Pill, Stat, linkClass } from '../ui/primitives'
+
+const standingLabel: Record<Standing, { label: string; tone: 'green' | 'amber' | 'indigo' }> = {
+  strong: { label: 'Familiar: skim the reading', tone: 'green' },
+  partial: { label: 'Partly familiar', tone: 'amber' },
+  new: { label: 'New to you', tone: 'indigo' },
+}
 
 export function OnboardingResult() {
   const { data } = useStore()
@@ -16,6 +22,17 @@ export function OnboardingResult() {
         action={<LinkButton to="/onboarding">Take the diagnostic</LinkButton>}
       >
         Your personalized path appears here once you finish it.
+      </EmptyState>
+    )
+  }
+  if (!isDiagnosticCurrent(data.onboarding)) {
+    return (
+      <EmptyState
+        title="The scenarios have changed"
+        action={<LinkButton to="/onboarding">Retake the diagnostic</LinkButton>}
+      >
+        The diagnostic now has new scenarios, three for each level. Retake it to see where you
+        stand. Your answers about yourself are kept, and completed work is never lost.
       </EmptyState>
     )
   }
@@ -33,7 +50,7 @@ export function OnboardingResult() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Your starting point"
-        title={name ? `${name}, here is your path` : 'Here is your path'}
+        title={name ? `${name}, here is where you stand` : 'Here is where you stand'}
       >
         Based on {Object.keys(data.onboarding.diagnostic).length} scenarios and your
         self-assessment. You can retake the diagnostic at any time; completed work is never lost.
@@ -41,9 +58,9 @@ export function OnboardingResult() {
 
       <div className="grid gap-4 sm:grid-cols-3">
         <Stat
-          label="Recommended start"
-          value={`Level ${result.startLevel}`}
-          hint={levels.find((l) => l.id === result.startLevel)?.title}
+          label="Start at"
+          value={first ? `Session ${first.number}` : 'Session 1'}
+          hint="Each session builds on the one before"
         />
         <Stat
           label="Estimated effort"
@@ -58,24 +75,29 @@ export function OnboardingResult() {
       </div>
 
       <Card>
-        <h2 className="mb-3 text-lg font-semibold">Your path through the levels</h2>
+        <h2 className="mb-3 text-lg font-semibold">Where you stand in each level</h2>
         <ul className="divide-y divide-stone-200 dark:divide-stone-800">
-          {levels.map((l) => (
-            <li key={l.id} className="flex flex-wrap items-center justify-between gap-2 py-3">
-              <Link to={`/levels/${l.id}`} className={linkClass}>
-                Level {l.id}: {l.title}
-              </Link>
-              {result.path[l.id] === 'proof-only' ? (
-                <Pill tone="green">Theory tested out: practical proof only</Pill>
-              ) : (
-                <Pill tone="indigo">Full level</Pill>
-              )}
-            </li>
-          ))}
+          {levels.map((l) => {
+            const r = result.levels[l.id]
+            return (
+              <li key={l.id} className="flex flex-wrap items-center justify-between gap-2 py-3">
+                <span>
+                  <Link to={`/levels/${l.id}`} className={linkClass}>
+                    Level {l.id}: {l.title}
+                  </Link>
+                  <span className="block text-sm text-stone-600 dark:text-stone-400">
+                    {r.correct} of {r.total} scenarios right
+                  </span>
+                </span>
+                <Pill tone={standingLabel[r.standing].tone}>{standingLabel[r.standing].label}</Pill>
+              </li>
+            )
+          })}
         </ul>
         <p className="mt-3 text-sm text-stone-600 dark:text-stone-400">
-          Testing out skips theory sessions only. Practical-proof and safety-critical sessions, the
-          assessment and the project are always required, so every badge means the same thing.
+          Everyone starts at Session 1, because each session builds on files from the ones before.
+          In a level where you got every scenario right, skim the reading and spend your time on the
+          tasks. Every task still counts towards the badge.
         </p>
       </Card>
 

@@ -56,7 +56,9 @@ export function LevelMap() {
                           <LockIcon /> Locked
                         </Pill>
                       )}
-                      {s.path === 'proof-only' && <Pill tone="blue">Theory tested out</Pill>}
+                      {s.standing === 'strong' && (
+                        <Pill tone="blue">Familiar: skim the reading</Pill>
+                      )}
                     </div>
                     <h2 className="text-xl font-semibold">
                       <Link to={`/levels/${s.level.id}`} className={stretchedLink}>

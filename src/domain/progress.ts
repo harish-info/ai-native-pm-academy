@@ -1,6 +1,6 @@
 import type { Lesson, Level, LevelId, LevelProject, RubricDimension } from '../content/types'
 import type { LearnerData, LessonRecord, ProjectRecord, QuizAttempt } from '../storage/schema'
-import { computeOnboardingResult, requiredLessonIds, type LevelPath } from './assessment'
+import { isDiagnosticCurrent, levelStandings, type Standing } from './assessment'
 
 export const REFLECTION_MIN_CHARS = 40
 export const QUIZ_PASS_RATIO = 0.8
@@ -132,7 +132,8 @@ export const levelProjectResults = (data: LearnerData, level: Level) =>
 
 export interface LevelStatus {
   level: Level
-  path: LevelPath
+  /** Diagnostic result for this level, or null without a current diagnostic. Never unlocks anything. */
+  standing: Standing | null
   unlocked: boolean
   requiredLessons: Lesson[]
   requiredDone: number
@@ -143,25 +144,31 @@ export interface LevelStatus {
   masteredAt?: string
 }
 
-export function levelPaths(data: LearnerData, levels: Level[]): Record<LevelId, LevelPath> {
-  if (!data.onboarding) {
-    return Object.fromEntries(levels.map((l) => [l.id, 'full'])) as Record<LevelId, LevelPath>
-  }
-  return computeOnboardingResult(data.onboarding, levels).path
+export function diagnosticStandings(
+  data: LearnerData,
+  levels: Level[],
+): Record<LevelId, Standing> | null {
+  if (!data.onboarding || !isDiagnosticCurrent(data.onboarding)) return null
+  const out = levelStandings(
+    data.onboarding.diagnostic,
+    levels.map((l) => l.id),
+  )
+  return Object.fromEntries(levels.map((l) => [l.id, out[l.id].standing])) as Record<
+    LevelId,
+    Standing
+  >
 }
 
 export function levelStatuses(data: LearnerData, levels: Level[]): LevelStatus[] {
-  const paths = levelPaths(data, levels)
+  const standings = diagnosticStandings(data, levels)
   const out: LevelStatus[] = []
   for (const level of levels) {
     const prev = out[out.length - 1]
-    const path = paths[level.id]
-    // A level opens once the previous level's required sessions are done, so its project can
-    // finish while the next level starts. The diagnostic alone never opens a level.
+    // A level opens once the previous level's sessions are done, so its project can finish while
+    // the next level starts. The diagnostic never opens a level.
     const unlocked =
       !prev || prev.mastered || (prev.unlocked && prev.requiredDone === prev.requiredLessons.length)
-    const required = new Set(requiredLessonIds(level, path))
-    const requiredLessons = level.lessons.filter((l) => required.has(l.id))
+    const requiredLessons = level.lessons
     const requiredDone = requiredLessons.filter((l) => data.lessons[l.id]?.completedAt).length
     const coreDone = level.lessons.filter((l) => data.lessons[l.id]?.completedAt).length
     const quiz = quizResults(data, level.id)
@@ -181,7 +188,7 @@ export function levelStatuses(data: LearnerData, levels: Level[]): LevelStatus[]
     }
     out.push({
       level,
-      path,
+      standing: standings?.[level.id] ?? null,
       unlocked,
       requiredLessons,
       requiredDone,

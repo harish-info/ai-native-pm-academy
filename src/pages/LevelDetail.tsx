@@ -32,7 +32,6 @@ export function LevelDetail() {
   const { data } = useStore()
   if (!level || !status) return <NotFound />
 
-  const required = new Set(status.requiredLessons.map((l) => l.id))
   const milestone = wikiMilestones.find((m) => m.levelId === level.id)
   const quizPct = status.quiz.bestRatio === null ? null : Math.round(status.quiz.bestRatio * 100)
 
@@ -83,12 +82,12 @@ export function LevelDetail() {
         </Card>
       )}
 
-      {status.path === 'proof-only' && (
+      {status.standing === 'strong' && (
         <Card as="div" className="border-blue-200 dark:border-blue-900">
           <p className="text-sm">
-            Your diagnostic tested you out of this level's theory. Sessions marked optional can be
-            skipped; practical-proof and safety-critical sessions, the assessment and the project
-            are still required.
+            You answered every Level {level.id} scenario in the diagnostic correctly. Skim the
+            reading where it is familiar, but do every task: later sessions build on the files they
+            produce.
           </p>
         </Card>
       )}
@@ -132,7 +131,6 @@ export function LevelDetail() {
                     <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
                       <Pill>{formatMinutes(l.minutes)}</Pill>
                       <Pill>{l.difficulty}</Pill>
-                      {!required.has(l.id) && <Pill tone="blue">Optional for you</Pill>}
                       {l.practicalProof && <Pill tone="indigo">Practical proof</Pill>}
                       {l.safetyCritical && <Pill tone="red">Safety critical</Pill>}
                       {l.mentorReview === 'required' && <Pill tone="amber">Mentor review</Pill>}

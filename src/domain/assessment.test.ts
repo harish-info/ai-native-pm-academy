@@ -1,14 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { levels } from '../content'
 import { competencyIds } from '../content/competencies'
-import { diagnosticQuestions, levelCompetencies, maxTestOutLevel } from '../content/onboarding'
+import { diagnosticQuestions } from '../content/onboarding'
 import { levelStatuses } from './progress'
-import {
-  computeOnboardingResult,
-  requiredLessonIds,
-  scoreDiagnostic,
-  testedOutLevels,
-} from './assessment'
+import { computeOnboardingResult, isDiagnosticCurrent, scoreDiagnostic } from './assessment'
 import { completeLesson, fresh } from '../test/fixtures'
 
 const ratings = Object.fromEntries(competencyIds.map((c) => [c, 2]))
@@ -27,36 +22,35 @@ describe('diagnostic', () => {
     for (const c of competencyIds) expect(scores[c] ?? 0).toBe(0)
   })
 
-  it('starts a beginner at level 1 on the full path', () => {
-    const r = computeOnboardingResult(onboarding(allUnsure), levels)
-    expect(r.startLevel).toBe(1)
-    expect(Object.values(r.path).every((p) => p === 'full')).toBe(true)
-    expect(r.firstLessonId).toBe(levels[0]!.lessons[0]!.id)
-  })
-
-  it('caps test-out at the maximum level, never beyond', () => {
-    const r = computeOnboardingResult(onboarding(allCorrect), levels)
-    expect(r.startLevel).toBe(maxTestOutLevel + 1)
-    for (const l of levels)
-      expect(r.path[l.id]).toBe(l.id <= maxTestOutLevel ? 'proof-only' : 'full')
-  })
-
-  it('only tests out consecutive levels from level 1', () => {
-    const demonstrated = Object.fromEntries(competencyIds.map((c) => [c, 100])) as Record<
-      string,
-      number
-    >
-    for (const c of levelCompetencies[1]) demonstrated[c] = 0
-    expect(testedOutLevels(demonstrated as never)).toEqual([])
-  })
-
-  it('keeps practical-proof and safety-critical sessions required on the proof-only path', () => {
-    for (const l of levels) {
-      const ids = requiredLessonIds(l, 'proof-only')
-      for (const lesson of l.lessons) {
-        if (lesson.practicalProof || lesson.safetyCritical) expect(ids).toContain(lesson.id)
-      }
+  it('starts everyone at session 1, whatever they score', () => {
+    for (const answers of [allUnsure, allCorrect]) {
+      const r = computeOnboardingResult(onboarding(answers), levels)
+      expect(r.firstLessonId).toBe(levels[0]!.lessons[0]!.id)
     }
+  })
+
+  it('calls a level strong only when every one of its scenarios is right', () => {
+    expect(
+      Object.values(computeOnboardingResult(onboarding(allCorrect), levels).levels).map(
+        (l) => l.standing,
+      ),
+    ).toEqual(['strong', 'strong', 'strong', 'strong', 'strong'])
+    const oneWrong = { ...allCorrect }
+    const q = diagnosticQuestions.find((x) => x.level === 2)!
+    oneWrong[q.id] = 'unsure'
+    const r = computeOnboardingResult(onboarding(oneWrong), levels).levels
+    expect(r[2]).toEqual({ correct: 2, total: 3, standing: 'partial' })
+    expect(r[1]!.standing).toBe('strong')
+    expect(computeOnboardingResult(onboarding(allUnsure), levels).levels[3]!.standing).toBe('new')
+  })
+
+  it('treats answers to retired questions as no diagnostic', () => {
+    const old = onboarding({ d1: 'b', d2: 'c', d9: 'b' })
+    expect(isDiagnosticCurrent(old)).toBe(false)
+    expect(isDiagnosticCurrent(onboarding(allUnsure))).toBe(true)
+    const data = fresh()
+    data.onboarding = old
+    expect(levelStatuses(data, levels).every((s) => s.standing === null)).toBe(true)
   })
 
   it('estimates weeks from the weekly hours answer', () => {
@@ -65,15 +59,14 @@ describe('diagnostic', () => {
     expect(r.estimatedWeeks).toBe(Math.ceil(r.estimatedMinutes / (14 * 60)))
   })
 
-  it('does not open the next level from the diagnostic alone', () => {
+  it('does not open the next level or skip a session from the diagnostic alone', () => {
     const data = fresh()
     data.onboarding = onboarding(allCorrect)
     let s = levelStatuses(data, levels)
-    const proofLessons = s[0]!.requiredLessons
-    expect(s[0]!.path).toBe('proof-only')
-    expect(proofLessons.length).toBeLessThan(levels[0]!.lessons.length)
-    if (proofLessons.length > 0) expect(s[1]!.unlocked).toBe(false)
-    for (const l of proofLessons) completeLesson(data, l.id)
+    expect(s[0]!.standing).toBe('strong')
+    expect(s[0]!.requiredLessons).toEqual(levels[0]!.lessons)
+    expect(s[1]!.unlocked).toBe(false)
+    for (const l of levels[0]!.lessons) completeLesson(data, l.id)
     s = levelStatuses(data, levels)
     expect(s[1]!.unlocked).toBe(true)
     expect(s[0]!.mastered).toBe(false)

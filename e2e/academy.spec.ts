@@ -197,7 +197,7 @@ test('team loop stays in its lesson and supports keyboard exploration', async ({
   await expect(page.locator('[data-illustration="constraints"]')).toHaveCount(0)
 })
 
-test('onboarding produces a personalized path', async ({ page }) => {
+test('onboarding shows where you stand and starts at session 1', async ({ page }) => {
   await page.goto('#/onboarding')
   await page.getByRole('button', { name: 'Continue' }).click()
   await expect(page.getByRole('alert')).toContainText('Please answer')
@@ -210,9 +210,9 @@ test('onboarding produces a personalized path', async ({ page }) => {
   await answerEveryFieldset(page)
   await page.getByRole('button', { name: 'See my results' }).click()
 
-  await expect(page.getByRole('heading', { level: 1 })).toContainText(/here is your path/i)
-  await expect(page.getByText('Recommended start')).toBeVisible()
-  await expect(page.getByRole('link', { name: /Start session/ })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1 })).toContainText(/here is where you stand/i)
+  await expect(page.getByRole('heading', { name: 'Where you stand in each level' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Start session 1' })).toBeVisible()
 
   await page.goto('')
   await expect(page).toHaveURL(/#\/dashboard$/)

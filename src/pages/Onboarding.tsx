@@ -56,6 +56,8 @@ export function Onboarding() {
     () => data.onboarding?.selfRatings ?? {},
   )
   const [answers, setAnswers] = useState<Record<string, string>>({})
+  // A new option order on every visit, so a retake cannot be answered from memory of positions.
+  const [shuffleSeed] = useState(() => String(Math.random()))
   const [error, setError] = useState<string | null>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
 
@@ -149,15 +151,15 @@ export function Onboarding() {
         >
           {step === 0 && 'Tell us where you are starting from'}
           {step === 1 && 'How confident are you today?'}
-          {step === 2 && 'Fourteen short scenarios'}
+          {step === 2 && 'Fifteen short scenarios'}
         </h1>
         <p className="mt-2 mb-6 text-stone-600 dark:text-stone-400">
           {step === 0 &&
-            'This shapes your path, your pacing and the first project. It stays in this browser.'}
+            'This sets your weekly pace and whether a mentor signs off later projects. It stays in this browser.'}
           {step === 1 &&
             'Rate yourself honestly. The scenarios that follow test the same areas, and the gap between the two is useful.'}
           {step === 2 &&
-            'Pick the best answer. "Not sure yet" is always better than a guess: it makes your starting point more accurate. Strong results can let you skip the theory of early levels, never the practical proof.'}
+            'Three scenarios for each level. Pick the best answer. "Not sure yet" is always better than a guess: it makes the picture of where you stand more accurate.'}
         </p>
 
         {step === 0 && (
@@ -266,7 +268,7 @@ export function Onboarding() {
                     {[
                       ...shuffled(
                         q.options.filter((o) => o.id !== 'unsure'),
-                        q.id,
+                        `${q.id}-${shuffleSeed}`,
                       ),
                       ...q.options.filter((o) => o.id === 'unsure'),
                     ].map((o) => (

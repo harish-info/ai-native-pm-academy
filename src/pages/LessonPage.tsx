@@ -142,7 +142,6 @@ export function LessonPage() {
   const index = allLessons.findIndex((l) => l.id === lesson.id)
   const prev = allLessons[index - 1]
   const next = allLessons[index + 1]
-  const optional = !status.requiredLessons.some((l) => l.id === lesson.id)
   const wiki = wikiSteps[lesson.id]
   const prereqs = lesson.prerequisites.map((id) => lessonById(id)).filter((l) => l !== undefined)
 
@@ -167,7 +166,7 @@ export function LessonPage() {
       <div className="flex flex-wrap gap-1.5 text-xs">
         <Pill>{formatMinutes(lesson.minutes)}</Pill>
         <Pill>{lesson.difficulty}</Pill>
-        {optional && <Pill tone="blue">Optional for you</Pill>}
+        {status.standing === 'strong' && <Pill tone="blue">Familiar: skim the reading</Pill>}
         {lesson.safetyCritical && <Pill tone="red">Safety critical</Pill>}
       </div>
 

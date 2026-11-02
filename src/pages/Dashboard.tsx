@@ -261,8 +261,8 @@ export function Dashboard() {
         <Card className="border-indigo-300 dark:border-indigo-800">
           <h2 className="text-lg font-semibold">Start with the skills diagnostic</h2>
           <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
-            Fifteen minutes of scenario questions sets your baseline, recommends where to start and
-            may let you skip theory you already know.
+            Ten minutes of scenario questions shows where you stand in each level and which reading
+            you can skim. Everyone starts at Session 1.
           </p>
           <LinkButton to="/onboarding" className="mt-4">
             Take the diagnostic
@@ -286,7 +286,9 @@ export function Dashboard() {
                   {action.label}
                   <span aria-hidden>→</span>
                 </LinkButton>
-                {current.path === 'proof-only' && <Pill tone="blue">Theory tested out</Pill>}
+                {current.standing === 'strong' && (
+                  <Pill tone="blue">Familiar: skim the reading</Pill>
+                )}
               </div>
             </div>
             <LevelArt levelId={current.level.id} className="hidden h-32 w-32 shrink-0 md:block" />
@@ -312,6 +314,18 @@ export function Dashboard() {
           </LinkButton>
         </Card>
       )}
+
+      <section aria-labelledby="path-heading">
+        <div className="mb-3 flex items-baseline justify-between gap-2">
+          <h2 id="path-heading" className="text-lg font-semibold">
+            The whole course
+          </h2>
+          <Link to="/stats" className={`text-sm ${linkClass}`}>
+            Your progress
+          </Link>
+        </div>
+        <LevelPath statuses={statuses} currentId={current.level.id} />
+      </section>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
@@ -380,18 +394,6 @@ export function Dashboard() {
           )}
         </div>
       </div>
-
-      <section aria-labelledby="path-heading">
-        <div className="mb-3 flex items-baseline justify-between gap-2">
-          <h2 id="path-heading" className="text-lg font-semibold">
-            The whole course
-          </h2>
-          <Link to="/stats" className={`text-sm ${linkClass}`}>
-            Your progress
-          </Link>
-        </div>
-        <LevelPath statuses={statuses} currentId={current.level.id} />
-      </section>
     </div>
   )
 }

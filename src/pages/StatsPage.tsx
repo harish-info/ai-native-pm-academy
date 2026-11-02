@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { challengeById, lessonById, levels } from '../content'
 import { competencies } from '../content/competencies'
-import { computeOnboardingResult } from '../domain/assessment'
+import { computeOnboardingResult, isDiagnosticCurrent } from '../domain/assessment'
 import { formatDate, formatMinutes, toDay } from '../domain/dates'
 import { QUIZ_PASS_RATIO, levelSteps, maxXp, xpBreakdown } from '../domain/progress'
 import {
@@ -85,9 +85,10 @@ export function StatsPage() {
   const weeksActive = activeWeeks(days)
   const weeks = weeklySeries(data, today)
   const evidence = competencyEvidence(data, levels)
-  const baseline = data.onboarding
-    ? computeOnboardingResult(data.onboarding, levels).demonstrated
-    : null
+  const baseline =
+    data.onboarding && isDiagnosticCurrent(data.onboarding)
+      ? computeOnboardingResult(data.onboarding, levels).demonstrated
+      : null
   const xp = xpBreakdown(data, levels)
   const xpMax = maxXp(levels)
   const events = timeline(data, levels)

@@ -68,9 +68,9 @@ export interface Lesson {
   competencies: CompetencyId[]
   xp: number
   mentorReview: MentorReview
-  /** Must be completed even when the learner tests out of the level's theory. */
+  /** Shown as a tag: the session ends in hands-on evidence. */
   practicalProof?: boolean
-  /** Safety-critical: never skippable. */
+  /** Shown as a tag: the session covers safety-critical practice. */
   safetyCritical?: boolean
   goal: string
   whyItMatters: string

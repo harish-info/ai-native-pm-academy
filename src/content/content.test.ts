@@ -122,6 +122,20 @@ describe('references', () => {
     for (const q of diagnosticQuestions) expect(competencyIds).toContain(q.competency)
   })
 
+  it('asks three diagnostic scenarios per level, with valid answers and fresh ids', () => {
+    for (const l of levels)
+      expect(diagnosticQuestions.filter((q) => q.level === l.id)).toHaveLength(3)
+    const ids = diagnosticQuestions.map((q) => q.id)
+    expect(new Set(ids).size).toBe(ids.length)
+    // d1 to d14 were an earlier set of questions; old answers are stored under those ids.
+    for (let n = 1; n <= 14; n++) expect(ids).not.toContain(`d${n}`)
+    for (const q of diagnosticQuestions) {
+      expect(q.options.map((o) => o.id)).toContain(q.correct)
+      expect(q.correct).not.toBe('unsure')
+      expect(q.options.at(-1)!.id).toBe('unsure')
+    }
+  })
+
   it('schedules every core session in the study plan exactly once', () => {
     const planned = planWeeks.flatMap((w) => w.items).filter((i) => i.kind === 'lesson')
     const ids = planned.map((i) => (i as { id: string }).id)
