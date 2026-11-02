@@ -33,27 +33,39 @@ export type PlanPace = 'standard' | 'light'
 
 export const paces: Record<
   PlanPace,
-  { label: string; calendarWeeks: number; daysPerPlanWeek: number; hoursPerWeek: string }
+  {
+    label: string
+    calendarWeeks: number
+    daysPerPlanWeek: number
+    hoursPerWeek: string
+    // What one of the eight plan steps is called at this pace, and how long it lasts.
+    unit: 'Week' | 'Part'
+    unitSpan: string
+  }
 > = {
   standard: {
     label: 'Standard: 8 weeks',
     calendarWeeks: 8,
     daysPerPlanWeek: 7,
     hoursPerWeek: 'about 10 hours a week',
+    unit: 'Week',
+    unitSpan: '1 week',
   },
   light: {
     label: 'Light: 12 weeks',
     calendarWeeks: 12,
     daysPerPlanWeek: 10.5,
     hoursPerWeek: 'about 7 hours a week',
+    unit: 'Part',
+    unitSpan: 'about 1.5 weeks',
   },
 }
 
-const weeklyReview = (week: number): PlanItem => ({
+const weeklyReview: PlanItem = {
   kind: 'review',
-  text: `Weekly review (Week ${week}): read log.md, update product-context.md if anything changed, set three goals for next week. Then rest.`,
+  text: 'Read log.md, update product-context.md if anything changed, and set three goals for what comes next. Then rest.',
   minutes: 30,
-})
+}
 
 export const planWeeks: PlanWeek[] = [
   {
@@ -72,7 +84,7 @@ export const planWeeks: PlanWeek[] = [
       { kind: 'quiz', levelId: 1 },
       { kind: 'project', levelId: 1, part: 'whole', minutes: 180 },
       { kind: 'mentor', text: 'Level 1 project review and Claude Code setup.', minutes: 45 },
-      weeklyReview(1),
+      weeklyReview,
     ],
   },
   {
@@ -99,7 +111,7 @@ export const planWeeks: PlanWeek[] = [
         text: 'Start recruiting people who experience the problem you chose. Aim for five, with three as the minimum for the learning exercise. Ask for 30 minutes, explain the prototype and agree consent before taking notes.',
         minutes: 15,
       },
-      weeklyReview(2),
+      weeklyReview,
     ],
   },
   {
@@ -124,7 +136,7 @@ export const planWeeks: PlanWeek[] = [
         text: 'Hold three 30-minute conversations for Session 10. Two more are optional extra time. If recruitment fails, keep the exercise labelled PRACTICE and make a dated validation plan.',
         minutes: 90,
       },
-      weeklyReview(3),
+      weeklyReview,
     ],
   },
   {
@@ -141,7 +153,7 @@ export const planWeeks: PlanWeek[] = [
       { kind: 'lesson', id: 's12' },
       { kind: 'mentor', text: 'Challenge the synthesis and the chosen bet.', minutes: 30 },
       { kind: 'lesson', id: 's13' },
-      weeklyReview(4),
+      weeklyReview,
     ],
   },
   {
@@ -161,7 +173,7 @@ export const planWeeks: PlanWeek[] = [
       },
       { kind: 'lesson', id: 's14' },
       { kind: 'mentor', text: 'Red-team the AI feature with three attempts.', minutes: 15 },
-      weeklyReview(5),
+      weeklyReview,
     ],
   },
   {
@@ -177,7 +189,7 @@ export const planWeeks: PlanWeek[] = [
       { kind: 'project', levelId: 4, part: 'start', minutes: 120 },
       { kind: 'mentor', text: 'First deck run-through: one note on the story.', minutes: 30 },
       { kind: 'lesson', id: 's17' },
-      weeklyReview(6),
+      weeklyReview,
     ],
   },
   {
@@ -193,7 +205,7 @@ export const planWeeks: PlanWeek[] = [
       { kind: 'mentor', text: 'Launch review as the executive; sign off Level 4.', minutes: 60 },
       { kind: 'lesson', id: 's18' },
       { kind: 'lesson', id: 's19' },
-      weeklyReview(7),
+      weeklyReview,
     ],
   },
   {
@@ -218,9 +230,9 @@ export const planWeeks: PlanWeek[] = [
 ]
 
 export const planNotes = [
-  'Pick a start date and a pace. Standard is eight weeks at about 10 hours a week, including mentor time; light is the same weeks stretched to twelve at about 7 hours. You can switch pace at any time without losing progress.',
+  'Pick a start date and a pace. Standard is eight weeks at about 10 hours a week, including mentor time; light spreads the same eight steps over twelve weeks at about 7 hours a week, so each step is called a part and lasts about a week and a half. You can switch pace at any time without losing progress.',
   'Sessions are 75 to 150 minute planning budgets, including the short assigned source, examples and practice. Longer courses and extra resources are optional. Split a session across days and log the actual time.',
-  'Recruitment takes elapsed time. Three conversations are budgeted in Week 3, before Session 10 synthesis in Week 4. More participants and installation problems need extra time. Estimates have not been tested with learners.',
+  'Recruitment takes elapsed time. Three conversations are budgeted in Week 3, before Session 10 synthesis in Week 4 (Parts 3 and 4 at the light pace). More participants and installation problems need extra time. Estimates have not been tested with learners.',
   'Start each weekly review by recalling one earlier decision without notes, then compare it with your artifact. Projects consolidate your session work; do not restart the same assignments.',
   'If a week slips, push the start date back a week rather than skipping verification or reflections. Nothing is lost.',
   "A new level opens as soon as you finish the previous level's sessions, so a project can finish while the next level starts. The level badge still needs the quiz and the project.",

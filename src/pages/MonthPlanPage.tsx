@@ -58,7 +58,7 @@ type Kind = PlanItem['kind']
 const kindLabel: Record<Exclude<Kind, 'lesson' | 'project'>, string> = {
   quiz: 'Assessment',
   mentor: 'With your mentor',
-  review: 'Weekly review',
+  review: 'Review',
   prep: 'Prepare',
 }
 
@@ -205,6 +205,7 @@ export function MonthPlanPage() {
   const today = toDay(new Date())
   const start = data.settings.planStart
   const pace = planPace(data)
+  const { unit, unitSpan } = paces[pace]
   const current = start ? currentPlanWeek(start, pace, today) : 0
   const focus = current || 1
   const totalMinutes = planMinutes()
@@ -241,11 +242,13 @@ export function MonthPlanPage() {
         title={
           start
             ? `${longDay(start)} to ${longDay(planEndDay(start, pace))}`
-            : 'Eight weeks, starting when you are ready'
+            : `${pace === 'light' ? 'Twelve' : 'Eight'} weeks, starting when you are ready`
         }
       >
-        20 sessions and 5 projects, week by week, {paces[pace].hoursPerWeek} including mentor time.
-        About {Math.round(totalMinutes / 60)} hours in total.
+        20 sessions and 5 projects in {planWeeks.length}{' '}
+        {unit === 'Week' ? 'weeks' : `parts over ${paces[pace].calendarWeeks} weeks`},{' '}
+        {paces[pace].hoursPerWeek} including mentor time. About {Math.round(totalMinutes / 60)}{' '}
+        hours in total.
       </PageHeader>
 
       <Card className="mb-6" aria-labelledby="plan-settings">
@@ -274,7 +277,7 @@ export function MonthPlanPage() {
                   onClick={() => update((d) => void (d.settings.planStart = today))}
                   className="min-h-10 rounded-lg bg-indigo-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-800 dark:bg-indigo-500 dark:text-stone-950 dark:hover:bg-indigo-400"
                 >
-                  Start Week 1 today
+                  Start {unit} 1 today
                 </button>
               )}
               {start && (
@@ -321,7 +324,7 @@ export function MonthPlanPage() {
         className="mb-6 rounded-2xl border border-indigo-200 bg-indigo-50 p-5 sm:p-6 dark:border-indigo-900 dark:bg-indigo-950/60"
       >
         <p className="text-sm font-medium text-indigo-800 dark:text-indigo-300">
-          {current ? `Week ${current} of ${planWeeks.length}` : 'Where to begin'}
+          {current ? `${unit} ${current} of ${planWeeks.length}` : 'Where to begin'}
           {start &&
             current > 0 &&
             (() => {
@@ -336,7 +339,7 @@ export function MonthPlanPage() {
           <ProgressBar
             value={focusProgress.done}
             max={focusProgress.total}
-            label={`Week ${focus} progress`}
+            label={`${unit} ${focus} progress`}
           />
           <span className="shrink-0 text-sm text-stone-700 tabular-nums dark:text-stone-300">
             {focusProgress.done} of {focusProgress.total} done
@@ -356,7 +359,7 @@ export function MonthPlanPage() {
             onClick={() => jumpTo(focus)}
             className={cx(linkClass, 'cursor-pointer text-sm')}
           >
-            See the whole week
+            See the whole {unit.toLowerCase()}
           </button>
         </div>
       </section>
@@ -382,7 +385,7 @@ export function MonthPlanPage() {
                 >
                   <span className="flex items-center justify-between gap-2 text-xs font-medium text-stone-500 dark:text-stone-400">
                     <span>
-                      Week {week.number}
+                      {unit} {week.number}
                       {isCurrent && <span className="sr-only">, current</span>}
                     </span>
                     {complete && (
@@ -401,7 +404,8 @@ export function MonthPlanPage() {
                       />
                     </span>
                     <span className="mt-1.5 block text-xs text-stone-500 dark:text-stone-400">
-                      {done} of {total} done · {formatMinutes(weekMinutes(week))}
+                      {done} of {total} done ·{' '}
+                      {unit === 'Week' ? formatMinutes(weekMinutes(week)) : unitSpan}
                     </span>
                   </span>
                 </button>
@@ -421,7 +425,9 @@ export function MonthPlanPage() {
       </details>
 
       <div className="mb-3 flex items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold">Week by week</h2>
+        <h2 className="text-lg font-semibold">
+          {unit} by {unit.toLowerCase()}
+        </h2>
         <button
           type="button"
           onClick={() => setOpen(allOpen ? new Set() : new Set(planWeeks.map((w) => w.number)))}
@@ -469,7 +475,7 @@ export function MonthPlanPage() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-xs font-medium text-stone-500 dark:text-stone-400">
-                      Week {week.number} · {levelsLabel(week.levelIds)}
+                      {unit} {week.number} · {levelsLabel(week.levelIds)}
                       {window && ` · ${shortDay(window.start)} to ${shortDay(window.end)}`}
                     </span>
                     <h3
@@ -480,7 +486,9 @@ export function MonthPlanPage() {
                       {week.title}
                     </h3>
                     <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-600 dark:text-stone-400">
-                      {isCurrent && <Pill tone="indigo">This week</Pill>}
+                      {isCurrent && (
+                        <Pill tone="indigo">{unit === 'Week' ? 'This week' : 'Now'}</Pill>
+                      )}
                       <span className="tabular-nums">
                         {done} of {total} done
                       </span>

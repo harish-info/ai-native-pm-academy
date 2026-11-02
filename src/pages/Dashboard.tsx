@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { levels, lessonById, levelById, wikiMilestones } from '../content'
-import { planWeeks, type PlanItem } from '../content/plan'
+import { paces, planWeeks, type PlanItem } from '../content/plan'
 import { achievements, closestRewards } from '../domain/achievements'
 import { isDiagnosticCurrent } from '../domain/assessment'
 import { addDays, formatDate, formatMinutes, toDay, weekStart } from '../domain/dates'
@@ -138,7 +138,11 @@ function ThisWeekInPlan({ today }: { today: string }) {
     <Card>
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-lg font-semibold">
-          {week && n <= planWeeks.length ? `This week: Week ${week.number}` : 'Your plan'}
+          {week && n <= planWeeks.length
+            ? paces[pace].unit === 'Week'
+              ? `This week: Week ${week.number}`
+              : `Now: Part ${week.number}`
+            : 'Your plan'}
         </h2>
         <Link to="/plan" className={`text-sm ${linkClass}`}>
           Full plan
@@ -162,7 +166,7 @@ function ThisWeekInPlan({ today }: { today: string }) {
                 Week 1 needs only a chat account. Start whenever you are ready.
               </span>
               <Button onClick={() => update((d) => void (d.settings.planStart = today))}>
-                Start Week 1 today
+                Start {paces[pace].unit} 1 today
               </Button>
             </div>
           )}
