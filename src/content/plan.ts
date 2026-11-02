@@ -1,7 +1,7 @@
 import type { LevelId } from './types'
 
-// The study plan: eight weeks from a start date the learner picks, about 10 hours a week, or
-// the same weeks stretched to twelve at the light pace. Weeks are not tied one to one to levels:
+// The study plan: eight weeks from a start date the learner picks, about 10 hours a week. The
+// light pace re-splits the same items into twelve weeks (see planFor in src/domain/schedule.ts). Weeks are not tied one to one to levels:
 // later levels are heavier, so they span more than a week, and a project can finish while the next
 // level starts. Items reference lessons and levels by id, so titles, minutes and resources always
 // come from the course content itself. Dates are computed in src/domain/schedule.ts.
@@ -33,32 +33,10 @@ export type PlanPace = 'standard' | 'light'
 
 export const paces: Record<
   PlanPace,
-  {
-    label: string
-    calendarWeeks: number
-    daysPerPlanWeek: number
-    hoursPerWeek: string
-    // What one of the eight plan steps is called at this pace, and how long it lasts.
-    unit: 'Week' | 'Part'
-    unitSpan: string
-  }
+  { label: string; calendarWeeks: number; hoursPerWeek: string }
 > = {
-  standard: {
-    label: 'Standard: 8 weeks',
-    calendarWeeks: 8,
-    daysPerPlanWeek: 7,
-    hoursPerWeek: 'about 10 hours a week',
-    unit: 'Week',
-    unitSpan: '1 week',
-  },
-  light: {
-    label: 'Light: 12 weeks',
-    calendarWeeks: 12,
-    daysPerPlanWeek: 10.5,
-    hoursPerWeek: 'about 7 hours a week',
-    unit: 'Part',
-    unitSpan: 'about 1.5 weeks',
-  },
+  standard: { label: 'Standard: 8 weeks', calendarWeeks: 8, hoursPerWeek: 'about 10 hours a week' },
+  light: { label: 'Light: 12 weeks', calendarWeeks: 12, hoursPerWeek: 'about 7 hours a week' },
 }
 
 const weeklyReview: PlanItem = {
@@ -74,7 +52,7 @@ export const planWeeks: PlanWeek[] = [
     title: 'AI foundations',
     goal: "Understand how today's AI works, write the context file every later session reads, and ship a vibe-coded pitch page.",
     mentor:
-      'Day 1, 15 minutes: agree a fixed weekly mentor slot and check she can sign in to Claude; the free plan is enough this week. End of the week, 45 minutes: review the Level 1 project together and ask her to show one answer she rejected and why. Then set up Week 2 together with the Before Session 5 steps in the Starter kit.',
+      'Day 1, 15 minutes: agree a fixed weekly mentor slot and check she can sign in to Claude; the free plan is enough this week. End of the week, 45 minutes: review the Level 1 project together and ask her to show one answer she rejected and why. Then set up next week together with the Before Session 5 steps in the Starter kit.',
     items: [
       { kind: 'mentor', text: 'Kick-off: weekly slot and a working Claude account.', minutes: 15 },
       { kind: 'lesson', id: 's1' },
@@ -93,7 +71,7 @@ export const planWeeks: PlanWeek[] = [
     title: 'Claude Code and a first prototype',
     goal: 'Work from a real workspace in Claude Code, build a prototype from an interview-style spec, put it live and review it.',
     mentor:
-      '15 minutes early in the week: sit beside her for the first Claude Code session and check git is working. Midweek, 30 minutes: open the live prototype on your phone and file two bug reports she can fix in Session 8. Suggest two or three people from your own network for her user conversations in Week 4.',
+      '15 minutes early in the week: sit beside her for the first Claude Code session and check git is working. Midweek, 30 minutes: open the live prototype on your phone and file two bug reports she can fix in Session 8. Suggest two or three people from your own network for her user conversations before Session 10.',
     items: [
       {
         kind: 'prep',
@@ -230,9 +208,9 @@ export const planWeeks: PlanWeek[] = [
 ]
 
 export const planNotes = [
-  'Pick a start date and a pace. Standard is eight weeks at about 10 hours a week, including mentor time; light spreads the same eight steps over twelve weeks at about 7 hours a week, so each step is called a part and lasts about a week and a half. You can switch pace at any time without losing progress.',
+  'Pick a start date and a pace. Standard is eight weeks at about 10 hours a week, including mentor time; light spreads the same sessions, in the same order, over twelve weeks at about 7 hours a week, each ending with a review. You can switch pace at any time without losing progress.',
   'Sessions are 75 to 150 minute planning budgets, including the short assigned source, examples and practice. Longer courses and extra resources are optional. Split a session across days and log the actual time.',
-  'Recruitment takes elapsed time. Three conversations are budgeted in Week 3, before Session 10 synthesis in Week 4 (Parts 3 and 4 at the light pace). More participants and installation problems need extra time. Estimates have not been tested with learners.',
+  'Recruitment takes elapsed time. Three conversations are budgeted before Session 10 synthesis, so start recruiting early. More participants and installation problems need extra time. Estimates have not been tested with learners.',
   'Start each weekly review by recalling one earlier decision without notes, then compare it with your artifact. Projects consolidate your session work; do not restart the same assignments.',
   'If a week slips, push the start date back a week rather than skipping verification or reflections. Nothing is lost.',
   "A new level opens as soon as you finish the previous level's sessions, so a project can finish while the next level starts. The level badge still needs the quiz and the project.",

@@ -1,20 +1,14 @@
 import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { featuredFirst, lessonById, levelById, resources } from '../content'
-import {
-  paces,
-  planNotes,
-  planWeeks,
-  type PlanItem,
-  type PlanPace,
-  type PlanWeek,
-} from '../content/plan'
+import { paces, planNotes, type PlanItem, type PlanPace, type PlanWeek } from '../content/plan'
 import { addDays, formatMinutes, toDay } from '../domain/dates'
 import { levelProjectResults, quizResults } from '../domain/progress'
 import {
   currentPlanWeek,
   itemMinutes,
   planEndDay,
+  planFor,
   planMinutes,
   planPace,
   weekMinutes,
@@ -207,11 +201,11 @@ export function MonthPlanPage() {
   const today = toDay(new Date())
   const start = data.settings.planStart
   const pace = planPace(data)
-  const { unit } = paces[pace]
+  const weeks = planFor(pace)
   const current = start ? currentPlanWeek(start, pace, today) : 0
-  const finished = current > planWeeks.length
-  const focus = Math.min(Math.max(current, 1), planWeeks.length)
-  const totalMinutes = planMinutes()
+  const finished = current > weeks.length
+  const focus = Math.min(Math.max(current, 1), weeks.length)
+  const totalMinutes = planMinutes(pace)
   const follow = featuredFirst(
     resources.filter(
       (r) => r.format === 'community' || r.format === 'newsletter' || r.format === 'podcast',
@@ -237,9 +231,9 @@ export function MonthPlanPage() {
     toggle(n, true)
     focusWeek(n)
   }
-  const allOpen = open.size === planWeeks.length
+  const allOpen = open.size === weeks.length
 
-  const focusWeekData = planWeeks.find((w) => w.number === focus)!
+  const focusWeekData = weeks.find((w) => w.number === focus)!
   const focusProgress = weekProgress(focusWeekData, data)
   const nextUp = focusWeekData.items.find((i) => itemDone(i, data) === false)
   const next = nextUp ? itemTitle(nextUp) : undefined
@@ -254,10 +248,8 @@ export function MonthPlanPage() {
             : `${pace === 'light' ? 'Twelve' : 'Eight'} weeks, starting when you are ready`
         }
       >
-        20 sessions and 5 projects in {planWeeks.length}{' '}
-        {unit === 'Week' ? 'weeks' : `parts over ${paces[pace].calendarWeeks} weeks`},{' '}
-        {paces[pace].hoursPerWeek} including mentor time. About {Math.round(totalMinutes / 60)}{' '}
-        hours in total.
+        20 sessions and 5 projects in {weeks.length} weeks, {paces[pace].hoursPerWeek} including
+        mentor time. About {Math.round(totalMinutes / 60)} hours in total.
       </PageHeader>
 
       <Card className="mb-6" aria-labelledby="plan-settings">
@@ -286,7 +278,7 @@ export function MonthPlanPage() {
                   onClick={() => update((d) => void (d.settings.planStart = today))}
                   className="min-h-10 rounded-lg bg-indigo-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-800 dark:bg-indigo-500 dark:text-stone-950 dark:hover:bg-indigo-400"
                 >
-                  Start {unit} 1 today
+                  Start Week 1 today
                 </button>
               )}
               {start && (
@@ -336,13 +328,13 @@ export function MonthPlanPage() {
           {finished
             ? 'Plan finished'
             : current
-              ? `${unit} ${current} of ${planWeeks.length}`
+              ? `Week ${current} of ${weeks.length}`
               : 'Where to begin'}
           {start &&
             current > 0 &&
             !finished &&
             (() => {
-              const w = weekWindow(start, pace, current)
+              const w = weekWindow(start, current)
               return ` · ${shortDay(w.start)} to ${shortDay(w.end)}`
             })()}
         </p>
@@ -353,7 +345,7 @@ export function MonthPlanPage() {
           <ProgressBar
             value={focusProgress.done}
             max={focusProgress.total}
-            label={`${unit} ${focus} progress`}
+            label={`Week ${focus} progress`}
           />
           <span className="shrink-0 text-sm text-stone-700 tabular-nums dark:text-stone-300">
             {focusProgress.done} of {focusProgress.total} done
@@ -366,21 +358,21 @@ export function MonthPlanPage() {
               {next.title}
             </LinkButton>
           ) : (
-            <p className="text-sm font-medium">Everything in this {unit.toLowerCase()} is done.</p>
+            <p className="text-sm font-medium">Everything this week is done.</p>
           )}
           <button
             type="button"
             onClick={() => jumpTo(focus)}
             className={cx(linkClass, 'cursor-pointer text-sm')}
           >
-            See the whole {unit.toLowerCase()}
+            See the whole week
           </button>
         </div>
       </section>
 
-      <nav aria-label={`${unit}s`} className="mb-6">
+      <nav aria-label="Weeks" className="mb-6">
         <ol className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {planWeeks.map((week) => {
+          {weeks.map((week) => {
             const { done, total } = weekProgress(week, data)
             const isCurrent = current === week.number
             const complete = total > 0 && done === total
@@ -398,9 +390,7 @@ export function MonthPlanPage() {
                   )}
                 >
                   <span className="flex items-center justify-between gap-2 text-xs font-medium text-stone-500 dark:text-stone-400">
-                    <span>
-                      {unit} {week.number}
-                    </span>
+                    <span>Week {week.number}</span>
                     {complete && (
                       <CheckIcon className="h-4 w-4 text-emerald-700 dark:text-emerald-300" />
                     )}
@@ -437,12 +427,10 @@ export function MonthPlanPage() {
       </details>
 
       <div className="mb-3 flex items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold">
-          {unit} by {unit.toLowerCase()}
-        </h2>
+        <h2 className="text-lg font-semibold">Week by week</h2>
         <button
           type="button"
-          onClick={() => setOpen(allOpen ? new Set() : new Set(planWeeks.map((w) => w.number)))}
+          onClick={() => setOpen(allOpen ? new Set() : new Set(weeks.map((w) => w.number)))}
           className={cx(linkClass, 'cursor-pointer text-sm')}
         >
           {allOpen ? 'Collapse all' : 'Expand all'}
@@ -450,8 +438,8 @@ export function MonthPlanPage() {
       </div>
 
       <div className="space-y-3">
-        {planWeeks.map((week) => {
-          const window = start ? weekWindow(start, pace, week.number) : undefined
+        {weeks.map((week) => {
+          const window = start ? weekWindow(start, week.number) : undefined
           const isCurrent = current === week.number
           const { done, total } = weekProgress(week, data)
           const complete = total > 0 && done === total
@@ -487,16 +475,14 @@ export function MonthPlanPage() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-xs font-medium text-stone-500 dark:text-stone-400">
-                      {unit} {week.number} · {levelsLabel(week.levelIds)}
+                      Week {week.number} · {levelsLabel(week.levelIds)}
                       {window && ` · ${shortDay(window.start)} to ${shortDay(window.end)}`}
                     </span>
                     <h3 id={`week-${week.number}`} className="text-lg leading-snug font-semibold">
                       {week.title}
                     </h3>
                     <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-600 dark:text-stone-400">
-                      {isCurrent && (
-                        <Pill tone="indigo">{unit === 'Week' ? 'This week' : 'Now'}</Pill>
-                      )}
+                      {isCurrent && <Pill tone="indigo">This week</Pill>}
                       <span className="tabular-nums">
                         {done} of {total} done
                       </span>
@@ -514,9 +500,11 @@ export function MonthPlanPage() {
                       <PlanItemRow key={i} item={item} data={data} />
                     ))}
                   </ol>
-                  <p className="mt-2 rounded-xl bg-stone-100 p-3 text-sm leading-relaxed text-stone-700 dark:bg-stone-800/60 dark:text-stone-300">
-                    <strong>What the mentor does:</strong> {week.mentor}
-                  </p>
+                  {week.mentor && (
+                    <p className="mt-2 rounded-xl bg-stone-100 p-3 text-sm leading-relaxed text-stone-700 dark:bg-stone-800/60 dark:text-stone-300">
+                      <strong>What the mentor does:</strong> {week.mentor}
+                    </p>
+                  )}
                 </div>
               </details>
             </Card>
@@ -526,8 +514,8 @@ export function MonthPlanPage() {
 
       <p className="mt-4 text-xs text-stone-500 dark:text-stone-400">
         Assessment and project times are estimates: about two minutes per quiz question plus review,
-        and projects split across the {unit.toLowerCase()}s where they run. Work through each{' '}
-        {unit.toLowerCase()} in order; which day you do what is up to you.
+        and projects split across the weeks where they run. Work through a week in order; which day
+        you do what is up to you.
       </p>
 
       <section aria-labelledby="follow" className="mt-8">

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { levels, lessonById, levelById, wikiMilestones } from '../content'
-import { paces, planWeeks, type PlanItem } from '../content/plan'
+import type { PlanItem } from '../content/plan'
 import { achievements, closestRewards } from '../domain/achievements'
 import { isDiagnosticCurrent } from '../domain/assessment'
 import { addDays, formatDate, formatMinutes, toDay, weekStart } from '../domain/dates'
@@ -14,6 +14,7 @@ import {
 import {
   currentPlanWeek,
   itemMinutes,
+  planFor,
   planPace,
   weekWindow,
   weeklyTarget,
@@ -132,23 +133,20 @@ function ThisWeekInPlan({ today }: { today: string }) {
   const start = data.settings.planStart
   const pace = planPace(data)
   const n = start ? currentPlanWeek(start, pace, today) : 1
-  const week = planWeeks.find((w) => w.number === Math.max(1, n))
-  const window = start && week ? weekWindow(start, pace, week.number) : undefined
+  const weeks = planFor(pace)
+  const week = weeks.find((w) => w.number === Math.max(1, n))
+  const window = start && week ? weekWindow(start, week.number) : undefined
   return (
     <Card>
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-lg font-semibold">
-          {week && n <= planWeeks.length
-            ? paces[pace].unit === 'Week'
-              ? `This week: Week ${week.number}`
-              : `Now: Part ${week.number}`
-            : 'Your plan'}
+          {week && n <= weeks.length ? `This week: Week ${week.number}` : 'Your plan'}
         </h2>
         <Link to="/plan" className={`text-sm ${linkClass}`}>
           Full plan
         </Link>
       </div>
-      {n > planWeeks.length ? (
+      {n > weeks.length ? (
         <p className="text-sm text-stone-600 dark:text-stone-400">
           The plan has finished. Keep going at your own pace, and pick up the stretch challenges.
         </p>
@@ -163,16 +161,16 @@ function ThisWeekInPlan({ today }: { today: string }) {
           {!start && (
             <div className="mb-3 flex flex-wrap items-center gap-3 rounded-lg bg-indigo-50 p-3 text-sm dark:bg-indigo-950">
               <span className="flex-1">
-                {paces[pace].unit} 1 needs only a chat account. Start whenever you are ready.
+                Week 1 needs only a chat account. Start whenever you are ready.
               </span>
               <Button onClick={() => update((d) => void (d.settings.planStart = today))}>
-                Start {paces[pace].unit} 1 today
+                Start Week 1 today
               </Button>
             </div>
           )}
           {start && n === 0 && (
             <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-              {paces[pace].unit} 1 starts on {formatDate(`${start}T12:00:00`)}.
+              Week 1 starts on {formatDate(`${start}T12:00:00`)}.
             </p>
           )}
           <ul className="space-y-2">

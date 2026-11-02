@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { levels } from '../content'
+import { allLessons, levels } from '../content'
 import { planWeeks } from '../content/plan'
 import { fresh } from '../test/fixtures'
 import {
   currentPlanWeek,
   defaultPace,
   planEndDay,
+  planFor,
   planMinutes,
   planPace,
   weekMinutes,
@@ -14,18 +15,28 @@ import {
 } from './schedule'
 
 describe('study plan schedule', () => {
-  it('runs eight plan weeks over 8 calendar weeks, or 12 at the light pace', () => {
-    expect(planWeeks).toHaveLength(8)
-    expect(weekWindow('2026-11-02', 'standard', 1)).toEqual({
-      start: '2026-11-02',
-      end: '2026-11-08',
-    })
+  it('runs 8 calendar weeks, or 12 at the light pace', () => {
+    expect(planFor('standard')).toHaveLength(8)
+    expect(planFor('light')).toHaveLength(12)
+    expect(weekWindow('2026-11-02', 1)).toEqual({ start: '2026-11-02', end: '2026-11-08' })
+    expect(weekWindow('2026-11-02', 2)).toEqual({ start: '2026-11-09', end: '2026-11-15' })
     expect(planEndDay('2026-11-02', 'standard')).toBe('2026-12-27')
-    expect(weekWindow('2026-11-02', 'light', 2)).toEqual({
-      start: '2026-11-12',
-      end: '2026-11-22',
-    })
     expect(planEndDay('2026-11-02', 'light')).toBe('2027-01-24')
+  })
+
+  it('keeps every item, in order, in the twelve light weeks, each ending with a review', () => {
+    const notReview = (w: typeof planWeeks) =>
+      w.flatMap((x) => x.items).filter((i) => i.kind !== 'review')
+    const light = planFor('light')
+    expect(notReview(light)).toEqual(notReview(planWeeks))
+    for (const w of light) {
+      expect(w.items.at(-1)?.kind, `week ${w.number}`).toBe('review')
+      expect(w.items.length, `week ${w.number}`).toBeGreaterThan(1)
+      expect(weekMinutes(w), `week ${w.number}`).toBeGreaterThanOrEqual(5 * 60)
+      expect(weekMinutes(w), `week ${w.number}`).toBeLessThanOrEqual(9 * 60)
+    }
+    const lessons = light.flatMap((w) => w.items).filter((i) => i.kind === 'lesson')
+    expect(lessons.map((i) => i.id)).toEqual(allLessons.map((l) => l.id))
   })
 
   it('finds the current plan week from any start day', () => {
@@ -39,7 +50,8 @@ describe('study plan schedule', () => {
     for (const w of planWeeks)
       expect(weekMinutes(w), `week ${w.number}`).toBeLessThanOrEqual(11 * 60)
     expect(weeklyTarget('standard')).toBeLessThanOrEqual(10.5 * 60)
-    expect(weeklyTarget('light')).toBeLessThanOrEqual(7 * 60)
+    // Twelve weekly reviews instead of eight put the light pace a few minutes over 7 hours.
+    expect(weeklyTarget('light')).toBeLessThanOrEqual(7.25 * 60)
   })
 
   it('schedules each project in full and each quiz once', () => {

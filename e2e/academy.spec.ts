@@ -287,6 +287,10 @@ test('the study plan starts today, switches pace and keeps both after a refresh'
   const settings = (await storedData(page))?.settings as Record<string, unknown>
   expect(settings.planPace).toBe('light')
   expect(settings.planStart).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  const weekTiles = page.getByRole('navigation', { name: 'Weeks' }).getByRole('listitem')
+  await expect(weekTiles).toHaveCount(12)
+  await page.getByRole('radio', { name: /Standard: 8 weeks/ }).check()
+  await expect(weekTiles).toHaveCount(8)
   await expect(page.getByText('What the mentor does:')).toHaveCount(8)
 })
 
