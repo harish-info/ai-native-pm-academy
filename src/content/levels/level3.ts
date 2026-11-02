@@ -393,6 +393,7 @@ Rules:
         },
         {
           heading: 'Estimate impact as a range, then score with RICE',
+          illustration: 'impact',
           paragraphs: [
             'Write the impact as a sum with units. For example: 1,200 eligible users a month, times 5 more completions per 100 users, gives 60 more completed tasks a month. That is a count of tasks, not a new percentage. If you turn it into hours saved or money, show that step separately. Give a low, base and high version, and label each input with where it came from: the data, the interviews, the market map or your own assumption. A single precise number gets trusted more than it deserves.',
             'RICE, from Intercom, scores each idea by reach, impact, confidence and effort, so competing ideas can be compared on evidence rather than on who argues loudest. Confidence is where your evidence enters: high when data and several interviews agree, medium when only interviews support it, low for a single source or an assumption. Effort comes from engineering; your mentor can give a T-shirt size. Treat the score as the start of a conversation, and override it with a written reason when something it cannot see matters, such as a regulatory risk.',

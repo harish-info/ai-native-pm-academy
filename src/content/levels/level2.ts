@@ -402,6 +402,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
         },
         {
           heading: 'How to read a diff',
+          illustration: 'diff',
           paragraphs: [
             'A diff shows removed lines in red and added lines in green. You do not need to understand every line to review usefully. Ask four questions: does this change match the pull request description, is anything changed that should not be, is there a way to check it works, and is there anything secret or real in it? Those four questions catch a surprising amount.',
             'If you cannot explain what a change does and why, do not merge it. Ask Claude to walk you through any line you do not understand, and keep asking until you can explain it back.',

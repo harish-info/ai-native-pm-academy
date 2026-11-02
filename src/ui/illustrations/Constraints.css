@@ -1,0 +1,32 @@
+/* Stage widths change by scaling a full-height pipe. */
+.constraints-pipe {
+  transform-origin: center;
+  transition:
+    transform 0.6s cubic-bezier(0.3, 0.7, 0.2, 1),
+    fill 0.3s ease,
+    stroke 0.3s ease;
+}
+
+/* Items travel the length of the pipe and fade out at the end. */
+@keyframes constraints-item {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  8%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(344px);
+  }
+}
+.constraints-item {
+  animation: constraints-item 4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .constraints-pipe {
+    transition: none;
+  }
+}

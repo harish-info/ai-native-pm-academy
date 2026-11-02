@@ -1,0 +1,19 @@
+@keyframes git-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes git-out {
+  to {
+    opacity: 0;
+  }
+}
+.git-spinner {
+  transform-origin: center;
+  animation:
+    git-spin 0.7s linear infinite,
+    git-out 0.2s ease-in 1s forwards;
+}
+.git-after {
+  animation-delay: 1.1s;
+}

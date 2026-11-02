@@ -70,6 +70,130 @@ export const lessonVisuals = {
       },
     ],
   },
+  tokens: {
+    title: 'An answer is written one token at a time',
+    summary: 'Each step picks a likely next token, given everything before it.',
+    caption:
+      'Invented probabilities for illustration. A real model chooses among many thousands of tokens.',
+    prompt: 'Summarise the interviews in one line:',
+    runs: [
+      [
+        {
+          options: [
+            { token: 'Users', p: 46 },
+            { token: 'Most', p: 31 },
+            { token: 'The', p: 12 },
+          ],
+          pick: 0,
+        },
+        {
+          options: [
+            { token: 'want', p: 38 },
+            { token: 'need', p: 34 },
+            { token: 'said', p: 15 },
+          ],
+          pick: 0,
+        },
+        {
+          options: [
+            { token: 'faster', p: 41 },
+            { token: 'simpler', p: 29 },
+            { token: 'more', p: 18 },
+          ],
+          pick: 0,
+        },
+        {
+          options: [
+            { token: 'exports', p: 52 },
+            { token: 'reports', p: 23 },
+            { token: 'answers', p: 11 },
+          ],
+          pick: 0,
+        },
+      ],
+      [
+        {
+          options: [
+            { token: 'Users', p: 46 },
+            { token: 'Most', p: 31 },
+            { token: 'The', p: 12 },
+          ],
+          pick: 1,
+        },
+        {
+          options: [
+            { token: 'users', p: 44 },
+            { token: 'people', p: 40 },
+            { token: 'said', p: 6 },
+          ],
+          pick: 1,
+        },
+        {
+          options: [
+            { token: 'struggle', p: 36 },
+            { token: 'want', p: 33 },
+            { token: 'find', p: 17 },
+          ],
+          pick: 0,
+        },
+        {
+          options: [
+            { token: 'with', p: 81 },
+            { token: 'to', p: 9 },
+            { token: 'when', p: 5 },
+          ],
+          pick: 0,
+        },
+        {
+          options: [
+            { token: 'exports', p: 49 },
+            { token: 'reports', p: 26 },
+            { token: 'setup', p: 12 },
+          ],
+          pick: 0,
+        },
+      ],
+    ],
+  },
+  delegate: {
+    title: 'Delegate by judgment and by the cost of a mistake',
+    summary: 'Pick a task to see where it sits and what to do with it.',
+    caption:
+      'Example placements from the lesson. Your own context decides where a task sits on each axis.',
+    tasks: [
+      {
+        label: 'Summarise notes',
+        judgment: 18,
+        stakes: 16,
+        advice: 'High volume, low judgment: delegate it and spot-check the result.',
+      },
+      {
+        label: 'Format a table',
+        judgment: 8,
+        stakes: 8,
+        advice: 'Mechanical work: delegate it and glance at the output.',
+      },
+      {
+        label: 'First draft',
+        judgment: 32,
+        stakes: 26,
+        advice:
+          'Delegate the draft. If you send it, you own it: read it, cut it, check each claim.',
+      },
+      {
+        label: 'Set priorities',
+        judgment: 84,
+        stakes: 78,
+        advice: 'Keep it. AI can challenge your thinking but should not do it for you.',
+      },
+      {
+        label: 'Feedback to a person',
+        judgment: 76,
+        stakes: 90,
+        advice: 'Keep it. The judgment and the relationship are yours.',
+      },
+    ],
+  },
   context: {
     title: 'Build the brief the model can actually see',
     summary: 'A task becomes more specific when the relevant context travels with it.',
@@ -145,6 +269,51 @@ export const lessonVisuals = {
       { label: 'Merge', detail: 'Merge the reviewed change; deployment can then publish main.' },
     ],
   },
+  diff: {
+    title: 'Four questions for any diff',
+    summary: 'You can review usefully without understanding every line.',
+    caption: 'Fictional diff. If you cannot explain what a change does and why, do not merge it.',
+    description: 'Filter the list to records that need review',
+    file: 'src/list.ts',
+    lines: [
+      { kind: ' ', text: 'export function visible(items) {' },
+      { kind: '-', text: '  return items' },
+      { kind: '+', text: "  return items.filter((i) => i.status === 'Needs review')" },
+      { kind: ' ', text: '}' },
+      { kind: '-', text: 'const pageSize = 20' },
+      { kind: '+', text: 'const pageSize = 200' },
+      { kind: '+', text: "const apiKey = 'live-key-1234'" },
+    ],
+    questions: [
+      {
+        label: 'Matches the description?',
+        lines: [1, 2],
+        ok: true,
+        verdict: 'Yes. These two lines filter the list, which is what the pull request says.',
+      },
+      {
+        label: 'Anything that should not change?',
+        lines: [4, 5],
+        ok: false,
+        verdict:
+          'The page size changed from 20 to 200. The description never mentions it. Ask why.',
+      },
+      {
+        label: 'Can you check it works?',
+        lines: [],
+        ok: false,
+        verdict:
+          'No test changed. Ask for one: given 12 records with 3 marked Needs review, it returns 3.',
+      },
+      {
+        label: 'Anything secret or real?',
+        lines: [6],
+        ok: false,
+        verdict:
+          'A key is written into the code. Stop, remove it and rotate the key before merging.',
+      },
+    ],
+  },
   review: {
     title: 'Compare observed behaviour with the requirement',
     summary: 'A precise bug report connects a condition, an actual result and an expected result.',
@@ -187,6 +356,19 @@ export const lessonVisuals = {
       { label: 'Viewed the screen', count: 100 },
       { label: 'Completed the task', count: 40 },
     ],
+  },
+  impact: {
+    title: 'Impact is a sum with units, and a range',
+    summary: 'Show each input, where it came from, and a low, base and high case.',
+    caption:
+      'Invented inputs based on the lesson example. Label every source; the base case is not a forecast.',
+    unit: 'more completed tasks a month',
+    scenarios: [
+      { label: 'Low', users: 900, rate: 3 },
+      { label: 'Base', users: 1200, rate: 5 },
+      { label: 'High', users: 1500, rate: 7 },
+    ],
+    sources: { users: 'From the data', rate: 'From interviews' },
   },
   solution: {
     title: 'Choose the simplest design that meets the task',

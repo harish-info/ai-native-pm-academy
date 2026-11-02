@@ -104,11 +104,7 @@ test('lesson illustrations explain changing inputs and respect reduced motion', 
   await page.clock.install()
   await page.goto('#/lessons/s1')
   const agent = page.locator('[data-illustration="chat-agent"]')
-  await expect(
-    agent.getByRole('group', { name: 'Claude Code, the agent application', exact: true }),
-  ).toBeVisible()
-  await expect(agent.getByRole('button', { name: 'Play example' })).toBeHidden()
-  await agent.locator('summary').click()
+  await expect(agent.getByRole('img', { name: /Claude Code, the agent application/ })).toBeVisible()
   await agent.getByRole('button', { name: 'Play example' }).click()
   await expect(agent.locator('[aria-current="step"]')).toContainText('Choose')
   const next = agent.getByRole('button', { name: 'Next step' })

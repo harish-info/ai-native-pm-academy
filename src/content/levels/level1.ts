@@ -38,6 +38,7 @@ export const level1: Level = {
       learn: [
         {
           heading: 'How a model writes an answer',
+          illustration: 'tokens',
           paragraphs: [
             'A large language model is trained on a vast amount of text to predict the next small chunk of text, called a **token**. A token is roughly three quarters of an English word; numbers, code and non-English text often use more tokens per word. After this pretraining, the model is further trained on examples and human feedback so that it follows instructions and behaves like an assistant.',
             'When you send a message, the model reads everything in its context and generates the reply one token at a time, each choice conditioned on everything before it. That single mechanism explains a lot. Models are fluent because fluency is what they were trained on. They can be confidently wrong because a plausible sentence and a true sentence look the same to the generation process. And two runs of the same request can differ because generation involves sampling from likely continuations, not looking up a stored answer.',
@@ -254,6 +255,7 @@ Rules:
         },
         {
           heading: 'Decide what to delegate: the 4Ds',
+          illustration: 'delegate',
           paragraphs: [
             "Anthropic's AI Fluency course names four competencies. **Delegation**: deciding what work to give the AI and what to keep. **Description**: giving it the context and the definition of done. **Discernment**: judging what comes back. **Diligence**: owning the result, including being open about how it was made.",
             'For delegation, use two axes: how much judgment the task needs, and how costly a mistake would be. High-volume, low-judgment work such as summarizing, formatting and first drafts can be delegated with spot checks. High-judgment, high-stakes work such as priorities, feedback to people and what you believe stays with you; AI can challenge your thinking but should not do it for you.',

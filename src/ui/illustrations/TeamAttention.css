@@ -1,0 +1,28 @@
+.team-attention {
+  container-type: inline-size;
+}
+.team-attention-seg {
+  transition:
+    flex-grow 0.7s cubic-bezier(0.3, 0.7, 0.2, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+.team-attention-label {
+  display: none;
+}
+@container (min-width: 520px) {
+  .team-attention-label {
+    display: block;
+    max-width: 100%;
+  }
+  .team-attention-number,
+  .team-attention-key {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .team-attention-seg {
+    transition: none;
+  }
+}

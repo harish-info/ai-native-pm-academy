@@ -1,0 +1,48 @@
+.team-loop {
+  container-type: inline-size;
+}
+.team-loop-body {
+  display: grid;
+  gap: 0.75rem;
+}
+.team-loop-ring {
+  position: relative;
+  width: 100%;
+  max-width: 18rem;
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+.team-loop-centre {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.team-loop-node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  min-height: 3.9rem;
+  translate: -50% -50%;
+}
+@container (min-width: 540px) {
+  .team-loop-body {
+    grid-template-columns: 18rem minmax(0, 1fr);
+    align-items: center;
+  }
+}
+/* The dashed ring drifts clockwise, the direction of the loop. */
+@keyframes team-loop-flow {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+.team-loop-flow {
+  stroke-dasharray: 2 7;
+  animation: team-loop-flow 1.6s linear infinite;
+}
