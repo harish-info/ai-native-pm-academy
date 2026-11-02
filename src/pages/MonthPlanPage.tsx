@@ -122,6 +122,8 @@ function itemDone(item: PlanItem, data: LearnerData): boolean | undefined {
     case 'quiz':
       return quizResults(data, item.levelId).passed
     case 'project': {
+      // A project passes only when it is finished, so its earlier parts are not tracked.
+      if (item.part === 'start' || item.part === 'continue') return undefined
       const level = levelById(item.levelId)
       return level ? levelProjectResults(data, level).passed : false
     }
@@ -194,9 +196,9 @@ const levelsLabel = (ids: number[]) => ids.map((id) => `Level ${id}`).join(' and
 
 function focusWeek(n: number) {
   requestAnimationFrame(() => {
-    const heading = document.getElementById(`week-${n}`)
-    heading?.focus({ preventScroll: true })
-    heading?.scrollIntoView({ block: 'start' })
+    const summary = document.getElementById(`week-${n}`)?.closest('summary')
+    summary?.focus({ preventScroll: true })
+    summary?.closest('section')?.scrollIntoView({ block: 'start' })
   })
 }
 
@@ -205,9 +207,10 @@ export function MonthPlanPage() {
   const today = toDay(new Date())
   const start = data.settings.planStart
   const pace = planPace(data)
-  const { unit, unitSpan } = paces[pace]
+  const { unit } = paces[pace]
   const current = start ? currentPlanWeek(start, pace, today) : 0
-  const focus = current || 1
+  const finished = current > planWeeks.length
+  const focus = Math.min(Math.max(current, 1), planWeeks.length)
   const totalMinutes = planMinutes()
   const follow = featuredFirst(
     resources.filter(
@@ -216,6 +219,12 @@ export function MonthPlanPage() {
   )
   const setPace = (p: PlanPace) => update((d) => void (d.settings.planPace = p))
   const [open, setOpen] = useState<Set<number>>(() => new Set([focus]))
+  // When the start date or pace moves the current week, open it too.
+  const [openedFocus, setOpenedFocus] = useState(focus)
+  if (openedFocus !== focus) {
+    setOpenedFocus(focus)
+    setOpen((prev) => new Set(prev).add(focus))
+  }
   const toggle = (n: number, isOpen: boolean) =>
     setOpen((prev) => {
       if (prev.has(n) === isOpen) return prev
@@ -324,9 +333,14 @@ export function MonthPlanPage() {
         className="mb-6 rounded-2xl border border-indigo-200 bg-indigo-50 p-5 sm:p-6 dark:border-indigo-900 dark:bg-indigo-950/60"
       >
         <p className="text-sm font-medium text-indigo-800 dark:text-indigo-300">
-          {current ? `${unit} ${current} of ${planWeeks.length}` : 'Where to begin'}
+          {finished
+            ? 'Plan finished'
+            : current
+              ? `${unit} ${current} of ${planWeeks.length}`
+              : 'Where to begin'}
           {start &&
             current > 0 &&
+            !finished &&
             (() => {
               const w = weekWindow(start, pace, current)
               return ` · ${shortDay(w.start)} to ${shortDay(w.end)}`
@@ -352,7 +366,7 @@ export function MonthPlanPage() {
               {next.title}
             </LinkButton>
           ) : (
-            <p className="text-sm font-medium">Everything this week is done.</p>
+            <p className="text-sm font-medium">Everything in this {unit.toLowerCase()} is done.</p>
           )}
           <button
             type="button"
@@ -364,7 +378,7 @@ export function MonthPlanPage() {
         </div>
       </section>
 
-      <nav aria-label="Weeks" className="mb-6">
+      <nav aria-label={`${unit}s`} className="mb-6">
         <ol className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {planWeeks.map((week) => {
             const { done, total } = weekProgress(week, data)
@@ -386,7 +400,6 @@ export function MonthPlanPage() {
                   <span className="flex items-center justify-between gap-2 text-xs font-medium text-stone-500 dark:text-stone-400">
                     <span>
                       {unit} {week.number}
-                      {isCurrent && <span className="sr-only">, current</span>}
                     </span>
                     {complete && (
                       <CheckIcon className="h-4 w-4 text-emerald-700 dark:text-emerald-300" />
@@ -404,8 +417,7 @@ export function MonthPlanPage() {
                       />
                     </span>
                     <span className="mt-1.5 block text-xs text-stone-500 dark:text-stone-400">
-                      {done} of {total} done ·{' '}
-                      {unit === 'Week' ? formatMinutes(weekMinutes(week)) : unitSpan}
+                      {done} of {total} done · {formatMinutes(weekMinutes(week))}
                     </span>
                   </span>
                 </button>
@@ -459,7 +471,7 @@ export function MonthPlanPage() {
                 onToggle={(e) => toggle(week.number, e.currentTarget.open)}
                 className="group"
               >
-                <summary className="flex cursor-pointer list-none items-center gap-4 p-4 sm:p-5 [&::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-center gap-4 rounded-2xl p-4 sm:p-5 [&::-webkit-details-marker]:hidden">
                   <span
                     aria-hidden
                     className={cx(
@@ -478,11 +490,7 @@ export function MonthPlanPage() {
                       {unit} {week.number} · {levelsLabel(week.levelIds)}
                       {window && ` · ${shortDay(window.start)} to ${shortDay(window.end)}`}
                     </span>
-                    <h3
-                      id={`week-${week.number}`}
-                      tabIndex={-1}
-                      className="text-lg leading-snug font-semibold outline-none"
-                    >
+                    <h3 id={`week-${week.number}`} className="text-lg leading-snug font-semibold">
                       {week.title}
                     </h3>
                     <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-600 dark:text-stone-400">
@@ -518,8 +526,8 @@ export function MonthPlanPage() {
 
       <p className="mt-4 text-xs text-stone-500 dark:text-stone-400">
         Assessment and project times are estimates: about two minutes per quiz question plus review,
-        and projects split across the weeks where they run. Work through a week in order; which day
-        you do what is up to you.
+        and projects split across the {unit.toLowerCase()}s where they run. Work through each{' '}
+        {unit.toLowerCase()} in order; which day you do what is up to you.
       </p>
 
       <section aria-labelledby="follow" className="mt-8">

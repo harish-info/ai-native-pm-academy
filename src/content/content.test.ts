@@ -1,9 +1,17 @@
 import { describe, expect, it } from 'vitest'
-import { allChallenges, allLessons, guides, levels, resourceById, resources } from '.'
+import {
+  allChallenges,
+  allLessons,
+  featuredResourceIds,
+  guides,
+  levels,
+  resourceById,
+  resources,
+} from '.'
 import { caseStages, caseStudies } from './caseStudies'
 import { competencyIds } from './competencies'
 import { diagnosticQuestions } from './onboarding'
-import { planWeeks } from './plan'
+import { paces, planNotes, planWeeks } from './plan'
 import { wikiMilestones, wikiSteps } from './wiki'
 import { courseArc, lessonGuides } from './teaching'
 import { lessonVisuals } from './illustrations'
@@ -51,6 +59,10 @@ describe('curriculum shape', () => {
 })
 
 describe('references', () => {
+  it('features only resources that exist', () => {
+    for (const id of featuredResourceIds) expect(resourceById(id), id).toBeDefined()
+  })
+
   it('connects every suggested loop stage to existing course sessions', () => {
     expect(productLoop).toHaveLength(6)
     for (const stage of productLoop) {
@@ -262,6 +274,8 @@ describe('writing style', () => {
       wikiSteps,
       wikiMilestones,
       planWeeks,
+      planNotes,
+      paces,
       caseStudies,
       lessonGuides,
       courseArc,

@@ -163,7 +163,7 @@ function ThisWeekInPlan({ today }: { today: string }) {
           {!start && (
             <div className="mb-3 flex flex-wrap items-center gap-3 rounded-lg bg-indigo-50 p-3 text-sm dark:bg-indigo-950">
               <span className="flex-1">
-                Week 1 needs only a chat account. Start whenever you are ready.
+                {paces[pace].unit} 1 needs only a chat account. Start whenever you are ready.
               </span>
               <Button onClick={() => update((d) => void (d.settings.planStart = today))}>
                 Start {paces[pace].unit} 1 today
@@ -172,7 +172,7 @@ function ThisWeekInPlan({ today }: { today: string }) {
           )}
           {start && n === 0 && (
             <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-              Week 1 starts on {formatDate(`${start}T12:00:00`)}.
+              {paces[pace].unit} 1 starts on {formatDate(`${start}T12:00:00`)}.
             </p>
           )}
           <ul className="space-y-2">

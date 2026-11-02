@@ -51,7 +51,7 @@ export const challengeById = (id: string): Challenge | undefined =>
 export const resourceById = (id: string) => resources.find((r) => r.id === id)
 
 // Resources listed first wherever the catalog is shown, ahead of catalog order.
-const featuredResourceIds = ['lennys-podcast']
+export const featuredResourceIds = ['lennys-podcast']
 export const featuredFirst = (list: Resource[]) => [
   ...featuredResourceIds.flatMap((id) => list.filter((r) => r.id === id)),
   ...list.filter((r) => !featuredResourceIds.includes(r.id)),
