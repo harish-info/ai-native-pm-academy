@@ -41,7 +41,7 @@ export const starterKit: StarterKit = {
         {
           name: 'Claude desktop app',
           need: 'Recommended',
-          what: 'The agent app this course uses: chat, projects and artifacts now, and Claude Code from Session 5.',
+          what: 'For chat, projects and artifacts in Weeks 1 and 2. From Session 5, work on your files moves to Claude Code; keep the app for chat.',
           facts: 'Free app for Mac and Windows. The free plan is enough in Week 1.',
           resourceId: 'claude-download',
         },
@@ -60,13 +60,21 @@ export const starterKit: StarterKit = {
       when: 'Before Session 5',
       title: 'Let an agent work on your files',
       intro:
-        'Session 5 installs a coding agent and runs it in Warp. The course uses Claude Code, which needs a Claude Pro plan (from $20 a month); if the terminal stops you, the Code tab in the Claude desktop app is the same agent. Sessions 5 to 7 also set up Git, Node.js and a GitHub account, with your agent and your mentor.',
+        'Session 5 moves from chat to a coding agent that reads and changes the files in your folder. It runs in a terminal, so you install the agent and a terminal to run it in. If the terminal stops you, the Code tab in the Claude desktop app is the same agent. Sessions 5 to 7 also set up Git, Node.js and a GitHub account, with your agent and your mentor.',
       lessons: ['s5'],
       tools: [
         {
+          name: 'Claude Code',
+          need: 'Recommended',
+          what: 'The coding agent this course uses. You type requests in plain English; it reads your files, makes changes and asks before running commands.',
+          facts:
+            'Needs a Claude Pro plan (from $20 a month). Install it with one line from this guide; Session 5 walks you through it.',
+          resourceId: 'claude-code-terminal-guide',
+        },
+        {
           name: 'Warp',
           need: 'Recommended',
-          what: 'The terminal for this course, instead of the one that came with your computer. It feels like a modern app: you click to place the cursor and edit what you typed like normal text. Your coding agent runs inside it.',
+          what: 'The terminal to run Claude Code in, instead of the one that came with your computer. It feels like a modern app: you click to place the cursor and edit what you typed like normal text.',
           facts:
             'Free for Mac, Windows and Linux. Its own AI features are optional and need an account.',
           resourceId: 'warp',
