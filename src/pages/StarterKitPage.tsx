@@ -38,12 +38,23 @@ function SessionLinks({ ids }: { ids: string[] }) {
 export function StarterKitPage() {
   return (
     <>
-      <PageHeader eyebrow="What to install" title="Starter kit">
+      <PageHeader eyebrow="Get started" title="Starter kit">
         {k.intro} Facts about apps were checked on{' '}
         <time dateTime={STARTER_KIT_AS_OF}>{STARTER_KIT_AS_OF_LABEL}</time>.
       </PageHeader>
 
       <div className="space-y-6">
+        <Card as="section" aria-labelledby="kit-start">
+          <h2 id="kit-start" className="text-xl font-semibold tracking-tight">
+            How to get started
+          </h2>
+          <ol className="mt-3 max-w-3xl list-decimal space-y-2 pl-5 text-sm leading-relaxed">
+            {k.start.map((s) => (
+              <li key={s}>{inline(s)}</li>
+            ))}
+          </ol>
+        </Card>
+
         {k.stages.map((stage) => (
           <Card key={stage.id} as="section" aria-labelledby={`kit-${stage.id}`}>
             <p className="font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
@@ -69,6 +80,13 @@ export function StarterKitPage() {
                   </div>
                   <p className="mt-2">{inline(t.what)}</p>
                   <p className="mt-2 text-stone-600 dark:text-stone-400">{inline(t.facts)}</p>
+                  {t.steps && (
+                    <ol className="mt-3 list-decimal space-y-1 border-t border-stone-200 pt-3 pl-5 dark:border-stone-700">
+                      {t.steps.map((s) => (
+                        <li key={s}>{inline(s)}</li>
+                      ))}
+                    </ol>
+                  )}
                 </li>
               ))}
             </ul>

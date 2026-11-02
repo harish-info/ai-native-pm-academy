@@ -48,7 +48,7 @@ export const level2: Level = {
           heading: 'A terminal is just another chat window',
           paragraphs: [
             'Claude Code runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. Two words you will hear: a **CLI** (command line interface) is any program you use by typing instead of clicking, and a **TUI** (text user interface) is a CLI that draws boxes and menus inside the terminal. Claude Code is a TUI, which is why it feels like a chat app once it is running: you type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks first.',
-            "Use **Warp** rather than the terminal that came with your computer: it is free, and you click and edit what you typed like normal text. Setup is the only part where you type commands. Once, paste the install line from [Anthropic's terminal guide](https://code.claude.com/docs/en/terminal-guide). Each time after that, type `cd` and a space, drag your workspace folder onto the window, press Enter, and type `claude`. From then on you type sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran.",
+            'Use **Warp** rather than the terminal that came with your computer: it is free, and you click and edit what you typed like normal text. Setup is the only part where you type commands. Once, install it with the [Starter kit](/starter-kit) steps. Each time after that, type `cd` and a space, drag your workspace folder onto the window, press Enter, and type `claude`. From then on you type sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran.',
             'If you switch to the desktop **Code** tab, nothing else changes: same agent, same `AGENTS.md`, and you can switch back at any time. In the terminal, five keys are worth knowing:',
           ],
           bullets: [
@@ -149,7 +149,7 @@ export const level2: Level = {
         summary:
           'Install Claude Code, create `workspace/`, move your Level 1 files in, write `AGENTS.md` with Claude, and make your first commits.',
         steps: [
-          'Open Warp, install Claude Code with the line from the terminal guide and sign in with your Claude Pro plan. If the terminal stops you, use the **Code** tab in the Claude desktop app instead. Claude Code needs Git on your computer; if it reports that Git is missing, install it with your mentor before going further.',
+          'Install Warp, Claude Code and Git with the steps in the [Starter kit](/starter-kit), and sign in with your Claude Pro plan. If the terminal stops you, use the **Code** tab in the Claude desktop app instead.',
           'Create a folder called `workspace` somewhere private on your own computer, not in a shared or synced work folder. Copy in everything from your Level 1 `learning-notes/` folder: `product-context.md`, `glossary.md`, `model-comparison.md`, `delegation-audit.md`, `fact-sheet.md`, `pitch-notes.md` and anything else you kept there.',
           'Open the folder in Claude Code. Ask it to start a git repository and commit the files exactly as they are, before anything moves. This is your first save point.',
           'Run the prompt below. Read the proposed folder map and `AGENTS.md` draft, push back on anything that does not match how you work, then let Claude make the changes.',
@@ -307,7 +307,7 @@ Show me the folder map and the AGENTS.md draft before you move anything. When I 
           'Use product-context.md to choose one user task worth exploring. Pick the three to five screens needed to complete it, starting with the main task screen. Note them in a sentence or two.',
           'In Claude Code, with the workspace open, run the interview prompt below. Answer one question at a time in your own words. Say "I do not know" when you do not; it becomes an open question.',
           'Review the requirements yourself. Create prototype/, ignore it in the parent workspace repository and save the canonical requirements as prototype/REQUIREMENTS.md. Keep a private decision note in the workspace, not a second competing requirements file.',
-          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `AGENTS.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with your mentor; this is the only install in this session.',
+          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `AGENTS.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with the [Starter kit](/starter-kit) steps; this is the only install in this session.',
           'Ask Claude to start the app and give you the local link. Click through every screen with `REQUIREMENTS.md` beside you, on a laptop and at phone width. Write down everything that is wrong or missing.',
           'Fix the list one change at a time, with screenshots where they help. Check each change in the browser, then ask Claude to commit it with a clear message.',
           'Check two figures on screen by hand against the fictional data file. If they do not match, that is the next fix.',
@@ -444,7 +444,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
         steps: [
           'Create a free GitHub account if you do not have one, and turn on two-factor authentication.',
           'Complete the GitHub Skills "Introduction to GitHub" exercise in the browser.',
-          'With your mentor, sign your computer in to GitHub once so Claude Code can push. The GitHub CLI (`gh auth login`) is the usual way, and Claude Code can talk you through it.',
+          'Sign your computer in to GitHub once so Claude Code can push: install the GitHub CLI and run `gh auth login`, as the [Starter kit](/starter-kit) shows. Your mentor or Claude Code can talk you through it.',
           'In Claude Code, open the `prototype/` folder. Ask Claude to check the code and its history for keys, tokens, real names, email addresses and personal data, and to confirm `.gitignore` excludes build output, dependencies and any `.env` file. Fix anything it finds before going further.',
           'Ask Claude to create a public GitHub repository named `product-prototype` and push `main`.',
           'On GitHub, open Settings, then Rules, and add a ruleset for `main` that requires a pull request before merging. Leave the bypass list empty.',

@@ -27,9 +27,10 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Which parts of an AI answer can you trust enough to use?',
     bring: 'A free assistant account, a text editor and one PM task you want to practise.',
     recall: {
-      question: 'Before reading: what do you think an assistant can see about your product?',
+      question:
+        'Guess first: what can an AI assistant see about your product when you start a new chat?',
       answer:
-        'It sees the context the product supplies, your messages and material loaded through tools. It does not automatically see your files, company systems or yesterday’s work. Test your assumption instead of relying on the name of the tool.',
+        'Only what you type or attach, plus anything its tools load. It does not see your files, company systems or past chats unless you give them to it.',
     },
     reading: {
       resourceId: '3b1b-llms-briefly',
@@ -91,9 +92,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'What is the smallest brief that makes an answer specific and checkable?',
     bring: 'Your glossary, a product or workflow you understand and one public competitor page.',
     recall: {
-      question: 'From Session 1: what is the difference between context and evidence?',
+      question: 'From Session 1: what can the assistant see when you start a new chat?',
       answer:
-        'Context is what the model receives. Evidence is material that actually supports a claim. Adding more context helps only when it is relevant and trustworthy.',
+        'Only what you give it in that chat. That is why this session builds a context file you can give it every time.',
     },
     reading: {
       resourceId: 'anthropic-ai-fluency',
@@ -155,9 +156,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Which research claims would you put your name behind?',
     bring: 'The Session 2 competitor summary and its source links.',
     recall: {
-      question: 'Why did the two models agreeing in Session 1 not establish a fact?',
+      question: 'From Session 1: two AI tools give you the same answer. Is it true?',
       answer:
-        'Repeated text is not independent evidence. Both outputs may repeat the same source, assumption or error. Open the material that observed the thing.',
+        'Not necessarily. Both may repeat the same wrong source. This session shows you how to check the source itself.',
     },
     reading: {
       resourceId: 'karpathy-how-i-use-llms',
@@ -218,10 +219,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'What uncertainty should a prototype help you resolve?',
     bring: 'product-context.md, fact-sheet.md and one feature hypothesis.',
     recall: {
-      question:
-        'From Session 3: can a fictional example go into the fact sheet as a verified fact?',
+      question: 'From Session 3: which statements on your page need a source?',
       answer:
-        'No. Label a fictional example as a teaching or design assumption. Keep public evidence separate from invented product data.',
+        'Any fact about users, the market or numbers. Invented examples are fine if the page labels them as examples.',
     },
     reading: {
       resourceId: 'claude-artifacts',
@@ -283,9 +283,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
       'Your Level 1 folder, Git and access to Claude Code. Check access before buying anything.',
     recall: {
       question:
-        'From Session 3: does a private folder make its contents safe to send to an AI provider?',
+        'From Session 4: your page lives in a chat. What happens when you want to change it next week?',
       answer:
-        'No. Local privacy and permission to process data are different. The agent sends material it reads to the provider; use public or fictional course inputs.',
+        'You find the chat, copy the latest version and start again from there. This session moves your work into a folder that an agent reads and changes directly.',
     },
     reading: {
       resourceId: 'claude-code-memory',
@@ -343,9 +343,10 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Which decisions must be explicit before the prototype is built?',
     bring: 'Your context file, pitch notes and one primary user flow.',
     recall: {
-      question: 'From Session 4: why is the prototype still a hypothesis?',
+      question:
+        'From Session 4: you asked for a page in one line. Which choices did the AI make for you?',
       answer:
-        'It shows an interaction, not evidence of demand or safe production behaviour. Requirements make the hypothesis testable; they do not validate it.',
+        'Layout, wording, what each screen shows and what happens when data is missing. This session has the agent interview you first, so you make those choices.',
     },
     reading: {
       resourceId: 'aihero-grill-me',
@@ -406,9 +407,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'What evidence do you need before a change reaches the live prototype?',
     bring: 'Your running prototype, its requirements and a GitHub account.',
     recall: {
-      question: 'From Session 5: what does a commit recover, and what does it not recover?',
+      question: 'From Session 5: what can a commit undo, and what can it not?',
       answer:
-        'It records tracked file state. It cannot undo a public disclosure, a sent message or other external side effect. Check before the first push.',
+        'It restores your files to an earlier version. It cannot take back something you have already published, so check before your first push.',
     },
     reading: {
       resourceId: 'github-skills-intro',
@@ -467,9 +468,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Which review finding deserves the next fix?',
     bring: 'The live prototype, requirements and one observation from a tester.',
     recall: {
-      question: 'From Session 3: does a fresh agent’s claim become true because it cites a file?',
+      question: 'From Session 7: the site went live. Does that mean it works?',
       answer:
-        'No. Open the cited line and reproduce the failure. A file reference can be real while the interpretation is wrong.',
+        'No. Going live only shows that the files were published. This session checks what the agent built against your requirements.',
     },
     reading: {
       resourceId: 'aihero-code-review',
@@ -531,9 +532,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Why solve this problem, and why use AI at all?',
     bring: 'Your fact sheet, prototype limitations and a candidate outcome.',
     recall: {
-      question: 'From Session 4: what did a positive reaction to the prototype actually prove?',
+      question: 'From Session 4: people liked your prototype. What did that prove?',
       answer:
-        'Only what you observed, such as one reader understanding the idea. It did not prove the problem is common, the solution is better or the business is viable.',
+        'That they understood the idea. It did not prove the problem is common or worth solving, which is what this session asks.',
     },
     reading: {
       resourceId: 'google-pair-user-needs',
@@ -594,9 +595,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     bring:
       'A discussion guide, participant consent and the live prototype. Recruitment takes elapsed time.',
     recall: {
-      question: 'From Session 9: where does a solution belong on an opportunity tree?',
+      question: 'From Session 9: where does a solution sit on an opportunity tree?',
       answer:
-        'Under a customer opportunity that supports the desired outcome. The solution is not the root, and it needs alternatives and an assumption test.',
+        'Under a customer need, never at the top. The interviews in this session test whether that need is real.',
     },
     reading: {
       resourceId: 'torres-story-interviews',
@@ -658,9 +659,10 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'What does the denominator allow you to conclude?',
     bring: 'Your opportunity tree, metric definitions and a spreadsheet.',
     recall: {
-      question: 'From Session 3: why is the population part of a numerical claim?',
+      question:
+        'From Session 10: five people you interviewed said the same thing. What does that tell you about all your users?',
       answer:
-        'The same percentage describes different things over all signups, active users or exposed users. Write the unit, cohort and window with the result.',
+        'Not how common it is. This session uses data to check how many people the problem affects.',
     },
     reading: {
       resourceId: 'intercom-rice',
@@ -724,9 +726,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     bring:
       'Your strategy, synthesis, prioritised bets and prototype. Keep unvalidated assumptions visible.',
     recall: {
-      question: 'From Session 9: why must the PRD compare a non-AI option?',
+      question: 'From Session 11: what must you write next to a percentage?',
       answer:
-        'The problem, not the tool, is the commitment. A simple baseline makes the cost, latency and quality added by AI assessable.',
+        'Who it counts, over what period and from which source. The success metrics in your PRD need the same.',
     },
     reading: {
       resourceId: 'anthropic-building-effective-agents',
@@ -789,9 +791,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     bring:
       'prd/prd.md, the prototype and unresolved design questions. A new design tool is optional.',
     recall: {
-      question: 'From Session 6: why is “handle errors gracefully” not enough?',
+      question: 'From Session 6: why is "handle errors gracefully" not a requirement?',
       answer:
-        'It does not say which condition triggers the state, what appears or what the person can do. Write those explicitly.',
+        'It does not say what causes the error, what the person sees or what they can do next. A design spec spells out each of those.',
     },
     reading: {
       resourceId: 'agents-md',
@@ -850,9 +852,10 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'What did the evaluation test, and what remains unknown?',
     bring: 'Your PRD contracts, fictional data and independently calculated expected figures.',
     recall: {
-      question: 'From Session 7: why does one green signal not establish a working product?',
+      question:
+        'From Session 13: your spec says what the feature does when the AI gets it wrong. How would you know it does?',
       answer:
-        'Each check covers a specific layer. A successful deployment does not prove UI behaviour; a good chat answer does not prove tool authorisation.',
+        'Test it on a set of cases, including hard and unusual inputs. That set is an evaluation, and this session builds one.',
     },
     reading: {
       resourceId: 'anthropic-evals-for-agents',
@@ -914,9 +917,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     bring: 'The PRD metrics, eval limitations and a proposed experiment decision rule.',
     recall: {
       question:
-        'From Session 11: why compare all randomly assigned eligible users, rather than only people who chose to use the feature?',
+        'From Session 11: people who used the feature stayed longer. Did the feature cause that?',
       answer:
-        'Choosing users after treatment can select different kinds of people in each group. Define assignment and eligibility before exposure, then analyse at the planned unit.',
+        'Not necessarily. People who choose a new feature are often more engaged already. This session compares groups assigned at random.',
     },
     reading: {
       resourceId: 'microsoft-experiment-monitoring',
@@ -976,9 +979,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'What should the audience decide after the first minute?',
     bring: 'Your simulated readout, eval limitations and one explicit ask.',
     recall: {
-      question: 'From Session 3: what must travel with a number when it moves onto a slide?',
+      question: 'From Session 15: what must go with a number when you put it on a slide?',
       answer:
-        'Its definition, population, period and source. Here it also needs the label “simulated” because the course did not run a real launch.',
+        'What it counts, the period and the source. The launch numbers in this course are simulated, so the slide says that too.',
     },
     reading: {
       resourceId: 'duarte-three-second-test',
@@ -1038,10 +1041,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Can you retrieve the reason for a decision without inventing one?',
     bring: 'Your workspace and a small selection of reviewed final deliverables.',
     recall: {
-      question:
-        'From Session 3: what is the difference between a source existing and supporting the answer?',
+      question: 'From Session 3: the agent cites a file. Does that make its answer right?',
       answer:
-        'A source can be real and still be misquoted, stale or irrelevant. Check the cited passage against the answer, not just the path.',
+        'No. Open the file and check that it says what the agent claims. Your PM OS cites your own notes, so the same check applies.',
     },
     reading: {
       resourceId: 'karpathy-llm-wiki',
@@ -1101,9 +1103,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Who is allowed to see the material before retrieval begins?',
     bring: 'Five public or fictional sources you have reviewed, with a proposed owner for each.',
     recall: {
-      question: 'From Session 5: can a prompt make accessible private data inaccessible?',
+      question: 'From Session 5: can you tell an agent not to read a folder and rely on that?',
       answer:
-        'No. Permissions must restrict the files or tools before retrieval. Instructions can guide behaviour but cannot replace access control.',
+        'No. An instruction can be ignored. If the agent must not see something, do not give it access. This session sets that up for a team.',
     },
     reading: {
       resourceId: 'karpathy-llm-wiki',
@@ -1164,10 +1166,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Can a repeated procedure run safely when nobody is watching?',
     bring: 'Your team KB, one procedure you have already run by hand and a disposable test copy.',
     recall: {
-      question:
-        'From Session 14: why is a successful output insufficient to evaluate an action-taking system?',
+      question: 'From Session 14: the agent ends with "Done, all good". Is that enough?',
       answer:
-        'Inspect what it read, which tools it called and what state changed. A harmless final paragraph can conceal an unwanted write or disclosure.',
+        'No. Check what it read, which tools it used and what it changed. Scheduled work runs when nobody is watching, so this matters more.',
     },
     reading: {
       resourceId: 'claude-skills-tutorial',
@@ -1231,9 +1232,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
       'Your decision trail, trust-check results, skill checks and one recent task to map with teammates or a mentor.',
     recall: {
       question:
-        'From Session 12: why measure cost per acceptable result rather than cost per attempt?',
+        'From Session 19: an agent run costs very little. Is it cheaper than the way the team works today?',
       answer:
-        'Failed attempts, human checking, rework and maintenance can erase apparent savings. Compare the whole task, at a stated quality bar, with the existing process.',
+        'Only if you also count failed runs, checking and fixes. Compare the cost of each good result with the current process.',
     },
     reading: {
       resourceId: 'litt-understanding',

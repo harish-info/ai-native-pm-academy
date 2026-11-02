@@ -138,7 +138,7 @@ export function timeline(data: LearnerData, levels: Level[]): TimelineEvent[] {
     events.push({
       at: data.onboarding.completedAt,
       kind: 'onboarding',
-      title: 'Completed the skills diagnostic',
+      title: 'Completed the skills check',
       href: '/onboarding/result',
     })
   }

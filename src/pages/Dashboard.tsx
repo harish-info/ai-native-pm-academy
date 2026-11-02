@@ -260,26 +260,26 @@ export function Dashboard() {
 
       {!data.onboarding && (
         <Card className="border-indigo-300 dark:border-indigo-800">
-          <h2 className="text-lg font-semibold">Start with the skills diagnostic</h2>
+          <h2 className="text-lg font-semibold">Start with the skills check</h2>
           <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
             Ten minutes of scenario questions shows where you stand in each level and which reading
             you can skim. Everyone starts at Session 1.
           </p>
           <LinkButton to="/onboarding" className="mt-4">
-            Take the diagnostic
+            Take the skills check
           </LinkButton>
         </Card>
       )}
 
       {data.onboarding && !isDiagnosticCurrent(data.onboarding) && (
         <Card className="border-indigo-300 dark:border-indigo-800">
-          <h2 className="text-lg font-semibold">The diagnostic has new scenarios</h2>
+          <h2 className="text-lg font-semibold">The skills check has new scenarios</h2>
           <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
             Retake it to see where you stand in each level. Your answers about yourself are kept,
             and completed work is never lost.
           </p>
           <LinkButton to="/onboarding" className="mt-4">
-            Retake the diagnostic
+            Retake the skills check
           </LinkButton>
         </Card>
       )}

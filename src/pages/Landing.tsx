@@ -83,7 +83,7 @@ export function Landing() {
                   </LinkButton>
                 ) : (
                   <LinkButton to="/onboarding">
-                    Start with a 10-minute diagnostic <span aria-hidden>→</span>
+                    Start with a 10-minute skills check <span aria-hidden>→</span>
                   </LinkButton>
                 )}
                 <Button variant="secondary" onClick={() => switchMode('demo')}>

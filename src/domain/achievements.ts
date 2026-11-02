@@ -70,7 +70,7 @@ export function achievements(data: LearnerData, levels: Level[]): Achievement[] 
     milestone(
       'diagnostic',
       'Baseline set',
-      'Completed the skills diagnostic.',
+      'Completed the skills check.',
       !!data.onboarding,
       data.onboarding?.completedAt,
     ),

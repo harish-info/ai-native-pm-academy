@@ -18,8 +18,8 @@ export function OnboardingResult() {
   if (!data.onboarding) {
     return (
       <EmptyState
-        title="No diagnostic yet"
-        action={<LinkButton to="/onboarding">Take the diagnostic</LinkButton>}
+        title="No skills check yet"
+        action={<LinkButton to="/onboarding">Take the skills check</LinkButton>}
       >
         Where you stand in each level appears here once you finish it.
       </EmptyState>
@@ -29,9 +29,9 @@ export function OnboardingResult() {
     return (
       <EmptyState
         title="The scenarios have changed"
-        action={<LinkButton to="/onboarding">Retake the diagnostic</LinkButton>}
+        action={<LinkButton to="/onboarding">Retake the skills check</LinkButton>}
       >
-        The diagnostic now has new scenarios, three for each level. Retake it to see where you
+        The skills check now has new scenarios, three for each level. Retake it to see where you
         stand. Your answers about yourself are kept, and completed work is never lost.
       </EmptyState>
     )
@@ -53,7 +53,7 @@ export function OnboardingResult() {
         title={name ? `${name}, here is where you stand` : 'Here is where you stand'}
       >
         Based on {Object.keys(data.onboarding.diagnostic).length} scenarios and your
-        self-assessment. You can retake the diagnostic at any time; completed work is never lost.
+        self-assessment. You can retake the skills check at any time; completed work is never lost.
       </PageHeader>
 
       <div className="grid gap-4 sm:grid-cols-3">
@@ -171,7 +171,7 @@ export function OnboardingResult() {
             See the study plan
           </LinkButton>
           <LinkButton to="/onboarding" variant="ghost">
-            Retake the diagnostic
+            Retake the skills check
           </LinkButton>
         </div>
       </Card>

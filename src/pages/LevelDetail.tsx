@@ -85,7 +85,7 @@ export function LevelDetail() {
       {status.standing === 'strong' && (
         <Card as="div" className="border-blue-200 dark:border-blue-900">
           <p className="text-sm">
-            You answered every Level {level.id} scenario in the diagnostic correctly. Skim the
+            You answered every Level {level.id} scenario in the skills check correctly. Skim the
             reading where it is familiar, but do every task: later sessions build on the files they
             produce.
           </p>

@@ -123,7 +123,7 @@ export function Onboarding() {
         )}
       </header>
       <main id="main" className="mx-auto max-w-3xl px-4 pb-16">
-        <ol className="mb-6 flex gap-2" aria-label="Diagnostic progress">
+        <ol className="mb-6 flex gap-2" aria-label="Skills check progress">
           {steps.map((s, i) => (
             <li key={s} className="flex-1" aria-current={i === step ? 'step' : undefined}>
               <div

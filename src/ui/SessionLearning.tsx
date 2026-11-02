@@ -15,19 +15,14 @@ export function SessionBrief({ guide, minutes }: { guide: LessonGuide; minutes: 
         Plan about {minutes} minutes, including {guide.reading.minutes} minutes for the assigned
         source.
       </p>
-      <details className="mt-4">
-        <summary className="cursor-pointer font-medium">
-          Before you start: recall and compare
+      <details className="mt-4 rounded-xl bg-stone-100 px-4 py-3 text-sm dark:bg-stone-800/60">
+        <summary className="cursor-pointer leading-relaxed">
+          <span className="font-semibold">Warm-up: </span>
+          {guide.recall.question}
         </summary>
-        <p className="mt-3 text-sm leading-relaxed">{guide.recall.question}</p>
-        <details className="mt-3">
-          <summary className="cursor-pointer text-sm font-medium text-indigo-800 dark:text-indigo-200">
-            Think without notes, then reveal a comparison
-          </summary>
-          <p className="mt-2 max-w-prose text-sm leading-relaxed text-stone-700 dark:text-stone-300">
-            {guide.recall.answer}
-          </p>
-        </details>
+        <p className="mt-2 max-w-prose leading-relaxed text-stone-700 dark:text-stone-300">
+          {inline(guide.recall.answer)}
+        </p>
       </details>
     </section>
   )

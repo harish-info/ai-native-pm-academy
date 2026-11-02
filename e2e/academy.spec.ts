@@ -31,7 +31,9 @@ function storedData(page: Page) {
 test('landing page loads at the base path', async ({ page }) => {
   await page.goto('')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Everything a PM needs')
-  await expect(page.getByRole('link', { name: 'Start with a 10-minute diagnostic' })).toBeVisible()
+  await expect(
+    page.getByRole('link', { name: 'Start with a 10-minute skills check' }),
+  ).toBeVisible()
 })
 
 test('decision practice explains choices without completing a lesson', async ({ page }) => {
