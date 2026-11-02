@@ -1,26 +1,37 @@
 import { Link } from 'react-router-dom'
-import { levels } from '../content'
+import { levels, resources } from '../content'
+import { FIELD_GUIDE_AS_OF_LABEL } from '../content/fieldGuide'
+import type { LevelId } from '../content/types'
 import { useStore } from '../state/store'
 import { BrandMark, LevelArt } from '../ui/art'
 import { levelShortName } from '../ui/levelNames'
 import { Button, Chevron, cx, interactiveCard, LinkButton, stretchedLink } from '../ui/primitives'
 
-const pillars = [
+// What each level's project leaves you with, in one line for the level cards.
+const builds: Record<LevelId, string> = {
+  1: 'A product context file, a checked fact sheet and a live pitch page.',
+  2: 'A live prototype built with Claude Code, with pull requests you reviewed.',
+  3: 'A strategy, user interviews, data and a PRD an agent can build from.',
+  4: 'A design spec, an engineering handoff, evals and a launch review.',
+  5: 'Your own wiki, a team knowledge base and three working skills.',
+}
+
+const facts = [
   {
-    title: 'Practice first',
-    body: 'Study a worked example, make a decision, then apply the method in your own context. Build a prototype, a scoped PRD, an evaluation report, a simulated launch readout and a team knowledge base.',
+    title: 'About 80 hours',
+    body: 'Eight weeks at about 10 hours a week, or twelve at about 7. The estimates are untested, and recruiting users for interviews can take longer.',
   },
   {
-    title: 'Evidence, not clicks',
-    body: 'Complete sessions with an artifact, a reflection and logged practice. Sessions open the next level. An 80% assessment and a rubric-scored project earn the level badge.',
+    title: 'What it costs',
+    body: "Level 1 runs on Claude's free plan. From Session 5 you need Claude Pro, from $20 a month, for Claude Code. Most readings are free.",
   },
   {
-    title: 'Taste and judgment',
-    body: 'Choose what is worth building, compare AI with simpler approaches, specify the behaviour and review the evidence. A well-supported decision to stop is a valid outcome.',
+    title: 'What you need',
+    body: 'A product or feature to work on. No coding background is needed. A mentor for about an hour a week helps: they review your projects, cold-read your PRD and play the executive at your launch review.',
   },
   {
-    title: 'Private by design',
-    body: 'Everything stays in this browser. No account, no analytics, no server. Export a backup file to move devices.',
+    title: 'How progress works',
+    body: 'Each session asks for something you made and a short reflection. A level badge takes 80% on the assessment and a passing project. Progress stays in this browser; export a backup to move devices.',
   },
 ]
 
@@ -62,20 +73,32 @@ export function Landing() {
           <div className="relative">
             <div>
               <p className="mb-3 font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
-                AI for product managers
+                AI for product managers, 2026
               </p>
               <h1 className="max-w-3xl text-4xl leading-[1.1] font-bold tracking-[-0.04em] text-balance sm:text-5xl">
-                Everything a PM needs to work with AI agents, from foundations to team practice.
+                A practical guide to working with AI agents as a PM.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
-                A structured, practical course in five levels and twenty sessions, built on curated
-                resources selected for the work PMs actually do. Build from your own product
-                context: a useful brief, a reviewed prototype, evidence-based product decisions and
-                a team workflow you can explain and test.
+                Twenty sessions take you from your first conversation with Claude to a product team
+                that works with agents. You work on your own product throughout, with readings
+                picked from Anthropic, OpenAI, Lenny Rachitsky, Teresa Torres, Simon Willison and
+                others.
               </p>
-              <p className="mt-5 text-sm font-medium text-indigo-800 dark:text-indigo-200">
-                20 sessions · 5 levels · Apply to your own PM work
-              </p>
+              <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+                {[
+                  ['20', 'sessions'],
+                  ['5', 'projects'],
+                  [String(resources.length), 'curated resources'],
+                  ['8 or 12', 'weeks'],
+                ].map(([n, label]) => (
+                  <div key={label} className="flex flex-col-reverse">
+                    <dt className="text-sm text-stone-600 dark:text-stone-400">{label}</dt>
+                    <dd className="text-2xl font-bold tracking-tight text-indigo-800 tabular-nums dark:text-indigo-200">
+                      {n}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
               <div className="mt-8 flex flex-wrap gap-3">
                 {data.onboarding ? (
                   <LinkButton to="/dashboard">
@@ -96,7 +119,7 @@ export function Landing() {
 
         <section aria-labelledby="levels-heading" className="py-10">
           <h2 id="levels-heading" className="mb-4 text-2xl font-bold tracking-tight">
-            Five levels, skills that build on each other
+            What you build, level by level
           </h2>
           <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {levels.map((l) => (
@@ -108,7 +131,10 @@ export function Landing() {
                 <Link to={`/levels/${l.id}`} className={cx(stretchedLink, 'mt-1 leading-snug')}>
                   {levelShortName[l.id]}
                 </Link>
-                <p className="mt-2 flex-1 text-sm text-stone-600 dark:text-stone-400">{l.theme}</p>
+                <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">{l.theme}</p>
+                <p className="mt-3 flex-1 border-t border-stone-200 pt-3 text-sm dark:border-stone-700">
+                  <span className="font-medium">{l.project.title}:</span> {builds[l.id]}
+                </p>
                 <span className="mt-3 flex items-center justify-end gap-1 text-sm font-medium text-indigo-700 dark:text-indigo-300">
                   See sessions
                   <Chevron className="h-4 w-4 text-current" />
@@ -118,76 +144,64 @@ export function Landing() {
           </ol>
         </section>
 
+        <section aria-labelledby="reference-heading" className="pb-10">
+          <h2 id="reference-heading" className="mb-4 text-2xl font-bold tracking-tight">
+            Reference to keep open while you work
+          </h2>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                to: '/field-guide',
+                title: 'Field guide',
+                body: `Current models and agents from each lab, which to use for which PM task, and fixes for common problems. Checked ${FIELD_GUIDE_AS_OF_LABEL}.`,
+              },
+              {
+                to: '/resources',
+                title: 'Resource library',
+                body: `${resources.length} guides, courses, docs and podcasts, each with a summary of what it covers and what it costs.`,
+              },
+              {
+                to: '/starter-kit',
+                title: 'Starter kit',
+                body: 'What to install, in the order the course needs it, with prices and setup steps.',
+              },
+              {
+                to: '/case-study',
+                title: 'Case studies',
+                body: 'The course methods applied to three example products: a banking assistant, a goal tracker and a support copilot.',
+              },
+            ].map((c) => (
+              <li key={c.to} className={cx(interactiveCard, 'flex flex-col rounded-2xl p-4')}>
+                <Link to={c.to} className={cx(stretchedLink, 'leading-snug')}>
+                  {c.title}
+                </Link>
+                <p className="mt-2 flex-1 text-sm text-stone-600 dark:text-stone-400">{c.body}</p>
+                <span className="mt-3 flex items-center justify-end gap-1 text-sm font-medium text-indigo-700 dark:text-indigo-300">
+                  Open
+                  <Chevron className="h-4 w-4 text-current" />
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <section
-          className="mb-8 rounded-2xl border border-stone-200 p-6 dark:border-stone-700"
+          className="rounded-2xl border border-stone-200 p-6 dark:border-stone-700"
           aria-labelledby="before-heading"
         >
           <h2 id="before-heading" className="text-xl font-semibold">
             Before you start
           </h2>
-          <ul className="mt-4 grid gap-5 text-sm sm:grid-cols-3">
-            <li>
-              <strong className="block">A PM course, not an ML degree</strong>
-              <span className="mt-1 block text-stone-600 dark:text-stone-400">
-                No coding prerequisite. You will direct agents, check their work and make product
-                trade-offs.
-              </span>
-            </li>
-            <li>
-              <strong className="block">About 80 hours, at your pace</strong>
-              <span className="mt-1 block text-stone-600 dark:text-stone-400">
-                An 8-week plan or a lighter 12-week path. Time estimates are untested; recruitment
-                and setup can take longer.
-              </span>
-            </li>
-            <li>
-              <strong className="block">Free reading, some paid practice</strong>
-              <span className="mt-1 block text-stone-600 dark:text-stone-400">
-                Start with a free assistant. Level 2 onward uses Claude Code, which needs suitable
-                paid access. Check access before subscribing.
-              </span>
-            </li>
-          </ul>
-        </section>
-
-        <section aria-labelledby="how-heading" className="py-6">
-          <h2 id="how-heading" className="mb-4 text-2xl font-bold tracking-tight">
-            How it works
-          </h2>
-          <div className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
-            {pillars.map((p, i) => (
-              <div key={p.title} className="flex gap-4">
-                <span
-                  aria-hidden
-                  className="font-mono text-sm font-semibold text-indigo-600 tabular-nums dark:text-indigo-300"
-                >
-                  0{i + 1}
-                </span>
-                <div>
-                  <h3 className="font-semibold">{p.title}</h3>
-                  <p className="mt-1 text-stone-600 dark:text-stone-400">{p.body}</p>
-                </div>
-              </div>
+          <ul className="mt-4 grid gap-x-10 gap-y-5 text-sm leading-relaxed sm:grid-cols-2">
+            {facts.map((f) => (
+              <li key={f.title}>
+                <strong className="block">{f.title}</strong>
+                <span className="mt-1 block text-stone-600 dark:text-stone-400">{f.body}</span>
+              </li>
             ))}
-          </div>
-        </section>
-
-        <section className="mt-8 rounded-2xl border border-stone-200 dark:border-stone-800 bg-white p-6 dark:bg-stone-900">
-          <h2 className="text-lg font-semibold">Learning with a mentor?</h2>
-          <p className="mt-1 max-w-3xl text-stone-700 dark:text-stone-300">
-            Every session includes a short mentor move, and every week of the study plan says what
-            the mentor does, about an hour a week: project reviews, a cold read of the PRD, a real
-            pull request review, an executive at the launch review and a sceptical demo audience.
-          </p>
-        </section>
-        <section className="mt-8 border-t border-stone-200 pt-6 dark:border-stone-800">
-          <h2 className="text-lg font-semibold">Want a concrete example?</h2>
-          <p className="mt-2 max-w-3xl text-sm text-stone-600 dark:text-stone-400">
-            The optional case-study area shows how the methods apply in three different domains.
-            Explore it whenever a worked reference helps; the course stays focused on your own role.
-          </p>
-          <Link to="/case-study" className={cx(navLink, 'mt-3 inline-block')}>
-            Explore the case studies
+          </ul>
+          <Link to="/plan" className={cx(navLink, '-ml-3 mt-4 inline-block')}>
+            See the week-by-week study plan
           </Link>
         </section>
       </main>
