@@ -51,10 +51,6 @@ export interface WeekJob {
 }
 
 export const fieldGuide = {
-  intro: [
-    'Use this reference alongside the course: find current model and effort choices, diagnose a disappointing result, or find the lesson for an everyday PM task. The lessons teach the full methods; this guide keeps the dated tool landscape in one place.',
-  ],
-
   layersIntro:
     'A reminder of the parts you are choosing between. An agent can also be an app, and the same agent can have several interfaces. [Session 1](/lessons/s1) explains the loop; [Session 5](/lessons/s5) covers permissions and working on files.',
   layers: [
@@ -341,7 +337,7 @@ Report: what you did, which files changed and anything you were unsure about.`,
 
   weekHeading: "A PM's week with AI",
   weekIntro:
-    'Here is everyday PM work, what to hand to AI, what to keep, and where the course has you practise it. You will notice that the right-hand column is the course.',
+    'Here is everyday PM work, what to hand to AI, what to keep, and where the course has you practise it.',
   week: [
     {
       job: 'Market and competitor research',

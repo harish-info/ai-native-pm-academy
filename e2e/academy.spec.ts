@@ -61,13 +61,18 @@ test('model guide separates model choice from effort and supports keyboard navig
   page,
 }) => {
   await page.goto('#/field-guide')
-  const jump = page.getByRole('button', { name: 'Go to model choices and effort settings' })
+  const onPage = page.getByRole('navigation', { name: 'On this page' })
+  const jump = onPage.getByRole('button', { name: 'Choose a model' })
   await jump.focus()
   await page.keyboard.press('Enter')
-  const heading = page.getByRole('heading', { name: 'Choose a model, then choose effort' })
+  const heading = page.getByRole('heading', { name: 'Choose a model', exact: true })
   await expect(heading).toBeFocused()
   await expect(page).toHaveURL(/#\/field-guide$/)
   await expect(page.getByRole('heading', { name: 'Claude Sonnet 5.5', exact: true })).toBeVisible()
+  const labs = page.getByRole('tablist', { name: 'Model makers' })
+  await labs.getByRole('tab', { name: 'Anthropic' }).focus()
+  await page.keyboard.press('ArrowRight')
+  await expect(labs.getByRole('tab', { name: 'OpenAI' })).toHaveAttribute('aria-selected', 'true')
   await expect(page.getByRole('heading', { name: 'GPT-6.1 Sol', exact: true })).toBeVisible()
 
   const choices = page.getByRole('group', { name: 'Choose a PM task' })

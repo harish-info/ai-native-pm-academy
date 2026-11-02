@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { challengeById, lessonById, levelById, resourceById } from '../content'
 import {
@@ -108,24 +108,125 @@ function Scenario({ s, n }: { s: LayerScenario; n: number }) {
   )
 }
 
+function focusSection(id: string) {
+  const heading = document.getElementById(id)
+  heading?.focus({ preventScroll: true })
+  heading?.scrollIntoView({ block: 'start' })
+}
+
 function SectionHeading({
   id,
-  eyebrow,
   children,
+  aside,
 }: {
   id: string
-  eyebrow: string
   children: string
+  aside?: ReactNode
 }) {
   return (
-    <div className="mb-3">
-      <p className="mb-1 font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
-        {eyebrow}
-      </p>
-      <h2 id={id} className="text-xl font-semibold tracking-tight">
+    <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
+      <h2
+        id={id}
+        tabIndex={-1}
+        className="scroll-mt-20 text-xl font-semibold tracking-tight outline-none"
+      >
         {children}
       </h2>
+      {aside}
     </div>
+  )
+}
+
+const sections = [
+  { id: 'fg-layers', label: 'Model, agent, interface' },
+  { id: 'fg-models', label: 'Choose a model' },
+  { id: 'fg-effort', label: 'Choose effort' },
+  { id: 'fg-landscape', label: 'The wider landscape' },
+  { id: 'fg-week', label: "A PM's week" },
+] as const
+
+function LabTabs() {
+  const [selected, setSelected] = useState(0)
+  const lab = g.labs[selected]!
+  const move = (to: number) => {
+    const n = (to + g.labs.length) % g.labs.length
+    setSelected(n)
+    document.getElementById(`fg-lab-tab-${n}`)?.focus()
+  }
+  return (
+    <>
+      <div
+        role="tablist"
+        aria-label="Model makers"
+        className="flex flex-wrap gap-1 border-b border-stone-200 dark:border-stone-800"
+      >
+        {g.labs.map((l, i) => (
+          <button
+            key={l.company}
+            id={`fg-lab-tab-${i}`}
+            type="button"
+            role="tab"
+            aria-selected={selected === i}
+            aria-controls="fg-lab-panel"
+            tabIndex={selected === i ? 0 : -1}
+            onClick={() => setSelected(i)}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowRight') move(i + 1)
+              else if (e.key === 'ArrowLeft') move(i - 1)
+              else if (e.key === 'Home') move(0)
+              else if (e.key === 'End') move(g.labs.length - 1)
+              else return
+              e.preventDefault()
+            }}
+            className={cx(
+              '-mb-px min-h-10 cursor-pointer border-b-2 px-4 py-2 text-sm font-medium transition-colors',
+              selected === i
+                ? 'border-indigo-600 text-indigo-900 dark:border-indigo-400 dark:text-indigo-100'
+                : 'border-transparent text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100',
+            )}
+          >
+            {l.company}
+          </button>
+        ))}
+      </div>
+      <div
+        id="fg-lab-panel"
+        role="tabpanel"
+        aria-labelledby={`fg-lab-tab-${selected}`}
+        tabIndex={0}
+        className="pt-4 outline-none"
+      >
+        <p className="max-w-3xl text-sm leading-relaxed">{lab.modelIntro}</p>
+        <ul className="mt-4 grid gap-3 md:grid-cols-3">
+          {lab.models.map((model) => (
+            <li
+              key={model.name}
+              className="rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800/60"
+            >
+              <h3 className="text-base font-semibold tracking-tight">{model.name}</h3>
+              <p className="text-xs font-medium text-stone-600 dark:text-stone-400">{model.role}</p>
+              <p className="mt-2">{model.useFor}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+          {lab.also}
+        </p>
+        <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+          <div>
+            <dt className="font-semibold">Assistant</dt>
+            <dd className="mt-1 leading-relaxed">{lab.assistant}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold">Agent for building</dt>
+            <dd className="mt-1 leading-relaxed">{lab.agent}</dd>
+          </div>
+        </dl>
+        <p className="mt-4 text-xs leading-relaxed text-stone-600 dark:text-stone-400">
+          Sources: <SourceLinks ids={lab.resourceIds} />
+        </p>
+      </div>
+    </>
   )
 }
 
@@ -133,9 +234,8 @@ function EffortGuide() {
   const [selected, setSelected] = useState(0)
   const example = g.effort.tasks[selected]!
   return (
-    <div className="mt-6 border-t border-stone-200 pt-5 dark:border-stone-800">
-      <h3 className="text-lg font-semibold">Then choose effort</h3>
-      <p className="mt-2 max-w-3xl text-sm leading-relaxed">{g.effort.intro}</p>
+    <>
+      <p className="max-w-3xl text-sm leading-relaxed">{g.effort.intro}</p>
       <ol className="mt-4 grid gap-4 sm:grid-cols-3">
         {g.effort.levels.map((level, i) => (
           <li key={level.name}>
@@ -150,7 +250,7 @@ function EffortGuide() {
                 />
               ))}
             </div>
-            <h4 className="font-semibold">{level.name}</h4>
+            <h3 className="font-semibold">{level.name}</h3>
             <p className="text-sm font-medium">{level.meaning}</p>
             <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{level.example}</p>
           </li>
@@ -158,7 +258,7 @@ function EffortGuide() {
       </ol>
       <p className="mt-4 max-w-3xl text-sm leading-relaxed">{g.effort.extra}</p>
 
-      <h4 className="mt-5 font-semibold">Try a PM task</h4>
+      <h3 className="mt-6 font-semibold">Try a PM task</h3>
       <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
         Suggested starting points to compare, not tested rankings.
       </p>
@@ -188,7 +288,7 @@ function EffortGuide() {
         className="mt-3 rounded-xl bg-stone-100 p-4 dark:bg-stone-800/60"
       >
         <div key={selected} className="motion-safe:animate-pop-in">
-          <h5 className="sr-only">{example.name}</h5>
+          <h4 className="sr-only">{example.name}</h4>
           <dl className="grid gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
             <div>
               <dt className="text-xs text-stone-600 dark:text-stone-400">Model</dt>
@@ -216,49 +316,38 @@ function EffortGuide() {
       <p className="mt-3 text-xs leading-relaxed text-stone-600 dark:text-stone-400">
         Official effort and model documentation: <SourceLinks ids={g.effort.resourceIds} />
       </p>
-    </div>
+    </>
   )
 }
-
-const th = 'py-2 pr-4 text-left align-bottom font-semibold'
-const td = 'py-2 pr-4 align-top text-stone-700 dark:text-stone-300'
-const row = 'border-b border-stone-100 last:border-0 dark:border-stone-800'
 
 export function FieldGuidePage() {
   return (
     <>
-      <PageHeader
-        eyebrow="After Level 1, before Session 5"
-        title="Field guide: models, agents and today's tools"
-      >
-        What you are actually using when you use AI, who makes it, and how a PM puts it to work.
-        Dated facts were checked on{' '}
+      <PageHeader eyebrow="Optional reference, after Level 1" title="Field guide">
+        Today&apos;s AI models and tools, how to choose a model and an effort setting, and where the
+        course practises each PM job. Facts were checked on{' '}
         <time dateTime={FIELD_GUIDE_AS_OF}>{FIELD_GUIDE_AS_OF_LABEL}</time>.
       </PageHeader>
 
-      <div className="space-y-6">
-        <Card>
-          <div className="max-w-3xl space-y-3 text-stone-700 dark:text-stone-300">
-            <Paragraphs items={g.intro} />
-            <button
-              type="button"
-              className={cx(linkClass, 'min-h-10 cursor-pointer text-left text-sm')}
-              onClick={() => {
-                const heading = document.getElementById('fg-landscape')
-                heading?.focus({ preventScroll: true })
-                heading?.scrollIntoView({ block: 'start' })
-              }}
-            >
-              Go to model choices and effort settings
-            </button>
-          </div>
-        </Card>
+      <nav aria-label="On this page" className="mb-6">
+        <ul className="flex flex-wrap gap-2">
+          {sections.map((s) => (
+            <li key={s.id}>
+              <button
+                type="button"
+                onClick={() => focusSection(s.id)}
+                className="min-h-10 cursor-pointer rounded-full border border-stone-300 px-3.5 py-1.5 text-sm transition-colors hover:border-indigo-500 dark:border-stone-700 dark:hover:border-indigo-400"
+              >
+                {s.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-        {/* 1. Quick orientation */}
+      <div className="space-y-6">
         <Card as="section" aria-labelledby="fg-layers">
-          <SectionHeading id="fg-layers" eyebrow="1 · Lasts">
-            Quick orientation
-          </SectionHeading>
+          <SectionHeading id="fg-layers">Model, agent, interface</SectionHeading>
           <p className="mb-4 max-w-3xl leading-relaxed">{inline(g.layersIntro)}</p>
           <ol className="grid gap-3 md:grid-cols-3">
             {g.layers.map((l) => (
@@ -266,8 +355,8 @@ export function FieldGuidePage() {
                 key={l.name}
                 className="rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800/60"
               >
-                <p className="font-mono text-xs text-stone-600 dark:text-stone-400">{l.analogy}</p>
-                <h3 className="mt-1 text-lg font-semibold">{l.name}</h3>
+                <p className="text-xs text-stone-600 dark:text-stone-400">{l.analogy}</p>
+                <h3 className="text-lg font-semibold">{l.name}</h3>
                 <p className="mt-2">{l.what}</p>
                 <p className="mt-2 text-stone-600 dark:text-stone-400">
                   <span className="font-medium text-stone-800 dark:text-stone-200">Examples: </span>
@@ -278,7 +367,7 @@ export function FieldGuidePage() {
           </ol>
           <details className="mt-4">
             <summary className="min-h-10 cursor-pointer py-2 font-semibold">
-              Diagnose a disappointing result: three practice cases
+              Practise: which layer let you down? Three short cases
             </summary>
             <p className="mt-2 mb-3 text-sm text-stone-600 dark:text-stone-400">
               {g.scenariosIntro} Practice only, with no grade or XP.
@@ -291,81 +380,57 @@ export function FieldGuidePage() {
           </details>
         </Card>
 
-        {/* 2. Landscape */}
-        <Card as="section" aria-labelledby="fg-landscape">
-          <div className="flex flex-wrap items-start justify-between gap-2">
-            <div>
-              <p className="mb-1 font-mono text-xs font-medium tracking-[0.14em] text-stone-600 uppercase dark:text-stone-400">
-                2 · Dates fast
-              </p>
-              <h2
-                id="fg-landscape"
-                tabIndex={-1}
-                className="scroll-mt-20 text-xl font-semibold tracking-tight"
-              >
-                Choose a model, then choose effort
-              </h2>
-            </div>
-            <Pill tone="amber">
-              <span>
-                As of <time dateTime={FIELD_GUIDE_AS_OF}>{FIELD_GUIDE_AS_OF_LABEL}</time>
-              </span>
-            </Pill>
-          </div>
-          <div className="mt-3 max-w-3xl">
+        <Card as="section" aria-labelledby="fg-models">
+          <SectionHeading
+            id="fg-models"
+            aside={
+              <Pill tone="amber">
+                <span>
+                  As of <time dateTime={FIELD_GUIDE_AS_OF}>{FIELD_GUIDE_AS_OF_LABEL}</time>
+                </span>
+              </Pill>
+            }
+          >
+            Choose a model
+          </SectionHeading>
+          <div className="mb-4 max-w-3xl text-sm leading-relaxed">
             <Paragraphs items={g.landscapeIntro} />
           </div>
-          <div className="mt-5 divide-y divide-stone-200 dark:divide-stone-800">
-            {g.labs.map((lab) => (
-              <section
-                key={lab.company}
-                aria-label={`${lab.company} models and tools`}
-                className="py-5 first:pt-0"
-              >
-                <h3 className="text-lg font-semibold">{lab.company}</h3>
-                <p className="mt-2 max-w-3xl text-sm leading-relaxed">{lab.modelIntro}</p>
-                <ul className="mt-3 grid gap-5 md:grid-cols-3">
-                  {lab.models.map((model) => (
-                    <li key={model.name}>
-                      <h4 className="text-lg font-semibold tracking-tight">{model.name}</h4>
-                      <p className="mt-1 text-xs font-medium text-stone-600 dark:text-stone-400">
-                        {model.role}
-                      </p>
-                      <p className="mt-2 text-sm leading-relaxed">{model.useFor}</p>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-                  {lab.also}
-                </p>
-                <dl className="mt-3 grid gap-3 rounded-lg bg-stone-100 p-3 text-sm sm:grid-cols-2 dark:bg-stone-800/60">
-                  <div>
-                    <dt className="font-semibold">Assistant</dt>
-                    <dd className="mt-1 leading-relaxed">{lab.assistant}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-semibold">Agent for building</dt>
-                    <dd className="mt-1 leading-relaxed">{lab.agent}</dd>
-                  </div>
-                </dl>
-                <p className="mt-3 text-xs leading-relaxed text-stone-600 dark:text-stone-400">
-                  Sources: <SourceLinks ids={lab.resourceIds} />
-                </p>
-              </section>
-            ))}
-          </div>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+          <LabTabs />
+          <p className="mt-4 max-w-3xl border-t border-stone-200 pt-3 text-sm leading-relaxed text-stone-600 dark:border-stone-800 dark:text-stone-400">
             {g.modelChoiceNote}
           </p>
+        </Card>
 
+        <Card as="section" aria-labelledby="fg-effort">
+          <SectionHeading id="fg-effort">Choose effort</SectionHeading>
           <EffortGuide />
+        </Card>
 
-          <h3 className="mt-6 mb-2 text-lg font-semibold">{g.othersHeading}</h3>
-          <div className="max-w-3xl text-sm">
-            <Bullets items={g.others} />
-          </div>
+        <Card as="section" aria-labelledby="fg-landscape">
+          <SectionHeading id="fg-landscape">The wider landscape</SectionHeading>
 
-          <h3 className="mt-6 mb-2 text-lg font-semibold">{g.usageHeading}</h3>
+          <h3 className="mb-3 text-lg font-semibold">{g.trendsHeading}</h3>
+          <ol className="grid gap-3 md:grid-cols-2">
+            {g.trends.map((t) => (
+              <li
+                key={t.title}
+                className="rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800/60"
+              >
+                <h4 className="font-semibold">{t.title}</h4>
+                <p className="mt-1 text-stone-700 dark:text-stone-300">{t.evidence}</p>
+                <p className="mt-2">
+                  <span className="font-semibold">For you: </span>
+                  {t.forYou}
+                </p>
+                <p className="mt-2 text-xs text-stone-600 dark:text-stone-400">
+                  Sources: <SourceLinks ids={t.resourceIds} />
+                </p>
+              </li>
+            ))}
+          </ol>
+
+          <h3 className="mt-8 mb-3 text-lg font-semibold">{g.usageHeading}</h3>
           <ul className="grid gap-3 md:grid-cols-2">
             {g.usage.map((u) => (
               <li
@@ -380,80 +445,51 @@ export function FieldGuidePage() {
               </li>
             ))}
           </ul>
-          <p className="mt-3 max-w-3xl text-sm text-stone-600 dark:text-stone-400">
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-stone-600 dark:text-stone-400">
             {g.usageCaveat}
           </p>
 
-          <h3 className="mt-6 mb-2 text-lg font-semibold">{g.trendsHeading}</h3>
-          <ol className="space-y-3">
-            {g.trends.map((t, i) => (
-              <li
-                key={t.title}
-                className="rounded-xl border border-stone-200 p-4 dark:border-stone-800"
-              >
-                <h4 className="font-semibold">
-                  <span className="mr-2 font-mono text-xs text-stone-500 dark:text-stone-400">
-                    {i + 1}
-                  </span>
-                  {t.title}
-                </h4>
-                <p className="mt-1 text-sm leading-relaxed">{t.evidence}</p>
-                <p className="mt-2 text-sm leading-relaxed">
-                  <span className="font-medium">For you: </span>
-                  {t.forYou}
-                </p>
-                <p className="mt-2 text-xs text-stone-600 dark:text-stone-400">
-                  Sources: <SourceLinks ids={t.resourceIds} />
-                </p>
-              </li>
-            ))}
-          </ol>
+          <h3 className="mt-8 mb-2 text-lg font-semibold">{g.othersHeading}</h3>
+          <div className="max-w-3xl text-sm">
+            <Bullets items={g.others} />
+          </div>
         </Card>
 
-        {/* 3. A PM's week */}
         <Card as="section" aria-labelledby="fg-week">
-          <SectionHeading id="fg-week" eyebrow="3 · Practise in the course">
-            {g.weekHeading}
-          </SectionHeading>
+          <SectionHeading id="fg-week">{g.weekHeading}</SectionHeading>
           <p className="mb-4 max-w-3xl leading-relaxed">{g.weekIntro}</p>
-          <div className="overflow-x-auto" tabIndex={0} aria-labelledby="fg-week-caption">
-            <table className="w-full min-w-[48rem] text-sm">
-              <caption id="fg-week-caption" className="sr-only">
-                Everyday PM work: what to hand to AI, what to keep, and where the course practises
-                it
-              </caption>
-              <thead>
-                <tr className="border-b border-stone-200 dark:border-stone-800">
-                  <th scope="col" className={th}>
-                    PM work
-                  </th>
-                  <th scope="col" className={th}>
-                    Hand to AI
-                  </th>
-                  <th scope="col" className={th}>
-                    Keep for yourself
-                  </th>
-                  <th scope="col" className={th}>
-                    Practise in
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {g.week.map((w) => (
-                  <tr key={w.job} className={row}>
-                    <th scope="row" className="py-2 pr-4 text-left align-top font-semibold">
-                      {w.job}
-                    </th>
-                    <td className={td}>{w.ai}</td>
-                    <td className={td}>{w.you}</td>
-                    <td className="py-2 align-top">
+          <ul className="grid gap-3 md:grid-cols-2">
+            {g.week.map((w) => (
+              <li
+                key={w.job}
+                className="rounded-xl border border-stone-200 p-4 text-sm leading-relaxed dark:border-stone-800"
+              >
+                <h3 className="font-semibold">{w.job}</h3>
+                <dl className="mt-2 space-y-2">
+                  <div>
+                    <dt className="text-xs font-medium text-stone-600 dark:text-stone-400">
+                      Hand to AI
+                    </dt>
+                    <dd>{w.ai}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-medium text-stone-600 dark:text-stone-400">
+                      Keep for yourself
+                    </dt>
+                    <dd>{w.you}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-medium text-stone-600 dark:text-stone-400">
+                      Practise in
+                    </dt>
+                    <dd>
                       <SessionLinks lessons={w.lessons} challenges={w.challenges} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    </dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ul>
           <details className="mt-5 border-t border-stone-200 pt-3 dark:border-stone-800">
             <summary className="min-h-10 cursor-pointer py-2 font-semibold">
               {g.dashboardExample.title}
@@ -476,25 +512,27 @@ export function FieldGuidePage() {
           </details>
         </Card>
 
-        {/* Refresh */}
         <Card as="section" aria-labelledby="fg-refresh">
-          <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
-            <h2 id="fg-refresh" className="text-xl font-semibold tracking-tight">
-              {g.refreshHeading}
-            </h2>
-            <CopyButton text={g.refreshPrompt} label="Copy refresh prompt" />
-          </div>
-          <p className="mb-3 max-w-3xl leading-relaxed">{g.refresh}</p>
-          <pre
-            tabIndex={0}
-            className="overflow-x-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
-          >
-            {g.refreshPrompt}
-          </pre>
-          <h3 className="mt-5 mb-2 text-sm font-semibold">
+          <SectionHeading id="fg-refresh">{g.refreshHeading}</SectionHeading>
+          <p className="max-w-3xl text-sm leading-relaxed">{g.refresh}</p>
+          <details className="mt-3">
+            <summary className="min-h-10 cursor-pointer py-2 text-sm font-semibold">
+              Show the refresh prompt
+            </summary>
+            <div className="mb-2 flex justify-end">
+              <CopyButton text={g.refreshPrompt} label="Copy refresh prompt" />
+            </div>
+            <pre
+              tabIndex={0}
+              className="overflow-x-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
+            >
+              {g.refreshPrompt}
+            </pre>
+          </details>
+          <h3 className="mt-4 mb-2 text-sm font-semibold">
             Sources, opened on <time dateTime={FIELD_GUIDE_AS_OF}>{FIELD_GUIDE_AS_OF_LABEL}</time>
           </h3>
-          <ul className="list-disc space-y-1 pl-5 text-sm">
+          <ul className="grid gap-x-6 gap-y-1 text-sm md:grid-cols-2">
             {g.sources.map((id) => {
               const r = resourceById(id)
               return r ? (
