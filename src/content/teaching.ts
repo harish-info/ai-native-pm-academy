@@ -318,7 +318,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Only in CLAUDE.md, in capital letters.',
+          text: 'Only in AGENTS.md, in capital letters.',
           feedback: 'Instructions help the agent behave, but are not an access-control boundary.',
         },
         {

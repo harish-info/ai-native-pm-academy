@@ -4,7 +4,7 @@ import type { ChecklistItem, LevelId } from './types'
 // as one folder with product-context.md at the top, becomes the folder Claude Code works from in
 // Level 2, collects the research, decisions and delivery records of Levels 3 and 4, and turns
 // into an agent-maintained wiki (the PM OS) in Level 5: sources in, synthesised pages out,
-// instructions in CLAUDE.md. Session 18 applies the same pattern to a team knowledge base.
+// instructions in AGENTS.md. Session 18 applies the same pattern to a team knowledge base.
 
 export const WIKI_CHECKLIST_ITEM: ChecklistItem = {
   id: 'wiki-filed',
@@ -50,8 +50,8 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s5: {
     capture:
-      'Your notes become workspace/, the folder Claude Code works from. Paths from here on are relative to it. Add a short CLAUDE.md that points at product-context.md, put the folder under git, and commit.',
-    pages: ['CLAUDE.md', 'learning/', 'pitch/', 'research/', 'log.md'],
+      'Your notes become workspace/, the folder Claude Code works from. Paths from here on are relative to it. Add a short AGENTS.md that points at product-context.md, put the folder under git, and commit.',
+    pages: ['AGENTS.md', 'learning/', 'pitch/', 'research/', 'log.md'],
   },
   s6: {
     capture:
@@ -60,8 +60,8 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s7: {
     capture:
-      'Record the live URL and the repository link in CLAUDE.md. The code lives in GitHub; the workspace links to it instead of copying it.',
-    pages: ['CLAUDE.md', 'log.md'],
+      'Record the live URL and the repository link in AGENTS.md. The code lives in GitHub; the workspace links to it instead of copying it.',
+    pages: ['AGENTS.md', 'log.md'],
   },
   s8: {
     capture:
@@ -119,8 +119,8 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s17: {
     capture:
-      'The workspace becomes your PM OS: raw material moves into sources/, Claude writes wiki/ pages that cite it, and CLAUDE.md holds the rules.',
-    pages: ['sources/', 'wiki/index.md', 'wiki/log.md', 'CLAUDE.md'],
+      'The workspace becomes your PM OS: raw material moves into sources/, Claude writes wiki/ pages that cite it, and AGENTS.md holds the rules.',
+    pages: ['sources/', 'wiki/index.md', 'wiki/log.md', 'AGENTS.md'],
   },
   s18: {
     capture:
@@ -162,9 +162,9 @@ export const wikiMilestones: WikiMilestone[] = [
     levelId: 2,
     name: 'Agent workspace',
     summary:
-      'Claude Code works from your folder: CLAUDE.md points at the context, and git records every change.',
+      'Claude Code works from your folder: AGENTS.md points at the context, and git records every change.',
     checks: [
-      'CLAUDE.md is short and points at product-context.md instead of repeating it',
+      'AGENTS.md is short and points at product-context.md instead of repeating it',
       'The workspace is a private git repository with a commit per session',
       'A fresh Claude Code session can explain your product and the prototype from the files alone',
     ],
@@ -205,14 +205,14 @@ export const wikiMilestones: WikiMilestone[] = [
 ]
 
 export const wikiPrompts = {
-  ingest: `Read CLAUDE.md first. Then process every file in sources/ that wiki/log.md does not mention yet:
+  ingest: `Read AGENTS.md first. Then process every file in sources/ that wiki/log.md does not mention yet:
 1. Update the wiki pages each source speaks to, or create a page from the template. Change only what the source supports.
 2. Add the source path to each changed page's sources: list and set its updated: date.
 3. Never edit files in sources/. If a source contradicts a page, keep both claims, mark the conflict on the page and list it for me.
 4. Add new pages to wiki/index.md and one line per change to wiki/log.md.
 5. Finish with a list of every page you touched, so I can read the diff before I commit.`,
   query: `Answer from wiki/ only. Read wiki/index.md, then the pages you need. Cite the page path for every statement. If the wiki does not contain the answer, say so and suggest which source I should add.`,
-  lint: `Read CLAUDE.md and wiki/index.md, then check the wiki and report, without changing anything:
+  lint: `Read AGENTS.md and wiki/index.md, then check the wiki and report, without changing anything:
 - pages not linked from index.md, and links to pages that do not exist
 - claims without a source, and pages missing updated: or sources:
 - contradictions between pages, or between a page and a newer source

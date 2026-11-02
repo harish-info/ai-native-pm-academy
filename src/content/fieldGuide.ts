@@ -83,7 +83,7 @@ export const fieldGuide = {
     {
       id: 'touched-file',
       situation:
-        'Your `CLAUDE.md` says "never edit files in sources/". Claude Code edits one anyway while tidying the folder.',
+        'Your `AGENTS.md` says "never edit files in sources/". Claude Code edits one anyway while tidying the folder.',
       correct: 'agent',
       feedback: {
         model:

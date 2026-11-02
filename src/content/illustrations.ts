@@ -105,7 +105,7 @@ export const lessonVisuals = {
     caption: 'Git can recover tracked files. It cannot undo disclosure or an external action.',
     folders: [
       { label: 'product-context.md', detail: 'Product, users and constraints' },
-      { label: 'CLAUDE.md', detail: 'How to work here; points to context' },
+      { label: 'AGENTS.md', detail: 'How to work here; points to context' },
       { label: 'sources/', detail: 'Material you can trace claims to' },
       { label: 'research/', detail: 'Analysis and open questions' },
       { label: 'prototype/', detail: 'Separate app and git history' },

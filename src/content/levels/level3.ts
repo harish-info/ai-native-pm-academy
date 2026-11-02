@@ -95,7 +95,7 @@ export const level3: Level = {
         summary:
           'Run competitor research in three parallel Claude Code sessions with every claim saved as a source note, build a market map from those notes only, and write a one-page strategy kernel for your product feature.',
         steps: [
-          'In your `workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `CLAUDE.md`: "Market research notes live in sources/market/, one file per source page."',
+          'In your `workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `AGENTS.md`: "Market research notes live in sources/market/, one file per source page."',
           'Open three Claude Code sessions in the workspace at the same time (a new Warp tab for each, or a new session in the desktop app). Paste the agent prompt below into each one, choosing a different slice each time: AI assistants that compete, established apps and incumbents, and workarounds and the customer voice.',
           'Draft the diagnosis in strategy/strategy-kernel.md in your own words. Use the Google PAIR core excerpt to compare AI with a simpler baseline. Mark what you do not yet know about your target users.',
           'When the sessions finish, pick five source notes at random and open their links yourself. Does the page say what the note says? Correct any wrong label and note what was wrong. If more than one of the five is wrong, check the rest of that slice too.',
@@ -107,7 +107,7 @@ export const level3: Level = {
       agentPrompt: {
         tool: 'Claude Code',
         where: 'Three sessions at once in your workspace/ folder, one per research slice',
-        text: `Read CLAUDE.md and product-context.md first. I am mapping competitors and workarounds for the user problem defined there. Confirm the target users, problem and market from that file. Ask me if any are missing; do not substitute a generic or fictional problem.
+        text: `Read AGENTS.md and product-context.md first. I am mapping competitors and workarounds for the user problem defined there. Confirm the target users, problem and market from that file. Ask me if any are missing; do not substitute a generic or fictional problem.
 
 Your slice: [AI ASSISTANTS THAT COMPETE | ESTABLISHED APPS AND INCUMBENTS | WORKAROUNDS AND THE CUSTOMER VOICE]. Stay inside this slice; other sessions are covering the rest.
 
@@ -635,7 +635,7 @@ Use no real people, companies or figures.`,
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In your workspace/ folder',
-        text: `Read CLAUDE.md, product-context.md, prd/operating-brief.md, strategy/strategy-kernel.md, strategy/market-map.md, discovery/synthesis.md, discovery/ost.md, data/funnel-analysis.md, data/impact-estimate.md and data/prioritised-bets.md. If prd/grill-notes.md exists, read it and do not ask again what it answers.
+        text: `Read AGENTS.md, product-context.md, prd/operating-brief.md, strategy/strategy-kernel.md, strategy/market-map.md, discovery/synthesis.md, discovery/ost.md, data/funnel-analysis.md, data/impact-estimate.md and data/prioritised-bets.md. If prd/grill-notes.md exists, read it and do not ask again what it answers.
 
 I want a PRD for the top bet in prioritised-bets.md, written into the headings already in prd/prd.md.
 

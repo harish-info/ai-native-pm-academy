@@ -85,7 +85,7 @@ export const level4: Level = {
         {
           heading: 'A team AGENTS.md',
           paragraphs: [
-            '`AGENTS.md` at the root of a repository tells any coding agent what the project is, how to install, run and test it, the conventions, and the hard rules, such as "fictional data only, never connect real systems". Most other coding agents read it directly; Claude Code reads `CLAUDE.md`, so add one whose first line is `@AGENTS.md`. Every engineer\'s agent then starts from the same context, whatever tool they prefer.',
+            '`AGENTS.md` at the root of a repository tells any coding agent what the project is, how to install, run and test it, the conventions, and the hard rules, such as "fictional data only, never connect real systems". Most coding agents read it directly, and so does Claude Code when the repository has no `CLAUDE.md`. Add a `CLAUDE.md` only for rules meant for Claude alone, and make its first line `@AGENTS.md`. Every engineer\'s agent then starts from the same context, whatever tool they prefer.',
             'Keep it short and accurate. Point to `docs/prd.md` and `docs/design-spec.md` instead of copying them. Stale instructions are worse than none, and an instruction is guidance, not a lock: keep the hard rules enforced by branch rules and checks as well.',
           ],
         },
@@ -134,7 +134,7 @@ export const level4: Level = {
           'Use the existing prototype to show the core flow and its required states. A new design tool is optional. Compare each state with the spec, record discrepancies and resolve the rule before changing the interface.',
           'Save the prototype link and screenshots of the relevant states in handoff/. If you chose a design tool, its exported bundle can accompany these. A new subscription is unnecessary.',
           'In your prototype repository from Session 7, on a new branch, ask Claude Code to copy the PRD, the design spec and the bundle into `docs/`, filtered to what this web app needs, and to write `docs/task-breakdown.md`: 5 to 8 vertical slices, each with the acceptance criteria and spec states it covers, likely files and a size (S, M or L). Split any L. Edit the breakdown yourself, then merge it through a pull request.',
-          'Ask Claude Code to draft a team `AGENTS.md`: what the product is, the commands, conventions, pointers to `docs/`, and the hard rules. Add a `CLAUDE.md` whose first line is `@AGENTS.md`. Cut anything vague and merge through a pull request.',
+          'Ask Claude Code to draft a team `AGENTS.md`: what the product is, the commands, conventions, pointers to `docs/`, and the hard rules. Cut anything vague and merge through a pull request.',
           'Have Claude Code build the first slice in a fresh session that reads AGENTS.md and the breakdown. Review the result, not a plan: run it, try every state, read the diff.',
           'In another fresh session, run the align check: "Compare the current build with every acceptance criterion in docs/prd.md and every state in docs/design-spec.md, then with the decisions in AGENTS.md. For each, report met, partly met or missing, with the file, test or screenshot that shows it. Do not fix anything." Save the result as `docs/align-check.md` and turn every missing item into a task.',
           'Open one small pull request yourself, such as a copy string that does not match the spec. Write the description, read the diff, ask your mentor to review it, then merge.',
@@ -201,7 +201,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
           id: 'breakdown',
           text: 'Merged docs/task-breakdown.md with vertical slices mapped to criteria and states',
         },
-        { id: 'agents-md', text: 'Merged a team AGENTS.md, with a CLAUDE.md that imports it' },
+        { id: 'agents-md', text: 'Merged a team AGENTS.md that every coding agent reads' },
         {
           id: 'align',
           text: 'Ran an align check on the first slice and saved docs/align-check.md',

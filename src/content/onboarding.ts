@@ -260,13 +260,13 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
       },
       {
         id: 'd',
-        text: 'Reference the product summary from CLAUDE.md, which every session loads.',
+        text: 'Reference the product summary from AGENTS.md, which every session loads.',
       },
       notSure,
     ],
     correct: 'd',
     explanation:
-      'Session 5: CLAUDE.md loads at the start of every session in that folder and can pull in your context file. Auto memory is notes Claude keeps for itself; skills are procedures.',
+      'Session 5: AGENTS.md loads at the start of every session in that folder and tells the agent to read your context file. Auto memory is notes Claude keeps for itself; skills are procedures.',
   },
   {
     id: 'd19',

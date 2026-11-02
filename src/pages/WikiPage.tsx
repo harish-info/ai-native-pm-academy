@@ -47,7 +47,7 @@ export function WikiPage() {
             <ul className="list-disc space-y-1 pl-5">
               <li>
                 <strong>Levels 1 and 2.</strong> <code>product-context.md</code> at the top of the
-                folder, then a short <code>CLAUDE.md</code> that points at it, under git.
+                folder, then a short <code>AGENTS.md</code> that points at it, under git.
               </li>
               <li>
                 <strong>Levels 3 and 4.</strong> Research, interviews, decisions, the PRD, the
@@ -56,7 +56,7 @@ export function WikiPage() {
               <li>
                 <strong>Level 5.</strong> The folder becomes a wiki with three layers: raw{' '}
                 <code>sources/</code> that never change, <code>wiki/</code> pages Claude writes and
-                cites, and the rules in <code>CLAUDE.md</code>. <code>wiki/index.md</code> lists the
+                cites, and the rules in <code>AGENTS.md</code>. <code>wiki/index.md</code> lists the
                 pages and <code>wiki/log.md</code> records each change.
               </li>
             </ul>

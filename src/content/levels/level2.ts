@@ -8,7 +8,7 @@ export const level2: Level = {
   summary:
     'Make your hypothesis testable as a clickable prototype. Set up a private agent workspace, decide the requirements, build one flow and publish a fictional-data demo through reviewed pull requests. Check behaviour, figures, accessibility and scope. Level 3 can still change the problem or stop the idea.',
   outcomes: [
-    'Run a private workspace for the quarter that Claude Code understands from its first message, with a `CLAUDE.md` you wrote and a clear line between your instructions and its auto memory.',
+    'Run a private workspace for the quarter that Claude Code understands from its first message, with an `AGENTS.md` you wrote and a clear line between your instructions and its auto memory.',
     'Let Claude Code interview you into `REQUIREMENTS.md`, then build and steer a multi-screen prototype by reviewing the running result.',
     'Keep long builds on track with fresh sessions and short handoff notes.',
     'Publish through GitHub: commits, branches, a protected main branch, pull requests whose diffs you can read, and a live URL.',
@@ -32,7 +32,7 @@ export const level2: Level = {
       competencies: ['coding-agents', 'knowledge-management'],
       xp: 125,
       mentorReview: 'recommended',
-      goal: 'Set up `workspace/` as the private home for your PM practice: one folder per workstream, your Level 1 files moved in, and a `CLAUDE.md` that points every Claude Code session at `product-context.md`.',
+      goal: 'Set up `workspace/` as the private home for your PM practice: one folder per workstream, your Level 1 files moved in, and an `AGENTS.md` that points every agent session at `product-context.md`.',
       whyItMatters:
         'Your pitch page landed and your manager wants a prototype next. From here the work spreads across research, notes, decisions and code, and an agent is only as useful as the context it can reach. A tidy folder with one short instructions file is the simplest knowledge system that works with Claude Code today and with whatever tool comes next. Every later session, and the personal PM OS you build in Level 5, grows out of this folder.',
       learn: [
@@ -49,7 +49,7 @@ export const level2: Level = {
           paragraphs: [
             'Claude Code also runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. Two words you will hear: a **CLI** (command line interface) is any program you use by typing instead of clicking, and a **TUI** (text user interface) is a CLI that draws boxes and menus inside the terminal. Claude Code is a TUI, which is why it feels like a chat app once it is running: you type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks first.',
             "Use **Warp** rather than the terminal that came with your computer: it is free, and you click and edit what you typed like normal text. Setup is the only part where you type commands. Once, paste the install line from [Anthropic's terminal guide](https://code.claude.com/docs/en/terminal-guide). Each time after that, type `cd` and a space, drag your workspace folder onto the window, press Enter, and type `claude`. From then on you type sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran.",
-            'If you switch to the desktop **Code** tab, nothing else changes: same agent, same `CLAUDE.md`, and you can switch back at any time. In the terminal, five keys are worth knowing:',
+            'If you switch to the desktop **Code** tab, nothing else changes: same agent, same `AGENTS.md`, and you can switch back at any time. In the terminal, five keys are worth knowing:',
           ],
           bullets: [
             '**Esc** stops Claude mid-task, safely. Then say what you want instead.',
@@ -67,7 +67,7 @@ export const level2: Level = {
             'Keep the rules simple: one folder per workstream, a short context file at the top, lowercase hyphenated file names, dates as YYYY-MM-DD, and raw material (articles, exports, transcripts) saved unedited in `sources/` so you can always go back to what was actually said. When a draft is superseded, move it to an `archive/` folder rather than leaving two versions side by side.',
           ],
           bullets: [
-            '`CLAUDE.md`: instructions for Claude, written by you. Short.',
+            '`AGENTS.md`: instructions for any agent, written by you. Short.',
             '`product-context.md`: the product, users, glossary, constraints and open decisions from Session 2.',
             '`sources/`: raw material, never edited after saving.',
             '`learning/`: your glossary, model comparison and delegation audit.',
@@ -77,12 +77,13 @@ export const level2: Level = {
           ],
         },
         {
-          heading: 'CLAUDE.md and auto memory',
+          heading: 'AGENTS.md, CLAUDE.md and auto memory',
           paragraphs: [
-            '**`CLAUDE.md`** is loaded at the start of every session in that folder. You write it. A line such as `@product-context.md` on its own pulls that file in too, so every session starts knowing what your product is. Other agents read a file called `AGENTS.md` instead; if you ever use one, a `CLAUDE.md` whose first line is `@AGENTS.md` keeps a single source of truth.',
+            '**`AGENTS.md`** is the instructions file for your workspace, and you write it. It is an open format that most coding agents, including Claude Code, Codex and Cursor, read at the start of every session in that folder, so one file works whichever agent you use. Tell it to read `product-context.md` first. In Claude Code, a line such as `@product-context.md` on its own also pulls that file in, so every session starts knowing what your product is.',
+            '**`CLAUDE.md`** is for Claude only. Recent versions of Claude Code read `AGENTS.md` directly, as long as the folder has no `CLAUDE.md`; once one exists, Claude reads that instead. So skip it unless you need a rule only Claude should follow, or your version cannot read `AGENTS.md`. If you add one, make its first line `@AGENTS.md`, so `AGENTS.md` stays the single source of truth.',
             '**Auto memory** is notes Claude writes for itself as it works, for example a command that worked or a preference you corrected. It lives in your user folder rather than the workspace, and you can view and edit it with the `/memory` command.',
-            'The split is simple. Anything that must hold in every session, or that someone else would need to know, you write in `CLAUDE.md` yourself: what the workspace is, the folder map, the conventions, what must never happen. Auto memory is for small things Claude picks up along the way. Look at it now and then, delete what is wrong and move anything important into `CLAUDE.md`. Status that changes weekly belongs in a workstream README, not in either.',
-            'Keep `CLAUDE.md` short and check that a fresh session picks it up. It is guidance, not a lock: Claude usually follows it, but anything that must never happen needs a real control, such as a permission setting or keeping the file out of the folder.',
+            'The split is simple. Anything that must hold in every session, or that someone else would need to know, you write in `AGENTS.md` yourself: what the workspace is, the folder map, the conventions, what must never happen. Auto memory is for small things Claude picks up along the way. Look at it now and then, delete what is wrong and move anything important into `AGENTS.md`. Status that changes weekly belongs in a workstream README, not in either.',
+            'Keep `AGENTS.md` short and check that a fresh session picks it up. It is guidance, not a lock: Claude usually follows it, but anything that must never happen needs a real control, such as a permission setting or keeping the file out of the folder.',
           ],
         },
         {
@@ -110,12 +111,12 @@ export const level2: Level = {
       resources: [
         {
           resourceId: 'claude-code-101',
-          why: 'The official beginner course: installation, the everyday loop of asking, reviewing and committing, and how `CLAUDE.md` shapes every session. Skip the parts on subagents, MCP and hooks.',
+          why: "The official beginner course: installation, the everyday loop of asking, reviewing and committing, and how `CLAUDE.md`, Claude's own version of `AGENTS.md`, shapes every session. Skip the parts on subagents, MCP and hooks.",
           required: true,
         },
         {
           resourceId: 'claude-code-memory',
-          why: 'The official page on `CLAUDE.md` versus auto memory, and why short instructions work better.',
+          why: 'The official page on `CLAUDE.md`, `AGENTS.md` and auto memory: when Claude Code reads `AGENTS.md`, and why short instructions work better.',
           required: true,
         },
         {
@@ -146,16 +147,16 @@ export const level2: Level = {
       ],
       task: {
         summary:
-          'Install Claude Code, create `workspace/`, move your Level 1 files in, write `CLAUDE.md` with Claude, and make your first commits.',
+          'Install Claude Code, create `workspace/`, move your Level 1 files in, write `AGENTS.md` with Claude, and make your first commits.',
         steps: [
           'Open Warp, install Claude Code with the line from the terminal guide and sign in with your Claude Pro plan. If the terminal stops you, use the **Code** tab in the Claude desktop app instead. Claude Code needs Git on your computer; if it reports that Git is missing, install it with your mentor before going further.',
           'Create a folder called `workspace` somewhere private on your own computer, not in a shared or synced work folder. Copy in everything from your Level 1 `learning-notes/` folder: `product-context.md`, `glossary.md`, `model-comparison.md`, `delegation-audit.md`, `fact-sheet.md`, `pitch-notes.md` and anything else you kept there.',
           'Open the folder in Claude Code. Ask it to start a git repository and commit the files exactly as they are, before anything moves. This is your first save point.',
-          'Run the prompt below. Read the proposed folder map and `CLAUDE.md` draft, push back on anything that does not match how you work, then let Claude make the changes.',
+          'Run the prompt below. Read the proposed folder map and `AGENTS.md` draft, push back on anything that does not match how you work, then let Claude make the changes.',
           'Ask Claude to show what changed since the first commit. Check that every Level 1 file still exists, now in its folder, and that nothing was rewritten. Commit.',
-          'Edit `CLAUDE.md` yourself: cut any line a fresh session would not need, and add one rule you care about, such as the spelling you use.',
-          'Test it. Start a new session and ask: "What is this workspace for, and where would you save a new competitor article?" Claude should answer from `CLAUDE.md` and `product-context.md` without hints. If it cannot, fix the file, not the question.',
-          'Run `/memory` and look at what auto memory holds, if anything. Note one thing you would keep there and one thing that belongs in `CLAUDE.md` instead.',
+          'Edit `AGENTS.md` yourself: cut any line a fresh session would not need, and add one rule you care about, such as the spelling you use.',
+          'Test it. Start a new session and ask: "What is this workspace for, and where would you save a new competitor article?" Claude should answer from `AGENTS.md` and `product-context.md` without hints. If it cannot, fix the file, not the question.',
+          'Run `/memory` and look at what auto memory holds, if anything. Note one thing you would keep there and one thing that belongs in `AGENTS.md` instead.',
         ],
       },
       agentPrompt: {
@@ -168,8 +169,8 @@ Read every file in the folder first, starting with product-context.md.
 Goal: organize the workspace so that a fresh Claude Code session understands it from its first message.
 
 1. Propose a folder map: one folder per workstream (at least sources/, learning/, pitch/, research/ and archive/), with a one-line purpose each and which of my current files goes where. Do not rename my files.
-2. Draft CLAUDE.md, at most 50 lines, with these sections:
-   - What this workspace is (two sentences) and an @product-context.md line so it loads in every session
+2. Draft AGENTS.md, at most 50 lines, with these sections:
+   - What this workspace is (two sentences), an instruction to read product-context.md first, and an @product-context.md line so Claude Code loads it in every session
    - Folder map (one line per folder)
    - Conventions: Markdown, lowercase-hyphenated file names, dates as YYYY-MM-DD, raw material saved unedited in sources/
    - Rules: fictional or public data only; never edit files in sources/; ask before deleting anything or moving more than five files; when a file is superseded, move it to archive/
@@ -177,26 +178,26 @@ Goal: organize the workspace so that a fresh Claude Code session understands it 
 3. Draft a README.md for each folder: two or three lines on what belongs there and what does not.
 4. List up to five gaps or contradictions you noticed in product-context.md, as questions for me. Do not edit that file.
 
-Show me the folder map and the CLAUDE.md draft before you move anything. When I agree, make the changes and tell me what to check.`,
+Show me the folder map and the AGENTS.md draft before you move anything. When I agree, make the changes and tell me what to check.`,
       },
       expectedOutput: [
         'A `workspace/` folder with one folder per workstream, each with a short README.',
         'Your Level 1 files moved in, unchanged in content.',
-        'A `CLAUDE.md` of 30 to 60 lines that loads `product-context.md` and states the folder map, conventions and rules.',
+        'An `AGENTS.md` of 30 to 60 lines that loads `product-context.md` and states the folder map, conventions and rules.',
         'At least two commits: the files as they arrived, and the organized workspace.',
         'A short list of open questions about `product-context.md`.',
       ],
       artifact:
-        '`workspace/` with `CLAUDE.md` pointing at `product-context.md`, one folder per workstream and the Level 1 files moved in, under git.',
+        '`workspace/` with `AGENTS.md` pointing at `product-context.md`, one folder per workstream and the Level 1 files moved in, under git.',
       verification: [
         'A fresh session answers "What is this workspace for, and where would a new competitor article go?" correctly, without hints.',
         'The diff between your first and second commit shows files moved, not rewritten.',
-        '`CLAUDE.md` is under 60 lines and every line is something a fresh session needs.',
+        '`AGENTS.md` is under 60 lines and every line is something a fresh session needs.',
         'The workspace is on your own computer, not in a shared, synced or public location, and has no remote or only a private one.',
         'Nothing in the folder is employer material, customer data or personal detail about other people.',
       ],
       reflectionPrompts: [
-        'Which line in `CLAUDE.md` do you expect to matter most, and why?',
+        'Which line in `AGENTS.md` do you expect to matter most, and why?',
         'Which file changes could git recover, and which actions needed a different permission boundary?',
       ],
       checklist: [
@@ -211,7 +212,7 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
         },
         {
           id: 'claude-md',
-          text: 'Wrote and trimmed `CLAUDE.md`, which loads `product-context.md`',
+          text: 'Wrote and trimmed `AGENTS.md`, which loads `product-context.md`',
         },
         { id: 'fresh-test', text: 'Checked that a fresh session understands the workspace' },
         { id: 'memory-checked', text: 'Looked at auto memory with `/memory`' },
@@ -277,7 +278,7 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
         {
           heading: 'Give the prototype its own folder and repository',
           paragraphs: [
-            'Claude builds the prototype in `prototype/` inside your workspace. Because it will be public on GitHub in Session 7, it gets its own git history, separate from your private notes, and the workspace is told to ignore that folder. Give it its own short `CLAUDE.md` with the commands to run it and the hard rules: fictional data only, no real systems, accounts or keys.',
+            'Claude builds the prototype in `prototype/` inside your workspace. Because it will be public on GitHub in Session 7, it gets its own git history, separate from your private notes, and the workspace is told to ignore that folder. Give it its own short `AGENTS.md` with the commands to run it and the hard rules: fictional data only, no real systems, accounts or keys.',
             'Ask for a small web app that runs in the browser, built with React, TypeScript and Vite. That is a common, well-documented stack that agents handle well, and it can go live on GitHub Pages for free.',
           ],
         },
@@ -306,7 +307,7 @@ Show me the folder map and the CLAUDE.md draft before you move anything. When I 
           'Use product-context.md to choose one user task worth exploring. Pick the three to five screens needed to complete it, starting with the main task screen. Note them in a sentence or two.',
           'In Claude Code, with the workspace open, run the interview prompt below. Answer one question at a time in your own words. Say "I do not know" when you do not; it becomes an open question.',
           'Review the requirements yourself. Create prototype/, ignore it in the parent workspace repository and save the canonical requirements as prototype/REQUIREMENTS.md. Keep a private decision note in the workspace, not a second competing requirements file.',
-          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `CLAUDE.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with your mentor; this is the only install in this session.',
+          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `AGENTS.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with your mentor; this is the only install in this session.',
           'Ask Claude to start the app and give you the local link. Click through every screen with `REQUIREMENTS.md` beside you, on a laptop and at phone width. Write down everything that is wrong or missing.',
           'Fix the list one change at a time, with screenshots where they help. Check each change in the browser, then ask Claude to commit it with a clear message.',
           'Check two figures on screen by hand against the fictional data file. If they do not match, that is the next fix.',
@@ -332,7 +333,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
       },
       expectedOutput: [
         '`REQUIREMENTS.md` with three to five screens, each with states and a "done when" example, plus open questions.',
-        'A running prototype in `prototype/` with its own git history, a short `CLAUDE.md` and a visible "Prototype with fictional data" label.',
+        'A running prototype in `prototype/` with its own git history, a short `AGENTS.md` and a visible "Prototype with fictional data" label.',
         'Several small commits, one per accepted change.',
         'A `HANDOFF.md` that a fresh session used to continue the work.',
       ],
@@ -606,7 +607,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
         where: 'In a fresh session, in the prototype folder, on the branch of an open pull request',
         text: `Review the changes on this branch compared with main. You did not write them, so read them fresh. Do not edit any files.
 
-Context: this is my product prototype, the product described in product-context.md, running on fictional records and events only. Read CLAUDE.md, REQUIREMENTS.md, docs/review-checklist.md and the pull request description first.
+Context: this is my product prototype, the product described in product-context.md, running on fictional records and events only. Read AGENTS.md, REQUIREMENTS.md, docs/review-checklist.md and the pull request description first.
 
 Check, in this order:
 1. Requirements: does the change do what the pull request says, and does it still meet every "done when" example it touches? Check any change to totals, dates and status rules by hand for two cases from the fictional data.
@@ -754,7 +755,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
         },
         {
           id: 'c',
-          text: 'In `CLAUDE.md`, written by you, where it is read at the start of every session.',
+          text: 'In `AGENTS.md`, written by you, where it is read at the start of every session.',
         },
         {
           id: 'd',
@@ -763,7 +764,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       ],
       correct: 'c',
       explanation:
-        "Rules that must hold in every session belong in the instructions file you write and review. Auto memory is Claude's own notes: it may or may not record the rule, in its own words. The glossary is for terms, not rules, and repeating yourself is fragile. Even in `CLAUDE.md` a rule is guidance, so git and review stay the real safety net.",
+        "Rules that must hold in every session belong in the instructions file you write and review. Auto memory is Claude's own notes: it may or may not record the rule, in its own words. The glossary is for terms, not rules, and repeating yourself is fragile. Even in `AGENTS.md` a rule is guidance, so git and review stay the real safety net.",
     },
     {
       id: 'q2-2',
@@ -777,7 +778,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
         },
         {
           id: 'b',
-          text: 'Add a line to `CLAUDE.md` telling Claude to ignore any file older than two weeks.',
+          text: 'Add a line to `AGENTS.md` telling Claude to ignore any file older than two weeks.',
         },
         {
           id: 'c',
@@ -962,7 +963,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
     deliverables: [
       {
         id: 'workspace',
-        text: '`workspace/` under git, with a short `CLAUDE.md` that loads `product-context.md`, one folder per workstream and your Level 1 files filed.',
+        text: '`workspace/` under git, with a short `AGENTS.md` that loads `product-context.md`, one folder per workstream and your Level 1 files filed.',
       },
       {
         id: 'requirements',
@@ -993,7 +994,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       correctness:
         'Every screen in `REQUIREMENTS.md` works on the live site with its states; figures match hand calculations from the fictional data; fixes did what their bug reports asked.',
       quality:
-        'Requirements are short, specific and free of invented decisions; pull requests are small and well described; the prototype passes the five accessibility checks; `CLAUDE.md` and the handoff are short and current.',
+        'Requirements are short, specific and free of invented decisions; pull requests are small and well described; the prototype passes the five accessibility checks; `AGENTS.md` and the handoff are short and current.',
       independence:
         'You ran Claude Code, git and GitHub yourself, steered by reviewing results, used fresh sessions and handoffs when context drifted, and used your mentor for review rather than for doing the work.',
       judgment:

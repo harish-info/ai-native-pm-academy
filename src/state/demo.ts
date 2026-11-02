@@ -103,8 +103,8 @@ export function buildDemoData(now: Date): LearnerData {
   if (s5) {
     data.lessons[s5.id] = complete(
       s5.checklist,
-      'My notes were scattered across three apps. One folder with a short CLAUDE.md is already easier for me and for Claude Code.',
-      'CLAUDE.md',
+      'My notes were scattered across three apps. One folder with a short AGENTS.md is already easier for me and for Claude Code.',
+      'AGENTS.md',
       2,
     )
   }

@@ -34,21 +34,21 @@ export const starterKit: StarterKit = {
     {
       id: 'week-1',
       when: 'Week 1',
-      title: 'Write and think with Claude',
-      intro: 'A Claude account and somewhere to keep your notes as Markdown files.',
+      title: 'Write and think with an agent',
+      intro: 'An agent app to chat with, and somewhere to keep your notes as Markdown files.',
       lessons: ['s1', 's2'],
       tools: [
         {
           name: 'Claude desktop app',
           need: 'Recommended',
-          what: 'Chat, projects and artifacts now, and Claude Code from Session 5.',
+          what: 'The agent app this course uses: chat, projects and artifacts now, and Claude Code from Session 5.',
           facts: 'Free app for Mac and Windows. The free plan is enough in Week 1.',
           resourceId: 'claude-download',
         },
         {
           name: 'Obsidian',
           need: 'Recommended',
-          what: 'A notes app that keeps every note as a plain Markdown file on your computer, so Claude can read your notes directly later in the course.',
+          what: 'A notes app that keeps every note as a plain Markdown file on your computer, so your agent can read your notes directly later in the course.',
           facts:
             'Free, no account needed. Optional Sync costs $4 to $5 a month; you do not need it.',
           resourceId: 'obsidian',
@@ -58,15 +58,15 @@ export const starterKit: StarterKit = {
     {
       id: 'before-s5',
       when: 'Before Session 5',
-      title: 'Let Claude work on your files',
+      title: 'Let an agent work on your files',
       intro:
-        'Session 5 installs Claude Code, which needs a Claude Pro plan (from $20 a month), and runs it in Warp. If the terminal stops you, the Code tab in the desktop app is the same agent. Sessions 5 to 7 also set up Git, Node.js and a GitHub account, with Claude and your mentor.',
+        'Session 5 installs a coding agent and runs it in Warp. The course uses Claude Code, which needs a Claude Pro plan (from $20 a month); if the terminal stops you, the Code tab in the Claude desktop app is the same agent. Sessions 5 to 7 also set up Git, Node.js and a GitHub account, with your agent and your mentor.',
       lessons: ['s5'],
       tools: [
         {
           name: 'Warp',
           need: 'Recommended',
-          what: 'The terminal for this course, instead of the one that came with your computer. It feels like a modern app: you click to place the cursor and edit what you typed like normal text. Claude Code runs inside it.',
+          what: 'The terminal for this course, instead of the one that came with your computer. It feels like a modern app: you click to place the cursor and edit what you typed like normal text. Your coding agent runs inside it.',
           facts:
             'Free for Mac, Windows and Linux. Its own AI features are optional and need an account.',
           resourceId: 'warp',
@@ -74,7 +74,7 @@ export const starterKit: StarterKit = {
         {
           name: 'VS Code',
           need: 'Optional',
-          what: 'A free editor that shows your folder and every change Claude makes, side by side. Worth adding once you want to see exactly what changed. Add the [Claude Code extension](https://code.claude.com/docs/en/vs-code) to it.',
+          what: 'A free editor that shows your folder and every change your agent makes, side by side. Worth adding once you want to see exactly what changed. Add the [Claude Code extension](https://code.claude.com/docs/en/vs-code) to it.',
           facts: 'Free. The extension needs VS Code 1.94 or later and a paid Claude plan.',
           resourceId: 'vs-code',
         },
@@ -83,9 +83,9 @@ export const starterKit: StarterKit = {
     {
       id: 'decks',
       when: 'Session 16',
-      title: 'Make presentations with Claude',
+      title: 'Make presentations with an agent',
       intro:
-        'A skill is a set of instructions Claude loads for one kind of job. Read its `SKILL.md` first, as Session 5 teaches, then ask Claude to install it.',
+        'A skill is a set of instructions an agent loads for one kind of job. Read its `SKILL.md` first, as Session 5 teaches, then ask your agent to install it.',
       lessons: ['s16'],
       tools: [
         {
@@ -108,6 +108,6 @@ export const starterKit: StarterKit = {
   ],
   otherAgents: [
     '**Cowork**, in the Claude desktop app, runs longer multi-step tasks on your files. It needs a paid plan. This course uses Claude Code because you see and keep every file it writes. [Cowork guide](https://claude.com/blog/the-claude-cowork-product-guide).',
-    "**Codex** is OpenAI's coding agent, inside the ChatGPT desktop app. The ideas in this course carry over: it reads `AGENTS.md` where Claude reads `CLAUDE.md`. [Codex docs](https://learn.chatgpt.com/docs).",
+    "**Codex** is OpenAI's coding agent, inside the ChatGPT desktop app. The ideas in this course carry over, including `AGENTS.md`, the instructions file both agents read. [Codex docs](https://learn.chatgpt.com/docs).",
   ],
 }
