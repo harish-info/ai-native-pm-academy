@@ -383,7 +383,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
       number: 15,
       title: 'Launch and learn',
       difficulty: 'Intermediate',
-      minutes: 120,
+      minutes: 135,
       tools: ['Claude Code', 'A spreadsheet'],
       prerequisites: ['s14'],
       competencies: ['product-discovery', 'ai-leadership'],
@@ -411,6 +411,13 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
           paragraphs: [
             'Take the metrics from your PRD and write the thresholds down before anyone sees the feature. A **success metric** measures the outcome you want, such as tasks completed or time to resolve. A **leading indicator** moves earlier, such as how many people try the core workflow. A **guardrail** watches for cost, such as errors, unwanted actions or support tickets. For each one, write what you divide by and over what period. A launch that hits the success metric and breaks the guardrail is not a success.',
             'For an AI feature, add the quality signals from Session 14: the hand-off rate, complaints that mention the assistant, and a weekly sample of real answers read by a person. A US regulator found that poor chatbots that block access to a person harm customers, so "people can reach a human" is a guardrail, not a nice-to-have.',
+          ],
+        },
+        {
+          heading: 'A dashboard someone checks every day',
+          paragraphs: [
+            'The monitoring in your plan needs one place to look. A launch dashboard shows the success metric, the leading indicator and every guardrail by day, each with the threshold you wrote before launch drawn as a line on its chart. Whoever checks it on a bad morning sees in seconds whether a line has been crossed.',
+            'Use the rules from Session 11, and keep it boring: the same charts in the same order with the same scales every day, and when the data was last updated at the top. A dashboard people check daily should never surprise them with its layout, only with its numbers.',
           ],
         },
         {
@@ -456,16 +463,27 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
           why: 'A regulator report on chatbots that block access to a person, and why that belongs in your launch guardrails.',
           required: false,
         },
+        {
+          resourceId: 'uk-dashboard-testing',
+          why: 'A checklist for dashboards other people rely on: contrast, never colour alone, and a table beside every chart.',
+          required: false,
+        },
+        {
+          resourceId: 'tableau-dashboard-practices',
+          why: 'Put the most important view top left and limit the number of views.',
+          required: false,
+        },
       ],
       task: {
         summary:
-          'Write the launch plan with metrics and thresholds, compute a fixed sample size, generate fictional experiment results, write the readout, and close the loop in the workspace.',
+          'Write the launch plan with metrics and thresholds, compute a fixed sample size, generate fictional experiment results, build a launch dashboard, write the readout, and close the loop in the workspace.',
         steps: [
           'Run the agent prompt below. Claude Code drafts `launch-plan.md` from the PRD, the eval report and your impact estimate, and shows its sample size working.',
           'Check the sample size yourself in a spreadsheet, with the rule-of-thumb formula in the Evan Miller article. You need the current rate (for example 20% of users complete the task) and the smallest lift worth acting on (for example 3 percentage points). The formula works for yes-or-no metrics such as "completed the task". For averages such as time spent, ask an analyst.',
           'Edit the plan: name an owner for every item, write the rollback thresholds as numbers, and add one stage entry condition you would actually enforce.',
           'In a fresh session, ask Claude Code to generate `experiment-results.csv`: fictional daily results for a control and a treatment group over two weeks, at the sample size in your plan, with a fixed random seed. Ask it to write its assumptions, including the true effect it used, to `results-assumptions.md`. Do not open that file until your readout is written.',
           'Before you look at the result, check the data: are the two groups about the same size, are there duplicate users or missing days, and did each group see the version it was meant to? Compare everyone assigned to each group, not only the people who used the feature. Work out the difference in percentage points with its range, and check one number by hand.',
+          'Ask Claude Code to build `launch-dashboard.html` with a script that reads `experiment-results.csv`: each metric by day for both groups, every threshold from your plan drawn as a line, counts beside rates, and the date range and a SIMULATED label at the top. Check one number against your own calculation.',
           'Write experiment-readout.md: label the results SIMULATED, then recommend ship, iterate, inconclusive or stop. Include the result and its range, the threshold you set, the guardrails, the running cost and the next decision.',
           'Now open `results-assumptions.md`. Did your readout recover the true effect? Note what you would change in your method.',
           'Close the loop: update the open decisions in `product-context.md`, add the decision and its reason to your decision log, and add any new eval cases to `eval-set.md`.',
@@ -496,6 +514,7 @@ Done when: every section exists and you have listed the proposed items for my de
       expectedOutput: [
         'launch-plan.md with stages, metrics and thresholds decided in advance, a sample size with its working, owners and rollback criteria',
         'experiment-results.csv generated with a fixed seed, and its sealed assumptions file',
+        'launch-dashboard.html generated from the results, with every threshold drawn on its chart',
         'experiment-readout.md with the decision first, evidence against the thresholds, and a next step',
         'product-context.md, the decision log and eval-set.md updated with what you learned',
       ],
@@ -519,6 +538,7 @@ Done when: every section exists and you have listed the proposed items for my de
           text: 'Set success, leading and guardrail thresholds before seeing any results',
         },
         { id: 'sample-size', text: 'Computed and checked a fixed sample size' },
+        { id: 'dashboard', text: 'Built a launch dashboard with every threshold on its chart' },
         { id: 'readout', text: 'Wrote experiment-readout.md with the decision in the first line' },
         { id: 'truth-check', text: 'Compared your readout with the sealed assumptions' },
         {
@@ -536,7 +556,12 @@ Done when: every section exists and you have listed the proposed items for my de
       title: 'Presentations with agents',
       difficulty: 'Intermediate',
       minutes: 120,
-      tools: ['Claude Slides or your existing slide tool', 'Claude', 'Claude Code'],
+      tools: [
+        'Claude Slides or your existing slide tool',
+        'Claude',
+        'Claude Code',
+        'A presentation skill (optional)',
+      ],
       prerequisites: ['s15'],
       competencies: ['ai-leadership', 'ux-prototyping'],
       xp: 125,
@@ -564,12 +589,22 @@ Done when: every section exists and you have listed the proposed items for my de
         {
           heading: 'Build the deck with an agent',
           paragraphs: [
-            'Write the outline in Markdown first: the SCQA, then one line per slide with its title sentence, the evidence and the chart it needs. Build the deck in your existing slide tool, or follow the linked **Claude Slides** tutorial. Check every generated claim and number, then export a format your audience can open, such as PPTX or PDF.',
-            'Then make it pleasing to look at, on purpose:',
+            'Write the outline in Markdown first: the SCQA, then one line per slide with its title sentence, the evidence and the chart it needs. Then pick a route:',
+          ],
+          bullets: [
+            '**Your existing slide tool, or Claude Slides.** Follow the linked tutorial. Best when others will edit the deck.',
+            "**A PowerPoint file from Claude Code.** Install Anthropic's `pptx` skill and ask Claude to build the deck from your outline and your charts.",
+            '**One HTML file.** Ask for "a single self-contained HTML deck, arrow keys to move, styles inline". It opens in any browser, the charts can be the real ones from your dashboard, and you print it to PDF to share. The `frontend-slides` skill does this well, and `frontend-design` keeps it from looking like every other AI deck.',
+          ],
+        },
+        {
+          heading: 'Make it pleasing to look at, on purpose',
+          paragraphs: [
+            'Whichever route you took, check every generated claim and number, and export a format your audience can open, such as PPTX or PDF. Then work on the look:',
           ],
           bullets: [
             'One palette and one type scale on every slide, with enough contrast and no meaning carried by colour alone.',
-            'Real charts built from `experiment-results.csv`, with labelled axes and the takeaway in the title. Check every number against the readout.',
+            'Real charts from your launch dashboard, built from `experiment-results.csv`, with labelled axes and the takeaway in the title. Check every number against the readout.',
             'Progressive reveal or animation only where it helps understanding, such as building a chart one series at a time.',
             'Speaker notes with what you will say, so the slides can stay sparse.',
           ],
@@ -613,6 +648,16 @@ Done when: every section exists and you have listed the proposed items for my de
         {
           resourceId: 'slidev-guide',
           why: 'Markdown slides with click-by-click reveals, if you want to try the Challenge 8 route.',
+          required: false,
+        },
+        {
+          resourceId: 'anthropic-skills',
+          why: 'The `pptx` skill for real PowerPoint files and `frontend-design` for slides that do not look generic.',
+          required: false,
+        },
+        {
+          resourceId: 'frontend-slides',
+          why: 'A skill that builds the deck as one HTML file with arrow-key navigation, if you take the HTML route.',
           required: false,
         },
       ],

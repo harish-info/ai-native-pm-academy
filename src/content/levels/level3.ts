@@ -333,13 +333,13 @@ Rules:
       number: 11,
       title: 'Data and prioritisation',
       difficulty: 'Intermediate',
-      minutes: 120,
+      minutes: 135,
       tools: ['Claude Code', 'A spreadsheet (Google Sheets, Excel or Numbers)'],
       prerequisites: ['s10'],
       competencies: ['product-discovery', 'technical-collaboration'],
       xp: 125,
       mentorReview: 'optional',
-      goal: 'Generate a fictional event log for your product with Claude Code, analyse the funnel, check the key numbers yourself, estimate the impact of your opportunity as a range, and turn everything you know into an evidence-weighted list of bets.',
+      goal: 'Generate a fictional event log for your product with Claude Code, analyse the funnel, check the key numbers yourself, show the result on a one-page dashboard, estimate the impact of your opportunity as a range, and turn everything you know into an evidence-weighted list of bets.',
       whyItMatters:
         'Your interviews say people struggle with one thing. Then an engineer asks how many people actually hit it, and how often. Interviews tell you why; data tells you how many. At work, the moment the two disagree is often the most useful one in discovery. Here the data is fictional, so you practise the method, not the finding. Claude Code can generate a dataset, analyse it and draft a priority list in an hour. It can also produce a confident chart from a wrong denominator. The skill is knowing which numbers to check by hand before anyone makes a decision on them.',
       learn: [
@@ -371,6 +371,27 @@ Rules:
           ],
         },
         {
+          heading: 'Show the result on one page',
+          paragraphs: [
+            'Your engineer, your designer and your manager will not read `funnel-analysis.md`. They will look at a page for thirty seconds. A good dashboard answers one question for one audience, such as "where do new users drop out?", and puts the answer where the eye lands first. Agents make this cheap, so make it normal: whenever numbers need to be understood quickly, ask for a page.',
+          ],
+          bullets: [
+            '**The question, the audience, the date range and the data source** in the first lines.',
+            '**One headline number first**, large, then no more than four or five charts. If everything is highlighted, nothing is.',
+            '**Counts beside every percentage**, and your definitions on the page, so nobody has to ask "out of how many?"',
+            '**Plain charts**: bars to compare groups, a line for change over time, a funnel as bars. No pie with many slices, no 3D, no gauges.',
+            '**Colour only for meaning**: one neutral colour and one highlight for what needs attention, with text labels so it still reads in black and white.',
+            '**Honest labels**: fictional data says so on the page.',
+          ],
+        },
+        {
+          heading: 'Build it from the data, then check it',
+          paragraphs: [
+            'Ask Claude Code for one HTML file built by a script from the CSV, never with numbers typed in. If the data changes, you run the script again instead of editing the page. Then check two numbers on the page against your own pivot table. A finished-looking chart is trusted more than a table, so a wrong denominator does more damage on a dashboard than anywhere else.',
+            'This page answers a question once. A dashboard someone checks every morning, with thresholds that tell them when to act, comes in Session 15.',
+          ],
+        },
+        {
           heading: 'Estimate impact as a range, then score with RICE',
           paragraphs: [
             'Write the impact as a sum with units. For example: 1,200 eligible users a month, times 5 more completions per 100 users, gives 60 more completed tasks a month. That is a count of tasks, not a new percentage. If you turn it into hours saved or money, show that step separately. Give a low, base and high version, and label each input with where it came from: the data, the interviews, the market map or your own assumption. A single precise number gets trusted more than it deserves.',
@@ -395,16 +416,32 @@ Rules:
           why: "Anthropic's product management plugin for Claude Code helps with roadmaps and research synthesis; try it on your bets list and compare its output with your own.",
           required: false,
         },
+        {
+          resourceId: 'few-dashboard-confusion',
+          why: 'The classic definition of a dashboard: what matters for one objective, on one screen, readable at a glance.',
+          required: false,
+        },
+        {
+          resourceId: 'nng-dashboards-preattentive',
+          why: 'Why bars and lines read faster than pies, donuts and gauges.',
+          required: false,
+        },
+        {
+          resourceId: 'anthropic-build-dashboard-skill',
+          why: 'A skill that turns a CSV into an HTML dashboard. Override its defaults: no donuts, n beside every rate, never invent data.',
+          required: false,
+        },
       ],
       task: {
         summary:
-          'Generate and analyse a fictional event log for your product, verify two numbers by hand, write an impact estimate as a range, and build an evidence-weighted list of bets.',
+          'Generate and analyse a fictional event log for your product, verify two numbers by hand, show the result on a one-page dashboard, write an impact estimate as a range, and build an evidence-weighted list of bets.',
         steps: [
           'Create a `data/` folder in your workspace and run the agent prompt below in Claude Code. It generates `data/events.csv`, `data/assumptions.md` and a sealed `data/planted.md`. Do not open `planted.md` yet.',
           'Open `events.csv` in a spreadsheet and skim it: do the event names match your prototype, and does it cover about 2,000 users over 8 weeks?',
           'Write your definitions at the top of `data/funnel-analysis.md`: what counts as a user, an active user, and each funnel step.',
           'Start a fresh session and ask Claude Code to analyse `data/events.csv` without opening `assumptions.md` or `planted.md`: the funnel from first open to the main action, weekly retention, the step with the biggest drop, and one segment comparison. It must calculate with a script, show the counts behind every percentage, use your definitions, and add its findings to `funnel-analysis.md` with a confidence level for each.',
           'Recompute two of the reported numbers yourself with a pivot table. Record in `funnel-analysis.md` whether they match, and explain any difference.',
+          'Ask Claude Code to build `data/funnel-dashboard.html` with a script that reads `events.csv`: your question and audience at the top, the biggest drop as the headline number, then the funnel, weekly retention and your segment comparison, with counts beside every percentage, your definitions at the bottom and a "fictional data" label. Open it in a browser and check that two numbers match your pivot table.',
           'Now open `planted.md`. Did the analysis find the planted pattern? Note what it missed, and anything it reported that you did not plant. The data is made up: if it seems to disagree with your interviews, that is practice, not news about your users.',
           'With Claude, write `data/impact-estimate.md`: reach, behaviour change and value for your target opportunity, as a low, base and high range, with every input labeled data, interviews, market or assumption.',
           'List at least eight candidate bets from `ost.md`, the market map and your usability issues. In a fresh session, ask Claude to rank them given only the names and a one-line problem statement, and save the result.',
@@ -431,6 +468,7 @@ Use no real people, companies or figures.`,
       expectedOutput: [
         '`data/events.csv` with a fixed seed, `data/assumptions.md`, and `data/planted.md` opened only after the analysis',
         '`data/funnel-analysis.md`: definitions, funnel, retention, one segment, confidence levels, two hand-checked numbers and the planted-pattern result',
+        '`data/funnel-dashboard.html`: one page generated from the CSV, with the answer first and counts beside every percentage',
         '`data/impact-estimate.md`: a low, base and high range with every input labeled by source',
         '`data/prioritised-bets.md`: at least eight bets scored with RICE, compared with a blind AI ranking',
       ],
@@ -438,6 +476,7 @@ Use no real people, companies or figures.`,
       verification: [
         'Two numbers reported by Claude match your own pivot table, or the difference is explained.',
         'Every percentage in the analysis shows the counts behind it.',
+        'The dashboard was generated from the CSV by a script, and two of its numbers match your pivot table.',
         'You recorded whether the analysis found the planted pattern before reading anything else into the results.',
         'Every confidence score in the bets list points to evidence or is labeled assumption.',
         'The top bet links to the target opportunity on your tree.',
@@ -455,6 +494,10 @@ Use no real people, companies or figures.`,
         { id: 'definitions', text: 'Wrote metric definitions before reading any results' },
         { id: 'hand-check', text: 'Recomputed two numbers in a spreadsheet' },
         { id: 'planted', text: 'Checked the analysis against the planted pattern' },
+        {
+          id: 'dashboard',
+          text: 'Built a one-page dashboard from the data and checked two numbers',
+        },
         { id: 'impact', text: 'Wrote an impact estimate as a range with labeled inputs' },
         { id: 'bets', text: 'Scored at least eight bets with evidence-weighted RICE' },
       ],

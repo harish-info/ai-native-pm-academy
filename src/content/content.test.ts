@@ -9,6 +9,7 @@ import { courseArc, lessonGuides } from './teaching'
 import { lessonVisuals } from './illustrations'
 import { productLoop } from './productLoop'
 import { FIELD_GUIDE_AS_OF, fieldGuide } from './fieldGuide'
+import { STARTER_KIT_AS_OF, starterKit } from './starterKit'
 
 const allText = (value: unknown): string[] =>
   typeof value === 'string'
@@ -184,6 +185,28 @@ describe('field guide', () => {
   })
 })
 
+describe('starter kit', () => {
+  it('points at real sessions and at verified sources checked on its date', () => {
+    for (const id of starterKit.stages.flatMap((s) => s.lessons))
+      expect(
+        allLessons.some((l) => l.id === id),
+        id,
+      ).toBe(true)
+    const ids = [
+      ...starterKit.stages.flatMap((s) =>
+        s.tools.flatMap((t) => (t.resourceId ? [t.resourceId] : [])),
+      ),
+      ...starterKit.tips.flatMap((t) => t.resourceIds ?? []),
+    ]
+    for (const id of ids) {
+      const r = resourceById(id)
+      expect(r, id).toBeDefined()
+      expect(r!.status, id).toBe('verified')
+      if (id !== 'obsidian') expect(r!.verifiedOn, id).toBe(STARTER_KIT_AS_OF)
+    }
+  })
+})
+
 describe('wiki thread', () => {
   it('adds the wiki checklist item to every session and the milestone to every project', () => {
     for (const l of allLessons) expect(l.checklist.map((c) => c.id)).toContain('wiki-filed')
@@ -250,6 +273,7 @@ describe('writing style', () => {
       lessonVisuals,
       productLoop,
       fieldGuide,
+      starterKit,
     })
     const offenders = text.filter((t) => /[–—]/.test(t))
     expect(offenders).toEqual([])

@@ -19,6 +19,7 @@ const demoRoutes = [
   '#/case-study',
   '#/wiki',
   '#/field-guide',
+  '#/starter-kit',
   '#/settings',
   '#/onboarding/result',
   '#/nope',

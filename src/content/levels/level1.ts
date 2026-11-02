@@ -192,7 +192,7 @@ Rules:
       title: 'Give AI your product context',
       difficulty: 'Foundational',
       minutes: 90,
-      tools: ['Claude (Projects)', 'A text editor'],
+      tools: ['Claude (Projects)', 'A text editor or Obsidian'],
       prerequisites: ['s1'],
       competencies: ['prompting-context', 'ai-fundamentals'],
       xp: 100,
@@ -246,6 +246,13 @@ Rules:
           ],
         },
         {
+          heading: 'Write it in Markdown',
+          paragraphs: [
+            'Write `product-context.md` in **Markdown**: plain text with a few marks for structure. It opens in any editor on any computer, it is the format Claude and other agents read and write most reliably, and its headings let an agent jump straight to the part of a long file it needs. You already used it for your Session 1 notes.',
+            'Six marks cover almost everything: `#` and `##` for headings, `-` at the start of a line for a bullet, `1.` for a numbered step, `**bold**` for the one thing nobody should miss, `[label](link)` for a link, and a blank line between paragraphs. Any text editor works. Obsidian, a free notes app, shows the formatting as you type, and the [Starter kit](/starter-kit) has a one-screen cheat sheet.',
+          ],
+        },
+        {
           heading: 'Decide what to delegate: the 4Ds',
           paragraphs: [
             "Anthropic's AI Fluency course names four competencies. **Delegation**: deciding what work to give the AI and what to keep. **Description**: giving it the context and the definition of done. **Discernment**: judging what comes back. **Diligence**: owning the result, including being open about how it was made.",
@@ -273,6 +280,11 @@ Rules:
         {
           resourceId: 'openai-academy',
           why: 'Free introductory courses on working with AI assistants, if you want more guided practice on the same ideas.',
+          required: false,
+        },
+        {
+          resourceId: 'commonmark-help',
+          why: 'The standard Markdown marks on one page, with a ten-minute tutorial if you want to practise.',
           required: false,
         },
       ],
@@ -512,6 +524,17 @@ Rules:
           ],
         },
         {
+          heading: 'Markdown for files, HTML for pages',
+          paragraphs: [
+            'Your pitch page is **HTML**, the language every web browser reads. You do not write it: you describe the page and Claude writes it. An agent now makes a clear, good-looking page about as fast as a bulleted list, so you will choose between the two formats many times a week. The rule is short:',
+          ],
+          bullets: [
+            '**Markdown** for anything you or an agent will read, edit and keep: context files, notes, PRDs, decision logs, outlines. It is short, quick to change and easy to compare between versions.',
+            '**HTML** for anything a person will look at: a pitch page, a comparison, a diagram, a dashboard, a deck. Ask for one self-contained file that opens in a browser with a double click, with no install and no account.',
+            '**Facts live in Markdown.** Generate the page from your Markdown files and data, and when a fact changes, fix the file and regenerate. Otherwise the page quietly becomes a second version of the truth.',
+          ],
+        },
+        {
           heading: 'Start from your files, then change one thing at a time',
           paragraphs: [
             'Start from the files you already have. Building inside your PM workspace Project means `product-context.md` is already in context; attach `fact-sheet.md` so the page uses only checked facts. Say what the page is for, who will see it and what each section must contain.',
@@ -562,6 +585,16 @@ Rules:
         {
           resourceId: 'mckinnon-vibe-coding-pms',
           why: 'A PM leader on what prototypes prove and what they only appear to prove.',
+          required: false,
+        },
+        {
+          resourceId: 'thariq-html-effectiveness',
+          why: 'Why a single HTML file beats a long Markdown document when people need to read, compare or click through the result.',
+          required: false,
+        },
+        {
+          resourceId: 'willison-html-tools',
+          why: 'Patterns from more than a hundred small single-file HTML tools built with agents.',
           required: false,
         },
       ],

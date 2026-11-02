@@ -45,6 +45,14 @@ export const level2: Level = {
           ],
         },
         {
+          heading: 'A terminal is just another chat window',
+          paragraphs: [
+            'Claude Code also runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. With Claude Code inside, it is a chat box. You type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks before it runs.',
+            'Getting started takes two typed steps, once: paste the install line from Anthropic, then type `claude` in your workspace folder. After that you type plain sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran. The few keys worth knowing, such as Esc to stop a task, how to paste a screenshot and which terminal app to use, fit on one screen in the [Starter kit](/starter-kit).',
+            'Use whichever feels calmer, the desktop **Code** tab or a terminal. It is the same agent, reading the same `CLAUDE.md`, and you can switch at any time.',
+          ],
+        },
+        {
           heading: 'How to organise your workspace folder',
           illustration: 'workspace',
           paragraphs: [
@@ -106,6 +114,11 @@ export const level2: Level = {
         {
           resourceId: 'claude-code-permission-modes',
           why: 'Reference for auto mode and the other modes, if you want to see what each one allows.',
+          required: false,
+        },
+        {
+          resourceId: 'claude-code-terminal-guide',
+          why: 'If you choose the terminal: how to open one, install Claude Code and start it in your folder, written for first-time users.',
           required: false,
         },
         {
