@@ -66,11 +66,11 @@ export function StarterKitPage() {
             <p className="mt-1 max-w-3xl text-sm leading-relaxed text-stone-700 dark:text-stone-300">
               {inline(stage.intro)} Used from <SessionLinks ids={stage.lessons} />.
             </p>
-            <ul className="mt-3 grid items-start gap-3 md:grid-cols-2">
+            <ul className="mt-3 grid gap-3 md:grid-cols-2">
               {stage.tools.map((t) => (
                 <li
                   key={t.name}
-                  className="rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800/60"
+                  className="flex flex-col rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800/60"
                 >
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-semibold">
@@ -84,7 +84,7 @@ export function StarterKitPage() {
                       {inline(t.alternatives)}
                     </p>
                   )}
-                  <details className="mt-2">
+                  <details className="mt-auto pt-2">
                     <summary className="cursor-pointer font-medium text-stone-700 dark:text-stone-300">
                       Cost and setup
                     </summary>

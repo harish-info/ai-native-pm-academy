@@ -68,9 +68,9 @@ export const starterKit: StarterKit = {
           need: 'Recommended',
           what: 'Dictation: hold a key, speak, and your words appear in any app.',
           facts:
-            'Free and open source, for Mac, Windows and Linux. It runs on your computer, so your voice stays there. Speaking is faster than typing and you naturally say more, so the agent gets more context. OpenWhispr is also free and open source, for Mac, Windows and Linux. Wispr Flow has a limited free plan; Pro costs $15 a month, or $12 a month billed yearly.',
+            'Free and open source, for Mac, Windows and Linux. It runs on your computer, so your voice stays there. Speaking is faster than typing and you naturally say more, so the agent gets more context. Wispr Flow, for Mac, Windows, iOS and Android, has a limited free plan; Pro costs $15 a month, or $12 a month billed yearly.',
           alternatives:
-            'Also free: [OpenWhispr](https://github.com/OpenWhispr/openwhispr). Paid: [Wispr Flow](https://wisprflow.ai/pricing), from $12 a month. Neither is sponsored.',
+            'Want more polish? [Wispr Flow](https://wisprflow.ai/pricing) has a limited free plan and Pro from $12 a month. Not sponsored.',
           resourceId: 'handy',
           steps: [
             'Download Handy for your computer, install it and allow microphone access when it asks.',
