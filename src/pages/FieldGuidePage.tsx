@@ -143,6 +143,7 @@ const sections = [
   { id: 'fg-effort', label: 'Choose effort' },
   { id: 'fg-landscape', label: 'The wider landscape' },
   { id: 'fg-week', label: "A PM's week" },
+  { id: 'fg-refresh', label: 'Keep this page honest' },
 ] as const
 
 function LabTabs() {
@@ -193,8 +194,7 @@ function LabTabs() {
         id="fg-lab-panel"
         role="tabpanel"
         aria-labelledby={`fg-lab-tab-${selected}`}
-        tabIndex={0}
-        className="pt-4 outline-none"
+        className="pt-4"
       >
         <p className="max-w-3xl text-sm leading-relaxed">{lab.modelIntro}</p>
         <ul className="mt-4 grid gap-3 md:grid-cols-3">

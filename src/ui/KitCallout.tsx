@@ -6,7 +6,9 @@ import { Card, Pill, linkClass } from './primitives'
 // Names the starter kit tools at the top of the session that first needs them. Setup steps live
 // only on the Starter kit page, so installation is described in one place.
 export function KitCallout({ lessonId }: { lessonId: string }) {
-  const tools = starterKit.stages.filter((s) => s.lessons[0] === lessonId).flatMap((s) => s.tools)
+  const tools = starterKit.stages.flatMap((s) =>
+    s.tools.filter((t) => (t.lesson ?? s.lessons[0]) === lessonId),
+  )
   if (tools.length === 0) return null
   return (
     <Card as="section" aria-labelledby="kit-callout">

@@ -17,7 +17,7 @@ export function SessionBrief({ guide, minutes }: { guide: LessonGuide; minutes: 
       </p>
       <details className="mt-4 rounded-xl bg-stone-100 px-4 py-3 text-sm dark:bg-stone-800/60">
         <summary className="cursor-pointer leading-relaxed">
-          <span className="font-semibold">Warm-up: </span>
+          <span className="font-semibold">Warm-up · </span>
           {guide.recall.question}
         </summary>
         <p className="mt-2 max-w-prose leading-relaxed text-stone-700 dark:text-stone-300">

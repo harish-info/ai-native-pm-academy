@@ -30,7 +30,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       question:
         'Guess first: what can an AI assistant see about your product when you start a new chat?',
       answer:
-        'Only what you type or attach, plus anything its tools load. It does not see your files, company systems or past chats unless you give them to it.',
+        'What you type or attach, plus what the product adds: project files, memory and anything its tools load. It does not see your other files or company systems unless something gives them to it.',
     },
     reading: {
       resourceId: '3b1b-llms-briefly',
@@ -94,7 +94,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     recall: {
       question: 'From Session 1: what can the assistant see when you start a new chat?',
       answer:
-        'Only what you give it in that chat. That is why this session builds a context file you can give it every time.',
+        'What you give it, plus what the product adds, such as project files or memory. This session uses that: a context file in a project, so every chat starts with it.',
     },
     reading: {
       resourceId: 'anthropic-ai-fluency',
@@ -283,9 +283,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
       'Your Level 1 folder, Git and access to Claude Code. Check access before buying anything.',
     recall: {
       question:
-        'From Session 4: your page lives in a chat. What happens when you want to change it next week?',
+        'From Session 4: your page and notes sit in chats and separate files. What is hard about changing them next week?',
       answer:
-        'You find the chat, copy the latest version and start again from there. This session moves your work into a folder that an agent reads and changes directly.',
+        'Finding the latest version and giving the AI all the context again. This session moves your work into one folder that an agent reads and changes directly.',
     },
     reading: {
       resourceId: 'claude-code-memory',
@@ -343,10 +343,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Which decisions must be explicit before the prototype is built?',
     bring: 'Your context file, pitch notes and one primary user flow.',
     recall: {
-      question:
-        'From Session 4: you asked for a page in one line. Which choices did the AI make for you?',
+      question: 'From Session 4: when your request left something out, what did the AI do?',
       answer:
-        'Layout, wording, what each screen shows and what happens when data is missing. This session has the agent interview you first, so you make those choices.',
+        'It guessed, and the guess looked finished: layout, wording, what happens when data is missing. This session has the agent interview you first, so you make those choices.',
     },
     reading: {
       resourceId: 'aihero-grill-me',
@@ -532,7 +531,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'Why solve this problem, and why use AI at all?',
     bring: 'Your fact sheet, prototype limitations and a candidate outcome.',
     recall: {
-      question: 'From Session 4: people liked your prototype. What did that prove?',
+      question: 'From Session 4: someone liked your pitch page. What did that prove?',
       answer:
         'That they understood the idea. It did not prove the problem is common or worth solving, which is what this session asks.',
     },
@@ -853,9 +852,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     bring: 'Your PRD contracts, fictional data and independently calculated expected figures.',
     recall: {
       question:
-        'From Session 13: your spec says what the feature does when the AI gets it wrong. How would you know it does?',
+        'From Session 13: your spec says what the screen shows when the AI is unsure. Before anything is built, how do you check the answers themselves?',
       answer:
-        'Test it on a set of cases, including hard and unusual inputs. That set is an evaluation, and this session builds one.',
+        'Run a set of realistic cases, including hard and hostile ones, through a stand-in and score each answer. That set is an evaluation, and this session builds one.',
     },
     reading: {
       resourceId: 'anthropic-evals-for-agents',

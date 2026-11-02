@@ -12,6 +12,8 @@ export interface KitTool {
   facts: string
   resourceId: string
   steps?: string[]
+  // The session that first needs this tool, when it is not the stage's first session.
+  lesson?: string
 }
 
 export interface KitStage {
@@ -32,11 +34,11 @@ export interface StarterKit {
 
 export const starterKit: StarterKit = {
   intro:
-    'Everything to install for the course, in the order you need it, with the steps to set each tool up. Sessions 1, 5 and 16 list the same tools at the top, so you can also install as you go.',
+    'Everything to install for the course, in the order you need it, with the steps to set each tool up. Each session that needs a new tool names it at the top, so you can also install as you go.',
   start: [
     'Install the Week 1 tools below. It takes about 15 minutes.',
     'Open [Session 1](/lessons/s1) and work through the sessions in order. Each one starts with what to bring.',
-    'Before Session 5, come back for Claude Code and Warp. Sessions 5 to 7 add Git, Node.js and a GitHub account, and Session 16 adds a presentation skill.',
+    'Before Session 5, come back for Claude Code, Warp and Git. Sessions 6 and 7 add Node.js and a GitHub account, and Session 16 adds a presentation skill.',
     'Talk instead of type. Hold the Handy shortcut and say what you want: you will give the agent more context than you would bother to type, and better context gets better answers.',
   ],
   stages: [
@@ -109,7 +111,7 @@ export const starterKit: StarterKit = {
           resourceId: 'claude-code-terminal-guide',
           steps: [
             'If you are on the free plan, upgrade to Claude Pro.',
-            "Install Warp (next card) and open it. Paste the install line from Anthropic's terminal guide and press Enter.",
+            "Install Warp and Git (the next cards), then open Warp. Paste the install line from Anthropic's terminal guide and press Enter.",
             'Type `claude` and press Enter, then sign in with your Claude account. Session 5 shows you how to open your own folder.',
           ],
         },
@@ -123,6 +125,17 @@ export const starterKit: StarterKit = {
           steps: [
             'Download Warp for your computer and install it.',
             'Open it. You do not need its own AI features for this course.',
+          ],
+        },
+        {
+          name: 'Git',
+          need: 'Recommended',
+          what: 'Saves versions of your folder, so you can see what the agent changed and undo it. Needed from Session 5.',
+          facts: 'Free and open source, for Mac, Windows and Linux.',
+          resourceId: 'git-install',
+          steps: [
+            'Follow the install page for your computer.',
+            'Check it worked: open a new Warp tab and type `git --version`. A version number means it is installed.',
           ],
         },
         {
@@ -140,24 +153,13 @@ export const starterKit: StarterKit = {
       ],
     },
     {
-      id: 'sessions-5-7',
-      when: 'Sessions 5 to 7',
+      id: 'sessions-6-7',
+      when: 'Sessions 6 and 7',
       title: 'Save and publish your work',
       intro:
-        'Three tools your agent uses to save versions, run your prototype and put it online. Install each when its session reaches it, with your agent or your mentor; Claude Code tells you if one is missing.',
-      lessons: ['s5', 's6', 's7'],
+        'Two tools your agent uses to run your prototype and put it online. Install each when its session reaches it, with your agent or your mentor; Claude Code tells you if one is missing.',
+      lessons: ['s6', 's7'],
       tools: [
-        {
-          name: 'Git',
-          need: 'Recommended',
-          what: 'Saves versions of your folder, so you can see what the agent changed and undo it. Needed from Session 5.',
-          facts: 'Free and open source, for Mac, Windows and Linux.',
-          resourceId: 'git-install',
-          steps: [
-            'Follow the install page for your computer.',
-            'Check it worked: in Warp, type `git --version`. A version number means it is installed.',
-          ],
-        },
         {
           name: 'Node.js',
           need: 'Recommended',
@@ -166,7 +168,7 @@ export const starterKit: StarterKit = {
           resourceId: 'nodejs-download',
           steps: [
             'Download the LTS installer for your computer and run it.',
-            'Check it worked: in Warp, type `node --version`.',
+            'Check it worked: open a new Warp tab and type `node --version`.',
           ],
         },
         {
@@ -175,10 +177,11 @@ export const starterKit: StarterKit = {
           what: 'GitHub keeps your prototype online and publishes it in Session 7. The GitHub CLI signs your computer in once, so Claude Code can push to it.',
           facts: 'Free account. The CLI is free and open source.',
           resourceId: 'github-cli',
+          lesson: 's7',
           steps: [
             'Create a free account on [GitHub](https://github.com) and turn on two-factor authentication.',
             'Install the GitHub CLI for your computer.',
-            'In Warp, type `gh auth login` and follow the prompts, with your mentor if you like.',
+            'Open a new Warp tab, type `gh auth login` and follow the prompts, with your mentor if you like.',
           ],
         },
       ],
@@ -198,6 +201,10 @@ export const starterKit: StarterKit = {
           facts:
             'Free, from Anthropic. Works in Claude Code and in Claude apps with skills turned on.',
           resourceId: 'anthropic-skills',
+          steps: [
+            'Open the pptx folder in the skills repository and read its `SKILL.md`.',
+            'In Claude Code, ask: "Install the pptx skill from the anthropics/skills repository." In the Claude app, turn on skills in Settings instead.',
+          ],
         },
         {
           name: 'frontend-slides',
@@ -205,6 +212,10 @@ export const starterKit: StarterKit = {
           what: 'Builds the deck as one HTML file that opens in any browser: arrow keys to move, print to PDF to share.',
           facts: 'Free, MIT licence. A Claude Code skill.',
           resourceId: 'frontend-slides',
+          steps: [
+            'Read the `SKILL.md` in the repository.',
+            'In Claude Code, ask it to install the skill from that repository.',
+          ],
         },
       ],
     },
