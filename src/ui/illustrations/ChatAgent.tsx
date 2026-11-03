@@ -15,13 +15,14 @@ import {
 
 const data = lessonVisuals['chat-agent']
 
+// Every arrow runs on one of two lanes, 10 above and 10 below the row's centre line (y 124).
 // Where a message travels for each kind of step.
 const routes: Record<string, string> = {
-  goal: 'M62 105H118',
+  goal: 'M66 114H115',
   model: '',
-  tools: 'M184 98Q211 66 238 98',
-  result: 'M238 126Q211 158 184 126',
-  answer: 'M118 119H62',
+  tools: 'M184 114H252',
+  result: 'M252 134H184',
+  answer: 'M115 134H66',
 }
 
 function Packet({ path, step }: { path: string; step: number }) {
@@ -79,7 +80,7 @@ export default function ChatAgent() {
     <div className="space-y-3">
       <Stage className="dot-grid px-2 py-3">
         <Scene
-          viewBox="0 0 400 214"
+          viewBox="0 0 440 222"
           label="You talk to Claude Code, the agent application. Inside it, a model chooses tools, the tools act on your files, and each result returns to the model."
         >
           <defs>
@@ -106,8 +107,8 @@ export default function ChatAgent() {
 
           {/* You */}
           <circle
-            cx="36"
-            cy="112"
+            cx="40"
+            cy="124"
             r="22"
             className={cx(
               on('goal') || on('answer') ? tone.mark : tone.well,
@@ -116,43 +117,44 @@ export default function ChatAgent() {
             )}
             strokeWidth="2"
           />
-          <circle cx="36" cy="106" r="6" className={tone.ink} strokeWidth="2" />
-          <path d="M25 124a11 11 0 0 1 22 0" className={tone.ink} strokeWidth="2" />
+          <circle cx="40" cy="118" r="6" className={tone.ink} strokeWidth="2" />
+          <path d="M29 136a11 11 0 0 1 22 0" className={tone.ink} strokeWidth="2" />
           <text
-            x="36"
-            y="154"
+            x="40"
+            y="178"
             textAnchor="middle"
             className={cx(tone.text, 'text-[14px] font-semibold')}
           >
             You
           </text>
-          {/* The application boundary */}
+
+          {/* The application boundary, with equal padding around Model and Tools */}
           <rect
-            x="92"
-            y="8"
-            width="214"
+            x="96"
+            y="12"
+            width="244"
             height="198"
             rx="18"
             className={cx(tone.tint, 'stroke-indigo-300 dark:stroke-indigo-800')}
             strokeWidth="2"
             strokeDasharray="6 5"
           />
-          <text x="108" y="31" className={cx(tone.text, 'text-[13px] font-semibold')}>
+          <text x="116" y="38" className={cx(tone.text, 'text-[13px] font-semibold')}>
             Claude Code
           </text>
-          <text x="108" y="46" className={cx(tone.muted, 'text-[11px]')}>
+          <text x="116" y="54" className={cx(tone.muted, 'text-[11px]')}>
             the agent application
           </text>
 
           {/* Request and reply, drawn over the boundary so the arrowheads show */}
           <path
-            d="M62 105H118"
+            d={routes.goal}
             className={on('goal') ? tone.accentStroke : tone.line}
             strokeWidth="2"
             markerEnd={marker(on('goal'))}
           />
           <path
-            d="M118 119H62"
+            d={routes.answer}
             className={on('answer') ? tone.accentStroke : tone.line}
             strokeWidth="2"
             markerEnd={marker(on('answer'))}
@@ -161,8 +163,8 @@ export default function ChatAgent() {
           {/* Model */}
           {on('model') && !reduced && (
             <rect
-              x="124"
-              y="84"
+              x="122"
+              y="96"
               width="56"
               height="56"
               rx="16"
@@ -170,8 +172,8 @@ export default function ChatAgent() {
             />
           )}
           <rect
-            x="124"
-            y="84"
+            x="122"
+            y="96"
             width="56"
             height="56"
             rx="16"
@@ -179,36 +181,30 @@ export default function ChatAgent() {
             strokeWidth={on('model') ? 3 : 2}
           />
           <rect
-            x="136"
-            y="100"
+            x="134"
+            y="115"
             width="32"
             height="22"
             rx="7"
             className={cx(on('model') ? tone.accent : tone.well, tone.ink, 'illus-move')}
             strokeWidth="2"
           />
-          <circle cx="146" cy="111" r="2.4" className={eye} />
-          <circle cx="158" cy="111" r="2.4" className={eye} />
-          <path d="M152 92v8" className={tone.ink} strokeWidth="2" />
+          <circle cx="144" cy="126" r="2.4" className={eye} />
+          <circle cx="156" cy="126" r="2.4" className={eye} />
+          <path d="M150 107v8" className={tone.ink} strokeWidth="2" />
           <text
-            x="152"
-            y="162"
+            x="150"
+            y="178"
             textAnchor="middle"
             className={cx(tone.text, 'text-[14px] font-semibold')}
           >
             Model
           </text>
 
-          {/* Tool call and tool result arcs */}
-          <path
-            d="M184 98Q211 66 238 98"
-            className={cx(on('tools') ? tone.accentStroke : tone.line, on('tools') && 'illus-flow')}
-            strokeWidth="2.4"
-            markerEnd={marker(on('tools'))}
-          />
+          {/* Tool call and tool result, straight on the same lanes as request and reply */}
           <text
-            x="211"
-            y="68"
+            x="218"
+            y="104"
             textAnchor="middle"
             className={cx(
               on('tools') ? 'fill-indigo-700 dark:fill-indigo-300' : tone.muted,
@@ -218,17 +214,23 @@ export default function ChatAgent() {
             tool call
           </text>
           <path
-            d="M238 126Q211 158 184 126"
+            d={routes.tools}
+            className={cx(on('tools') ? tone.accentStroke : tone.line, on('tools') && 'illus-flow')}
+            strokeWidth="2"
+            markerEnd={marker(on('tools'))}
+          />
+          <path
+            d={routes.result}
             className={cx(
               on('result') ? tone.accentStroke : tone.line,
               on('result') && 'illus-flow',
             )}
-            strokeWidth="2.4"
+            strokeWidth="2"
             markerEnd={marker(on('result'))}
           />
           <text
-            x="211"
-            y="166"
+            x="218"
+            y="152"
             textAnchor="middle"
             className={cx(
               on('result') ? 'fill-indigo-700 dark:fill-indigo-300' : tone.muted,
@@ -241,8 +243,8 @@ export default function ChatAgent() {
           {/* Tools */}
           {on('tools') && !reduced && (
             <rect
-              x="242"
-              y="84"
+              x="258"
+              y="96"
               width="56"
               height="56"
               rx="16"
@@ -250,8 +252,8 @@ export default function ChatAgent() {
             />
           )}
           <rect
-            x="242"
-            y="84"
+            x="258"
+            y="96"
             width="56"
             height="56"
             rx="16"
@@ -263,13 +265,13 @@ export default function ChatAgent() {
             strokeWidth="2"
           />
           <path
-            d="m274 101 6-3a7 7 0 0 1-8 9l-9 9a2.5 2.5 0 0 1-3.5-3.5l9-9a7 7 0 0 1 1-8.5z"
+            d="m289.5 119.5 6-3a7 7 0 0 1-8 9l-9 9a2.5 2.5 0 0 1-3.5-3.5l9-9a7 7 0 0 1 1-8.5z"
             className={on('tools') ? 'stroke-white dark:stroke-stone-950' : tone.ink}
             strokeWidth="2"
           />
           <text
-            x="270"
-            y="162"
+            x="286"
+            y="178"
             textAnchor="middle"
             className={cx(tone.text, 'text-[14px] font-semibold')}
           >
@@ -278,8 +280,8 @@ export default function ChatAgent() {
           {current.tool && (
             <text
               key={current.tool}
-              x="270"
-              y="180"
+              x="286"
+              y="196"
               textAnchor="middle"
               className="illus-pop fill-indigo-700 font-mono text-[11px] dark:fill-indigo-300"
             >
@@ -289,14 +291,18 @@ export default function ChatAgent() {
 
           {/* Files outside the app, reached through tools */}
           <path
-            d="M300 112H336"
+            d="M320 124H356"
             className={cx(on('tools') ? tone.accentStroke : tone.line, 'illus-flow')}
             strokeWidth="2"
           />
           <g className={cx(on('tools') && 'illus-float')}>
-            <path d="M352 86h20l8 8v30h-28z" className={cx(tone.paper, tone.ink)} strokeWidth="2" />
             <path
-              d="M344 94h20l8 8v30h-28z"
+              d="M374 100h20l8 8v30h-28z"
+              className={cx(tone.paper, tone.ink)}
+              strokeWidth="2"
+            />
+            <path
+              d="M366 108h20l8 8v30h-28z"
               className={cx(
                 on('tools') || on('result') ? tone.mark : tone.paper,
                 tone.ink,
@@ -304,11 +310,11 @@ export default function ChatAgent() {
               )}
               strokeWidth="2"
             />
-            <path d="M350 110h14M350 117h10" className={tone.ink} strokeWidth="2" />
+            <path d="M372 124h14M372 131h10" className={tone.ink} strokeWidth="2" />
           </g>
           <text
-            x="362"
-            y="160"
+            x="384"
+            y="178"
             textAnchor="middle"
             className={cx(tone.text, 'text-[14px] font-semibold')}
           >
