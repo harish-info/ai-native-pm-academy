@@ -99,8 +99,8 @@ export const level4: Level = {
       ],
       resources: [
         {
-          resourceId: 'product-templates-design-spec',
-          why: 'The design spec template this session uses. Copy the headings from its Output Format section into design-spec.md and add the precedence note.',
+          resourceId: 'agents-md',
+          why: 'The open format for the team instructions file that coding agents read before they start work.',
           required: false,
         },
         {
@@ -109,8 +109,8 @@ export const level4: Level = {
           required: false,
         },
         {
-          resourceId: 'agents-md',
-          why: 'The open format for the team instructions file that coding agents read before they start work.',
+          resourceId: 'product-templates-design-spec',
+          why: 'The design spec template this session uses. Copy the headings from its Output Format section into design-spec.md and add the precedence note.',
           required: false,
         },
         {
@@ -464,11 +464,6 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
           required: false,
         },
         {
-          resourceId: 'lennys-newsletter',
-          why: 'Practitioner writing on launches, metrics and readouts from product teams; some posts are paid.',
-          required: false,
-        },
-        {
           resourceId: 'cfpb-chatbots',
           why: 'A regulator report on chatbots that block access to a person, and why that belongs in your launch guardrails.',
           required: false,
@@ -481,6 +476,11 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         {
           resourceId: 'tableau-dashboard-practices',
           why: 'Put the most important view top left and limit the number of views.',
+          required: false,
+        },
+        {
+          resourceId: 'lennys-newsletter',
+          why: 'Practitioner writing on launches, metrics and readouts from product teams; some posts are paid.',
           required: false,
         },
       ],

@@ -86,6 +86,11 @@ export const level3: Level = {
       ],
       resources: [
         {
+          resourceId: 'anthropic-subagents-course',
+          why: 'This session runs three Claude Code sessions side by side. Subagents do the same job inside one session; this 45-minute Claude Academy course shows how to brief them.',
+          required: false,
+        },
+        {
           resourceId: 'svpg-product-operating-model',
           why: 'A short introduction to outcomes over features: teams own problems, strategy picks which ones, discovery comes before delivery.',
           required: false,
@@ -239,13 +244,13 @@ Rules:
           required: false,
         },
         {
-          resourceId: 'nng-synthetic-users',
-          why: 'Why AI-generated users cannot replace research with real people, and where they might still help.',
+          resourceId: 'nng-usability-testing-101',
+          why: 'The basics of a usability test: a facilitator, realistic tasks and a participant thinking aloud.',
           required: false,
         },
         {
-          resourceId: 'nng-usability-testing-101',
-          why: 'The basics of a usability test: a facilitator, realistic tasks and a participant thinking aloud.',
+          resourceId: 'nng-synthetic-users',
+          why: 'Why AI-generated users cannot replace research with real people, and where they might still help.',
           required: false,
         },
         {

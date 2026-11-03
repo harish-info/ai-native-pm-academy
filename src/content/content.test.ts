@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   allChallenges,
   allLessons,
+  coursePath,
   featuredResourceIds,
   guides,
   levels,
@@ -212,6 +213,45 @@ describe('starter kit', () => {
       expect(r!.status, id).toBe('verified')
       expect(r!.verifiedOn, id).toBe(STARTER_KIT_AS_OF)
     }
+  })
+})
+
+describe('course path', () => {
+  const steps = [...coursePath.main, ...coursePath.advanced, ...coursePath.alternatives]
+
+  it('uses catalog entries that are not unavailable, and verified ones on the main path', () => {
+    for (const step of steps) {
+      const r = resourceById(step.resourceId)
+      expect(r, step.resourceId).toBeDefined()
+      expect(r!.status, step.resourceId).not.toBe('unavailable')
+    }
+    for (const step of coursePath.main)
+      expect(resourceById(step.resourceId)!.status, step.resourceId).toBe('verified')
+  })
+
+  it('lists each course in the resources of every session or challenge it names', () => {
+    for (const step of steps)
+      for (const id of step.usedIn) {
+        const target = allLessons.find((l) => l.id === id) ?? allChallenges.find((c) => c.id === id)
+        expect(target, id).toBeDefined()
+        expect(
+          target!.resources.some((r) => r.resourceId === step.resourceId),
+          `${id} lists ${step.resourceId}`,
+        ).toBe(true)
+      }
+  })
+
+  it('orders the main path by the first session each course is used in', () => {
+    const numbers = coursePath.main.map(
+      (step) => allLessons.find((l) => l.id === step.usedIn[0])?.number ?? 0,
+    )
+    expect(numbers.every((n) => n > 0)).toBe(true)
+    expect(numbers).toEqual([...numbers].sort((a, b) => a - b))
+  })
+
+  it('does not repeat a course across the groups', () => {
+    const ids = steps.map((s) => s.resourceId)
+    expect(new Set(ids).size).toBe(ids.length)
   })
 })
 

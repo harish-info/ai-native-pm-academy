@@ -1,6 +1,16 @@
 import { useId, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { allChallenges, allLessons, featuredFirst, resources } from '../content'
+import {
+  allChallenges,
+  allLessons,
+  challengeById,
+  coursePath,
+  featuredFirst,
+  lessonById,
+  resourceById,
+  resources,
+} from '../content'
+import type { CourseStep } from '../content/coursePath'
 import { communityConsensus } from '../content/community'
 import type { Resource, ResourceFormat, VerificationStatus } from '../content/types'
 import { ResourceCard } from '../ui/ResourceBits'
@@ -45,6 +55,51 @@ const statuses: { id: VerificationStatus; label: string; meaning: string }[] = [
 
 type Level = Resource['level']
 type Ref = { href: string; label: string }
+
+const stepRef = (id: string): Ref | null => {
+  const lesson = lessonById(id)
+  if (lesson) return { href: `/lessons/${lesson.id}`, label: `Session ${lesson.number}` }
+  const challenge = challengeById(id)
+  return challenge ? { href: `/challenges/${challenge.id}`, label: challenge.title } : null
+}
+
+function CourseList({ steps, ordered }: { steps: CourseStep[]; ordered?: boolean }) {
+  const Tag = ordered ? 'ol' : 'ul'
+  return (
+    <Tag className={`space-y-3 text-sm ${ordered ? 'list-decimal pl-5' : 'list-disc pl-5'}`}>
+      {steps.map((step) => {
+        const resource = resourceById(step.resourceId)
+        if (!resource) return null
+        const refs = step.usedIn.map(stepRef).filter((x): x is Ref => x !== null)
+        return (
+          <li key={step.resourceId}>
+            <a href={resource.url} target="_blank" rel="noreferrer" className={linkClass}>
+              {resource.title}
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            <span className="text-stone-600 dark:text-stone-400">
+              {' '}
+              · {resource.provider}
+              {resource.estimatedTime ? ` · ${resource.estimatedTime}` : ''}
+            </span>
+            <p className="text-stone-700 dark:text-stone-300">{step.note}</p>
+            <p className="text-xs text-stone-500 dark:text-stone-400">
+              Used in{' '}
+              {refs.map((ref, i) => (
+                <span key={ref.href}>
+                  {i > 0 && ', '}
+                  <Link to={ref.href} className={linkClass}>
+                    {ref.label}
+                  </Link>
+                </span>
+              ))}
+            </p>
+          </li>
+        )
+      })}
+    </Tag>
+  )
+}
 
 export function ResourcesPage() {
   const uid = useId()
@@ -104,6 +159,19 @@ export function ResourcesPage() {
         Each session suggests a starting excerpt and links additional reading. The full library is
         here whenever you want to go deeper.
       </PageHeader>
+
+      <Card className="mb-4">
+        <h2 className="mb-2 text-lg font-semibold">Courses in order</h2>
+        <p className="mb-3 text-sm text-stone-700 dark:text-stone-300">
+          The structured courses this curriculum draws on, in the order to take them. Each one
+          starts in the first session listed; none is required to finish a session.
+        </p>
+        <CourseList steps={coursePath.main} ordered />
+        <h3 className="mb-2 mt-4 text-sm font-semibold">Advanced, when you need it</h3>
+        <CourseList steps={coursePath.advanced} />
+        <h3 className="mb-2 mt-4 text-sm font-semibold">Same ideas from other providers</h3>
+        <CourseList steps={coursePath.alternatives} />
+      </Card>
 
       <label className="mb-4 flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm font-medium dark:border-indigo-800 dark:bg-indigo-950">
         <input

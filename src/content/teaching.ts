@@ -107,7 +107,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       resourceId: 'anthropic-ai-fluency',
       minutes: 15,
       focus:
-        'Read the 4D framework overview and the Delegation and Description material. Stop after 15 minutes; the full course is further study.',
+        'If you started the course in Session 1, pick up where you stopped. Read the 4D framework overview and the Delegation and Description material. Stop after 15 minutes; the Discernment lessons come in Session 3.',
     },
     example: {
       title: 'Same request, with and without your product file',

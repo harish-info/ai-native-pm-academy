@@ -50,7 +50,9 @@ test('quick check explains choices without completing a lesson', async ({ page }
   await expect(correct).toHaveAttribute('aria-pressed', 'true')
   await expect(page.getByText('Right', { exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
-  await expect(page.getByRole('link', { name: /AI capabilities and limitations/ })).toBeVisible()
+  await expect(
+    page.getByRole('link', { name: /AI Fluency: Framework and foundations/ }),
+  ).toBeVisible()
   const lessonPrecedesSources = await page.locator('#step-learn').evaluate((section) => {
     const sources = section.querySelector('a[target="_blank"]')!
     const reader = section.querySelector('.lesson-reader')!

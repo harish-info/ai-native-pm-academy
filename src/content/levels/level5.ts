@@ -83,11 +83,6 @@ export const level5: Level = {
           required: false,
         },
         {
-          resourceId: 'obsidian',
-          why: 'An optional, free app for browsing the same Markdown files, with your wikilinks shown as a graph.',
-          required: false,
-        },
-        {
           resourceId: 'vellotti-product-os',
           why: 'A working example of a folder-based PM workspace for Claude Code. Borrow ideas; do not copy it wholesale.',
           required: false,
@@ -95,6 +90,11 @@ export const level5: Level = {
         {
           resourceId: 'vishal-ai-native-pm-os',
           why: 'Another practitioner take on a PM operating system, useful for comparing conventions.',
+          required: false,
+        },
+        {
+          resourceId: 'obsidian',
+          why: 'An optional, free app for browsing the same Markdown files, with your wikilinks shown as a graph.',
           required: false,
         },
       ],
@@ -418,13 +418,18 @@ When done, show the tree and mark any rule you were unsure how to phrase with "(
           required: false,
         },
         {
-          resourceId: 'product-templates',
-          why: 'A concrete example of templates packaged with a reusable drafting procedure. Read the [prd-plan skill](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/SKILL.md) and inspect its inputs, gap handling and output paths. Installation is optional.',
+          resourceId: 'academy-cowork-scheduling',
+          why: 'A four-minute video on setting up, reviewing and triggering scheduled tasks in the Claude desktop app, the step behind your weekly briefing.',
           required: false,
         },
         {
           resourceId: 'anthropic-pm-plugin',
           why: 'Ready-made PM skills to install and learn from before you write your own.',
+          required: false,
+        },
+        {
+          resourceId: 'product-templates',
+          why: 'A concrete example of templates packaged with a reusable drafting procedure. Read the [prd-plan skill](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/SKILL.md) and inspect its inputs, gap handling and output paths. Installation is optional.',
           required: false,
         },
         {
@@ -597,13 +602,8 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
           required: false,
         },
         {
-          resourceId: 'dora-ai-assisted-development',
-          why: 'Research framing for improving the organisational system around AI. Start with the overview, then follow the full report if useful.',
-          required: false,
-        },
-        {
-          resourceId: 'metr-productivity-update',
-          why: 'A primary research update explaining measurement and selection limits. Use it to question universal productivity claims and design a local baseline.',
+          resourceId: 'anthropic-human-agent-teams',
+          why: 'A short Claude Academy course, in beta, for leads moving a team from single-player to shared AI work, with an organisational checklist.',
           required: false,
         },
         {
@@ -614,6 +614,16 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
         {
           resourceId: 'claude-code-review-post',
           why: 'A team describing agent review on every pull request, with human depth scaled to risk. A vendor writing about its own tool, so read it critically.',
+          required: false,
+        },
+        {
+          resourceId: 'dora-ai-assisted-development',
+          why: 'Research framing for improving the organisational system around AI. Start with the overview, then follow the full report if useful.',
+          required: false,
+        },
+        {
+          resourceId: 'metr-productivity-update',
+          why: 'A primary research update explaining measurement and selection limits. Use it to question universal productivity claims and design a local baseline.',
           required: false,
         },
         {
@@ -759,6 +769,11 @@ Use only my evidence and mark anything else as an assumption. Present this as on
       ],
       resources: [
         {
+          resourceId: 'academy-connectors',
+          why: 'A four-minute walkthrough of connecting Claude to the tools you already use, the quickest route to a real source.',
+          required: false,
+        },
+        {
           resourceId: 'willison-lethal-trifecta',
           why: 'A connector adds untrusted content. Check that your setup still has no way to send data out.',
           required: false,
@@ -771,6 +786,11 @@ Use only my evidence and mark anything else as an assumption. Present this as on
         {
           resourceId: 'mcp-docs',
           why: 'The open standard underneath connectors, if you want to see what you switched on.',
+          required: false,
+        },
+        {
+          resourceId: 'anthropic-mcp-course',
+          why: 'Only if you want to build your own MCP server: a developer course that needs Python and an API key.',
           required: false,
         },
       ],

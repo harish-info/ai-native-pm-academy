@@ -29,6 +29,7 @@ A static React and TypeScript course site for PMs, deployed to GitHub Pages. Pro
   - The month plan schedules every session once.
   - No em or en dashes.
 - **Resources:** new resources need a `verificationStatus` and a `verifiedOn` date. Never mark a link verified without opening it. Link to third-party material; never copy it.
+- **Resource order:** in a lesson's `resources`, after the required reading: structured courses and tutorials on the main path (Claude Academy first, in course-path order), then articles and videos for the session's ideas (beginner first), then tools and reference docs, then other providers, long deep dives, communities and newsletters.
 - **Learner data schema:** changing the shape means bumping `CURRENT_SCHEMA_VERSION` in `src/storage/schema.ts`, adding a step to `migrations` in `src/storage/backup.ts`, and a test for it. Old backups must keep importing.
 - **Mastery:** mastery is recorded in `masteredLevels` and is sticky. Do not make badges disappear when evidence is edited.
 - **Routing:** routing uses `HashRouter`, so in-page anchors (`href="#id"`) would navigate. Move focus in code instead, as the skip link does.

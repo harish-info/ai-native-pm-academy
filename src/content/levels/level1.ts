@@ -100,13 +100,18 @@ export const level1: Level = {
           required: false,
         },
         {
-          resourceId: 'anthropic-capabilities-limitations',
-          why: 'A longer optional companion on capabilities and limitations. It is not part of this session’s reading budget.',
+          resourceId: 'anthropic-ai-fluency',
+          why: "Anthropic's recommended first course, built around the 4Ds you meet in Session 2. Do the introduction now if you have time; the course continues in Sessions 2 and 3.",
           required: false,
         },
         {
-          resourceId: 'karpathy-deep-dive-llms',
-          why: 'The clearest long-form walkthrough of how chat models are built, from pretraining to assistant behaviour. It runs over three hours, so watch it in chapters across the course; it is not part of this session.',
+          resourceId: 'academy-what-happens-talk-ai',
+          why: 'A five-minute Claude Academy video on prediction: the same idea as the reading, from a different angle.',
+          required: false,
+        },
+        {
+          resourceId: 'academy-choosing-claude-model',
+          why: 'Which Claude model suits which task, and a quick way to compare two on a task you know. Useful for the model comparison below.',
           required: false,
         },
         {
@@ -115,8 +120,13 @@ export const level1: Level = {
           required: false,
         },
         {
-          resourceId: 'claude-code-model-effort',
-          why: 'Optional reference for the model picker and effort controls you will use in Level 2. Start with the choosing-an-effort-level section; skip the configuration details.',
+          resourceId: 'dlai-genai-for-everyone',
+          why: "A non-vendor alternative: Andrew Ng's beginner video course on what generative AI can do at work. About five hours, so take it across the course.",
+          required: false,
+        },
+        {
+          resourceId: 'karpathy-deep-dive-llms',
+          why: 'The clearest long-form walkthrough of how chat models are built, from pretraining to assistant behaviour. It runs over three hours, so watch it in chapters across the course; it is not part of this session.',
           required: false,
         },
       ],
@@ -125,7 +135,7 @@ export const level1: Level = {
           'Build a mental model of how models work, write it down as your own glossary, and compare two models or settings on one real PM task for your product.',
         steps: [
           'Create a private folder on your own computer called `learning-notes/`, not in a shared drive. Every Level 1 file goes here; in Session 5 it moves into your workspace. Files are plain Markdown: `#` for headings, `-` for bullets, `**bold**`, saved with a `.md` ending from any text editor.',
-          'Watch the short 3Blue1Brown explainer. The longer capabilities course is optional. Read the example and try the quick check above before the practical task.',
+          'Watch the short 3Blue1Brown explainer. AI Fluency, under Go deeper, is the first course to start when you have time. Read the example and try the quick check above before the practical task.',
           'Write `glossary.md` in your own words: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (one line: retrieval-augmented generation, fetching documents into the context before answering). One or two sentences each, plus one example that surprised you.',
           "See a tool at work: ask Claude a question that needs this week's news with web search switched off, then on. Note which answer used a tool and how you could tell.",
           'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for [target users] about [specific problem]." Replace the brackets with a context you know. Run it in two models or two settings, each in a fresh chat. Try the same model at two effort levels if your app offers them, two Claude models if your plan offers them, or Claude and ChatGPT. Record the full model names, effort settings (or "not exposed"), other enabled features and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
@@ -270,6 +280,11 @@ Rules:
           required: false,
         },
         {
+          resourceId: 'claude-101',
+          why: "Anthropic's guided tour of Claude for work. Its Introduction to projects lesson covers the Project you set up in this session; the rest can follow later.",
+          required: false,
+        },
+        {
           resourceId: 'anthropic-context-engineering',
           why: 'Why curated context beats volume, from the people who build the models. Read the opening sections up to and including the anatomy of effective context; the later sections on retrieval and long-running agents are for engineers, so skim or skip them.',
           required: false,
@@ -280,13 +295,13 @@ Rules:
           required: false,
         },
         {
-          resourceId: 'openai-academy',
-          why: 'Free introductory courses on working with AI assistants, if you want more guided practice on the same ideas.',
+          resourceId: 'commonmark-help',
+          why: 'The standard Markdown marks on one page, with a ten-minute tutorial if you want to practise.',
           required: false,
         },
         {
-          resourceId: 'commonmark-help',
-          why: 'The standard Markdown marks on one page, with a ten-minute tutorial if you want to practise.',
+          resourceId: 'openai-academy',
+          why: 'Free introductory courses on working with AI assistants, if you want more guided practice on the same ideas.',
           required: false,
         },
       ],
@@ -425,6 +440,21 @@ Done when: every table row has a source URL and every implication names the cont
         {
           resourceId: 'karpathy-how-i-use-llms',
           why: 'A practitioner tour of everyday model use. For this session, watch the sections on internet search and deep research, where he shows both the value and the need to check; the rest of the video is optional.',
+          required: false,
+        },
+        {
+          resourceId: 'academy-trust-ai',
+          why: "A five-minute video on two ways answers go wrong: hallucination, which this session's checks are built to catch, and sycophancy, where the model agrees with you too easily.",
+          required: false,
+        },
+        {
+          resourceId: 'anthropic-ai-fluency',
+          why: "Continue AI Fluency with the Discernment lessons, which match this session's verification work.",
+          required: false,
+        },
+        {
+          resourceId: 'anthropic-capabilities-limitations',
+          why: "Anthropic's second fluency course, designed to sit before or after AI Fluency. The Knowledge and Working Memory units explain why answers go stale or drift in long chats. About 3.5 hours, so treat it as further study.",
           required: false,
         },
         {
@@ -572,6 +602,16 @@ Rules:
           required: false,
         },
         {
+          resourceId: 'ai-fluency-builders',
+          why: "Anthropic's follow-on to AI Fluency for product people and makers. The delegation and description lessons fit this session; the discernment lessons fit Session 8.",
+          required: false,
+        },
+        {
+          resourceId: 'mckinnon-vibe-coding-pms',
+          why: 'A PM leader on what prototypes prove and what they only appear to prove.',
+          required: false,
+        },
+        {
           resourceId: 'lovable-quickstart',
           why: 'The official quick start builds and publishes a small site from a prompt, one change at a time, which is exactly the habit this session teaches.',
           required: false,
@@ -584,11 +624,6 @@ Rules:
         {
           resourceId: 'v0',
           why: "Vercel's prompt-to-app builder, an alternative you will compare in Challenge 2.",
-          required: false,
-        },
-        {
-          resourceId: 'mckinnon-vibe-coding-pms',
-          why: 'A PM leader on what prototypes prove and what they only appear to prove.',
           required: false,
         },
         {
@@ -700,6 +735,21 @@ Build the whole page now. After that I will ask for one change at a time: change
         'Your mentor can repeat one experiment from your notes alone.',
       ],
       resources: [
+        {
+          resourceId: 'anthropic-capabilities-limitations',
+          why: 'The Try It Out exercises on next-token prediction and working memory are this lab in course form. Do them before or after the lab.',
+          required: false,
+        },
+        {
+          resourceId: 'academy-tokens',
+          why: 'How text becomes tokens and why that drives usage limits and cost.',
+          required: false,
+        },
+        {
+          resourceId: 'academy-context-cost',
+          why: 'How the context window fills, what compaction does and why each turn resends everything, which explains the long-context results you will see.',
+          required: false,
+        },
         {
           resourceId: 'karpathy-deep-dive-llms',
           why: 'Goes deeper into tokenization and why models behave as they do.',

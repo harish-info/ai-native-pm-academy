@@ -110,18 +110,23 @@ export const level2: Level = {
       ],
       resources: [
         {
-          resourceId: 'claude-code-101',
-          why: "The official beginner course: installation, the everyday loop of asking, reviewing and committing, and how `CLAUDE.md`, Claude's own version of `AGENTS.md`, shapes every session. Skip the parts on subagents, MCP and hooks.",
-          required: false,
-        },
-        {
           resourceId: 'claude-code-memory',
           why: 'The official page on `CLAUDE.md`, `AGENTS.md` and auto memory: when Claude Code reads `AGENTS.md`, and why short instructions work better.',
           required: false,
         },
         {
-          resourceId: 'claude-code-permission-modes',
-          why: 'Reference for auto mode and the other modes, if you want to see what each one allows.',
+          resourceId: 'claude-code-101',
+          why: "The official beginner course: installation, the everyday loop of asking, reviewing and committing, and how `CLAUDE.md`, Claude's own version of `AGENTS.md`, shapes every session. Skip the parts on subagents, MCP and hooks.",
+          required: false,
+        },
+        {
+          resourceId: 'ccforpms',
+          why: 'An excellent companion course that teaches Claude Code inside Claude Code with a fictional company. It needs a paid Claude plan; link only.',
+          required: false,
+        },
+        {
+          resourceId: 'anthropic-cowork-course',
+          why: "The no-terminal route: Anthropic's course on Cowork, the desktop agent that works on your folders. Needs a paid plan. Optional: these sessions use Claude Code, but the same ideas carry over if your team works in Cowork.",
           required: false,
         },
         {
@@ -135,13 +140,18 @@ export const level2: Level = {
           required: false,
         },
         {
-          resourceId: 'claude-cowork-guide',
-          why: 'What Cowork does with documents and connected apps. Written before Cowork merged into the main Claude app in September 2026.',
+          resourceId: 'claude-code-permission-modes',
+          why: 'Reference for auto mode and the other modes, if you want to see what each one allows.',
           required: false,
         },
         {
-          resourceId: 'ccforpms',
-          why: 'An excellent companion course that teaches Claude Code inside Claude Code with a fictional company. It needs a paid Claude plan; link only.',
+          resourceId: 'claude-code-model-effort',
+          why: 'Reference for the model picker and effort controls in Claude Code. Start with the choosing-an-effort-level section; skip the configuration details.',
+          required: false,
+        },
+        {
+          resourceId: 'claude-cowork-guide',
+          why: 'What Cowork does with documents and connected apps. Written before Cowork merged into the main Claude app in September 2026.',
           required: false,
         },
       ],
@@ -425,13 +435,13 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
           required: false,
         },
         {
-          resourceId: 'github-pages-docs',
-          why: 'The official guide to publishing a site with GitHub Pages, including where the publishing settings live.',
+          resourceId: 'github-about-prs',
+          why: 'The official explanation of pull requests, reviews and merging, for when something on the PR page is unclear.',
           required: false,
         },
         {
-          resourceId: 'github-about-prs',
-          why: 'The official explanation of pull requests, reviews and merging, for when something on the PR page is unclear.',
+          resourceId: 'github-pages-docs',
+          why: 'The official guide to publishing a site with GitHub Pages, including where the publishing settings live.',
           required: false,
         },
         {
@@ -574,23 +584,28 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
       ],
       resources: [
         {
-          resourceId: 'claude-code-in-action',
-          why: 'The official course for people who already use Claude Code: steering longer sessions, `CLAUDE.md`, and code review on GitHub. Skip the parts on hooks and headless runs.',
-          required: false,
-        },
-        {
           resourceId: 'aihero-code-review',
           why: 'A practitioner view of agent code review on two axes: does the change follow the conventions, and does it match the spec.',
           required: false,
         },
         {
-          resourceId: 'wcag-quickref',
-          why: 'The official accessibility checklist. Filter to levels A and AA to keep it manageable.',
+          resourceId: 'claude-code-in-action',
+          why: 'The official course for people who already use Claude Code: steering longer sessions, `CLAUDE.md`, and code review on GitHub. Skip the parts on hooks and headless runs.',
+          required: false,
+        },
+        {
+          resourceId: 'ai-fluency-builders',
+          why: "Continue AI Fluency for builders with Discernment for code and Discernment for user experience, which match this session's review.",
           required: false,
         },
         {
           resourceId: 'claude-code-review-post',
           why: "Anthropic's account of its own review practice, where an agent reviews every pull request and human depth scales with risk. A vendor describing its own tool: read it as one company's example, not proof.",
+          required: false,
+        },
+        {
+          resourceId: 'wcag-quickref',
+          why: 'The official accessibility checklist. Filter to levels A and AA to keep it manageable.',
           required: false,
         },
       ],

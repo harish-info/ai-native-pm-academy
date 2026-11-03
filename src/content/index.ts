@@ -58,4 +58,5 @@ export const featuredFirst = (list: Resource[]) => [
 ]
 
 export { resources }
+export { coursePath } from './coursePath'
 export const wikiPrompts = wiki.wikiPrompts
