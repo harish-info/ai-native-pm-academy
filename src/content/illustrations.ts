@@ -315,13 +315,22 @@ export const lessonVisuals = {
     ],
   },
   review: {
-    title: 'Compare observed behaviour with the requirement',
-    summary: 'A precise bug report connects a condition, an actual result and an expected result.',
-    caption: 'Reproduce the issue and recheck the fix. An agent’s explanation is not verification.',
-    before: 'Updated: today',
-    after: 'Updated: yesterday. Refresh failed.',
-    requirement:
-      'When refresh fails, preserve the last result and label its timestamp and failure.',
+    title: 'Check the number by hand',
+    summary: 'Count from the data yourself. Where you and the screen disagree, you have a bug.',
+    caption:
+      'Boundary cases, such as a task due yesterday, are where agent-built code most often slips.',
+    today: '3 Nov',
+    tasks: [
+      { name: 'Book venue', due: '28 Oct', screen: true, overdue: true },
+      { name: 'Send invoice', due: '1 Nov', screen: true, overdue: true },
+      { name: 'Renew contract', due: '2 Nov', screen: false, overdue: true },
+      { name: 'Draft agenda', due: '5 Nov', screen: false, overdue: false },
+    ],
+    report: [
+      { label: 'Steps', text: 'Load the sample data, set today to 3 Nov, open the dashboard.' },
+      { label: 'Expected', text: 'Overdue: 3. Every task due before today counts.' },
+      { label: 'Actual', text: 'Overdue: 2. Renew contract, due yesterday, is missing.' },
+    ],
   },
   strategy: {
     title: 'Make the actions follow the diagnosis',

@@ -1,182 +1,192 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { lessonVisuals } from '../../content/illustrations'
 import { cx } from '../cx'
-import { Note, Scene, Segmented, Stage, tone, Verdict } from './kit'
+import { controlClass, Note, Stage, useReducedMotion } from './kit'
 
 const data = lessonVisuals.review
-const [afterStatus, afterBanner] = data.after.replace(/\.$/, '').split('. ')
+const screenTotal = data.tasks.filter((t) => t.screen).length
+const handTotal = data.tasks.filter((t) => t.overdue).length
 
-/** A dashboard whose refresh fails, shown before and after the correction. */
+function Mark({ on, wrong }: { on: boolean; wrong?: boolean }) {
+  if (!on) return <span className="text-stone-400 dark:text-stone-500">–</span>
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 16 16"
+      className={cx(
+        'inline-block h-4 w-4',
+        wrong ? 'text-red-600 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400',
+      )}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3.5 8.5l3 3 6-7" />
+    </svg>
+  )
+}
+
+/** A prototype's overdue count, checked row by row against a count made by hand. */
 export default function Review() {
-  const [fixed, setFixed] = useState(0)
-  const report = [
-    { label: 'Condition', text: 'The refresh fails.' },
-    {
-      label: 'Actual',
-      text: fixed
-        ? `It keeps the last result and says “${data.after}”`
-        : `It shows old data as “${data.before}”.`,
-    },
-    { label: 'Expected', text: data.requirement },
-  ]
+  const [checking, setChecking] = useState(false)
+  const [count, setCount] = useState(0)
+  const reduced = useReducedMotion()
+  const rows = data.tasks.length
+  useEffect(() => {
+    if (!checking || count > rows) return
+    const timer = window.setTimeout(() => setCount(count + 1), 450)
+    return () => window.clearTimeout(timer)
+  }, [checking, count, rows])
+  const shown = checking ? count : 0
+  const done = shown > rows
+  const toggle = () => {
+    if (checking) {
+      setChecking(false)
+      setCount(0)
+    } else {
+      setChecking(true)
+      setCount(reduced ? rows + 1 : 0)
+    }
+  }
+  const cell = 'px-3 py-2'
   return (
     <div className="space-y-3">
-      <Segmented
-        label="Compare bug and correction"
-        labels={['Before correction', 'After correction']}
-        value={fixed}
-        onChange={setFixed}
-      />
-      <Stage className="dot-grid px-2 py-3">
-        <Scene
-          className="max-h-56!"
-          viewBox="0 6 400 184"
-          label={
-            fixed
-              ? 'After the correction, the dashboard keeps yesterday’s result, greys it out and shows a banner saying the refresh failed.'
-              : 'Before the correction, the refresh fails but the dashboard still says it was updated today.'
-          }
-        >
-          {/* Dashboard card */}
-          <rect
-            x="16"
-            y="14"
-            width="250"
-            height="168"
-            rx="14"
-            className={cx(tone.paper, tone.ink)}
-            strokeWidth="2"
-          />
-          <circle cx="36" cy="38" r="8" className={cx(tone.well, tone.ink)} strokeWidth="1.6" />
-          <path d="M36 33v5l3 2" className={tone.ink} strokeWidth="1.6" />
-          <text x="52" y="43" className={cx(tone.text, 'text-[13px] font-semibold')}>
-            Last known result
-          </text>
-
-          {/* Amber banner after the fix */}
-          <g className="illus-move" style={{ opacity: fixed ? 1 : 0 }}>
-            <rect
-              x="30"
-              y="54"
-              width="222"
-              height="24"
-              rx="7"
-              className="fill-mark-200 stroke-mark-400"
-              strokeWidth="1.4"
-            />
-            <path d="M42 60l7 12H35z" className="stroke-mark-900" strokeWidth="1.6" fill="none" />
-            <path d="M42 64v3" className="stroke-mark-900" strokeWidth="1.6" />
-            <text x="56" y="70" className="fill-mark-900 text-[12px] font-semibold">
-              {afterBanner}
-            </text>
-          </g>
-
-          {/* Sparkline, greyed when stale */}
-          <g className="illus-move" style={{ opacity: fixed ? 0.45 : 1 }}>
-            <path d="M30 150H252" className={tone.faint} strokeWidth="1.4" />
-            <path
-              d="M30 140 62 128 94 134 126 112 158 118 190 98 222 104 252 88"
-              className={cx(fixed ? tone.line : 'stroke-[var(--viz-series-1)]', 'illus-move')}
-              strokeWidth="2.6"
-            />
-            <path
-              d="M30 140 62 128 94 134 126 112 158 118 190 98 222 104 252 88V150H30Z"
-              className={
-                fixed
-                  ? 'fill-stone-200/40 dark:fill-stone-700/30'
-                  : 'fill-[var(--viz-series-1)] opacity-10'
-              }
-            />
-            <circle
-              cx="252"
-              cy="88"
-              r="4"
-              className={fixed ? 'fill-stone-400' : 'fill-[var(--viz-series-1)]'}
-            />
-          </g>
-          {fixed ? (
-            <g key="after" className="illus-pop">
-              <rect
-                x="166"
-                y="104"
-                width="78"
-                height="20"
-                rx="10"
-                className={cx(tone.well, tone.line)}
-                strokeWidth="1.2"
-              />
-              <text
-                x="205"
-                y="118"
-                textAnchor="middle"
-                className={cx(tone.muted, 'text-[11px] font-semibold')}
-              >
-                yesterday
-              </text>
-            </g>
-          ) : null}
-
-          <text
-            x="30"
-            y="172"
-            className={cx(
-              fixed ? tone.muted : 'fill-emerald-700 dark:fill-emerald-300',
-              'text-[13px] font-semibold',
-            )}
-          >
-            {fixed ? afterStatus : data.before}
-          </text>
-          <g key={fixed} className="illus-pop">
-            <Verdict x={fixed ? 170 : 140} y={167} ok={!!fixed} r={8} />
-          </g>
-
-          {/* Failed refresh coming in from the right */}
-          <path
-            d="M330 104Q300 104 272 104"
-            className={cx(tone.line, 'illus-flow')}
-            strokeWidth="2"
-          />
-          <path d="M296 94l12 20M308 94l-12 20" className={tone.badStroke} strokeWidth="2.4" />
-          <g className="illus-float">
-            <path
-              d="M322 92a14 14 0 0 1 27-6 11 11 0 0 1 18 9 9 9 0 0 1-2 18h-41a11 11 0 0 1-2-21z"
-              className={cx(tone.paper, tone.ink)}
-              strokeWidth="2"
-            />
-            <path d="M346 98l-7 10h7l-5 9" className={tone.markStroke} strokeWidth="2.4" />
-          </g>
-          <text
-            x="344"
-            y="140"
-            textAnchor="middle"
-            className={cx(tone.text, 'text-[13px] font-semibold')}
-          >
-            Refresh
-          </text>
-          <text x="344" y="156" textAnchor="middle" className={cx(tone.muted, 'text-[12px]')}>
-            fails
-          </text>
-        </Scene>
+      <Stage className="dot-grid p-3 sm:p-5">
+        <div className="mx-auto max-w-md overflow-hidden rounded-xl border border-stone-300 bg-white shadow-sm dark:border-stone-700 dark:bg-stone-900">
+          <div className="flex items-center justify-between border-b border-stone-200 px-3 py-2 dark:border-stone-700">
+            <span className="text-sm font-semibold text-stone-800 dark:text-stone-100">
+              Project tasks
+            </span>
+            <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600 dark:bg-stone-800 dark:text-stone-300">
+              Today: {data.today}
+            </span>
+          </div>
+          <table className="w-full text-sm">
+            <caption className="sr-only">
+              Each task with its due date, whether the prototype counts it as overdue and whether
+              you do.
+            </caption>
+            <thead>
+              <tr className="text-left text-xs text-stone-500 dark:text-stone-400">
+                <th scope="col" className={cx(cell, 'font-medium')}>
+                  Task
+                </th>
+                <th scope="col" className={cx(cell, 'font-medium')}>
+                  Due
+                </th>
+                <th scope="col" className={cx(cell, 'text-center font-medium')}>
+                  Screen
+                </th>
+                <th scope="col" className={cx(cell, 'text-center font-medium')}>
+                  You
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.tasks.map((task, i) => {
+                const counted = shown > i
+                const wrong = done && task.screen !== task.overdue
+                return (
+                  <tr
+                    key={task.name}
+                    className={cx(
+                      'border-t border-stone-100 transition-colors duration-300 dark:border-stone-800',
+                      wrong && 'bg-red-50 dark:bg-red-950/60',
+                    )}
+                  >
+                    <th
+                      scope="row"
+                      className={cx(
+                        cell,
+                        'text-left font-normal text-stone-800 dark:text-stone-100',
+                      )}
+                    >
+                      {task.name}
+                    </th>
+                    <td
+                      className={cx(cell, 'whitespace-nowrap text-stone-600 dark:text-stone-300')}
+                    >
+                      {task.due}
+                    </td>
+                    <td className={cx(cell, 'text-center')}>
+                      <Mark on={task.screen} />
+                      {wrong && <span className="sr-only"> missed</span>}
+                    </td>
+                    <td className={cx(cell, 'text-center')}>
+                      {counted ? (
+                        <span className="animate-pop-in inline-block">
+                          <Mark on={task.overdue} wrong={wrong} />
+                        </span>
+                      ) : (
+                        <span className="text-stone-300 dark:text-stone-600">?</span>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+            <tfoot>
+              <tr className="border-t-2 border-stone-200 font-semibold dark:border-stone-700">
+                <th
+                  scope="row"
+                  className={cx(cell, 'text-left text-stone-800 dark:text-stone-100')}
+                >
+                  Overdue
+                </th>
+                <td className={cell} />
+                <td
+                  className={cx(
+                    cell,
+                    'text-center text-base',
+                    done ? 'text-red-700 dark:text-red-300' : 'text-stone-800 dark:text-stone-100',
+                  )}
+                >
+                  {screenTotal}
+                </td>
+                <td
+                  className={cx(cell, 'text-center text-base text-stone-800 dark:text-stone-100')}
+                >
+                  {done ? (
+                    <span className="animate-pop-in inline-block">{handTotal}</span>
+                  ) : (
+                    <span className="text-stone-300 dark:text-stone-600">?</span>
+                  )}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </Stage>
-      <Note id={fixed}>
-        <dl className="grid gap-1.5 text-xs sm:grid-cols-[5.5rem_minmax(0,1fr)]">
-          {report.map((row) => (
-            <div key={row.label} className="contents">
-              <dt className="font-semibold text-stone-500 dark:text-stone-400">{row.label}</dt>
-              <dd
-                className={cx(
-                  'mb-1.5 sm:mb-0',
-                  row.label === 'Actual' &&
-                    (fixed
-                      ? 'text-emerald-800 dark:text-emerald-300'
-                      : 'text-red-700 dark:text-red-300'),
-                )}
-              >
-                {row.text}
-              </dd>
-            </div>
-          ))}
-        </dl>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <button type="button" className={controlClass} onClick={toggle}>
+          {checking ? 'Reset' : 'Count by hand'}
+        </button>
+        {!done && (
+          <span className="text-sm text-stone-500 dark:text-stone-400">
+            A task is overdue when its due date is before today.
+          </span>
+        )}
+      </div>
+
+      <Note id={done ? 'report' : 'idle'}>
+        {done ? (
+          <>
+            <p className="text-xs font-semibold text-red-700 dark:text-red-300">
+              The screen says {screenTotal}, you count {handTotal}. Write it up:
+            </p>
+            <dl className="mt-2 grid gap-1.5 text-sm sm:grid-cols-[5.5rem_minmax(0,1fr)]">
+              {data.report.map((row) => (
+                <div key={row.label} className="contents">
+                  <dt className="font-semibold text-stone-500 dark:text-stone-400">{row.label}</dt>
+                  <dd className="mb-1.5 sm:mb-0">{row.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </>
+        ) : null}
       </Note>
     </div>
   )
