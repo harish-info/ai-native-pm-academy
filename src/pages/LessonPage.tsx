@@ -284,39 +284,45 @@ export function LessonPage() {
           </Step>
 
           <Step id="verify">
-            <div className="grid gap-4 md:grid-cols-2">
-              <Section title="What good output looks like">
-                <Bullets items={lesson.expectedOutput} />
-              </Section>
-              <Section title="How to verify it">
-                <Bullets items={lesson.verification} />
-              </Section>
-            </div>
-
-            <Section title="Artifact to keep">
-              <p className="leading-relaxed">{inline(lesson.artifact)}</p>
-            </Section>
-
-            {wiki && (
-              <Card className="border-indigo-200 dark:border-indigo-900">
-                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="text-lg font-semibold">File it in your workspace</h2>
-                  <Link to="/wiki" className={`text-sm ${linkClass}`}>
-                    Workspace guide
-                  </Link>
+            <Card>
+              <h2 className="mb-3 text-lg font-semibold">Done when</h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="mb-1 text-sm font-semibold">Keep</h3>
+                  <p className="leading-relaxed">{inline(lesson.artifact)}</p>
                 </div>
-                <p className="leading-relaxed">{inline(wiki.capture)}</p>
-                <ul className="mt-3 flex flex-wrap gap-1.5">
-                  {wiki.pages.map((p) => (
-                    <li key={p}>
-                      <code className="rounded bg-stone-100 px-1.5 py-0.5 text-xs dark:bg-stone-800">
-                        {p}
-                      </code>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            )}
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div>
+                    <h3 className="mb-1 text-sm font-semibold">Good output</h3>
+                    <Bullets items={lesson.expectedOutput} />
+                  </div>
+                  <div>
+                    <h3 className="mb-1 text-sm font-semibold">Check it</h3>
+                    <Bullets items={lesson.verification} />
+                  </div>
+                </div>
+                {wiki && (
+                  <div className="border-t border-stone-200 pt-4 dark:border-stone-800">
+                    <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+                      <h3 className="text-sm font-semibold">File it</h3>
+                      <Link to="/wiki" className={`text-sm ${linkClass}`}>
+                        Workspace guide
+                      </Link>
+                    </div>
+                    <p className="leading-relaxed">{inline(wiki.capture)}</p>
+                    <ul className="mt-3 flex flex-wrap gap-1.5">
+                      {wiki.pages.map((p) => (
+                        <li key={p}>
+                          <code className="rounded bg-stone-100 px-1.5 py-0.5 text-xs dark:bg-stone-800">
+                            {p}
+                          </code>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </Card>
 
             <EvidencePanel
               slice="lessons"
