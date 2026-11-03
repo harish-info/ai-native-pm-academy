@@ -16,12 +16,11 @@ const blocks = layers.flatMap((items, layer) =>
   items.map((label, j) => ({ label, layer, order: j })),
 )
 const counts = layers.map((_, i) => layers.slice(0, i + 1).flat().length)
-const blockFill = [
-  cx(tone.well, tone.line),
-  cx(tone.tint, tone.accentStroke),
-  'fill-mark-200 stroke-mark-400',
+const blockClass = [
+  'border-stone-300 bg-stone-100 text-stone-800 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100',
+  'border-indigo-400 bg-indigo-50 text-indigo-800 dark:border-indigo-500 dark:bg-indigo-950 dark:text-indigo-200',
+  'border-mark-400 bg-mark-200 text-mark-900',
 ]
-const blockText = [tone.text, 'fill-indigo-800 dark:fill-indigo-200', 'fill-mark-900']
 
 function show(on: boolean) {
   return { opacity: on ? 1 : 0 }
@@ -40,15 +39,8 @@ export default function Solution() {
         value={choice}
         onChange={setChoice}
       />
-      <Stage className="dot-grid px-2 py-3">
-        <Scene
-          className="max-h-56!"
-          viewBox="0 0 400 190"
-          label={`${option.label}: ${count} things to evaluate, from ${blocks
-            .slice(0, count)
-            .map((b) => b.label.toLowerCase())
-            .join(', ')}.`}
-        >
+      <Stage className="dot-grid grid grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-center gap-3 px-3 py-3 sm:gap-6 sm:px-6">
+        <Scene className="max-h-56!" viewBox="0 0 220 190" label={`${option.label}.`}>
           {/* Context document feeding in (model and agent) */}
           <g className="illus-move" style={show(choice >= 1)}>
             <path
@@ -62,14 +54,14 @@ export default function Solution() {
               strokeWidth="1.4"
             />
             <path d="M113 54v12" className={cx(tone.accentStroke, 'illus-flow')} strokeWidth="2" />
-            <text x="134" y="38" className={cx(tone.muted, 'text-[11px]')}>
+            <text x="134" y="38" className={cx(tone.muted, 'text-[13px]')}>
               Context
             </text>
           </g>
 
           {/* Task in, result out */}
           <circle cx="22" cy="96" r="7" className={tone.mark} />
-          <text x="22" y="120" textAnchor="middle" className={cx(tone.muted, 'text-[11px]')}>
+          <text x="22" y="120" textAnchor="middle" className={cx(tone.muted, 'text-[13px]')}>
             Task
           </text>
           <path d="M32 96h30" className={cx(tone.line, 'illus-flow')} strokeWidth="2" />
@@ -132,7 +124,7 @@ export default function Solution() {
               <ellipse cx="9" cy="6" rx="5" ry="2" className={tone.ink} strokeWidth="1.4" />
               <path d="M4 6v6c0 1.2 2.2 2 5 2s5-.8 5-2V6" className={tone.ink} strokeWidth="1.4" />
             </g>
-            <text x="140" y="164" className={cx(tone.muted, 'text-[11px]')}>
+            <text x="140" y="164" className={cx(tone.muted, 'text-[13px]')}>
               Tools
             </text>
           </g>
@@ -145,63 +137,41 @@ export default function Solution() {
           >
             {cores[choice]}
           </text>
-
-          {/* The evaluation stack */}
-          <path d="M236 170h152" className={tone.ink} strokeWidth="2" />
-          {/* Empty slots show how tall the stack can grow */}
-          {blocks.map((b, i) => (
-            <rect
-              key={`slot-${b.label}`}
-              x="240"
-              y={152 - i * 15.6}
-              width="144"
-              height="13"
-              rx="3.5"
-              strokeWidth="1"
-              strokeDasharray="3 3"
-              className={tone.faint}
-            />
-          ))}
-          {blocks.map((b, i) => {
-            const on = i < count
-            const y = 152 - i * 15.6
-            return (
-              <g
-                key={b.label}
-                className="illus-move"
-                style={{
-                  opacity: on ? 1 : 0,
-                  transform: on ? 'none' : 'translateY(-18px)',
-                  transitionDelay: on ? `${b.order * 80}ms` : '0ms',
-                }}
-              >
-                <rect
-                  x="240"
-                  y={y}
-                  width="144"
-                  height="13"
-                  rx="3.5"
-                  strokeWidth="1.2"
-                  className={blockFill[b.layer]}
-                />
-                <text
-                  x="312"
-                  y={y + 10.2}
-                  textAnchor="middle"
-                  className={cx(blockText[b.layer], 'text-[11px] font-medium')}
+        </Scene>
+        <div>
+          <p className="mb-1.5 text-center text-xs text-stone-500 dark:text-stone-400">
+            To evaluate:{' '}
+            <span
+              key={count}
+              className="animate-pop-in inline-block font-mono font-semibold text-stone-800 dark:text-stone-100"
+            >
+              {count}
+            </span>
+          </p>
+          {/* The dashed outline shows how tall the stack can grow */}
+          <ol className="flex flex-col-reverse gap-0.5 rounded-lg border border-dashed border-stone-300 p-1 dark:border-stone-600">
+            {blocks.map((b, i) => {
+              const on = i < count
+              return (
+                <li
+                  key={b.label}
+                  aria-hidden={!on}
+                  className={cx(
+                    'illus-move truncate rounded border px-1.5 py-0.5 text-center text-[11px] leading-4 font-medium',
+                    blockClass[b.layer],
+                  )}
+                  style={{
+                    opacity: on ? 1 : 0,
+                    transform: on ? 'none' : 'translateY(-12px)',
+                    transitionDelay: on ? `${b.order * 80}ms` : '0ms',
+                  }}
                 >
                   {b.label}
-                </text>
-              </g>
-            )
-          })}
-          <text x="312" y="186" textAnchor="middle" className={cx(tone.muted, 'text-[12px]')}>
-            To evaluate:{' '}
-            <tspan key={count} className={cx(tone.text, 'font-mono font-semibold')}>
-              {count}
-            </tspan>
-          </text>
-        </Scene>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
       </Stage>
       <Note id={choice} className="min-h-0">
         <p className="text-stone-700 dark:text-stone-200">{option.detail}</p>
