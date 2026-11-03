@@ -38,17 +38,17 @@ test('landing page loads at the base path', async ({ page }) => {
   ).toBeVisible()
 })
 
-test('decision practice explains choices without completing a lesson', async ({ page }) => {
+test('quick check explains choices without completing a lesson', async ({ page }) => {
   await page.goto('#/lessons/s1')
-  const exercise = page.getByRole('group', { name: 'Decision practice' })
-  await exercise.getByRole('button', { name: /agreement between two tools/ }).click()
-  await expect(page.getByText('Reconsider the evidence')).toBeVisible()
-  await expect(page.getByText(/They may share training patterns/)).toBeVisible()
-  const correct = exercise.getByRole('button', { name: /claim still needs evidence/ })
+  const exercise = page.getByRole('group', { name: 'Quick check answers' })
+  await exercise.getByRole('button', { name: /two different tools said it/ }).click()
+  await expect(page.getByText('Not quite')).toBeVisible()
+  await expect(page.getByText(/Two matching guesses are still guesses/)).toBeVisible()
+  const correct = exercise.getByRole('button', { name: /Ask finance managers/ })
   await correct.focus()
   await page.keyboard.press('Enter')
   await expect(correct).toHaveAttribute('aria-pressed', 'true')
-  await expect(page.getByText('Good judgement')).toBeVisible()
+  await expect(page.getByText('Right', { exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
   await expect(page.getByRole('link', { name: /AI capabilities and limitations/ })).toBeVisible()
   const lessonPrecedesSources = await page.locator('#step-learn').evaluate((section) => {

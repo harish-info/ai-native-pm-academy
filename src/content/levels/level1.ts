@@ -125,7 +125,7 @@ export const level1: Level = {
           'Build a mental model of how models work, write it down as your own glossary, and compare two models or settings on one real PM task for your product.',
         steps: [
           'Create a private folder on your own computer called `learning-notes/`, not in a shared drive. Every Level 1 file goes here; in Session 5 it moves into your workspace. Files are plain Markdown: `#` for headings, `-` for bullets, `**bold**`, saved with a `.md` ending from any text editor.',
-          'Watch the short 3Blue1Brown explainer. The longer capabilities course is optional; use the worked example and decision check here before the practical task.',
+          'Watch the short 3Blue1Brown explainer. The longer capabilities course is optional. Read the example and try the quick check below before the practical task.',
           'Write `glossary.md` in your own words: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (one line: retrieval-augmented generation, fetching documents into the context before answering). One or two sentences each, plus one example that surprised you.',
           "See a tool at work: ask Claude a question that needs this week's news with web search switched off, then on. Note which answer used a tool and how you could tell.",
           'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for [target users] about [specific problem]." Replace the brackets with a context you know. Run it in two models or two settings, each in a fresh chat. Try the same model at two effort levels if your app offers them, two Claude models if your plan offers them, or Claude and ChatGPT. Record the full model names, effort settings (or "not exposed"), other enabled features and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
@@ -292,11 +292,11 @@ Rules:
       ],
       task: {
         summary:
-          'Compare a baseline brief, a role phrase and a grounded brief. Write product-context.md, use it in a Project or paste it into a fresh chat, and decide what you will delegate.',
+          'Ask for the same competitor summary with no background, then with a role phrase. Write product-context.md, use it in a Project or paste it into a fresh chat, ask again, and decide what you will delegate.',
         steps: [
           'Choose a public product or workflow you understand. In a fresh chat with no background brief, ask: "Write a one-page competitor summary for [product or workflow]." Replace the brackets with its name, without adding private context. Save the answer as `summary-v0.md`.',
           'In another fresh chat, ask the same thing but open with a role phrase such as "You are a world-class strategy consultant" and add "think step by step". Save it as `summary-v0b.md` and note in one line how much it differs from v0.',
-          'Choose a product, service or internal workflow you understand. Use public information and fictional practice data, without employer or customer details. Write `product-context.md` in your own words with the six headings from this lesson. Keep it to one page and write "Unknown" instead of guessing.',
+          'For the same product or workflow, write `product-context.md` in your own words with the six headings from this lesson. Use public information and fictional practice data, without employer or customer details. Keep it to one page and write "Unknown" instead of guessing.',
           'Create a Claude Project called "PM workspace". Add `product-context.md` to project knowledge and write four to six lines of project instructions: who the outputs are for, the format you usually want, and "say what is missing instead of guessing". If your plan does not offer Projects, paste the file at the top of each fresh chat instead.',
           'Collect public pages for three to five competitors or alternative ways of doing the job. Run the agent prompt below in the Project and save the answer as `summary-v1.md`. Keep it: Session 3 fact-checks it.',
           'Read the "Gaps and assumptions" list in v1. Update `product-context.md` yourself where you can answer a gap; add the rest under Open decisions.',
@@ -601,7 +601,7 @@ Rules:
       ],
       task: {
         summary:
-          'Build a one-page pitch as an artifact, observe one reader, and make a deliberate revision that addresses what you learned. Record what the page cannot prove.',
+          'Build a one-page pitch as an artifact, improve it one change at a time, share it with one reader, and record what the page cannot prove.',
         steps: [
           'Start `pitch-notes.md` with a five-line brief: who it is for, the problem in their words, the idea in one sentence, the one verified fact from `fact-sheet.md` that makes the case, and what you want a reader to do next.',
           'Open a fresh chat in your PM workspace Project, attach `fact-sheet.md`, and run the agent prompt below.',

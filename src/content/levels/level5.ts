@@ -445,14 +445,14 @@ When done, show the tree and mark any rule you were unsure how to phrase with "(
       ],
       task: {
         summary:
-          'Build and check one narrow skill first, then reuse the format for two more. Test in a disposable copy, bound its work and verify the first actual briefing run. A few passing hostile cases do not prove injection is impossible.',
+          'Build and check one narrow skill first, then reuse the format for two more. Test in a throwaway copy, limit how much each run can read and do, and check the first real briefing run. A few passing hostile checks do not prove a hidden instruction can never get through.',
         steps: [
           'Read one existing skill from the linked plugin or course. Note one thing its description does well. Installation is optional; inspect connectors and access first if you choose it.',
           'Run the agent prompt below to draft `kb-lookup`, `kb-share` and your third skill (`weekly-update` or `align-check`) as personal skills in `~/.claude/skills/`. Edit each description and step list until it says what you would tell a new teammate.',
           'Add a copy of the three skills under `team-kb/skills/` through a pull request, so teammates could install the same versions.',
           'In a fresh session in your prototype repository, describe a task without naming a skill, for example "Before I change the empty state, what did the team decide about it?", and check that `kb-lookup` triggers and cites pages.',
-          'In a disposable isolated copy, write three checks per skill: normal, missing or conflicting evidence, and hostile input. Deny instruction writes and unnecessary network or message tools before testing. Run all nine checks, inspect attempted tool calls and file diffs, record failures and rerun after changes. Do not test attacks on the working KB.',
-          'Set a bounded briefing task: approved KB only, past seven days, at most ten source files or five minutes, one local draft and no sending. Run it once now, inspect the result and the actions, then schedule it if supported. Record the schedule and the first actual run separately. With no scheduler, keep a manual weekly routine and say so.',
+          'Make a throwaway copy of `team-kb` to test in. Write three checks per skill: a normal input, missing or conflicting evidence, and a hostile input. Before testing, block the skills from editing `AGENTS.md` and turn off any network or messaging tools they do not need. Run all nine checks, look at the actions Claude tried and the file changes, record failures and rerun after changes. Never test attacks on your working KB.',
+          'Set up the weekly briefing with limits: approved KB only, past seven days, at most ten source files or five minutes, one local draft and no sending. Run it once now, inspect the result and the actions, then schedule it if supported. Record the schedule and the first actual run separately. With no scheduler, keep a manual weekly routine and say so.',
           'Review access: list every connector and permission the three skills and the briefing use, remove anything they do not need, and record the final list in `skill-checks.md`.',
         ],
       },

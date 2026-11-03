@@ -10,8 +10,9 @@ const budget = {
   // on 2026-11-02 for the starter kit page, its resources and the dashboard sections (about 1 kB).
   // Raised to 380 on 2026-11-02 for the study plan roadmap and week checklists (about 2 kB).
   // Raised to 400 on 2026-11-02 for the redrawn lesson illustrations and four new ones (about
-  // 16 kB gzip, all in the lazily loaded illustration chunk).
-  jsGzipKb: 400,
+  // 16 kB gzip, all in the lazily loaded illustration chunk). Raised to 410 on 2026-11-03 for the
+  // rewritten lesson examples, which quote real prompts and output (about 2 kB gzip).
+  jsGzipKb: 410,
   cssGzipKb: 20, // all CSS, gzipped
 }
 
