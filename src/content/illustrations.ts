@@ -473,7 +473,7 @@ export const lessonVisuals = {
     caption:
       'A diagram of the policy, not an access-control implementation. Real enforcement belongs in the retrieval system.',
     documents: ['Team decisions', 'Public product notes', 'Restricted personnel records'],
-    steps: ['Check identity and scope', 'Retrieve authorised sources', 'Generate a cited answer'],
+    requesters: ['Product team member, team scope', 'HR specialist, personnel scope'],
   },
   skills: {
     title: 'A repeated procedure needs a bounded run',

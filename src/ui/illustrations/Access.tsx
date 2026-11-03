@@ -1,219 +1,146 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { lessonVisuals } from '../../content/illustrations'
 import { cx } from '../cx'
-import { Note, Scene, Segmented, Stage, tone, useInView, Verdict } from './kit'
-import './Access.css'
+import { Note, Segmented, Stage } from './kit'
 
-const { documents, steps } = lessonVisuals.access
+const { documents, requesters } = lessonVisuals.access
 const short = ['Decisions', 'Product notes', 'Personnel']
-const startX = 16
-const startY = [44, 88, 132]
-// Inside the model's context, the documents stack on the right.
-const endX = 264
-const endY = [44, 88, 132]
+const restricted = 2
 
-function Doc({ locked, label }: { locked: boolean; label: string }) {
+function DocIcon({ locked }: { locked: boolean }) {
   return (
-    <g>
+    <svg aria-hidden viewBox="0 0 16 16" className="h-4 w-4 shrink-0" fill="none">
       <path
-        d="M0 0h22l8 8v30H0z"
-        className={cx(locked ? 'fill-mark-100 dark:fill-stone-800' : tone.paper, tone.ink)}
-        strokeWidth="1.8"
+        d="M3.5 1.5h6l3 3v10h-9zM9.5 1.5v3h3"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
       />
-      <path d="M22 0v8h8" className={tone.ink} strokeWidth="1.8" />
       {locked ? (
-        <g className={tone.ink} strokeWidth="1.6">
-          <rect
-            x="8"
-            y="17"
-            width="14"
-            height="11"
-            rx="2"
-            className="fill-mark-300 dark:fill-mark-400"
-          />
-          <path d="M11 17v-3a4 4 0 0 1 8 0v3" />
-        </g>
+        <path
+          d="M6 9.5h4v3H6zM6.8 9.5V8.3a1.2 1.2 0 0 1 2.4 0v1.2"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeLinejoin="round"
+        />
       ) : (
-        <path d="M6 16h16M6 22h12M6 28h14" className={tone.ink} strokeWidth="1.6" />
+        <path d="M5.5 8h5M5.5 11h4" stroke="currentColor" strokeWidth="1.4" />
       )}
-      <text x="38" y="23" className={cx(tone.text, 'text-[12px] font-medium')}>
-        {label}
-      </text>
-    </g>
+    </svg>
   )
 }
 
-/** Documents flow through an identity gate into the model's context; a restricted one may bounce. */
+/** `compact` hides the name on narrow screens, where the answer line below names it anyway. */
+function Doc({ i, compact }: { i: number; compact?: boolean }) {
+  return (
+    <span className="inline-flex min-w-0 items-center gap-1.5 rounded-md border border-stone-300 bg-white px-2 py-1 text-xs font-medium whitespace-nowrap text-stone-800 dark:border-stone-600 dark:bg-stone-900 dark:text-stone-100">
+      <DocIcon locked={i === restricted} />
+      <span className={compact ? 'hidden sm:inline' : undefined}>{short[i]}</span>
+    </span>
+  )
+}
+
+/** Each source passes an identity and scope check before retrieval; a restricted one may not. */
 export default function Access() {
   const [access, setAccess] = useState(0)
-  const ref = useRef<HTMLDivElement>(null)
-  const seen = useInView(ref)
+  const allowed = (i: number) => i !== restricted || access === 1
+  const cited = short.filter((_, i) => allowed(i))
+  const head =
+    'text-[11px] font-semibold tracking-wide text-stone-500 uppercase dark:text-stone-400'
   return (
-    <div ref={ref} className="space-y-3">
+    <div className="space-y-3">
       <Segmented
         label="Explore retrieval permissions"
         labels={['Team-only access', 'Authorised specialist']}
         value={access}
         onChange={setAccess}
       />
-      <Stage className="dot-grid px-2 py-2">
-        <Scene
-          viewBox="0 0 400 200"
-          className="max-h-56!"
-          label={`${steps.join(', then ')}. ${documents
-            .map((d, i) => `${d}: ${i === 2 && access === 0 ? 'excluded' : 'allowed'}`)
-            .join('. ')}.`}
+      <Stage className="dot-grid p-3 sm:p-5">
+        <p className="mb-3 text-center text-xs text-stone-600 dark:text-stone-300">
+          Request from: <span className="font-semibold">{requesters[access]}</span>
+        </p>
+        <div
+          role="table"
+          aria-label="Which sources reach the model context"
+          className="grid grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_minmax(0,1fr)] items-center gap-x-2 gap-y-2.5"
         >
-          {/* The source shelf */}
-          <rect
-            x="6"
-            y="12"
-            width="140"
-            height="164"
-            rx="14"
-            className={cx(tone.line, 'fill-none')}
-            strokeWidth="1.6"
-            strokeDasharray="6 5"
-          />
-          <text
-            x="76"
-            y="32"
-            textAnchor="middle"
-            className={cx(tone.text, 'text-[13px] font-semibold')}
-          >
-            Sources
-          </text>
-          {seen &&
-            startY.map(
-              (y, i) =>
-                !(i === 2 && access === 0) && (
-                  <rect
-                    key={y}
-                    x={startX}
-                    y={y}
-                    width="30"
-                    height="38"
-                    rx="3"
-                    className={cx(tone.line, 'fill-none')}
-                    strokeWidth="1.4"
-                    strokeDasharray="3 4"
-                  />
-                ),
-            )}
-
-          {/* The model's context window */}
-          <rect
-            x="252"
-            y="12"
-            width="140"
-            height="164"
-            rx="14"
-            className={cx(tone.tint, 'stroke-indigo-300 dark:stroke-indigo-800')}
-            strokeWidth="2"
-            strokeDasharray="6 5"
-          />
-          <text
-            x="322"
-            y="32"
-            textAnchor="middle"
-            className={cx(tone.text, 'text-[13px] font-semibold')}
-          >
-            Model context
-          </text>
-          {access === 0 && (
-            <g key="gap" className="illus-pop" style={{ animationDelay: '0.9s' }}>
-              <rect
-                x={endX}
-                y={endY[2]}
-                width="30"
-                height="38"
-                rx="3"
-                className={cx(tone.line, 'fill-none')}
-                strokeWidth="1.6"
-                strokeDasharray="4 4"
-              />
-              <text
-                x={endX + 38}
-                y={endY[2]! + 23}
-                className={cx(tone.muted, 'text-[12px] italic')}
-              >
-                not retrieved
-              </text>
-            </g>
-          )}
-          <text x="322" y="194" textAnchor="middle" className={cx(tone.muted, 'text-[11px]')}>
-            3 Cited answer
-          </text>
-
-          {/* The gate */}
-          <path d="M176 10v132" className={tone.line} strokeWidth="2" strokeDasharray="2 6" />
-          <rect
-            x="162"
-            y="62"
-            width="28"
-            height="70"
-            rx="10"
-            className={cx(tone.paper, tone.ink)}
-            strokeWidth="2"
-          />
-          <path
-            d="m176 78 10 4v8c0 8-10 14-10 14s-10-6-10-14v-8z"
-            className={cx(access ? tone.good : tone.mark, tone.ink, 'illus-move')}
-            strokeWidth="1.6"
-          />
-          <path
-            d="m171 90 4 4 6-7"
-            className="stroke-white dark:stroke-stone-950"
-            strokeWidth="2"
-          />
-          <text
-            x="176"
-            y="156"
-            textAnchor="middle"
-            className={cx(tone.text, 'text-[12px] font-semibold')}
-          >
-            1 Check
-          </text>
-          <text x="176" y="170" textAnchor="middle" className={cx(tone.muted, 'text-[11px]')}>
-            identity, scope
-          </text>
-          <text x="221" y="92" textAnchor="middle" className={cx(tone.muted, 'text-[11px]')}>
-            2 Retrieve
-          </text>
-          <path d="M196 102h46m-5-4 5 4-5 4" className={tone.line} strokeWidth="1.6" />
-
+          <div role="row" className="contents">
+            <span role="columnheader" className={head}>
+              Sources
+            </span>
+            <span role="columnheader" className={cx(head, 'text-center')}>
+              1 Check access
+            </span>
+            <span role="columnheader" className={cx(head, 'text-right')}>
+              2 <span className="hidden sm:inline">Model </span>context
+            </span>
+          </div>
           {documents.map((doc, i) => {
-            const blocked = i === 2 && access === 0
-            const moved = seen && !blocked
-            const x = moved ? endX : startX
-            const y = moved ? endY[i]! : startY[i]!
+            const ok = allowed(i)
             return (
-              <g
-                key={doc}
-                className="illus-move"
-                style={{ transform: `translate(${x}px, ${y}px)`, transitionDelay: `${i * 120}ms` }}
-              >
-                <g
-                  key={`${access}-${seen}`}
-                  className={blocked && seen ? 'access-bounce' : undefined}
-                >
-                  <Doc locked={i === 2} label={short[i]!} />
-                </g>
-              </g>
+              <div role="row" key={doc} className="contents">
+                <span role="cell" className="flex min-w-0">
+                  <Doc i={i} />
+                  <span className="sr-only">{doc}</span>
+                </span>
+                <span role="cell" className="flex items-center gap-1">
+                  <span aria-hidden className="h-px flex-1 bg-stone-300 dark:bg-stone-600" />
+                  <span
+                    key={`${access}-${i}`}
+                    className={cx(
+                      'animate-pop-in shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold',
+                      ok
+                        ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                        : 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300',
+                    )}
+                    style={{ animationDelay: `${i * 120}ms` }}
+                  >
+                    {ok ? 'Allowed' : 'Blocked'}
+                  </span>
+                  <span
+                    aria-hidden
+                    className={cx(
+                      'h-px flex-1',
+                      ok ? 'bg-indigo-500 dark:bg-indigo-400' : 'bg-transparent',
+                    )}
+                  />
+                  <span
+                    aria-hidden
+                    className={cx(
+                      'h-0 w-0 border-y-4 border-l-[6px] border-y-transparent',
+                      ok ? 'border-l-indigo-500 dark:border-l-indigo-400' : 'border-l-transparent',
+                    )}
+                  />
+                </span>
+                <span role="cell" className="flex min-w-0 justify-end">
+                  {ok ? (
+                    <span
+                      key={`in-${access}`}
+                      className="animate-pop-in flex min-w-0"
+                      style={{ animationDelay: `${i * 120 + 150}ms` }}
+                    >
+                      <Doc i={i} compact />
+                    </span>
+                  ) : (
+                    <span className="rounded-md border border-dashed border-stone-300 px-2 py-1 text-xs whitespace-nowrap text-stone-500 italic dark:border-stone-600 dark:text-stone-400">
+                      <span className="sm:hidden">none</span>
+                      <span className="hidden sm:inline">not retrieved</span>
+                    </span>
+                  )}
+                </span>
+              </div>
             )
           })}
-          {access === 0 && seen && (
-            <g key="denied" className="illus-pop" style={{ animationDelay: '0.5s' }}>
-              <Verdict x={192} y={64} ok={false} />
-            </g>
-          )}
-        </Scene>
+        </div>
+        <p className="mt-4 border-t border-stone-200 pt-3 text-right text-xs text-stone-600 dark:border-stone-700 dark:text-stone-300">
+          <span className="font-semibold">3 Answer cites:</span> {cited.join(', ')}
+        </p>
       </Stage>
       <Note id={access}>
         <p>
           {access
-            ? 'Only a verified role with the required scope may retrieve restricted records for an authorised purpose.'
-            : 'The restricted record never enters the model context. The answer can cite only the first two sources.'}
+            ? 'A verified role with personnel scope may retrieve the restricted records for an authorised purpose.'
+            : 'The restricted record never enters the model context, so no prompt can leak it. The answer cites only the first two sources.'}
         </p>
       </Note>
     </div>
