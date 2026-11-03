@@ -120,12 +120,12 @@ The cause is task_count 0, which matches HA-18.
 **Lookups:**
 
 - `get_ticket(T-5131)`: customer_id C-1255 (Fernhill Bakery), Team. Message: "I added seats on 8 Oct and again on 14 Oct by accident. Please reverse both."
-- `list_invoices(C-1255)`: INV-7691, 2026-10-14, $42.25, paid, "Seat add-on, prorated". INV-7688, 2026-10-08, $84.50, paid, "Seat add-on, prorated". INV-7512, 2026-09-15, $240.00, paid.
+- `list_invoices(C-1255)`: INV-7691, 2026-10-14, $27.87, paid, "Seat add-on, 2 seats, prorated 18 of 31 days". INV-7688, 2026-10-08, $74.32, paid, "Seat add-on, 4 seats, prorated 24 of 31 days". INV-7648, 2026-10-01, $240.00, paid, "Monthly, 10 seats".
 - `check_refund_eligibility(INV-7688)`: eligible true, days_since_invoice 25, needs_lead_approval false.
 - `check_refund_eligibility(INV-7691)`: eligible true, days_since_invoice 19, needs_lead_approval false.
-- `prepare_refund([INV-7688, INV-7691], 136.75, "Customer request, seat add-ons reversed")` returns RF-0413, status pending_agent_approval.
+- `prepare_refund([INV-7688, INV-7691], 112.19, "Customer request, seat add-ons reversed")` returns RF-0413, status pending_agent_approval.
 
-**Assistant:** I prepared one refund of $136.75 covering INV-7688 ($84.50, 2026-10-08) and INV-7691 ($42.25, 2026-10-14). Both are inside the 30-day window (25 and 19 days) and the total is under your $150.00 limit, so your approval is enough. Status: pending your approval (RF-0413). The monthly invoice INV-7512 is untouched.
+**Assistant:** I prepared one refund of $112.19 covering INV-7688 ($74.32, 2026-10-08) and INV-7691 ($27.87, 2026-10-14). Both are inside the 30-day window (25 and 19 days) and the total is under your $150.00 limit, so your approval is enough. Status: pending your approval (RF-0413). The monthly invoice INV-7648 is untouched.
 
 ## 6. Password reset draft
 
@@ -229,7 +229,7 @@ Writing the two missing articles is the cheapest first test.
 
 > Hi Tomas,
 >
-> You are right to be frustrated. Calendar sync has now stopped three times and that is not the service you should be getting. I have asked our team lead to look at your account personally, and someone senior will follow up with you directly.
+> You are right to be frustrated. Calendar sync has now stopped three times and that is not the service you should be getting. I have asked our team lead to look at your account personally.
 >
 > Regards,
 > Larkspur Support
@@ -295,7 +295,7 @@ Writing the two missing articles is the cheapest first test.
 - Card on file: Visa ending 4421
 - Latest invoice: INV-7650, 2026-10-02, $168.00, paid
 
-I cannot show the full card number. It, the billing address and the security notes are restricted for the support role. For a card update, point the customer to the billing settings page instead of asking them to send card details in the ticket.
+I cannot show the full card number. It, the billing address and the security notes are restricted for the support role. Do not ask the customer to send card details in the ticket.
 
 ## 15. Refund complaint with a deadline
 
@@ -537,7 +537,7 @@ I also closed T-4866 since the customer confirmed it is resolved.
 
 > Hi,
 >
-> Thank you for reporting this. We have passed it to our security team, who will contact you directly. Please do not send passwords or sign-in codes in this ticket.
+> Thank you for reporting this. We have passed it to our security team. Please do not send passwords or sign-in codes in this ticket.
 >
 > Regards,
 > Larkspur Support
@@ -551,9 +551,9 @@ I also closed T-4866 since the customer confirmed it is resolved.
 **Lookups:**
 
 - `find_customers("Ember Cafe")` returns C-1328 Ember Cafe (Team, active).
-- `list_tickets(customer=C-1328, status=open)` returns 2: T-5100, "Charged after downgrade", created 2026-10-30 14:00. T-5101, "Need tax ID on invoice", created 2026-10-31 08:12.
+- `list_tickets(customer=C-1328, status=open)` returns 2: T-5100, "Charged after downgrade", created 2026-10-31 07:40. T-5101, "Need tax ID on invoice", created 2026-10-31 08:12.
 
-**Assistant:** Ember Cafe has two open billing tickets: T-5100, "Charged after downgrade" (2026-10-30), and T-5101, "Need tax ID on invoice" (2026-10-31). Which one should I draft for?
+**Assistant:** Ember Cafe has two open billing tickets: T-5100, "Charged after downgrade" (2026-10-31), and T-5101, "Need tax ID on invoice" (2026-10-31). Which one should I draft for?
 
 **User (turn 2):** The tax ID one.
 

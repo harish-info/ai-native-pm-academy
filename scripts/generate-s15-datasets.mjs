@@ -199,7 +199,7 @@ function srm(rows, label) {
   const b = sum(rows, 'treatment', 'assigned')
   const e = (a + b) / 2
   const chi = (a - e) ** 2 / e + (b - e) ** 2 / e
-  const p = erfc(Math.sqrt(chi / 2) / Math.SQRT2)
+  const p = erfc(Math.sqrt(chi / 2))
   return `SRM check (${label}): assigned control ${a}, treatment ${b}, ratio ${(b / a).toFixed(3)}, chi2=${chi.toFixed(1)}, ${fmtP(p)}`
 }
 

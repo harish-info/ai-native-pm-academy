@@ -6,7 +6,7 @@ Fictional data note: written for the AI-native PM academy. Triage and all number
 
 - Sample ratio mismatch. From 2026-03-09 to 2026-03-12, treatment gets about 45% as many tickets as control (for example 74 versus 165 on 2026-03-09). On the other ten days the arms match to within a few tickets.
 - Over all days, assigned tickets are 2,240 control and 1,878 treatment, ratio 0.838, chi2=31.8, p<0.0001. The plan said p < 0.001 means the split is broken.
-- Excluding those four days, the split is fine: 1,595 control, 1,592 treatment, p=0.9700.
+- Excluding those four days, the split is fine: 1,595 control, 1,592 treatment, p=0.9576.
 - Effect on the reading: the missing treatment tickets are not random. Treatment success on those days is inflated, so the naive headline overstates the gain.
 
 ## Headline result

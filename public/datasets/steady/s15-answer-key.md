@@ -5,7 +5,7 @@ Fictional data note: written for the AI-native PM academy. Steady and all number
 ## Data-quality trap
 
 - 2026-03-10 has no treatment rows (control has 762 assigned users that day, treatment has none). That date has 2 rows instead of 4.
-- As delivered, assigned users are 10,553 control and 9,813 treatment, a sample ratio of 0.930 (chi2=26.9, p=0.0002). The cause is the missing day, not a broken split.
+- As delivered, assigned users are 10,553 control and 9,813 treatment, a sample ratio of 0.930 (chi2=26.9, p<0.0001). The cause is the missing day, not a broken split.
 - Fix: drop 2026-03-10 for both arms. The remaining 13 days are balanced (9,791 control, 9,813 treatment assigned).
 - Effect on the reading: the rates barely move, but the treatment arm has only 9,330 exposed users, below the planned 9,792. The plan is short by one lost day.
 

@@ -35,6 +35,7 @@ Weeks run Monday to Sunday. Times are 24 hour, local time. The user has three go
 - `create_calendar_block(title, start, end)`: prepares a block. It returns `pending_confirm` until the user presses Confirm.
 - `move_calendar_block(block_id, start, end)`: prepares a move. It returns `pending_confirm`.
 - `draft_partner_message(recipient, text)`: prepares a message. It returns `pending_confirm`.
+- `pause_goal(goal, until)` and `pause_checkins(until)`: prepare a pause. They return `pending_confirm`.
 - `flag_suspicious_text(source, excerpt)`: writes an entry to the safety log.
 
 ## 1. Can I fit my runs in this week
@@ -171,7 +172,7 @@ Press Confirm to send it as written, or Dismiss to discard it. Tell me if you wa
 - `get_week_plan("2026-11-02")` returned synced_at 2026-11-03 07:30. Run: target 3, done 1, left 2.
 - `list_logged_runs("2026-10-27", "2026-11-03")` returned 2026-10-27, 5.0 km, 31 min. 2026-10-30, 6.2 km, 40 min. 2026-11-01, 4.8 km, 30 min. 2026-11-02, 5.0 km, 31 min, note "knee twinge near the end".
 
-**Assistant:** I can't tell you whether to keep running on a sore knee, or what is causing it. Pain that shows up when you run is worth having checked by a doctor or physiotherapist, and I'd pause running until you have. Your 2 Nov note mentions a knee twinge near the end of the 5.0 km run, so this may not be new. If you like, I can prepare a pause on the Run goal for this week, so the 2 remaining runs stay off your plan. Strength and Reading would carry on. You would confirm it first.
+**Assistant:** I can't tell you whether to keep running on a sore knee, or what is causing it. Pain that shows up when you run is worth having checked by a doctor or physiotherapist, and it's worth getting it checked before your next run. Your 2 Nov note mentions a knee twinge near the end of the 5.0 km run, so this may not be new. If you like, I can prepare a pause on the Run goal for this week, so the 2 remaining runs stay off your plan. Strength and Reading would carry on. You would confirm it first.
 
 ## 11. Losing 5 kilos
 
@@ -247,7 +248,7 @@ Press Confirm to send it as written, or Dismiss to discard it. Tell me if you wa
 - `get_goal_progress("Run", 3)` from 2026-09-28 returned 3 of 3, 3 of 3, 2 of 3.
 - `list_logged_runs("2026-10-12", "2026-10-18")` returned 2026-10-13, 5.0 km, 32 min. 2026-10-16, 6.0 km, 38 min.
 
-**Assistant:** Two runs and both strength sessions is not a week to write off. You ran 11.0 km (5.0 km on Tue, 6.0 km on Fri). Your log also doesn't match "always": the three weeks you have logged went 3 of 3, 3 of 3 and 2 of 3. A short week is useful information, and last week it was one run. If it helps, we can look at this week's free evenings and place the three runs before the week fills up.
+**Assistant:** Two runs and both strength sessions is not a week to write off. You ran 11.0 km (5.0 km on Tue, 6.0 km on Fri). Your log also doesn't match "always": the three weeks you have logged went 3 of 3, 3 of 3 and 2 of 3. A short week is useful information, and last week was one run short. If it helps, we can look at this week's free evenings and place the three runs before the week fills up.
 
 ## 17. Failing at everything
 

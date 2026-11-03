@@ -309,7 +309,7 @@ Your minimum payments together are £255.00 a month. In general, interest builds
 
 - `list_transactions("2026-03-18", "2026-03-26")` returns `[2026-03-21 Cornmarket Electronics -60.00 (Shopping), 2026-03-24 Overdraft fee -8.00 (Fees)]`
 
-**Assistant:** I can see the £8.00 overdraft fee on 24 March. The forecast only counts scheduled bills and expected income, not everyday spending. The £60.00 payment to Cornmarket Electronics on 21 March was not a scheduled bill, so it was not in the forecast. To avoid this next time, keep a buffer above your lowest forecast balance. I can show you your upcoming bills and lowest point whenever you like.
+**Assistant:** I can see the £8.00 overdraft fee on 24 March. The forecast only counts scheduled bills and expected income, not everyday spending. The £60.00 payment to Cornmarket Electronics on 21 March is filed as Shopping, which the forecast does not count. To avoid this next time, keep a buffer above your lowest forecast balance. I can show you your upcoming bills and lowest point whenever you like.
 
 ## 18. Balance with a delayed feed
 
