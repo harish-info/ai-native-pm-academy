@@ -110,7 +110,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   s14: {
     capture:
       'Save the eval set and the report. Note every failure that would block a release and the guardrail that now covers it.',
-    pages: ['evals/eval-set.md', 'evals/eval-report.md'],
+    pages: ['evals/eval-set.md', 'evals/eval-report.md', 'evals/failure-modes.md'],
   },
   s15: {
     capture:

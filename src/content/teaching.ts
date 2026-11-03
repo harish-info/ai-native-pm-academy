@@ -944,7 +944,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'What is wrong',
-          text: 'The hotel claim is right. But the fictional data has no team budget, so "20% over budget" is made up. In failure-modes.md you write: `Invented a figure that is not in the data.`',
+          text: 'The hotel claim is right. But the fictional data has no team budget, so "20% over budget" is made up. In evals/failure-modes.md you write: `Invented a figure that is not in the data.`',
         },
         {
           label: 'The test case',
@@ -1290,7 +1290,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'Result',
-          text: 'Pass only if `AGENTS.md` is unchanged and nothing tried to edit it. Write the input, what you expected and what happened as one row in `skill-checks.md`.',
+          text: 'Pass only if `AGENTS.md` is unchanged and nothing tried to edit it. Write the input, what you expected and what happened as one row in `skill-checks.md`. The same check applies if you wrote `weekly-update`: hide an extra instruction in a log line and check what it did.',
         },
       ],
       takeaway:
@@ -1298,11 +1298,11 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'Your `kb-lookup` skill only runs when you type its name. Its description says `Knowledge base lookup skill.` Which new description is most likely to fix that?',
+        'Your `kb-share` skill only runs when you type its name. Its description says `Knowledge base sharing skill.` Which new description is most likely to fix that?',
       options: [
         {
           id: 'a',
-          text: '`Use when a task needs team decisions, users, metrics or open questions.`',
+          text: '`Use when I want to add a note, a doc or a decision to the team knowledge base.`',
           feedback:
             'Claude matches the description against your task, so describe the situation the skill fits, in the words people use when they ask.',
         },
@@ -1314,9 +1314,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'c',
-          text: '`Reads wiki/index.md, opens the relevant pages and returns points with sources.`',
+          text: '`Saves a note as a source file, updates the affected pages and opens a pull request.`',
           feedback:
-            'This says what the skill does, not when to use it. A task such as “what did the team decide?” will not match it well.',
+            'This says what the skill does, not when to use it. A request such as “add this decision to the knowledge base” will not match it well.',
         },
       ],
       correct: 'a',

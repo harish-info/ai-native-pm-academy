@@ -377,7 +377,7 @@ When done, show the tree and mark any rule you were unsure how to phrase with "(
           heading: 'One skill to inspect, one to write',
           paragraphs: [],
           bullets: [
-            'Inspect `kb-lookup`, which the prompt below gives you in full: given a task, read `wiki/index.md` in `team-kb`, open the relevant pages and load them as context, with their sources. Read-only. Read its instructions, run it, and note what each rule and check is for.',
+            'Inspect `kb-lookup`, which the prompt below specifies and Claude writes for you: given a task, read `wiki/index.md` in `team-kb`, open the relevant pages and load them as context, with their sources. Read-only. Read the skill Claude wrote, run it, and note what each rule is for. This is the one skill you inspect in this session.',
             'Write `kb-share` (recommended): turn a note, a doc or a one-line decision into a new file in `team-kb/sources/`, run the privacy scrub, update the affected pages on a branch and open a pull request. It never merges and never touches the instruction layer. Challenge c10 uses it.',
             "Or write `weekly-update`: draft the week's update from the `log.md` lines, merged pull requests and open questions, in the shape of your Session 16 stakeholder update.",
           ],
@@ -447,8 +447,7 @@ When done, show the tree and mark any rule you were unsure how to phrase with "(
         summary:
           'Inspect and run the provided `kb-lookup` skill, then write and test one skill of your own with three checks: a normal case, an edge case and a hostile input. Test in a throwaway copy, limit how much each run can read and do, and check the first real briefing run. A few passing hostile checks do not prove a hidden instruction can never get through.',
         steps: [
-          'Read one existing skill from the linked plugin or course. Note one thing its description does well. Installation is optional; inspect connectors and access first if you choose it.',
-          "Run the agent prompt below. It installs the provided `kb-lookup` and drafts your own skill (`kb-share`, or `weekly-update`) as personal skills in `~/.claude/skills/`. Read the `kb-lookup` instructions line by line, run it on one question the knowledge base can answer and one it cannot, and note what its instructions and checks do. Edit your own skill's description and steps until it says what you would tell a new teammate.",
+          "Run the agent prompt below. It has Claude write `kb-lookup` to the spec in the prompt and draft your own skill (`kb-share`, or `weekly-update`) as personal skills in `~/.claude/skills/`. Read the `kb-lookup` instructions Claude wrote line by line, run it on one question the knowledge base can answer and one it cannot, and note what its instructions do. Edit your own skill's description and steps until it says what you would tell a new teammate.",
           'Add a copy of both skills under `team-kb/skills/` through a pull request, so teammates could install the same versions.',
           'In a fresh session in your prototype repository, describe a task without naming a skill, for example "Before I change the empty state, what did the team decide about it?", and check that `kb-lookup` triggers and cites pages.',
           'Ask Claude Code to copy `team-kb` into a new folder, `team-kb-test`, and disconnect it from GitHub (remove the remote), so nothing you test can reach the real repository. Write three checks for the skill you wrote: a normal input, an edge case with missing or conflicting evidence, and a hostile input. Before testing, ask Claude Code to add a rule that denies edits to `AGENTS.md` in this copy, and show it to you. Also turn off any network or messaging tools they do not need. Run all three checks, look at the actions Claude tried and the file changes, record failures and rerun after changes. Never test attacks on your working KB.',
@@ -461,7 +460,7 @@ When done, show the tree and mark any rule you were unsure how to phrase with "(
         where: 'In your team-kb repository',
         text: `Read AGENTS.md, CONTRIBUTING.md and wiki/index.md in this repository. I want two personal skills in ~/.claude/skills/ that work with this knowledge base from any folder. The knowledge base lives at [paste the full path to team-kb].
 
-1. kb-lookup (provided: install it exactly as written, and do not add checks of your own to it)
+1. kb-lookup (write it to this spec; add no extra rules or checks of your own)
 - Use when a task needs team knowledge: decisions, users, metrics, product rules, open questions.
 - Steps: read wiki/index.md, open only the relevant pages, and return a short brief with a [[page]] and a source path for each point. Say plainly what the knowledge base does not cover.
 - Read-only. Never edits a file.
@@ -479,7 +478,7 @@ weekly-update:
 All skills: stop after five minutes or ten source files, whichever comes first; save partial findings and list missing evidence. Enforce access limits through tool permissions separately from these instructions. Each skill gets a SKILL.md with name and description frontmatter, numbered steps and the rules above, under 60 lines. Then propose three test inputs for the skill I wrote, not for kb-lookup (normal, edge, hostile), with the expected behaviour, for me to put in skill-checks.md.`,
       },
       expectedOutput: [
-        '`kb-lookup` inspected and run, with notes on what its instructions and checks do',
+        '`kb-lookup` inspected and run, with notes on what its instructions do',
         'Your own skill in `~/.claude/skills/`, with a copy of both skills in `team-kb/skills/`',
         'A weekly briefing that runs on a schedule, or by hand with a note on why',
         '`skill-checks.md` with three checks for your skill, their results and the access list',
@@ -501,11 +500,11 @@ All skills: stop after five minutes or ten source files, whichever comes first; 
       checklist: [
         {
           id: 'plugin',
-          text: 'Inspected an existing skill and decided whether installation was needed',
+          text: 'Inspected kb-lookup, the skill Claude wrote from the prompt, and noted what its rules do',
         },
         {
           id: 'three-skills',
-          text: 'Inspected kb-lookup, and wrote and edited one skill of my own',
+          text: 'Wrote and edited one skill of my own, with a description that says when to use it',
         },
         { id: 'triggers', text: 'Checked both skills trigger from a task description alone' },
         {
@@ -744,7 +743,7 @@ Use only my evidence and mark anything else as an assumption. Present this as on
       steps: [
         "Pick a source you own that holds no one else's personal data: a free Slack workspace you create, a personal Google Drive folder or a Notion page. Never connect an employer workspace.",
         "Add the connector in Claude's settings, read-only where offered and scoped to one channel, folder or page. Check that Claude Code can see it by typing `/mcp` in a session. If it cannot, do the pull step in Cowork, which uses the same connectors.",
-        'Ask Claude to pull the past week of items into `team-kb/sources/chat/` or `sources/docs/` as new dated files, then apply them with your `kb-share` skill (if you wrote `weekly-update` in Session 19, draft `kb-share` from the same prompt first), privacy scrub included, as one pull request.',
+        'Ask Claude to pull the past week of items into `team-kb/sources/chat/` or `sources/docs/` as new dated files, then apply them with your `kb-share` skill (if you wrote `weekly-update` in Session 19, draft `kb-share` from the same prompt first; choose kb-share in item 2), privacy scrub included, as one pull request.',
         "Record a baseline in `connector-report.md`: the number of wiki pages, and how many are stale (a source newer than the page's `updated:` date speaks to them).",
         'Over two weeks, post at least four real updates to the source, such as decisions or changed plans, and one message containing an injected instruction. Pull and share twice a week, or schedule the pull.',
         'After two weeks, measure again: stale pages, the lag between an update in the source and the merged page change, anything the pull missed or misread, and what happened to the injected message.',

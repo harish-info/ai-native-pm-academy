@@ -77,7 +77,7 @@ export interface CaseStudy {
   screens: CaseScreen[]
   /** Example questions with the behavior an eval should check. */
   agentQuestions: AgentQuestion[]
-  /** Session 11 taste exercise: what to look at before designing. */
+  /** Taste exercise (feeds Session 13): what to look at before designing. */
   critique: string
   /** Notes on reference mockups the learner keeps privately: what to borrow, what to question. */
   critiqueNotes?: { borrow: string[]; question: string[] }

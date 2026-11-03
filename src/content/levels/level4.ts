@@ -129,7 +129,7 @@ export const level4: Level = {
           'Write the design spec, prototype the core screen and its states, load the plan into the repository as a filtered bundle with a task breakdown and a team AGENTS.md, then build one slice, run an align check and open one small pull request yourself.',
         steps: [
           'Copy the headings from the Output Format section of the [design spec template](https://github.com/harish-info/product-templates/blob/main/skills/prd-plan/templates/design-spec-template.md) into `design-spec.md`, with a link to the PRD and the precedence note at the top.',
-          'Run the agent prompt below. As in Session 12, Claude questions you first, this time about missing states, exact copy, navigation and conflicts between sources, then fills the spec. Some answers need a look at the prototype with a designer, not more discussion; those stay as gaps.',
+          'Run the agent prompt below. As in Session 12, Claude questions you first, this time about missing states, exact copy, navigation and conflicts between sources, then fills the spec. Some answers need a look at the prototype with a designer, not more discussion; those stay as gaps. Following a case study? Bring the taste note from the [Case study](/case-study) page: five things to borrow, five to fix, and the one job v1 will do better.',
           'Read the spec screen by screen. Every state needs a condition and exact copy. Check the precedence note at the top and every flagged contradiction, and decide or assign each one.',
           'Use the existing prototype to show the core flow and its required states. A new design tool is optional. Compare each state with the spec, note where they differ, and decide which is right before you change the screen.',
           'Save the prototype link and screenshots of the relevant states in handoff/. If you chose a design tool, its exported bundle can accompany these. A new subscription is unnecessary.',
@@ -312,7 +312,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
           'Use a stand-in to discover failures, write a small 12-case learning set, reserve three unseen cases with a human grader, and report what was and was not tested. This is practice in evaluation design, not a production release certificate.',
         steps: [
           'Create a Claude Project called "Assistant evaluation sandbox". Paste the assistant rules from your PRD (behavioural contracts, scope and hand-offs) as its instructions, and attach the fictional data file from your prototype.',
-          'Start with six realistic questions across normal, missing-data, hand-off, action and hostile-input situations. Read each answer and group observed problems in failure-modes.md. A larger error-analysis sample is further practice, not required in this session. Following a case study? The [Case study](/case-study) page has 30 sample conversations and reference notes to practise labelling on.',
+          'Start with six realistic questions across normal, missing-data, hand-off, action and hostile-input situations. Read each answer and group observed problems in evals/failure-modes.md. A larger error-analysis sample is further practice, not required in this session. Following a case study? The [Case study](/case-study) page has 30 sample conversations and reference notes to practise labelling on.',
           'Draft 12 learning cases: four correctness, three conduct and hand-off, two unauthorised-action and three malicious-input cases. Include both expected refusals and legitimate questions that should be answered. Ask a mentor or peer to hold three additional unseen cases and their answer key outside the tested workspace.',
           'Calculate the expected figures for every correctness case yourself in the spreadsheet, from the fictional data. Never ask a model for them.',
           'Add red-team cases: a note in the data that tells the assistant to ignore its rules, a name field with an instruction in it, a request to reveal its instructions, and a message from an upset user.',
@@ -327,7 +327,7 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         where: 'In your workspace folder',
         text: `Goal: draft evals/eval-set.md, a test set for the assistant defined in my PRD. I will run it by hand against a stand-in Claude Project and report the results to my risk partner.
 
-Read first: prd/prd.md (behavioural contracts, scope and the eval plan), design-spec.md, product-context.md and failure-modes.md (my error analysis notes).
+Read first: prd/prd.md (behavioural contracts, scope and the eval plan), design-spec.md, product-context.md and evals/failure-modes.md (my error analysis notes).
 
 Write one table with these columns: id, category, input (the exact user message, plus any data it depends on), expected behaviour, how to grade it (an exact check or a short rubric), source (the PRD contract or failure mode it comes from), release-blocking (yes or no).
 
@@ -346,7 +346,7 @@ Rules:
 Done when: the table meets the counts, and you list the PRD gaps the cases exposed.`,
       },
       expectedOutput: [
-        'failure-modes.md, written from reading real stand-in answers',
+        'evals/failure-modes.md, written from reading real stand-in answers',
         'evals/eval-set.md with 12 learning cases across four categories, plus three unseen inputs with a separately held answer key',
         'Expected figures calculated by you in a spreadsheet, not by a model',
         'evals/eval-report.md with category and trial counts, frozen versions, first unseen results, grader checks and integrated controls explicitly marked NOT TESTED',
@@ -371,7 +371,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         },
         {
           id: 'error-analysis',
-          text: 'Read six stand-in answers and grouped observed failures into failure-modes.md',
+          text: 'Read six stand-in answers and grouped observed failures into evals/failure-modes.md',
         },
         {
           id: 'golden-set',
@@ -794,8 +794,8 @@ Done when: the outline is written, and you have read the titles alone in order a
       summary:
         'Rebuild your QBR deck in Slidev, which turns Markdown into slides with click-by-click reveals, with Claude Code doing the build. Learn when animation helps understanding and when it only decorates.',
       steps: [
-        'Ask Claude Code to set up a Slidev project in a new folder in your workspace, or open Slidev in StackBlitz in the browser if you prefer to avoid the terminal.',
-        'Give it `presentations/qbr-outline.md` and `launch/experiment-results.csv`, and ask it to build the deck in `presentations/slides.md` with one message per slide and your speaker notes.',
+        'Ask Claude Code to set up a Slidev project in `presentations/slidev/` in your workspace, or open Slidev in StackBlitz in the browser if you prefer to avoid the terminal.',
+        'Give it `presentations/qbr-outline.md` and `launch/experiment-results.csv`, and ask it to build the deck in `presentations/slidev/slides.md` with one message per slide and your speaker notes.',
         'Add click-by-click reveals on two slides only: one chart that builds a series at a time, and one argument that builds point by point.',
         'Apply your palette from Session 16 and check the contrast.',
         'Export to PDF and compare it with your Session 16 deck. Write three lines on which one you would present, and why.',

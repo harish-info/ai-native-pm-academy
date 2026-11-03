@@ -172,7 +172,7 @@ Rules:
       mentorReview: 'recommended',
       practicalProof: true,
       safetyCritical: true,
-      goal: 'Interview five real people who match your target users and test your prototype with them, handle their personal data properly, synthesise by hand before comparing with Claude, and turn the evidence into an Opportunity Solution Tree. The conversations happen in the week before this session; the session time covers the guide, synthesis and tree.',
+      goal: 'Interview five real people who match your target users and test your prototype with them, handle their personal data properly, synthesise by hand before comparing with Claude, and turn the evidence into an Opportunity Solution Tree. Recruiting, the interview guide and the conversations happen in the days before this session; the session time covers your synthesis, the comparison with the synthesis Claude writes and the tree.',
       whyItMatters:
         'Your strategy rests on guesses about people and their work. Now you talk to people who actually have the problem. Claude can write a convincing persona or interview transcript in seconds, and none of it happened. Keep what you heard and saw apart from anything generated, so anyone can trace why you picked the next step.',
       learn: [
@@ -256,10 +256,10 @@ Rules:
       ],
       task: {
         summary:
-          "Recruit five real people a week ahead and run a 30-minute interview and usability test with each (three is the minimum). The 3 to 5 user calls happen outside the session time. The session's minutes cover the interview guide, your synthesis, the comparison with Claude's synthesis and the Opportunity Solution Tree for your product.",
+          "Before the session, recruit five real people, write the interview guide and run a 30-minute interview and usability test with each (three is the minimum). Recruiting, the guide and the 3 to 5 calls happen outside the session time. The session's minutes cover your synthesis, the comparison with Claude's synthesis and the Opportunity Solution Tree for your product.",
         steps: [
           'A week before this session (late in Level 2 is a good time), recruit five people who match your target users as closely as you can. Ask friends, former colleagues and your wider network for introductions. Three is the minimum. Explain it is a 30-minute learning conversation, and ask for consent to take notes and to use Claude on the notes without their name.',
-          'Write `discovery/discussion-guide.md` in two halves: interview questions about the last time, then 3 to 5 usability tasks and one comprehension question. Ask Claude to point out every leading or hypothetical question; you decide the fixes.',
+          'Before the first call, as part of this prep, write `discovery/discussion-guide.md` in two halves: interview questions about the last time, then 3 to 5 usability tasks and one comprehension question. Ask Claude to point out every leading or hypothetical question; you decide the fixes.',
           'Run the conversations on a video call with the prototype on its live link, in the days before the session. These calls are outside the session time. Take notes, or transcribe only with explicit consent. Use P1 to P5 from the start.',
           'Within a day of each conversation, write a one-page snapshot in `discovery/interview-notes/P1.md` and so on: key quotes, behaviours, workarounds, emotions, where they hesitated in the prototype, and their answer to the comprehension question. Delete any recording once the snapshot is written.',
           'Before using any AI, write "My synthesis" in `discovery/synthesis.md`: the opportunities you heard, with participant ids, and the usability problems ranked by how many people hit them.',
