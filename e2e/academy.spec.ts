@@ -44,7 +44,7 @@ test('quick check explains choices without completing a lesson', async ({ page }
   await exercise.getByRole('button', { name: /two different tools said it/ }).click()
   await expect(page.getByText('Not quite')).toBeVisible()
   await expect(page.getByText(/Two matching guesses are still guesses/)).toBeVisible()
-  const correct = exercise.getByRole('button', { name: /Ask finance managers/ })
+  const correct = exercise.getByRole('button', { name: /Ask team managers/ })
   await correct.focus()
   await page.keyboard.press('Enter')
   await expect(correct).toHaveAttribute('aria-pressed', 'true')

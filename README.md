@@ -44,7 +44,7 @@ All course text is typed TypeScript data in `src/content/`. You do not need to k
 | To change                                           | Edit                                          |
 | --------------------------------------------------- | --------------------------------------------- |
 | A session's lesson, task, prompt, checklist or quiz | `src/content/levels/level1.ts` to `level5.ts` |
-| A session's worked example, recall and checkpoint   | `src/content/teaching.ts`                     |
+| A session's example, recall and quick check         | `src/content/teaching.ts`                     |
 | A link or reading                                   | `src/content/resources.ts`                    |
 | The field guide                                     | `src/content/fieldGuide.ts`                   |
 | The study plan                                      | `src/content/plan.ts`                         |

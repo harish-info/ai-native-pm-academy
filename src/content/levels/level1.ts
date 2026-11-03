@@ -125,7 +125,7 @@ export const level1: Level = {
           'Build a mental model of how models work, write it down as your own glossary, and compare two models or settings on one real PM task for your product.',
         steps: [
           'Create a private folder on your own computer called `learning-notes/`, not in a shared drive. Every Level 1 file goes here; in Session 5 it moves into your workspace. Files are plain Markdown: `#` for headings, `-` for bullets, `**bold**`, saved with a `.md` ending from any text editor.',
-          'Watch the short 3Blue1Brown explainer. The longer capabilities course is optional. Read the example and try the quick check below before the practical task.',
+          'Watch the short 3Blue1Brown explainer. The longer capabilities course is optional. Read the example and try the quick check above before the practical task.',
           'Write `glossary.md` in your own words: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (one line: retrieval-augmented generation, fetching documents into the context before answering). One or two sentences each, plus one example that surprised you.',
           "See a tool at work: ask Claude a question that needs this week's news with web search switched off, then on. Note which answer used a tool and how you could tell.",
           'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for [target users] about [specific problem]." Replace the brackets with a context you know. Run it in two models or two settings, each in a fresh chat. Try the same model at two effort levels if your app offers them, two Claude models if your plan offers them, or Claude and ChatGPT. Record the full model names, effort settings (or "not exposed"), other enabled features and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
@@ -601,7 +601,7 @@ Rules:
       ],
       task: {
         summary:
-          'Build a one-page pitch as an artifact, improve it one change at a time, share it with one reader, and record what the page cannot prove.',
+          'Build a one-page pitch as an artifact, improve it from your own use, ask one reader two questions, make one change based on what they said, test that change with a different reader, and record what the page cannot prove.',
         steps: [
           'Start `pitch-notes.md` with a five-line brief: who it is for, the problem in their words, the idea in one sentence, the one verified fact from `fact-sheet.md` that makes the case, and what you want a reader to do next.',
           'Open a fresh chat in your PM workspace Project, attach `fact-sheet.md`, and run the agent prompt below.',
@@ -609,6 +609,7 @@ Rules:
           'Make changes one at a time to address the problems you observed. Log the reason, expected improvement and actual result in pitch-notes.md. Keep a before and after comparison for at least one meaningful revision; do not invent extra changes to meet a quota.',
           'Check every number on the mocked screen by hand, confirm the prototype banner is visible, and check that no warning relies on colour alone.',
           'Publish the artifact and share the link with one person: your mentor or a friend. Ask two questions: what do you think this does, and what would you want to know next? Record the answers.',
+          'Make one change based on what they said, and log it the same way. Then show the changed page to a different person who has not seen it, ask the first question again, and record whether the change worked.',
           'Optional: follow the Lovable quick start and rebuild the page there from the same brief. Note one difference.',
           'Close `pitch-notes.md` with a section "What this page does not prove".',
         ],

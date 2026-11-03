@@ -44,11 +44,11 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Scoring two answers to the same request',
       situation:
-        'You are the PM for a team expense app. In two fresh chats, with two different models, you type: `Draft ten interview questions for finance managers about approving expense claims.` You score each answer from 1 to 5 on accuracy, following the request, usefulness and honesty.',
+        'You are the PM for a team expense app. In two fresh chats, with two different models, you type: `Draft ten interview questions for team managers who approve staff expense claims.` You score each answer from 1 to 5 on accuracy, following the request, usefulness and honesty.',
       reasoning: [
         {
           label: 'What answer A wrote',
-          text: 'Ten good questions, such as `Tell me about the last claim you sent back. What was wrong with it?` But it opens with: “Most finance managers spend five hours a week on approvals.”',
+          text: 'Ten good questions, such as `Tell me about the last claim you sent back. What was wrong with it?` But it opens with: “Most team managers spend five hours a week on approvals.”',
         },
         {
           label: 'What answer B wrote',
@@ -67,7 +67,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'You run the same request in Claude and in ChatGPT. Both answers say: “Most finance managers find approvals slow.” What does that tell you about your users?',
+        'You run the same request in Claude and in ChatGPT. Both answers say: “Most team managers find approving claims slow.” What does that tell you about your users?',
       options: [
         {
           id: 'a',
@@ -77,13 +77,13 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'b',
-          text: 'It is true if both tools explain their reasoning.',
+          text: 'It is likely, if both tools give the same reasons and none of them sounds made up.',
           feedback:
-            'The explanation is also text the model wrote. It cannot tell you what real finance managers do.',
+            'The reasons are also text the model wrote, and they can sound sensible without coming from anyone. They cannot tell you what real team managers do.',
         },
         {
           id: 'c',
-          text: 'Nothing yet. Ask finance managers or find a source.',
+          text: 'Nothing yet. Ask team managers or find a source.',
           feedback:
             'Neither tool has seen your users. Treat the line as a question for your interviews, not as a fact.',
         },
@@ -91,7 +91,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       correct: 'c',
     },
     transfer:
-      'Score these two answers to `Write a two-line release note for our new dark mode. Keep it under 30 words.` **A:** “Dark mode is here. Turn it on in Settings, under Display.” **B:** “We are thrilled to announce dark mode, our most requested feature ever, now on every device, making late-night work easier on your eyes. Try it today and tell us what you think!” Give each a score from 1 to 5 for accuracy, following the request, usefulness and honesty, and write the sentence behind every score below 4.',
+      'Score these two answers to `Write a two-line release note for our new dark mode. Keep it under 30 words.` Facts you gave it: dark mode is on iOS and Android only, under Settings > Display. **A:** “Dark mode is here. Turn it on in Settings, under Display.” **B:** “We are thrilled to announce dark mode, our most requested feature ever, now on every device, making late-night work easier on your eyes. Try it today and tell us what you think!” Give each a score from 1 to 5 for accuracy, following the request, usefulness and honesty, and write the sentence behind every score below 4.',
     bridge:
       'Next session: write a one-page file about your product, so answers fit your product instead of any product.',
   },
@@ -124,11 +124,11 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'What you give it instead',
-          text: 'Your `product-context.md`, with lines such as `Users: office managers at companies with 10 to 50 staff` and `Constraint: no company cards in v1`, plus three rivals’ public pages. Then: `Compare these rivals for my manager and two engineers. Mark anything the pages do not say as "unverified".`',
+          text: 'Your `product-context.md`, with lines such as `Users: team managers who approve staff expense claims, at companies with 10 to 50 staff`, `Staff: most pay with personal cards and claim the money back.` and `Constraint: no company cards in v1`, plus three rivals’ public pages. Then: `Compare these rivals for my manager and two engineers. Mark anything the pages do not say as "unverified".`',
         },
         {
           label: 'Result',
-          text: 'The new answer says one rival only works with its own company cards, which your users do not have, and lists `Approval flow: not on the page, unverified`. You can check that and act on it.',
+          text: 'The new answer says one rival only works with its own company cards, while your users’ staff pay with personal cards, and lists `Approval flow: not on the page, unverified`. You can check that and act on it.',
         },
       ],
       takeaway:
@@ -146,13 +146,13 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'b',
-          text: 'Your best guess, “mostly on phones”, so the AI has something to work with.',
+          text: 'Your best guess, “mostly on phones”, since approving a claim is a quick task.',
           feedback:
             'The AI will treat your guess as a fact and build on it. A month later you will not remember which lines were guesses.',
         },
         {
           id: 'c',
-          text: 'Nothing. Leave the topic out until you know.',
+          text: 'Nothing for now. Add the line once your interviews tell you.',
           feedback:
             'If the topic is missing, the AI may fill the gap with its own guess and you will not notice. Writing Unknown keeps the question visible.',
         },
@@ -260,29 +260,29 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'What you log',
-          text: 'In `pitch-notes.md`: `Change: relabel the pending total. Why: reader thought it was spending. Expected: reader says "approvals". Result: asked again, reader said "claims I need to approve".`',
+          text: 'In `pitch-notes.md`: `Change: relabel the pending total. Why: reader thought it was spending. Expected: a new reader says "approvals". Result: a second reader, who had not seen the page, said "claims I need to approve".`',
         },
         {
           label: 'What it does not prove',
-          text: 'The page is now clearer. It does not show that office managers want this feature, so that goes under “What this page does not prove”.',
+          text: 'The page is now clearer. It does not show that team managers who approve staff expense claims want this feature, so that goes under “What this page does not prove”.',
         },
       ],
       takeaway:
-        'Change one thing, because of something a reader did, and write down whether it worked.',
+        'Change one thing, because of something a reader did, then check it with a reader who has not seen the page.',
     },
     checkpoint: {
       question:
-        'After your change, your friend explains the page correctly and adds: “I’d use this.” What do you write in pitch-notes.md?',
+        'After your change, a second friend, who has not seen the page before, explains it correctly and adds: “I’d use this.” What do you write in pitch-notes.md?',
       options: [
         {
           id: 'a',
           text: 'This page is clear to one reader.',
           feedback:
-            'Write down only what you saw. “I’d use this” goes under What this page does not prove until real users show it.',
+            'Write only what you saw: one reader understood it. Under What this page does not prove, add that one friend saying “I’d use this” does not show team managers want it.',
         },
         {
           id: 'b',
-          text: 'Office managers want this feature.',
+          text: 'Team managers want this feature.',
           feedback:
             'One friend is not your users, and saying “I’d use this” costs nothing. Whether users really want it is a Level 3 question.',
         },
@@ -296,7 +296,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       correct: 'a',
     },
     transfer:
-      'A reader opens your pitch page and asks: “Is this already live?” Write the one change you would ask Claude for, exactly as you would type it, and the log line for `pitch-notes.md`: the change, why, and what you expect the next reader to say.',
+      'A reader opens your pitch page and asks: “Is this already live?” Write the one change you would ask Claude for, exactly as you would type it, and the log line for `pitch-notes.md`: the change, why, and what you expect a different reader to say.',
     bridge:
       'Next session: set up a workspace folder and start building with Claude Code, an agent that works on your own files.',
   },
@@ -347,13 +347,13 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'The git log command with --oneline lists recent commits quickly.',
+          text: 'Run `git log --oneline` first to see what changed recently.',
           feedback:
-            'This is a small thing Claude picked up while working. It is fine to leave it in auto memory.',
+            'A handy habit Claude picked up while working, but nothing goes wrong if a session skips it. It is fine to leave it in auto memory.',
         },
         {
           id: 'b',
-          text: 'The user is finishing the pitch notes this week.',
+          text: 'The user is finishing the pitch notes this week, so start with those.',
           feedback:
             'This changes every week, so it belongs in a workstream README, not in AGENTS.md or memory.',
         },
@@ -361,7 +361,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
           id: 'c',
           text: 'Never edit files in the sources folder.',
           feedback:
-            'This must hold in every session, so write it in AGENTS.md yourself. Memory is for small, optional notes.',
+            'This must hold in every session, so write it in AGENTS.md yourself. Claude usually follows it, but a must-never rule also needs a permission setting. Memory is for small, optional notes.',
         },
       ],
       correct: 'c',
@@ -369,7 +369,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     transfer:
       "Here are four lines from someone else's AGENTS.md draft: `Be helpful and accurate.`, `Dates are written as YYYY-MM-DD.`, `Interviews 4 and 5 are on Thursday.` and `Ask before deleting any file.` For each, write keep, cut or move to a README, with a few words on why. Then write one question you would ask a fresh session to check the kept lines work.",
     bridge:
-      'Next, Claude Code interviews you about your prototype and writes your answers into a requirements file it builds from.',
+      'Next, Claude Code interviews you about your prototype, writes your answers into a requirements file, then builds from it.',
   },
   s6: {
     decision: 'What must you decide before Claude builds your prototype?',
@@ -388,7 +388,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Answer an interview question with what the screen shows',
       situation:
-        'You are the PM for a team expense app, and Claude is interviewing you for `REQUIREMENTS.md`. It asks: `What should the Needs review screen show when no receipts are waiting? My recommendation: an empty list.`',
+        'You are the PM for a team expense app, and Claude is interviewing you for `REQUIREMENTS.md`. It asks: `What should the Needs review screen show when no claims are waiting? My recommendation: an empty list.`',
       reasoning: [
         {
           label: 'A weak answer',
@@ -396,11 +396,11 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'A better answer',
-          text: '`Show the words "Nothing to review. New receipts appear here." Keep the filter visible so people can clear it.` Now there is nothing left to guess.',
+          text: '`Show the words "Nothing to review. New claims appear here." Keep the Needs review filter visible so people can clear it.` Now there is nothing left to guess.',
         },
         {
           label: 'What goes in the file',
-          text: 'Claude writes it as a "done when" line: `Given 0 receipts need review, when the user opens Needs review, then "Nothing to review. New receipts appear here." appears and the filter can be cleared.`',
+          text: 'Claude writes it as a "done when" line: `Given 0 claims need review, when the user opens Needs review, then "Nothing to review. New claims appear here." appears and the filter can be cleared.`',
         },
         {
           label: 'When you do not know',
@@ -416,7 +416,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'The Summary total says 412, but the data file adds to 398. Fix only that.',
+          text: 'The Summary total says £1,180, but the data file adds to £1,240. Fix only that.',
           feedback:
             'One change at a time, with the numbers, lets you check it and undo it if it goes wrong. Start with the total, because people would act on a wrong number.',
         },
@@ -436,7 +436,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       correct: 'a',
     },
     transfer:
-      'Without AI, write one "done when" line for a different screen: the Search screen when nothing matches what the person typed. Use the Given, when, then shape from the example and include the exact words shown on screen.',
+      'Write one "done when" line for a different screen: the Search screen when nothing matches what the person typed. Use the Given, when, then shape from the example and include the exact words shown on screen.',
     bridge:
       'Next, put the prototype on GitHub, review each change before it goes in, and make it live at a link you can share.',
   },
@@ -461,15 +461,15 @@ export const lessonGuides: Record<string, LessonGuide> = {
       reasoning: [
         {
           label: 'What the diff shows',
-          text: "Three files match the description: the workflow, `vite.config.ts` with `base: '/product-prototype/'`, and `README.md`. A fourth file, `src/data/receipts.ts`, also changed, with a new green line: `{ merchant: 'Cafe Uno', amount: 12.5, owner: 'Priya Shah' }`.",
+          text: "Three files match the description: the workflow, `vite.config.ts` with `base: '/product-prototype/'`, and `README.md`. A fourth file, `src/data/claims.ts`, also changed, with a new green line: `{ merchant: 'Cafe Uno', amount: 12.5, owner: 'maya.patel@yourcompany.com', phone: '07700 900123' }`.",
         },
         {
           label: 'What is wrong',
-          text: "The description does not mention that file, and your prompt said no changes to the app. The new line also adds what looks like a real person's name to a public repository.",
+          text: "The description does not mention that file, and your prompt said no changes to the app. The new line also adds what looks like a real person's work email and phone number to a public repository.",
         },
         {
           label: 'Your review comment',
-          text: '`Why does this change src/data/receipts.ts? It is not in the description, and the owner field looks like a real name. Please remove this change.`',
+          text: '`Why does this change src/data/claims.ts? It is not in the description, and the owner and phone fields look like a real work email and phone number. Please remove this change.`',
         },
         {
           label: 'Result',
@@ -490,7 +490,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'b',
-          text: 'The files were published, but the page itself is broken.',
+          text: 'The site built and published, but the app cannot find its own files.',
           feedback:
             'A common cause is the Vite base path. Ask Claude to check it is /product-prototype/, or press Revert on the merged pull request first.',
         },
@@ -504,7 +504,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       correct: 'b',
     },
     transfer:
-      'Without AI, review this pull request. Description: `Fixes a typo in the Summary heading.` Files changed: `src/screens/Summary.tsx` (1 line), `src/data/receipts.ts` (40 lines) and `package.json` (adds one new dependency). Write the review comment you would leave, in two or three sentences, using the four questions from the lesson.',
+      'Review this pull request. Description: `Fixes a typo in the Summary heading.` Files changed: `src/screens/Summary.tsx` (1 line), `src/data/claims.ts` (40 lines) and `package.json` (adds one new dependency). Write the review comment you would leave, in two or three sentences, using the four questions from the lesson.',
     bridge: 'Next, watch someone use the live prototype, then find and fix what goes wrong.',
   },
   s8: {
@@ -524,15 +524,15 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Turn "it looks wrong" into a bug report',
       situation:
-        'A friend tries your expense app prototype on her phone. She says: "The March total looks wrong." You also notice that overdue receipts are marked only with a red dot, and that one heading is a bit long.',
+        'A friend tries your expense app prototype on her phone. She says: "The March total looks wrong." You also notice that overdue claims are marked only with a red dot, and that one heading is a bit long.',
       reasoning: [
         {
           label: 'Reproduce it',
-          text: 'You open the Summary screen at phone width and choose March. It shows `Total: £412.00`. Adding up the March receipts in `src/data/receipts.ts` by hand gives £398.00. The £14.00 difference is the receipt dated 1 April.',
+          text: 'You open the Summary screen at phone width and choose March. It shows `Total: £412.00`. Adding up the March claims in `src/data/claims.ts` by hand gives £398.00. The £14.00 difference is the claim dated 1 April.',
         },
         {
           label: 'The bug report',
-          text: 'In `docs/review-log.md` you write: `Device: phone, Safari. Steps: open Summary, choose March. Expected: £398.00. Actual: £412.00, includes the 1 April receipt (£14.00). Screenshot: summary-march.png.`',
+          text: 'In `docs/review-log.md` you write: `Device: phone, Safari. Steps: open Summary, choose March. Expected: £398.00. Actual: £412.00, includes the 1 April claim (£14.00). Screenshot: summary-march.png.`',
         },
         {
           label: 'The order',
@@ -572,7 +572,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       correct: 'c',
     },
     transfer:
-      'Pick one problem you have noticed in your prototype, or in any app on your phone. Without AI, write a bug report like the one in the example: device, steps, expected, actual and a screenshot. Then give it to someone and see whether they can make the same problem happen without asking you anything.',
+      'Pick one problem you have noticed in your prototype, or in any app on your phone. Write a bug report like the one in the example: device, steps, expected, actual and a screenshot. Then give it to someone and see whether they can make the same problem happen without asking you anything.',
     bridge:
       'You have built and reviewed a prototype. Level 3 asks whether it solves the right problem, starting with your product strategy.',
   },
@@ -597,7 +597,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       reasoning: [
         {
           label: 'What the note says',
-          text: 'Claim: “Competitor A auto-approves claims under £50 with AI.” Label: verified. Supporting sentence: “Coming soon: smart approvals for small expenses.”',
+          text: 'Claim: “Competitor A auto-approves claims under £50 with AI.” Label: verified. Supporting sentence: “Coming soon: smart approvals for small claims.”',
         },
         {
           label: 'What the page says',
@@ -609,7 +609,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'The fix',
-          text: 'Rewrite the note: “Competitor A has announced smart approvals for small expenses. Not shipped. Label: vendor claim.” Then reword any line in your kernel that says rivals already do this.',
+          text: 'Rewrite the note: “Competitor A has announced smart approvals for small claims. Not shipped. Label: vendor claim.” Then reword any line in your strategy kernel that says rivals already do this.',
         },
       ],
       takeaway: 'A source note is right only if the page says exactly what the note claims.',
@@ -620,27 +620,27 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Become the expense app that busy managers trust most with approvals.',
+          text: 'Become the expense app that busy team managers trust most with approvals.',
           feedback:
-            'Not quite. That is a goal dressed up as a strategy. It says where you want to be, not what is going on or what makes it hard.',
+            'That is a goal dressed up as a strategy. It says where you want to be, not what is going on or what makes it hard.',
         },
         {
           id: 'b',
-          text: 'Managers approve all claims in one month-end batch and miss duplicates (three saved forum posts).',
+          text: 'Team managers approve all claims in one month-end batch and miss duplicates (three saved forum posts).',
           feedback:
-            'Right. It says what is happening and why it is hard, and it points to saved sources. Your guiding policy and actions can build on it.',
+            'It says what is happening and why it is hard, and it points to saved sources. Your guiding policy and actions can build on it.',
         },
         {
           id: 'c',
-          text: 'Build an AI assistant that checks every claim for problems before a manager is asked to approve it.',
+          text: 'Build an AI assistant that checks every claim for problems before a team manager is asked to approve it.',
           feedback:
-            'Not quite. That is a solution, so it belongs under coherent actions, if anywhere. The diagnosis describes the problem before you pick a fix.',
+            'That is a solution, so it belongs under coherent actions, if anywhere. The diagnosis describes the problem before you pick a fix.',
         },
       ],
       correct: 'b',
     },
     transfer:
-      'Label each claim verified, vendor claim or unverified, then rewrite it so it says only what its source shows. 1) “Competitor B is used by 10,000 finance teams”, from Competitor B’s press release. 2) “Competitor C flags duplicate receipts”, from Competitor C’s help page on duplicate detection, which you opened and read. 3) “Most managers hate approving expenses”, from a blog post that gives no source.',
+      'Label each claim verified, vendor claim or unverified, then rewrite it so it says only what its source shows. 1) “Competitor B is used by 10,000 finance teams”, from Competitor B’s press release. 2) “Competitor C flags duplicate receipts”, from Competitor C’s help page on duplicate detection, which you opened and read. 3) “Most team managers hate approving expense claims”, from a blog post that gives no source.',
     bridge:
       'Next, you talk to people who have this problem and find out whether your diagnosis holds.',
   },
@@ -650,7 +650,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       'A discussion guide, participant consent and the live prototype. Recruitment takes elapsed time.',
     recall: {
       question:
-        'From Session 9: your market map says managers love a competitor’s new feature, and the source is that competitor’s press release. What does that tell you about real users?',
+        'From Session 9: your market map says team managers love a competitor’s new feature, and the source is that competitor’s press release. What does that tell you about real users?',
       answer:
         'Only what the company says about itself: a vendor claim. This session goes to the people who have the problem and asks what they actually do.',
     },
@@ -663,7 +663,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Ask about the last time, not about the future',
       situation:
-        'You are testing your expense app with P2, a team lead who approves her team’s claims. Your draft discussion guide opens with: “Would you use a tool that flags the claims you need to review?”',
+        'You are testing your expense app with P2, a team manager who approves her staff’s expense claims. Your draft discussion guide opens with: “Would you use a tool that flags the claims you need to review?”',
       reasoning: [
         {
           label: 'What P2 says',
@@ -671,7 +671,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'What you ask instead',
-          text: '“Tell me about the last time you approved your team’s expenses. What did you do first?”',
+          text: '“Tell me about the last time you approved your team’s expense claims. What did you do first?”',
         },
         {
           label: 'What P2 says now',
@@ -687,25 +687,25 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'Claude’s synthesis lists a theme yours does not have: “Managers worry about fraud”, citing P3 and P5. What do you do?',
+        'Claude’s synthesis lists a theme yours does not have: “Team managers worry about fraud”, citing P3 and P5. What do you do?',
       options: [
         {
           id: 'a',
           text: 'Open P3.md and P5.md and check the quotes are there and mean what Claude says.',
           feedback:
-            'Right. A theme only you or only Claude found tells you where to look. If the quotes are there and say that, add it; if not, drop it.',
+            'A theme only you or only Claude found tells you where to look. If the quotes are there and say that, add it; if not, drop it.',
         },
         {
           id: 'b',
           text: 'Add it: a fresh session read all five notes without your opinions, so it saw what you missed.',
           feedback:
-            'Not quite. Claude read the same notes you wrote, and it can stretch a quote to fit a theme. Check the quotes before you add anything.',
+            'Claude read the same notes you wrote, and it can stretch a quote to fit a theme. Check the quotes before you add anything.',
         },
         {
           id: 'c',
           text: 'Leave it out: you were in the room, so a theme you never noticed is probably not real.',
           feedback:
-            'Not quite. Claude can spot a pattern across five notes that you missed in the moment. Check the quotes before you decide either way.',
+            'Claude can spot a pattern across five notes that you missed in the moment. Check the quotes before you decide either way.',
         },
       ],
       correct: 'a',
@@ -741,7 +741,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'What is wrong',
-          text: '1,200 is the number of `open_review` events, not people. Many managers opened the screen twice, so Claude counted visits where your definition says users.',
+          text: '1,200 is the number of `open_review` events, not people. Many team managers opened the screen twice, so Claude counted visits where your definition says users.',
         },
         {
           label: 'The fix',
@@ -757,25 +757,25 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'You are scoring the bet “Flag duplicate receipts” with RICE. Three of your five interviewees described paying a duplicate claim. Your fictional event log has nothing about duplicates. What confidence do you give it?',
+        'You are scoring the bet “Flag duplicate claims” with RICE. Three of your five interviewees described paying a duplicate claim. Your fictional event log has nothing about duplicates. What confidence do you give it?',
       options: [
         {
           id: 'a',
           text: 'High: three out of five people is a strong signal for a problem.',
           feedback:
-            'Not quite. Five interviews tell you the problem is real for some people, not how common it is. High needs data and interviews that agree.',
+            'Five interviews tell you the problem is real for some people, not how common it is. High needs data and interviews that agree.',
         },
         {
           id: 'b',
           text: 'Low: the data shows no duplicates, so the problem may be rare.',
           feedback:
-            'Not quite. The event log is made up and never tracked duplicates, so it cannot count for or against the bet. Do not let fictional data outweigh real interviews.',
+            'The event log is made up and never tracked duplicates, so it cannot count for or against the bet. Do not let fictional data outweigh real interviews.',
         },
         {
           id: 'c',
           text: 'Medium: real interviews support it, but no real data does yet.',
           feedback:
-            'Right. Interviews alone give medium confidence. Note the real data that would move it up, such as how many duplicate claims were paid last quarter.',
+            'Interviews alone give medium confidence. Note the real data that would move it up, such as how many duplicate claims were paid last quarter.',
         },
       ],
       correct: 'c',
@@ -804,7 +804,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Turn a vague line into a check someone can build',
       situation:
-        'Claude has drafted `prd/prd.md` for your expense app. Under Acceptance criteria it wrote: “The system intelligently surfaces high-risk claims for manager review.”',
+        'Claude has drafted `prd/prd.md` for your expense app. Under Acceptance criteria it wrote: “The system intelligently surfaces high-risk claims for team manager review.”',
       reasoning: [
         {
           label: 'What is wrong',
@@ -812,7 +812,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'What you write instead',
-          text: '`Given 20 claims, 4 of them over £500, when the manager opens Needs review, then exactly those 4 appear, each labelled "Over £500".` An engineer can turn that straight into a test.',
+          text: '`Given 20 claims, 4 of them over £500, when the team manager opens Needs review, then exactly those 4 appear, each labelled "Over £500".` An engineer can turn that straight into a test.',
         },
         {
           label: 'Mark the guess',
@@ -824,25 +824,25 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'You test the PRD in a fresh session. It returns two questions: “Can a manager see claims from people outside their team?” and “What colour is the Needs review badge?” What do you do before calling phase 1 ready?',
+        'You test the PRD in a fresh session. It returns two questions: “Can a team manager see claims from people outside their team?” and “What colour is the Needs review badge?” What do you do before calling phase 1 ready?',
       options: [
         {
           id: 'a',
           text: 'Call it ready: two questions is a short list, and the agent can pick sensible answers.',
           feedback:
-            'Not quite. Who can see whose expenses is an access decision. A sensible-looking default could show one person’s claims to the wrong manager.',
+            'Who can see whose claims is an access decision. A sensible-looking default could show one person’s claims to the wrong team manager.',
         },
         {
           id: 'b',
           text: 'Settle who can see which claims, or cut it from phase 1. Give the colour to design.',
           feedback:
-            'Right. The access question blocks phase 1, so answer it or remove that behaviour. The colour can stay in Open questions with an owner.',
+            'The access question blocks phase 1, so answer it or remove that behaviour. The colour can stay in Open questions with an owner.',
         },
         {
           id: 'c',
           text: 'Hold phase 1 until both are answered, because any open question means it is not ready.',
           feedback:
-            'Not quite. Waiting on a badge colour slows the team for nothing. Only blockers must be closed; the rest stay in Open questions with an owner.',
+            'Waiting on a badge colour slows the team for nothing. Only blockers must be closed; the rest stay in Open questions with an owner.',
         },
       ],
       correct: 'b',
@@ -870,19 +870,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Turn a vague state into one an engineer can build',
       situation:
-        'You are the PM for a team expense app. The main screen lists the expenses waiting for your approval. Claude’s first draft of the spec says: `Empty state: show a friendly message.`',
+        'You are the PM for a team expense app. The Needs review screen lists the claims waiting for a team manager’s approval, and your `REQUIREMENTS.md` from Session 6 already agreed its empty state: “Nothing to review. New claims appear here.” Claude’s first draft of the spec says: `Empty state: show a friendly message.`',
       reasoning: [
         {
           label: 'What is wrong',
-          text: '"A friendly message" is not copy. The engineer, or their coding agent, will make up the words, and they may promise something the product does not do.',
+          text: '"A friendly message" is not copy, and it drops the words you already agreed. The engineer, or their coding agent, will make up new words, and they may promise something the product does not do.',
         },
         {
           label: 'The fix',
-          text: 'Write the condition, the exact words and what the person can do: `When: no expenses are waiting for your approval. Show: "Nothing to approve. New expenses from your team will appear here." Action: none.`',
+          text: 'Write the condition, the agreed words and what the person can do: `When: no claims are waiting for your approval. Show: "Nothing to review. New claims appear here." Action: clear the filter, which stays visible.`',
         },
         {
           label: 'The conflict you spot',
-          text: 'The prototype also shows a "Submit an expense" button here, but the PRD says approvers only review in v1. Do not quietly pick one. Write: `The PRD says review only; the prototype shows a Submit button. The PRD wins on scope. Flagged for the design lead to remove the button.`',
+          text: 'The prototype also shows a "Submit a claim" button here, but the PRD says approvers only review in v1. Do not quietly pick one. Write: `The PRD says review only; the prototype shows a Submit button. The PRD wins on scope. Flagged for the design lead to remove the button.`',
         },
       ],
       takeaway:
@@ -890,7 +890,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'Claude’s task breakdown for the approvals screen reads: "1. Build all the data tables. 2. Build all the screens. 3. Connect them." What do you do?',
+        'Claude’s task breakdown for the Needs review screen reads: "1. Build all the data tables. 2. Build all the screens. 3. Connect them." What do you do?',
       options: [
         {
           id: 'a',
@@ -900,13 +900,13 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'b',
-          text: 'Ask for slices a user can try, such as "approve one expense".',
+          text: 'Ask for slices a user can try, such as "approve one claim".',
           feedback:
             'Each slice runs end to end, fits in one pull request, and you can check it against the spec states it covers as soon as it is built.',
         },
         {
           id: 'c',
-          text: 'Ask Claude to split each step into smaller tasks, so none is size L.',
+          text: 'Ask Claude to split each step into smaller tasks, so each one is small.',
           feedback:
             'Smaller pieces of "all the tables" still give you nothing to try. Size matters, but each task should also deliver something a user can see or a test can check.',
         },
@@ -923,9 +923,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
     bring: 'Your PRD contracts, fictional data and independently calculated expected figures.',
     recall: {
       question:
-        'From Session 13: your spec says what the screen shows when the AI is unsure. Before anything is built, how do you check the answers themselves?',
+        'From Session 13: what does each screen state in your spec need, so an engineer can build it without guessing?',
       answer:
-        'Run a set of realistic cases, including hard and hostile ones, through a stand-in and score each answer. That set is an evaluation, and this session builds one.',
+        'The condition, the exact words on screen and what the person can do next. This session does the same for the assistant’s answers: you write the right answer yourself before you test it.',
     },
     reading: {
       resourceId: 'anthropic-evals-for-agents',
@@ -940,7 +940,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       reasoning: [
         {
           label: 'What the AI wrote',
-          text: '`"Three expenses need you. Priya’s hotel claim of 640 is over the 500 limit, and your team is 20% over budget this month."`',
+          text: '`"Three claims need you. Tom’s hotel claim of £640 is over the £500 limit, and your team is 20% over budget this month."`',
         },
         {
           label: 'What is wrong',
@@ -948,7 +948,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'The test case',
-          text: 'You count the claims over 500 in your spreadsheet yourself: three. Then you add a row: `Input: "What needs my attention, and why?" Expected: names the 3 claims over 500 with their amounts, and no other figures. Grade: every number in the answer appears in the data. Blocks release: yes.`',
+          text: 'You count the claims over £500 in your spreadsheet yourself: three. Then you add a row: `Input: "What needs my attention, and why?" Expected: names the 3 claims over £500 with their amounts, and no other figures. Grade: names exactly the 3 claims you counted, each amount matches the data, and no other figures. Blocks release: yes.`',
         },
       ],
       takeaway:
@@ -956,7 +956,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'You ask the stand-in to send Priya a reminder. In all three runs it replies: "I have drafted the reminder. Shall I send it?" What goes in your eval report?',
+        'You ask the stand-in to send Tom a reminder. In all three runs it replies: "I have drafted the reminder. Shall I send it?" What goes in your eval report?',
       options: [
         {
           id: 'a',
@@ -966,9 +966,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'b',
-          text: 'Nothing yet. Wait until engineering builds the real send feature and test it all then.',
+          text: 'Approval: NOT TESTED, because the stand-in cannot send anything.',
           feedback:
-            'The wording result is useful now, and writing down what you could not test tells engineering which checks they must run on the real app.',
+            'You did test something: what the assistant says before sending, 3 of 3. Report that, and name only the part you could not test.',
         },
         {
           id: 'c',
@@ -1002,7 +1002,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Read the result against the rule you wrote first',
       situation:
-        'In a simulated test, half the approvers in your team expense app get the assistant. Before launch, your plan said: `Ship if expenses approved within 2 days rise by at least 3 percentage points. Stop at once if any expense is approved without the approver clicking Approve.`',
+        'In a simulated test, half the approvers in your team expense app get the assistant. Before launch, your plan said: `Ship if claims approved within 2 days rise by at least 3 percentage points. Stop at once if any claim is approved without the approver clicking Approve.`',
       reasoning: [
         {
           label: 'The result',
@@ -1014,7 +1014,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'What you write instead',
-          text: '`"SIMULATED. Decision: inconclusive. The change could be anywhere from -1 to +5 points; we needed +3. The guardrail held. Next: decide by Friday whether a larger two-week test is worth it."`',
+          text: '`"SIMULATED. Decision: inconclusive. The change could be anywhere from -1 to +5 points; we needed +3. The guardrail held. Next: decide by Friday whether a larger test, with more approvers, is worth it."`',
         },
       ],
       takeaway:
@@ -1053,9 +1053,10 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision: 'What do you want leadership to decide, and does your first slide say it?',
     bring: 'Your simulated readout, eval limitations and one explicit ask.',
     recall: {
-      question: 'From Session 15: what must go with a number when you put it on a slide?',
+      question:
+        'From Session 15: the simulated test showed +2 points, and your rule said ship at +3 or more. What is the decision?',
       answer:
-        'What it counts, the period and the source. The launch numbers in this course are simulated, so the slide says that too.',
+        'Inconclusive, not ship: you judge by the rule you set before launch, and the range ran from -1 to +5. This session puts that decision, and your ask, on the first slide.',
     },
     reading: {
       resourceId: 'duarte-three-second-test',
@@ -1074,11 +1075,11 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'Write the SCQA first',
-          text: '`Situation: approvers take two days to clear expenses. Complication: our simulated test showed +2 points; we needed +3. Question: do we expand the assistant? Answer: not yet, fund a larger test first.`',
+          text: '`Situation: approvers take two days to clear claims. Complication: our simulated test showed +2 points; we needed +3. Question: do we expand the assistant? Answer: not yet, fund a larger test first.`',
         },
         {
           label: 'The new titles',
-          text: '1. `Fund a two-week larger test before we expand the assistant` 2. `The simulated test showed +2 points, short of the +3 we set` 3. `No expense was approved without a click` 4. `The larger test costs two engineer-weeks`',
+          text: '1. `Fund a larger test, with more approvers, before we expand the assistant` 2. `The simulated test showed +2 points, short of the +3 we set` 3. `No claim was approved without a click` 4. `The larger test costs two engineer-weeks`',
         },
         {
           label: 'The check',
@@ -1105,9 +1106,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'c',
-          text: 'Highlight the key cells in colour and shrink the font so everything fits.',
+          text: 'Split the table into two slides, one per group, so the text is bigger.',
           feedback:
-            'The slide is still a document. Smaller text is harder to read, and colour alone does not tell people what the point is.',
+            'Two tables are still tables, and now the audience has to compare across slides to see the difference. Neither slide makes a point.',
         },
       ],
       correct: 'b',
@@ -1134,7 +1135,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Check a wiki answer against its source',
       situation:
-        'Your manager asks why the team dropped auto-send in week three. In your workspace you ask Claude: `Why did we drop auto-send?`',
+        'Your manager asks why the team dropped auto-send in October. In your workspace you ask Claude: `Why did we drop auto-send?`',
       reasoning: [
         {
           label: 'What Claude answered',
@@ -1158,7 +1159,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'You ask your wiki “Why did we drop bulk edit?” Claude replies “Not in the wiki.” You are fairly sure it came up in a meeting. What do you do?',
+        'You ask your wiki “Why did we drop bulk edit?” Claude replies “Not in the wiki.” You know it came up in last Tuesday’s meeting, and the notes are in your shared drive. What do you do?',
       options: [
         {
           id: 'a',
@@ -1182,7 +1183,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       correct: 'b',
     },
     transfer:
-      'Open one page in your wiki and pick two sentences on it. For each, open the source it cites and write three things in `pm-os-notes.md`: the sentence, the line in the source that backs it, and one verdict: `matches`, `says more than the source` or `not in the source`.',
+      'Open one page in your wiki and pick two sentences on it. For each, open the source it cites and write three things in `pm-os-notes.md`: the sentence, the line in the source that backs it (or “none”), and one verdict: `matches`, `says more than the source` or `not in the source`.',
     bridge:
       'Next session, you turn this personal wiki into one your whole team and their agents can share.',
   },
@@ -1228,7 +1229,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     },
     checkpoint: {
       question:
-        'You review a share pull request. The privacy scrub turned “Priya thinks the export flow is confusing” into “The only designer on the payments team thinks the export flow is confusing.” What do you do?',
+        'You review a share pull request. The privacy scrub turned “Grace thinks the export flow is confusing” into “The only designer on the payments team thinks the export flow is confusing.” What do you do?',
       options: [
         {
           id: 'a',
@@ -1252,7 +1253,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       correct: 'c',
     },
     transfer:
-      'Score this answer on paper. Question: `What is our guardrail metric?` Your key: “Support tickets per 100 users, agreed in the experiment readout.” The agent answers: “Weekly active users, see [[metrics]].” You open `wiki/metrics.md` and it lists both, with support tickets marked as the guardrail. Write the two scores and which of the three reasons explains the miss, one sentence each.',
+      'Score this answer on paper. Question: `What is our guardrail metric?` Your key: “Approvals made without the approver clicking Approve, set in the launch plan.” The agent answers: “Weekly active users, see [[metrics]].” You open `wiki/metrics.md`: it lists both, and marks approvals without a click as the guardrail. Write the correctness score (out of 2), the citation score (out of 1: the cited page must back the answer as stated), and which of the three reasons explains the miss, one sentence each.',
     bridge:
       'Next session, you turn the lookups and shares you just did by hand into skills Claude can run for you.',
   },
@@ -1281,11 +1282,11 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'What you expect',
-          text: 'A new source file holding the whole note as plain content, the export decision added to the right wiki page, a pull request, and no change to `AGENTS.md`.',
+          text: 'A new source file holding the whole note as plain content, the export decision added to the right wiki page, a branch ready for a pull request, and no change to `AGENTS.md`.',
         },
         {
           label: 'What you check',
-          text: 'Ignore the summary at the end. Read `git diff --stat` and the list of actions Claude took. Did it try to edit `AGENTS.md`, even if the permission blocked it?',
+          text: 'Ignore the summary at the end. Read `git diff main --stat` (every file the branch changed), or the Files changed tab of the pull request, and the list of actions Claude took. Did it try to edit `AGENTS.md`, even if the permission blocked it?',
         },
         {
           label: 'Result',
@@ -1331,9 +1332,9 @@ export const lessonGuides: Record<string, LessonGuide> = {
       'Your decision trail, trust-check results, skill checks and one recent task to map with teammates or a mentor.',
     recall: {
       question:
-        'From Session 19: an agent run costs very little. Is it cheaper than the way the team works today?',
+        'From Session 19: what limits did you set on the weekly briefing before you let it run on a schedule?',
       answer:
-        'Only if you also count failed runs, checking and fixes. Compare the cost of each good result with the current process.',
+        'Approved KB only, the past seven days, at most ten source files or five minutes, one local draft and no sending. A team pilot needs limits too: an owner, a review date and a rule for when to stop.',
     },
     reading: {
       resourceId: 'litt-understanding',
@@ -1368,15 +1369,15 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'How many teammates now use the agent every week.',
+          text: 'How long each PRD draft took to write, before and after the pilot.',
           feedback:
-            'Usage shows activity, not value. People can use the tool every day and still wait just as long for decisions.',
+            'Faster drafting saves the PM time, but the pilot was about the wait for decisions. A quick draft can still sit for two weeks.',
         },
         {
           id: 'b',
-          text: 'Whether reviewers think the new drafts are better written.',
+          text: 'Whether the people deciding found the briefs useful in the meeting.',
           feedback:
-            'Better drafts are nice, but the pilot was about waiting. A well-written draft can still sit for two weeks with no decision.',
+            'Good to know, but liking the brief is not the result. The pilot works only if decisions come faster than the 12-day baseline.',
         },
         {
           id: 'c',

@@ -307,7 +307,7 @@ Show me the folder map and the AGENTS.md draft before you move anything. When I 
           'Use product-context.md to choose one user task worth exploring. Pick the three to five screens needed to complete it, starting with the main task screen. Note them in a sentence or two.',
           'In Claude Code, with the workspace open, run the interview prompt below. Answer one question at a time in your own words. Say "I do not know" when you do not; it becomes an open question.',
           'Read the requirements yourself and correct anything you did not decide. Ask Claude to create a `prototype/` folder, add it to the workspace `.gitignore` and save the requirements as `prototype/REQUIREMENTS.md`. Keep this as the only requirements file; private notes on your decisions stay in the workspace.',
-          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository, a short `AGENTS.md` with run commands and hard rules, and `prototype/` added to the workspace `.gitignore`. If it reports that Node.js is missing, install the LTS version with the [Starter kit](/starter-kit) steps; this is the only install in this session.',
+          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository and a short `AGENTS.md` with run commands and hard rules. If it reports that Node.js is missing, install the LTS version with the [Starter kit](/starter-kit) steps; this is the only install in this session.',
           'Ask Claude to start the app and give you the local link. Click through every screen with `REQUIREMENTS.md` beside you, on a laptop and at phone width. Write down everything that is wrong or missing.',
           'Fix the list one change at a time, with screenshots where they help. Check each change in the browser, then ask Claude to commit it with a clear message.',
           'Check two figures on screen by hand against the fictional data file. If they do not match, that is the next fix.',
@@ -583,7 +583,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
         },
         {
           resourceId: 'claude-code-review-post',
-          why: "Anthropic's account of its own review practice, where an agent reviews every pull request and human depth scales with risk. A vendor describing its own tool: read it as a worked example, not proof.",
+          why: "Anthropic's account of its own review practice, where an agent reviews every pull request and human depth scales with risk. A vendor describing its own tool: read it as one company's example, not proof.",
           required: false,
         },
       ],
