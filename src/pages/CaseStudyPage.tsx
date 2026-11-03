@@ -310,7 +310,7 @@ export function CaseStudyPage() {
         <Card>
           <h2 className="text-lg font-semibold">Questions the agent must handle</h2>
           <p className="mt-1 mb-3 text-sm text-stone-600 dark:text-stone-400">
-            Seeds for your eval suite in Sessions 18 and 19. Each names the kind of answer that is
+            Seeds for your eval suite in Session 14. Each names the kind of answer that is
             acceptable; add your own from discovery.
           </p>
           <div
@@ -355,7 +355,7 @@ export function CaseStudyPage() {
         </Card>
 
         <Card>
-          <h2 className="text-lg font-semibold">Taste exercise for Session 11</h2>
+          <h2 className="text-lg font-semibold">Taste exercise</h2>
           <p className="mt-1 text-sm text-stone-700 dark:text-stone-300">{c.critique}</p>
           {c.inspiration.length > 0 && (
             <ul className="mt-4 space-y-3 text-sm">
@@ -396,10 +396,102 @@ export function CaseStudyPage() {
             </div>
           )}
           <p className={cx(staticTile, 'mt-5 rounded-xl p-4 text-sm')}>
-            Write <code>projects/{t.slug}/design/critique.md</code>: five things to borrow, five to
-            fix, and the one job your v1 will do better. Then check that none of your three concepts
-            is just a reskin.
+            Note five things to borrow, five to fix, and the one job your v1 will do better. Bring
+            the note to{' '}
+            <Link to="/lessons/s13" className={linkClass}>
+              Session 13
+            </Link>
+            , the design spec.
           </p>
+        </Card>
+
+        <Card>
+          <h2 className="text-lg font-semibold">Practice data</h2>
+          <p className="mt-1 text-sm text-stone-700 dark:text-stone-300">
+            Optional, fictional data for this case so Sessions 14 and 15 have something concrete.
+            The lessons work without it.
+          </p>
+          <div className="mt-4 grid gap-6 md:grid-cols-2">
+            <div>
+              <h3 className="mb-2 font-semibold">
+                <Link to="/lessons/s14" className={linkClass}>
+                  Session 14
+                </Link>
+                , evals
+              </h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s14-conversations.md`}
+                    download
+                    className={linkClass}
+                  >
+                    s14-conversations.md
+                  </a>
+                  <span className="text-stone-600 dark:text-stone-400">
+                    {' '}
+                    · 30 sample conversations to label
+                  </span>
+                </li>
+                <li>
+                  <a
+                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s14-reference-notes.md`}
+                    download
+                    className={linkClass}
+                  >
+                    s14-reference-notes.md
+                  </a>
+                  <span className="text-stone-600 dark:text-stone-400">
+                    {' '}
+                    · open after labelling
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-2 font-semibold">
+                <Link to="/lessons/s15" className={linkClass}>
+                  Session 15
+                </Link>
+                , experiment
+              </h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s15-experiment-results.csv`}
+                    download
+                    className={linkClass}
+                  >
+                    s15-experiment-results.csv
+                  </a>
+                  <span className="text-stone-600 dark:text-stone-400"> · experiment results</span>
+                </li>
+                <li>
+                  <a
+                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s15-plan.md`}
+                    download
+                    className={linkClass}
+                  >
+                    s15-plan.md
+                  </a>
+                  <span className="text-stone-600 dark:text-stone-400"> · the pre-set plan</span>
+                </li>
+                <li>
+                  <a
+                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s15-answer-key.md`}
+                    download
+                    className={linkClass}
+                  >
+                    s15-answer-key.md
+                  </a>
+                  <span className="text-stone-600 dark:text-stone-400">
+                    {' '}
+                    · open after your readout
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </Card>
       </div>
     </>

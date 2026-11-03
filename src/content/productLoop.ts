@@ -47,6 +47,6 @@ export const productLoop = [
     description:
       'Compare the result with the problem you set out to solve. Bring user feedback and what the team learned back into the shared context, then refine the idea, change direction or stop.',
     output: 'Learning that informs the team’s next problem conversation.',
-    lessons: ['s16', 's19', 's20'],
+    lessons: ['s15', 's16', 's20'],
   },
 ]
