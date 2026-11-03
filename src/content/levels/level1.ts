@@ -545,7 +545,6 @@ Rules:
         },
         {
           heading: 'Label honestly and check the numbers',
-          illustration: 'prototype',
           paragraphs: [
             'Label every prototype honestly, on screen and in the message you share it with: prototype, fictional data, not a product commitment. A polished page reads as a promise, and PMs who prototype a lot warn that it can be motion mistaken for progress: the hard parts of an AI product, such as reliable data, evals and scale, are still ahead.',
             'If the page shows figures, they must add up. Check every number on the mocked screen by hand. One figure that does not reconcile makes people doubt everything after it.',

@@ -217,16 +217,11 @@ export const lessonVisuals = {
       'It does not establish fewer errors',
     ],
   },
-  prototype: {
-    title: 'One prototype, several honest states',
-    summary: 'Explore what the same screen needs to say when the data changes.',
-    caption:
-      'Fictional interface. Its polish and numbers do not establish demand or production readiness.',
-  },
   workspace: {
     title: 'Give each kind of context a home',
     summary: 'Instructions point to the evidence. They do not replace it.',
-    caption: 'Git can recover tracked files. It cannot undo disclosure or an external action.',
+    caption:
+      'The prototype keeps its own git history, so app code and your notes never mix in one commit.',
     folders: [
       { label: 'product-context.md', detail: 'Product, users and constraints' },
       { label: 'AGENTS.md', detail: 'How to work here; points to context' },

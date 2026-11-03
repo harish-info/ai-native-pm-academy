@@ -74,13 +74,12 @@ describe('references', () => {
         ).toBe(true)
     }
   })
-  it('places a relevant illustration in every session with no orphaned diagrams', () => {
+  it('places every illustration in a session with no orphaned diagrams', () => {
     const used = new Set<string>()
     for (const lesson of allLessons) {
       const visuals = lesson.learn.flatMap((section) =>
         section.illustration ? [section.illustration] : [],
       )
-      expect(visuals.length, lesson.id).toBeGreaterThan(0)
       for (const id of visuals) {
         expect(lessonVisuals[id], lesson.id).toBeDefined()
         used.add(id)

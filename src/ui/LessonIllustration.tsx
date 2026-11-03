@@ -33,7 +33,6 @@ const drawings: Record<LessonVisualId, ComponentType> = {
   context: Context,
   delegate: Delegate,
   verification: Verify,
-  prototype: Screens,
   workspace: Workspace,
   requirements: Requirements,
   git: Git,
