@@ -276,13 +276,14 @@ export function LessonPage() {
           </Step>
 
           <Step id="verify">
-            <Section title="Try it without AI">
-              <p className="leading-relaxed">{guide.transfer}</p>
-              <p className="text-sm text-stone-600 dark:text-stone-400">
-                Use your explanation in the reflection below. If you cannot explain the decision,
-                revisit the example before marking the session complete.
-              </p>
-            </Section>
+            {guide.transfer && (
+              <Section title="Try it yourself">
+                <p className="leading-relaxed">{inline(guide.transfer)}</p>
+                <p className="text-sm text-stone-600 dark:text-stone-400">
+                  Do this one without AI. If you get stuck, reread the example, then try again.
+                </p>
+              </Section>
+            )}
             <div className="grid gap-4 md:grid-cols-2">
               <Section title="What good output looks like">
                 <Bullets items={lesson.expectedOutput} />

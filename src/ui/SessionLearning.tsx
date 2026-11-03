@@ -29,11 +29,12 @@ export function SessionBrief({ guide, minutes }: { guide: LessonGuide; minutes: 
 }
 
 export function WorkedExample({ guide }: { guide: LessonGuide }) {
+  if (!guide.example) return null
   return (
     <section className="overflow-hidden rounded-2xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900">
       <div className="border-b border-stone-200 px-5 py-4 sm:px-7 dark:border-stone-700">
         <p className="text-xs font-semibold tracking-widest text-stone-600 uppercase dark:text-stone-300">
-          Worked example · invented for practice
+          Example
         </p>
         <h2 className="mt-1 text-xl font-semibold">{guide.example.title}</h2>
       </div>
@@ -67,16 +68,18 @@ export function WorkedExample({ guide }: { guide: LessonGuide }) {
 
 export function DecisionPractice({ guide }: { guide: LessonGuide }) {
   const [choice, setChoice] = useState<string | null>(null)
-  const selected = guide.checkpoint.options.find((o) => o.id === choice)
-  const correct = choice === guide.checkpoint.correct
+  if (!guide.checkpoint) return null
+  const checkpoint = guide.checkpoint
+  const selected = checkpoint.options.find((o) => o.id === choice)
+  const correct = choice === checkpoint.correct
   return (
     <Card>
       <p className="mb-2 text-xs font-semibold tracking-widest text-stone-600 uppercase dark:text-stone-300">
-        Your call · practise before asking AI
+        Quick check
       </p>
-      <h2 className="text-lg font-semibold">{guide.checkpoint.question}</h2>
-      <div className="mt-4 grid gap-2" role="group" aria-label="Decision practice">
-        {guide.checkpoint.options.map((option) => (
+      <h2 className="text-lg font-semibold">{checkpoint.question}</h2>
+      <div className="mt-4 grid gap-2" role="group" aria-label="Quick check answers">
+        {checkpoint.options.map((option) => (
           <button
             type="button"
             key={option.id}
@@ -102,14 +105,12 @@ export function DecisionPractice({ guide }: { guide: LessonGuide }) {
             key={choice}
             className="animate-pop-in rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800"
           >
-            <p className="mb-1 font-semibold">
-              {correct ? 'Good judgement' : 'Reconsider the evidence'}
-            </p>
+            <p className="mb-1 font-semibold">{correct ? 'Right' : 'Not quite'}</p>
             <p>{selected.feedback}</p>
           </div>
         ) : (
           <p className="text-sm text-stone-600 dark:text-stone-400">
-            Choose a response to see the reasoning. This is practice, with no grade or XP.
+            Pick an answer to see why. It does not count towards your progress.
           </p>
         )}
       </div>

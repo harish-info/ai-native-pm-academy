@@ -99,11 +99,13 @@ describe('references', () => {
       expect(guide.reading.minutes).toBeGreaterThan(0)
       expect(guide.reading.minutes).toBeLessThanOrEqual(15)
       expect(guide.reading.minutes).toBeLessThan(lesson.minutes)
-      expect(guide.example.reasoning.length).toBeGreaterThanOrEqual(2)
-      const options = guide.checkpoint.options.map((o) => o.id)
-      expect(new Set(options).size).toBe(options.length)
-      expect(options).toContain(guide.checkpoint.correct)
-      for (const o of guide.checkpoint.options) expect(o.feedback.length).toBeGreaterThan(30)
+      if (guide.example) expect(guide.example.reasoning.length).toBeGreaterThanOrEqual(2)
+      if (guide.checkpoint) {
+        const options = guide.checkpoint.options.map((o) => o.id)
+        expect(new Set(options).size).toBe(options.length)
+        expect(options).toContain(guide.checkpoint.correct)
+        for (const o of guide.checkpoint.options) expect(o.feedback.length).toBeGreaterThan(30)
+      }
     }
     expect(Object.keys(courseArc).map(Number)).toEqual([1, 2, 3, 4, 5])
   })

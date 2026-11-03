@@ -5,18 +5,21 @@ export interface LessonGuide {
   bring: string
   recall: { question: string; answer: string }
   reading: { resourceId: string; minutes: number; focus: string }
-  example: {
+  /** Optional: leave it out rather than ship a weak example. */
+  example?: {
     title: string
     situation: string
     reasoning: { label: string; text: string }[]
     takeaway: string
   }
-  checkpoint: {
+  /** Optional quick check: one realistic question with feedback on every option. */
+  checkpoint?: {
     question: string
     options: { id: string; text: string; feedback: string }[]
     correct: string
   }
-  transfer: string
+  /** Optional short exercise done without AI. */
+  transfer?: string
   bridge: string
 }
 
