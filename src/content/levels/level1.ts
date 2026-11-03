@@ -97,12 +97,12 @@ export const level1: Level = {
         {
           resourceId: '3b1b-llms-briefly',
           why: 'A short visual explanation of next-token prediction and training that makes the rest of the session click.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'anthropic-capabilities-limitations',
           why: 'A longer optional companion on capabilities and limitations. It is not part of this session’s reading budget.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'karpathy-deep-dive-llms',
@@ -267,12 +267,12 @@ Rules:
         {
           resourceId: 'anthropic-ai-fluency',
           why: 'The source of the 4Ds. Do the introduction and the Delegation and Description lessons now; the Discernment lessons fit Session 3, and the rest can follow across the course.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'anthropic-context-engineering',
           why: 'Why curated context beats volume, from the people who build the models. Read the opening sections up to and including the anatomy of effective context; the later sections on retrieval and long-running agents are for engineers, so skim or skip them.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'gruhn-meat-proxy',
@@ -294,8 +294,8 @@ Rules:
         summary:
           'Ask for the same competitor summary with no background, then with a role phrase. Write product-context.md, use it in a Project or paste it into a fresh chat, ask again, and decide what you will delegate.',
         steps: [
-          'Choose a public product or workflow you understand. In a fresh chat with no background brief, ask: "Write a one-page competitor summary for [product or workflow]." Replace the brackets with its name, without adding private context. Save the answer as `summary-v0.md`.',
-          'In another fresh chat, ask the same thing but open with a role phrase such as "You are a world-class strategy consultant" and add "think step by step". Save it as `summary-v0b.md` and note in one line how much it differs from v0.',
+          'Choose a public product or workflow you understand. In a fresh chat with no background brief, ask: "Write a one-page competitor summary for [product or workflow]." Replace the brackets with its name, without adding private context. Keep the answer.',
+          'In another fresh chat, ask the same thing but open with a role phrase such as "You are a world-class strategy consultant" and add "think step by step". Then save both answers side by side in `summary-comparison.md`, with one line on what changed between them.',
           'For the same product or workflow, write `product-context.md` in your own words with the six headings from this lesson. Use public information and fictional practice data, without employer or customer details. Keep it to one page and write "Unknown" instead of guessing.',
           'Create a Claude Project called "PM workspace". Add `product-context.md` to project knowledge and write four to six lines of project instructions: who the outputs are for, the format you usually want, and "say what is missing instead of guessing". If your plan does not offer Projects, paste the file at the top of each fresh chat instead.',
           'Collect public pages for three to five competitors or alternative ways of doing the job. Run the agent prompt below in the Project and save the answer as `summary-v1.md`. Keep it: Session 3 fact-checks it.',
@@ -327,7 +327,7 @@ Done when: every table row has a source URL and every implication names the cont
       },
       expectedOutput: [
         '`product-context.md`: one page with Product, Users, Glossary, Constraints, Open decisions and Sources, and "Unknown" where you do not know.',
-        'Three competitor summaries (v0, v0b and v1), scored on the same criteria, including any result that did not improve.',
+        '`summary-comparison.md` (the no-context and role-phrase summaries side by side) and `summary-v1.md`, scored on the same criteria, including any result that did not improve.',
         '`delegation-audit.md`: ten tasks, each with a decision, the context it needs, what you check and who owns it.',
       ],
       artifact:
@@ -344,7 +344,10 @@ Done when: every table row has a source URL and every implication names the cont
         'Which task in your audit were you tempted to delegate fully, and what made you hold back?',
       ],
       checklist: [
-        { id: 'generic-first', text: 'Saved a no-context summary and a role-phrase summary' },
+        {
+          id: 'generic-first',
+          text: 'Saved the no-context and role-phrase summaries side by side in summary-comparison.md',
+        },
         { id: 'context-file', text: 'Wrote a one-page product-context.md with sources' },
         { id: 'project', text: 'Set up a Claude Project with the file and short instructions' },
         { id: 'summary-v1', text: 'Got a specific v1 summary and saved it for Session 3' },
@@ -422,7 +425,7 @@ Done when: every table row has a source URL and every implication names the cont
         {
           resourceId: 'karpathy-how-i-use-llms',
           why: 'A practitioner tour of everyday model use. For this session, watch the sections on internet search and deep research, where he shows both the value and the need to check; the rest of the video is optional.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'simon-willison-blog',
@@ -521,7 +524,7 @@ Rules:
         {
           heading: 'Why build a page instead of writing a memo',
           paragraphs: [
-            'A page people can click answers questions a memo leaves open: what would the user actually see, what would it say, where would it break. It also exposes weak ideas faster, which is the point. You will meet this idea again in Session 12, where the prototype is linked from the PRD.',
+            'A page people can click answers questions a memo leaves open: what would the user actually see, what would it say, where would it break. It also exposes weak ideas faster, which is the point. You will meet this idea again in Session 12, where the prototype is linked from the PRD. Treat this page as a guess: you build it so Session 10 has something concrete to put in front of real users.',
             '**Vibe coding**, a term Andrej Karpathy coined in early 2025, means describing what you want in plain language, letting the AI write the code, and judging the result by using it rather than by reading the code. It is ideal for pitches and throwaway prototypes. It is not how production software gets built, and Level 2 shows the more careful version.',
           ],
         },
@@ -566,12 +569,12 @@ Rules:
         {
           resourceId: 'claude-artifacts',
           why: 'How artifacts work inside a Claude chat, including publishing and sharing a link.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'lovable-quickstart',
           why: 'The official quick start builds and publishes a small site from a prompt, one change at a time, which is exactly the habit this session teaches.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'lovable',

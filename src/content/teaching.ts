@@ -496,7 +496,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'c',
-          text: 'The ruleset on main blocked part of the deployment.',
+          text: 'A ruleset on main, if you set one up, blocked part of the deployment.',
           feedback:
             'The ruleset only controls how changes get into main. It does not change what the published site loads.',
         },
@@ -591,12 +591,12 @@ export const lessonGuides: Record<string, LessonGuide> = {
         'Read when AI is and is not better than rules, then automation versus augmentation. Apply the comparison to your opportunity.',
     },
     example: {
-      title: 'Check a source note against the page',
+      title: 'Check a brief claim against the page',
       situation:
-        'You are the PM for a team expense app. One of your research sessions saved `sources/market/competitor-a-approvals.md`, and you pick it for your spot check.',
+        'You are the PM for a team expense app. One of your research sessions returned a brief and saved the page it read, unchanged, as `sources/market/competitor-a-approvals.md`. You pick one claim from the brief for your spot check.',
       reasoning: [
         {
-          label: 'What the note says',
+          label: 'What the brief says',
           text: 'Claim: “Competitor A auto-approves claims under £50 with AI.” Label: verified. Supporting sentence: “Coming soon: smart approvals for small claims.”',
         },
         {
@@ -609,10 +609,10 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           label: 'The fix',
-          text: 'Rewrite the note: “Competitor A has announced smart approvals for small claims. Not shipped. Label: vendor claim.” Then reword any line in your strategy kernel that says rivals already do this.',
+          text: 'Rewrite the claim: “Competitor A has announced smart approvals for small claims. Not shipped. Label: vendor claim.” Then reword any line in your strategy kernel that says rivals already do this.',
         },
       ],
-      takeaway: 'A source note is right only if the page says exactly what the note claims.',
+      takeaway: 'A claim in a brief is right only if the page says exactly what the brief claims.',
     },
     checkpoint: {
       question:

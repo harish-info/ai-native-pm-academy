@@ -66,8 +66,8 @@ export const level3: Level = {
         {
           heading: 'Research in parallel sessions and save every source',
           paragraphs: [
-            'Split the research into narrow slices, such as competing AI assistants, established apps and how people cope today, and give each slice its own session and folder. You can run them side by side or one after another. Cap each one at a number of sources, then check the material you rely on.',
-            'Every claim gets a source note: one Markdown file per page in `sources/market/`, with the link, the date you read it, the exact sentence that supports the claim and an evidence label. The market map is then built only from those notes. This is the start of a habit that runs to the end of the course: raw sources in one place, synthesis in another, and every synthesised line pointing back to where it came from.',
+            'Split the research into narrow slices, such as competing AI assistants, established apps and how people cope today, and give each slice its own session and folder. You can run them side by side or one after another. Ask each slice for one sourced brief, then check the claims you rely on against the pages.',
+            'Each slice saves the raw pages it read, unchanged, in `sources/market/`, and returns one brief of about a page. Every claim in the brief carries the link, the date read, the exact sentence that supports it, the saved page file and an evidence label. The market map is then built only from the three briefs and the saved pages. This is the start of a habit that runs to the end of the course: raw sources in one place, synthesis in another, and every synthesised line pointing back to where it came from.',
             'Typical research failures: citing a page that does not contain the claim, merging two products into one, describing announced features as shipped, and treating a press release as evidence of adoption. Label every claim so readers can judge it:',
           ],
           bullets: [
@@ -88,19 +88,19 @@ export const level3: Level = {
         {
           resourceId: 'svpg-product-operating-model',
           why: 'A short introduction to outcomes over features: teams own problems, strategy picks which ones, discovery comes before delivery.',
-          required: true,
+          required: false,
         },
       ],
       task: {
         summary:
-          'Run competitor research in three parallel Claude Code sessions with every claim saved as a source note, build a market map from those notes only, and write a one-page strategy kernel for your product feature.',
+          'Run competitor research in three parallel Claude Code sessions with each slice returning one sourced brief and its raw pages saved unchanged, build a market map from those briefs and pages only, and write a one-page strategy kernel for your product feature.',
         steps: [
-          'In your `workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `AGENTS.md`: "Market research notes live in sources/market/, one file per source page." If your folder still has a `CLAUDE.md` from an earlier version of this course, first ask your agent to move its contents into `AGENTS.md` and leave `@AGENTS.md` as the only line in `CLAUDE.md`.',
+          'In your `workspace/`, create the folders `strategy/` and `sources/market/`. Add one line to `AGENTS.md`: "Raw pages read during market research live in sources/market/, unedited, one file per page. Briefs live in strategy/." If your folder still has a `CLAUDE.md` from an earlier version of this course, first ask your agent to move its contents into `AGENTS.md` and leave `@AGENTS.md` as the only line in `CLAUDE.md`.',
           'Open three Claude Code sessions in the workspace at the same time (a new Warp tab for each, or a new session in the desktop app). Paste the agent prompt below into each one, choosing a different slice each time: AI assistants that compete, established apps and incumbents, and workarounds and the customer voice.',
           'Draft the diagnosis in `strategy/strategy-kernel.md` in your own words. Use the Google PAIR reading from Tutorials and sources to ask whether a simpler version without AI would do the job. Mark what you do not yet know about your target users.',
-          'When the sessions finish, pick five source notes at random and open their links yourself. Does the page say what the note says? Correct any wrong label and note what was wrong. If more than one of the five is wrong, check the rest of that slice too.',
-          'Start a fresh session and ask Claude to build `strategy/market-map.md` from `sources/market/` only: a table with product, who it is for, data it uses, what it can do, what needs approval, where it stops on sensitive data, consequential decisions and external actions, evidence label and source file for every row; a section of 5 to 8 unmet needs written as customer problems, each with supporting quotes and links; and a section "Claims to check or drop".',
-          'Finish `strategy/strategy-kernel.md` on one page: the outcome, the diagnosis, the guiding policy, three to five coherent actions, and what you will not do. Every claim in the diagnosis links to a source note or a market map row.',
+          'When the sessions finish, pick five claims at random across the three briefs and open their links yourself. Does the page say what the brief says? Correct any wrong label and note what was wrong. If more than one of the five is wrong, check the rest of that brief too.',
+          'Start a fresh session and ask Claude to build `strategy/market-map.md` from the three briefs and `sources/market/` only: a table with product, who it is for, data it uses, what it can do, what needs approval, where it stops on sensitive data, consequential decisions and external actions, evidence label and source file for every row; a section of 5 to 8 unmet needs written as customer problems, each with supporting quotes and links; and a section "Claims to check or drop".',
+          'Finish `strategy/strategy-kernel.md` on one page: the outcome, the diagnosis, the guiding policy, three to five coherent actions, and what you will not do. Every claim in the diagnosis links to a brief claim, a saved page or a market map row.',
           'In a fresh session, ask Claude to read the kernel and the market map and find the weakest link: a claim with no source, an action that does not follow from the policy, or a competitor fact the kernel depends on that is only a vendor claim. You decide what to change.',
         ],
       },
@@ -111,26 +111,26 @@ export const level3: Level = {
 
 Your slice: [AI ASSISTANTS THAT COMPETE | ESTABLISHED APPS AND INCUMBENTS | WORKAROUNDS AND THE CUSTOMER VOICE]. Stay inside this slice; other sessions are covering the rest.
 
-Search the web and open the pages yourself. For each page you rely on, save one note in sources/market/ named <product-or-site>-<topic>.md containing:
-- the URL and today's date
-- what the page claims, with the exact sentence that supports each claim
+Search the web and open the pages yourself. Save the text of every page you read, unchanged, in sources/market/ named <product-or-site>-<topic>.md. Then write one brief for your slice, saved as strategy/brief-<slice>.md, of about one page. Each claim in the brief has:
+- the URL, today's date and the name of the saved page file
+- the exact sentence on the page that supports the claim
 - an evidence label for each claim: verified (a primary source such as the product, its help pages or a regulator shows it directly), vendor-claim (the company says it about itself in marketing or a press release) or unverified
 - for customer voice: each quote copied verbatim with its link, and no usernames or other personal details
 
 Rules:
 - Never state a feature, date, number or quote that is not on a page you saved. Write "unknown" instead.
 - Announced is not shipped. Say which one each feature is.
-- Stop after 6 to 10 notes. Finish with a 5-line summary of your slice and the three claims you are least sure of.`,
+- One brief only, and no more than about a page. End it with the three claims you are least sure of.`,
       },
       expectedOutput: [
-        '`sources/market/` with one dated note per source page, each claim labeled verified, vendor-claim or unverified',
+        '`sources/market/` with the raw pages the sessions read, saved unchanged, and three briefs in `strategy/`, one per slice, each claim with its link, date, supporting sentence and a verified, vendor-claim or unverified label',
         '`strategy/market-map.md`: 4 to 8 competitors and workarounds, 5 to 8 unmet needs with quotes, and a list of claims to check or drop',
         '`strategy/strategy-kernel.md`: outcome, diagnosis, guiding policy, coherent actions and what you will not do, on one page',
       ],
       artifact:
         '`strategy-kernel.md` and `market-map.md`, with every source saved under `sources/`',
       verification: [
-        'You opened five source links yourself and recorded whether each note matched the page.',
+        'You opened five source links from the briefs yourself and recorded whether each claim matched the page.',
         'Every row in the market map names a source file and carries an evidence label.',
         'Every unmet need is phrased as a customer problem with no product feature in the sentence.',
         'The diagnosis names a crux backed by evidence, not a goal or an aspiration.',
@@ -143,9 +143,12 @@ Rules:
       ],
       checklist: [
         { id: 'parallel', text: 'Ran three research slices in parallel Claude Code sessions' },
-        { id: 'sources', text: 'Saved one dated source note per page under sources/market/' },
+        {
+          id: 'sources',
+          text: 'Each slice returned one sourced brief, with the raw pages it read saved unchanged under sources/market/',
+        },
         { id: 'spot-check', text: 'Opened five source links myself and fixed any wrong labels' },
-        { id: 'map', text: 'Built the market map from source notes only' },
+        { id: 'map', text: 'Built the market map from the briefs and saved pages only' },
         { id: 'kernel', text: 'Wrote a one-page strategy kernel with what we will not do' },
       ],
       mentorMove:
@@ -228,12 +231,12 @@ Rules:
         {
           resourceId: 'torres-interviewing',
           why: 'How to recruit, ask story-based questions about the last time, and capture each interview as a one-page snapshot.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'torres-ost',
           why: 'The original explanation of Opportunity Solution Trees from the person who popularised them.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'nng-synthetic-users',
@@ -253,11 +256,11 @@ Rules:
       ],
       task: {
         summary:
-          'Recruit five real people, run a 30-minute interview and usability test with each, synthesise by hand, compare with Claude, and build an Opportunity Solution Tree for your product.',
+          "Recruit five real people a week ahead and run a 30-minute interview and usability test with each (three is the minimum). The 3 to 5 user calls happen outside the session time. The session's minutes cover the interview guide, your synthesis, the comparison with Claude's synthesis and the Opportunity Solution Tree for your product.",
         steps: [
           'A week before this session (late in Level 2 is a good time), recruit five people who match your target users as closely as you can. Ask friends, former colleagues and your wider network for introductions. Three is the minimum. Explain it is a 30-minute learning conversation, and ask for consent to take notes and to use Claude on the notes without their name.',
           'Write `discovery/discussion-guide.md` in two halves: interview questions about the last time, then 3 to 5 usability tasks and one comprehension question. Ask Claude to point out every leading or hypothetical question; you decide the fixes.',
-          'Run the conversations on a video call with the prototype on its live link. Take notes, or transcribe only with explicit consent. Use P1 to P5 from the start.',
+          'Run the conversations on a video call with the prototype on its live link, in the days before the session. These calls are outside the session time. Take notes, or transcribe only with explicit consent. Use P1 to P5 from the start.',
           'Within a day of each conversation, write a one-page snapshot in `discovery/interview-notes/P1.md` and so on: key quotes, behaviours, workarounds, emotions, where they hesitated in the prototype, and their answer to the comprehension question. Delete any recording once the snapshot is written.',
           'Before using any AI, write "My synthesis" in `discovery/synthesis.md`: the opportunities you heard, with participant ids, and the usability problems ranked by how many people hit them.',
           'Start a fresh Claude Code session and run the agent prompt below. It writes an independent synthesis to `discovery/synthesis-claude.md` without reading yours.',
@@ -405,7 +408,7 @@ Rules:
         {
           resourceId: 'intercom-rice',
           why: 'The original RICE write-up: reach, impact, confidence and effort, so ideas are compared on evidence rather than volume.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'nng-ai-study-guide',
@@ -595,12 +598,12 @@ Use no real people, companies or figures.`,
         {
           resourceId: 'osmani-good-spec',
           why: 'A concise guide to specs agents can execute: a goal first, a PRD-like structure, and boundaries in three tiers (always, ask first, never).',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'product-templates-prd',
           why: 'The PRD template this session uses. Copy the headings from its Output Format section into prd/prd.md, and read its rules on gaps and contradictions.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'aws-rag-versus-fine-tuning',
@@ -802,7 +805,7 @@ Rules:
       id: 'q3-2',
       competency: 'product-discovery',
       prompt:
-        'A Claude Code research session reports that a competitor "launched an assistant that already does the core job of your feature", and saves a source note with a link. You want it in a steering deck tomorrow. What do you do?',
+        'A Claude Code research session reports that a competitor "launched an assistant that already does the core job of your feature", and saves the page and a brief claim with a link. You want it in a steering deck tomorrow. What do you do?',
       options: [
         {
           id: 'a',

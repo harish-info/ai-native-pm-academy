@@ -11,7 +11,7 @@ export const level2: Level = {
     'Run a private workspace for the quarter that Claude Code understands from its first message, with an `AGENTS.md` you wrote and a clear line between your instructions and its auto memory.',
     'Let Claude Code interview you into `REQUIREMENTS.md`, then build and steer a multi-screen prototype by reviewing the running result.',
     'Keep long builds on track with fresh sessions and short handoff notes.',
-    'Publish through GitHub: commits, branches, a protected main branch, pull requests whose diffs you can read, and a live URL.',
+    'Publish through GitHub: commits, branches, a branch and pull request loop, an optional protected main branch, diffs you can read, and a live URL.',
     'Review what agents build with user tests, accessibility basics, a second-session review and fixes from bug reports, without ever committing a secret.',
   ],
   badge: {
@@ -73,7 +73,7 @@ export const level2: Level = {
             '`learning/`: your glossary, model comparison and delegation audit.',
             '`pitch/`: pitch notes and the link to your pitch page.',
             '`research/`: the fact sheet.',
-            '`prototype/`: added in Session 6. Level 3 adds `strategy/`, `discovery/`, `data/` and `prd/` the same way: one folder per workstream.',
+            '`prototype/`: added in Session 6. Level 3 adds `strategy/`, `discovery/`, `data/` and `prd/` the same way, and Level 4 adds `evals/`, `launch/` and `presentations/`: one folder per workstream.',
           ],
         },
         {
@@ -112,12 +112,12 @@ export const level2: Level = {
         {
           resourceId: 'claude-code-101',
           why: "The official beginner course: installation, the everyday loop of asking, reviewing and committing, and how `CLAUDE.md`, Claude's own version of `AGENTS.md`, shapes every session. Skip the parts on subagents, MCP and hooks.",
-          required: true,
+          required: false,
         },
         {
           resourceId: 'claude-code-memory',
           why: 'The official page on `CLAUDE.md`, `AGENTS.md` and auto memory: when Claude Code reads `AGENTS.md`, and why short instructions work better.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'claude-code-permission-modes',
@@ -242,6 +242,7 @@ Show me the folder map and the AGENTS.md draft before you move anything. When I 
           paragraphs: [
             'Matt Pocock popularised a simple idea, the grill-me skill: before any building, the agent questions you one point at a time until there is nothing left to guess. It works because you know far more about your product than you have written down, and the questions pull it out.',
             'Good questions are concrete: who opens this screen and why, what it shows when there is no data, what happens on a phone, which figures must be exact, what is out of scope. Ask the agent to give its recommended answer with each question, so you can reply "yes" or correct it, and to look up anything your files already say instead of asking you. When you do not know, say so: it becomes an open question in the file instead of an invented answer.',
+            'Make the interview ask the evidence question too: "What evidence do you have that this problem exists, and who has it?" Anything you cannot answer is an assumption to test in Session 10. The prototype is a guess, built so Session 10 has something concrete to put in front of real users.',
             'You will use the same method twice more: for the PRD in Session 12 and the design spec in Session 13.',
           ],
         },
@@ -287,7 +288,7 @@ Show me the folder map and the AGENTS.md draft before you move anything. When I 
         {
           resourceId: 'aihero-grill-me',
           why: 'A direct tutorial for the questioning method. You own the choices, unknowns stay visible, and some questions need a prototype rather than another round of discussion.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'aihero-handoff',
@@ -321,7 +322,7 @@ Show me the folder map and the AGENTS.md draft before you move anything. When I 
 
 Read product-context.md and pitch/pitch-notes.md first.
 
-Interview me until the requirements are clear enough that you would not need to guess while building. Ask one question at a time and wait for my answer. Cover: who uses each screen and why, the three to five screens, what each shows and what the user can do, empty, loading and error states with the exact words, the fictional data needed (fictional records and events), which figures must be exact and calculated by code, accessibility, what happens at phone width, and what is out of scope. When an answer of mine contradicts product-context.md, point it out.
+Interview me until the requirements are clear enough that you would not need to guess while building. Ask one question at a time and wait for my answer. Cover: who uses each screen and why, the three to five screens, what each shows and what the user can do, empty, loading and error states with the exact words, the fictional data needed (fictional records and events), which figures must be exact and calculated by code, accessibility, what happens at phone width, and what is out of scope. Also ask: "What evidence do you have that this problem exists, and who has it?" Record anything I cannot answer as an assumption to test in Session 10. When an answer of mine contradicts product-context.md, point it out.
 
 When you have no more questions, write prototype/REQUIREMENTS.md with these sections: Problem and user, Screens (one subsection each: shows, actions, states, done when), Data, Rules that must hold, Out of scope, Open questions. Use my words where you can. Do not fill gaps with plausible guesses; list them as open questions. Show me the file before saving it.
 
@@ -381,7 +382,7 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
       xp: 125,
       mentorReview: 'required',
       practicalProof: true,
-      goal: 'Publish the prototype as a public `product-prototype` repository with a protected main branch, merge your first pull request, and put your product live on GitHub Pages.',
+      goal: 'Publish the prototype as a public `product-prototype` repository and merge your first pull request through a branch, so your product goes live on GitHub Pages. A ruleset that protects main is optional, for teams that want it.',
       whyItMatters:
         'Engineers want to see the prototype and comment on it, and they want a link, not a screen share. GitHub is where software work becomes visible: changes, reviews, decisions and releases. PMs who can open a pull request and read a diff work with engineers and coding agents directly instead of only through tickets, and the pull request history is the audit trail regulated teams rely on.',
       learn: [
@@ -394,10 +395,10 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
           ],
         },
         {
-          heading: 'Why a protected main branch matters',
+          heading: 'Optional: protect main with a ruleset',
           paragraphs: [
-            'A ruleset on `main` makes it accept changes only through pull requests. That one setting turns "someone changed the live site" into "a reviewed, recorded change was merged". When an agent can write code in minutes, this gate matters more, not less.',
-            "One catch: by default, repository admins can bypass the rules, and on your own repository you are the admin. Leave the ruleset's bypass list empty so the rule binds you too. Apply the same rule to everyone who changes code, including PMs, designers and agents: a one-word copy fix still gets a pull request, just a quick review.",
+            'Optional, for teams that want it: a ruleset on `main` makes it accept changes only through pull requests. That one setting turns "someone changed the live site" into "a reviewed, recorded change was merged". When an agent can write code in minutes, this gate matters more, not less.',
+            "One catch: by default, repository admins can bypass the rules, and on your own repository you are the admin. If you set one up, leave the ruleset's bypass list empty so the rule binds you too. Apply the same rule to everyone who changes code, including PMs, designers and agents: a one-word copy fix still gets a pull request, just a quick review.",
           ],
         },
         {
@@ -421,12 +422,12 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
         {
           resourceId: 'github-skills-intro',
           why: 'A free, hands-on exercise inside GitHub itself that walks you through branches, commits and pull requests before you do them for real.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'github-pages-docs',
           why: 'The official guide to publishing a site with GitHub Pages, including where the publishing settings live.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'github-about-prs',
@@ -441,29 +442,29 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
       ],
       task: {
         summary:
-          'Complete the GitHub introduction, publish the prototype as a public repository with a no-bypass ruleset on main, merge a pull request that deploys it, and open the live URL on your phone.',
+          'Complete the GitHub introduction, publish the prototype as a public repository, merge a pull request that deploys it, and open the live URL on your phone. Optionally, protect main with a ruleset.',
         steps: [
           'Create a free GitHub account if you do not have one, and turn on two-factor authentication.',
           'Complete the GitHub Skills "Introduction to GitHub" exercise in the browser.',
           'Sign your computer in to GitHub once so Claude Code can push: install the GitHub CLI and run `gh auth login`, as the [Starter kit](/starter-kit) shows. Your mentor or Claude Code can talk you through it.',
           'In Claude Code, open the `prototype/` folder. Ask Claude to check the code and its history for keys, tokens, real names, email addresses and personal data, and to confirm `.gitignore` excludes build output, dependencies and any `.env` file. Fix anything it finds before going further.',
           'Ask Claude to create a public GitHub repository named `product-prototype` and push `main`.',
-          'On GitHub, open Settings, then Rules, and add a ruleset for `main` that requires a pull request before merging. Leave the bypass list empty.',
+          'Optional, for teams that want it: on GitHub, open Settings, then Rules, and add a ruleset for `main` that requires a pull request before merging. Leave the bypass list empty. If you skip this, still send every change through a pull request.',
           'Run the prompt below. Claude creates a branch, adds the deployment workflow and a README, pushes and opens a pull request.',
           'On GitHub, read the diff with the four questions. Leave at least one comment. Ask your mentor to review too, then ask Claude to address the comments in a new commit.',
           'In Settings, then Pages, set the source to GitHub Actions. Merge the pull request, watch the Actions tab turn green and open the live URL on your phone.',
-          'Test the rule. Ask Claude to make an empty test commit on a new temporary branch and try to push it straight to `main`. GitHub should reject the push. If it goes through, note that and fix the ruleset before you change anything else.',
+          'Only if you added the ruleset, test it. Ask Claude to make an empty test commit on a new temporary branch and try to push it straight to `main`. GitHub should reject the push. If it goes through, note that and fix the ruleset before you change anything else.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In Claude Code, with the prototype folder open',
-        text: `This is my product prototype, a React, TypeScript and Vite app that runs in the browser on fictional records and events only. It is now a public GitHub repository called product-prototype, and main only accepts pull requests.
+        text: `This is my product prototype, a React, TypeScript and Vite app that runs in the browser on fictional records and events only. It is now a public GitHub repository called product-prototype, and every change to main goes through a pull request.
 
 Goal: publish the prototype on GitHub Pages so that every merge into main updates the live site.
 
 1. Create a branch called deploy/pages.
-2. Run installation, build and relevant tests on pull requests. Add a separate deployment job on pushes to main, using the official GitHub Pages actions. Never deploy an unmerged pull request. Tell me how to require the PR check in the ruleset after it has run.
+2. Run installation, build and relevant tests on pull requests. Add a separate deployment job on pushes to main, using the official GitHub Pages actions. Never deploy an unmerged pull request. If I have set up a ruleset on main, tell me how to require the PR check in it after it has run.
 3. Set the Vite base path to /product-prototype/.
 4. Rewrite README.md: one paragraph on what my product is and the problem it explores, using REQUIREMENTS.md as the source; a Status section saying it is a learning prototype with fictional data only; a Live site section with the URL https://<my-username>.github.io/product-prototype/ using my real username; and a How we work section: every change goes through a pull request, pull requests stay small, the author reads their own diff first.
 5. Commit with clear messages, push the branch and open a pull request whose description explains each change in one line, written for a product manager.
@@ -471,7 +472,7 @@ Goal: publish the prototype on GitHub Pages so that every merge into main update
 Constraints: no new dependencies beyond what the deployment needs, no changes to the app itself, nothing outside the files above. Tell me which setting I need to change on GitHub myself, and what I should check in the diff before merging.`,
       },
       expectedOutput: [
-        'A public `product-prototype` repository with a no-bypass ruleset on `main`.',
+        'A public `product-prototype` repository. Optionally, a no-bypass ruleset on `main`.',
         'A merged pull request with a description, at least one review comment and a follow-up commit.',
         'Checks on proposed pull requests and a separate deployment workflow after merge.',
         'The live product prototype at a GitHub Pages URL.',
@@ -480,7 +481,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
         'The live product prototype URL and your first merged pull request in the public `product-prototype` repository.',
       verification: [
         'The live URL loads on your phone and shows the "Prototype with fictional data" label.',
-        'A direct push to `main` is rejected, even though you are the repository admin.',
+        'If you added a ruleset, a direct push to `main` is rejected, even though you are the repository admin. If you did not, you can say why main does not need one yet.',
         'The merged pull request shows at least two commits, a review comment and a resolved conversation.',
         'The diff changed only the workflow, the Vite setting and the README, as the prompt asked.',
         'Nothing in the repository or its history contains keys, real names or personal data.',
@@ -495,13 +496,19 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
           id: 'secrets-check',
           text: 'Checked the prototype for keys and personal data before the first push',
         },
-        { id: 'ruleset', text: 'Added a ruleset on main with an empty bypass list' },
+        {
+          id: 'ruleset',
+          text: 'Decided whether main needs a ruleset; if yes, added one with an empty bypass list',
+        },
         {
           id: 'pr-merged',
           text: 'Read the diff, addressed a review comment and merged the pull request',
         },
         { id: 'live-url', text: 'Opened the live GitHub Pages URL on a phone' },
-        { id: 'push-rejected', text: 'Confirmed a direct push to main is rejected' },
+        {
+          id: 'push-rejected',
+          text: 'If I added a ruleset, saw a direct push to main rejected; otherwise noted why I skipped it',
+        },
       ],
       mentorMove:
         'Be the reviewer on her first pull request: leave one real comment, such as a missing link in the README, and one question, and approve only after she pushes a fix. Then open a merged pull request from a well-known open-source project and talk through what you look at first and why.',
@@ -569,7 +576,7 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
         {
           resourceId: 'claude-code-in-action',
           why: 'The official course for people who already use Claude Code: steering longer sessions, `CLAUDE.md`, and code review on GitHub. Skip the parts on hooks and headless runs.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'aihero-code-review',
@@ -972,7 +979,7 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       },
       {
         id: 'repo',
-        text: 'The public `product-prototype` repository with a no-bypass ruleset on main, a README and a current `HANDOFF.md`.',
+        text: 'The public `product-prototype` repository (with a no-bypass ruleset on main if you chose one), a README and a current `HANDOFF.md`.',
       },
       {
         id: 'live',

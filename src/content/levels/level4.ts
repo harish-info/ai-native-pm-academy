@@ -101,17 +101,17 @@ export const level4: Level = {
         {
           resourceId: 'product-templates-design-spec',
           why: 'The design spec template this session uses. Copy the headings from its Output Format section into design-spec.md and add the precedence note.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'claude-design-prototype-tutorial',
           why: 'A direct tutorial on clickable prototypes, real components, missing states and continuing in Claude Code. Useful as a second explanation of the handoff, even if you keep your existing prototype.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'agents-md',
           why: 'The open format for the team instructions file that coding agents read before they start work.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'figma-make',
@@ -274,11 +274,21 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
         {
           resourceId: 'hamel-evals-faq',
           why: 'Practitioner answers on error analysis, code versus model graders and vanity metrics; start with the questions on error analysis.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'torres-ai-evals',
           why: 'A product-team guide to evals that also starts with error analysis; the first steps are free.',
+          required: false,
+        },
+        {
+          resourceId: 'hamel-llm-judge',
+          why: 'When you add a model grader: pass or fail calls with a written critique, checked against one expert, as in your grader checks.',
+          required: false,
+        },
+        {
+          resourceId: 'applied-llms',
+          why: 'Read the evaluation and monitoring section: assertion tests, model graders and reading samples every day.',
           required: false,
         },
         {
@@ -302,20 +312,20 @@ Done when: every screen in the PRD flows has every state with exact copy or an o
           'Use a stand-in to discover failures, write a small 12-case learning set, reserve three unseen cases with a human grader, and report what was and was not tested. This is practice in evaluation design, not a production release certificate.',
         steps: [
           'Create a Claude Project called "Assistant evaluation sandbox". Paste the assistant rules from your PRD (behavioural contracts, scope and hand-offs) as its instructions, and attach the fictional data file from your prototype.',
-          'Start with six realistic questions across normal, missing-data, hand-off, action and hostile-input situations. Read each answer and group observed problems in failure-modes.md. A larger error-analysis sample is further practice, not required in this session.',
+          'Start with six realistic questions across normal, missing-data, hand-off, action and hostile-input situations. Read each answer and group observed problems in failure-modes.md. A larger error-analysis sample is further practice, not required in this session. Following a case study? The [Case study](/case-study) page has 30 sample conversations and reference notes to practise labelling on.',
           'Draft 12 learning cases: four correctness, three conduct and hand-off, two unauthorised-action and three malicious-input cases. Include both expected refusals and legitimate questions that should be answered. Ask a mentor or peer to hold three additional unseen cases and their answer key outside the tested workspace.',
           'Calculate the expected figures for every correctness case yourself in the spreadsheet, from the fictional data. Never ask a model for them.',
           'Add red-team cases: a note in the data that tells the assistant to ignore its rules, a name field with an instruction in it, a request to reveal its instructions, and a message from an upset user.',
           'Stop changing the setup, then record the model name, date, instructions and data version. Run each case in a fresh chat, save inputs and outputs in eval-runs/, and grade against your criteria. Check every failure and sample passes yourself. Repeat two critical cases three times to observe variation.',
           'Fix what you can in the stand-in instructions, rerun the failing cases, and note what changed and why. A failure the instructions cannot fix is a product requirement: add it to the PRD as a guardrail.',
           'Stop changing the instructions before you receive the three unseen cases. Run them without seeing the answer key, have your mentor or peer score them, and keep these first results even if you fix failures later. Working alone? Write the three cases and their answers before you start fixing the instructions, keep the answers outside the Claude Project, and say in the report that you wrote them yourself.',
-          'Write eval-report.md with case and trial counts, category results, grader disagreements, first unseen results, versions and known limits. Mark real-tool authorisation, final state, access boundaries and live human hand-offs NOT TESTED. Propose integrated sandbox checks rather than claiming the chat stand-in passed them.',
+          'Write evals/eval-report.md with case and trial counts, category results, grader disagreements, first unseen results, versions and known limits. Mark real-tool authorisation, final state, access boundaries and live human hand-offs NOT TESTED. Propose integrated sandbox checks rather than claiming the chat stand-in passed them.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In your workspace folder',
-        text: `Goal: draft eval-set.md, a test set for the assistant defined in my PRD. I will run it by hand against a stand-in Claude Project and report the results to my risk partner.
+        text: `Goal: draft evals/eval-set.md, a test set for the assistant defined in my PRD. I will run it by hand against a stand-in Claude Project and report the results to my risk partner.
 
 Read first: prd/prd.md (behavioural contracts, scope and the eval plan), design-spec.md, product-context.md and failure-modes.md (my error analysis notes).
 
@@ -337,11 +347,11 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
       },
       expectedOutput: [
         'failure-modes.md, written from reading real stand-in answers',
-        'eval-set.md with 12 learning cases across four categories, plus three unseen inputs with a separately held answer key',
+        'evals/eval-set.md with 12 learning cases across four categories, plus three unseen inputs with a separately held answer key',
         'Expected figures calculated by you in a spreadsheet, not by a model',
-        'eval-report.md with category and trial counts, frozen versions, first unseen results, grader checks and integrated controls explicitly marked NOT TESTED',
+        'evals/eval-report.md with category and trial counts, frozen versions, first unseen results, grader checks and integrated controls explicitly marked NOT TESTED',
       ],
-      artifact: 'eval-set.md and eval-report.md',
+      artifact: 'evals/eval-set.md and evals/eval-report.md',
       verification: [
         'Every correctness case has an expected figure you calculated yourself, and your mentor checked two of them.',
         'Every injection case ended with nothing prepared and the injected text never followed, or it is reported as a release-blocking failure.',
@@ -371,7 +381,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         { id: 'red-team', text: 'Included injection in the data and three mentor-written cases' },
         {
           id: 'report',
-          text: 'Wrote eval-report.md with pass rates, guardrails, hand-offs and known gaps',
+          text: 'Wrote evals/eval-report.md with pass rates, guardrails, hand-offs and known gaps',
         },
       ],
       mentorMove:
@@ -451,7 +461,7 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         {
           resourceId: 'evanmiller-ab-test',
           why: 'Why peeking inflates false positives and why the sample size must be fixed in advance, with a rule-of-thumb formula you can check by hand.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'lennys-newsletter',
@@ -478,23 +488,23 @@ Done when: the table meets the counts, and you list the PRD gaps the cases expos
         summary:
           'Write the launch plan with metrics and thresholds, compute a fixed sample size, generate fictional experiment results, build a launch dashboard, write the readout, and close the loop in the workspace.',
         steps: [
-          'Run the agent prompt below. Claude Code drafts `launch-plan.md` from the PRD, the eval report and your impact estimate, and shows its sample size working.',
+          'Run the agent prompt below. Claude Code drafts `launch/launch-plan.md` from the PRD, the eval report and your impact estimate, and shows its sample size working. Following a case study? The [Case study](/case-study) page has a ready results file, a pre-set plan and an answer key.',
           'Check the sample size yourself in a spreadsheet, with the rule-of-thumb formula in the Evan Miller article. You need the current rate (for example 20% of users complete the task) and the smallest lift worth acting on (for example 3 percentage points). The formula works for yes-or-no metrics such as "completed the task". For averages such as time spent, ask an analyst.',
           'Edit the plan: name an owner for every item, write the rollback thresholds as numbers, and add one stage entry condition you would actually enforce.',
-          'In a fresh session, ask Claude Code to generate `experiment-results.csv`: fictional daily results for a control and a treatment group over two weeks, at the sample size in your plan, with a fixed random seed. Ask it to write its assumptions, including the true effect it used, to `results-assumptions.md`. Do not open that file until your readout is written.',
+          'In a fresh session, ask Claude Code to generate `launch/experiment-results.csv`: fictional daily results for a control and a treatment group over two weeks, at the sample size in your plan, with a fixed random seed. Ask it to write its assumptions, including the true effect it used, to `launch/results-assumptions.md`. Do not open that file until your readout is written.',
           'Before you look at the result, check the data: are the two groups about the same size, are there duplicate users or missing days, and did each group see the version it was meant to? Compare everyone assigned to each group, not only the people who used the feature. Work out the difference in percentage points with its range, and check one number by hand.',
-          'Ask Claude Code to build `launch-dashboard.html` with a script that reads `experiment-results.csv`: each metric by day for both groups, every threshold from your plan drawn as a line, counts beside rates, and the date range and a SIMULATED label at the top. Check one number against your own calculation.',
-          'Write experiment-readout.md: label the results SIMULATED, then recommend ship, iterate, inconclusive or stop. Include the result and its range, the threshold you set, the guardrails, the running cost and the next decision.',
-          'Now open `results-assumptions.md`. Did your readout recover the true effect? Note what you would change in your method.',
-          'Close the loop: update the open decisions in `product-context.md`, add the decision and its reason to your decision log, and add any new eval cases to `eval-set.md`.',
+          'Ask Claude Code to build `launch/launch-dashboard.html` with a script that reads `launch/experiment-results.csv`: each metric by day for both groups, every threshold from your plan drawn as a line, counts beside rates, and the date range and a SIMULATED label at the top. Check one number against your own calculation.',
+          'Write launch/experiment-readout.md: label the results SIMULATED, then recommend ship, iterate, inconclusive or stop. Include the result and its range, the threshold you set, the guardrails, the running cost and the next decision.',
+          'Now open `launch/results-assumptions.md`. Did your readout recover the true effect? Note what you would change in your method.',
+          'Close the loop: update the open decisions in `product-context.md`, add the decision and its reason to your decision log, and add any new eval cases to `evals/eval-set.md`.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
         where: 'In your workspace folder',
-        text: `Goal: draft launch-plan.md for a staged launch of my product v1. Readers: my engineering lead, my risk partner and the support team lead.
+        text: `Goal: draft launch/launch-plan.md for a staged launch of my product v1. Readers: my engineering lead, my risk partner and the support team lead.
 
-Read first: prd/prd.md (goals, metrics and tracking), eval-report.md, data/impact-estimate.md and product-context.md.
+Read first: prd/prd.md (goals, metrics and tracking), evals/eval-report.md, data/impact-estimate.md and product-context.md.
 
 Include:
 1. Audience and stages, each with an entry condition.
@@ -512,13 +522,14 @@ Rules:
 Done when: every section exists and you have listed the proposed items for my decision.`,
       },
       expectedOutput: [
-        'launch-plan.md with stages, metrics and thresholds decided in advance, a sample size with its working, owners and rollback criteria',
-        'experiment-results.csv generated with a fixed seed, and its sealed assumptions file',
-        'launch-dashboard.html generated from the results, with every threshold drawn on its chart',
-        'experiment-readout.md with the decision first, evidence against the thresholds, and a next step',
-        'product-context.md, the decision log and eval-set.md updated with what you learned',
+        'launch/launch-plan.md with stages, metrics and thresholds decided in advance, a sample size with its working, owners and rollback criteria',
+        'launch/experiment-results.csv generated with a fixed seed, and its sealed assumptions file',
+        'launch/launch-dashboard.html generated from the results, with every threshold drawn on its chart',
+        'launch/experiment-readout.md with the decision first, evidence against the thresholds, and a next step',
+        'product-context.md, the decision log and evals/eval-set.md updated with what you learned',
       ],
-      artifact: 'launch-plan.md, launch-dashboard.html and experiment-readout.md',
+      artifact:
+        'launch/launch-plan.md, launch/launch-dashboard.html and launch/experiment-readout.md',
       verification: [
         'Every threshold in the launch plan was written before you generated the results.',
         'You recomputed the sample size and one readout metric yourself, and they match.',
@@ -532,18 +543,24 @@ Done when: every section exists and you have listed the proposed items for my de
         'Which item in the launch plan would your real team be most tempted to skip, and what would it cost them?',
       ],
       checklist: [
-        { id: 'plan', text: 'Wrote launch-plan.md with stages, owners and rollback thresholds' },
+        {
+          id: 'plan',
+          text: 'Wrote launch/launch-plan.md with stages, owners and rollback thresholds',
+        },
         {
           id: 'thresholds',
           text: 'Set success, leading and guardrail thresholds before seeing any results',
         },
         { id: 'sample-size', text: 'Computed and checked a fixed sample size' },
         { id: 'dashboard', text: 'Built a launch dashboard with every threshold on its chart' },
-        { id: 'readout', text: 'Wrote experiment-readout.md with the decision in the first line' },
+        {
+          id: 'readout',
+          text: 'Wrote launch/experiment-readout.md with the decision in the first line',
+        },
         { id: 'truth-check', text: 'Compared your readout with the sealed assumptions' },
         {
           id: 'loop-closed',
-          text: 'Updated product-context.md, the decision log and eval-set.md',
+          text: 'Updated product-context.md, the decision log and evals/eval-set.md',
         },
       ],
       mentorMove:
@@ -604,7 +621,7 @@ Done when: every section exists and you have listed the proposed items for my de
           ],
           bullets: [
             'One palette and one type scale on every slide, with enough contrast and no meaning carried by colour alone.',
-            'Real charts from your launch dashboard, built from `experiment-results.csv`, with labelled axes and the takeaway in the title. Check every number against the readout.',
+            'Real charts from your launch dashboard, built from `launch/experiment-results.csv`, with labelled axes and the takeaway in the title. Check every number against the readout.',
             'Progressive reveal or animation only where it helps understanding, such as building a chart one series at a time.',
             'Speaker notes with what you will say, so the slides can stay sparse.',
           ],
@@ -619,7 +636,7 @@ Done when: every section exists and you have listed the proposed items for my de
         {
           heading: 'Send a written update with the deck',
           paragraphs: [
-            'Not everyone will be in the room, and the people who are will forget. `stakeholder-update.md` carries the same story in one screen of text: the decision or ask in the first line, the result with its numbers, the risks, and what you need from whom by when. It uses the same numbers as the deck and links to the readout and the eval report.',
+            'Not everyone will be in the room, and the people who are will forget. `presentations/stakeholder-update.md` carries the same story in one screen of text: the decision or ask in the first line, the result with its numbers, the risks, and what you need from whom by when. It uses the same numbers as the deck and links to the readout and the eval report.',
             'Rehearse once out loud with a timer, then once with your mentor. Ten minutes means about six content slides, with room for questions.',
           ],
         },
@@ -628,12 +645,12 @@ Done when: every section exists and you have listed the proposed items for my de
         {
           resourceId: 'claude-design-slides',
           why: 'The direct tutorial for building, editing and exporting a deck with Claude Slides. Use your own outline and verify the source material; the storyline is up to you.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'duarte-slideology',
           why: 'The Glance Test and one message per slide, from the source.',
-          required: true,
+          required: false,
         },
         {
           resourceId: 'minto-scqa',
@@ -665,13 +682,13 @@ Done when: every section exists and you have listed the proposed items for my de
         summary:
           'Write the storyline, generate the QBR deck from a Markdown outline, polish it with real charts, run an agent review, write the stakeholder update and rehearse with your mentor.',
         steps: [
-          'Write the SCQA for your quarter, in four sentences, at the top of `qbr-outline.md`. Write it yourself, then ask Claude to challenge it, not rewrite it.',
+          'Write the SCQA for your quarter, in four sentences, at the top of `presentations/qbr-outline.md`. Write it yourself, then ask Claude to challenge it, not rewrite it.',
           'Run the agent prompt below to turn your SCQA and workspace into a slide-by-slide outline. Edit it until the titles alone tell the story in six to eight slides, plus an appendix.',
-          'Build the deck from `qbr-outline.md`, the readout and the eval report by the route you chose: Claude Slides or your slide tool, the `pptx` skill, or one HTML file printed to PDF.',
-          'Use one palette, charts computed from experiment-results.csv with SIMULATED visibly labelled, and speaker notes. Animation is optional. Check each slide communicates one point and that all numbers match the readout.',
+          'Build the deck from `presentations/qbr-outline.md`, the readout and the eval report by the route you chose: Claude Slides or your slide tool, the `pptx` skill, or one HTML file printed to PDF.',
+          'Use one palette, charts computed from launch/experiment-results.csv with SIMULATED visibly labelled, and speaker notes. Animation is optional. Check each slide communicates one point and that all numbers match the readout.',
           'In a fresh session, ask Claude to review the deck for clarity, consistency, numbers that do not match the readout, and AI-slide tells. Record a decision for each comment, then check every number yourself.',
-          'Write `stakeholder-update.md`: one screen, the ask first, the same numbers as the deck, and links to the readout and the eval report.',
-          'Export the deck as PPTX or PDF into your workspace. Rehearse once alone with a timer, then present it to your mentor and note every question you could not answer.',
+          'Write `presentations/stakeholder-update.md`: one screen, the ask first, the same numbers as the deck, and links to the readout and the eval report.',
+          'Export the deck as PPTX or PDF into `presentations/deck/`. Rehearse once alone with a timer, then present it to your mentor and note every question you could not answer.',
         ],
       },
       agentPrompt: {
@@ -681,9 +698,9 @@ Done when: every section exists and you have listed the proposed items for my de
 
 Audience: the leadership team of my organization. They have not read my documents, and they need to decide whether to back the next stage.
 
-Read first: qbr-outline.md (my SCQA, which I wrote and you should not rewrite), experiment-readout.md, eval-report.md, launch-plan.md, strategy/strategy-kernel.md and prd/prd.md.
+Read first: presentations/qbr-outline.md (my SCQA, which I wrote and you should not rewrite), launch/experiment-readout.md, evals/eval-report.md, launch/launch-plan.md, strategy/strategy-kernel.md and prd/prd.md.
 
-Add to qbr-outline.md, below my SCQA:
+Add to presentations/qbr-outline.md, below my SCQA:
 - Six to eight slides, then an appendix. For each slide: a title that states its one message as a full sentence, the evidence behind it with the source file, the chart or visual it needs, and two lines of speaker notes.
 - The first content slide gives the answer and the ask.
 - Every number must appear in a source file. Name the file next to it.
@@ -695,12 +712,12 @@ Rules:
 Done when: the outline is written, and you have read the titles alone in order and told me where the story breaks.`,
       },
       expectedOutput: [
-        'qbr-outline.md with an SCQA you wrote and six to eight slide titles that tell the story on their own',
+        'presentations/qbr-outline.md with an SCQA you wrote and six to eight slide titles that tell the story on their own',
         'A QBR deck exported as PPTX or PDF, with real charts, one palette and speaker notes',
         'An agent review with a decision recorded for each comment',
-        'stakeholder-update.md, and notes from the rehearsal with your mentor',
+        'presentations/stakeholder-update.md, and notes from the rehearsal with your mentor',
       ],
-      artifact: 'A QBR deck (PPTX or PDF) and stakeholder-update.md',
+      artifact: 'A QBR deck (PPTX or PDF) and presentations/stakeholder-update.md',
       verification: [
         'The first content slide states the answer and the ask.',
         'Read alone and in order, the slide titles tell the whole story.',
@@ -718,7 +735,10 @@ Done when: the outline is written, and you have read the titles alone in order a
         { id: 'outline', text: 'Wrote an outline whose titles alone tell the story' },
         { id: 'deck', text: 'Generated and polished the deck with real charts and speaker notes' },
         { id: 'review', text: 'Ran an agent review and checked every number yourself' },
-        { id: 'update', text: 'Wrote stakeholder-update.md with the same numbers as the deck' },
+        {
+          id: 'update',
+          text: 'Wrote presentations/stakeholder-update.md with the same numbers as the deck',
+        },
         { id: 'rehearsed', text: 'Rehearsed with your mentor and logged the questions' },
       ],
       mentorMove:
@@ -775,7 +795,7 @@ Done when: the outline is written, and you have read the titles alone in order a
         'Rebuild your QBR deck in Slidev, which turns Markdown into slides with click-by-click reveals, with Claude Code doing the build. Learn when animation helps understanding and when it only decorates.',
       steps: [
         'Ask Claude Code to set up a Slidev project in a new folder in your workspace, or open Slidev in StackBlitz in the browser if you prefer to avoid the terminal.',
-        'Give it `qbr-outline.md` and `experiment-results.csv`, and ask it to build the deck in `slides.md` with one message per slide and your speaker notes.',
+        'Give it `presentations/qbr-outline.md` and `launch/experiment-results.csv`, and ask it to build the deck in `presentations/slides.md` with one message per slide and your speaker notes.',
         'Add click-by-click reveals on two slides only: one chart that builds a series at a time, and one argument that builds point by point.',
         'Apply your palette from Session 16 and check the contrast.',
         'Export to PDF and compare it with your Session 16 deck. Write three lines on which one you would present, and why.',
@@ -1078,15 +1098,15 @@ Done when: the outline is written, and you have read the titles alone in order a
       },
       {
         id: 'evals',
-        text: 'eval-set.md and eval-report.md, with expected figures you calculated and a release rule per category',
+        text: 'evals/eval-set.md and evals/eval-report.md, with expected figures you calculated and a release rule per category',
       },
       {
         id: 'launch',
-        text: 'launch-plan.md with thresholds set in advance, and experiment-readout.md with a ship, iterate, inconclusive or stop decision',
+        text: 'launch/launch-plan.md with thresholds set in advance, and launch/experiment-readout.md with a ship, iterate, inconclusive or stop decision',
       },
       {
         id: 'deck',
-        text: 'The QBR deck (PPTX or PDF) and stakeholder-update.md, with matching numbers',
+        text: 'The QBR deck (PPTX or PDF) and presentations/stakeholder-update.md, with matching numbers',
       },
       {
         id: 'presented',

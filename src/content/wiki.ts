@@ -51,7 +51,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   s5: {
     capture:
       'Your notes become workspace/, the folder Claude Code works from. Paths from here on are relative to it. Add a short AGENTS.md that points at product-context.md, put the folder under git, and commit.',
-    pages: ['AGENTS.md', 'learning/', 'pitch/', 'research/', 'log.md'],
+    pages: ['AGENTS.md', 'sources/', 'learning/', 'pitch/', 'research/', 'log.md'],
   },
   s6: {
     capture:
@@ -70,8 +70,13 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s9: {
     capture:
-      'Strategy and market research go into the workspace with their sources. Every competitor claim keeps a link and the date you read it.',
-    pages: ['strategy/strategy-kernel.md', 'strategy/market-map.md', 'sources/market/'],
+      'Strategy and market research go into the workspace with their sources: one brief per research slice, and the raw pages unchanged in sources/market/. Every competitor claim keeps a link and the date you read it.',
+    pages: [
+      'strategy/strategy-kernel.md',
+      'strategy/market-map.md',
+      'strategy/brief-<slice>.md',
+      'sources/market/',
+    ],
   },
   s10: {
     capture:
@@ -105,17 +110,21 @@ export const wikiSteps: Record<string, WikiStep> = {
   s14: {
     capture:
       'Save the eval set and the report. Note every failure that would block a release and the guardrail that now covers it.',
-    pages: ['eval-set.md', 'eval-report.md'],
+    pages: ['evals/eval-set.md', 'evals/eval-report.md'],
   },
   s15: {
     capture:
       'Save the launch plan and the readout. Feed what you learned back into product-context.md and the open questions in prd.md.',
-    pages: ['launch-plan.md', 'experiment-readout.md', 'product-context.md'],
+    pages: ['launch/launch-plan.md', 'launch/experiment-readout.md', 'product-context.md'],
   },
   s16: {
     capture:
       'Save the deck outline, the exported deck and the stakeholder update. The outline is the reusable part; the slides are an output.',
-    pages: ['qbr-outline.md', 'deck/', 'stakeholder-update.md'],
+    pages: [
+      'presentations/qbr-outline.md',
+      'presentations/deck/',
+      'presentations/stakeholder-update.md',
+    ],
   },
   s17: {
     capture:
@@ -129,7 +138,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s19: {
     capture:
-      'Save the three skills and their checks. Log what the weekly briefing produced the first time it ran, and what you changed.',
+      'Save the skill you wrote and its checks. Log what the weekly briefing produced the first time it ran, and what you changed.',
     pages: ['team-kb/skills/', 'team-kb/skill-checks.md', 'wiki/log.md'],
   },
   s20: {
@@ -175,7 +184,7 @@ export const wikiMilestones: WikiMilestone[] = [
     summary:
       'Every claim about your product traces to a source, an interview or a recorded decision.',
     checks: [
-      'Market research sits in sources/market/ with links and dates',
+      'Market research briefs cite pages saved unchanged in sources/market/, with links and dates',
       'The synthesis cites pseudonymised interview notes',
       'decisions.md records what you chose, what you dropped and why; the PRD flags gaps as open questions',
     ],
