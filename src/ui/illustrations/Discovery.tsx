@@ -7,6 +7,16 @@ const data = lessonVisuals.discovery
 
 type Wire = { d: string; branch: number; depth: number }
 
+/** A right-angled tree connector: down, across, down, with small rounded corners. */
+function elbow(x1: number, y1: number, x2: number, y2: number) {
+  const mid = (y1 + y2) / 2
+  const dx = x2 - x1
+  if (Math.abs(dx) < 1) return `M${x1} ${y1}V${y2}`
+  const r = Math.min(6, Math.abs(dx) / 2, (y2 - y1) / 2)
+  const s = Math.sign(dx)
+  return `M${x1} ${y1}V${mid - r}Q${x1} ${mid} ${x1 + s * r} ${mid}H${x2 - s * r}Q${x2} ${mid} ${x2} ${mid + r}V${y2}`
+}
+
 /** Measures the rendered nodes and draws the branches between them, so text can wrap freely. */
 function useWires(
   root: React.RefObject<HTMLDivElement | null>,
@@ -40,9 +50,8 @@ function useWires(
       opps.current.forEach((opp, i) => {
         if (!opp || !o) return
         const p = box(opp)
-        const mid = (o.b + p.t) / 2
         list.push({
-          d: `M${o.cx} ${o.b}C${o.cx} ${mid} ${p.cx} ${mid} ${p.cx} ${p.t}`,
+          d: elbow(o.cx, o.b, p.cx, p.t),
           branch: i,
           depth: 0,
         })
@@ -53,9 +62,8 @@ function useWires(
         const sideBySide = boxes.length === 2 && Math.abs(boxes[0]!.t - boxes[1]!.t) < 4
         boxes.forEach((k) => {
           if (sideBySide) {
-            const m = (p.b + k.t) / 2
             list.push({
-              d: `M${p.cx} ${p.b}C${p.cx} ${m} ${k.cx} ${m} ${k.cx} ${k.t}`,
+              d: elbow(p.cx, p.b, k.cx, k.t),
               branch: i,
               depth: 1,
             })
