@@ -251,6 +251,14 @@ export function LessonPage() {
 
             <WorkedExample guide={guide} />
             <DecisionPractice key={lesson.id} guide={guide} />
+            {guide.transfer && (
+              <Section title="Try it yourself">
+                <p className="leading-relaxed">{inline(guide.transfer)}</p>
+                <p className="text-sm text-stone-600 dark:text-stone-400">
+                  Do this one without AI. If you get stuck, reread the example, then try again.
+                </p>
+              </Section>
+            )}
           </Step>
 
           <Step id="task">
@@ -276,14 +284,6 @@ export function LessonPage() {
           </Step>
 
           <Step id="verify">
-            {guide.transfer && (
-              <Section title="Try it yourself">
-                <p className="leading-relaxed">{inline(guide.transfer)}</p>
-                <p className="text-sm text-stone-600 dark:text-stone-400">
-                  Do this one without AI. If you get stuck, reread the example, then try again.
-                </p>
-              </Section>
-            )}
             <div className="grid gap-4 md:grid-cols-2">
               <Section title="What good output looks like">
                 <Bullets items={lesson.expectedOutput} />

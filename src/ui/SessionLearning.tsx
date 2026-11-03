@@ -59,7 +59,7 @@ export function WorkedExample({ guide }: { guide: LessonGuide }) {
           ))}
         </ol>
         <p className="border-t border-stone-200 pt-4 text-sm font-medium leading-relaxed dark:border-stone-700">
-          {guide.example.takeaway}
+          {inline(guide.example.takeaway)}
         </p>
       </div>
     </section>
@@ -77,7 +77,7 @@ export function DecisionPractice({ guide }: { guide: LessonGuide }) {
       <p className="mb-2 text-xs font-semibold tracking-widest text-stone-600 uppercase dark:text-stone-300">
         Quick check
       </p>
-      <h2 className="text-lg font-semibold">{checkpoint.question}</h2>
+      <h2 className="text-lg font-semibold">{inline(checkpoint.question)}</h2>
       <div className="mt-4 grid gap-2" role="group" aria-label="Quick check answers">
         {checkpoint.options.map((option) => (
           <button
@@ -95,7 +95,7 @@ export function DecisionPractice({ guide }: { guide: LessonGuide }) {
             <span aria-hidden className="pt-0.5 font-mono text-xs uppercase">
               {option.id}
             </span>
-            <span>{option.text}</span>
+            <span>{inline(option.text)}</span>
           </button>
         ))}
       </div>
@@ -106,7 +106,7 @@ export function DecisionPractice({ guide }: { guide: LessonGuide }) {
             className="animate-pop-in rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800"
           >
             <p className="mb-1 font-semibold">{correct ? 'Right' : 'Not quite'}</p>
-            <p>{selected.feedback}</p>
+            <p>{inline(selected.feedback)}</p>
           </div>
         ) : (
           <p className="text-sm text-stone-600 dark:text-stone-400">
