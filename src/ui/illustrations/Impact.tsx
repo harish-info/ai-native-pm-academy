@@ -6,7 +6,6 @@ import { Note, Scene, Segmented, Stage, tone } from './kit'
 const data = lessonVisuals.impact
 const totals = data.scenarios.map((s) => Math.round((s.users * s.rate) / 100))
 const most = Math.max(...totals)
-const cols = 35
 const scale = (n: number) => 30 + (n / most) * 330
 
 function Term({
@@ -85,31 +84,15 @@ export default function Impact() {
         </div>
         <Scene
           className="max-h-32!"
-          viewBox="0 0 400 104"
+          viewBox="0 0 400 54"
           label={`${total} ${data.unit} in the ${scenario.label.toLowerCase()} case. The range runs from ${totals[0]} to ${totals[totals.length - 1]}.`}
         >
-          {Array.from({ length: most }, (_, i) => (
-            <circle
-              key={i}
-              cx={14 + (i % cols) * 10.8}
-              cy={10 + Math.floor(i / cols) * 11}
-              r="3.6"
-              className={cx(
-                'illus-move',
-                i < total ? 'fill-[var(--viz-series-1)]' : 'fill-stone-200 dark:fill-stone-700',
-              )}
-              style={{ transitionDelay: `${(i < total ? i : most - i) * 5}ms` }}
-            />
-          ))}
-          <text x="14" y="52" className={cx(tone.muted, 'text-[11px]')}>
-            Each dot is one more completed task
-          </text>
           <path
-            d={`M${scale(totals[0]!)} 74H${scale(totals[2]!)}`}
+            d={`M${scale(totals[0]!)} 20H${scale(totals[2]!)}`}
             className="stroke-indigo-200 dark:stroke-indigo-900"
             strokeWidth="8"
           />
-          <path d="M20 74H380" className={tone.faint} strokeWidth="1.4" />
+          <path d="M20 20H380" className={tone.faint} strokeWidth="1.4" />
           {data.scenarios.map((s, i) => {
             const x = scale(totals[i]!)
             const active = i === choice
@@ -117,7 +100,7 @@ export default function Impact() {
               <g key={s.label}>
                 <circle
                   cx={x}
-                  cy="74"
+                  cy="20"
                   r={active ? 7 : 5}
                   strokeWidth="2"
                   className={cx(
@@ -129,7 +112,7 @@ export default function Impact() {
                 />
                 <text
                   x={x}
-                  y="98"
+                  y="46"
                   textAnchor="middle"
                   className={cx(
                     active ? tone.text : tone.muted,
