@@ -236,7 +236,7 @@ export const lessonVisuals = {
     ],
   },
   requirements: {
-    title: 'Turn a GrillMe answer into a check',
+    title: 'Turn a grill-me answer into a check',
     summary: 'A useful interview ends in observable behaviour, not agreement.',
     caption: 'Choose your own rules. These examples illustrate the shape of a requirement.',
     questions: [

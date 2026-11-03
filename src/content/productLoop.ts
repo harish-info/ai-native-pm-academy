@@ -21,7 +21,7 @@ export const productLoop = [
     label: 'PRD, spec, prototype',
     question: 'How can we make the idea concrete enough to challenge?',
     description:
-      'Explore the solution through a live prototype, PRD and design spec. Use a GrillMe session to question assumptions, try the experience together and refine the direction before committing to the build.',
+      'Explore the solution through a live prototype, PRD and design spec. Use a grill-me session to question assumptions, try the experience together and refine the direction before committing to the build.',
     output: 'A solution to try, with the important unknowns made explicit.',
     lessons: ['s4', 's6', 's12', 's13'],
   },

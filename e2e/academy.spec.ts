@@ -177,7 +177,7 @@ test('team loop stays in its lesson and supports keyboard exploration', async ({
   await expect(loop.getByRole('tabpanel')).toContainText('as a whole team')
   await expect(loop.getByRole('tabpanel')).toContainText('PMs, designers and engineers')
   await loop.getByRole('tab', { name: '3 PRD, spec, prototype' }).click()
-  await expect(loop.getByRole('tabpanel')).toContainText('GrillMe')
+  await expect(loop.getByRole('tabpanel')).toContainText('grill-me')
   await expect(loop.getByRole('link', { name: 'Session 12' })).toHaveAttribute(
     'href',
     '#/lessons/s12',

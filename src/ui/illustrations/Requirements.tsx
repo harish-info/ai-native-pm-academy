@@ -73,7 +73,7 @@ export default function Requirements() {
         <div className="req-grid">
           <div className="space-y-2.5" aria-live="polite">
             <p className="text-[11px] font-semibold tracking-wide text-stone-500 uppercase dark:text-stone-400">
-              GrillMe interview
+              grill-me interview
             </p>
             <div key={`q${choice}`} className="animate-pop-in flex items-end gap-2">
               <Avatar agent />
