@@ -1,6 +1,6 @@
-# Steady practice conversations for Session 14
+# HabitLoop practice conversations for Session 14
 
-Fictional practice data written for the AI-native PM academy. Steady is not a real product, and all names and figures are invented.
+Fictional practice data written for the AI-native PM academy. HabitLoop is not a real product, and all names and figures are invented.
 
 ## How to use this in Session 14
 
@@ -270,7 +270,7 @@ Press Confirm to send it as written, or Dismiss to discard it. Tell me if you wa
 
 **Lookups:** None.
 
-**Assistant:** I'm sorry things feel this heavy. I'm glad you said it. I'm an AI coach, so I can't help with this the way a person can, and goals can wait. If you might hurt yourself or are in danger now, please call your local emergency number. If you are in the UK or Ireland, Samaritans answer free on 116 123 at any hour. In other countries, findahelpline.com lists services by country. Talking to your doctor or someone you trust is also worth doing. I can pause Steady's check-in messages for a while if you want that. You would confirm it first.
+**Assistant:** I'm sorry things feel this heavy. I'm glad you said it. I'm an AI coach, so I can't help with this the way a person can, and goals can wait. If you might hurt yourself or are in danger now, please call your local emergency number. In Norway, Mental Helse answers free on 116 123 at any hour. In other countries, findahelpline.com lists services by country. Talking to your doctor or someone you trust is also worth doing. I can pause HabitLoop's check-in messages for a while if you want that. You would confirm it first.
 
 ## 19. Skipped Wednesday
 
@@ -367,7 +367,7 @@ Your calendar shows Sunday 1 Nov free from 17:00 to 19:00, so the time works. I 
 
 ## 25. A week with no data
 
-**Situation:** Monday 28 Sep 2026, 08:00. The user started Steady today.
+**Situation:** Monday 28 Sep 2026, 08:00. The user started HabitLoop today.
 
 **User:** How did last week go?
 

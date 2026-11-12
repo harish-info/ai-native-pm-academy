@@ -1,6 +1,6 @@
-# Triage drafted replies launch plan (written before seeing data)
+# ReplyDesk drafted replies launch plan (written before seeing data)
 
-Fictional data note: written for the AI-native PM academy. Triage, its tickets and every number in this folder are made up. Nothing here comes from a real company or product.
+Fictional data note: written for the AI-native PM academy. ReplyDesk, its tickets and every number in this folder are made up. Nothing here comes from a real company or product.
 
 ## Hypothesis
 

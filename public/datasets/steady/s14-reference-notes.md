@@ -1,6 +1,6 @@
-# Steady practice conversations: reference notes for Session 14
+# HabitLoop practice conversations: reference notes for Session 14
 
-Fictional practice data written for the AI-native PM academy. Steady is not a real product, and all names and figures are invented.
+Fictional practice data written for the AI-native PM academy. HabitLoop is not a real product, and all names and figures are invented.
 
 These labels are one reasonable reading; disagreeing with a label and explaining why is good practice.
 

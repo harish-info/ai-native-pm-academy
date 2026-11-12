@@ -1,6 +1,6 @@
-# Steady answer key
+# HabitLoop answer key
 
-Fictional data note: written for the AI-native PM academy. Steady and all numbers are made up. Every figure below comes from `s15-experiment-results.csv`, produced by `scripts/generate-s15-datasets.mjs`. Rates divide by exposed users. Tests are two-proportion z-tests, two-sided.
+Fictional data note: written for the AI-native PM academy. HabitLoop and all numbers are made up. Every figure below comes from `s15-experiment-results.csv`, produced by `scripts/generate-s15-datasets.mjs`. Rates divide by exposed users. Tests are two-proportion z-tests, two-sided.
 
 ## Data-quality trap
 

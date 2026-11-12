@@ -1,6 +1,6 @@
-# Steady midweek check-in launch plan (written before seeing data)
+# HabitLoop midweek check-in launch plan (written before seeing data)
 
-Fictional data note: written for the AI-native PM academy. Steady, its users and every number in this folder are made up. Nothing here comes from a real product.
+Fictional data note: written for the AI-native PM academy. HabitLoop, its users and every number in this folder are made up. Nothing here comes from a real product.
 
 ## Hypothesis
 

@@ -1,6 +1,6 @@
-# Triage answer key
+# ReplyDesk answer key
 
-Fictional data note: written for the AI-native PM academy. Triage and all numbers are made up. Every figure below comes from `s15-experiment-results.csv`, produced by `scripts/generate-s15-datasets.mjs`. Rates divide by exposed tickets. Tests are two-proportion z-tests, two-sided.
+Fictional data note: written for the AI-native PM academy. ReplyDesk and all numbers are made up. Every figure below comes from `s15-experiment-results.csv`, produced by `scripts/generate-s15-datasets.mjs`. Rates divide by exposed tickets. Tests are two-proportion z-tests, two-sided.
 
 ## Data-quality trap
 
