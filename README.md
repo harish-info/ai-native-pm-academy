@@ -8,19 +8,19 @@ It is a static site. There is no account and no backend, and your progress stays
 
 ## What you do in the course
 
-You apply every session to a product, service or workflow you know. Each session ends with something you made, not a quiz score.
+By default you work on **MoneyPilot** (a pre-payday safe-to-spend and bill assistant inside a bank app, with fictional datasets included), or swap in your own product at any point. Each session ends with an artifact you made, not just a quiz score.
 
-| Level | Focus                          | Sessions | What you keep                                                       |
-| ----- | ------------------------------ | -------- | ------------------------------------------------------------------- |
-| 1     | AI foundations                 | 1 to 4   | A product context file, a checked research answer, a pitch page     |
-| 2     | Build with agents              | 5 to 8   | A Claude Code workspace and a live, reviewed prototype              |
-| 3     | Discover and decide            | 9 to 12  | A strategy, interview synthesis, a bets list and a PRD              |
-| 4     | Hand off, ship, tell the story | 13 to 16 | A design spec, an eval report, a launch readout and a deck          |
-| 5     | Your PM OS and team knowledge  | 17 to 20 | A personal wiki, a team knowledge base, skills and a pilot proposal |
+| Level | Focus                          | Sessions | What you keep                                                                    |
+| ----- | ------------------------------ | -------- | -------------------------------------------------------------------------------- |
+| 1     | AI foundations                 | 1 to 4   | A product context file, a checked research answer, a pitch page                  |
+| 2     | Build with agents              | 5 to 8   | A Claude Code workspace and a live, reviewed discovery probe                     |
+| 3     | Discover and decide            | 9 to 12  | A strategy kernel, interview synthesis, a ranked bets list and a PRD             |
+| 4     | Hand off, ship, tell the story | 13 to 16 | A design spec, an eval report, a launch readout and an executive deck            |
+| 5     | Your PM OS and team knowledge  | 17 to 20 | A personal wiki, a team knowledge base, a tested skill and a team pilot proposal |
 
-- About 80 hours in total: eight weeks at about 10 hours a week, or twelve weeks at about 7.
-- Ten optional challenges, a field guide on models and agents, and three fictional case studies.
-- A mentor or peer reviews some tasks. Level 4 and 5 badges need their sign-off if you recorded one.
+- About 45 hours in total: eight weeks at about 6 hours a week, or twelve weeks at about 4.
+- Ten optional challenges, a field guide on models and agents, curated courses in order, and three fictional case studies (**MoneyPilot**, **HabitLoop** and **ReplyDesk**).
+- Mentor reviews are optional throughout; every session and 20-minute level sign-off includes a concrete solo check.
 - All practice data is fictional. The course rehearses product work; it does not ship anything to real customers.
 
 ## How to help

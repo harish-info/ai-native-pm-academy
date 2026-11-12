@@ -43,7 +43,7 @@ test('quick check explains choices without completing a lesson', async ({ page }
   await exercise.getByRole('button', { name: /two different tools said it/ }).click()
   await expect(page.getByText('Not quite')).toBeVisible()
   await expect(page.getByText(/Two matching guesses are still guesses/)).toBeVisible()
-  const correct = exercise.getByRole('button', { name: /Ask team managers/ })
+  const correct = exercise.getByRole('button', { name: /Ask monthly-paid users/ })
   await correct.focus()
   await page.keyboard.press('Enter')
   await expect(correct).toHaveAttribute('aria-pressed', 'true')
@@ -226,16 +226,44 @@ test('onboarding shows where you stand and starts at session 1', async ({ page }
 
 test('case studies stay in their own area and never rename the workspace', async ({ page }) => {
   await page.goto('#/case-study')
-  await page.getByText('Triage', { exact: true }).click()
-  await expect(page.getByRole('radio', { name: 'Triage', exact: true })).toBeChecked()
-  await expect(page.getByRole('heading', { name: 'Triage: the brief' })).toBeVisible()
+  await page.getByRole('group').getByText('ReplyDesk', { exact: true }).click()
+  await expect(page.getByRole('radio', { name: 'ReplyDesk', exact: true })).toBeChecked()
+  await expect(page.getByRole('heading', { name: 'ReplyDesk: the brief' })).toBeVisible()
   await page.goto('#/lessons/s17')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-  await expect(page.locator('main')).not.toContainText(/Triage|Steady/)
+  await expect(page.locator('main')).not.toContainText(/ReplyDesk|HabitLoop/)
   await expect(page.locator('main')).toContainText('workspace')
   await page.goto('#/wiki')
   await expect(page.getByRole('heading', { name: 'Your wiki' })).toBeVisible()
-  await expect(page.locator('main')).not.toContainText(/Triage|Steady/)
+  await expect(page.locator('main')).not.toContainText(/ReplyDesk|HabitLoop/)
+})
+
+test('v3 session mechanics render MoneyPilot intro, solo moves, faded briefs and practice files', async ({
+  page,
+}) => {
+  await page.goto('#/lessons/s1')
+  await expect(page.getByRole('heading', { name: 'Meet MoneyPilot' })).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+
+  await page.goto('#/lessons/s4')
+  await expect(page.getByText('Working solo?')).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+
+  await page.goto('#/lessons/s6')
+  await expect(page.getByRole('heading', { name: 'Your brief must cover' })).toBeVisible()
+  await expect(page.getByText('Compare with a sample brief after you write yours')).toBeVisible()
+
+  await page.goto('#/lessons/s7')
+  await expect(page.getByRole('heading', { name: 'Your brief must cover' })).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+
+  await page.goto('#/lessons/s11')
+  await expect(page.getByRole('heading', { name: 'Practice files for this session' })).toBeVisible()
+  await expect(page.locator('a[href$="datasets/moneypilot/s11-events.csv"]')).toBeVisible()
+
+  await page.goto('#/lessons/s14')
+  await expect(page.locator('a[href$="datasets/moneypilot/s14-conversations.md"]')).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 })
 
 test('a session completes only with evidence and stays complete after refresh', async ({

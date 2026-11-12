@@ -7,31 +7,30 @@ import { BrandMark, LevelArt } from '../ui/art'
 import { levelShortName } from '../ui/levelNames'
 import { Button, Chevron, cx, interactiveCard, LinkButton, stretchedLink } from '../ui/primitives'
 
-// What each level's project leaves you with, in one line for the level cards.
 const builds: Record<LevelId, string> = {
   1: 'A product context file, a checked fact sheet and a live pitch page.',
   2: 'A live prototype built with Claude Code, with pull requests you reviewed.',
   3: 'A strategy, user interviews, data and a PRD an agent can build from.',
   4: 'A design spec, an engineering handoff, evals and a launch review.',
-  5: 'Your own wiki, a team knowledge base and three working skills.',
+  5: 'Your own wiki, a team knowledge base, and a tested skill and scheduled briefing.',
 }
 
 const facts = [
   {
-    title: 'About 80 hours',
-    body: 'Eight weeks at about 10 hours a week, or twelve at about 7. The estimates are untested, and recruiting users for interviews can take longer.',
+    title: 'About 45 hours',
+    body: 'Eight weeks at about 6 hours a week, or twelve at about 4. Every session assigns one short reading or video; the curated external courses and deep dives stay optional so you can go deeper at your own pace.',
   },
   {
     title: 'What it costs',
-    body: "Level 1 runs on Claude's free plan. From Session 5 you need Claude Pro, from $20 a month, for Claude Code. Most readings are free.",
+    body: "Level 1 (Sessions 1 to 4) runs on Claude's free plan. From Session 5 onward you need Claude Pro (from $20 a month) for Claude Code, or an equivalent coding agent.",
   },
   {
-    title: 'What you need',
-    body: 'A product or feature to work on. No coding background is needed. A mentor for about an hour a week helps: they review your projects, cold-read your PRD and play the executive at your launch review.',
+    title: 'Self-contained, solo or with a mentor',
+    body: 'You build MoneyPilot end to end across all twenty sessions (with ready-made practice datasets), or swap in your own product. No coding background is required, and every mentor step has a solo fallback.',
   },
   {
     title: 'How progress works',
-    body: 'Each session asks for something you made and a short reflection. A level badge takes 80% on the assessment and a passing project. Progress stays in this browser; export a backup to move devices.',
+    body: 'Each session asks for an artifact you made and a short reflection. A level badge takes 80% on the level quiz and a 20-minute review sign-off. Progress stays in your browser; export a backup anytime.',
   },
 ]
 
@@ -42,7 +41,6 @@ export function Landing() {
   const { data, switchMode } = useStore()
   return (
     <div className="min-h-screen">
-      {/* Hash routing: a plain #main link would navigate to a /main route, so move focus instead. */}
       <a
         href="#main"
         onClick={(e) => {
@@ -79,15 +77,15 @@ export function Landing() {
                 A practical guide to working with AI agents as a PM.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
-                Twenty sessions take you from your first conversation with Claude to a product team
-                that works with agents. You work on your own product throughout, with readings
-                picked from Anthropic, OpenAI, Lenny Rachitsky, Teresa Torres, Simon Willison and
-                others.
+                Twenty hands-on sessions take one product (MoneyPilot, or your own) from first pitch
+                to prototype, discovery, PRD, evals, experiment readout and living product wiki,
+                paired with curated courses and sources from Anthropic, Teresa Torres, Simon
+                Willison and others.
               </p>
               <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
                 {[
                   ['20', 'sessions'],
-                  ['5', 'projects'],
+                  ['5', 'level sign-offs'],
                   [String(resources.length), 'curated resources'],
                   ['8 or 12', 'weeks'],
                 ].map(([n, label]) => (
@@ -163,7 +161,7 @@ export function Landing() {
               {
                 to: '/resources',
                 title: 'Resource library',
-                body: `${resources.length} guides, courses, docs and podcasts, each with a summary of what it covers and what it costs.`,
+                body: `${resources.length} guides, courses, docs and podcasts in recommended order, with summaries of what each covers.`,
               },
               {
                 to: '/starter-kit',
@@ -173,7 +171,7 @@ export function Landing() {
               {
                 to: '/case-study',
                 title: 'Case studies',
-                body: 'The course methods applied to three example products: a banking assistant, a goal tracker and a support copilot.',
+                body: 'Full product briefs and practice datasets for MoneyPilot, HabitLoop and ReplyDesk.',
               },
             ].map((c) => (
               <li key={c.to} className={cx(interactiveCard, 'flex flex-col rounded-2xl p-4')}>

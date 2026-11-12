@@ -32,7 +32,7 @@ describe('study plan schedule', () => {
     for (const w of light) {
       expect(w.items.at(-1)?.kind, `week ${w.number}`).toBe('review')
       expect(w.items.length, `week ${w.number}`).toBeGreaterThan(1)
-      expect(weekMinutes(w), `week ${w.number}`).toBeGreaterThanOrEqual(5 * 60)
+      expect(weekMinutes(w), `week ${w.number}`).toBeGreaterThanOrEqual(2.5 * 60)
       expect(weekMinutes(w), `week ${w.number}`).toBeLessThanOrEqual(9 * 60)
     }
     const lessons = light.flatMap((w) => w.items).filter((i) => i.kind === 'lesson')
@@ -50,7 +50,6 @@ describe('study plan schedule', () => {
     for (const w of planWeeks)
       expect(weekMinutes(w), `week ${w.number}`).toBeLessThanOrEqual(11 * 60)
     expect(weeklyTarget('standard')).toBeLessThanOrEqual(10.5 * 60)
-    // Twelve weekly reviews instead of eight put the light pace a few minutes over 7 hours.
     expect(weeklyTarget('light')).toBeLessThanOrEqual(7.25 * 60)
   })
 
@@ -68,7 +67,7 @@ describe('study plan schedule', () => {
         .filter((i) => i.kind === 'quiz' && i.levelId === l.id)
       expect(quizzes).toHaveLength(1)
     }
-    expect(planMinutes()).toBeGreaterThan(70 * 60)
+    expect(planMinutes()).toBeGreaterThan(35 * 60)
   })
 
   it('names a mentor role every week', () => {

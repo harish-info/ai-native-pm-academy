@@ -319,6 +319,29 @@ describe('case studies', () => {
   })
 })
 
+describe('v3 exercise design', () => {
+  it('caps every session task at five steps and every level sign-off at twenty minutes', () => {
+    for (const lesson of allLessons) {
+      expect(lesson.task.steps.length, lesson.id).toBeLessThanOrEqual(5)
+    }
+    for (const level of levels) {
+      expect(level.project.minutes, `level ${level.id}`).toBe(20)
+    }
+  })
+
+  it('gives sessions 5 to 20 a brief checklist and solo alternatives for mentor reviews', () => {
+    for (const lesson of allLessons) {
+      const sessionNum = Number(lesson.id.slice(1))
+      if (sessionNum >= 5) {
+        expect(lesson.agentPrompt.briefChecklist?.length ?? 0, lesson.id).toBeGreaterThanOrEqual(3)
+      }
+      if (sessionNum >= 4 && lesson.mentorMove) {
+        expect(lesson.soloMove?.trim().length ?? 0, lesson.id).toBeGreaterThan(0)
+      }
+    }
+  })
+})
+
 describe('writing style', () => {
   it('uses no em or en dashes in learner-facing content', () => {
     const text = allText({
