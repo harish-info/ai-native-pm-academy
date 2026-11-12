@@ -209,7 +209,7 @@ Ingest the reviewed Wayfinder deliverables I placed in sources/generated/ (PRD, 
         {
           heading: 'Meeting transcript to decision PR, plus supersede hygiene',
           paragraphs: [
-            'Turning a messy sync transcript into reviewed team memory is one of the highest-leverage weekly PM habits. After scrubbing identifiers, save the dated note under `sources/meetings/` and have your agent separate settled decisions (`context`, `decision`, `consequences`) from owned open questions in one pull request across `wiki/decisions.md`, affected pages, `index.md` and `log.md`.',
+            'Turning a messy sync transcript into reviewed team memory is one of the most valuable weekly PM habits. After scrubbing identifiers, save the dated note under `sources/meetings/` and have your agent separate settled decisions (`context`, `decision`, `consequences`) from owned open questions in one pull request across `wiki/decisions.md`, affected pages, `index.md` and `log.md`.',
             'When a sync reverses or narrows an earlier Wayfinder rule (for example raising cross-harbour ferry buffers from 20 to 30 minutes, or tightening `step-free` lift-status staleness limits), never overwrite history silently. Flag conflicts with dates until an owner confirms, record an explicit **`Supersedes:`** line citing both old and new sources, and move retracted raw files to `sources/archive/` rather than editing them in place.',
           ],
         },

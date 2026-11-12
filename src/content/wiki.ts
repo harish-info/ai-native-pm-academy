@@ -49,7 +49,7 @@ export const wikiSteps: Record<string, WikiStep> = {
   s7: {
     capture:
       'Record your prototype repository URL and live GitHub Pages URL in AGENTS.md alongside your codebase tour notes.',
-    pages: ['AGENTS.md', 'research/codebase-tour.md', 'log.md'],
+    pages: ['AGENTS.md', 'notes/codebase-tour.md', 'log.md'],
   },
   s8: {
     capture:
@@ -88,8 +88,9 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s13: {
     capture:
-      'Save the screen state, latency/cost and tool-permission spec, vertical slice plan and alignment check under prototype/docs/.',
+      'Save design-spec.md in workspace/, and keep the filtered spec, vertical slice plan and alignment check under prototype/docs/.',
     pages: [
+      'design-spec.md',
       'prototype/docs/design-spec.md',
       'prototype/docs/task-breakdown.md',
       'prototype/docs/align-check.md',

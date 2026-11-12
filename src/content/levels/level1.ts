@@ -403,11 +403,6 @@ Constraints: under 400 words outside the table, plain language.`,
           required: false,
         },
         {
-          resourceId: 'academy-trust-ai',
-          why: "A five-minute video on two ways answers go wrong: hallucination, which this session's checks are built to catch, and sycophancy, where the model agrees with you too easily.",
-          required: false,
-        },
-        {
           resourceId: 'anthropic-ai-fluency',
           why: "Continue AI Fluency with the Discernment lessons, which match this session's verification work.",
           required: false,
@@ -415,6 +410,11 @@ Constraints: under 400 words outside the table, plain language.`,
         {
           resourceId: 'anthropic-capabilities-limitations',
           why: "Anthropic's second fluency course, designed to sit before or after AI Fluency. The Knowledge and Working Memory units explain why answers go stale or drift in long chats. About 3.5 hours, so treat it as further study.",
+          required: false,
+        },
+        {
+          resourceId: 'academy-trust-ai',
+          why: "A five-minute video on two ways answers go wrong: hallucination, which this session's checks are built to catch, and sycophancy, where the model agrees with you too easily.",
           required: false,
         },
         {

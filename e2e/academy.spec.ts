@@ -265,17 +265,26 @@ test('v3.1 session mechanics render Wayfinder intro, 3-stage tabs, solo moves, b
   await expect(page.getByText('Compare with a sample brief after you write yours')).toBeVisible()
 
   await page.goto('#/lessons/s7')
-  await page
+  const briefStep = page
     .getByRole('navigation', { name: 'Session steps' })
     .getByRole('button', { name: 'Your brief' })
-    .click()
+  await briefStep.click()
+  await expect(briefStep).toHaveAttribute('aria-current', 'step')
   await expect(page.getByRole('heading', { name: 'Your brief must cover' })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 
-  await page.goto('#/lessons/s11')
+  await page.goto('#/lessons/s10')
+  await page.getByRole('tab', { name: '2. Build & test' }).click()
+  await page.getByText(/Check step only: answer key/).click()
+  await expect(page.locator('a[href$="datasets/wayfinder/s10-answer-key.md"]')).toBeVisible()
+  await page
+    .getByRole('navigation', { name: 'Session navigation' })
+    .getByRole('link', { name: /^Session 11:/ })
+    .click()
   await page.getByRole('tab', { name: '2. Build & test' }).click()
   await expect(page.getByRole('heading', { name: 'Practice files for this session' })).toBeVisible()
   await expect(page.locator('a[href$="datasets/wayfinder/s11-events.csv"]')).toBeVisible()
+  await expect(page.locator('a[href$="datasets/wayfinder/s11-answer-key.md"]')).toBeHidden()
 
   await page.goto('#/lessons/s14')
   await page.getByRole('tab', { name: '2. Build & test' }).click()

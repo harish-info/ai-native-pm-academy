@@ -17,7 +17,7 @@ Open this file only after you have audited the CSV for data-quality issues, chec
 - **Exposed sample:** `20,036` `control`, `19,902` `treatment` (clears the pre-registered `18,328` per-arm requirement).
 - **Primary metric (weekend completed with zero missed timed bookings or closed-venue arrivals):** `86.08%` (`17,246 / 20,036`) in `control` to `87.61%` (`17,437 / 19,902`) in `treatment`. Absolute lift **`+1.54 pp`** (`+1.8%` relative), `z = 4.55`, `p < 0.0001`. Clears the `+1.0 pp` minimum detectable effect.
 - **Leading metric (pre-departure hours, transit or rainy-day check):** `32.40%` (`6,491 / 20,036`) to `42.41%` (`8,441 / 19,902`), **`+10.02 pp`**, `p < 0.0001`.
-- **Guardrail overall (routing/replan complaints per 1,000 exposed):** `10.8` (`216 / 20,036`) to `13.3` (`264 / 19,902`) per `1,000` exposed, **`+2.5 / 1,000`** (`+22.9%` relative), `z = 2.27`, `p = 0.0230`. Below the `+4.0 / 1,000` overall stop limit, yet a clear warning to inspect segments.
+- **Guardrail overall (routing/replan complaints per 1,000 exposed):** `10.8` (`217 / 20,036`) to `13.3` (`265 / 19,902`) per `1,000` exposed, **`+2.5 / 1,000`** (`+22.9%` relative), `z = 2.27`, `p = 0.0230`. Below the `+4.0 / 1,000` overall stop limit, yet a clear warning to inspect segments.
 
 ## 3. Segment breakdown and guardrail breach in `family_accessibility`
 

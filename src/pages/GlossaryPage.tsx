@@ -85,7 +85,20 @@ export function GlossaryPage() {
         {grouped.length === 0 ? (
           <Card>
             <p className="text-sm text-stone-700 dark:text-stone-300">
-              No terms matched <strong>{query}</strong>. Clear the search or switch back to{' '}
+              No terms matched <strong>{query}</strong>
+              {category !== 'All' ? ` in ${category}` : ''}.{' '}
+              {category !== 'All' && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setCategory('All')}
+                    className={`cursor-pointer font-medium ${linkClass}`}
+                  >
+                    Search all categories
+                  </button>{' '}
+                  or{' '}
+                </>
+              )}
               <button
                 type="button"
                 onClick={() => {
@@ -94,74 +107,73 @@ export function GlossaryPage() {
                 }}
                 className={`cursor-pointer font-medium ${linkClass}`}
               >
-                All categories
+                clear filters
               </button>
               .
             </p>
           </Card>
         ) : (
-          grouped.map((group) => (
-            <section
-              key={group.category}
-              aria-labelledby={`cat-${group.category}`}
-              className="space-y-3"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <h2 id={`cat-${group.category}`} className="text-lg font-semibold tracking-tight">
-                  {group.category}
-                </h2>
-                <Pill tone="neutral">{group.entries.length}</Pill>
-              </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                {group.entries.map((entry) => (
-                  <Card
-                    key={entry.id}
-                    as="article"
-                    id={`term-${entry.id}`}
-                    className="flex flex-col"
-                  >
-                    <h3 className="text-base font-semibold tracking-tight">{entry.term}</h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-stone-800 dark:text-stone-200">
-                      {inline(entry.meaning)}
-                    </p>
-                    <p className="mt-2.5 rounded-xl bg-stone-100 px-3.5 py-2.5 text-sm leading-relaxed text-stone-700 dark:bg-stone-800/70 dark:text-stone-300">
-                      <strong className="text-stone-900 dark:text-stone-100">
-                        In day-to-day work:{' '}
-                      </strong>
-                      {inline(entry.dayToDay)}
-                    </p>
-                    <p className="mt-auto pt-3 text-xs text-stone-600 dark:text-stone-400">
-                      Used in:{' '}
-                      {entry.lessons.map((id, i) => {
-                        const lesson = lessonById(id)
-                        if (!lesson) return null
-                        return (
-                          <Fragment key={id}>
-                            {i > 0 && ' · '}
-                            <Link to={`/lessons/${id}`} className={linkClass}>
-                              Session {lesson.number}: {lesson.title}
-                            </Link>
-                          </Fragment>
-                        )
-                      })}
-                      {entry.challenges?.map((cid) => {
-                        const ch = challengeById(cid)
-                        if (!ch) return null
-                        return (
-                          <Fragment key={cid}>
-                            {' · '}
-                            <Link to={`/challenges/${cid}`} className={linkClass}>
-                              Challenge: {ch.title}
-                            </Link>
-                          </Fragment>
-                        )
-                      })}
-                    </p>
-                  </Card>
-                ))}
-              </div>
-            </section>
-          ))
+          grouped.map((group) => {
+            const headingId = `cat-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+            return (
+              <section key={group.category} aria-labelledby={headingId} className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <h2 id={headingId} className="text-lg font-semibold tracking-tight">
+                    {group.category}
+                  </h2>
+                  <Pill tone="neutral">{group.entries.length}</Pill>
+                </div>
+                <div className="grid gap-3 md:grid-cols-2">
+                  {group.entries.map((entry) => (
+                    <Card
+                      key={entry.id}
+                      as="article"
+                      id={`term-${entry.id}`}
+                      className="flex flex-col"
+                    >
+                      <h3 className="text-base font-semibold tracking-tight">{entry.term}</h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-stone-800 dark:text-stone-200">
+                        {inline(entry.meaning)}
+                      </p>
+                      <p className="mt-2.5 rounded-xl bg-stone-100 px-3.5 py-2.5 text-sm leading-relaxed text-stone-700 dark:bg-stone-800/70 dark:text-stone-300">
+                        <strong className="text-stone-900 dark:text-stone-100">
+                          In day-to-day work:{' '}
+                        </strong>
+                        {inline(entry.dayToDay)}
+                      </p>
+                      <p className="mt-auto pt-3 text-xs text-stone-600 dark:text-stone-400">
+                        Used in:{' '}
+                        {entry.lessons.map((id, i) => {
+                          const lesson = lessonById(id)
+                          if (!lesson) return null
+                          return (
+                            <Fragment key={id}>
+                              {i > 0 && ' · '}
+                              <Link to={`/lessons/${id}`} className={linkClass}>
+                                Session {lesson.number}: {lesson.title}
+                              </Link>
+                            </Fragment>
+                          )
+                        })}
+                        {entry.challenges?.map((cid) => {
+                          const ch = challengeById(cid)
+                          if (!ch) return null
+                          return (
+                            <Fragment key={cid}>
+                              {' · '}
+                              <Link to={`/challenges/${cid}`} className={linkClass}>
+                                Challenge: {ch.title}
+                              </Link>
+                            </Fragment>
+                          )
+                        })}
+                      </p>
+                    </Card>
+                  ))}
+                </div>
+              </section>
+            )
+          })
         )}
       </div>
     </>

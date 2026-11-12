@@ -77,10 +77,12 @@ function Step({ id, children }: { id: StepId; children: ReactNode }) {
 function StepRail({
   done,
   stage,
+  selectedStep,
   onSelectStep,
 }: {
   done: boolean
   stage: StageId
+  selectedStep: StepId | null
   onSelectStep: (id: StepId) => void
 }) {
   const defaultStepForStage: Record<StageId, StepId> = {
@@ -89,14 +91,23 @@ function StepRail({
     verify: 'verify',
   }
   const [observedStep, setObservedStep] = useState<StepId | null>(null)
+  const ignoreObserverUntil = useRef(0)
+  const candidate = observedStep ?? selectedStep
   const active =
-    observedStep && stepStage[observedStep] === stage ? observedStep : defaultStepForStage[stage]
+    candidate && stepStage[candidate] === stage ? candidate : defaultStepForStage[stage]
   const observer = useRef<IntersectionObserver | null>(null)
+
+  useEffect(() => {
+    if (selectedStep && stepStage[selectedStep] === stage) {
+      ignoreObserverUntil.current = Date.now() + 700
+    }
+  }, [selectedStep, stage])
 
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') return
     observer.current = new IntersectionObserver(
       (entries) => {
+        if (Date.now() < ignoreObserverUntil.current) return
         const visible = entries.filter((e) => e.isIntersecting)
         const top = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
         if (top) setObservedStep((top.target as HTMLElement).dataset.step as StepId)
@@ -119,7 +130,11 @@ function StepRail({
             <li key={step.id} className="shrink-0 snap-start">
               <button
                 type="button"
-                onClick={() => onSelectStep(step.id)}
+                onClick={() => {
+                  ignoreObserverUntil.current = Date.now() + 700
+                  setObservedStep(step.id)
+                  onSelectStep(step.id)
+                }}
                 aria-current={isActive ? 'step' : undefined}
                 className={cx(
                   'flex w-full cursor-pointer items-center gap-3 rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors lg:border-transparent',
@@ -167,9 +182,14 @@ export function LessonPage() {
   const status = useLevelStatus(lesson?.levelId ?? 0)
   const { data } = useStore()
   const guide = guides[lessonId]
-  const [stageState, setStageState] = useState<{ lessonId: string; stage: StageId }>({
+  const [stageState, setStageState] = useState<{
+    lessonId: string
+    stage: StageId
+    selectedStep: StepId | null
+  }>({
     lessonId,
     stage: 'understand',
+    selectedStep: null,
   })
   const tabRefs = useRef<Record<StageId, HTMLButtonElement | null>>({
     understand: null,
@@ -179,7 +199,10 @@ export function LessonPage() {
 
   if (!lesson || !status || !guide) return <NotFound />
   const stage: StageId = stageState.lessonId === lesson.id ? stageState.stage : 'understand'
-  const setStage = (next: StageId) => setStageState({ lessonId: lesson.id, stage: next })
+  const selectedStep: StepId | null =
+    stageState.lessonId === lesson.id ? stageState.selectedStep : null
+  const setStage = (next: StageId) =>
+    setStageState({ lessonId: lesson.id, stage: next, selectedStep: null })
   const done = !!data.lessons[lesson.id]?.completedAt
 
   const index = allLessons.findIndex((l) => l.id === lesson.id)
@@ -191,7 +214,7 @@ export function LessonPage() {
 
   const focusStep = (id: StepId) => {
     const targetStage = stepStage[id]
-    setStage(targetStage)
+    setStageState({ lessonId: lesson.id, stage: targetStage, selectedStep: id })
     requestAnimationFrame(() => {
       const el = document.getElementById(`step-${id}`)
       if (!el) return
@@ -215,7 +238,7 @@ export function LessonPage() {
   }
 
   return (
-    <article className="space-y-6">
+    <article key={lesson.id} className="space-y-6">
       <nav aria-label="Breadcrumb" className="text-sm text-stone-600 dark:text-stone-400">
         <Link to="/levels" className={linkClass}>
           Course
@@ -281,7 +304,13 @@ export function LessonPage() {
       )}
 
       <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-10">
-        <StepRail key={lesson.id} done={done} stage={stage} onSelectStep={focusStep} />
+        <StepRail
+          key={lesson.id}
+          done={done}
+          stage={stage}
+          selectedStep={selectedStep}
+          onSelectStep={focusStep}
+        />
         <div id="stage-panels" className="space-y-6">
           <div
             role="tablist"
@@ -306,7 +335,7 @@ export function LessonPage() {
                   onClick={() => setStage(s.id)}
                   onKeyDown={(e) => onStageKeyDown(e, idx)}
                   className={cx(
-                    'flex min-h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-semibold transition-colors sm:text-sm',
+                    'flex min-h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-center text-xs leading-tight font-semibold transition-colors sm:text-sm',
                     selected
                       ? 'bg-white text-indigo-900 shadow-xs ring-1 ring-stone-200 dark:bg-stone-800 dark:text-indigo-200 dark:ring-stone-700'
                       : 'text-stone-700 hover:text-stone-950 dark:text-stone-300 dark:hover:text-white',

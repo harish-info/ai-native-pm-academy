@@ -199,19 +199,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Verified, because 64% appears word for word in the report.',
+          text: 'Verified, because 64% appears word for word in source [1] and bachelor trips are still leisure travel.',
           feedback:
             'The number is real, but 8-person bachelor parties are not all leisure travellers, and chasing expenses is narrower than ruining weekend trips.',
         },
         {
           id: 'b',
-          text: 'Partly supported. Rewrite the claim to name 8+ person bachelor/bachelorette groups chasing unpaid expenses.',
+          text: 'Partly supported: rewrite to name 8+ person bachelor groups chasing unpaid splits.',
           feedback:
             'Naming who was actually surveyed keeps the source honest and stops you over-sizing Wayfinder’s market from one high-friction party format.',
         },
         {
           id: 'c',
-          text: 'Contradicted, so delete the survey from your sources.',
+          text: 'Contradicted, so delete the survey from `sources/` and drop every group-expense claim.',
           feedback:
             'The survey does not say the opposite; it gives useful context on larger group trips once you quote its exact population.',
         },
@@ -266,19 +266,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'One reader understood the itinerary value proposition and budget boundary; real group adoption is still untested.',
+          text: 'Comprehension passed on one reader; real group adoption is still untested.',
           feedback:
             'Record exactly what happened: comprehension passed on one person, while whether groups actually import stops and share plans waits for Level 3 discovery.',
         },
         {
           id: 'b',
-          text: 'Validated that friend groups want the shared weekend budget card.',
+          text: 'Validated demand: friend groups want the shared weekend budget card and will switch from chat threads.',
           feedback:
             'Polite praise on a mockup costs the reader nothing. Treating "we would totally use this" as validated demand is the classic discovery trap.',
         },
         {
           id: 'c',
-          text: 'Nothing useful, because the Lisbon stops on the card are fictional.',
+          text: 'Nothing worth logging yet, because the Lisbon stops and prices on the mocked card are fictional.',
           feedback:
             'Testing whether a stranger understands what a feature does and does not promise is real signal, even with illustrative sample stops.',
         },
@@ -335,19 +335,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Run `git status` before summarising recent workspace changes.',
+          text: 'Run `git status` and `git log -n 3` before summarising recent changes across the workspace folder.',
           feedback:
             'A harmless working habit. Nothing breaks if a session forgets it, so leaving it in auto memory is fine.',
         },
         {
           id: 'b',
-          text: 'The user is comparing Wanderlog and Stippl this week.',
+          text: 'The PM is comparing Wanderlog, Stippl and Polarsteps pricing tiers for Friday’s check-in.',
           feedback:
             'Weekly tasks go stale quickly and belong in a workstream note or `log.md`, not in permanent workspace rules.',
         },
         {
           id: 'c',
-          text: 'Never edit files in `sources/` or commit real traveller emails or passport details.',
+          text: 'Never edit files in `sources/` or commit real traveller emails.',
           feedback:
             'Hard workspace rules belong in `AGENTS.md` written by you, backed by permissions and `.gitignore` so safety does not rely on memory.',
         },
@@ -402,7 +402,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Left after booked stops shows $75.50, but $180.00 minus $94.50 in app.js is $85.50. Fix only that calculation first.',
+          text: 'Left after booked stops shows $75.50 instead of $85.50 in app.js; fix only that sum first.',
           feedback:
             'One change per prompt, starting with the wrong budget calculation, gives you a small `git diff` you can verify and revert cleanly.',
         },
@@ -414,7 +414,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
         },
         {
           id: 'c',
-          text: 'The budget card does not match `REQUIREMENTS.md`; please audit and fix the screen.',
+          text: 'The budget card does not match `REQUIREMENTS.md`; audit `index.html`, `styles.css` and `app.js` and clean them up.',
           feedback:
             'Vague bug prompts invite the agent to rewrite working sections alongside the broken line.',
         },
@@ -446,15 +446,15 @@ export const lessonGuides: Record<string, LessonGuide> = {
       reasoning: [
         {
           label: 'What the diff actually contains',
-          text: 'Two files match the description: `index.html` and `README.md`. A third file, `data/stops.js`, was also edited with `{ venue: "Bairro Bistro", contactEmail: "alex.real@company.com" }`.',
+          text: 'Two files match the description: `index.html` and `README.md`. A third file, `app.js`, also gained an unrequested `{ venue: "Bairro Bistro", contactEmail: "alex.real@company.com" }` entry.',
         },
         {
           label: 'Why it is a blocker',
-          text: 'The PR description never mentioned `data/stops.js`, your brief asked for Pages path and README updates only, and the added line puts a real-looking personal email into a public repo.',
+          text: 'The PR description never mentioned `app.js`, your brief asked for Pages path and README updates only, and the added line puts a real-looking personal email into a public repo.',
         },
         {
           label: 'Your review action',
-          text: 'Leave a comment on that line: `Revert data/stops.js. Publishing PRs must not touch sample stop data, and sample records must never contain real email addresses.`',
+          text: 'Leave a comment on that line: `Revert app.js. Publishing PRs must not touch sample stop data, and sample records must never contain real email addresses.`',
         },
         {
           label: 'Merge and verify live',
@@ -470,19 +470,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Wait 24 hours, because GitHub Pages always strips JavaScript on mobile browsers at first.',
+          text: 'Wait 24 hours for global CDN propagation, because GitHub Pages serves plain HTML before CSS and JS.',
           feedback:
             'GitHub Pages serves static files identically to mobile and desktop browsers within a minute or two of deployment.',
         },
         {
           id: 'b',
-          text: 'Whether `index.html` links `/styles.css` and `/app.js` from the root domain instead of `./styles.css` and `./app.js` inside `/wayfinder-probe/`.',
+          text: 'Whether `index.html` uses root `/styles.css` and `/app.js` instead of `./styles.css` and `./app.js`.',
           feedback:
             'Check the live URL yourself after every publish. Leading slashes point at `you.github.io/app.js` instead of `you.github.io/wayfinder-probe/app.js`, breaking styles and scripts.',
         },
         {
           id: 'c',
-          text: 'Whether branch protection blocked CSS files from merging into `main`.',
+          text: 'Whether branch protection rulesets blocked `.css` and `.js` assets from merging into `main` on GitHub.',
           feedback:
             'Branch rulesets gate whole pull requests before merge; they never strip individual asset files afterwards.',
         },
@@ -515,7 +515,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
       reasoning: [
         {
           label: 'Reproduce and check by hand',
-          text: 'Adding active booked stops in `data/stops.js` (`$18.50 + $22.00 + $54.00`) gives `$94.50`. Including `status: "dropped"` adds `$32.00` to reach `$126.50`.',
+          text: 'Adding active booked stops in `app.js` (`$18.50 + $22.00 + $54.00`) gives `$94.50`. Including `status: "dropped"` adds `$32.00` to reach `$126.50`.',
         },
         {
           label: 'Write the bug report',
@@ -539,19 +539,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Ask Claude Code to add live exchange-rate conversion so the review passes cleanly.',
+          text: 'Ask Claude Code to add live EUR and JPY exchange-rate conversion on a branch so the review passes cleanly.',
           feedback:
             'Letting an uncontextualised reviewer expand scope adds untested currency maths you explicitly ruled out for v1.',
         },
         {
           id: 'b',
-          text: 'Ignore it without writing anything down, since an AI wrote the comment.',
+          text: 'Ignore the comment without logging anything, because an uncontextualised AI reviewer wrote it.',
           feedback:
             'Unrecorded rejections resurface in the next review pass. One line in `review-log.md` closes the loop.',
         },
         {
           id: 'c',
-          text: 'Log "Rejected: single-currency per trip in v1 per REQUIREMENTS.md" in `review-log.md` and keep v1 focused.',
+          text: 'Log "Rejected: single-currency v1 per REQUIREMENTS.md" in `review-log.md`.',
           feedback:
             'Reviewers advise; the PM owns scope. Recording why you rejected the comment keeps the audit trail clean.',
         },
@@ -674,19 +674,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Open `P3.md` and `P5.md`, read the exact lines cited, and verify whether the participants actually described that problem.',
+          text: 'Open `P3.md` and `P5.md` and check whether those exact lines support that problem.',
           feedback:
             'Every discrepancy between your hand synthesis and the agent’s pass is a pointer back to the raw notes. Keep it only if the verbatim story supports it.',
         },
         {
           id: 'b',
-          text: 'Adopt Claude’s theme immediately, since a fresh session has less bias than a human reader.',
+          text: 'Adopt Claude’s theme into `discovery/synthesis.md`, since a fresh session has less confirmation bias than you do.',
           feedback:
             'Models routinely stretch a passing mention of arriving at an airport into a feature request for flight shopping.',
         },
         {
           id: 'c',
-          text: 'Discard it without checking, because your hand pass always overrides the model.',
+          text: 'Discard the theme without opening the transcripts, because your hand synthesis always overrides the model.',
           feedback:
             'Sometimes an agent spots a genuine pattern across five transcripts that you missed. Two minutes checking `P3.md` and `P5.md` settles it on evidence.',
         },
@@ -716,15 +716,15 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Events versus unique users in a funnel count',
       situation:
-        'On Wayfinder’s `s11-events.csv` cohort (`600` unique signups), you ask Claude Code to summarise engagement. Its first draft states: "58.2% of itinerary views lead to opening stop details (234 of 402)."',
+        'On Wayfinder’s `s11-events.csv` cohort (`600` unique signups), you ask Claude Code to summarise engagement. Its first draft states: "33.6% of itinerary views lead to opening stop details (234 of 696)."',
       reasoning: [
         {
           label: 'Your spreadsheet check',
-          text: 'Counting distinct `user_id`s in a pivot table shows `360` unique users triggered `itinerary_viewed` (with `42` duplicate Android retry rows inflating raw events to `402`), and `234` unique users triggered `stop_detail_opened`.',
+          text: 'Counting distinct `user_id`s in a pivot table shows `itinerary_viewed` has `696` raw event rows (`654` deduplicated after `42` Android retry rows) across `360` unique users, while `234` unique users triggered `stop_detail_opened` (`430` raw rows).',
         },
         {
           label: 'What went wrong',
-          text: 'First, Claude divided by `402` raw event rows instead of `360` unique users (`234 / 360 = 65.0%` step-to-step). Second, against all `600` cohort users, `234 / 600` is `39.0%`.',
+          text: 'First, Claude divided `234` unique users by `696` raw event rows instead of `360` unique users (`234 / 360 = 65.0%` step-to-step). Second, against all `600` cohort users, `234 / 600` is `39.0%`.',
         },
         {
           label: 'Where the real drop-off hides',
@@ -846,15 +846,15 @@ export const lessonGuides: Record<string, LessonGuide> = {
     example: {
       title: 'Specify states, tool permissions, unit economics and source precedence',
       situation:
-        'You are writing `prototype/docs/design-spec.md` for Wayfinder’s `Day Plan & Budget Split` screen and `Ask Wayfinder` replanning drawer.',
+        'You are writing `design-spec.md` (and copying the filtered `docs/design-spec.md` into `prototype/`) for Wayfinder’s `Day Plan & Budget Split` screen and `Ask Wayfinder` replanning drawer.',
       reasoning: [
         {
           label: 'Complete state table + latency/cost budget',
-          text: 'Instead of `Stale state: warn user`, you write: `When: venue hours cache > 24 hours old. Show: banner "Venue hours last checked Yesterday 18:10. Refresh before heading out." Action: Refresh hours button; drawer prepends timestamp.` You also set operational targets: `Ask Wayfinder p95 latency <= 2.5s via prompt caching on static rules; cap <= $0.03 per replan turn.`',
+          text: 'Instead of `Stale state: warn user`, you write: `When: venue hours cache > 24 hours old. Show: banner "Venue hours last checked Yesterday 18:10. Refresh before heading out." Action: Refresh hours button; drawer prepends timestamp.` You also set operational targets: `Ask Wayfinder p95 latency < 4.0s via parallel read calls and prompt caching on static rules; $0.04 to $0.08 per acceptable replan.`',
         },
         {
           label: 'Tool permissions (`read` / `prepare` / `execute`)',
-          text: 'You classify every drawer tool: `get_day_plan`, `check_venue_hours` and `get_budget_summary` are `read`; `prepare_reservation_hold` and `prepare_group_poll` are `prepare` (creating an `awaiting_approval` preview card with Confirm hold and Dismiss); zero model tools have `execute` permission.',
+          text: 'You classify every drawer tool: `get_trip_plan`, `check_venue_hours`, `get_transit_time` and `get_budget_summary` are `read`; `prepare_reservation_hold` and `prepare_group_poll` are `prepare` (creating an `awaiting_approval` preview card with Confirm hold and Dismiss); zero model tools have `execute` permission.',
         },
         {
           label: 'Source precedence',
@@ -870,19 +870,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Approve it, because data-layer-first is standard engineering order.',
+          text: 'Approve it as written, because building schemas before UI components is standard layered engineering order.',
           feedback:
             'Horizontal layers leave you with nothing testable end to end until step 3, hiding spec mismatches until the last day.',
         },
         {
           id: 'b',
-          text: 'Rewrite into vertical user slices, starting with Slice 1: render `Day Plan & Budget Split` across loading, empty, stale-hours, normal and schedule-conflict states with checks in one PR.',
+          text: 'Split into vertical user slices, starting with `Day Plan & Budget Split` across all states in one PR.',
           feedback:
             'A vertical slice works end to end, fits cleanly in one reviewable pull request, and can be checked directly against your state table.',
         },
         {
           id: 'c',
-          text: 'Keep the three horizontal layers, just split each into five smaller sub-tickets.',
+          text: 'Keep the three horizontal layers, just split each layer into five smaller sub-tickets so pull requests stay short.',
           feedback:
             'Fifteen horizontal sub-tickets still give nobody a working traveller flow until the final integration ticket.',
         },
@@ -896,7 +896,7 @@ export const lessonGuides: Record<string, LessonGuide> = {
     decision:
       'Which assistant failure modes block a release, how consistent is `pass^3`, and what could your offline eval still not prove?',
     bring:
-      '`prd/prd.md`, `prototype/docs/design-spec.md`, `datasets/wayfinder/s14-conversations.md` and a spreadsheet.',
+      '`prd/prd.md`, `design-spec.md`, `datasets/wayfinder/s14-conversations.md` and a spreadsheet.',
     recall: {
       question:
         'From Session 13: why does `prepare_reservation_hold` stop at `awaiting_approval` instead of executing?',
@@ -936,19 +936,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Pass with a minor note: $75.50 is more conservative than $85.50, so the group will not overspend.',
+          text: 'Pass with a minor note: quoting $75.50 left is more conservative than $85.50, so the group will not overspend.',
           feedback:
             'A $10.00 arithmetic hallucination violates the core contract that all sums come from `get_budget_summary`; next time the error goes $10 the other way and causes a group dispute.',
         },
         {
           id: 'b',
-          text: 'Fail (release-blocking numeric contract error): the assistant ignored `booked_stops_total: 94.50` and `left_after_booked_stops: 85.50` and mis-added $10.00 in prose.',
+          text: 'Fail (blocking): prose contradicted `get_budget_summary` by $10.00.',
           feedback:
             'Exact match with tool figures is non-negotiable. Deterministic code computed $94.50 and $85.50; the prose contradicted its own tool call.',
         },
         {
           id: 'c',
-          text: 'Mark `NOT TESTED`, because the trace came from a logged conversation rather than a live trip.',
+          text: 'Mark `NOT TESTED`, because the trace came from a saved offline log rather than a live weekend group trip.',
           feedback:
             'The trace contains both the exact tool return JSON and the assistant’s wording, which is everything needed to catch and fail prose arithmetic.',
         },
@@ -1002,19 +1002,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Hold until Day 14 so both weekend cycles and the planned sample finish, while continuing daily data-quality and guardrail harm checks.',
+          text: 'Run the full 14 days while checking daily data quality and guardrails.',
           feedback:
             'Stopping early for good news inflates false positives and misses rainy-weekend and accessibility edge cases in Week 2; early stops are for severe harm.',
         },
         {
           id: 'b',
-          text: 'Ship today, because doubling the target lift by Day 4 proves the true effect is large.',
+          text: 'Ship to 100% today, because doubling the +1.0 pp target lift by Day 4 proves the true effect is large.',
           feedback:
             'Four days covering a single weekend routinely swings by two or three percentage points and under-samples `family_accessibility` trips.',
         },
         {
           id: 'c',
-          text: 'Widen treatment from 50% to 80% today and pool both halves into one simple total on Day 14.',
+          text: 'Widen treatment from 50% to 80% today and pool both halves into one combined total on Day 14.',
           feedback:
             'Changing traffic split mid-flight mixes weekend weather shifts with treatment assignment (Simpson’s paradox) and invalidates naive pooling.',
         },
@@ -1067,19 +1067,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Keep the full table on the slide so nobody accuses you of hiding data, and talk through it fast.',
+          text: 'Keep all 84 rows on the main slide so nobody accuses you of cherry-picking, and highlight key cells in bold.',
           feedback:
             'Executives stop listening while reading dense tables. Transparency belongs in the appendix and linked readout, not in 9-point font on screen.',
         },
         {
           id: 'b',
-          text: 'Replace the table with one three-bar segment chart titled with the takeaway sentence, and move the full segment table to the appendix.',
+          text: 'Show one three-bar segment chart with an action title; move the table to the appendix.',
           feedback:
             'One visual plus one sentence title lands in three seconds while keeping every exact denominator one click away in Q&A.',
         },
         {
           id: 'c',
-          text: 'Split the 84-row table across four consecutive slides so the font is larger.',
+          text: 'Split the 84-row daily export across four consecutive slides so every row renders in 16-point font.',
           feedback:
             'Four slides of raw daily numbers still state no point and force the room to do mental arithmetic across slides.',
         },
@@ -1198,19 +1198,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Approve and merge: no personal name appears in the file.',
+          text: 'Approve and merge the pull request, since no personal name or email address appears anywhere in the diff.',
           feedback:
             '"The only user researcher on the squad" identifies Samira to every colleague just as clearly as a first name.',
         },
         {
           id: 'b',
-          text: 'Reject the whole source; internal critique of UI badges should never enter the wiki.',
+          text: 'Close the PR and discard the note; internal critique of UI badges should never enter the shared wiki.',
           feedback:
             'The critique of the step-free badge is valuable product context; only the identifying role detail needs generalising.',
         },
         {
           id: 'c',
-          text: 'Request changing the attribution to "A team member noted..." before merging, and re-read the diff.',
+          text: 'Change the attribution to "A team member noted..." and re-read the diff.',
           feedback:
             'Preserves the product insight while removing the indirect identifier before the immutable source lands on `main`.',
         },
@@ -1329,19 +1329,19 @@ export const lessonGuides: Record<string, LessonGuide> = {
       options: [
         {
           id: 'a',
-          text: 'Minutes spent drafting each PRD before and after the pilot.',
+          text: 'Average minutes spent drafting each first-pass PRD and static prototype before versus after the two-release pilot.',
           feedback:
             'Drafting speed measures local activity, not whether specs still sit 12 days waiting for a decision.',
         },
         {
           id: 'b',
-          text: 'How enthusiastic the team sounded in a Slack poll about Claude Code.',
+          text: 'How enthusiastic the product and engineering squad sounded in Friday’s Slack poll about daily Claude Code usage.',
           feedback:
             'Team workload and morale matter as health guardrails, but enthusiasm alone does not prove lead time or rework improved.',
         },
         {
           id: 'c',
-          text: 'End-to-end days waiting for sign-off (against the 12-day baseline), plus downstream review rework and team workload.',
+          text: 'Sign-off wait days against the 12-day baseline, plus downstream rework.',
           feedback:
             'Judge the pilot on the bottleneck you targeted and check that faster upstream output did not simply pile up as downstream rework.',
         },

@@ -107,6 +107,8 @@ describe('references', () => {
   })
   it('gives every session a bounded core reading and an answerable decision exercise', () => {
     expect(Object.keys(lessonGuides).sort()).toEqual(allLessons.map((l) => l.id).sort())
+    let longestCheckpoints = 0
+    const mainIdx = new Map(coursePath.main.map((s, i) => [s.resourceId, i]))
     for (const lesson of allLessons) {
       const guide = lessonGuides[lesson.id]!
       expect(guide, lesson.id).toBeDefined()
@@ -117,14 +119,37 @@ describe('references', () => {
       expect(guide.reading.minutes).toBeGreaterThan(0)
       expect(guide.reading.minutes).toBeLessThanOrEqual(15)
       expect(guide.reading.minutes).toBeLessThan(lesson.minutes)
+      const rest = lesson.resources
+        .map((r) => r.resourceId)
+        .filter((id) => id !== guide.reading.resourceId)
+      const mainPos = rest
+        .map((id, pos) => ({ id, pos, rank: mainIdx.get(id) }))
+        .filter((x) => x.rank !== undefined)
+      for (let i = 0; i < mainPos.length; i++) {
+        expect(mainPos[i]!.pos, `${lesson.id}: main-path course ${mainPos[i]!.id} position`).toBe(i)
+        if (i > 0) {
+          expect(
+            mainPos[i]!.rank,
+            `${lesson.id}: main-path course ${mainPos[i]!.id} order`,
+          ).toBeGreaterThan(mainPos[i - 1]!.rank!)
+        }
+      }
       if (guide.example) expect(guide.example.reasoning.length).toBeGreaterThanOrEqual(2)
       if (guide.checkpoint) {
         const options = guide.checkpoint.options.map((o) => o.id)
         expect(new Set(options).size).toBe(options.length)
         expect(options).toContain(guide.checkpoint.correct)
         for (const o of guide.checkpoint.options) expect(o.feedback.length).toBeGreaterThan(30)
+        const lens = guide.checkpoint.options.map((o) => o.text.length)
+        const max = Math.max(...lens)
+        const rightLen = guide.checkpoint.options.find((o) => o.id === guide.checkpoint!.correct)!
+          .text.length
+        if (rightLen === max && lens.filter((l) => l === max).length === 1) {
+          longestCheckpoints++
+        }
       }
     }
+    expect(longestCheckpoints / allLessons.length).toBeLessThanOrEqual(0.4)
     expect(Object.keys(courseArc).map(Number)).toEqual([1, 2, 3, 4, 5])
   })
   it('points every resource reference at a catalog entry', () => {

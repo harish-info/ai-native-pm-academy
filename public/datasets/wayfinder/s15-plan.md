@@ -23,7 +23,7 @@ If travellers with an active weekend trip see the **Rainy-Day & Transit Replan D
 - Baseline primary rate: `86.0%`.
 - Minimum detectable effect: `+1.0` percentage point (`86.0%` to `87.0%`). Smaller gains would not justify live transit and venue-hours feed costs.
 - Significance level: `5%` two-sided, power `80%`.
-- Sample size per arm: `n = (1.96 + 0.84)^2 x (p1(1 - p1) + p2(1 - p2)) / (p2 - p1)^2` with `p1 = 0.86` and `p2 = 0.87`, giving `18,328` exposed users per arm (rounded up to `18,400`).
+- Sample size per arm: `n = (1.96 + 0.84)^2 x (p1(1 - p1) + p2(1 - p2)) / (p2 - p1)^2` with `p1 = 0.86` and `p2 = 0.87`, giving `18,328` exposed users per arm using exact normal quantiles (or `18,307` using rounded `1.96` and `0.84`), rounded up to `18,400`.
 - Run length: `14` days (`2026-03-02` to `2026-03-15`). About `1,500` users per arm are assigned daily and ~`95%` are exposed, reaching full sample around day 13. Do not stop or peek early.
 - Baseline guardrail: about `11` replan/routing complaints per `1,000` exposed users overall.
 

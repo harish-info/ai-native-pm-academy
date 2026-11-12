@@ -442,7 +442,7 @@ export function CaseStudyPage() {
           >
             <table className="w-full min-w-[40rem] text-left text-sm">
               <caption className="sr-only">
-                Agent questions for {t.name} with the expected kind of answer and behavior
+                Agent questions for {t.name} with the expected kind of answer and behaviour
               </caption>
               <thead>
                 <tr className="border-b border-stone-200 dark:border-stone-800">
@@ -453,7 +453,7 @@ export function CaseStudyPage() {
                     Kind
                   </th>
                   <th scope="col" className="py-2 font-semibold">
-                    Expected behavior
+                    Expected behaviour
                   </th>
                 </tr>
               </thead>

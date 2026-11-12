@@ -237,7 +237,7 @@ Wait for my approval before moving or creating files. Once I approve, apply the 
         {
           heading: 'Zero-build static files, single-step commits and handoff notes',
           paragraphs: [
-            'Create `prototype/` with three plain files (`index.html`, `styles.css` and `app.js`), initialize its own Git repository (`git init`) and short `AGENTS.md`, and add `prototype/` to `workspace/.gitignore` so your private workspace history stays separate when the probe goes public on GitHub in Session 7. No Node.js install, bundler or build step is needed: open `prototype/index.html` directly in your browser.',
+            'Create `prototype/` with three plain files (`index.html`, `styles.css` and `app.js`), initialise its own Git repository (`git init`) and short `AGENTS.md`, and add `prototype/` to `workspace/.gitignore` so your private workspace history stays separate when the probe goes public on GitHub in Session 7. No Node.js install, bundler or build step is needed: open `prototype/index.html` directly in your browser.',
             'Switch through normal, empty and warning states at laptop and phone width against `REQUIREMENTS.md`. Steer **one change at a time** with exact words, numbers or a pasted screenshot, refresh the browser, and commit each working fix. If an edit breaks layout or budget math, revert to the last commit rather than arguing with a tangled session.',
             'When a session grows long and starts forgetting rules or reintroducing fixed bugs, context compaction has set in. Ask for `prototype/HANDOFF.md` in under 40 lines written for a capable stranger (goal, file paths, working states, decisions and why, open questions and the next small step), then continue in a fresh session.',
           ],
@@ -554,13 +554,13 @@ Then run git switch -c deploy/readme-and-pages:
           required: false,
         },
         {
-          resourceId: 'claude-code-in-action',
-          why: 'The official course for people who already use Claude Code: steering longer sessions, `CLAUDE.md`, and code review on GitHub. Skip the parts on hooks and headless runs.',
+          resourceId: 'ai-fluency-builders',
+          why: "Continue AI Fluency for builders with Discernment for code and Discernment for user experience, which match this session's review.",
           required: false,
         },
         {
-          resourceId: 'ai-fluency-builders',
-          why: "Continue AI Fluency for builders with Discernment for code and Discernment for user experience, which match this session's review.",
+          resourceId: 'claude-code-in-action',
+          why: 'The official course for people who already use Claude Code: steering longer sessions, `CLAUDE.md`, and code review on GitHub. Skip the parts on hooks and headless runs.',
           required: false,
         },
         {
