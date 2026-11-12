@@ -43,7 +43,7 @@ export const planWeeks: PlanWeek[] = [
     number: 1,
     levelIds: [1],
     title: 'AI foundations and first pitch',
-    goal: "Understand how today's AI works, write product-context.md for MoneyPilot, verify a research brief against primary sources, and share a pitch page.",
+    goal: "Understand how today's AI works, write product-context.md for Wayfinder in workspace/, verify a research brief against primary sources, and share a pitch page.",
     mentor:
       'Optional 35-minute end-of-week review: open the pitch page cold on a phone, check two Verified claims in fact-sheet.md live together, and ask which AI output you rejected.',
     items: [
@@ -65,13 +65,13 @@ export const planWeeks: PlanWeek[] = [
     number: 2,
     levelIds: [2],
     title: 'Workspace, prototype probe and GitHub',
-    goal: 'Set up a clean git workspace, interview into a one-page requirements file, build the MoneyPilot probe and publish one pull request.',
+    goal: 'Put workspace/ under Git, interview into a one-page requirements file, build the static Wayfinder probe and publish one pull request.',
     mentor:
       'Optional 35-minute end-of-week review: inspect your first GitHub pull request diff together with the four PM questions and check the two files you verified in a public codebase.',
     items: [
       {
         kind: 'prep',
-        text: 'Follow the Before Session 5 steps in the Starter kit to install Git and Claude Code (terminal or desktop Code tab). Start lining up 3 to 5 monthly-paid interviewees for Session 10.',
+        text: 'Follow the Before Session 5 steps in the Starter kit to install Git and Claude Code (terminal or desktop Code tab). Start lining up 3 to 5 recent weekend-trip planners for Session 10.',
         minutes: 25,
       },
       { kind: 'lesson', id: 's5' },
@@ -89,9 +89,9 @@ export const planWeeks: PlanWeek[] = [
     number: 3,
     levelIds: [2, 3],
     title: 'Review the probe and frame the strategy',
-    goal: 'Run accessibility and fresh-session code review on your probe, complete the Level 2 sign-off, and frame MoneyPilot’s strategy kernel.',
+    goal: 'Run accessibility and fresh-session code review on your probe, complete the Level 2 sign-off, and frame Wayfinder’s strategy kernel.',
     mentor:
-      'Optional 40-minute review: review your Session 8 bug-fix pull request and challenge what MoneyPilot will explicitly not do in your Session 9 strategy kernel.',
+      'Optional 40-minute review: review your Session 8 bug-fix pull request and challenge what Wayfinder will explicitly not do in your Session 9 strategy kernel.',
     items: [
       { kind: 'lesson', id: 's8' },
       { kind: 'quiz', levelId: 2 },
@@ -99,7 +99,7 @@ export const planWeeks: PlanWeek[] = [
       { kind: 'lesson', id: 's9' },
       {
         kind: 'prep',
-        text: 'Confirm times for 3 to 5 discovery interviews for Session 10 (or set aside time to work through the five MoneyPilot practice interview notes).',
+        text: 'Confirm times for 3 to 5 discovery interviews for Session 10 (or set aside time to work through the five Wayfinder practice interview notes).',
         minutes: 20,
       },
       {
@@ -137,9 +137,9 @@ export const planWeeks: PlanWeek[] = [
     number: 5,
     levelIds: [3, 4],
     title: 'Scoped PRD and one-screen design spec',
-    goal: 'Write a PRD with explicit always / ask first / never contracts, sign off Level 3, and specify states and read / prepare / execute tool permissions.',
+    goal: 'Write a PRD with explicit always / ask first / never contracts, sign off Level 3, and specify states, latency/cost budgets and read / prepare / execute tool permissions.',
     mentor:
-      'Optional 40-minute review: read the PRD and design spec as a sceptical banking engineer, marking any acceptance criterion or approval boundary that still requires guesswork.',
+      'Optional 40-minute review: read the PRD and design spec as a sceptical engineer, marking any acceptance criterion or approval boundary that still requires guesswork.',
     items: [
       { kind: 'lesson', id: 's12' },
       { kind: 'quiz', levelId: 3 },
@@ -157,7 +157,7 @@ export const planWeeks: PlanWeek[] = [
     number: 6,
     levelIds: [4],
     title: 'Error-driven evals and experiment readout',
-    goal: 'Label 30 MoneyPilot traces by hand before writing eval checks, then audit the 14-day experiment readout against pre-set guardrails.',
+    goal: 'Label 30 Wayfinder traces by hand before writing eval checks, then audit the 14-day experiment readout against pre-set guardrails.',
     mentor:
       'Optional 35-minute review: try to break your eval rubric with two edge-case prompts and challenge your ship / iterate / stop call on s15-experiment-results.csv.',
     items: [
@@ -175,7 +175,7 @@ export const planWeeks: PlanWeek[] = [
     number: 7,
     levelIds: [4, 5],
     title: 'Executive QBR and your personal wiki',
-    goal: 'Present a concise SCQA launch review, complete the Level 4 sign-off, and compile your MoneyPilot workspace into a cited personal wiki.',
+    goal: 'Present a concise SCQA launch review, complete the Level 4 sign-off, and compile workspace/ into a cited personal wiki.',
     mentor:
       'Optional 40-minute review: play the executive in a 10-minute QBR rehearsal, interrupting on Slide 2 to test whether the recommendation and trade-off are clear.',
     items: [
@@ -220,9 +220,9 @@ export const planWeeks: PlanWeek[] = [
 
 export const planNotes = [
   'Pick a start date and a pace. Standard runs eight weeks at about 6 hours a week; Light spreads the exact same sessions in order over twelve weeks at about 4 hours a week. Switch pace anytime without losing progress.',
-  'Each session is self-contained with one short assigned reading or video (8 to 15 minutes), a MoneyPilot worked example, a quick check and a four-step task. Structured courses in Courses in order and extra links stay visible for deeper study at your own pace.',
+  'Each session is self-contained with one short assigned reading or video (8 to 15 minutes), a Wayfinder worked example, a quick check and a four-step task. Structured courses in Courses in order and extra links stay visible for deeper study at your own pace.',
   'Level sign-offs take 15 to 20 minutes: they verify the artifacts you already built in the four sessions rather than assigning a second multi-hour project.',
-  'Recruiting real interviewees for Session 10 takes calendar days, so start reaching out in Week 2. If schedules slip, five fictional MoneyPilot interview notes are included so you never get blocked.',
+  'Recruiting real interviewees for Session 10 takes calendar days, so start reaching out in Week 2. If schedules slip, five fictional Wayfinder interview notes are included so you never get blocked.',
   'Mentor reviews are optional in every session and sign-off (one 35 to 45 minute review slot per week if you have a mentor or peer, or a concrete solo check on every page if you study alone).',
   'The ten stretch challenges are optional extras outside this schedule.',
 ]

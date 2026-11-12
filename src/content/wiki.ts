@@ -2,7 +2,7 @@ import type { ChecklistItem, LevelId } from './types'
 
 export const WIKI_CHECKLIST_ITEM: ChecklistItem = {
   id: 'wiki-filed',
-  text: 'Filed this session in your workspace: the artifact saved where the step below says, and one line in log.md',
+  text: 'Filed this session in workspace/: the artifact saved where the step below says, and one line in log.md',
 }
 
 export const WIKI_PROJECT_DELIVERABLE: ChecklistItem = {
@@ -18,51 +18,47 @@ export interface WikiStep {
 export const wikiSteps: Record<string, WikiStep> = {
   s1: {
     capture:
-      'Create a private learning-notes/ folder today, by hand. Save your glossary and the model comparison, and start log.md with one line: the date and what you made.',
-    pages: [
-      'learning-notes/glossary.md',
-      'learning-notes/model-comparison.md',
-      'learning-notes/log.md',
-    ],
+      'Create one private workspace/ folder today, by hand. Every session in the course uses this same folder. Save your personal notes and model comparison in notes/, and start log.md with one line: the date and what you made.',
+    pages: ['notes/glossary.md', 'notes/model-comparison.md', 'log.md'],
   },
   s2: {
     capture:
-      'The most important file in the course. Save product-context.md at the top of the folder and keep it short; every later session reads it.',
-    pages: ['learning-notes/product-context.md', 'learning-notes/delegation-audit.md'],
+      'The anchor file for the course. Save product-context.md at the top of workspace/ and keep it concise; every later session and agent reads it.',
+    pages: ['product-context.md', 'notes/delegation-audit.md'],
   },
   s3: {
     capture:
-      'Save the fact sheet with a link and a check date for every claim. Keep the raw pages you checked in a sources/ folder, unchanged.',
-    pages: ['learning-notes/fact-sheet.md', 'learning-notes/sources/'],
+      'Save notes/fact-sheet.md with a link and a check date for every claim, and keep the raw pages you checked unedited inside sources/.',
+    pages: ['notes/fact-sheet.md', 'sources/'],
   },
   s4: {
     capture:
-      'Save the link to your live pitch artifact and what you changed after a reader check. Add one line to product-context.md for anything the pitch taught you.',
-    pages: ['learning-notes/pitch-notes.md', 'learning-notes/product-context.md'],
+      'Save the link to your pitch artifact and what you changed after a reader check in notes/pitch-notes.md. Update product-context.md with any wording boundary the check surfaced.',
+    pages: ['notes/pitch-notes.md', 'product-context.md'],
   },
   s5: {
     capture:
-      'Your notes become workspace/, the folder Claude Code works from. Paths from here on are relative to it. Write a short AGENTS.md that points at product-context.md, put the folder under git, and commit.',
-    pages: ['AGENTS.md', 'sources/', 'learning/', 'pitch/', 'research/', 'log.md'],
+      'Initialise git inside the same workspace/ folder you started in Session 1. Hand-write a short AGENTS.md that points at product-context.md, add .gitignore, and make your first clean commit.',
+    pages: ['AGENTS.md', '.gitignore', 'sources/', 'notes/', 'archive/', 'log.md'],
   },
   s6: {
     capture:
-      'REQUIREMENTS.md and HANDOFF.md live in prototype/, its own repository. Note in log.md which decisions the interview forced.',
-    pages: ['prototype/REQUIREMENTS.md', 'prototype/HANDOFF.md', 'log.md'],
+      'Save REQUIREMENTS.md, HANDOFF.md and your zero-build static prototype inside prototype/ so every screen state is inspectable in a browser.',
+    pages: ['prototype/REQUIREMENTS.md', 'prototype/HANDOFF.md', 'prototype/index.html', 'log.md'],
   },
   s7: {
     capture:
-      'Record the live URL (or walkthrough link) and repository URL in AGENTS.md, plus your codebase investigation notes.',
+      'Record your prototype repository URL and live GitHub Pages URL in AGENTS.md alongside your codebase tour notes.',
     pages: ['AGENTS.md', 'research/codebase-tour.md', 'log.md'],
   },
   s8: {
     capture:
-      'Keep your review checklist and review log with the prototype. You will reuse the checklist on every agent build.',
+      'Keep your review checklist and defect log with the prototype. You will reuse that checklist on every agent pull request.',
     pages: ['prototype/docs/review-checklist.md', 'prototype/docs/review-log.md'],
   },
   s9: {
     capture:
-      'Strategy and market research go into the workspace with their sources: one brief per research slice, and the raw pages unchanged in sources/market/. Every competitor claim keeps a link and the date you read it.',
+      'Save your strategy kernel, market map and research slice briefs in strategy/, with every raw page preserved unedited in sources/market/.',
     pages: [
       'strategy/strategy-kernel.md',
       'strategy/market-map.md',
@@ -72,12 +68,12 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s10: {
     capture:
-      "Pseudonymised interview notes (P1 to P5, no names or identifying stories), your hand synthesis next to Claude's, and the opportunity tree that cites them.",
+      "Save pseudonymised interview notes (P1 to P5, no real names or identifying details), your hand synthesis next to Claude's pass, and your opportunity tree.",
     pages: ['discovery/interview-notes/', 'discovery/synthesis.md', 'discovery/ost.md'],
   },
   s11: {
     capture:
-      'Save your metric definitions, the funnel denominator audit, the range estimate and your ranked bets. Record the bet you chose and the ones you dropped, with why.',
+      'Save your metric definitions, funnel denominator audit, range estimate and ranked bets, and record what you chose and dropped in decisions.md.',
     pages: [
       'data/funnel-analysis.md',
       'data/impact-estimate.md',
@@ -87,12 +83,12 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s12: {
     capture:
-      'Keep the PRD and its multi-role review notes together, and record what you cut from v1 and why in decisions.md.',
+      'Keep prd/prd.md and its multi-role review notes together, and log v1 scope cuts and open questions in decisions.md.',
     pages: ['prd/prd.md', 'prd/review-notes.md', 'decisions.md'],
   },
   s13: {
     capture:
-      'The screen state and agent-boundary spec, vertical slice plan and align check live in the prototype repository next to the team AGENTS.md.',
+      'Save the screen state, latency/cost and tool-permission spec, vertical slice plan and alignment check under prototype/docs/.',
     pages: [
       'prototype/docs/design-spec.md',
       'prototype/docs/task-breakdown.md',
@@ -101,17 +97,17 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s14: {
     capture:
-      'Save your failure modes, eval set and category report, including what remained NOT TESTED.',
+      'Save your hand-labelled failure modes, eval set and category report, including pass^3 consistency checks and what remained NOT TESTED.',
     pages: ['evals/failure-modes.md', 'evals/eval-set.md', 'evals/eval-report.md'],
   },
   s15: {
     capture:
-      'Save the launch plan and the experiment readout. Feed what you learned back into product-context.md and the open questions in prd.md.',
+      'Save the launch plan and experiment readout, then feed what the guardrail check taught you back into product-context.md.',
     pages: ['launch/launch-plan.md', 'launch/experiment-readout.md', 'product-context.md'],
   },
   s16: {
     capture:
-      'Save your hand-written SCQA and sentence-title outline, the exported deck and the one-page stakeholder update.',
+      'Save your hand-written SCQA and action-title outline, the exported deck and the one-page stakeholder update.',
     pages: [
       'presentations/qbr-outline.md',
       'presentations/deck/',
@@ -120,22 +116,22 @@ export const wikiSteps: Record<string, WikiStep> = {
   },
   s17: {
     capture:
-      'The workspace becomes your PM OS: raw material moves into immutable sources/, Claude writes wiki/ pages that cite it, and your hand-written AGENTS.md holds the rules.',
+      'Inside the same workspace/, keep immutable raw artifacts in sources/, let Claude compile cited pages into wiki/, and hold the schema rules in your hand-written AGENTS.md.',
     pages: ['sources/', 'wiki/index.md', 'wiki/log.md', 'AGENTS.md'],
   },
   s18: {
     capture:
-      'Upgrade the same wiki for a shared team: add CONTRIBUTING.md, ingest a scrubbed meeting note on a review branch, draft the stakeholder update from it, and score your 10-question kb-trust-check.md.',
+      'Upgrade workspace/ for team sharing: add CONTRIBUTING.md, ingest a scrubbed meeting note on a review branch, and score your blind 10-question kb-trust-check.md.',
     pages: ['CONTRIBUTING.md', 'wiki/kb-health.md', 'kb-trust-check.md'],
   },
   s19: {
     capture:
-      'Save the one skill you hand-wrote under skills/, your three-case test results in skill-checks.md, and the first bounded weekly briefing draft.',
+      'Save your hand-written skill under skills/, log your normal, conflicting and hostile diff results in skill-checks.md, and file your bounded weekly briefing.',
     pages: ['skills/', 'skill-checks.md', 'wiki/log.md'],
   },
   s20: {
     capture:
-      'Save team-playbook.md written in your own voice around a real queue wait, plus wiki/return-to-work.md linking the ten pages and habits you are taking back to work.',
+      'Save team-playbook.md written in your own voice around a real queue wait, plus wiki/return-to-work.md linking the habits and pages you are taking back to work.',
     pages: ['team-playbook.md', 'wiki/return-to-work.md'],
   },
 }
@@ -152,10 +148,10 @@ export const wikiMilestones: WikiMilestone[] = [
     levelId: 1,
     name: 'Context file',
     summary:
-      'One private notes folder with product-context.md at the top, so every AI conversation starts from your actual rules.',
+      'One private workspace/ folder with product-context.md at the top, so every AI conversation starts from your actual rules.',
     checks: [
-      'product-context.md covers the product, users, glossary, constraints, open decisions and sources',
-      'fact-sheet.md has a link and a check date for every claim',
+      'product-context.md covers the product, travellers or users, glossary, constraints, open decisions and sources',
+      'notes/fact-sheet.md has a link and a check date for every claim',
       'log.md has one line per session',
     ],
   },
@@ -163,10 +159,10 @@ export const wikiMilestones: WikiMilestone[] = [
     levelId: 2,
     name: 'Agent workspace',
     summary:
-      'Claude Code works from your folder: AGENTS.md points at the context, and git records every change.',
+      'Claude Code works from workspace/: AGENTS.md points at product-context.md, and git records every change.',
     checks: [
       'AGENTS.md is written in your words and points at product-context.md instead of repeating it',
-      'The workspace is a private git repository with clean commits',
+      'workspace/ is a private git repository with clean commits, and your static prototype opens cleanly in a browser',
       'A fresh Claude Code session explains your product and prototype from the files alone',
     ],
   },
@@ -177,7 +173,7 @@ export const wikiMilestones: WikiMilestone[] = [
       'Every claim about your product traces to a saved source, an interview note or a recorded decision.',
     checks: [
       'Market research briefs cite pages saved unchanged in sources/market/, with links and dates',
-      'The synthesis compares your hand themes with Claude’s and cites pseudonymised notes',
+      "The synthesis compares your hand themes with Claude's and cites pseudonymised notes",
       'decisions.md records what you chose, what you dropped and why; the PRD flags gaps as open questions',
     ],
   },
@@ -187,7 +183,7 @@ export const wikiMilestones: WikiMilestone[] = [
     summary:
       'From state spec to executive deck, the evidence a team lead would ask for, linked from one place.',
     checks: [
-      'State and tool-permission spec, slice breakdown and align check saved',
+      'State, latency/cost and tool-permission spec, slice breakdown and align check saved',
       'Eval report (with NOT TESTED boundaries) and experiment readout saved with their data',
       'The SCQA outline and stakeholder update match every figure in the readout',
     ],
@@ -196,7 +192,7 @@ export const wikiMilestones: WikiMilestone[] = [
     levelId: 5,
     name: 'PM OS',
     summary:
-      'An agent-maintained wiki upgraded for team sharing, tested with a blind trust check and a hand-written skill.',
+      'An agent-maintained wiki inside workspace/ upgraded for team sharing, tested with a blind trust check and a hand-written skill.',
     checks: [
       'wiki/index.md links every page, and every page has updated: and sources: frontmatter',
       'A blind 10-question trust check passes with verified citations and honest "Not in the wiki" refusals',
@@ -223,9 +219,9 @@ Group findings by severity and propose fixes I can approve one by one.`,
 }
 
 export const wikiRules = [
-  'Private by default. The workspace never goes into a public repository; your throwaway prototype can, the workspace does not.',
+  'Private by default. workspace/ never goes into a public repository; your standalone static prototype can, workspace/ does not.',
   "No employer or customer data in your personal workspace. Back at work, keep team knowledge inside your employer's approved repository and access rules.",
-  'Sources first: raw material is saved unchanged, pages that summarise it cite it, and nothing is claimed without a source.',
+  'Sources first: raw material is saved unchanged in sources/, pages that summarise it cite it, and nothing is claimed without a source.',
   'Git is your safety net. Commit before an ingest or skill run and inspect git diff before keeping any agent edit.',
   'Five minutes of filing at the end of a session beats an hour of archaeology next month.',
 ]

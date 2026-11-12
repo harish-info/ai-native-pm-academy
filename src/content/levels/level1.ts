@@ -6,11 +6,11 @@ export const level1: Level = {
   title: 'AI foundations',
   theme: 'Learn how the tools work, give them context and check what they say',
   summary:
-    'Start from everyday PM work. Learn how models and agents use context, compare two setups blind, verify an AI research answer against primary sources, and build a shareable pitch page. By default you work on MoneyPilot, a bank-app feature that subtracts scheduled bills from raw balance so monthly-paid customers see what is truly safe to spend before payday (or swap in your own product using public facts and fictional data). Your context file and fact sheet carry into every later level. Start with a free assistant account; tool options and usage limits vary by plan.',
+    'Start from everyday PM work. Learn how models and agents use context, compare two setups blind, verify an AI research answer against primary sources, and build a shareable pitch page. By default you work on Wayfinder, an AI weekend and city-trip planner for friends and families that pairs deterministic venue hours, transit buffers and per-person budget math with approval-gated replanning (or swap in your own product using public facts and fictional data). Your workspace files carry directly into every later level. Start with a free assistant account; tool options and usage limits vary by plan.',
   outcomes: [
-    'Explain tokens, the context window, the three layers (model, agent, interface) and model tier versus effort in language a risk officer or executive understands.',
+    'Explain tokens, the context window, the three layers (model, agent, interface) and model tier versus effort in language a teammate or executive understands.',
     'Compare two models or effort settings blind on a real PM task with explicit criteria, recording the date and settings.',
-    'Write a one-page product-context.md for MoneyPilot (or your own product) and use it in a Project so answers fit your product instead of the internet average.',
+    'Write a one-page product-context.md for Wayfinder (or your own product) in workspace/ and use it in a Project so answers fit your product instead of the internet average.',
     'Decide what to delegate with the 4Ds, and verify every material claim in an AI research answer against a primary source.',
     'Build and share an honest pitch page from your Markdown files, changing one thing at a time and checking every figure by hand.',
   ],
@@ -32,16 +32,16 @@ export const level1: Level = {
       competencies: ['ai-fundamentals'],
       xp: 100,
       mentorReview: 'optional',
-      goal: 'Explain in plain language how a model writes an answer, separate the model, agent and interface layers, choose a model tier and effort level for a PM job, and compare two setups blind on a MoneyPilot task.',
+      goal: 'Explain in plain language how a model writes an answer, separate the model, agent and interface layers, choose a model tier and effort level for a PM job, and compare two setups blind on a Wayfinder task.',
       whyItMatters:
-        'On a product like MoneyPilot, where one wrong balance or invented rule breaks user trust, your team needs a shared, plain-English grasp of how AI works. Knowing what the model sees, why answers vary across runs, and which layer failed when output disappoints lets you decide calmly what to automate and what to check.',
+        'On a product like Wayfinder, where an invented museum opening hour, an impossible walk across a harbour ferry or a dropped allergy note ruins a group weekend, your team needs a plain-English grasp of how AI works. Knowing what the model sees, why answers vary across runs, and which layer failed when output disappoints lets you decide calmly what code should calculate and what the model should explain.',
       learn: [
         {
           heading: 'How a model writes an answer',
           illustration: 'tokens',
           paragraphs: [
             'A large language model is trained on vast amounts of text to predict the next small chunk of characters, called a **token** (roughly three quarters of an English word; numbers and code take more tokens per word). After pretraining, labs tune the model on examples and human feedback so it follows instructions and answers like a helpful colleague.',
-            'When you send a prompt, the model reads everything in its context and generates the reply one token at a time, sampling from likely continuations rather than looking up a stored database. That single mechanism explains three things you will see on **MoneyPilot** (see [Case studies](/case-study), where a 14,000 kr raw balance minus 12,500 kr in scheduled bills leaves 1,500 kr truly safe before payday): why a wrong answer still sounds fluent (**hallucination**), why two runs of the same prompt differ, and why tested code must calculate every figure while the model only explains it.',
+            'When you send a prompt, the model reads everything in its context and generates the reply one token at a time, sampling from likely continuations rather than querying a verified timetable or calculator. That single mechanism explains three things you will see on **Wayfinder** (see [Case studies](/case-study), an AI weekend planner for friends and families): why a wrong museum schedule or transit estimate still sounds fluent (**hallucination**), why two runs of the same prompt differ, and why deterministic code must check venue hours, transit buffers and budget totals while the model handles messy preferences.',
           ],
         },
         {
@@ -66,18 +66,18 @@ export const level1: Level = {
         {
           heading: 'Which model tier and effort level for which PM job',
           paragraphs: [
-            '**Model choice** picks which engine does the work; **effort** controls how much thinking time that same model spends before replying. Raising effort on a mid-tier model keeps the same model and cannot supply missing product context or guarantee factual accuracy. Check the [Field guide](/field-guide) for current lab lineups and defaults.',
+            '**Model choice** picks which engine does the work; **effort** controls how much thinking time that same model spends before replying. Raising effort on a mid-tier model keeps the same model and cannot supply missing product context or live venue hours. Check the [Field guide](/field-guide) for current lab lineups and defaults.',
           ],
           bullets: [
-            '**Fast tier or low effort:** quick rewrites, formatting notes, or tagging feedback with categories you already tested, once all facts are supplied.',
-            '**Balanced tier at medium effort (everyday default):** drafting MoneyPilot interview questions, summarizing competitor pages, or building a first prototype.',
-            '**Flagship tier or high effort:** weighing conflicting PRD and regulatory constraints, stress-testing a strategy memo, or debugging a stubborn prototype state after giving the failing steps.',
+            '**Fast tier or low effort:** quick rewrites, formatting notes, or tagging trip feedback with categories you already tested, once all facts are supplied.',
+            '**Balanced tier at medium effort (everyday default):** drafting Wayfinder interview questions, summarizing competitor pages, or building a first prototype.',
+            '**Flagship tier or high effort:** weighing conflicting PRD and safety constraints, stress-testing a strategy memo, or debugging a stubborn prototype state after giving the failing steps.',
           ],
         },
         {
           heading: 'Compare setups blind on your own task',
           paragraphs: [
-            'Skip debates about which model is "best overall". Write four task criteria first: factual accuracy, constraint following, usefulness for the target reader, and honesty about uncertainty. Run the exact same MoneyPilot prompt across two models or two effort settings, relabel the outputs blind, score each 1 to 5, and quote the exact sentence behind every low score. Record the date, model names and enabled features (such as web search or memory) so you know whether you compared raw models or whole products.',
+            'Skip debates about which model is "best overall". Write four task criteria first: factual accuracy, constraint following, usefulness for the target reader, and honesty about uncertainty. Run the exact same Wayfinder prompt across two models or two effort settings, relabel the outputs blind, score each 1 to 5, and quote the exact sentence behind every low score. Record the date, model names and enabled features (such as web search or memory) so you know whether you compared raw models or whole products.',
           ],
         },
       ],
@@ -120,62 +120,58 @@ export const level1: Level = {
       ],
       task: {
         summary:
-          'Create your private notes folder, draft a plain-language AI glossary, and compare two models or effort settings blind on a MoneyPilot discovery task.',
+          'Create your private `workspace/` folder, draft a plain-language AI glossary, and compare two models or effort settings blind on a Wayfinder discovery task.',
         steps: [
-          '**Think first (no AI):** Create a private `learning-notes/` folder on your computer (not on a shared drive). Watch the assigned explainer, then draft `glossary.md` in your own words (1 to 2 sentences each) for: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (retrieval-augmented generation: fetching documents into context before answering). Next, write four 1-to-5 scoring criteria (accuracy, constraint following, usefulness, honesty about uncertainty) for a MoneyPilot PM task: drafting 8 discovery interview questions for monthly-paid bank customers whose raw balance hides automatic bills due before payday.',
-          "**Work with your agent:** Run that MoneyPilot interview-question request in two fresh chats using two models or two effort settings (recording date, full model names, effort level and enabled features). Rerun one setup once in a fresh chat to observe sampling variance, test one question about this week's news with web search off versus on, and run the glossary check brief below with the brackets filled in.",
-          '**Check and try to break it:** Score both MoneyPilot outputs blind from 1 to 5 on your four criteria before asking any AI to critique them, quoting the exact sentence behind every score below 4. Then inspect the glossary check table line by line to separate genuinely sharper edits from over-confident rewrites that add jargon.',
-          '**Make the call:** Save `model-comparison.md` (date, setups compared, blind scores with quoted evidence, variance note, web-search note, and which setup you pick for this job) and your accepted edits in `glossary.md` inside `learning-notes/`, confirming zero employer, customer or confidential data entered any chat.',
+          '**Think first (no AI):** Create a private `workspace/notes/` folder on your computer, outside any shared work drive. Draft `notes/glossary.md` in your own words (1 to 2 sentences each) for token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent and RAG. Write four 1-to-5 criteria to judge 8 discovery interview questions for friends planning a weekend city trip across group chats.',
+          '**Work with your agent:** Run that Wayfinder interview-question prompt in two fresh chats across two models or two effort settings, noting date, model names and active tools. Rerun one setup once in a fresh chat to see sampling variance, and test one current-week question with web search off versus on. Run the glossary check brief below with your own audience filled in.',
+          '**Check and try to break it:** Relabel both Wayfinder outputs blind and score each from 1 to 5 on your four criteria before reading any AI critique. Quote the exact sentence behind every score below 4. Check the glossary verdict table line by line to separate genuinely clearer edits from confident jargon.',
+          '**Make the call:** Save `notes/model-comparison.md` with your setups, blind scores, variance note, web-search check and chosen default for this task. Save only the edits you stand behind in `notes/glossary.md`. Confirm zero employer, customer or confidential data entered any chat.',
         ],
       },
       agentPrompt: {
         tool: 'Claude',
-        where: 'A fresh chat, with your glossary.md pasted below',
-        text: `Below is a glossary of 10 AI terms I wrote in my own words. I am a product manager, and I need these definitions clear enough for [who you explain AI terms to, e.g. risk, legal and engineering on a retail banking team].
+        where: 'A fresh chat, with your notes/glossary.md pasted below',
+        text: `Below is a glossary of 10 AI terms I wrote in my own words. I am a product manager, and I need these definitions clear enough for [who you explain AI terms to, e.g. design, trust-and-safety and engineering teammates on a consumer travel product].
 
 Pay closest attention to [one term from your glossary you feel least sure about].
 
 For each term:
 1. Verdict: Correct, Partly correct, or Wrong.
 2. If not fully correct, explain the problem in one sentence and suggest a plain-English fix.
-3. Flag any shortcut that would mislead a risk or compliance reviewer, even if common in casual chat.
+3. Flag any shortcut that would mislead a trust, legal or engineering reviewer, even if common in casual chat.
 
 Rules:
 - Keep my wording wherever it is already accurate.
 - If a distinction is debated or tool-specific, say so instead of guessing.
 - Return a Markdown table: Term | Verdict | Problem | Suggested sentence.
 
-[paste your glossary.md here]`,
+[paste your notes/glossary.md here]`,
       },
       expectedOutput: [
-        '`glossary.md`: ten terms in your own words, checked critically, keeping only edits you stand behind.',
-        '`model-comparison.md`: one MoneyPilot task, two models or effort settings scored blind on four criteria with quoted sentences, plus notes on sampling variance and web search.',
+        '`notes/glossary.md`: ten terms in your own words, checked critically, keeping only edits you stand behind.',
+        '`notes/model-comparison.md`: one Wayfinder task, two models or effort settings scored blind on four criteria with quoted sentences, plus notes on sampling variance and web search.',
       ],
-      artifact: '`glossary.md` and `model-comparison.md` in your private `learning-notes/` folder.',
+      artifact:
+        '`notes/glossary.md` and `notes/model-comparison.md` in your private `workspace/` folder.',
       verification: [
-        'You scored both MoneyPilot outputs blind before reading any AI critique of them.',
+        'You scored both Wayfinder outputs blind before reading any AI critique of them.',
         'Your definitions of context window, model, agent and interface make sense read aloud to someone non-technical.',
         'The comparison records the date, full model names and effort or tool settings, and states whether it compares models or products.',
         'You rejected or adjusted at least one glossary suggestion, or wrote down why every suggestion was genuinely right.',
       ],
       reflectionPrompts: [
-        'Which score or sampling difference surprised you most on the MoneyPilot prompt, and why?',
+        'Which score or sampling difference surprised you most on the Wayfinder prompt, and why?',
         'When a result disappoints next week, how will you tell whether the brief, the model tier or the agent layer caused it?',
-        'What part of MoneyPilot must never rely on next-token prediction?',
+        'What part of Wayfinder must never rely on next-token prediction?',
       ],
       checklist: [
         {
-          id: 'explainers',
-          text: 'Watched the short explainer and explained next-token prediction aloud',
-        },
-        {
           id: 'glossary',
-          text: 'Wrote glossary.md in my own words and reviewed every AI suggestion myself',
+          text: 'Wrote `notes/glossary.md` in my own words and reviewed every AI suggestion myself',
         },
-        { id: 'tool-test', text: 'Tried one current-week question with web search off and on' },
         {
           id: 'compared',
-          text: 'Compared two models or effort settings blind on a MoneyPilot task and scored them',
+          text: 'Compared two models or effort settings blind on a Wayfinder task and scored them',
         },
         { id: 'variance', text: 'Reran one request and recorded how the answer varied' },
         {
@@ -184,9 +180,9 @@ Rules:
         },
       ],
       mentorMove:
-        "Relabel the two MoneyPilot outputs as A and B so she scores blind. Then ask her to explain the difference between a chat and an agent as if you were the bank's chief risk officer, and push back once with a hard follow-up question.",
+        'Relabel the two Wayfinder outputs as A and B so they score blind. Then ask them to explain the difference between a chat and an agent as if you were a product trust-and-safety lead worried about unapproved restaurant holds, and push back once with a hard follow-up question.',
       soloMove:
-        'Paste both outputs into two unlabelled notes, take a five-minute break, shuffle their order and score them blind before checking which setup wrote which. Then read your chat-versus-agent definition aloud and check whether a retail-banking risk lead would know which actions need human approval.',
+        'Paste both outputs into two unlabelled notes, take a five-minute break, shuffle their order and score them blind before checking which setup wrote which. Then read your chat-versus-agent definition aloud and check whether a teammate would know why reservation holds need explicit human approval.',
     },
     {
       id: 's2',
@@ -200,16 +196,16 @@ Rules:
       competencies: ['prompting-context', 'ai-fundamentals'],
       xp: 100,
       mentorReview: 'recommended',
-      goal: 'Write a one-page `product-context.md` for MoneyPilot, load it into a Claude Project so answers reflect real product constraints, and audit ten PM tasks with the 4Ds.',
+      goal: 'Write a one-page `product-context.md` for Wayfinder in `workspace/`, load it into a Claude Project so answers reflect real product constraints, and audit ten PM tasks with the 4Ds.',
       whyItMatters:
-        'Ask a bare chat for a MoneyPilot competitor summary and you get generic fintech praise that ignores monthly pay cycles, deterministic balance math and UK or EU regulated-advice boundaries. Clever prompt wording cannot invent missing facts. Giving your agent a concise context file fixes the answer today and anchors every workspace you build later.',
+        'Ask a bare chat for a Wayfinder competitor summary and you get generic travel-blog advice that ignores Monday museum closures, ferry transfer buffers, allergy safety and approval-gated reservation holds. Clever prompt wording cannot invent missing facts. Giving your agent a concise context file fixes the answer today and stays at the root of `workspace/` through Level 5.',
       learn: [
         {
           heading: 'Why generic answers happen, and what the model sees',
           illustration: 'context',
           paragraphs: [
-            'Ask a bare chat for a competitor summary for MoneyPilot and you get smooth fintech clichés that could describe any budgeting app. Adding "you are a world-class strategy consultant" changes the tone, not the substance, because a role title cannot supply missing facts. **Context engineering** means diagnosing what a capable new teammate would need on day one and putting only that into the window.',
-            'If a sharp PM joining MoneyPilot tomorrow could not do the job from what you pasted, neither can the model. Test that difference directly by comparing a bare prompt, a role-phrase prompt, and a Project chat backed by your context file. Everything the model uses arrives through six inputs:',
+            'Ask a bare chat for a competitor summary for Wayfinder and you get smooth travel-tech clichés that could describe any itinerary app. Adding "you are a world-class travel strategist" changes the tone, not the substance, because a role title cannot supply missing facts. **Context engineering** means diagnosing what a capable new teammate would need on day one and putting only that into the window.',
+            'If a sharp PM joining Wayfinder tomorrow could not do the job from what you pasted, neither can the model. Test that difference directly by comparing a bare prompt, a role-phrase prompt, and a Project chat backed by your context file. Everything the model uses arrives through six inputs:',
           ],
           bullets: [
             '**Instructions:** product defaults plus your custom or Project rules.',
@@ -221,17 +217,17 @@ Rules:
           ],
         },
         {
-          heading: 'Write product-context.md for MoneyPilot in Markdown',
+          heading: 'Write product-context.md for Wayfinder in Markdown',
           paragraphs: [
-            'Across this course we use **MoneyPilot** (full spec in [Case studies](/case-study)): a retail bank-app feature showing monthly-paid customers their real `Safe before payday` (`14,000 kr` raw balance minus `12,500 kr` scheduled bills = `1,500 kr` left before everyday spending) plus an AI drawer for grounded Q&A and customer-approved cover transfers. Capture it in a one-page `product-context.md` so context rot never hits your own reference files. Wherever a detail is unsettled, write `Unknown` rather than a plausible guess; otherwise every future chat treats your guess as decided policy.',
-            'Write the file in **Markdown** (`.md`), plain text structured with `#` and `##` headings, `-` bullets, `1.` numbered steps, `**bold**` and `[label](link)` links (Obsidian in the [Starter kit](/starter-kit) previews it cleanly). Load `product-context.md` into a **Claude Project** so every chat starts grounded; in Session 5 it moves to the root of your coding-agent workspace, and in Level 5 it anchors your knowledge base. Use six headings:',
+            'Across this course we use **Wayfinder** (full spec in [Case studies](/case-study)): an AI weekend and city-trip planner for friends and families with two v1 surfaces. **Day Plan & Budget Split** uses deterministic code to verify venue opening hours, door-to-door transit buffers and remaining per-person budget after booked stops. **Ask Wayfinder** is a grounded replanning drawer that respects pinned group constraints (such as a `tree-nut allergy` or `step-free` access) and stages reservation holds or group polls behind an explicit `Confirm hold` tap. Capture it in a one-page `workspace/product-context.md`, writing `Unknown` wherever a detail is unsettled so future sessions never treat a guess as decided policy.',
+            'Write the file in **Markdown** (`.md`), plain text structured with `#` and `##` headings, `-` bullets, `1.` numbered steps, `**bold**` and `[label](link)` links (Obsidian in the [Starter kit](/starter-kit) previews it cleanly). Load `product-context.md` into a **Claude Project** now; because it already lives at the root of `workspace/`, Claude Code will read the exact same file in Session 5 without moving or renaming folders. Use six headings:',
           ],
           bullets: [
-            '**Product:** what MoneyPilot is (`Safe before payday` + `Ask MoneyPilot` drawer) and what v1 excludes.',
-            '**Users:** monthly-paid bank customers whose raw balance hides automatic AvtaleGiro, eFaktura and card bills due before the 25th.',
-            '**Glossary:** exact team terms such as `Safe before payday`, `scheduled bills only (excludes everyday spending)`, and `BankID confirmation`.',
-            '**Constraints:** tested code calculates every krone and date while the model only explains; Norwegian (Finanstilsynet) and EEA information-not-advice rules; shortfalls never shown by colour alone.',
-            '**Open decisions:** unresolved product or compliance calls and who decides.',
+            '**Product:** what Wayfinder is (`Day Plan & Budget Split` + `Ask Wayfinder` drawer) and what v1 excludes.',
+            '**Users:** friends and families coordinating a two-day city trip across scattered group-chat screenshots and saved links.',
+            '**Glossary:** exact product terms such as `Left after booked stops (meals and local transit not included)`, `transit buffer`, and `Confirm hold` (`status: "awaiting_approval"`).',
+            '**Constraints:** tested code owns venue hours, transit minutes and budget math; hard dietary and step-free constraints stay pinned across replans; holds never auto-book; visa, insurance and medical rulings are refused; warnings never rely on colour alone.',
+            '**Open decisions:** unresolved product, partner or trust calls and who decides.',
             '**Sources:** where every stated fact came from, with dates.',
           ],
         },
@@ -240,8 +236,8 @@ Rules:
           illustration: 'delegate',
           paragraphs: [
             "Anthropic's AI Fluency course frames everyday AI work around four skills: **Delegation** (what to hand off versus keep), **Description** (clear context and done criteria), **Discernment** (evaluating what comes back), and **Diligence** (owning verification and transparency).",
-            "Map delegation along two questions: how much human judgment does the task demand, and what does an error cost? Delegate high-volume, low-judgment chores like reformatting notes or first-pass competitor tables with spot checks. Keep roadmap trade-offs, people feedback, and MoneyPilot's deterministic calculation rules in human or tested-code hands.",
-            'Never paste unread AI output into Slack or a doc for teammates to sort out. Acting as a **meat proxy** offloads the review you skipped onto colleagues. If you send it, you own every claim in it.',
+            "Map delegation along two questions: how much human judgment does the task demand, and what does an error cost? Delegate high-volume, low-judgment chores like reformatting trip notes or first-pass competitor tables with spot checks. Keep roadmap trade-offs, teammate feedback, and Wayfinder's deterministic hours, transit and budget rules in human or tested-code hands.",
+            'Never act as a **meat proxy**, using AI to inflate a short thought into a long Slack message or doc that teammates then have to summarise back down with their own AI or review for you. Send the clear point directly, and own every claim under your name.',
           ],
         },
       ],
@@ -279,77 +275,69 @@ Rules:
       ],
       task: {
         summary:
-          'Compare a bare chat, a role-phrase prompt and a Project grounded in `product-context.md` on a MoneyPilot competitor summary, then refine your context file and audit 10 PM tasks.',
+          'Compare a bare chat, a role-phrase prompt and a Project grounded in `product-context.md` on a Wayfinder competitor summary, then refine your context file and audit 10 PM tasks.',
         steps: [
-          '**Think first (no AI):** Using the MoneyPilot spec in [Case studies](/case-study) as raw notes, write a one-page `product-context.md` in `learning-notes/` in your own words under the six headings (Product, Users, Glossary, Constraints, Open decisions, Sources), marking genuine unknowns as `Unknown` rather than guessing. Then draft `delegation-audit.md` listing 10 real PM tasks across your week and classifying each with the 4Ds (delegate with spot checks, co-draft and edit, or keep human-only).',
-          '**Work with your agent:** Run three versions of a MoneyPilot competitor summary: first in a bare chat with no context, second in a fresh chat opening with "You are a world-class strategy consultant; think step by step" (save both side by side in `summary-comparison.md`), and third inside a `PM workspace` Claude Project containing `product-context.md`, 4 to 6 lines of project instructions, and 3 public budgeting or bank-app pages pasted into the brief below (save as `summary-v1.md` for Session 3; if your plan lacks Projects, paste `product-context.md` at the top of a fresh chat).',
-          '**Check and try to break it:** Score all three drafts from 1 to 5 on the same criteria (relevance to monthly-paid users, fidelity to constraints, evidence from the pasted pages, honesty about unknowns) and inspect `Gaps and assumptions` in `summary-v1.md` to verify every implication cites a real line from `product-context.md` rather than generic fintech buzzwords.',
-          '**Make the call:** Update `product-context.md` yourself where you know the answer to a flagged gap, move unresolved questions into Open decisions, and finish `delegation-audit.md` by naming for each task the context file needed, what you check by hand, and who owns a mistake.',
+          '**Think first (no AI):** Using the Wayfinder spec in [Case studies](/case-study) as raw notes, write a one-page `workspace/product-context.md` under the six headings, marking unsettled items `Unknown`. Draft `notes/delegation-audit.md` listing 10 real PM tasks across your week and classifying each with the 4Ds.',
+          '**Work with your agent:** Ask for a Wayfinder competitor summary first in a bare chat and second with a "world-class strategy consultant" role opener, saving both in `notes/summary-comparison.md`. Create a `PM workspace` Project holding `product-context.md` and 4 to 6 instruction lines (or paste `product-context.md` into a fresh chat on free plans). Run the grounded brief below with 3 public trip-planning or map-app pages and save `notes/summary-v1.md`.',
+          '**Check and try to break it:** Score all three summaries from 1 to 5 on group-trip relevance, constraint fidelity, source evidence and honesty about unknowns. Check `Gaps and assumptions` in `notes/summary-v1.md` to confirm every implication quotes a real line from `product-context.md` instead of generic travel clichés.',
+          '**Make the call:** Update `product-context.md` yourself where you know the answer to a flagged gap and log open choices under Open decisions. Complete `notes/delegation-audit.md` by naming the context file, human check and accountable owner for each task.',
         ],
       },
       agentPrompt: {
         tool: 'Claude',
         where:
           'A chat inside your PM workspace Project, with product-context.md in project knowledge',
-        text: `Goal: a one-page competitor summary for MoneyPilot to support [who is reading this summary and what decision they face].
+        text: `Goal: a one-page competitor summary for Wayfinder to support [who is reading this summary and what decision they face].
 
-Context: product-context.md in this project defines our product, monthly-paid users, constraints and open decisions. Judge every competitor specifically against [the one constraint from product-context.md competitors must be judged against].
+Context: product-context.md in this project defines our product, weekend group-trip users, constraints and open decisions. Judge every competitor specifically against [the one constraint from product-context.md competitors must be judged against].
 
 Material (use only these pages and product-context.md; do not guess from memory):
-[paste 3 public competitor or personal-finance app pages and URLs]
+[paste 3 public trip-planner, itinerary or map-app pages and URLs]
 
 What good looks like:
-- Markdown table: Competitor | What it offers monthly-paid users | How it handles pre-payday bill timing | Where it hands off to a person or regulated flow | Source URL.
-- Three implications for MoneyPilot, each quoting the exact line in product-context.md it relies on.
+- Markdown table: Competitor | What it offers weekend group planners | How it verifies venue hours, transit buffers and budgets | How it handles group constraints and booking approvals | Source URL.
+- Three implications for Wayfinder, each quoting the exact line in product-context.md it relies on.
 - "Gaps and assumptions": anything needed that was missing from the pasted pages or product-context.md. Mark unsupported details as "unverified".
 
 Constraints: under 400 words outside the table, plain language.`,
       },
       expectedOutput: [
-        '`product-context.md`: one page with Product, Users, Glossary, Constraints, Open decisions and Sources, using `Unknown` instead of guesses.',
-        '`summary-comparison.md` (bare chat versus role phrase) and `summary-v1.md` (Project-grounded), scored on the same criteria.',
-        '`delegation-audit.md`: ten PM tasks with delegation call, required context, human check and owner.',
+        '`workspace/product-context.md`: one page with Product, Users, Glossary, Constraints, Open decisions and Sources, using `Unknown` instead of guesses.',
+        '`notes/summary-comparison.md` (bare chat versus role phrase) and `notes/summary-v1.md` (Project-grounded), scored on the same criteria.',
+        '`notes/delegation-audit.md`: ten PM tasks with delegation call, required context, human check and owner.',
       ],
       artifact:
-        '`product-context.md`, `summary-comparison.md`, `summary-v1.md` and `delegation-audit.md`, plus a `PM workspace` Project.',
+        '`product-context.md`, `notes/summary-comparison.md`, `notes/summary-v1.md` and `notes/delegation-audit.md` in `workspace/`, plus a `PM workspace` Project.',
       verification: [
         '`product-context.md` fits on one page and every stated fact has a source or is marked `Unknown`.',
-        'You can point to the exact lines in `product-context.md` that changed `summary-v1.md` compared with the role-phrase run.',
+        'You can point to the exact lines in `product-context.md` that changed `notes/summary-v1.md` compared with the role-phrase run.',
         'You wrote `product-context.md` and every edit to it yourself; the assistant only surfaced gaps.',
-        'Every delegated task in `delegation-audit.md` names a concrete check rather than "review quickly".',
+        'Every delegated task in `notes/delegation-audit.md` names a concrete check rather than "review quickly".',
       ],
       reflectionPrompts: [
         'How little did the "world-class strategy consultant" role phrase change compared with adding `product-context.md`?',
-        'Which `Unknown` or gap in MoneyPilot surprised you most once the assistant tried to use your file?',
+        'Which `Unknown` or gap in Wayfinder surprised you most once the assistant tried to use your file?',
         'Which PM task were you tempted to delegate completely, and what error cost made you hold back?',
       ],
       checklist: [
         {
-          id: 'generic-first',
-          text: 'Saved the bare-chat and role-phrase summaries side by side in summary-comparison.md',
-        },
-        {
           id: 'context-file',
-          text: 'Wrote a one-page product-context.md for MoneyPilot with sources and Unknowns',
-        },
-        {
-          id: 'project',
-          text: 'Set up a PM workspace Project with the file and short instructions',
+          text: 'Wrote a one-page `workspace/product-context.md` for Wayfinder with sources and Unknowns',
         },
         {
           id: 'summary-v1',
-          text: 'Saved a grounded summary-v1.md for Session 3 and scored all three drafts',
+          text: 'Saved a grounded `notes/summary-v1.md` for Session 3 and scored all three drafts',
         },
         {
           id: 'gaps',
-          text: 'Updated product-context.md and Open decisions myself from the gaps list',
+          text: 'Updated `product-context.md` and Open decisions myself from the gaps list',
         },
-        { id: 'audit', text: 'Wrote a ten-task delegation audit using the 4Ds' },
+        { id: 'audit', text: 'Wrote a ten-task `notes/delegation-audit.md` using the 4Ds' },
       ],
       mentorMove:
-        'Read her `product-context.md` cold and say what you, as a banking engineer joining tomorrow, would still need to know before building MoneyPilot. Then challenge one task she delegated in the audit: what would go wrong, and how would she notice?',
+        'Read their `product-context.md` cold and say what you, as an engineer joining tomorrow, would still need to know before building Wayfinder. Then challenge one task they delegated in the audit: what would go wrong, and how would they notice?',
       soloMove:
-        'Open a fresh chat outside your Project, paste only `product-context.md`, and ask: "Read this as a sceptical retail-banking engineer and compliance lead joining tomorrow. List the 5 ambiguities most likely to cause a wrong build." Fix or log the valid gaps under Open decisions yourself.',
+        'Open a fresh chat outside your Project, paste only `product-context.md`, and ask: "Read this as a sceptical senior engineer and trust-and-safety lead joining tomorrow. List the 5 ambiguities most likely to cause a wrong build." Fix or log the valid gaps under Open decisions yourself.',
     },
     {
       id: 's3',
@@ -364,23 +352,23 @@ Constraints: under 400 words outside the table, plain language.`,
       xp: 100,
       mentorReview: 'recommended',
       safetyCritical: true,
-      goal: 'Answer a real market or regulatory question for MoneyPilot with web search, verify every material claim against primary sources, and enforce strict rules on what never enters an assistant.',
+      goal: 'Answer a real market or travel-consumer question for Wayfinder with web search, verify every material claim against primary sources saved in `workspace/sources/`, and enforce strict rules on what never enters an assistant.',
       whyItMatters:
-        'A fluent MoneyPilot research brief can cite a working URL while misstating a Norwegian or EEA rule, mixing survey populations, or quoting an outdated overdraft figure in kr. Checking atomic claims against primary sources stops your roadmap from resting on an invented statistic.',
+        'A fluent Wayfinder research brief can cite a working URL while misstating tourism statistics, mixing overnight hotel trips with day trips, or repeating a booking platform marketing post as neutral evidence. Checking atomic claims against primary sources stops your roadmap from resting on an invented statistic.',
       learn: [
         {
           heading: 'Why web-backed answers still get facts wrong',
           paragraphs: [
-            'Language models optimize for plausible continuations, so they can state an invented overdraft figure or quote with total confidence (**hallucination**). Switching on web search or paid **Research** mode cuts invented URLs because the assistant reads live pages, yet citations still fail in three common ways: the link is dead, the page exists without saying what the AI claimed, or the number applies to a different year, country or group.',
-            "Search tools can also repeat a fintech vendor's marketing blog as neutral evidence, merge two incompatible statistics, or turn a cautious pilot announcement into a full market launch.",
+            'Language models optimize for plausible continuations, so they can state an invented leisure-travel figure or restaurant no-show rule with total confidence (**hallucination**). Switching on web search or paid **Research** mode cuts invented URLs because the assistant reads live pages, yet citations still fail in three common ways: the link is dead, the page exists without saying what the AI claimed, or the number applies to a different year, country or traveller segment.',
+            "Search tools can also repeat a travel vendor's launch blog as neutral evidence, merge two incompatible surveys, or turn a narrow city pilot into a global feature rollout.",
           ],
         },
         {
           heading: 'Audit atomic claims with four labels',
           illustration: 'verification',
           paragraphs: [
-            'Do not grade an AI report as a single block. Split it into atomic claims, then separate **material claims** (statements that would change a MoneyPilot product, risk or scope call if wrong) from **background claims**. Open the cited page yourself for every material claim, check that the page exists and matches the exact number, unit, date and population, and assign one of four labels:',
-            'For example, if an AI summary claims "35% of Norwegian adults enter an unplanned overdraft before payday" and the linked Finanstilsynet or Statistics Norway (SSB) report actually measured adults aged 18 to 24 carrying consumer credit across a full year, the link works and the claim is still **Partly supported** until you rewrite it to match the report.',
+            'Do not grade an AI report as a single block. Split it into atomic claims, then separate **material claims** (statements that would change a Wayfinder product, partner or safety call if wrong) from **background claims**. Open the cited page yourself for every material claim, save the unedited text in `workspace/sources/`, check that the page matches the exact number, unit, date and population, and assign one of four labels:',
+            'For example, if an AI summary claims "42% of weekend group trips cancel an activity due to schedule mistakes" and the linked national tourism survey actually measured all domestic holidaymakers changing outdoor plans for weather across a full summer, the link works and the claim is still **Partly supported** until you rewrite it to match the report.',
           ],
           bullets: [
             '**Verified:** the source states this exact fact for your market and timeframe.',
@@ -392,18 +380,18 @@ Constraints: under 400 words outside the table, plain language.`,
         {
           heading: 'Primary sources, web search and Research',
           paragraphs: [
-            "Trust a source when it observed the evidence directly. For MoneyPilot's Norwegian and EEA consumer-finance space, **primary sources** include financial regulators (such as Finanstilsynet or the EBA), national statistics offices (such as SSB), central banks (Norges Bank), and a rival's own product or pricing pages in kr for what it says it offers. Journalism and analyst summaries are **secondary** interpretations; forum threads are useful discovery signals for user pain, never proof of market prevalence. Ask three questions of every page you open: did this publisher measure the thing directly, do they gain commercially if you believe it, and has an independent body confirmed it?",
+            "Trust a source when it observed the evidence directly. For Wayfinder's consumer travel and local-experiences space, **primary sources** include national statistics and tourism boards (such as Eurostat, the ONS or national transport authorities), consumer-protection agencies on booking deposits and cancellation disclosures, accessibility standards bodies, and a rival's own help or pricing pages for what it states it offers. Press articles and trend roundups are **secondary** interpretations; forum threads are useful discovery signals for group-planning frustration, never proof of market prevalence. Ask three questions of every page you open: did this publisher measure the thing directly, do they gain commercially if you believe it, and has an independent body confirmed it?",
             "Claude's standard web search (on the free plan) checks a handful of pages quickly; **Research** (on paid plans) runs a multi-step search agent across many pages to compile a longer report. Brief either mode with explicit geography, recency window and source rules, and require separate sections for inferences and unfound answers. Running the same brief twice in fresh chats is a cheap cross-check: wherever the two runs disagree, look first.",
           ],
         },
         {
           heading: 'What never goes into an assistant',
           paragraphs: [
-            "Prompts and attachments may be logged, reviewed for safety or used for model training depending on plan settings, and deleting a chat afterwards does not undo a disclosure. At work, your employer's approved-tool policy sets the boundary; throughout this course, use only public sources and fictional MoneyPilot data.",
+            "Prompts and attachments may be logged, reviewed for safety or used for model training depending on plan settings, and deleting a chat afterwards does not undo a disclosure. At work, your employer's approved-tool policy sets the boundary; throughout this course, use only public sources and fictional Wayfinder data.",
           ],
           bullets: [
-            '**Personal data:** real customer, user or colleague names, contact details, bank account numbers, transactions or support transcripts.',
-            '**Confidential company data:** internal metrics, unreleased roadmaps, commercial terms, architecture or compliance reviews.',
+            '**Personal data:** real user, friend or colleague names, phone numbers, passport details, private health or allergy records, or real booking receipts.',
+            '**Confidential company data:** internal metrics, unreleased roadmaps, partner commission terms or internal incident reviews.',
             '**Credentials:** passwords, API keys or access tokens (if one ever slips into a chat, revoke and rotate it immediately).',
           ],
         },
@@ -437,28 +425,28 @@ Constraints: under 400 words outside the table, plain language.`,
       ],
       task: {
         summary:
-          'Research one publicly verifiable MoneyPilot question across two fresh runs, audit 10 material claims directly against primary sources, and save `fact-sheet.md`.',
+          'Research one publicly verifiable Wayfinder question across two fresh runs, audit 10 material claims directly against primary sources saved in `workspace/sources/`, and save `notes/fact-sheet.md`.',
         steps: [
-          '**Think first (no AI):** Write one specific, publicly verifiable research question for MoneyPilot (for example, UK or EU household bill-timing shortfalls, unplanned overdraft usage, or open-banking rules for displaying upcoming payments) and pick the single claim in `summary-v1.md` from Session 2 that you doubt most.',
-          '**Work with your agent:** Fill in the bracketed blanks in the research prompt below and run it twice in two separate fresh chats with web search (or Research) switched on. Save both outputs alongside `summary-v1.md`.',
-          '**Check and try to break it:** Extract the 10 most material claims across `summary-v1.md` and both research runs into a verification table (Claim | Cited source | Label | Your verified URL | Source date). Open every cited source yourself to label each (`Verified`, `Partly supported`, `Unsupported`, `Contradicted`), and find at least 1 relevant primary source (regulator, statistics office or official product page) that neither AI run cited.',
-          '**Make the call:** Save `fact-sheet.md` in `learning-notes/` with your `Verified` facts (exact figures, units, dates and URLs) plus a `What I could not verify` list, update `product-context.md` sources (fixing anything contradicted), and check all chats to confirm zero personal, confidential or credential data was pasted.',
+          '**Think first (no AI):** Create `workspace/sources/` for raw reference pages. Write one specific, publicly verifiable research question for Wayfinder (such as short-break tourism patterns, public-transit reliability, or restaurant reservation deposit disclosures). Pick the single claim in `notes/summary-v1.md` from Session 2 that you doubt most.',
+          '**Work with your agent:** Fill in the bracketed blanks in the research prompt below. Run it twice in two separate fresh chats with web search (or Research) switched on. Save both outputs in `workspace/notes/` alongside `summary-v1.md`.',
+          '**Check and try to break it:** Pull 10 material claims from `summary-v1.md` and both runs into a verification table. Open every cited link yourself, save the raw pages you rely on in `workspace/sources/`, and label each claim (`Verified`, `Partly supported`, `Unsupported`, `Contradicted`). Find at least one relevant primary source (statistics office, transport authority, consumer regulator or official product page) that neither AI run cited.',
+          '**Make the call:** Save `notes/fact-sheet.md` with your `Verified` facts (exact figures, units, dates and URLs) plus `What I could not verify`. Update `product-context.md` Sources and fix any contradicted line. Review your chats to confirm zero personal, confidential or credential data was pasted.',
         ],
       },
       agentPrompt: {
         tool: 'Claude with web search or Research',
         where: 'Two separate fresh chats in your PM workspace Project, with web search switched on',
-        text: `Research question: [your MoneyPilot research question]
+        text: `Research question: [your Wayfinder research question]
 
-Claim from my earlier draft to stress-test: [the one claim from summary-v1.md you doubt most and want checked against primary sources]
+Claim from my earlier draft to stress-test: [the one claim from notes/summary-v1.md you doubt most and want checked against primary sources]
 
 Scope:
-- Geography: [geography, e.g. UK]
+- Geography: [geography, e.g. UK or Europe]
 - Time window: sources published in the last 24 months, unless a foundational regulation or series is older
-- Audience: a product manager preparing an internal MoneyPilot fact sheet
+- Audience: a product manager preparing an internal Wayfinder fact sheet
 
 Source requirements:
-- Prefer primary sources: financial regulators, national statistics offices, central banks, peer-reviewed studies, and official company pages for what a product states it offers.
+- Prefer primary sources: national statistics or tourism offices, public transport authorities, consumer-protection regulators, peer-reviewed studies, and official company pages for what a product states it offers.
 - Use reputable press or analyst reports only when no primary source exists, and label them secondary.
 - Label a company's claims about its own customer outcomes as company claims.
 - Do not cite forums, content farms or AI-generated roundups as factual evidence.
@@ -470,15 +458,15 @@ Output format:
 4. Separate sections titled "Inferred, not sourced" and "Could not find". Never invent a statistic, quote or URL.`,
       },
       expectedOutput: [
-        'A 10-claim verification table with labels, source dates and links you opened yourself.',
-        '`fact-sheet.md`: verified MoneyPilot market and regulatory facts with exact citations, plus `What I could not verify`.',
-        'An updated Sources section in `product-context.md`.',
+        'A 10-claim verification table with labels, source dates and links you opened yourself, backed by raw pages in `workspace/sources/`.',
+        '`notes/fact-sheet.md`: verified Wayfinder market, transport or consumer-protection facts with exact citations, plus `What I could not verify`.',
+        'An updated Sources section in `workspace/product-context.md`.',
       ],
       artifact:
-        '`fact-sheet.md` in `learning-notes/`: every fact sourced, dated and checked by you.',
+        '`notes/fact-sheet.md` and raw reference pages in `workspace/sources/`, checked by you.',
       verification: [
         'Every material claim has a source link that you opened and read in your own browser.',
-        'At least one primary source appears in `fact-sheet.md` that neither AI run cited.',
+        'At least one primary source appears in `notes/fact-sheet.md` that neither AI run cited.',
         'Every quoted number matches its source on unit, year, population and geography.',
         'You caught at least one overstatement or discrepancy, or documented how all 10 claims passed direct inspection.',
         'No chat in this session contains personal data, confidential company data or credentials.',
@@ -490,18 +478,18 @@ Output format:
       ],
       checklist: [
         {
-          id: 'brief',
-          text: 'Wrote a MoneyPilot research question and picked one doubted claim to check',
+          id: 'opened-sources',
+          text: 'Opened every cited source myself and labelled 10 material claims',
         },
-        { id: 'two-runs', text: 'Ran the brief twice in fresh chats with web search on' },
-        { id: 'ten-claims', text: 'Extracted ten material claims into a verification table' },
-        { id: 'opened-sources', text: 'Opened every cited source myself and labelled each claim' },
         { id: 'primary-source', text: 'Added at least one primary source neither AI run cited' },
-        { id: 'fact-sheet', text: 'Wrote fact-sheet.md and updated product-context.md sources' },
+        {
+          id: 'fact-sheet',
+          text: 'Saved `notes/fact-sheet.md`, raw pages in `workspace/sources/` and updated `product-context.md`',
+        },
         { id: 'never-paste', text: 'Checked my chats for personal, confidential or secret data' },
       ],
       mentorMove:
-        'Pick two claims she marked Verified in `fact-sheet.md` and check them live together. Show how a citation can open cleanly yet overstate a narrow sample or jurisdiction, and ask what she would never paste into an assistant at a bank.',
+        'Pick two claims they marked Verified in `notes/fact-sheet.md` and check them live together. Show how a citation can open cleanly yet overstate a narrow sample or traveller group, and ask what they would never paste into an assistant at work.',
       soloMove:
         'Take a short break, then re-open the original web pages for your two strongest `Verified` claims and use Find-in-page to check the exact figure, year, unit and surveyed group word for word. Downgrade and rewrite any sentence that broadened the claim.',
     },
@@ -518,15 +506,15 @@ Output format:
       xp: 100,
       mentorReview: 'optional',
       practicalProof: true,
-      goal: 'Turn MoneyPilot into a live, shareable pitch page grounded in `product-context.md` and `fact-sheet.md`, refine it one change at a time, and test it on a cold reader.',
+      goal: 'Turn Wayfinder into a live, shareable pitch page grounded in `product-context.md` and `notes/fact-sheet.md`, refine it one change at a time, and test it on a cold reader.',
       whyItMatters:
-        'A memo about MoneyPilot lets three colleagues imagine three different flows. A clickable pitch page puts upcoming bills and the pre-payday forecast on screen in 30 seconds so people can poke holes in it early. It tests whether the idea is clear, not whether users truly want it (Level 3 tests demand).',
+        'A memo about Wayfinder lets three colleagues imagine three different planners. A clickable pitch page puts Saturday stops, transit buffers and the remaining weekend budget on screen in 30 seconds so people can poke holes in it early. It tests whether the idea is clear, not whether travellers truly want it (Level 3 tests demand).',
       learn: [
         {
           heading: 'Why build a page instead of writing a memo',
           paragraphs: [
-            'A written memo about MoneyPilot lets three readers picture three different products. A clickable pitch page forces concrete choices onto the screen: which upcoming bills appear, what "left before payday" means when rent leaves on the 1st, and where the assistant stops short of financial advice. Exposing shaky assumptions in 30 seconds is the whole point.',
-            '**Vibe coding**, a phrase Andrej Karpathy coined in early 2025, means describing what you want in plain English, letting AI write the code, and judging the result by clicking through rather than reading code line by line. It is built for fast pitches and throwaway discovery probes; Level 2 introduces the tighter habits needed for multi-screen prototypes.',
+            'A written memo about Wayfinder lets three readers picture three different products. A clickable pitch page forces concrete choices onto the screen: how door-to-door transit buffers sit between stops, how `Left after booked stops` clarifies that meals and local transit are excluded, and how `Confirm hold` gates any reservation draft. Exposing shaky assumptions in 30 seconds is the whole point.',
+            '**Vibe coding**, a phrase Andrej Karpathy coined in early 2025, means describing what you want in plain English, letting AI write the code, and judging the result by clicking through rather than reading code line by line. It is built for fast pitches and throwaway discovery probes; Level 2 introduces the tighter git habits needed for multi-state prototypes.',
           ],
         },
         {
@@ -535,7 +523,7 @@ Output format:
             'Your pitch page is **HTML**, the format every browser renders. Because an assistant now generates a clean interactive HTML page almost as quickly as a bulleted memo, use a simple rule to keep your work tidy:',
           ],
           bullets: [
-            '**Markdown (`.md`)** is for durable knowledge you and your agents edit over time: `product-context.md`, `fact-sheet.md`, PRDs and decision logs.',
+            '**Markdown (`.md`)** is for durable knowledge you and your agents edit over time: `product-context.md`, `notes/fact-sheet.md`, PRDs and decision logs.',
             '**HTML** is for people to inspect and click: pitch pages, visual comparisons, prototypes and interactive readouts.',
             '**Facts live in Markdown.** Generate HTML from your checked Markdown files, and when a number or constraint changes, fix the Markdown file first and regenerate so the page never drifts into a competing version of the truth.',
           ],
@@ -543,20 +531,20 @@ Output format:
         {
           heading: 'Ground the brief, then change one thing at a time',
           paragraphs: [
-            'If you ask a bare chat for a MoneyPilot pitch page, it fills your gaps with invented overdraft stats, credit-score gauges, or product recommendations your regulatory constraints forbid. Seeing that generic draft once makes clear why your real build belongs inside your `PM workspace` Project with `product-context.md` and `fact-sheet.md` attached. Specify who will read the page in a two-minute review, which `Verified` facts to cite with their sources, and the exact fictional balance, bill dates and amounts the mocked screen must display: deterministic numbers first, plain-English explanation second.',
+            'If you ask a bare chat for a Wayfinder pitch page, it fills your gaps with invented tourist stats, auto-booked restaurant tables, or vague budget labels that pretend lunches and metro rides are already covered. Seeing that generic draft once makes clear why your real build belongs inside your `PM workspace` Project with `product-context.md` and `notes/fact-sheet.md` attached. Specify who will read the page in a two-minute review, which `Verified` facts to cite with their sources, and the exact fictional weekend stops, transit minutes and budget amounts the mocked screen must display: deterministic numbers first, plain-English explanation second.',
             'Once v1 renders, iterate **one change per message**. Asking for five layout, copy and math tweaks together makes it impossible to tell which instruction broke the screen. Step back to the previous artifact version whenever an edit misfires, and open a fresh chat with your current files if the conversation gets long.',
           ],
         },
         {
           heading: 'Honest labels, hand-checked math and cold readers',
           paragraphs: [
-            'A polished prototype easily reads like a shipping promise. Put a clear banner at the top (`Prototype. Fictional data. Not a product commitment.`) and check every mocked MoneyPilot figure with a calculator: if a `14,000 kr` balance minus `12,500 kr` in bills before payday does not show `1,500 kr`, a sharp reviewer stops trusting everything else on the page.',
-            'Before calling the pitch ready, test it for 30 seconds with a **cold reader** who has zero background. Resist explaining the screen before they speak: their first confusion shows the exact label to fix next. Close `pitch-notes.md` with `What this page does not prove` so nobody mistakes clear UI for proven user demand. Claude artifacts handle single-page shareable links for free; Lovable and v0 (compared in Challenge 2) build multi-page web apps.',
+            'A polished prototype easily reads like a shipping promise. Put a clear banner at the top (`Prototype. Fictional data. Not a product commitment.`) and check every mocked Wayfinder figure with a calculator: if a `$180` per-person weekend cap minus `$94.50` in booked stops does not show `$85.50` `Left after booked stops (meals and local transit not included)`, or if a 38-minute harbour ferry sits inside a 30-minute gap without a warning, a sharp reviewer stops trusting everything else on the page.',
+            'Before calling the pitch ready, test it for 30 seconds with a **cold reader** who has zero background. Resist explaining the screen before they speak: their first confusion shows the exact label to fix next. Close `notes/pitch-notes.md` with `What this page does not prove` so nobody mistakes clear UI for proven user demand. Claude artifacts handle single-page shareable links for free; Lovable and v0 (compared in Challenge 2) build multi-page web apps.',
           ],
           bullets: [
             'Works cleanly on both a phone screen and a laptop.',
             'Readable text with WCAG AA contrast.',
-            'Shortfall warnings use explicit words and icons, never colour alone.',
+            'Tight-transfer, closed-venue and over-budget warnings use explicit words and icons, never colour alone.',
           ],
         },
       ],
@@ -604,62 +592,60 @@ Output format:
       ],
       task: {
         summary:
-          'See what a naive 3-line pitch prompt invents, rebuild MoneyPilot from `product-context.md` and `fact-sheet.md` one change at a time, check every figure by hand, and run a 30-second cold-reader test.',
+          'See what a naive 3-line pitch prompt invents, rebuild Wayfinder from `product-context.md` and `notes/fact-sheet.md` one change at a time, check every figure by hand, and run a 30-second cold-reader test.',
         steps: [
-          "**Think first (no AI):** Start `pitch-notes.md` in `learning-notes/` with a 5-line pitch brief for MoneyPilot's `Safe before payday` screen: who reads it (for example, your manager and two retail-banking engineers), why raw bank balance misleads monthly-paid users, your one-sentence feature idea, 1 or 2 `Verified` facts from `fact-sheet.md`, and the exact sample figures that must reconcile by hand (for example, balance `14,000 kr` on the 14th, scheduled bills of `12,500 kr` due before payday on the 25th, `Safe before payday: 1,500 kr`).",
-          '**Work with your agent:** Run the naive 3-line starter prompt below in a bare chat first and note two things it invents or gets wrong. Then open a fresh `PM workspace` Project chat attaching `product-context.md` and `fact-sheet.md`, write your grounded brief using the bracketed checklist, build the interactive artifact, and refine it **one change at a time** (logging the problem, expected fix and before/after result in `pitch-notes.md`).',
-          '**Check and try to break it:** Add up every bill and projected balance on the mocked screen by hand, confirm the `Prototype. Fictional data.` banner is prominent, check phone layout and WCAG AA contrast, and verify shortfall warnings never rely on colour alone. Publish or share the link for a 30-second cold-reader test with one person ("What do you think this does?" and "What would you want to know next?"), then make one logged revision based on what they misread.',
-          '**Make the call:** Record your naive-versus-grounded comparison, before/after notes and cold-reader reaction in `pitch-notes.md`, update `product-context.md` if building exposed an open question, and finish `pitch-notes.md` with `What this page does not prove`.',
+          "**Think first (no AI):** Start `notes/pitch-notes.md` in `workspace/` with a 5-line pitch brief for Wayfinder's `Day Plan & Budget Split` view. Name your readers, the group-chat planning problem, and 1 or 2 `Verified` facts from `notes/fact-sheet.md`. Write down the exact mocked numbers (`$180` cap minus `$94.50` booked = `$85.50` left excluding meals/transit, plus one tight ferry transfer).",
+          '**Work with your agent:** Run the naive 3-line starter prompt below in a bare chat first and note two things it invents or blurs. Next, open a fresh `PM workspace` Project chat attaching `product-context.md` and `notes/fact-sheet.md`. Build the grounded interactive artifact and refine it one change per message, logging each before-and-after result in `notes/pitch-notes.md`.',
+          '**Check and try to break it:** Check every stop price, remaining budget figure and transit gap by hand, confirm the `Prototype. Fictional data.` banner, and test phone width, WCAG AA contrast and colour-independent warnings. Share the link with one cold reader for 30 seconds and ask what they think it does and what feels unclear. Make one logged edit to fix what they misread.',
+          '**Make the call:** Record your naive-versus-grounded comparison, single-step edits and cold-reader notes in `notes/pitch-notes.md`. Update `product-context.md` if building exposed a new open decision. Finish `notes/pitch-notes.md` with `What this page does not prove`.',
         ],
       },
       agentPrompt: {
         tool: 'Claude artifacts',
         where:
-          'First in a bare chat to see the ungrounded draft; then rewritten in a fresh PM workspace Project chat with product-context.md and fact-sheet.md',
-        text: `Build an interactive pitch page for MoneyPilot, a bank app assistant that warns monthly-paid users before payday if upcoming bills will leave them short. Include a mocked screen with sample bills and a projected balance.
+          'First in a bare chat to see the ungrounded draft; then rewritten in a fresh PM workspace Project chat with product-context.md and notes/fact-sheet.md',
+        text: `Build an interactive pitch page for Wayfinder, an AI weekend trip planner that helps friends turn group-chat ideas into a Saturday plan with opening hours, transit times and a shared budget. Include a mocked itinerary screen.
 
-[After seeing the generic first version, rewrite your brief in a fresh chat attaching product-context.md and fact-sheet.md: state who reads it, which Verified facts to cite, the exact bill math that must add up, the "Prototype. Fictional data." banner, and the one-change-at-a-time rule]`,
+[After seeing the generic first version, rewrite your brief in a fresh chat attaching product-context.md and notes/fact-sheet.md: state who reads it, which Verified facts to cite, the exact $180 minus $94.50 = $85.50 "Left after booked stops (meals and local transit not included)" math and transit-gap check, pinned allergy/step-free badges, the "Prototype. Fictional data." banner, and the one-change-at-a-time rule]`,
       },
       expectedOutput: [
-        'A published MoneyPilot pitch artifact link, clearly labelled as a prototype with fictional data and hand-reconciled bill figures.',
-        '`pitch-notes.md`: your 5-line brief, naive-versus-grounded notes, logged one-at-a-time revisions with before/after evidence, cold-reader reaction, and `What this page does not prove`.',
+        'A published Wayfinder pitch artifact link, clearly labelled as a prototype with fictional data and hand-reconciled itinerary figures.',
+        '`notes/pitch-notes.md`: your 5-line brief, naive-versus-grounded notes, logged one-at-a-time revisions with before/after evidence, cold-reader reaction, and `What this page does not prove`.',
       ],
-      artifact: 'A live pitch page link plus `pitch-notes.md` in `learning-notes/`.',
+      artifact: 'A live pitch page link plus `notes/pitch-notes.md` in `workspace/`.',
       verification: [
-        'Every factual claim on the page appears as `Verified` in `fact-sheet.md`, with its source shown.',
-        'Every balance, bill amount and projected figure on the mocked screen adds up when checked by hand.',
-        'The page works cleanly on a phone, displays the prototype banner, never shows a shortfall by colour alone, and contains no personal data.',
+        'Every factual claim on the page appears as `Verified` in `notes/fact-sheet.md`, with its source shown.',
+        'Every stop price, transit duration and remaining-budget figure on the mocked screen adds up when checked by hand.',
+        'The page works cleanly on a phone, displays the prototype banner, never shows a tight transfer or budget warning by colour alone, and contains no personal data.',
         'Your revision log ties each single-step change to a specific observed problem or cold-reader confusion.',
       ],
       reflectionPrompts: [
-        'What did the naive 3-line version invent that would have embarrassed you in front of a banking team?',
+        'What did the naive 3-line version invent (such as auto-booking or vague budget labels) that would have misled your team?',
         'What did your cold reader think the page did in the first 30 seconds, and which single edit fixed the gap?',
         'What promise would you stop a stakeholder from making after seeing this prototype?',
       ],
       checklist: [
         {
-          id: 'brief',
-          text: 'Wrote a five-line MoneyPilot pitch brief with exact sample figures in pitch-notes.md',
-        },
-        {
           id: 'built',
-          text: 'Compared the naive prompt against a page built from product-context.md and fact-sheet.md',
-        },
-        {
-          id: 'five-changes',
-          text: 'Improved the page one change at a time with before and after notes',
+          text: 'Compared the naive prompt against a page built from `product-context.md` and `notes/fact-sheet.md`',
         },
         {
           id: 'numbers',
-          text: 'Checked every number on the mocked screen by hand and verified colour-independent warnings',
+          text: 'Checked every itinerary, transit and budget figure by hand and verified colour-independent warnings',
         },
-        { id: 'published', text: 'Published the page and ran a 30-second cold-reader check' },
-        { id: 'not-proved', text: 'Closed pitch-notes.md with What this page does not prove' },
+        {
+          id: 'published',
+          text: 'Published the page, ran a 30-second cold-reader check and logged single-step edits',
+        },
+        {
+          id: 'not-proved',
+          text: 'Closed `notes/pitch-notes.md` with `What this page does not prove`',
+        },
       ],
       mentorMove:
-        'Open the link cold on your phone and say out loud, within 30 seconds, what you think MoneyPilot does. Then ask the banking engineer question: which part of this screen would be hardest to make reliable with real transaction feeds, and why?',
+        'Open the link cold on your phone and say out loud, within 30 seconds, what you think Wayfinder does. Then ask the engineering question: which part of this screen would be hardest to keep accurate across holiday venue closures and live ferry delays, and why?',
       soloMove:
-        'Message the published link to a friend or family member on WhatsApp with zero context and ask for a two-sentence reply: "In 30 seconds, what does this do, and what is unclear?" If nobody is free today, step away for an hour, open the link on your phone at 200% zoom, and paste the page copy into a fresh chat instructed to critique it as a sceptical retail-banking PM.',
+        'Message the published link to a friend on WhatsApp with zero context and ask for a two-sentence reply: "In 30 seconds, what does this do, and what is unclear?" If nobody is free today, step away for an hour, open the link on your phone at 200% zoom, and paste the page copy into a fresh chat instructed to critique it as a sceptical consumer-travel PM.',
     },
   ],
   challenges: [
@@ -679,7 +665,7 @@ Output format:
         "Take a long public document, such as a listed company's annual report. Write a question that needs three facts from different sections combined, for example a figure across two years plus a note in the risk section. Ask it in a fresh chat with the whole document attached. Current models usually find a single planted fact, so a multi-fact question is the fairer test.",
         'Add distraction: attach two older annual reports alongside the current one and ask again. Note whether the answer mixes years or misses a fact.',
         'Repeat with only the three relevant sections attached as a short, separate document. Compare accuracy and how often the model quotes its sources.',
-        'Write a one-page lab report with your measurements and three practical rules you derived, and add any new terms to `glossary.md`.',
+        'Write a one-page lab report in `workspace/notes/` with your measurements and three practical rules you derived, and add any new terms to `notes/glossary.md`.',
       ],
       deliverable:
         'A one-page lab report with token counts, variation notes, long-context results and three practical rules.',
@@ -720,17 +706,17 @@ Output format:
       competencies: ['ux-prototyping', 'prompting-context'],
       xp: 100,
       summary:
-        'Build your MoneyPilot pitch page (or your own product pitch) in Claude artifacts, Lovable and v0 (or Bolt) from the exact same brief and context files, then compare what each tool is good for.',
+        'Build your Wayfinder pitch page (or your own product pitch) in Claude artifacts, Lovable and v0 (or Bolt) from the exact same brief and context files, then compare what each tool is good for.',
       steps: [
-        'Reuse the brief from `pitch-notes.md`, `product-context.md` and `fact-sheet.md` unchanged, so the only variable is the tool.',
+        'Reuse the brief from `notes/pitch-notes.md`, `product-context.md` and `notes/fact-sheet.md` unchanged, so the only variable is the tool.',
         'Build the page in each tool from a fresh start. Allow yourself the same number of follow-up changes in each, for example three.',
         'Publish or share each version and open all three on your phone.',
         'Score each from 1 to 5 on: faithfulness to the context and facts, whether the numbers add up, accessibility (contrast, colour, phone layout), ease of making one small change, and how easy it was to share.',
         'Note the free-tier limits you hit and what the paid plan would add.',
-        'Write `tool-comparison.md`: the scores, one screenshot or link per tool, and which tool you would pick for a quick pitch, a multi-screen flow and a test with real users.',
+        'Write `notes/tool-comparison.md`: the scores, one screenshot or link per tool, and which tool you would pick for a quick pitch, a multi-screen flow and a test with real users.',
       ],
       deliverable:
-        '`tool-comparison.md` with three versions of the same pitch, scores on five criteria and a recommendation per use.',
+        '`notes/tool-comparison.md` with three versions of the same pitch, scores on five criteria and a recommendation per use.',
       verification: [
         'All three versions were built from the same brief and context files.',
         'You checked the numbers by hand in every version.',
@@ -875,7 +861,7 @@ Output format:
       id: 'q1-6',
       competency: 'evals-safety',
       prompt:
-        'A research answer cites a regulator statistic with a working link. You want to use it in a leadership review tomorrow. What should you do first?',
+        'A research answer cites a national tourism statistic with a working link. You want to use it in a leadership review tomorrow. What should you do first?',
       options: [
         {
           id: 'a',
@@ -906,11 +892,11 @@ Output format:
       options: [
         {
           id: 'a',
-          text: "An export of last month's customer complaints, since the assistant will only summarize it.",
+          text: "An export of last month's customer support tickets, since the assistant will only summarize it.",
         },
         {
           id: 'b',
-          text: "A regulator's published report on your market, to pull out the figures you need.",
+          text: 'A public statistics agency report on your market, to pull out the figures you need.',
         },
         {
           id: 'c',
@@ -923,7 +909,7 @@ Output format:
       ],
       correct: 'b',
       explanation:
-        'Published material is safe to paste. Customer complaints contain personal data, an unreleased roadmap is confidential, and a credential is a secret: deleting a chat or asking the model not to remember does not undo the exposure. At work, the approved-tool policy decides.',
+        'Published material is safe to paste. Support tickets contain personal data, an unreleased roadmap is confidential, and a credential is a secret: deleting a chat or asking the model not to remember does not undo the exposure. At work, the approved-tool policy decides.',
     },
     {
       id: 'q1-8',
@@ -956,23 +942,23 @@ Output format:
   project: {
     title: 'Level 1 sign-off: Pitch pack',
     brief:
-      "This is a 15 to 20 minute review, not new work. Gather the files you already produced across Sessions 1 to 4 (`product-context.md`, `fact-sheet.md`, `pitch-notes.md` with your live artifact link, `glossary.md`, `model-comparison.md` and `delegation-audit.md`) and check that they hold together before Level 2's coding agent reads them.\n\nIf you have a mentor, walk them through the page, the verified facts behind it, and one AI claim or edit you rejected. Working solo? Open your files cold after a short break, read `product-context.md` and the pitch page side by side aloud, and score yourself against the four checks below.",
+      "This is a 15 to 20 minute review, not new work. Gather the files you already produced across Sessions 1 to 4 inside `workspace/` (`product-context.md`, `notes/fact-sheet.md`, `notes/pitch-notes.md` with your live artifact link, `notes/glossary.md`, `notes/model-comparison.md` and `notes/delegation-audit.md`) and check that they hold together before Level 2's coding agent reads them.\n\nIf you have a mentor, walk them through the page, the verified facts behind it, and one AI claim or edit you rejected. Working solo? Open your files cold after a short break, read `product-context.md` and the pitch page side by side aloud, and score yourself against the four checks below.",
     deliverables: [
       {
         id: 'context-file',
-        text: '`product-context.md` in `learning-notes/`: one page, every fact sourced or marked `Unknown`, Open decisions listed.',
+        text: '`workspace/product-context.md`: one page, every fact sourced or marked `Unknown`, Open decisions listed.',
       },
       {
         id: 'fact-sheet',
-        text: '`fact-sheet.md` from Session 3: every `Verified` fact backed by a source you opened, plus `What I could not verify`.',
+        text: '`notes/fact-sheet.md` and `sources/` from Session 3: every `Verified` fact backed by a source you opened, plus `What I could not verify`.',
       },
       {
         id: 'pitch-page',
-        text: 'The live pitch page link (showing the prototype banner and reconciled figures) plus `pitch-notes.md`.',
+        text: 'The live Wayfinder pitch page link (showing the prototype banner and reconciled figures) plus `notes/pitch-notes.md`.',
       },
       {
         id: 'foundations',
-        text: '`glossary.md`, `model-comparison.md` and `delegation-audit.md` filed in `learning-notes/`.',
+        text: '`notes/glossary.md`, `notes/model-comparison.md` and `notes/delegation-audit.md` filed in `workspace/`.',
       },
       {
         id: 'rejected-answer',
@@ -985,7 +971,7 @@ Output format:
     ],
     rubric: {
       correctness:
-        'Every factual claim on the pitch page traces to a Verified line in `fact-sheet.md`, and every mocked figure adds up by hand.',
+        'Every factual claim on the pitch page traces to a Verified line in `notes/fact-sheet.md`, and every mocked itinerary and budget figure adds up by hand.',
       quality:
         '`product-context.md` fits on one page with clear Unknowns, and the pitch page is clear in 30 seconds with an honest prototype label.',
       independence:
@@ -999,5 +985,5 @@ Output format:
     xp: 150,
   },
   nextRecommendation:
-    'Move to Level 2. From Session 5 you work with a coding agent (Claude Code on a paid Claude Pro plan, or Codex in ChatGPT). Before opening Session 5, follow the Before Session 5 steps in the [Starter kit](/starter-kit) to set up Git and Claude Code in the Claude desktop Code tab or a terminal of your choice. In Session 5 your `learning-notes/` files move into a workspace folder, and `product-context.md` becomes the first file your agent reads.',
+    'Move to Level 2. From Session 5 you work with a coding agent (Claude Code on a paid Claude Pro plan, or Codex in ChatGPT). Before opening Session 5, follow the Before Session 5 steps in the [Starter kit](/starter-kit) to set up Git and Claude Code in the Claude desktop Code tab or a terminal of your choice. Because your files already sit inside `workspace/`, Session 5 puts that folder straight under Git and adds `AGENTS.md` pointing at `product-context.md`.',
 }

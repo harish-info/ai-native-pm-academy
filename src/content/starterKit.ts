@@ -1,7 +1,3 @@
-// What to install for the course, when, and the few steps to set each tool up. This page is the
-// one place for installation; sessions link here. App facts (prices, platforms) date quickly;
-// recheck before each cohort.
-
 export const STARTER_KIT_AS_OF = '2026-11-02'
 export const STARTER_KIT_AS_OF_LABEL = '2 November 2026'
 
@@ -12,9 +8,7 @@ export interface KitTool {
   facts: string
   resourceId: string
   steps?: string[]
-  // Other apps that do the same job, shown in the card under the description.
   alternatives?: string
-  // The session that first needs this tool, when it is not the stage's first session.
   lesson?: string
 }
 
@@ -27,10 +21,17 @@ export interface KitStage {
   tools: KitTool[]
 }
 
+export interface GitRescueItem {
+  situation: string
+  command: string
+  whatItDoes: string
+}
+
 export interface StarterKit {
   intro: string
   start: string[]
   stages: KitStage[]
+  gitRescue: GitRescueItem[]
   otherAgents: string[]
 }
 
@@ -38,9 +39,9 @@ export const starterKit: StarterKit = {
   intro:
     'Everything to install for the course, in the order you need it, with the steps to set each tool up. Each session that needs a new tool names it at the top, so you can also install as you go.',
   start: [
-    'Install the Week 1 tools below. It takes about 15 minutes.',
+    'Install the Week 1 tools below and create one private folder called `workspace`. It takes about 15 minutes.',
     'Open [Session 1](/lessons/s1) and work through the sessions in order. Each one starts with what to bring.',
-    'Before Session 5, come back for Claude Code, Warp and Git, or Codex if you already work in ChatGPT. Sessions 6 and 7 add Node.js and a GitHub account, and Session 16 adds a presentation skill.',
+    'Before Session 5, come back for Claude Code, Warp and Git, or Codex if you already work in ChatGPT. Session 7 adds a free GitHub account to publish your static prototype, and Session 16 adds a presentation skill.',
     'Talk instead of type. Hold the Handy shortcut and say what you want: you will give the agent more context than you would bother to type, and better context gets better answers.',
   ],
   stages: [
@@ -49,13 +50,13 @@ export const starterKit: StarterKit = {
       when: 'Week 1',
       title: 'Write and think with an agent',
       intro:
-        'An agent to chat with, a dictation app so you can talk instead of type, and a notes app that keeps your notes as files.',
+        'An agent to chat with, a dictation app so you can talk instead of type, and a notes app that keeps your `workspace/` folder as plain files.',
       lessons: ['s1', 's2'],
       tools: [
         {
           name: 'Claude desktop app',
           need: 'Recommended',
-          what: 'Chat with Claude, with projects, files and artifacts. Your main tool in Weeks 1 and 2.',
+          what: 'Chat with Claude, with projects, files and artifacts. Your main tool in Week 1.',
           facts: 'Free app for Mac and Windows. The free plan is enough in Week 1.',
           resourceId: 'claude-download',
           steps: [
@@ -80,13 +81,13 @@ export const starterKit: StarterKit = {
         {
           name: 'Obsidian',
           need: 'Recommended',
-          what: 'A notes app that saves each note as a plain file your agent can read.',
+          what: 'A notes app that saves each note as a plain Markdown file your agent can read.',
           facts:
             'Free, no account needed. Optional Sync costs $4 to $5 a month; you do not need it.',
           resourceId: 'obsidian',
           steps: [
             'Install Obsidian and open it.',
-            'Create a vault in a new private folder called `learning-notes`, not in a shared drive. Every Level 1 note goes here; in Session 5 it moves into your workspace.',
+            'Create a vault in a new private folder called `workspace`, not in a shared drive. Every file you build from Session 1 to Session 20 stays in this one folder.',
           ],
         },
         {
@@ -97,7 +98,7 @@ export const starterKit: StarterKit = {
           resourceId: 'claude-code-terminal-guide',
           steps: [
             'Follow the Claude Code steps under Before Session 5.',
-            'Where a session uses a project or an artifact, ask Claude Code to write files in your folder instead.',
+            'Where a session uses a project or an artifact, ask Claude Code to write files in `workspace/` instead.',
           ],
         },
       ],
@@ -107,25 +108,25 @@ export const starterKit: StarterKit = {
       when: 'Before Session 5',
       title: 'Let an agent work on your files',
       intro:
-        'Session 5 moves from chat to a coding agent that reads and changes the files in your folder. It runs in a terminal, so you install the agent and a terminal to run it in. If the terminal stops you, the Code tab in the Claude desktop app is the same agent.',
+        'Session 5 moves from chat to a coding agent that reads and changes the files in `workspace/`. It runs in a terminal or the Claude desktop Code tab, with Git saving every step so you can inspect and undo any edit.',
       lessons: ['s5'],
       tools: [
         {
           name: 'Claude Code',
           need: 'Recommended',
-          what: 'The coding agent this course uses: it reads and changes the files in your folder.',
+          what: 'The coding agent this course uses: it reads and changes the files in your `workspace/` folder.',
           facts: 'Needs a Claude Pro plan (from $20 a month).',
           resourceId: 'claude-code-terminal-guide',
           steps: [
             'If you are on the free plan, upgrade to Claude Pro.',
             "Install Warp and Git (the next cards), then open Warp. Paste the install line from Anthropic's terminal guide and press Enter.",
-            'Type `claude` and press Enter, then sign in with your Claude account. Session 5 shows you how to open your own folder.',
+            'Type `claude` and press Enter, then sign in with your Claude account. If you prefer a graphical window, use the Code tab in the Claude desktop app on the same `workspace/` folder.',
           ],
         },
         {
           name: 'Warp',
           need: 'Recommended',
-          what: 'A modern terminal to run Claude Code in.',
+          what: 'A modern terminal to run Claude Code and Git commands in.',
           facts:
             'Free for Mac, Windows and Linux. Its own AI features are optional and need an account.',
           resourceId: 'warp',
@@ -154,53 +155,41 @@ export const starterKit: StarterKit = {
           resourceId: 'chatgpt-desktop-codex',
           steps: [
             'Install the ChatGPT desktop app and sign in.',
-            'Open your workspace folder in the app, choose Codex and send your first request.',
+            'Open your `workspace/` folder in the app, choose Codex and send your first request.',
           ],
         },
         {
           name: 'VS Code',
           need: 'Optional',
-          what: 'An editor that shows your files and every change the agent makes.',
+          what: 'An editor that shows your files and every diff the agent makes.',
           facts:
             'Free. The Claude Code extension needs VS Code 1.94 or later and a paid Claude plan.',
           resourceId: 'vs-code',
           steps: [
-            'Install VS Code, then open your workspace folder with File, Open Folder.',
+            'Install VS Code, then open your `workspace/` folder with File, Open Folder.',
             'If you use Claude Code, add the [Claude Code extension](https://code.claude.com/docs/en/vs-code).',
           ],
         },
       ],
     },
     {
-      id: 'sessions-6-7',
-      when: 'Sessions 6 and 7',
-      title: 'Save and publish your work',
+      id: 'session-7',
+      when: 'Session 7',
+      title: 'Publish and review on GitHub',
       intro:
-        'Two tools your agent uses to run your prototype and put it online. Install each when its session reaches it, with your agent or your mentor; Claude Code tells you if one is missing.',
-      lessons: ['s6', 's7'],
+        'Your Level 2 prototype is plain HTML, CSS and JavaScript that opens directly in any browser with zero build tools. In Session 7 you push it to GitHub to practice branches, pull requests and live GitHub Pages publishing.',
+      lessons: ['s7'],
       tools: [
-        {
-          name: 'Node.js',
-          need: 'Recommended',
-          what: 'Runs your prototype on your own computer.',
-          facts: 'Free and open source. Choose the LTS version.',
-          resourceId: 'nodejs-download',
-          steps: [
-            'Download the LTS installer for your computer and run it.',
-            'Check it worked: open a new Warp tab and type `node --version`.',
-          ],
-        },
         {
           name: 'GitHub account and CLI',
           need: 'Recommended',
-          what: 'Puts your prototype online. The CLI signs your computer in so your agent can publish.',
+          what: 'Puts your static prototype online and gives you pull request diffs. The CLI signs your computer in so your agent can push branches.',
           facts: 'Free account. The CLI is free and open source.',
           resourceId: 'github-cli',
-          lesson: 's7',
           steps: [
             'Create a free account on [GitHub](https://github.com) and turn on two-factor authentication.',
             'Install the GitHub CLI for your computer.',
-            'Open a new Warp tab, type `gh auth login` and follow the prompts, with your mentor if you like.',
+            'Open a new Warp tab, type `gh auth login` and follow the prompts, or use GitHub Desktop if you prefer buttons over terminal login.',
           ],
         },
       ],
@@ -237,6 +226,43 @@ export const starterKit: StarterKit = {
           ],
         },
       ],
+    },
+  ],
+  gitRescue: [
+    {
+      situation: 'Check which branch you are on and what changed',
+      command: 'git status',
+      whatItDoes:
+        'Lists modified and untracked files without changing anything. Run this before and after every agent task.',
+    },
+    {
+      situation: 'Read the exact lines the agent added or removed',
+      command: 'git diff',
+      whatItDoes:
+        'Shows red removed lines and green added lines across your working files (press `q` if the terminal pauses).',
+    },
+    {
+      situation: 'Start a safe review branch before an agent edit',
+      command: 'git switch -c fix-budget-label',
+      whatItDoes:
+        'Creates and switches to a new branch so `main` stays untouched until you like the diff.',
+    },
+    {
+      situation: 'Save a clean checkpoint before trying something risky',
+      command: 'git add -A && git commit -m "save working state"',
+      whatItDoes: 'Records a local snapshot you can return to anytime.',
+    },
+    {
+      situation: 'Undo un-saved agent edits to one file',
+      command: 'git restore path/to/file.md',
+      whatItDoes:
+        'Throws away uncommitted changes in that file and brings back the last committed version.',
+    },
+    {
+      situation: 'Agent is going in circles or forgetting rules',
+      command: '/clear  (or open a new session)',
+      whatItDoes:
+        'Starts a fresh context window that reloads `AGENTS.md` cleanly instead of fighting context rot.',
     },
   ],
   otherAgents: [

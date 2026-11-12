@@ -92,7 +92,7 @@ export const profileQuestions: ProfileQuestion[] = [
     id: 'hours',
     kind: 'single',
     label: 'Realistic study time per week',
-    help: 'The course takes about 80 hours including projects, weekly reviews and mentor time. The standard plan needs about 10 hours a week for eight weeks; the light plan about 7 hours a week for twelve. Six hours or less picks the light plan, and you can change it later.',
+    help: 'The course takes about 45 hours including level sign-offs, weekly reviews and optional mentor time. The standard plan needs about 6 hours a week for eight weeks; the light plan about 4 hours a week for twelve. Six hours or less picks the light plan, and you can change it later.',
     options: [
       { id: '4', label: 'About 4 hours' },
       { id: '6', label: 'About 6 hours' },
