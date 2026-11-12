@@ -132,7 +132,54 @@ describe('backup export and import', () => {
     expect(r.data.onboarding?.diagnostic).toEqual({ d1: 'a' })
     expect(r.data.notes.map((n) => n.title)).toEqual(['Keep me'])
     expect(r.data.studyLog).toHaveLength(1)
-    expect(r.data.settings).toEqual({ theme: 'dark', planStart: '2026-11-02', caseStudy: 'steady' })
+    expect(r.data.settings).toEqual({
+      theme: 'dark',
+      planStart: '2026-11-02',
+      caseStudy: 'wayfinder',
+    })
+  })
+
+  it('migrates schema 4 backups to schema 5, mapping steady to wayfinder and preserving progress', () => {
+    const makeV4 = (caseStudy?: string) => ({
+      schemaVersion: 4,
+      createdAt: '2026-11-05T09:00:00.000Z',
+      updatedAt: '2026-11-12T20:00:00.000Z',
+      onboarding: null,
+      lessons: {
+        s1: {
+          checklist: { scored: true },
+          reflection: 'x'.repeat(50),
+          artifact: 'workspace/notes/s1.md',
+          completedAt: '2026-11-06T20:00:00.000Z',
+        },
+      },
+      masteredLevels: { '1': '2026-11-08T18:00:00.000Z' },
+      studyLog: [{ id: 'a', date: '2026-11-06', minutes: 60, lessonId: 's1' }],
+      settings: caseStudy ? { theme: 'light', caseStudy } : { theme: 'light' },
+    })
+
+    for (const [before, after] of [
+      ['steady', 'wayfinder'],
+      ['moneypilot', 'moneypilot'],
+      ['triage', 'triage'],
+      [undefined, undefined],
+    ] as const) {
+      const r = parseBackup(
+        JSON.stringify({
+          app: BACKUP_APP,
+          kind: BACKUP_KIND,
+          schemaVersion: 4,
+          data: makeV4(before),
+        }),
+      )
+      expect(r.ok).toBe(true)
+      if (!r.ok) continue
+      expect(r.migratedFrom).toBe(4)
+      expect(r.data.schemaVersion).toBe(5)
+      expect(r.data.settings.caseStudy).toBe(after)
+      expect(r.data.lessons.s1?.completedAt).toBe('2026-11-06T20:00:00.000Z')
+      expect(r.data.masteredLevels['1']).toBe('2026-11-08T18:00:00.000Z')
+    }
   })
 
   it('keeps MoneyPilot for a schema 2 learner who already started Level 3', () => {

@@ -31,8 +31,8 @@ All four target-segment participants (`P1`, `P2`, `P4`, `P5`) struggle with pre-
    - `P5` put nappies back on the supermarket shelf on `22 February` despite having `900 kr` technical headroom, out of fear `Halden Finance Car Loan` (`1,850 kr`) had not cleared.
 
 3. **"Variable bills and annual renewals jump in amount without me connecting the supplier notice to my pre-payday balance."** (`3/5`: `P1`, `P4`, `P5`)
-   - `P1`: `Northlight Electricity` winter adjustment jumped from `820.00 kr` to `1,340.00 kr` (`+520.00 kr`) while the Apple Note still said `820 kr`.
-   - `P4`: `Kestrel Car Insurance` annual renewal jumped from `610.00 kr` to `985.00 kr` (`+375.00 kr`) on `19 February`; also tapped `Northlight Electricity 1,180.00 kr` three times in the prototype asking how it compared to last month.
+   - `P1`: `Nordlys Electricity` winter adjustment jumped from `820.00 kr` to `1,340.00 kr` (`+520.00 kr`) while the Apple Note still said `820 kr`.
+   - `P4`: `Kestrel Car Insurance` annual renewal jumped from `610.00 kr` to `985.00 kr` (`+375.00 kr`) on `19 February`; also tapped `Nordlys Electricity 1,180.00 kr` three times in the prototype asking how it compared to last month.
    - `P5`: `Tellmore Mobile` jumped from `220.00 kr` (hardcoded in the spreadsheet) to `694.00 kr` (`+474.00 kr` roaming charge) on `20 February`, forcing an emergency `750 kr` savings transfer at the checkout.
 
 ### Single-person tangents and weak signals (1 participant each, do not promote to core themes)
@@ -45,16 +45,16 @@ All four target-segment participants (`P1`, `P2`, `P4`, `P5`) struggle with pre-
 
 ## 3. Prototype usability and comprehension findings
 
-Testing the `Safe-to-spend and upcoming bills` probe (`4,100.00 kr` balance, `4` bills totalling `4,550.00 kr`, `-450.00 kr` on `24 March`, `Prepare 500 kr transfer from Holiday fund` CTA) surfaced **two critical comprehension and trust failures**:
+Testing the Level 2 static HTML `Safe before payday and upcoming bills` probe in its shortfall state (`4,100.00 kr` balance, `4` bills totalling `4,550.00 kr`, `-450.00 kr` on `24 March` with small grey caption `Left after scheduled bills, everyday spending not included`) alongside an early static wireframe mockup card (`Prepare 500 kr transfer from Holiday fund`, before building live transfer logic in Level 4) surfaced **two critical comprehension and trust failures**:
 
-1. **Comprehension failure 1: Users assume `Safe before payday` includes everyday groceries and card spending (`P1` and `P4` misread it outright; `P2` and `P5` warned the grey caption is far too subtle).**
+1. **Comprehension failure 1: Users miss the muted grey caption and assume `Safe before payday` includes everyday groceries and card spending (`P1` and `P4` misread it outright; `P2` and `P5` warned the grey caption is far too subtle).**
    - Both `P1` and `P4` initially concluded that moving `500 kr` to reach `+50.00 kr` meant food, fuel and commuting until payday were already covered, only realising `4,100 kr - 4,550 kr = -450 kr` leaves `0 kr` for groceries when they checked the arithmetic aloud.
-   - `P2` paused eight seconds squinting to work out whether card spending was deducted, and `P5` warned tired parents would miss the tiny muted subtitle (`Scheduled bills and expected income`).
-   - **Design implication:** State `"Scheduled bills only, everyday spending excluded"` directly beside the headline figure at readable size and contrast, rather than burying the caveat in tiny grey text.
+   - `P2` paused eight seconds squinting to work out whether card spending was deducted, and `P5` warned tired parents would skip past the tiny muted grey line (`Left after scheduled bills, everyday spending not included`).
+   - **Design implication:** Render `"Left after scheduled bills, everyday spending not included"` directly beside or beneath `Safe before payday` at full body size and high contrast, never in low-contrast grey footnote text.
 
-2. **Comprehension failure 2: Fear that tapping `Prepare 500 kr transfer` moves money immediately without a separate approval step (`P2` and `P5`, `2/5`).**
-   - `P2` pulled their thumb back and refused to tap the primary teal button because internal transfers between own accounts in bank apps usually execute immediately without `BankID`.
+2. **Comprehension failure 2: Fear on the static wireframe card that tapping `Prepare 500 kr transfer` would move money immediately without a separate approval step (`P2` and `P5`, `2/5`).**
+   - `P2` pulled their thumb back from the wireframe CTA because internal transfers between own accounts in bank apps usually execute immediately without `BankID`.
    - `P5` hesitated over toddler accidental taps and said `"Prepare"` does not clearly state that nothing moves yet.
-   - **Design implication:** Make the two-step control model unmistakable on the button and microcopy (for example `"Preview 500 kr transfer"` with `"Creates a draft in Ask MoneyPilot: nothing moves until you tap Approve"`).
+   - **Design implication:** When adding cover-transfer drafts in Level 4, make the two-step control model unmistakable on the button and microcopy (for example `"Preview cover transfer"` with `"Creates a draft in Ask MoneyPilot: nothing moves until you tap Approve"`).
 
-3. **Secondary usability observation (`P4`, `1/5`):** Tapped `Northlight Electricity 1,180.00 kr` three times expecting to see whether `1,180.00 kr` was fixed or changed from last month's bill, and asked whether recurring debit-card bills (`Pulse Gym`, `Kestrel Car Insurance`) are detected alongside `AvtaleGiro` and `eFaktura`.
+3. **Secondary usability observation (`P4`, `1/5`):** Tapped `Nordlys Electricity 1,180.00 kr` three times expecting to see whether `1,180.00 kr` was fixed or changed from last month's bill, and asked whether recurring debit-card bills (`Pulse Gym`, `Kestrel Car Insurance`) are detected alongside `AvtaleGiro` and `eFaktura`.

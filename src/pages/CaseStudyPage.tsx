@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { lessonById, levelById, resourceById } from '../content'
 import {
+  DEFAULT_CASE_STUDY,
   caseStages,
   caseStudies,
   caseStudyById,
@@ -39,7 +40,7 @@ interface DatasetGroup {
   lessonId: string
   lessonLabel: string
   topic: string
-  moneypilotOnly?: boolean
+  fullPackOnly?: boolean
   files: { path: (slug: string) => string; label: string; note: string }[]
 }
 
@@ -48,15 +49,15 @@ const datasetGroups: DatasetGroup[] = [
     lessonId: 's10',
     lessonLabel: 'Session 10',
     topic: 'interviews',
-    moneypilotOnly: true,
+    fullPackOnly: true,
     files: [
       ...['P1', 'P2', 'P3', 'P4', 'P5'].map((pid) => ({
-        path: () => `datasets/moneypilot/s10-interviews/${pid}.md`,
+        path: (slug: string) => `datasets/${slug}/s10-interviews/${pid}.md`,
         label: `s10-interviews/${pid}.md`,
         note: 'pseudonymised interview note',
       })),
       {
-        path: () => 'datasets/moneypilot/s10-answer-key.md',
+        path: (slug) => `datasets/${slug}/s10-answer-key.md`,
         label: 's10-answer-key.md',
         note: 'open after your own synthesis',
       },
@@ -66,15 +67,15 @@ const datasetGroups: DatasetGroup[] = [
     lessonId: 's11',
     lessonLabel: 'Session 11',
     topic: 'funnel analytics',
-    moneypilotOnly: true,
+    fullPackOnly: true,
     files: [
       {
-        path: () => 'datasets/moneypilot/s11-events.csv',
+        path: (slug) => `datasets/${slug}/s11-events.csv`,
         label: 's11-events.csv',
         note: '600-user 30-day cohort event log',
       },
       {
-        path: () => 'datasets/moneypilot/s11-answer-key.md',
+        path: (slug) => `datasets/${slug}/s11-answer-key.md`,
         label: 's11-answer-key.md',
         note: 'open after checking denominators',
       },
@@ -123,15 +124,15 @@ const datasetGroups: DatasetGroup[] = [
     lessonId: 's19',
     lessonLabel: 'Session 19',
     topic: 'skill tests',
-    moneypilotOnly: true,
+    fullPackOnly: true,
     files: [
       ...['normal-note.md', 'contradictory-decision.md', 'hostile-export.md'].map((file) => ({
-        path: () => `datasets/moneypilot/s19-skill-tests/${file}`,
+        path: (slug: string) => `datasets/${slug}/s19-skill-tests/${file}`,
         label: `s19-skill-tests/${file}`,
         note: 'skill test input',
       })),
       {
-        path: () => 'datasets/moneypilot/s19-expected.md',
+        path: (slug) => `datasets/${slug}/s19-expected.md`,
         label: 's19-expected.md',
         note: 'open after running all three tests',
       },
@@ -142,31 +143,32 @@ const datasetGroups: DatasetGroup[] = [
 export function CaseStudyPage() {
   const { data, update } = useStore()
   const statuses = useLevelStatuses()
-  const chosen = data.settings.caseStudy ?? 'moneypilot'
+  const chosen = data.settings.caseStudy ?? DEFAULT_CASE_STUDY
   const c = caseStudyById(chosen)
   const t = c.tokens
 
   return (
     <>
-      <PageHeader eyebrow="Product briefs" title="MoneyPilot, HabitLoop and ReplyDesk">
-        <strong>MoneyPilot</strong> is the product you work on from Session 1 to Session 20, or you
-        can swap in your own product at any point. <strong>HabitLoop</strong> and{' '}
+      <PageHeader eyebrow="Product briefs" title="Wayfinder, MoneyPilot and ReplyDesk">
+        <strong>Wayfinder</strong> is the product you build from Session 1 to Session 20, or you can
+        swap in your own product at any point. <strong>MoneyPilot</strong> and{' '}
         <strong>ReplyDesk</strong> sit alongside it here so you can compare how the same PM methods
-        translate to consumer habits and B2B software support.
+        translate to regulated consumer finance and B2B software support.
       </PageHeader>
 
       <div className="space-y-8">
         <Card className="border-indigo-200 bg-indigo-50/50 dark:border-indigo-900 dark:bg-indigo-950/30">
-          <h2 className="text-lg font-semibold">MoneyPilot in 15 seconds</h2>
+          <h2 className="text-lg font-semibold">Wayfinder in 15 seconds</h2>
           <p className="mt-2 text-sm leading-relaxed text-stone-800 dark:text-stone-200">
-            It is the 14th of the month and your retail bank app shows{' '}
-            <strong>Balance: 14,000 kr</strong>. That number is misleading:{' '}
-            <strong>12,500 kr</strong> of rent, electricity, broadband and recurring card bills
-            leave automatically before payday on the 25th, leaving <strong>1,500 kr</strong> before
-            groceries and everyday life. MoneyPilot shows your real{' '}
-            <strong>Safe before payday</strong> in deterministic code, flags unexpected bill jumps,
-            and pairs it with an AI drawer that explains changes and stages savings cover transfers
-            behind explicit customer approval.
+            Planning a weekend trip with friends or family usually scatters across twelve saved
+            reels, three map lists and a group chat where nobody checks Monday closures, transit
+            time or shared costs until someone is standing outside a shut museum in the rain.
+            Wayfinder turns saved places into a realistic{' '}
+            <strong>Day Plan &amp; Budget Split</strong> in deterministic code (for example, a{' '}
+            <strong>$180</strong> per-person cap minus <strong>$94.50</strong> of booked stops
+            leaves <strong>$85.50</strong> before meals and local transit) and pairs it with an{' '}
+            <strong>Ask Wayfinder</strong> drawer that replans when rain or delays hit and stages
+            reservation holds behind explicit traveller approval.
           </p>
         </Card>
 
@@ -174,7 +176,7 @@ export function CaseStudyPage() {
           <legend className="mb-3 text-lg font-semibold">Compare product briefs</legend>
           {!data.settings.caseStudy && (
             <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-              MoneyPilot is active across all twenty sessions. Selecting HabitLoop or ReplyDesk
+              Wayfinder is active across all twenty sessions. Selecting MoneyPilot or ReplyDesk
               below switches only this reference page.
             </p>
           )}
@@ -235,9 +237,9 @@ export function CaseStudyPage() {
             })}
           </div>
           <p className="mt-3 text-sm text-stone-600 dark:text-stone-400">
-            Every brief starts as an unvalidated product hypothesis. Selecting HabitLoop or
-            ReplyDesk here updates only this page; the lessons use MoneyPilot by default, and you
-            can swap in your own product whenever you prefer.
+            Every brief starts as an unvalidated product hypothesis. Selecting MoneyPilot or
+            ReplyDesk here updates only this page; the lessons use Wayfinder throughout, and you can
+            swap in your own product whenever you prefer.
           </p>
         </fieldset>
 
@@ -292,7 +294,7 @@ export function CaseStudyPage() {
 
         <section aria-labelledby="cycle-heading">
           <h2 id="cycle-heading" className="text-lg font-semibold">
-            How MoneyPilot evolves across the 20 sessions
+            How Wayfinder evolves across the 20 sessions
           </h2>
           <p className="mt-1 mb-4 text-sm text-stone-600 dark:text-stone-400">
             Eight product stages, each answering one PM question before the next begins.
@@ -532,7 +534,7 @@ export function CaseStudyPage() {
           </p>
           <div className="mt-4 grid gap-6 md:grid-cols-2">
             {datasetGroups
-              .filter((g) => !g.moneypilotOnly || c.id === 'moneypilot')
+              .filter((g) => !g.fullPackOnly || c.id !== 'triage')
               .map((g) => (
                 <div key={g.lessonId}>
                   <h3 className="mb-2 font-semibold">

@@ -49,6 +49,11 @@ export const migrations: Record<number, (raw: Record<string, unknown>) => Record
       masteredLevels: {},
       bookmarks: [],
     }),
+    4: (raw) => {
+      const settings = raw.settings
+      if (!isObject(settings) || settings.caseStudy !== 'steady') return raw
+      return { ...raw, settings: { ...settings, caseStudy: 'wayfinder' } }
+    },
   }
 
 export function createBackup(data: LearnerData, now = new Date()): BackupFile {

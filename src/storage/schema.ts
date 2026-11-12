@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const CURRENT_SCHEMA_VERSION = 4
+export const CURRENT_SCHEMA_VERSION = 5
 
 const isoDate = z.string().min(10).max(40)
 const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
@@ -77,12 +77,9 @@ export const onboardingSchema = z.object({
 export const settingsSchema = z.object({
   theme: z.enum(['system', 'light', 'dark']).default('system'),
   lastBackupAt: isoDate.optional(),
-  /** Day the learner chose to start the plan. Unset until she picks one. Added in schema 2. */
   planStart: day.optional(),
-  /** Plan pace. Unset means derived from the weekly hours given in onboarding. Added in schema 2. */
   planPace: z.enum(['standard', 'light']).optional(),
-  /** The optional example viewed on the Case study page. Added in schema 3. */
-  caseStudy: z.enum(['moneypilot', 'steady', 'triage']).optional(),
+  caseStudy: z.enum(['wayfinder', 'moneypilot', 'triage']).optional(),
 })
 
 export const learnerDataSchema = z.object({
