@@ -44,11 +44,11 @@ export function CaseStudyPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Optional case studies" title="See the methods in context">
-        The course works with your own product context. These fictional examples show how the same
-        methods apply in different domains, from a first brief to a simulated release decision.
-        Explore them when you want a concrete reference. Choosing an example here changes only this
-        page.
+      <PageHeader eyebrow="Course sandbox and examples" title="See the methods in context">
+        MoneyPilot is the default sandbox product used across the twenty sessions and worked
+        examples, with an optional track for your own product. Steady and Triage stay here as
+        alternative domain examples so you can see how the same PM habits translate to consumer
+        habits and B2B support.
       </PageHeader>
 
       <div className="space-y-8">
@@ -56,7 +56,8 @@ export function CaseStudyPage() {
           <legend className="mb-3 text-lg font-semibold">Explore an example</legend>
           {!chosen && (
             <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-              MoneyPilot is shown first. You can explore any example without changing the course.
+              MoneyPilot is the default course sandbox. Choosing Steady or Triage below updates only
+              this reference page.
             </p>
           )}
           <div className="grid gap-4 md:grid-cols-3">
@@ -116,8 +117,9 @@ export function CaseStudyPage() {
             })}
           </div>
           <p className="mt-3 text-sm text-stone-600 dark:text-stone-400">
-            These are starting hypotheses for practice, not research findings. The lessons,
-            workspace names and your saved evidence remain independent of the example you view.
+            These are starting hypotheses for practice, not research findings. Choosing Steady or
+            Triage here changes only this page; the sessions use MoneyPilot by default, and you can
+            swap in your own product at any time.
           </p>
         </fieldset>
 

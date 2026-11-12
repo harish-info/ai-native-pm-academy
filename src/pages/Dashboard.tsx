@@ -261,15 +261,19 @@ export function Dashboard() {
       </PageHeader>
 
       {!data.onboarding && (
-        <Card className="border-indigo-300 dark:border-indigo-800">
-          <h2 className="text-lg font-semibold">Start with the skills check</h2>
-          <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
-            Ten minutes of scenario questions shows where you stand in each level and which reading
-            you can skim. Everyone starts at Session 1.
-          </p>
-          <LinkButton to="/onboarding" className="mt-4">
-            Take the skills check
-          </LinkButton>
+        <Card className="border-stone-200 dark:border-stone-800">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="max-w-xl">
+              <h2 className="text-base font-semibold">Optional: 10-minute skills check</h2>
+              <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+                Scenario questions show where you stand in each level and which readings you can
+                skim. You can also jump straight into Session 1 below.
+              </p>
+            </div>
+            <LinkButton to="/onboarding" variant="secondary">
+              Take the skills check
+            </LinkButton>
+          </div>
         </Card>
       )}
 

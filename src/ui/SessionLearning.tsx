@@ -1,20 +1,45 @@
 import { useState } from 'react'
 import type { LessonGuide } from '../content/teaching'
+import type { PracticeFile, Resource } from '../content/types'
 import { inline, Paragraphs } from './RichText'
-import { Card, cx } from './primitives'
+import { Card, Pill, cx, linkClass } from './primitives'
 
-export function SessionBrief({ guide, minutes }: { guide: LessonGuide; minutes: number }) {
+export function SessionBrief({
+  guide,
+  minutes,
+  whyItMatters,
+  readingResource,
+}: {
+  guide: LessonGuide
+  minutes: number
+  whyItMatters: string
+  readingResource?: Resource
+}) {
   return (
     <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 dark:border-stone-800 dark:bg-stone-900">
       <h2 className="max-w-2xl text-xl font-semibold tracking-tight">{guide.decision}</h2>
+      <p className="mt-2 max-w-prose text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+        {inline(whyItMatters)}
+      </p>
       <p className="mt-3 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
         <strong>Bring: </strong>
         {guide.bring}
       </p>
-      <p className="mt-2 text-xs text-stone-600 dark:text-stone-400">
-        Plan about {minutes} minutes, including {guide.reading.minutes} minutes for the assigned
-        source.
-      </p>
+      <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-stone-600 dark:text-stone-400">
+        <Pill tone="indigo">Assigned reading: {guide.reading.minutes} min</Pill>
+        {readingResource && (
+          <a
+            href={readingResource.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`text-sm ${linkClass}`}
+          >
+            {readingResource.title}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        )}
+        <span>· Plan about {minutes} minutes total.</span>
+      </div>
       <details className="mt-4 rounded-xl bg-stone-100 px-4 py-3 text-sm dark:bg-stone-800/60">
         <summary className="cursor-pointer leading-relaxed">
           <span className="font-semibold">Warm-up · </span>
@@ -25,6 +50,60 @@ export function SessionBrief({ guide, minutes }: { guide: LessonGuide; minutes: 
         </p>
       </details>
     </section>
+  )
+}
+
+export function PracticeFiles({ files }: { files: PracticeFile[] }) {
+  const openFiles = files.filter((f) => !f.sealed)
+  const sealedFiles = files.filter((f) => f.sealed)
+  return (
+    <Card>
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-lg font-semibold">Practice files for this session</h2>
+        <Pill tone="amber">Practice data</Pill>
+      </div>
+      <p className="text-sm text-stone-600 dark:text-stone-400">
+        Fictional MoneyPilot files checked into this course so you can focus on the PM work rather
+        than inventing sample data.
+      </p>
+      {openFiles.length > 0 && (
+        <ul className="mt-3 space-y-2 text-sm">
+          {openFiles.map((f) => (
+            <li key={f.path}>
+              <a
+                href={`${import.meta.env.BASE_URL}${f.path}`}
+                download
+                className={`font-medium ${linkClass}`}
+              >
+                {f.label}
+              </a>
+              <span className="text-stone-600 dark:text-stone-400"> · {f.note}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {sealedFiles.length > 0 && (
+        <details className="mt-4 rounded-xl bg-stone-100 px-4 py-3 text-sm dark:bg-stone-800/60">
+          <summary className="cursor-pointer font-medium">
+            Check step only: answer key (open after your own pass)
+          </summary>
+          <ul className="mt-2 space-y-2">
+            {sealedFiles.map((f) => (
+              <li key={f.path}>
+                <a
+                  href={`${import.meta.env.BASE_URL}${f.path}`}
+                  download
+                  className={`font-medium ${linkClass}`}
+                >
+                  {f.label}
+                </a>
+                <span className="text-stone-600 dark:text-stone-400"> · {f.note}</span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </Card>
   )
 }
 

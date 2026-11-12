@@ -30,7 +30,7 @@ const nav: { heading?: string; items: NavItem[] }[] = [
   },
   {
     heading: 'Build',
-    items: [{ to: '/wiki', label: 'Your workspace', icon: 'book' }],
+    items: [{ to: '/wiki', label: 'Your wiki', icon: 'book' }],
   },
   {
     heading: 'Record',

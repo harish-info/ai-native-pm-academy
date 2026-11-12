@@ -50,7 +50,9 @@ const FieldGuidePage = lazy(() =>
 
 function Home() {
   const { data } = useStore()
-  return data.onboarding ? <Navigate to="/dashboard" replace /> : <Landing />
+  const started =
+    Boolean(data.onboarding) || Object.keys(data.lessons).length > 0 || data.studyLog.length > 0
+  return started ? <Navigate to="/dashboard" replace /> : <Landing />
 }
 
 export function AppRoutes() {

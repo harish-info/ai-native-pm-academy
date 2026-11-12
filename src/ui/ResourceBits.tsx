@@ -1,9 +1,11 @@
-import { resourceById } from '../content'
+import { coursePath, resourceById } from '../content'
 import type { Resource, ResourceRef, VerificationStatus } from '../content/types'
 import { formatDate } from '../domain/dates'
 import { useStore } from '../state/store'
 import { Button, Pill, linkClass } from './primitives'
 import { inline } from './RichText'
+
+const mainCourseIds = new Set(coursePath.main.map((s) => s.resourceId))
 
 const statusTone: Record<VerificationStatus, 'green' | 'blue' | 'amber' | 'red'> = {
   verified: 'green',
@@ -102,6 +104,7 @@ export function ResourceCard({
               {required ? 'Start here' : 'Go deeper'}
             </Pill>
           )}
+          {mainCourseIds.has(resource.id) && <Pill tone="blue">Course path</Pill>}
           <StatusPill resource={resource} />
         </div>
       </div>
@@ -122,11 +125,8 @@ export function ResourceRefs({ refs }: { refs: ResourceRef[] }) {
   const items = refs
     .map((ref) => ({ ref, resource: resourceById(ref.resourceId) }))
     .filter((x) => x.resource)
-  // The preferred PM course comes before the core excerpt whenever it is included.
-  const preferred = items.filter((x) => x.ref.resourceId === 'ccforpms')
-  const remaining = items.filter((x) => x.ref.resourceId !== 'ccforpms')
-  const core = remaining.filter((x) => x.ref.required)
-  const optional = remaining.filter((x) => !x.ref.required)
+  const core = items.filter((x) => x.ref.required)
+  const optional = items.filter((x) => !x.ref.required)
   const render = (list: typeof items) => (
     <ul className="space-y-3">
       {list.map(({ ref, resource }) => (
@@ -142,8 +142,7 @@ export function ResourceRefs({ refs }: { refs: ResourceRef[] }) {
   )
   return (
     <div className="space-y-4">
-      {preferred.length > 0 && render(preferred)}
-      {render(core)}
+      {core.length > 0 && render(core)}
       {optional.length > 0 && render(optional)}
     </div>
   )

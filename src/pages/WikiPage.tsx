@@ -35,9 +35,9 @@ export function WikiPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Runs through every level" title="Your workspace">
+      <PageHeader eyebrow="Runs through every level" title="Your wiki">
         One private folder that grows with every session: a context file in Level 1, the workspace
-        Claude Code works from in Level 2, and an agent-maintained wiki in Level 5.
+        your coding agent works from in Level 2, and an agent-maintained wiki in Level 5.
       </PageHeader>
 
       <div className="space-y-6">

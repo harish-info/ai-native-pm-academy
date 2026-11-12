@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { allLessons, guides, lessonById, wikiSteps } from '../content'
+import { allLessons, guides, lessonById, resourceById, wikiSteps } from '../content'
 import { competencyById } from '../content/competencies'
 import { formatMinutes } from '../domain/dates'
 import { useLevelStatus } from '../state/hooks'
@@ -9,7 +9,7 @@ import { EvidencePanel } from '../ui/EvidencePanel'
 import { BookmarkButton, ResourceRefs } from '../ui/ResourceBits'
 import { Bullets, Paragraphs, inline } from '../ui/RichText'
 import { useStore } from '../state/store'
-import { DecisionPractice, SessionBrief, WorkedExample } from '../ui/SessionLearning'
+import { DecisionPractice, PracticeFiles, SessionBrief, WorkedExample } from '../ui/SessionLearning'
 import {
   Card,
   CheckIcon,
@@ -31,13 +31,12 @@ const LessonIllustration = lazy(() =>
 const steps = [
   { id: 'overview', label: 'Overview' },
   { id: 'learn', label: 'Lesson and tutorials' },
-  { id: 'task', label: 'Practical task' },
-  { id: 'prompt', label: 'Agent prompt' },
+  { id: 'task', label: 'Your task' },
+  { id: 'prompt', label: 'Your brief' },
   { id: 'verify', label: 'Verify and complete' },
 ] as const
 type StepId = (typeof steps)[number]['id']
 
-/** One group of sections the step rail can jump to. */
 function Step({ id, children }: { id: StepId; children: ReactNode }) {
   return (
     <div
@@ -51,10 +50,6 @@ function Step({ id, children }: { id: StepId; children: ReactNode }) {
   )
 }
 
-/**
- * The session's five steps. The site uses a hash router, so the rail moves scroll and focus in
- * code instead of using in-page anchors.
- */
 function StepRail({ done }: { done: boolean }) {
   const [active, setActive] = useState<StepId>('overview')
   const observer = useRef<IntersectionObserver | null>(null)
@@ -145,6 +140,7 @@ export function LessonPage() {
   const next = allLessons[index + 1]
   const wiki = wikiSteps[lesson.id]
   const prereqs = lesson.prerequisites.map((id) => lessonById(id)).filter((l) => l !== undefined)
+  const readingResource = resourceById(guide.reading.resourceId)
 
   return (
     <article className="space-y-6">
@@ -179,6 +175,13 @@ export function LessonPage() {
         </summary>
         <p className="mt-3 max-w-prose leading-relaxed">{inline(lesson.goal)}</p>
         <p className="mt-2 text-stone-600 dark:text-stone-400">Tools: {lesson.tools.join(', ')}.</p>
+        <p className="mt-1 text-stone-600 dark:text-stone-400">
+          Builds: {lesson.competencies.map((c) => competencyById[c].name).join(', ')}
+          {prereqs.length
+            ? `. Builds on: ${prereqs.map((p) => `session ${p.number}`).join(', ')}`
+            : ''}
+          .
+        </p>
         <p className="mt-1 text-xs text-stone-600 dark:text-stone-400">
           {lesson.xp} XP · Mentor review {lesson.mentorReview}
           {lesson.practicalProof ? ' · Practical proof' : ''}
@@ -209,17 +212,12 @@ export function LessonPage() {
         <StepRail key={lesson.id} done={done} />
         <div className="space-y-6">
           <Step id="overview">
-            <SessionBrief guide={guide} minutes={lesson.minutes} />
-            <Section title="Why it matters">
-              <Paragraphs items={[lesson.whyItMatters]} />
-              <p className="text-sm text-stone-600 dark:text-stone-400">
-                Builds: {lesson.competencies.map((c) => competencyById[c].name).join(', ')}
-                {prereqs.length
-                  ? `. Builds on: ${prereqs.map((p) => `session ${p.number}`).join(', ')}`
-                  : ''}
-                .
-              </p>
-            </Section>
+            <SessionBrief
+              guide={guide}
+              minutes={lesson.minutes}
+              whyItMatters={lesson.whyItMatters}
+              readingResource={readingResource}
+            />
           </Step>
 
           <Step id="learn">
@@ -240,46 +238,89 @@ export function LessonPage() {
               ))}
             </div>
 
-            <Section title="Tutorials and sources">
+            <WorkedExample guide={guide} />
+            <DecisionPractice key={lesson.id} guide={guide} />
+
+            <Section title="Tutorials, courses and sources">
               <p className="text-sm text-stone-600 dark:text-stone-400">
-                Explore the ideas above with these tutorials and original sources. The suggested
-                excerpt is included in this session’s time; follow the other links for another
-                explanation or more depth.
+                Start with the assigned source above, work through the structured courses in the
+                order shown on{' '}
+                <Link to="/resources" className={linkClass}>
+                  Courses in order
+                </Link>
+                , and use the videos and articles to go deeper before starting the task.
               </p>
               <ResourceRefs refs={lesson.resources} />
             </Section>
-
-            <WorkedExample guide={guide} />
-            <DecisionPractice key={lesson.id} guide={guide} />
-            {guide.transfer && (
-              <Section title="Try it yourself">
-                <p className="leading-relaxed">{inline(guide.transfer)}</p>
-                <p className="text-sm text-stone-600 dark:text-stone-400">
-                  Do this one without AI. If you get stuck, reread the example, then try again.
-                </p>
-              </Section>
-            )}
           </Step>
 
           <Step id="task">
+            {lesson.practiceFiles && lesson.practiceFiles.length > 0 && (
+              <PracticeFiles files={lesson.practiceFiles} />
+            )}
             <Section title="Your task">
               <p className="leading-relaxed">{inline(lesson.task.summary)}</p>
               <Bullets items={lesson.task.steps} ordered />
+              <p className="rounded-xl bg-stone-100 px-4 py-3 text-sm text-stone-700 dark:bg-stone-800/60 dark:text-stone-300">
+                {inline(
+                  'Using your own product? Swap MoneyPilot for it and use your own `product-context.md`.',
+                )}
+              </p>
             </Section>
           </Step>
 
           <Step id="prompt">
-            <Section title="Agent prompt">
+            <Section title="Your brief">
               <p className="text-sm text-stone-600 dark:text-stone-400">
-                For {lesson.agentPrompt.tool}. {lesson.agentPrompt.where}.
+                For {lesson.agentPrompt.tool}. {lesson.agentPrompt.where}.{' '}
+                {lesson.levelId === 1
+                  ? 'Fill in any bracketed blanks in your own words before sending.'
+                  : 'Write the brief in your own words first.'}
               </p>
-              <pre
-                tabIndex={0}
-                className="max-h-96 overflow-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
-              >
-                <code>{lesson.agentPrompt.text}</code>
-              </pre>
-              <CopyButton text={lesson.agentPrompt.text} label="Copy prompt" />
+              {lesson.levelId === 1 ? (
+                <>
+                  <pre
+                    tabIndex={0}
+                    className="max-h-96 overflow-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
+                  >
+                    <code>{lesson.agentPrompt.text}</code>
+                  </pre>
+                  <CopyButton text={lesson.agentPrompt.text} label="Copy prompt" />
+                </>
+              ) : (
+                <>
+                  {lesson.agentPrompt.briefChecklist &&
+                    lesson.agentPrompt.briefChecklist.length > 0 && (
+                      <div>
+                        <h3 className="mb-2 text-sm font-semibold">Your brief must cover</h3>
+                        <Bullets items={lesson.agentPrompt.briefChecklist} />
+                      </div>
+                    )}
+                  {lesson.agentPrompt.boilerplate && (
+                    <div className="space-y-2">
+                      <h3 className="text-sm font-semibold">Ready-made setup file</h3>
+                      <pre
+                        tabIndex={0}
+                        className="max-h-96 overflow-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
+                      >
+                        <code>{lesson.agentPrompt.boilerplate}</code>
+                      </pre>
+                      <CopyButton text={lesson.agentPrompt.boilerplate} label="Copy setup file" />
+                    </div>
+                  )}
+                  <details className="rounded-xl border border-stone-200 p-4 text-sm dark:border-stone-800">
+                    <summary className="cursor-pointer font-medium">
+                      Compare with a sample brief after you write yours
+                    </summary>
+                    <pre
+                      tabIndex={0}
+                      className="mt-3 max-h-96 overflow-auto rounded-xl bg-stone-100 p-4 text-sm whitespace-pre-wrap dark:bg-stone-950"
+                    >
+                      <code>{lesson.agentPrompt.text}</code>
+                    </pre>
+                  </details>
+                </>
+              )}
             </Section>
           </Step>
 
@@ -306,7 +347,7 @@ export function LessonPage() {
                     <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
                       <h3 className="text-sm font-semibold">File it</h3>
                       <Link to="/wiki" className={`text-sm ${linkClass}`}>
-                        Workspace guide
+                        Your wiki
                       </Link>
                     </div>
                     <p className="leading-relaxed">{inline(wiki.capture)}</p>
@@ -340,6 +381,16 @@ export function LessonPage() {
               </summary>
               <p className="px-5 pb-5 leading-relaxed">{inline(lesson.mentorMove)}</p>
             </details>
+
+            {lesson.soloMove && (
+              <details className="group/s rounded-2xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-2xl p-5 font-semibold hover:bg-stone-100 dark:hover:bg-stone-800 [&::-webkit-details-marker]:hidden">
+                  Working solo?
+                  <Chevron className="rotate-90 group-open/s:-rotate-90" />
+                </summary>
+                <p className="px-5 pb-5 leading-relaxed">{inline(lesson.soloMove)}</p>
+              </details>
+            )}
           </Step>
           <p className="border-t border-stone-200 pt-4 dark:border-stone-800 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
             {guide.bridge}

@@ -33,9 +33,8 @@ test('landing page loads at the base path', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
     'A practical guide to working with AI agents',
   )
-  await expect(
-    page.getByRole('link', { name: 'Start with a 10-minute skills check' }),
-  ).toBeVisible()
+  await expect(page.getByRole('link', { name: /Start Session 1/ })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Take the skills check (optional)' })).toBeVisible()
 })
 
 test('quick check explains choices without completing a lesson', async ({ page }) => {
@@ -232,11 +231,11 @@ test('case studies stay in their own area and never rename the workspace', async
   await expect(page.getByRole('heading', { name: 'Triage: the brief' })).toBeVisible()
   await page.goto('#/lessons/s17')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-  await expect(page.locator('main')).not.toContainText(/MoneyPilot|Triage|Steady/)
+  await expect(page.locator('main')).not.toContainText(/Triage|Steady/)
   await expect(page.locator('main')).toContainText('workspace')
   await page.goto('#/wiki')
-  await expect(page.getByRole('heading', { name: 'Your workspace' })).toBeVisible()
-  await expect(page.locator('main')).not.toContainText(/MoneyPilot|Triage|Steady/)
+  await expect(page.getByRole('heading', { name: 'Your wiki' })).toBeVisible()
+  await expect(page.locator('main')).not.toContainText(/Triage|Steady/)
 })
 
 test('a session completes only with evidence and stays complete after refresh', async ({

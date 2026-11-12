@@ -49,33 +49,39 @@ export interface ChecklistItem {
 }
 
 export interface AgentPrompt {
-  /** Which tool the prompt is written for, e.g. "Claude Code or Codex" or "ChatGPT or Claude". */
   tool: string
-  /** Where to run it, e.g. "In your private workspace folder". */
   where: string
   text: string
+  briefChecklist?: string[]
+  boilerplate?: string
+}
+
+export interface PracticeFile {
+  label: string
+  path: string
+  note: string
+  sealed?: boolean
 }
 
 export interface Lesson {
-  id: string // "l1-s1"
+  id: string
   levelId: LevelId
-  number: number // 1..20 across the course
+  number: number
   title: string
   difficulty: Difficulty
   minutes: number
   tools: string[]
-  prerequisites: string[] // lesson ids
+  prerequisites: string[]
   competencies: CompetencyId[]
   xp: number
   mentorReview: MentorReview
-  /** Shown as a tag: the session ends in hands-on evidence. */
   practicalProof?: boolean
-  /** Shown as a tag: the session covers safety-critical practice. */
   safetyCritical?: boolean
   goal: string
   whyItMatters: string
   learn: LearnSection[]
   resources: ResourceRef[]
+  practiceFiles?: PracticeFile[]
   task: { summary: string; steps: string[] }
   agentPrompt: AgentPrompt
   expectedOutput: string[]
@@ -83,8 +89,8 @@ export interface Lesson {
   verification: string[]
   reflectionPrompts: string[]
   checklist: ChecklistItem[]
-  /** What the mentor (a senior engineer / AI lead) can do in ~15 minutes to help. */
   mentorMove: string
+  soloMove?: string
 }
 
 export interface Challenge {

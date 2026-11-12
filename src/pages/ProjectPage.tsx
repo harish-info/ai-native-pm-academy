@@ -131,8 +131,6 @@ function ProjectPageView({ levelId }: { levelId: number }) {
         {PROJECT_MIN_DIMENSION}.
       </PageHeader>
 
-      {level.id >= 3 && <div className="mb-6"></div>}
-
       {locked && (
         <Card className="mb-6 border-amber-300 dark:border-amber-800">
           <p className="flex items-center gap-2 font-medium">

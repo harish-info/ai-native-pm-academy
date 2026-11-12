@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   allChallenges,
@@ -287,15 +289,26 @@ describe('case studies', () => {
     }
   })
 
-  it('keeps course content independent of the optional case studies', () => {
+  it('keeps alternative case studies in the case-study area and resolves practice datasets', () => {
     const text = allText({ levels, wikiSteps, wikiMilestones, guides, planWeeks })
     expect(text.filter((t) => /\{\{|\}\}/.test(t))).toEqual([])
     for (const c of caseStudies) {
-      expect(
-        text.filter((t) => new RegExp(`\\b${c.tokens.name}\\b`, 'i').test(t)),
-        `${c.tokens.name} must remain in the optional case-study area`,
-      ).toEqual([])
+      if (c.id !== 'moneypilot') {
+        expect(
+          text.filter((t) => new RegExp(`\\b${c.tokens.name}\\b`, 'i').test(t)),
+          `${c.tokens.name} must remain in the optional case-study area`,
+        ).toEqual([])
+      }
       expect(text.filter((t) => t.includes(`${c.tokens.slug}-workspace`))).toEqual([])
+    }
+    for (const lesson of allLessons) {
+      for (const file of lesson.practiceFiles ?? []) {
+        expect(file.path, `${lesson.id}: ${file.path}`).toMatch(/^datasets\//)
+        expect(
+          existsSync(resolve(process.cwd(), 'public', file.path)),
+          `${lesson.id}: missing public/${file.path}`,
+        ).toBe(true)
+      }
     }
   })
 

@@ -100,14 +100,19 @@ export function Landing() {
                 ))}
               </dl>
               <div className="mt-8 flex flex-wrap gap-3">
-                {data.onboarding ? (
+                {data.onboarding || Object.keys(data.lessons).length > 0 ? (
                   <LinkButton to="/dashboard">
                     Continue learning <span aria-hidden>→</span>
                   </LinkButton>
                 ) : (
-                  <LinkButton to="/onboarding">
-                    Start with a 10-minute skills check <span aria-hidden>→</span>
-                  </LinkButton>
+                  <>
+                    <LinkButton to="/lessons/s1">
+                      Start Session 1 <span aria-hidden>→</span>
+                    </LinkButton>
+                    <LinkButton to="/onboarding" variant="secondary">
+                      Take the skills check (optional)
+                    </LinkButton>
+                  </>
                 )}
                 <Button variant="secondary" onClick={() => switchMode('demo')}>
                   Explore with sample progress
