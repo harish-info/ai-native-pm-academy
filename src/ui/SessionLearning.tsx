@@ -17,8 +17,8 @@ export function SessionBrief({
 }) {
   return (
     <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 dark:border-stone-800 dark:bg-stone-900">
-      <h2 className="max-w-2xl text-xl font-semibold tracking-tight">{guide.decision}</h2>
-      <p className="mt-2 max-w-prose text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+      <h2 className="text-xl font-semibold tracking-tight">{guide.decision}</h2>
+      <p className="mt-2 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
         {inline(whyItMatters)}
       </p>
       <p className="mt-3 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
@@ -45,7 +45,7 @@ export function SessionBrief({
           <span className="font-semibold">Warm-up · </span>
           {guide.recall.question}
         </summary>
-        <p className="mt-2 max-w-prose leading-relaxed text-stone-700 dark:text-stone-300">
+        <p className="mt-2 leading-relaxed text-stone-700 dark:text-stone-300">
           {inline(guide.recall.answer)}
         </p>
       </details>

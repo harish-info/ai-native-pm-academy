@@ -35,29 +35,147 @@ const kindTone: Record<AgentQuestion['kind'], 'green' | 'blue' | 'neutral' | 'am
   'refuse or hand off': 'amber',
 }
 
+interface DatasetGroup {
+  lessonId: string
+  lessonLabel: string
+  topic: string
+  moneypilotOnly?: boolean
+  files: { path: (slug: string) => string; label: string; note: string }[]
+}
+
+const datasetGroups: DatasetGroup[] = [
+  {
+    lessonId: 's10',
+    lessonLabel: 'Session 10',
+    topic: 'interviews',
+    moneypilotOnly: true,
+    files: [
+      ...['P1', 'P2', 'P3', 'P4', 'P5'].map((pid) => ({
+        path: () => `datasets/moneypilot/s10-interviews/${pid}.md`,
+        label: `s10-interviews/${pid}.md`,
+        note: 'pseudonymised interview note',
+      })),
+      {
+        path: () => 'datasets/moneypilot/s10-answer-key.md',
+        label: 's10-answer-key.md',
+        note: 'open after your own synthesis',
+      },
+    ],
+  },
+  {
+    lessonId: 's11',
+    lessonLabel: 'Session 11',
+    topic: 'funnel analytics',
+    moneypilotOnly: true,
+    files: [
+      {
+        path: () => 'datasets/moneypilot/s11-events.csv',
+        label: 's11-events.csv',
+        note: '600-user 30-day cohort event log',
+      },
+      {
+        path: () => 'datasets/moneypilot/s11-answer-key.md',
+        label: 's11-answer-key.md',
+        note: 'open after checking denominators',
+      },
+    ],
+  },
+  {
+    lessonId: 's14',
+    lessonLabel: 'Session 14',
+    topic: 'evals',
+    files: [
+      {
+        path: (slug) => `datasets/${slug}/s14-conversations.md`,
+        label: 's14-conversations.md',
+        note: '30 sample conversations to label',
+      },
+      {
+        path: (slug) => `datasets/${slug}/s14-reference-notes.md`,
+        label: 's14-reference-notes.md',
+        note: 'open after labelling',
+      },
+    ],
+  },
+  {
+    lessonId: 's15',
+    lessonLabel: 'Session 15',
+    topic: 'experiment',
+    files: [
+      {
+        path: (slug) => `datasets/${slug}/s15-experiment-results.csv`,
+        label: 's15-experiment-results.csv',
+        note: 'experiment results',
+      },
+      {
+        path: (slug) => `datasets/${slug}/s15-plan.md`,
+        label: 's15-plan.md',
+        note: 'the pre-set plan',
+      },
+      {
+        path: (slug) => `datasets/${slug}/s15-answer-key.md`,
+        label: 's15-answer-key.md',
+        note: 'open after your readout',
+      },
+    ],
+  },
+  {
+    lessonId: 's19',
+    lessonLabel: 'Session 19',
+    topic: 'skill tests',
+    moneypilotOnly: true,
+    files: [
+      ...['normal-note.md', 'contradictory-decision.md', 'hostile-export.md'].map((file) => ({
+        path: () => `datasets/moneypilot/s19-skill-tests/${file}`,
+        label: `s19-skill-tests/${file}`,
+        note: 'skill test input',
+      })),
+      {
+        path: () => 'datasets/moneypilot/s19-expected.md',
+        label: 's19-expected.md',
+        note: 'open after running all three tests',
+      },
+    ],
+  },
+]
+
 export function CaseStudyPage() {
   const { data, update } = useStore()
   const statuses = useLevelStatuses()
-  const chosen = data.settings.caseStudy
+  const chosen = data.settings.caseStudy ?? 'moneypilot'
   const c = caseStudyById(chosen)
   const t = c.tokens
 
   return (
     <>
-      <PageHeader eyebrow="Course sandbox and examples" title="See the methods in context">
-        MoneyPilot is the default sandbox product used across the twenty sessions and worked
-        examples, with an optional track for your own product. Steady and Triage stay here as
-        alternative domain examples so you can see how the same PM habits translate to consumer
-        habits and B2B support.
+      <PageHeader eyebrow="Product briefs" title="MoneyPilot, HabitLoop and ReplyDesk">
+        <strong>MoneyPilot</strong> is the product you work on from Session 1 to Session 20, or you
+        can swap in your own product at any point. <strong>HabitLoop</strong> and{' '}
+        <strong>ReplyDesk</strong> sit alongside it here so you can compare how the same PM methods
+        translate to consumer habits and B2B software support.
       </PageHeader>
 
       <div className="space-y-8">
+        <Card className="border-indigo-200 bg-indigo-50/50 dark:border-indigo-900 dark:bg-indigo-950/30">
+          <h2 className="text-lg font-semibold">MoneyPilot in 15 seconds</h2>
+          <p className="mt-2 text-sm leading-relaxed text-stone-800 dark:text-stone-200">
+            It is the 14th of the month and your retail bank app shows{' '}
+            <strong>Balance: 14,000 kr</strong>. That number is misleading:{' '}
+            <strong>12,500 kr</strong> of rent, electricity, broadband and recurring card bills
+            leave automatically before payday on the 25th, leaving <strong>1,500 kr</strong> before
+            groceries and everyday life. MoneyPilot shows your real{' '}
+            <strong>Safe before payday</strong> in deterministic code, flags unexpected bill jumps,
+            and pairs it with an AI drawer that explains changes and stages savings cover transfers
+            behind explicit customer approval.
+          </p>
+        </Card>
+
         <fieldset>
-          <legend className="mb-3 text-lg font-semibold">Explore an example</legend>
-          {!chosen && (
+          <legend className="mb-3 text-lg font-semibold">Compare product briefs</legend>
+          {!data.settings.caseStudy && (
             <p className="mb-3 text-sm text-stone-600 dark:text-stone-400">
-              MoneyPilot is the default course sandbox. Choosing Steady or Triage below updates only
-              this reference page.
+              MoneyPilot is active across all twenty sessions. Selecting HabitLoop or ReplyDesk
+              below switches only this reference page.
             </p>
           )}
           <div className="grid gap-4 md:grid-cols-3">
@@ -94,7 +212,7 @@ export function CaseStudyPage() {
                     {cs.pitch}
                   </span>
                   <span className="mt-3 block text-xs font-semibold text-stone-600 dark:text-stone-400">
-                    What it adds
+                    What it highlights
                   </span>
                   <ul className="mt-1 list-disc space-y-1 pl-4 text-sm text-stone-700 dark:text-stone-300">
                     {cs.teaches.map((x) => (
@@ -104,11 +222,11 @@ export function CaseStudyPage() {
                   <span className="mt-auto pt-4 text-sm font-semibold">
                     {selected ? (
                       <Pill tone="green">
-                        <CheckIcon className="h-3 w-3" /> Viewing this example
+                        <CheckIcon className="h-3 w-3" /> Viewing {cs.tokens.name}
                       </Pill>
                     ) : (
                       <span className="text-indigo-700 dark:text-indigo-300">
-                        Explore {cs.tokens.name}
+                        Inspect {cs.tokens.name}
                       </span>
                     )}
                   </span>
@@ -117,9 +235,9 @@ export function CaseStudyPage() {
             })}
           </div>
           <p className="mt-3 text-sm text-stone-600 dark:text-stone-400">
-            These are starting hypotheses for practice, not research findings. Choosing Steady or
-            Triage here changes only this page; the sessions use MoneyPilot by default, and you can
-            swap in your own product at any time.
+            Every brief starts as an unvalidated product hypothesis. Selecting HabitLoop or
+            ReplyDesk here updates only this page; the lessons use MoneyPilot by default, and you
+            can swap in your own product whenever you prefer.
           </p>
         </fieldset>
 
@@ -131,8 +249,8 @@ export function CaseStudyPage() {
             <Card>
               <h3 className="font-semibold">Starting hypothesis</h3>
               <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
-                A learner applying Session 10 to this example could overturn any of these
-                assumptions. Follow the evidence and record the decision.
+                Discovery in Session 10 and funnel data in Session 11 will test and sharpen these
+                assumptions. Follow the evidence and record what changes.
               </p>
               <dl className="mt-4 grid gap-x-6 gap-y-3 text-sm sm:grid-cols-[9rem_minmax(0,1fr)]">
                 {(
@@ -145,6 +263,7 @@ export function CaseStudyPage() {
                     ['Leading signal', t.leading],
                     ['Outcome metric', t.outcomeMetric],
                     ['Guardrail', t.guardrail],
+                    ['Acceptance rule', t.acceptance],
                   ] as const
                 ).map(([k, v]) => (
                   <div key={k} className="contents">
@@ -173,12 +292,10 @@ export function CaseStudyPage() {
 
         <section aria-labelledby="cycle-heading">
           <h2 id="cycle-heading" className="text-lg font-semibold">
-            The product cycle
+            How MoneyPilot evolves across the 20 sessions
           </h2>
           <p className="mt-1 mb-4 text-sm text-stone-600 dark:text-stone-400">
-            Eight stages, each answering one question before the next begins. Every session leaves
-            an artifact; together they are the evidence a hiring manager or a team lead would ask
-            for.
+            Eight product stages, each answering one PM question before the next begins.
           </p>
           <ol className="relative space-y-5 before:absolute before:top-2 before:bottom-2 before:left-[0.95rem] before:w-px before:bg-stone-300 dark:before:bg-stone-700">
             {caseStages.map((stage, i) => {
@@ -235,11 +352,11 @@ export function CaseStudyPage() {
                         <div className="flex items-start gap-3">
                           <div className="min-w-0 flex-1">
                             <Link to={`/levels/${project.id}/project`} className={stretchedLink}>
-                              Level {project.id} project: {project.project.title}
+                              Level {project.id} sign-off: {project.project.title}
                             </Link>
                             <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-400">
-                              Gate: scored on correctness, quality, independence and judgment
-                              {project.id >= 4 ? ', with your mentor' : ''}.
+                              20-minute review sign-off on correctness, quality, independence and
+                              judgment.
                             </p>
                           </div>
                           {projectStatus?.project.passed && (
@@ -275,11 +392,11 @@ export function CaseStudyPage() {
 
         <section aria-labelledby="screens-heading">
           <h2 id="screens-heading" className="text-lg font-semibold">
-            Candidate screens
+            v1 surfaces and cut list
           </h2>
           <p className="mt-1 mb-3 text-sm text-stone-600 dark:text-stone-400">
-            A starting map, not a spec. Your PRD decides what v1 really contains; the cut list
-            matters as much as the build list.
+            Keep v1 tight: two core surfaces in the course, with adjacent ideas deliberately parked
+            for later.
           </p>
           <ul className="grid gap-4 md:grid-cols-2">
             {c.screens.map((s) => (
@@ -380,7 +497,7 @@ export function CaseStudyPage() {
           {c.critiqueNotes && (
             <div className="mt-5 grid gap-6 lg:grid-cols-2">
               <div>
-                <h3 className="mb-2 font-semibold">Worth borrowing from the reference mockups</h3>
+                <h3 className="mb-2 font-semibold">Worth borrowing from reference mockups</h3>
                 <ul className="list-disc space-y-2 pl-5 text-sm">
                   {c.critiqueNotes.borrow.map((b) => (
                     <li key={b}>{b}</li>
@@ -410,89 +527,36 @@ export function CaseStudyPage() {
         <Card>
           <h2 className="text-lg font-semibold">Practice data</h2>
           <p className="mt-1 text-sm text-stone-700 dark:text-stone-300">
-            Optional, fictional data for this case so Sessions 14 and 15 have something concrete.
-            The lessons work without it.
+            Fictional practice datasets and sealed answer keys so discovery, analytics, evals,
+            experiment readouts and skill checks run against concrete figures.
           </p>
           <div className="mt-4 grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="mb-2 font-semibold">
-                <Link to="/lessons/s14" className={linkClass}>
-                  Session 14
-                </Link>
-                , evals
-              </h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a
-                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s14-conversations.md`}
-                    download
-                    className={linkClass}
-                  >
-                    s14-conversations.md
-                  </a>
-                  <span className="text-stone-600 dark:text-stone-400">
-                    {' '}
-                    · 30 sample conversations to label
-                  </span>
-                </li>
-                <li>
-                  <a
-                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s14-reference-notes.md`}
-                    download
-                    className={linkClass}
-                  >
-                    s14-reference-notes.md
-                  </a>
-                  <span className="text-stone-600 dark:text-stone-400">
-                    {' '}
-                    · open after labelling
-                  </span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="mb-2 font-semibold">
-                <Link to="/lessons/s15" className={linkClass}>
-                  Session 15
-                </Link>
-                , experiment
-              </h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a
-                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s15-experiment-results.csv`}
-                    download
-                    className={linkClass}
-                  >
-                    s15-experiment-results.csv
-                  </a>
-                  <span className="text-stone-600 dark:text-stone-400"> · experiment results</span>
-                </li>
-                <li>
-                  <a
-                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s15-plan.md`}
-                    download
-                    className={linkClass}
-                  >
-                    s15-plan.md
-                  </a>
-                  <span className="text-stone-600 dark:text-stone-400"> · the pre-set plan</span>
-                </li>
-                <li>
-                  <a
-                    href={`${import.meta.env.BASE_URL}datasets/${t.slug}/s15-answer-key.md`}
-                    download
-                    className={linkClass}
-                  >
-                    s15-answer-key.md
-                  </a>
-                  <span className="text-stone-600 dark:text-stone-400">
-                    {' '}
-                    · open after your readout
-                  </span>
-                </li>
-              </ul>
-            </div>
+            {datasetGroups
+              .filter((g) => !g.moneypilotOnly || c.id === 'moneypilot')
+              .map((g) => (
+                <div key={g.lessonId}>
+                  <h3 className="mb-2 font-semibold">
+                    <Link to={`/lessons/${g.lessonId}`} className={linkClass}>
+                      {g.lessonLabel}
+                    </Link>
+                    , {g.topic}
+                  </h3>
+                  <ul className="space-y-2 text-sm">
+                    {g.files.map((f) => (
+                      <li key={f.label}>
+                        <a
+                          href={`${import.meta.env.BASE_URL}${f.path(t.slug)}`}
+                          download
+                          className={linkClass}
+                        >
+                          {f.label}
+                        </a>
+                        <span className="text-stone-600 dark:text-stone-400"> · {f.note}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
           </div>
         </Card>
       </div>

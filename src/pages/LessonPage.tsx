@@ -212,6 +212,38 @@ export function LessonPage() {
         <StepRail key={lesson.id} done={done} />
         <div className="space-y-6">
           <Step id="overview">
+            {lesson.id === 's1' ? (
+              <Card className="border-indigo-200 bg-indigo-50/50 dark:border-indigo-900 dark:bg-indigo-950/30">
+                <h2 className="text-lg font-semibold">Meet MoneyPilot</h2>
+                <p className="mt-2 text-sm leading-relaxed text-stone-800 dark:text-stone-200">
+                  It is the 14th of the month and a retail bank app shows{' '}
+                  <strong>Balance: 14,000 kr</strong>. That figure misleads monthly-paid customers:{' '}
+                  <strong>12,500 kr</strong> of rent, electricity and automatic bills leave before
+                  payday on the 25th, leaving <strong>1,500 kr</strong> before groceries. Across
+                  these twenty sessions you act as MoneyPilot&apos;s PM, taking{' '}
+                  <strong>Safe before payday</strong> (calculated in tested code) and an{' '}
+                  <strong>Ask MoneyPilot</strong> drawer (grounded Q&amp;A plus customer-approved
+                  savings cover transfers) from first pitch to prototype, discovery, PRD, evals,
+                  experiment readout and living product wiki.
+                </p>
+                <p className="mt-3 text-sm text-stone-700 dark:text-stone-300">
+                  <Link to="/case-study" className={`font-semibold ${linkClass}`}>
+                    Open the MoneyPilot case study, starting hypothesis, screens and rules
+                  </Link>{' '}
+                  · Prefer your own product? Swap it in at any session using public facts and
+                  fictional data.
+                </p>
+              </Card>
+            ) : (
+              <div className="rounded-xl border border-stone-200 bg-stone-50 px-4 py-2.5 text-xs leading-relaxed text-stone-700 dark:border-stone-800 dark:bg-stone-900/70 dark:text-stone-300">
+                <strong>MoneyPilot:</strong> 14,000 kr balance minus 12,500 kr due bills = 1,500 kr
+                safe before payday ·{' '}
+                <Link to="/case-study" className={`font-semibold ${linkClass}`}>
+                  Open MoneyPilot case study
+                </Link>{' '}
+                · Or swap in your own product.
+              </div>
+            )}
             <SessionBrief
               guide={guide}
               minutes={lesson.minutes}
@@ -223,7 +255,7 @@ export function LessonPage() {
           <Step id="learn">
             <div className="lesson-reader space-y-8 rounded-2xl border border-stone-200 bg-white px-5 py-7 sm:px-8 dark:border-stone-800 dark:bg-stone-900">
               {lesson.learn.map((s) => (
-                <section key={s.heading} className="mx-auto max-w-prose">
+                <section key={s.heading}>
                   <h2 className="mb-3 text-xl font-semibold tracking-tight">{s.heading}</h2>
                   <div className="space-y-3">
                     <Paragraphs items={s.paragraphs} />

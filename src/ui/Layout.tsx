@@ -10,12 +10,9 @@ interface NavItem {
   to: string
   label: string
   icon: string
-  /** Other routes that belong to this item, so it stays highlighted on them. */
   also?: string[]
 }
 
-// Grouped by the learner's loop: plan the week, learn, build the PM OS,
-// keep a record. Every item answers a question the learner has; nothing is here for decoration.
 const nav: { heading?: string; items: NavItem[] }[] = [
   { items: [{ to: '/dashboard', label: 'This week', icon: 'home' }] },
   {
@@ -30,7 +27,10 @@ const nav: { heading?: string; items: NavItem[] }[] = [
   },
   {
     heading: 'Build',
-    items: [{ to: '/wiki', label: 'Your wiki', icon: 'book' }],
+    items: [
+      { to: '/case-study', label: 'Case studies', icon: 'cycle', also: ['/moneypilot'] },
+      { to: '/wiki', label: 'Your wiki', icon: 'book' },
+    ],
   },
   {
     heading: 'Record',
@@ -39,7 +39,6 @@ const nav: { heading?: string; items: NavItem[] }[] = [
       { to: '/stats', label: 'Progress', icon: 'chart', also: ['/achievements'] },
     ],
   },
-  { heading: 'Examples', items: [{ to: '/case-study', label: 'Case study', icon: 'cycle' }] },
   { items: [{ to: '/settings', label: 'Settings', icon: 'sliders' }] },
 ]
 

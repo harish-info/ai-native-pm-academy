@@ -4,20 +4,20 @@ export const level2: Level = {
   id: 2,
   slug: 'build-with-agents',
   title: 'Build with agents',
-  theme: 'Turn the pitch into a live, reviewed prototype with Claude Code',
+  theme: 'Turn the pitch into a live, reviewed discovery probe with Claude Code',
   summary:
-    'Make your hypothesis testable as a clickable prototype. Set up a private agent workspace, decide the requirements, build one flow and publish a fictional-data demo through reviewed pull requests. Check behaviour, figures, accessibility and scope. Level 3 can still change the problem or stop the idea.',
+    'Turn your MoneyPilot hypothesis into a clickable, throwaway discovery probe built to test assumptions with real people in Session 10, not production v1. Set up a private agent workspace, get interviewed into a one-page requirements file, publish a fictional-data probe through a reviewed pull request, answer a product question from a real codebase and review behaviour, math and accessibility.',
   outcomes: [
-    'Run a private workspace for the quarter that Claude Code understands from its first message, with an `AGENTS.md` you wrote and a clear line between your instructions and its auto memory.',
-    'Let Claude Code interview you into `REQUIREMENTS.md`, then build and steer a multi-screen prototype by reviewing the running result.',
-    'Keep long builds on track with fresh sessions and short handoff notes.',
-    'Publish through GitHub: commits, branches, a branch and pull request loop, an optional protected main branch, diffs you can read, and a live URL.',
-    'Review what agents build with user tests, accessibility basics, a second-session review and fixes from bug reports, without ever committing a secret.',
+    'Run a private workspace that your coding agent understands from its first message, with an `AGENTS.md` you wrote yourself and a clear split from auto memory.',
+    'Use `grill-me` to get interviewed into a one-page `REQUIREMENTS.md` for one MoneyPilot user job and three states, then steer a throwaway discovery probe one change at a time.',
+    'Keep builds sharp with git save points, fresh sessions and short `HANDOFF.md` notes before long chats hit context rot.',
+    'Work on GitHub: commits, branches, reading diffs with four PM questions, merging one pull request, answering a product question from a real codebase and filing a bug issue.',
+    'Review agent-built work with silent phone observation, five WCAG AA checks, an independent fresh-session review from your own checklist and secret scanning.',
   ],
   badge: {
     name: 'Builder PM',
     description:
-      'Turned a pitch into a live, reviewed product prototype with Claude Code, through pull requests you can explain line by line.',
+      'Turned a pitch into a live, reviewed discovery probe with Claude Code, through pull requests and checks you can explain line by line.',
   },
   lessons: [
     {
@@ -26,85 +26,56 @@ export const level2: Level = {
       number: 5,
       title: 'Your workspace and Claude Code',
       difficulty: 'Intermediate',
-      minutes: 120,
-      tools: ['Claude Code in Warp (or the desktop Code tab)', 'Git'],
+      minutes: 75,
+      tools: ['Claude Code (terminal or desktop Code tab)', 'Git'],
       prerequisites: ['s4'],
       competencies: ['coding-agents', 'knowledge-management'],
       xp: 125,
       mentorReview: 'recommended',
-      goal: 'Set up `workspace/` as the private home for your PM practice: one folder per workstream, your Level 1 files moved in, and an `AGENTS.md` that points every agent session at `product-context.md`.',
+      goal: 'Set up `workspace/` as the private home for your MoneyPilot PM work: one folder per workstream, your Level 1 files moved in, and a short `AGENTS.md` you wrote yourself.',
       whyItMatters:
-        'Your pitch page landed and your manager wants a prototype next. From here the work spreads across research, notes, decisions and code, and an agent is only as useful as the context it can reach. A tidy folder with one short instructions file is the simplest knowledge system that works with Claude Code today and with whatever tool comes next. Every later session, and the personal PM OS you build in Level 5, grows out of this folder.',
+        'Your MoneyPilot pitch page landed, and next you will build a throwaway discovery probe to put in front of real people. From here your work spans research, requirements, decisions and code, and a coding agent is only as sharp as the files it can reach. One tidy folder with a short instructions file works in Claude Code today and grows into your personal PM OS in Level 5.',
       learn: [
         {
-          heading: 'What Claude Code does that a chat cannot',
+          heading: 'What a coding agent does that chat cannot',
           paragraphs: [
-            'Claude Code reads files, writes changes and runs commands on your computer. Whatever it reads, including file contents and command output, goes to the model provider. It starts in the folder you choose, but that folder is not a fence: it can be allowed to reach other files and tools, so check what it may do before you start.',
-            "This course runs Claude Code in a terminal, and the next section shows why that is easier than it sounds. If the terminal ever stops you, the Claude desktop app has a **Code** tab with the same agent: sign in with your Claude Pro plan, choose a folder and type. OpenAI's Codex works in much the same way; this course writes for Claude Code from here on. The [Field guide](/field-guide) compares current models and tools.",
-            'The main Claude app, which now includes **Cowork**, can also act as an agent. This course uses Claude Code because your prototype lives in a folder you own, under git, where you can see and undo every change.',
+            'Claude Code is a coding agent: it reads files, writes edits and runs commands in the folder you open on your computer. Whatever it reads, including file contents and command output, goes to the model provider, and the starting folder is not a hard fence, so check what tools and folders it may reach before you begin.',
+            "You can run Claude Code in any terminal app or in the **Code** tab of the Claude desktop app: both use the same agent and read the same `AGENTS.md` file. Follow the [Starter kit](/starter-kit) once for installation, and see the [Field guide](/field-guide) for how OpenAI's Codex and Claude's Cowork compare. Inside a session, five quick controls cover almost everything: **Esc** stops a task safely mid-run, **Shift+Tab** switches into plan mode so the agent proposes steps before editing, pasting or dragging an image shares a screenshot, `/memory` inspects auto memory, and `/help` lists commands.",
           ],
         },
         {
-          heading: 'A terminal is just another chat window',
-          paragraphs: [
-            'Claude Code runs in a **terminal**: a window where you type text and the computer types text back. It looks like something from the 1980s, and that is most of why it feels hard. Two words you will hear: a **CLI** (command line interface) is any program you use by typing instead of clicking, and a **TUI** (text user interface) is a CLI that draws boxes and menus inside the terminal. Claude Code is a TUI, which is why it feels like a chat app once it is running: you type a request in plain English, Claude answers, and when it wants to run a command it shows you the command and asks first.',
-            'Use **Warp** rather than the terminal that came with your computer: it is free, and you click and edit what you typed like normal text. Setup is the only part where you type commands. Once, install it with the [Starter kit](/starter-kit) steps. Each time after that, type `cd` and a space, drag your workspace folder onto the window, press Enter, and type `claude`. From then on you type sentences. To see what is in a folder, undo a change or install a tool, ask Claude to do it and to explain what it ran.',
-            'If you switch to the desktop **Code** tab, nothing else changes: same agent, same `AGENTS.md`, and you can switch back at any time. In the terminal, five keys are worth knowing:',
-          ],
-          bullets: [
-            '**Esc** stops Claude mid-task, safely. Then say what you want instead.',
-            '**Enter** sends; **Ctrl+J** starts a new line without sending.',
-            '**Shift+Tab** cycles through modes. Press it until the screen shows plan mode, where Claude proposes a plan before changing anything. One press from the start turns on auto-accept edits instead.',
-            '**Ctrl+V** pastes a screenshot (Alt+V on Windows), or drag the image file onto the window. On a Mac, Cmd+Ctrl+Shift+4 copies a screenshot ready to paste.',
-            '**Up arrow** brings back your last message, `/help` lists commands, and **Ctrl+C** twice quits.',
-          ],
-        },
-        {
-          heading: 'How to organise your workspace folder',
+          heading: 'One folder per workstream',
           illustration: 'workspace',
           paragraphs: [
-            'Claude finds things by reading names, listing folders and searching text. A workspace with forty loose drafts gives it forty chances to quote an old decision. A workspace with one folder per workstream, each with a short `README.md` saying what belongs there, gives it a map.',
-            'Keep the rules simple: one folder per workstream, a short context file at the top, lowercase hyphenated file names, dates as YYYY-MM-DD, and raw material (articles, exports, transcripts) saved unedited in `sources/` so you can always go back to what was actually said. When a draft is superseded, move it to an `archive/` folder rather than leaving two versions side by side.',
+            'Agents orient themselves by listing folders, reading file names and searching text. Forty loose drafts in one root folder give the agent forty chances to quote a MoneyPilot decision you reversed last week. One folder per workstream, each with a two-line `README.md` stating what belongs inside, gives every session a reliable map.',
+            'Keep conventions plain: lowercase-hyphenated file names, dates written as `YYYY-MM-DD`, raw material saved unedited in `sources/`, and superseded drafts moved to `archive/` rather than left beside current files.',
           ],
           bullets: [
-            '`AGENTS.md`: instructions for any agent, written by you. Short.',
-            '`product-context.md`: the product, users, glossary, constraints and open decisions from Session 2.',
-            '`sources/`: raw material, never edited after saving.',
-            '`learning/`: your glossary, model comparison and delegation audit.',
-            '`pitch/`: pitch notes and the link to your pitch page.',
-            '`research/`: the fact sheet.',
-            '`prototype/`: added in Session 6. Level 3 adds `strategy/`, `discovery/`, `data/` and `prd/` the same way, and Level 4 adds `evals/`, `launch/` and `presentations/`: one folder per workstream.',
+            '`AGENTS.md` and `product-context.md` at the top: instructions you write, plus MoneyPilot users, glossary, constraints and open decisions.',
+            '`sources/`: raw competitor pages, articles and exports, never edited after saving.',
+            '`learning/`, `pitch/` and `research/`: your Level 1 glossary, model comparison, pitch notes and verified fact sheet.',
+            '`archive/` for retired drafts, with `prototype/` added in Session 6 and discovery, delivery and wiki folders added in Levels 3 to 5.',
           ],
         },
         {
           heading: 'AGENTS.md, CLAUDE.md and auto memory',
           paragraphs: [
-            '**`AGENTS.md`** is the instructions file for your workspace, and you write it. It is an open format that most coding agents, including Claude Code, Codex and Cursor, read at the start of every session in that folder, so one file works whichever agent you use. Tell it to read `product-context.md` first. In Claude Code, a line such as `@product-context.md` on its own also pulls that file in, so every session starts knowing what your product is.',
-            '**`CLAUDE.md`** is for Claude only. Recent versions of Claude Code read `AGENTS.md` directly, as long as there is no `CLAUDE.md` or `CLAUDE.local.md` in that folder or any folder above it; once one exists, Claude reads that instead. So skip it unless you need a rule only Claude should follow, or your version cannot read `AGENTS.md`. If you add one, make its first line `@AGENTS.md`, so `AGENTS.md` stays the single source of truth. If your folder still has a `CLAUDE.md` from an earlier version of this course, first ask your agent to move its contents into `AGENTS.md` and leave `@AGENTS.md` as the only line in `CLAUDE.md`.',
-            '**Auto memory** is notes Claude writes for itself as it works, for example a command that worked or a preference you corrected. It lives in your user folder rather than the workspace, and you can view and edit it with the `/memory` command.',
-            'The split is simple. Anything that must hold in every session, or that someone else would need to know, you write in `AGENTS.md` yourself: what the workspace is, the folder map, the conventions, what must never happen. Auto memory is for small things Claude picks up along the way. Look at it now and then, delete what is wrong and move anything important into `AGENTS.md`. Status that changes weekly belongs in a workstream README, not in either.',
-            'Keep `AGENTS.md` short and check that a fresh session picks it up. It is guidance, not a lock: Claude usually follows it, but anything that must never happen needs a real control, such as a permission setting or keeping the file out of the folder.',
+            '**`AGENTS.md`** is the open instructions file you write yourself, read at the start of every session by Claude Code, Codex and most other coding agents. Keep it between 25 and 50 lines. Put `@product-context.md` on its own line near the top so Claude Code loads your MoneyPilot context into every session automatically.',
+            'Claude Code reads `AGENTS.md` directly as long as there is no `CLAUDE.md` in the folder or above it. Skip `CLAUDE.md` unless you need a Claude-only setting; if you ever add one, make its first line `@AGENTS.md` so `AGENTS.md` stays your single source of truth.',
+            '**Auto memory** (`/memory`) is a scratchpad in your user folder where Claude records small habits it noticed while working. Permanent rules (`never edit files in sources/`) belong in `AGENTS.md`; weekly status belongs in a folder `README.md`. Long chats still suffer **context rot** when older turns compact and lose detail, so keep real decisions in files and start a fresh session from a short handoff note whenever answers drift.',
           ],
         },
         {
-          heading: 'Permissions, and undoing changes with git',
+          heading: 'Permissions, git save points and skills',
           paragraphs: [
-            'Check which permission mode your session is in; the default depends on your version and settings. Modes range from asking before every edit or command to approving routine actions automatically. While you are learning, use one that asks, so you see what Claude is about to do.',
-            'Commit before each task and read the diff after. Git can put tracked files back the way they were. It cannot bring back a file it never tracked, unsend a message or take back something already sent to a connected tool. Keep connectors you do not need switched off, and decide separately before anything is published.',
-            'Git saves snapshots of a folder. You do not need to learn the commands: ask Claude to "commit this with a clear message", "show me what changed since the last commit" or "undo the changes to this file", and read what it reports. The workspace stays on your computer. If you want an off-machine backup, use a private repository only.',
-          ],
-        },
-        {
-          heading: 'Skills: procedures Claude can reuse',
-          paragraphs: [
-            'A **skill** is a folder with a `SKILL.md` file: a name, a one-line description of when to use it, and the steps. Claude reads only the descriptions until your request matches one, then loads the full steps. You can run a skill by name, such as `/grill-me`, or let Claude pick it when the task fits.',
-            'To install one, copy its folder into `.claude/skills/` in your workspace, or follow the install line in its README. Read it first, the way you would read a script someone emailed you, because it runs with your permissions. You will use Matt Pocock’s grill-me in Session 6 and write and test your own in Session 19.',
+            'While learning, use a permission mode that asks before running commands or deleting files. Commit to git before each task and inspect what changed afterwards: git restores any tracked file in seconds, though it cannot recover untracked files or unsend actions already taken in external tools.',
+            'A **skill** is a reusable workflow stored in `.claude/skills/` as a `SKILL.md` file with a name, a one-line trigger description and step-by-step instructions. Read any skill before installing it because it runs with your permissions. You will practise the `grill-me` interview method in Session 6 and write your own skill in Session 19.',
           ],
         },
         {
           heading: 'What never goes in the workspace',
           paragraphs: [
-            'This is your own workspace on your own computer. Use public or fictional material only: no employer documents, customer data, credentials or personal details about colleagues. When Claude reads a file its contents go to the model provider, so the rule from Session 3 still applies: if you would not paste it into a chat, do not save it here.',
+            'Keep only fictional MoneyPilot practice material and public sources in `workspace/`: everything the agent reads goes to the model provider, so as in [Session 3](/lessons/s3), never save employer documents, customer data, colleague details or credentials here.',
           ],
         },
       ],
@@ -157,78 +128,79 @@ export const level2: Level = {
       ],
       task: {
         summary:
-          'Install Claude Code, create `workspace/`, move your Level 1 files in, write `AGENTS.md` with Claude, and make your first commits.',
+          'Create `workspace/`, write your first `AGENTS.md` yourself, organize your Level 1 MoneyPilot files under git, practise undoing a change, and test a fresh session.',
         steps: [
-          'Install Warp, Claude Code and Git with the steps in the [Starter kit](/starter-kit), and sign in with your Claude Pro plan. If the terminal stops you, use the **Code** tab in the Claude desktop app instead.',
-          'Create a folder called `workspace` somewhere private on your own computer, not in a shared or synced work folder. Copy in everything from your Level 1 `learning-notes/` folder: `product-context.md`, `glossary.md`, `model-comparison.md`, `delegation-audit.md`, `fact-sheet.md`, `pitch-notes.md` and anything else you kept there.',
-          'Open the folder in Claude Code. Ask it to start a git repository and commit the files exactly as they are, before anything moves. This is your first save point.',
-          'Run the prompt below. Read the proposed folder map and `AGENTS.md` draft, push back on anything that does not match how you work, then let Claude make the changes.',
-          'Ask Claude to show what changed since the first commit. Check that every Level 1 file still exists, now in its folder, and that nothing was rewritten. Commit.',
-          'Edit `AGENTS.md` yourself: cut any line a fresh session would not need, and add one rule you care about, such as the spelling you use.',
-          'Test it. Start a new session and ask: "What is this workspace for, and where would you save a new competitor article?" Claude should answer from `AGENTS.md` and `product-context.md` without hints. If it cannot, fix the file, not the question.',
-          'Run `/memory` and look at what auto memory holds, if anything. Note one thing you would keep there and one thing that belongs in `AGENTS.md` instead.',
+          '**Think first (no AI):** Create a private `workspace/` folder on your computer (not in a shared or synced work drive), copy in your Level 1 MoneyPilot files (`product-context.md`, `glossary.md`, `model-comparison.md`, `delegation-audit.md`, `fact-sheet.md`, `pitch-notes.md`), and hand-write a first 25 to 40 line `AGENTS.md` with two sentences on MoneyPilot, `@product-context.md` on its own line, your folder map (`sources/`, `learning/`, `pitch/`, `research/`, `archive/`) and hard rules including `never edit files in sources/`.',
+          '**Work with your agent:** Install the tools from the [Starter kit](/starter-kit) if needed, open `workspace/` in Claude Code (terminal or desktop **Code** tab), and ask it to initialize git and commit your untouched files as a first save point. Brief your agent in your own words to create the workstream folders with short `README.md` files and move your Level 1 files without rewriting them; commit the clean move, then ask for one deliberate throwaway edit to a `README.md` and undo it via git so you see the safety net work.',
+          '**Check and try to break it:** Open a brand-new Claude Code session and ask without hints: "What is MoneyPilot, and where does a raw competitor article go?" Inspect `/memory` to see what auto memory saved versus what belongs in `AGENTS.md`, and note what would get lost if a long session compacted (context rot), writing a five-line handoff note if any context lived only in chat.',
+          '**Make the call:** Tighten `AGENTS.md` wherever the fresh session guessed or hesitated, delete any vague line that does not change agent behaviour, and commit your clean workspace.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In Claude Code, with the workspace folder open',
-        text: `This is my private PM workspace. Read product-context.md for the product, users and constraints I have chosen. Everything in it is fictional or public material. It will hold research, notes, decisions and a prototype, and you will work in it across the course.
+        where: 'In Claude Code (terminal or desktop Code tab), with workspace/ open',
+        briefChecklist: [
+          'Context files to read first: `AGENTS.md` and `product-context.md` before proposing any moves.',
+          'Folder map to create: `sources/`, `learning/`, `pitch/`, `research/` and `archive/`, each with a two-line `README.md`.',
+          'Hard boundaries: move existing Level 1 files into matching folders without renaming or rewriting their text, and never edit `sources/`.',
+          'Approval gate: show the proposed file moves and tightenings to `AGENTS.md` first, and wait for your go-ahead before changing files.',
+          'Verification output: show the git diff after moving files and list up to three open questions or contradictions spotted in `product-context.md`.',
+        ],
+        text: `Read AGENTS.md and product-context.md first, then inspect the files currently in this private PM workspace. Everything here is fictional MoneyPilot material or public research.
 
-Read every file in the folder first, starting with product-context.md.
+Goal: organize my Level 1 files into workstream folders without changing their contents, and review my hand-written AGENTS.md for gaps.
 
-Goal: organize the workspace so that a fresh Claude Code session understands it from its first message.
+1. Propose where each existing file moves across sources/, learning/, pitch/, research/ and archive/. Do not rename or rewrite my files.
+2. Draft a two-line README.md for each folder stating what belongs there and what does not.
+3. Suggest up to five line edits to tighten my AGENTS.md (keeping it under 40 lines and keeping @product-context.md at the top), plus up to three open questions you noticed in product-context.md without editing it.
 
-1. Propose a folder map: one folder per workstream (at least sources/, learning/, pitch/, research/ and archive/), with a one-line purpose each and which of my current files goes where. Do not rename my files.
-2. Draft AGENTS.md, at most 50 lines, with these sections:
-   - What this workspace is (two sentences), an instruction to read product-context.md first, and an @product-context.md line so Claude Code loads it in every session
-   - Folder map (one line per folder)
-   - Conventions: Markdown, lowercase-hyphenated file names, dates as YYYY-MM-DD, raw material saved unedited in sources/
-   - Rules: fictional or public data only; never edit files in sources/; ask before deleting anything or moving more than five files; when a file is superseded, move it to archive/
-   - How I like answers: short, plain English, name the files you used
-3. Draft a README.md for each folder: two or three lines on what belongs there and what does not.
-4. List up to five gaps or contradictions you noticed in product-context.md, as questions for me. Do not edit that file.
-
-Show me the folder map and the AGENTS.md draft before you move anything. When I agree, make the changes and tell me what to check.`,
+Wait for my approval before moving or creating files. Once I approve, apply the changes and show me git status and a diff summary so I can verify nothing was rewritten.`,
       },
       expectedOutput: [
-        'A `workspace/` folder with one folder per workstream, each with a short README.',
-        'Your Level 1 files moved in, unchanged in content.',
-        'An `AGENTS.md` of 30 to 60 lines that loads `product-context.md` and states the folder map, conventions and rules.',
-        'At least two commits: the files as they arrived, and the organized workspace.',
-        'A short list of open questions about `product-context.md`.',
+        'A private `workspace/` git repository with `sources/`, `learning/`, `pitch/`, `research/` and `archive/`, each containing a short `README.md`.',
+        'Your Level 1 MoneyPilot files moved into the right folders, unchanged in content.',
+        'A hand-written, tested `AGENTS.md` of 25 to 50 lines that loads `@product-context.md` and states folder rules.',
+        'Clean commits before and after organizing, plus one practised git undo.',
       ],
       artifact:
-        '`workspace/` with `AGENTS.md` pointing at `product-context.md`, one folder per workstream and the Level 1 files moved in, under git.',
+        '`workspace/` under git with a short `AGENTS.md` pointing at `product-context.md`, one folder per workstream and your Level 1 files filed cleanly.',
       verification: [
-        'A fresh session answers "What is this workspace for, and where would a new competitor article go?" correctly, without hints.',
-        'The diff between your first and second commit shows files moved, not rewritten.',
-        '`AGENTS.md` is under 60 lines and every line is something a fresh session needs.',
-        'The workspace is on your own computer, not in a shared, synced or public location, and has no remote or only a private one.',
-        'Nothing in the folder is employer material, customer data or personal detail about other people.',
+        'A fresh Claude Code session answers "What is MoneyPilot, and where does a raw competitor article go?" accurately without hints.',
+        'The git diff between your first save point and organized commit shows files moved, not rewritten, and your throwaway edit was cleanly undone.',
+        '`AGENTS.md` is under 50 lines and contains only instructions that change what a fresh session does.',
+        'The workspace lives privately on your computer with fictional or public material only.',
       ],
       reflectionPrompts: [
-        'Which line in `AGENTS.md` do you expect to matter most, and why?',
-        'Which file changes could git recover, and which actions needed a different permission boundary?',
+        'Which line in your `AGENTS.md` changed the fresh session answer most, and which filler line did you cut?',
+        'Which mistakes can git undo in seconds, and which mistakes need permission boundaries instead?',
       ],
       checklist: [
         {
           id: 'claude-code-running',
-          text: 'Installed Claude Code and opened the workspace folder',
+          text: 'Opened `workspace/` in Claude Code (terminal or desktop Code tab)',
         },
         { id: 'first-commit', text: 'Committed the Level 1 files unchanged before anything moved' },
         {
           id: 'workspace-organized',
-          text: 'Organized one folder per workstream, each with a short README',
+          text: 'Organized one folder per workstream, each with a short `README.md`, and practised one git undo',
         },
         {
           id: 'claude-md',
-          text: 'Wrote and trimmed `AGENTS.md`, which loads `product-context.md`',
+          text: 'Hand-wrote and tightened `AGENTS.md`, loading `@product-context.md`',
         },
-        { id: 'fresh-test', text: 'Checked that a fresh session understands the workspace' },
-        { id: 'memory-checked', text: 'Looked at auto memory with `/memory`' },
+        {
+          id: 'fresh-test',
+          text: 'Verified in a fresh session that MoneyPilot context and folder rules load cleanly',
+        },
+        {
+          id: 'memory-checked',
+          text: 'Inspected auto memory with `/memory` and noted how to handle context rot',
+        },
       ],
       mentorMove:
-        'Sit with her for the first fifteen minutes: installing, opening the folder and the first commit. Then hand over the keyboard. At the end, ask her to undo one change through Claude Code, so she has seen the safety net work before she relies on it.',
+        'Sit together for the first fifteen minutes if setup feels unfamiliar: opening `workspace/` in a terminal or the desktop Code tab and making the first git save point. At the end, watch her trigger one deliberate edit and undo it via git.',
+      soloMove:
+        'Open a brand-new Claude Code session, paste no extra context, and ask three cold questions: what MoneyPilot does, which figures must never come from a model, and where a raw competitor blog post belongs. Wherever the answer guesses, tighten that line in `AGENTS.md` and retest in another fresh session.',
     },
     {
       id: 's6',
@@ -236,61 +208,49 @@ Show me the folder map and the AGENTS.md draft before you move anything. When I 
       number: 6,
       title: 'Requirements by interview, then a prototype',
       difficulty: 'Intermediate',
-      minutes: 150,
+      minutes: 105,
       tools: ['Claude Code'],
       prerequisites: ['s5'],
       competencies: ['coding-agents', 'ux-prototyping'],
       xp: 125,
       mentorReview: 'recommended',
       practicalProof: true,
-      goal: 'Let Claude Code interview you until the requirements for a product prototype are clear, save them as `REQUIREMENTS.md`, then build and steer a running multi-screen prototype by reviewing the result.',
+      goal: 'Use `grill-me` so your agent interviews you into a one-page `prototype/REQUIREMENTS.md` for MoneyPilot, then build and steer a throwaway discovery probe for Session 10.',
       whyItMatters:
-        'Before building a feature prototype, make the flow explicit: what happens on each screen for the users you chose, and what happens when something is missing. A one-line ask produces an agent that guesses, and its guesses look finished. Being interviewed first turns the gaps in your head into decisions on paper, and that file is what the agent builds from, what you check the result against and, in Level 3, the seed of your PRD.',
+        'Ask an agent to "build MoneyPilot" in one sentence and it will invent screens, financial rules and edge cases that look finished. Being interviewed first turns unspoken choices into explicit product decisions on a single page. Remember what Level 2 builds: a fast, throwaway discovery probe with fictional data to put in front of real people in Session 10, not production v1.',
       learn: [
         {
-          heading: 'Let the agent interview you',
+          heading: 'Let your agent interview you first (grill-me)',
           paragraphs: [
-            'Matt Pocock popularised a simple idea, the grill-me skill: before any building, the agent questions you one point at a time until there is nothing left to guess. It works because you know far more about your product than you have written down, and the questions pull it out.',
-            'Good questions are concrete: who opens this screen and why, what it shows when there is no data, what happens on a phone, which figures must be exact, what is out of scope. Ask the agent to give its recommended answer with each question, so you can reply "yes" or correct it, and to look up anything your files already say instead of asking you. When you do not know, say so: it becomes an open question in the file instead of an invented answer.',
-            'Make the interview ask the evidence question too: "What evidence do you have that this problem exists, and who has it?" Anything you cannot answer is an assumption to test in Session 10. The prototype is a guess, built so Session 10 has something concrete to put in front of real users.',
-            'You will use the same method twice more: for the PRD in Session 12 and the design spec in Session 13.',
+            "Before any code is written, use Matt Pocock's `grill-me` pattern: ask your agent to read `product-context.md` and `pitch/pitch-notes.md`, then question you **one decision at a time** until nothing needs to be guessed. Require a **recommended answer** with every question so you can confirm in a phrase or push back where your judgment differs.",
+            'When you do not know an answer yet, say `I do not know`: it goes into **Open questions** as an assumption to test in Session 10 rather than an invented rule. Have the interview ask what evidence you have that monthly-paid people miss upcoming bills before payday, too. You will reuse `grill-me` for your PRD in Session 12 and design spec in Session 13.',
           ],
         },
         {
-          heading: 'What goes in REQUIREMENTS.md',
+          heading: 'One page, one MoneyPilot job and three states',
           illustration: 'requirements',
           paragraphs: [
-            'Keep it to one or two pages. It is a brief for an agent and a checklist for you, not a full PRD; that comes in Session 12.',
+            "Keep `prototype/REQUIREMENTS.md` to one tight page. Because this prototype is a **throwaway discovery probe** rather than v1, scope it to MoneyPilot's single core job: **see what is truly safe before payday after scheduled bills**. Include one checkable math example you can verify by hand, such as balance `14,000 kr` on the 14th, payday on the 25th and scheduled bills of `12,500 kr` due before then giving `Safe before payday: 1,500 kr` (excluding everyday spending).",
           ],
           bullets: [
-            '**Problem and user**: name the user group, the specific task they need to complete and the difficulty you are exploring. Use the definitions in product-context.md.',
-            '**Screens**: three to five, starting with the main task screen. For each, what it shows and what the user can do.',
-            '**States**: empty, loading and error for every screen, with the words shown.',
-            '**Data**: fictional records and events, all in one file so you can check and change it.',
-            '**Rules that must hold**: for example, totals, dates and status rules are worked out by code, not by the model, and shown with the data they came from; status is never shown by colour alone; a visible label says "Prototype with fictional data".',
-            '**Done when**: one checkable example per screen, such as: Given 12 records with 3 marked as needing review, when the user filters to Needs review, then exactly 3 records appear and removing the filter restores all 12.',
-            '**Out of scope**: what v1 will not do, and open questions.',
+            '**Normal state**: scheduled bills before payday with amount, due date and days left, total due, and `Safe before payday` (plus the lowest balance point before salary lands).',
+            '**Empty state**: exact words shown when zero upcoming bills are detected (for example, when bills leave from another account), so an empty screen never looks falsely flush.',
+            '**Warning / shortfall state**: calm plain-language copy plus an icon whenever upcoming bills exceed the balance before payday, never red colour alone.',
+            '**Hard rules and out of scope**: fictional accounts and bills in one file, **code calculates every total and projected balance** (never a model), a visible `"Prototype with fictional data"` banner on screen, and no real bank links, live payments or regulated financial advice.',
           ],
         },
         {
-          heading: 'Check the running prototype',
+          heading: 'Steer one change at a time, and hand off before context rot',
           paragraphs: [
-            'With clear requirements, let Claude build. You do not need to approve a plan first: commit, let it work, then open the running prototype in your browser and click through every screen with `REQUIREMENTS.md` beside you. A running app shows you in a minute what a written plan hides for an hour.',
-            'Give feedback one change at a time, with a screenshot when it helps: "On the first screen the date is missing from each item; add it under the name." Check the change, then commit it. If a change goes badly, ask Claude to undo it back to the last commit and try again with a clearer ask. That is usually faster than arguing with a confused session.',
+            'Build the probe inside `prototype/` as a small React, TypeScript and Vite app with its own git repository and short `AGENTS.md`, and add `prototype/` to `workspace/.gitignore` so your private workspace history stays separate when the probe goes public on GitHub in Session 7.',
+            'Open the running probe in your browser and check normal, empty and shortfall states at laptop and phone width against `REQUIREMENTS.md`. Steer **one change at a time** with exact words, numbers or a pasted screenshot ("The 24th shows 2,300 kr, but 14,000 kr minus 12,500 kr is 1,500 kr; fix only that calculation"), verify in the browser, and commit each working fix. If an edit goes sideways, revert to the last commit rather than arguing with a tangled session.',
+            'When a session grows long and starts forgetting rules or reintroducing fixed bugs, context compaction has set in. Ask for `prototype/HANDOFF.md` in under 40 lines written for a capable stranger (goal, file paths, what works, decisions and why, open questions and the next small step), then continue in a fresh session.',
           ],
         },
         {
-          heading: 'Start fresh sessions from a handoff note',
+          heading: 'Heads-up: start lining up Session 10 interviewees now',
           paragraphs: [
-            'Long sessions fill the context window. Claude Code then compacts the conversation, summarising older turns to make room, and detail is lost. You cannot control what survives. The signs are familiar: it reintroduces a bug it fixed, forgets a decision or contradicts the requirements.',
-            'The fix is cheap. Anything that matters goes into a file. Before you stop, or as soon as a session drifts, ask for a short `HANDOFF.md` and start a fresh session that reads it. A good handoff is written for a capable stranger with no access to the conversation: the goal, the current state with file paths, what is done, decisions and why, open questions, the next steps in order, how to check the work and what not to do. Keep it under 40 lines and overwrite it each time; git keeps the old versions.',
-          ],
-        },
-        {
-          heading: 'Give the prototype its own folder and repository',
-          paragraphs: [
-            'Claude builds the prototype in `prototype/` inside your workspace. Because it will be public on GitHub in Session 7, it gets its own git history, separate from your private notes, and the workspace is told to ignore that folder. Give it its own short `AGENTS.md` with the commands to run it and the hard rules: fictional data only, no real systems, accounts or keys.',
-            'Ask for a small web app that runs in the browser, built with React, TypeScript and Vite. That is a common, well-documented stack that agents handle well, and it can go live on GitHub Pages for free.',
+            "Recruiting real people takes calendar days, not an hour before class. Start reaching out now to line up **3 to 5 monthly-paid people** whose automatic bills leave before payday for next week's 30-minute discovery conversations in [Session 10](/lessons/s10) (or target users for your own product, avoiding close family who will praise your homework). If schedules slip or recruitment falls through, Session 10 also includes five realistic MoneyPilot practice interview notes as a fallback so you will not be blocked.",
           ],
         },
       ],
@@ -313,118 +273,139 @@ Show me the folder map and the AGENTS.md draft before you move anything. When I 
       ],
       task: {
         summary:
-          'Get interviewed into `REQUIREMENTS.md`, let Claude build a three to five screen prototype, steer it by reviewing the running result, and practise one handoff into a fresh session.',
+          'Scope MoneyPilot to one user job and three states, get interviewed via `grill-me` into a one-page `prototype/REQUIREMENTS.md`, build the discovery probe, check the math by hand, and test a fresh-session handoff.',
         steps: [
-          'Use product-context.md to choose one user task worth exploring. Pick the three to five screens needed to complete it, starting with the main task screen. Note them in a sentence or two.',
-          'In Claude Code, with the workspace open, run the interview prompt below. Answer one question at a time in your own words. Say "I do not know" when you do not; it becomes an open question.',
-          'Read the requirements yourself and correct anything you did not decide. Ask Claude to create a `prototype/` folder, add it to the workspace `.gitignore` and save the requirements as `prototype/REQUIREMENTS.md`. Keep this as the only requirements file; private notes on your decisions stay in the workspace.',
-          'Start a fresh session and ask Claude to build the prototype in `prototype/` from `prototype/REQUIREMENTS.md` and `product-context.md`: a React, TypeScript and Vite app, its own git repository and a short `AGENTS.md` with run commands and hard rules. If it reports that Node.js is missing, install the LTS version with the [Starter kit](/starter-kit) steps; this is the only install in this session.',
-          'Ask Claude to start the app and give you the local link. Click through every screen with `REQUIREMENTS.md` beside you, on a laptop and at phone width. Write down everything that is wrong or missing.',
-          'Fix the list one change at a time, with screenshots where they help. Check each change in the browser, then ask Claude to commit it with a clear message.',
-          'Check two figures on screen by hand against the fictional data file. If they do not match, that is the next fix.',
-          'When the session gets long, ask for `HANDOFF.md` using the second prompt in the agent prompt box below. Start a fresh session, ask it to read the handoff and say what it will do next, and continue from there.',
+          "**Think first (no AI):** Jot down MoneyPilot's core job for this probe (`upcoming bills and projected balance before payday`), what the normal, empty and shortfall warning states must show, and three items strictly out of scope. Send your first messages today to line up 3 to 5 monthly-paid people for Session 10 next week.",
+          '**Work with your agent:** In `workspace/`, brief Claude Code to `grill-me` one question at a time (giving a recommended answer with each and recording `I do not know` under Open questions) into a one-page `prototype/REQUIREMENTS.md`, adding `prototype/` to `workspace/.gitignore`. Then start a fresh session inside `prototype/`, initialize its own git repo and short `AGENTS.md`, and build the React, TypeScript and Vite discovery probe (install LTS Node.js from the [Starter kit](/starter-kit) if prompted).',
+          '**Check and try to break it:** Open the local browser link and switch through normal, empty and shortfall warning states at laptop and phone width. Verify two bill totals and projected-balance figures by hand against the fictional data file, check that the `"Prototype with fictional data"` banner is visible and shortfalls never rely on colour alone, and fix defects one commit at a time.',
+          '**Make the call:** Write `prototype/HANDOFF.md` in under 40 lines, test that a brand-new session reading only `REQUIREMENTS.md` and `HANDOFF.md` states the right next step without conversation history, and commit.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In Claude Code, with the workspace folder open',
-        text: `I am a PM exploring a feature idea. Read product-context.md for my product, target users and the problem I have chosen. If the problem is missing, ask me to define it before proposing screens. I want a clickable prototype that people can use to understand and challenge the idea. It must be honest and simple.
+        where:
+          'First in workspace/ for the grill-me interview, then in a fresh session inside prototype/',
+        briefChecklist: [
+          'Context to read first: `product-context.md` and `pitch/pitch-notes.md` so settled MoneyPilot facts are not re-asked.',
+          'Interview behaviour (`grill-me`): ask one question at a time, give a recommended answer with each, and capture `I do not know` under Open questions for Session 10.',
+          'Tight discovery-probe scope: one page in `prototype/REQUIREMENTS.md` for one job (`know before payday whether upcoming bills are covered`) and three states (normal, empty, shortfall warning).',
+          'Non-negotiable MoneyPilot rules: fictional data in one file, code calculates all balances and totals, shortfall never shown by colour alone, and a visible `"Prototype with fictional data"` banner.',
+          'Repo isolation and handoff: ignore `prototype/` in `workspace/.gitignore`, give `prototype/` its own git repo and `AGENTS.md`, and wrap up with a `< 40`-line `prototype/HANDOFF.md`.',
+        ],
+        text: `Read product-context.md and pitch/pitch-notes.md first. I want to build a small, throwaway MoneyPilot discovery probe for user interviews in Session 10, scoped strictly to one job: helping a monthly-paid person see upcoming bills and their projected balance before payday.
 
-Read product-context.md and pitch/pitch-notes.md first.
+Use grill-me to interview me before writing any code:
+1. Ask one question at a time, wait for my reply, and include your recommended answer with each question.
+2. Cover normal, empty and shortfall warning states (exact copy and how a user switches between fictional scenarios during a demo), fictional bill and balance records in one file, exact code-calculated figures, phone-width layout, and what is out of scope.
+3. Ask what evidence I already have for this problem; anything I answer with "I do not know" goes under Open questions for Session 10 rather than being invented.
 
-Interview me until the requirements are clear enough that you would not need to guess while building. Ask one question at a time and wait for my answer. Cover: who uses each screen and why, the three to five screens, what each shows and what the user can do, empty, loading and error states with the exact words, the fictional data needed (fictional records and events), which figures must be exact and calculated by code, accessibility, what happens at phone width, and what is out of scope. Also ask: "What evidence do you have that this problem exists, and who has it?" Record anything I cannot answer as an assumption to test in Session 10. When an answer of mine contradicts product-context.md, point it out.
-
-When you have no more questions, write prototype/REQUIREMENTS.md with these sections: Problem and user, Screens (one subsection each: shows, actions, states, done when), Data, Rules that must hold, Out of scope, Open questions. Use my words where you can. Do not fill gaps with plausible guesses; list them as open questions. Show me the file before saving it.
+When we finish the interview, add prototype/ to workspace/.gitignore and show me a one-page prototype/REQUIREMENTS.md (Problem and job, Three states, Fictional data, Rules that must hold, Done-when math check, Out of scope, Open questions) before saving.
 
 ---
 
-Second prompt, for later in the session:
+Follow-up brief at the end of the build session:
 
-Write prototype/HANDOFF.md for a capable stranger who has none of this conversation. Under 40 lines: Goal, Current state (with file paths), Done so far, Decisions and why, Open questions, Next steps (numbered, each small enough for one session), How to check the work, Do not. Then list anything important that exists only in this conversation and not in a file.`,
+Write prototype/HANDOFF.md in under 40 lines for a fresh session with zero chat history: Goal, Key file paths, Working states, Decisions made, Open questions for Session 10, Next steps, and How to run and verify.`,
       },
       expectedOutput: [
-        '`REQUIREMENTS.md` with three to five screens, each with states and a "done when" example, plus open questions.',
-        'A running prototype in `prototype/` with its own git history, a short `AGENTS.md` and a visible "Prototype with fictional data" label.',
-        'Several small commits, one per accepted change.',
-        'A `HANDOFF.md` that a fresh session used to continue the work.',
+        'A one-page `prototype/REQUIREMENTS.md` covering one MoneyPilot job, three states (normal, empty, shortfall), one checkable math example and open questions.',
+        'A running React, TypeScript and Vite discovery probe in `prototype/` with its own git repo, short `AGENTS.md` and visible `"Prototype with fictional data"` banner.',
+        'Small, focused commits, one per verified fix.',
+        'A `< 40`-line `prototype/HANDOFF.md` verified in a fresh session.',
       ],
       artifact:
-        '`REQUIREMENTS.md` and a running multi-screen product prototype in `prototype/`, with a handoff note.',
+        '`prototype/REQUIREMENTS.md`, a running MoneyPilot discovery probe in `prototype/` across normal, empty and shortfall states, and `prototype/HANDOFF.md`.',
       verification: [
-        'Every screen in `REQUIREMENTS.md` exists in the prototype and shows its empty and error states.',
-        'Two figures on screen match your own calculation from the fictional data file.',
-        'Nothing in `REQUIREMENTS.md` is a decision you did not make: guesses are listed as open questions.',
-        'A fresh session given only `HANDOFF.md` and `REQUIREMENTS.md` correctly states the next step.',
-        'The workspace git history does not include the `prototype/` folder.',
+        'Normal, empty and shortfall warning states all work at laptop and phone width, and shortfalls pair colour with clear text and an icon.',
+        'Two bill totals and projected-balance figures on screen match your hand calculation from the fictional data file.',
+        'Every item in `REQUIREMENTS.md` reflects a choice you made; unknowns sit under Open questions.',
+        'A fresh session given only `REQUIREMENTS.md` and `HANDOFF.md` accurately states the next step, and `workspace/` git status ignores `prototype/`.',
       ],
       reflectionPrompts: [
-        'Which interview question made you decide something you had not thought about?',
-        'What did clicking through the running prototype show you that the requirements did not?',
-        'When did you choose to start a fresh session, and what told you it was time?',
+        'Which `grill-me` question exposed an assumption you had not noticed in your pitch?',
+        'What did clicking through the shortfall state at phone width reveal that written requirements missed?',
       ],
       checklist: [
-        { id: 'interviewed', text: 'Was interviewed by Claude until the requirements were clear' },
+        {
+          id: 'interviewed',
+          text: 'Used `grill-me` one question at a time until MoneyPilot probe requirements were clear',
+        },
         {
           id: 'requirements',
-          text: 'Edited and committed `REQUIREMENTS.md` with states, examples and open questions',
+          text: 'Saved a one-page `prototype/REQUIREMENTS.md` with three states, math check and open questions',
         },
-        { id: 'prototype-runs', text: 'Built a three to five screen prototype that runs locally' },
+        {
+          id: 'prototype-runs',
+          text: 'Built the MoneyPilot discovery probe locally with normal, empty and shortfall states',
+        },
         {
           id: 'reviewed-result',
-          text: 'Clicked through every screen and fixed issues one change at a time',
+          text: 'Tested laptop and phone widths and steered fixes one commit at a time',
         },
-        { id: 'figures-checked', text: 'Checked two figures by hand against the data file' },
-        { id: 'handoff', text: 'Wrote `HANDOFF.md` and continued in a fresh session' },
+        {
+          id: 'figures-checked',
+          text: 'Verified two bill and projected-balance figures by hand against the fictional data file',
+        },
+        {
+          id: 'handoff',
+          text: 'Wrote `prototype/HANDOFF.md` under 40 lines and verified it in a fresh session',
+        },
       ],
       mentorMove:
-        'Play the engineering lead for ten minutes. Click through the prototype and ask "what happens when..." questions: no data, a very long name, a phone in landscape. Every question she cannot answer from `REQUIREMENTS.md` is a missing line, not a missing feature.',
+        'Play the sceptical engineering lead for ten minutes: click through the MoneyPilot probe on phone width and ask "what happens when..." questions (payday on a Sunday, two bills on the same date, zero bills). Every gap becomes either one clear line in `REQUIREMENTS.md` or an open question for Session 10.',
+      soloMove:
+        'Open a fresh read-only Claude Code session in `prototype/` and ask it to read `REQUIREMENTS.md` like a sceptical frontend engineer: list five cash-flow or date edge cases where your spec is silent, without editing files. Decide for each whether to add one line to `REQUIREMENTS.md` or park it under Open questions.',
     },
     {
       id: 's7',
       levelId: 2,
       number: 7,
-      title: 'GitHub and go live',
+      title: 'GitHub, diffs and going live',
       difficulty: 'Intermediate',
-      minutes: 120,
+      minutes: 90,
       tools: ['Claude Code', 'GitHub (free account)'],
       prerequisites: ['s6'],
       competencies: ['technical-collaboration', 'coding-agents'],
       xp: 125,
-      mentorReview: 'required',
+      mentorReview: 'recommended',
       practicalProof: true,
-      goal: 'Publish the prototype as a public `product-prototype` repository and merge your first pull request through a branch, so your product goes live on GitHub Pages. A ruleset that protects main is optional, for teams that want it.',
+      goal: 'Answer one MoneyPilot-relevant product question from a real public codebase with verified file paths, publish `product-prototype` on GitHub, review and merge one pull request, share a live link or short recording, and file one reproducible bug issue.',
       whyItMatters:
-        'Engineers want to see the prototype and comment on it, and they want a link, not a screen share. GitHub is where software work becomes visible: changes, reviews, decisions and releases. PMs who can open a pull request and read a diff work with engineers and coding agents directly instead of only through tickets, and the pull request history is the audit trail regulated teams rely on.',
+        'GitHub is where product and engineering decisions meet in the open: commits, branches, pull request diffs and issues. A PM who can read a real codebase to verify how a feature works, inspect a pull request diff with four plain questions and share a working probe collaborates with engineers on evidence rather than guesswork.',
       learn: [
         {
-          heading: 'How Git and GitHub fit together',
+          heading: 'Commits, branches and pull requests',
           illustration: 'git',
           paragraphs: [
-            'A **repository** is a project folder with its full history. A **commit** is a saved snapshot with a message explaining why it was made. A **branch** is a parallel line of work, so you can change things without touching the stable version on `main`. A **pull request** (PR) proposes merging a branch into `main`, and it is where review, discussion and automated checks happen.',
-            'Claude Code runs the git commands: "create a branch called deploy/pages", "commit this", "push and open a pull request". Your job is to read what it changed and decide whether it goes in. You will see the same steps on GitHub\'s website, which is where you and your mentor read and comment.',
+            'A **repository** is a project folder with its full change history. A **commit** is a saved snapshot with a message explaining why it was made. A **branch** lets you prepare an update without touching the working code on `main`, and a **pull request** (PR) proposes merging that branch into `main` so changes can be reviewed, discussed and reverted cleanly.',
+            'Claude Code runs the Git and GitHub CLI commands ("create branch `deploy/readme-and-pages`", "push and open a pull request"). Your job is reading what changed on GitHub and deciding whether it earns its way onto `main`.',
           ],
         },
         {
-          heading: 'Optional: protect main with a ruleset',
-          paragraphs: [
-            'Optional, for teams that want it: a ruleset on `main` makes it accept changes only through pull requests. That one setting turns "someone changed the live site" into "a reviewed, recorded change was merged". When an agent can write code in minutes, this gate matters more, not less.',
-            "One catch: by default, repository admins can bypass the rules, and on your own repository you are the admin. If you set one up, leave the ruleset's bypass list empty so the rule binds you too. Apply the same rule to everyone who changes code, including PMs, designers and agents: a one-word copy fix still gets a pull request, just a quick review.",
-          ],
-        },
-        {
-          heading: 'How to read a diff',
+          heading: 'Read a diff with four PM questions',
           illustration: 'diff',
           paragraphs: [
-            'A diff shows removed lines in red and added lines in green. You do not need to understand every line to review usefully. Ask four questions: does this change match the pull request description, is anything changed that should not be, is there a way to check it works, and is there anything secret or real in it? Those four questions catch a surprising amount.',
-            'If you cannot explain what a change does and why, do not merge it. Ask Claude to walk you through any line you do not understand, and keep asking until you can explain it back.',
+            "On GitHub's **Files changed** tab, removed lines show in red and added lines in green. You do not need to write TypeScript to review a pull request rigorously. Ask four PM questions on every diff, and never merge a change you cannot explain back in plain words:",
+          ],
+          bullets: [
+            '**Does it match the description?** Every touched file should trace to what the pull request claims to do.',
+            '**Was anything unexpected touched?** Challenge unrequested edits to MoneyPilot balance math, fictional data records or `package.json`.',
+            '**How will I verify it works?** UI changes need a phone-width browser check; calculations need a hand check or automated test.',
+            '**Are there any secrets or real data?** Public git history is permanent: fictional MoneyPilot data only, never keys, `.env` files, real names or work emails.',
           ],
         },
         {
-          heading: 'Going live on GitHub Pages',
+          heading: 'Read a real codebase before you guess',
           paragraphs: [
-            'GitHub Pages hosts static sites for free on public repositories. A small **GitHub Actions** workflow builds the app and publishes it every time something is merged into `main`, so the live site always matches the reviewed code. Vite apps need one setting, the base path, set to `/product-prototype/` so the site works at `https://<your-username>.github.io/product-prototype/`.',
-            'The repository is public, so everything in it is public, including its history. Before the first push, check for keys, real names and personal data. The prototype uses fictional records and events and nothing else; your private workspace notes never go here.',
-            'If a merge ever breaks the live site, the first move is to undo it: the **Revert** button on the merged pull request opens a new pull request that reverses it. Fix forward afterwards.',
+            'Coding agents are just as useful for reading unfamiliar code as for building prototypes. Before asking an engineer how something works or how hard a change might be, clone or open a real public web-app repository **read-only** in a separate folder outside `workspace/` and ask one focused product question, such as how an open-source budgeting or scheduling app calculates recurring dates, validates amounts or handles empty states.',
+            "Forbid edits and installs in your brief, require exact file paths for every claim and edge case, and **open at least two cited files yourself** to check that the actual code matches the agent's summary.",
+          ],
+        },
+        {
+          heading: 'Share the probe and file your first bug issue',
+          paragraphs: [
+            "Publish `prototype/` as a public `product-prototype` repository with an honest `README.md` stating the MoneyPilot hypothesis and fictional-data status. To share a live link for Sessions 8 and 10, drop the ready-made `.github/workflows/deploy.yml` setup file below onto a branch, set Vite's `base` to `'/product-prototype/'`, and set **Settings > Pages** to **GitHub Actions** (if a merge ever breaks the live build, hit **Revert** on the merged PR first). Prefer not to configure GitHub Pages? Keep the public repository and link a 60-second screen recording in `README.md` instead.",
+            'Finish by clicking through your shared probe and filing **one reproducible bug issue** on your `product-prototype` repository (device, exact steps, expected vs actual) ready to fix in Session 8.',
           ],
         },
       ],
@@ -452,76 +433,130 @@ Write prototype/HANDOFF.md for a capable stranger who has none of this conversat
       ],
       task: {
         summary:
-          'Complete the GitHub introduction, publish the prototype as a public repository, merge a pull request that deploys it, and open the live URL on your phone. Optionally, protect main with a ruleset.',
+          'Answer one product question from a real public codebase read-only, publish `product-prototype` on GitHub, review and merge one pull request with the four PM questions, share your live link or recording, and file one bug issue.',
         steps: [
-          'Create a free GitHub account if you do not have one, and turn on two-factor authentication.',
-          'Complete the GitHub Skills "Introduction to GitHub" exercise in the browser.',
-          'Sign your computer in to GitHub once so Claude Code can push: install the GitHub CLI and run `gh auth login`, as the [Starter kit](/starter-kit) shows. Your mentor or Claude Code can talk you through it.',
-          'In Claude Code, open the `prototype/` folder. Ask Claude to check the code and its history for keys, tokens, real names, email addresses and personal data, and to confirm `.gitignore` excludes build output, dependencies and any `.env` file. Fix anything it finds before going further.',
-          'Ask Claude to create a public GitHub repository named `product-prototype` and push `main`.',
-          'Optional, for teams that want it: on GitHub, open Settings, then Rules, and add a ruleset for `main` that requires a pull request before merging. Leave the bypass list empty. If you skip this, still send every change through a pull request.',
-          'Run the prompt below. Claude creates a branch, adds the deployment workflow and a README, pushes and opens a pull request.',
-          'On GitHub, read the diff with the four questions. Leave at least one comment. Ask your mentor to review too, then ask Claude to address the comments in a new commit.',
-          'In Settings, then Pages, set the source to GitHub Actions. Merge the pull request, watch the Actions tab turn green and open the live URL on your phone.',
-          'Only if you added the ruleset, test it. Ask Claude to make an empty test commit on a new temporary branch and try to push it straight to `main`. GitHub should reject the push. If it goes through, note that and fix the ruleset before you change anything else.',
+          '**Think first (no AI):** Complete the short GitHub Skills intro exercise if GitHub is new to you, authenticate once via `gh auth login` from the [Starter kit](/starter-kit), scan `prototype/` to confirm zero keys or personal details, and write one MoneyPilot-relevant product question to ask of a real public web-app repository (for example, how an open-source budgeting or calendar app calculates recurring dates or handles shortfalls).',
+          "**Work with your agent:** Clone or open that public repository outside `workspace/` with a strict read-only brief so your agent answers your question with exact file paths and edge cases. Then in `prototype/`, push `product-prototype` to GitHub, create branch `deploy/readme-and-pages`, add a clear `README.md` (plus either `.github/workflows/deploy.yml` from the setup file below with `base: '/product-prototype/'` in `vite.config.ts`, or a 60-second walkthrough recording), and open one pull request.",
+          "**Check and try to break it:** Open at least two cited files in the public repository yourself to verify the agent's explanation against the source code. Next, read every line of your own pull request diff on GitHub using the four PM questions and leave at least one written review comment before pushing any follow-up fix.",
+          '**Make the call:** Merge the pull request, confirm the live GitHub Pages URL loads on a phone (with **Settings > Pages** set to **GitHub Actions**) or confirm your 60-second recording opens from `README.md`, and file one reproducible bug issue on `product-prototype` for Session 8.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In Claude Code, with the prototype folder open',
-        text: `This is my product prototype, a React, TypeScript and Vite app that runs in the browser on fictional records and events only. It is now a public GitHub repository called product-prototype, and every change to main goes through a pull request.
+        where:
+          'First in a separate read-only folder for the public repo, then in prototype/ for your pull request',
+        briefChecklist: [
+          'Read-only codebase rules: forbid edits, package installs or git changes in the public repo, and require exact file paths and edge cases for your product question.',
+          'Pre-push privacy scan on `prototype/`: confirm `.gitignore` excludes `node_modules/`, `dist/` and `.env*`, and check git history for keys, tokens or real personal details.',
+          'Scoped branch: create `deploy/readme-and-pages` without modifying MoneyPilot screen components or balance math.',
+          "Clear `README.md` and sharing setup: summarise MoneyPilot from `REQUIREMENTS.md`, state that all data is fictional, and either add `.github/workflows/deploy.yml` with Vite `base: '/product-prototype/'` or link your 60-second walkthrough recording.",
+          'PM-readable pull request: open one PR listing each changed file in one plain-English line and what you should verify before merging.',
+        ],
+        boilerplate: `name: Deploy prototype to GitHub Pages
 
-Goal: publish the prototype on GitHub Pages so that every merge into main updates the live site.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
-1. Create a branch called deploy/pages.
-2. Run installation, build and relevant tests on pull requests. Add a separate deployment job on pushes to main, using the official GitHub Pages actions. Never deploy an unmerged pull request. If I have set up a ruleset on main, tell me how to require the PR check in it after it has run.
-3. Set the Vite base path to /product-prototype/.
-4. Rewrite README.md: one paragraph on what my product is and the problem it explores, using REQUIREMENTS.md as the source; a Status section saying it is a learning prototype with fictional data only; a Live site section with the URL https://<my-username>.github.io/product-prototype/ using my real username; and a How we work section: every change goes through a pull request, pull requests stay small, the author reads their own diff first.
-5. Commit with clear messages, push the branch and open a pull request whose description explains each change in one line, written for a product manager.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
-Constraints: no new dependencies beyond what the deployment needs, no changes to the app itself, nothing outside the files above. Tell me which setting I need to change on GitHub myself, and what I should check in the diff before merging.`,
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4`,
+        text: `Part 1 (in a separate folder holding a cloned public web-app repository):
+
+Read-only investigation: do not edit files, install packages or run state-changing commands. Answer this product question in plain English for a PM: how does this codebase calculate or validate recurring dates and amounts, and what edge cases can fail? Cite exact file paths and function names for every claim so I can open two files myself and verify them.
+
+---
+
+Part 2 (inside prototype/):
+
+Check git history and tracked files for secrets, emails or personal data, and confirm .gitignore excludes node_modules/, dist/ and .env*. Once clean, create a public GitHub repository named product-prototype and push main.
+
+Then create branch deploy/readme-and-pages:
+1. Write README.md from REQUIREMENTS.md: one paragraph on the MoneyPilot pre-payday bill coverage probe, a clear note that it is a throwaway discovery prototype running on fictional data only, and how to view or run it.
+2. Add .github/workflows/deploy.yml using the GitHub Pages workflow I provide and set base: '/product-prototype/' in vite.config.ts (or link my walkthrough recording if I skip Pages). Do not touch src/ app files or add dependencies.
+3. Commit, push and open one pull request explaining each changed file in one line for a PM reviewer.`,
       },
       expectedOutput: [
-        'A public `product-prototype` repository. Optionally, a no-bypass ruleset on `main`.',
-        'A merged pull request with a description, at least one review comment and a follow-up commit.',
-        'Checks on proposed pull requests and a separate deployment workflow after merge.',
-        'The live product prototype at a GitHub Pages URL.',
+        'A short note answering one MoneyPilot-relevant product question from a real public codebase, with two cited files verified by you.',
+        'A public `product-prototype` GitHub repository free of secrets and personal data.',
+        'One reviewed and merged pull request with at least one comment on the diff.',
+        'A working GitHub Pages link on a phone (or a 60-second recording linked in `README.md`) plus one reproducible bug issue filed on your repo.',
       ],
       artifact:
-        'The live product prototype URL and your first merged pull request in the public `product-prototype` repository.',
+        'Public `product-prototype` repository with one merged pull request, a live URL or 60-second recording, one verified public-codebase answer and one filed bug issue.',
       verification: [
-        'The live URL loads on your phone and shows the "Prototype with fictional data" label.',
-        'If you added a ruleset, a direct push to `main` is rejected, even though you are the repository admin. If you did not, you can say why main does not need one yet.',
-        'The merged pull request shows at least two commits, a review comment and a resolved conversation.',
-        'The diff changed only the workflow, the Vite setting and the README, as the prompt asked.',
-        'Nothing in the repository or its history contains keys, real names or personal data.',
+        'The two files you opened in the public codebase match what your agent claimed, and that repo remains untouched.',
+        'Your merged PR diff touched only `README.md` (and optional Pages config), with zero secrets or real data anywhere in git history.',
+        'The live URL loads on a phone showing `"Prototype with fictional data"`, or your 60-second recording opens cleanly from `README.md`.',
+        'Your filed GitHub issue includes device/width, steps to reproduce, expected behaviour and actual behaviour.',
       ],
       reflectionPrompts: [
-        'Which git idea clicked for you, and which still feels fuzzy?',
-        'What did reading the diff reveal that the pull request description did not mention?',
+        "What did opening the two real source files yourself clarify or correct in the agent's summary?",
+        'Which of the four PM diff questions felt sharpest when reading your own pull request?',
       ],
       checklist: [
-        { id: 'gh-skills', text: 'Completed the GitHub Skills introduction exercise' },
+        {
+          id: 'gh-skills',
+          text: 'Completed the GitHub Skills introduction exercise (or confirmed branch and PR basics)',
+        },
         {
           id: 'secrets-check',
-          text: 'Checked the prototype for keys and personal data before the first push',
+          text: 'Scanned `prototype/` and its git history for keys and personal data before pushing',
         },
         {
           id: 'ruleset',
-          text: 'Decided whether main needs a ruleset; if yes, added one with an empty bypass list',
+          text: 'Answered one MoneyPilot-relevant product question from a real public codebase with file paths',
         },
         {
           id: 'pr-merged',
-          text: 'Read the diff, addressed a review comment and merged the pull request',
+          text: 'Read every line of the PR diff with the four PM questions, left a comment and merged',
         },
-        { id: 'live-url', text: 'Opened the live GitHub Pages URL on a phone' },
+        {
+          id: 'live-url',
+          text: 'Confirmed the live GitHub Pages URL on a phone (or linked a 60-second walkthrough recording in `README.md`)',
+        },
         {
           id: 'push-rejected',
-          text: 'If I added a ruleset, saw a direct push to main rejected; otherwise noted why I skipped it',
+          text: 'Filed one reproducible bug issue against my own prototype repository',
         },
       ],
       mentorMove:
-        'Be the reviewer on her first pull request: leave one real comment, such as a missing link in the README, and one question, and approve only after she pushes a fix. Then open a merged pull request from a well-known open-source project and talk through what you look at first and why.',
+        'Ask your mentor to review your pull request on GitHub with one concrete comment and one question before approving, then spend five minutes looking together at the two files you verified in the public codebase.',
+      soloMove:
+        'Step away for ten minutes, then open your pull request on GitHub and review every changed file aloud against the four PM questions, leaving at least one written review comment before merging. Verify your two public-codebase file paths line by line in the browser without asking the agent.',
     },
     {
       id: 's8',
@@ -529,56 +564,49 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
       number: 8,
       title: 'Review what agents build',
       difficulty: 'Intermediate',
-      minutes: 120,
+      minutes: 90,
       tools: ['Claude Code', 'GitHub', 'A phone'],
       prerequisites: ['s7'],
       competencies: ['technical-collaboration', 'evals-safety'],
       xp: 125,
       mentorReview: 'recommended',
       safetyCritical: true,
-      goal: 'Check the live prototype the way a careful reviewer would: watch one person try it, go through your requirements and five accessibility checks, get a second opinion from a fresh Claude session, fix bugs through reviewed pull requests and keep secrets out of the repository.',
+      goal: 'Watch one person try your MoneyPilot probe silently on a phone, run five WCAG AA checks, write `docs/review-checklist.md` in your own words, brief an independent fresh-session review, merge a tested bug fix and turn on GitHub secret protection.',
       whyItMatters:
-        'Agent-built work looks finished long before it is right. A total can be off by one, a warning can show only in red, an empty screen can break, and the agent will still tell you it is done. Check what the prototype actually does, not what the agent says it does, and fix whatever would mislead someone before anything cosmetic.',
+        'Agent-built prototypes look finished long before they are trustworthy: a projected balance can miss a bill due on payday, a shortfall warning can show only in red, or an empty state can break. Catching misleading defects now ensures Session 10 tests your MoneyPilot idea rather than broken numbers.',
       learn: [
         {
-          heading: 'Test the normal path, then try to break it',
+          heading: 'Watch silently on a phone, then check the math',
           illustration: 'review',
           paragraphs: [
-            'Hand the live link to one person, a friend is fine, and watch them use it on their own phone without helping. This checks that the prototype works, not whether the idea is worth building; Session 10 tests that with your target users. Note where they hesitate, what they tap that does nothing, and what they misread. Then go through `REQUIREMENTS.md` yourself, screen by screen: every state, every "done when" example, at laptop and phone width.',
-            'Check the numbers. The totals, dates and status rules come from code, so they should match what you work out by hand from the fictional data, exactly. Pick the edge cases agents miss: no data at all, one item exactly on a boundary such as a due date or deadline, a very long name, two items on the same day.',
+            'Hand your MoneyPilot probe on a phone to one person (a friend or colleague is fine) and watch without guiding or explaining. Note where they hesitate, tap something that does nothing, or misread whether upcoming bills are covered before payday. This checks whether the probe works clearly; Session 10 tests whether monthly-paid target users actually need the product.',
+            'Then check `REQUIREMENTS.md` yourself at laptop and phone width. Recalculate at least two bill totals and projected-balance figures by hand from your fictional data file, and try the boundary cases agents routinely miss: zero bills, a bill due on payday itself, two bills on the same day, a long payee name, and a projected balance below zero.',
           ],
         },
         {
-          heading: 'Accessibility basics',
+          heading: 'Five WCAG AA accessibility checks',
           paragraphs: [
-            'You do not need to be an expert to catch most problems. Filter the WCAG quick reference to levels A and AA and run five checks on every screen.',
+            "Filter the WCAG quick reference to levels A and AA and run five practical checks across MoneyPilot's normal, empty and shortfall states:",
           ],
           bullets: [
-            '**Keyboard only**: can you reach and use everything with Tab and Enter, and can you see where you are?',
-            '**Colour alone**: is any status, warning or shortfall shown only by colour? Add words or an icon.',
-            '**Contrast**: is grey text readable? Low-contrast secondary text is the most common failure.',
-            '**Labels**: does every button and form field have a name a screen reader can announce?',
-            '**Zoom**: at 200% zoom, does the layout still work without sideways scrolling?',
+            '**Keyboard only**: can you reach and trigger every control with `Tab` and `Enter`, and see a clear focus indicator?',
+            '**Colour alone**: is any MoneyPilot shortfall or low-balance warning shown only by red text or a red dot? Pair colour with explicit words and an icon.',
+            '**Contrast**: is secondary grey text, such as due dates and helper notes, easy to read on a phone screen?',
+            '**Labels**: does every button, scenario switcher and form field have a clear accessible name?',
+            '**200% zoom**: at 200% zoom, does the screen stay usable without sideways scrolling or clipped currency amounts?',
           ],
         },
         {
-          heading: 'Ask a fresh session to review the change',
+          heading: 'Turn your own checklist into a fresh-session review',
           paragraphs: [
-            'The session that wrote the code is the worst one to review it: it remembers what it meant, not what it wrote. Open a fresh session, give it the requirements and your checklist, and ask it to review the changes against `main` without editing anything. Claude Code also has a built-in review command; a plain prompt in a fresh session works just as well.',
-            'An agent reviewer can find likely bugs, missing states and scope creep. It also raises false alarms and misses context only you have. Treat each comment as input, not a verdict, and record a decision for every one: fixed, rejected with a reason, or turned into an issue. Follow your team’s review policy; an agent approval does not replace a required human approval.',
+            'Never ask the session that wrote a fix to review its own work: it remembers what it meant to write, not what is on the branch. Write a one-page `docs/review-checklist.md` in your own words first, then open a **brand-new read-only session** on your fix branch and brief it from your checklist to review the diff against `main`.',
+            'Prioritise defects that mislead users first: wrong projected balances or colour-only shortfall signals come before spacing polish. Start every fix from a reproducible bug report (device, exact steps, expected vs actual, screenshot), and require a failing-then-passing regression test whenever code touches MoneyPilot calculations. Agent reviewers catch real bugs and also invent extra scope, so evaluate each comment against `REQUIREMENTS.md`, record `Fixed`, `Rejected (with reason)` or `Issue filed` in `docs/review-log.md`, and remember an agent review never replaces required human sign-off on production systems.',
           ],
         },
         {
-          heading: 'Fix from a bug report and a screenshot',
+          heading: 'Secret scanning and the revocation rule',
           paragraphs: [
-            'Good fixes start with a reproducible report: the device, the exact steps, what you expected, what happened and a screenshot. Paste the screenshot straight into Claude Code. Ask it to reproduce the problem first and explain the cause, then fix it on its own branch with its own pull request. If the bug is in a calculation, ask for a test that fails before the fix and passes after it: a fix without a test tends to come back.',
-          ],
-        },
-        {
-          heading: 'Keep secrets out of the repository',
-          paragraphs: [
-            "A public repository is public forever: bots scan GitHub for keys within minutes, and deleting a file later does not remove it from history. Keep keys, tokens, passwords and `.env` files out, list them in `.gitignore`, and turn on secret scanning and push protection in the repository's security settings so GitHub blocks a push that contains a known key format.",
-            'If a secret does get pushed, revoke it at the provider first, then clean up the repository. Real personal data follows the same rule: none, ever, because the prototype runs on fictional records and events.',
+            "Bots scan public GitHub repositories within minutes, and deleting a key in a new commit leaves it exposed in git history. Keep `.env` files in `.gitignore`, turn on **Secret scanning** and **Push protection** in your repository's security settings, keep real personal data out forever, and remember the one emergency rule if a credential ever leaks: **revoke it at the provider first**, then clean up the repository.",
           ],
         },
       ],
@@ -611,76 +639,85 @@ Constraints: no new dependencies beyond what the deployment needs, no changes to
       ],
       task: {
         summary:
-          'Test the live prototype with a user and against your requirements, write `review-checklist.md`, fix the bugs you find through reviewed pull requests, and confirm the repository has no secrets.',
+          'Watch one person try MoneyPilot on a phone, run the five accessibility and math checks, write `docs/review-checklist.md` in your own words, run an independent fresh-session review on a bug fix, and turn on secret protection.',
         steps: [
-          'Send the live link to one or two people; friends are fine. Watch at least one of them use it on their own phone without helping. Note every bug, hesitation and misreading.',
-          'Go through `REQUIREMENTS.md` yourself on laptop and phone: every screen, state and "done when" example. Check two figures by hand and try two edge cases.',
-          'Run the five accessibility checks on every screen and note what fails.',
-          'Ask Claude to draft `docs/review-checklist.md` from `REQUIREMENTS.md` and this session: requirements, figures, states, accessibility, data and secrets. Edit it to one page in your own words.',
-          'Write each confirmed problem as a reproducible report in `docs/review-log.md`, most serious first: a wrong figure or a missed warning comes before a misaligned button. Fix at least one real defect. If you genuinely find none, ask your mentor to break something small on a throwaway branch and fix that instead, never on the live site.',
-          'Fix them one at a time. For each, in a fresh session: paste the report and screenshot, ask Claude to reproduce and explain the cause, fix it on its own branch, add a test if it is a calculation, and open a pull request.',
-          'Before merging each pull request, run the review prompt below in another fresh session. Record a decision for every comment in `docs/review-log.md`: fixed, rejected with a reason, or turned into an issue.',
-          'Ask your mentor to review the change with the highest risk, usually anything touching totals, dates and status rules, as the human reviewer.',
-          'Turn on secret scanning and push protection in the repository settings. Ask Claude to scan the full history for keys, tokens and personal data, and fix anything it finds.',
-          'Merge, then check the live site shows the fixes on your phone.',
+          '**Think first (no AI):** Watch one person try your MoneyPilot probe on a phone without helping, run the five WCAG AA accessibility checks across normal, empty and shortfall states, and hand-check two projected-balance figures against the fictional data file. Write a one-page `docs/review-checklist.md` in your own words.',
+          '**Work with your agent:** Log your confirmed bugs (starting with your Session 7 issue and anything that misleads on math or shortfall warnings) in `docs/review-log.md`. On a new branch, brief a session to reproduce and fix at least one defect (adding a regression test if it touches calculations, or fixing a labelled seeded defect on a local branch if none appeared) and open a pull request; then open a separate fresh session and brief an independent read-only review from your `docs/review-checklist.md`.',
+          '**Check and try to break it:** Test the fix at phone width and check every comment from the fresh-session review against `REQUIREMENTS.md` to separate real defects from invented scope. Turn on **Secret scanning** and **Push protection** in GitHub security settings and scan the git history for keys or personal data.',
+          '**Make the call:** Record `Fixed`, `Rejected (with reason)` or `Issue filed` for every review comment in `docs/review-log.md`, merge your pull request once the diff passes your checklist, and verify the updated probe.',
         ],
       },
       agentPrompt: {
         tool: 'Claude Code',
-        where: 'In a fresh session, in the prototype folder, on the branch of an open pull request',
-        text: `Review the changes on this branch compared with main. You did not write them, so read them fresh. Do not edit any files.
+        where:
+          'In a fresh read-only session inside prototype/, on the branch of your open bug-fix pull request',
+        briefChecklist: [
+          'Fresh, read-only stance: tell the session it did not write this branch, must compare the diff against `main`, and must not edit any files.',
+          'Context to load first: `AGENTS.md`, `REQUIREMENTS.md`, your own `docs/review-checklist.md` and the pull request description.',
+          'MoneyPilot math and state checks: hand-verify any touched bill or projected-balance calculation on two cases from the fictional data file, require a regression test for math fixes, and verify normal, empty and shortfall states.',
+          'Accessibility and privacy checks: check the five WCAG AA items (especially colour-only shortfall warnings) plus secrets, personal data and unrequested dependencies.',
+          'Review table format: ask for severity (`blocker`, `should-fix`, `nit`), file and line, and a plain-English risk summary so you can log `Fixed`, `Rejected (with reason)` or `Issue filed`.',
+        ],
+        text: `You are reviewing the diff on this branch against main in a fresh session. Do not edit any files.
 
-Context: this is my product prototype, the product described in product-context.md, running on fictional records and events only. Read AGENTS.md, REQUIREMENTS.md, docs/review-checklist.md and the pull request description first.
+Read AGENTS.md, REQUIREMENTS.md, docs/review-checklist.md and the open pull request description first.
 
-Check, in this order:
-1. Requirements: does the change do what the pull request says, and does it still meet every "done when" example it touches? Check any change to totals, dates and status rules by hand for two cases from the fictional data.
-2. Scope: is anything changed that the description does not mention?
-3. States: empty, loading and error states on every screen the change touches.
-4. Accessibility: colour-only signals, missing labels, low contrast, keyboard access.
-5. Data and secrets: keys, tokens, real names, personal data, new network calls or new dependencies.
-6. Tests: if the change touches a calculation, is there a test that would fail without the fix?
+Evaluate the change strictly against docs/review-checklist.md and REQUIREMENTS.md, without inventing new v1 features:
+1. Spec and MoneyPilot math: does the diff fix the reported bug without breaking normal, empty or shortfall warning states? Verify any touched bill total or projected-balance logic against two scenarios in the fictional data file, and check for a regression test if math changed.
+2. Scope: flag any modified file or dependency not explained by the pull request description.
+3. Accessibility: check keyboard focus, colour-only shortfall warnings, text contrast, accessible labels and 200% zoom layout risks.
+4. Secrets and privacy: scan the diff for keys, tokens, .env files, external network calls or real personal data.
 
-Output a table: severity (blocker, should-fix or nit), file and line, issue, suggested fix. Only "blocker" means do not merge. If you are not sure something is a bug, say so and say what would confirm it. End with one paragraph, written for a product manager, on what this change does and how risky it is.`,
+Return a concise table with severity (blocker, should-fix, nit), file and line, finding, and how to verify if uncertain, followed by three plain-English sentences for a PM on how risky this merge is.`,
       },
       expectedOutput: [
-        '`docs/review-checklist.md`: a one-page checklist in your own words.',
-        '`docs/review-log.md` with bug reports, agent review comments and a decision for each.',
-        'A verified correction through a reviewed pull request, or a labelled seeded local exercise if no real defect was found.',
-        'Secret scanning and push protection turned on, and a clean history scan.',
+        '`docs/review-checklist.md` written in your own words on one page.',
+        '`docs/review-log.md` containing reproducible bug reports, fresh-session review comments and a recorded `Fixed`, `Rejected (with reason)` or `Issue filed` call for each.',
+        'At least one verified bug fix merged via pull request (with a regression test if calculation logic changed).',
+        'GitHub secret scanning and push protection enabled, with a clean repository history.',
       ],
       artifact:
-        'review-checklist.md, a prioritised review log and a verified correction with review evidence.',
+        '`docs/review-checklist.md`, `docs/review-log.md` with review decisions, and a reviewed bug-fix pull request.',
       verification: [
-        'Every comment from the agent reviews has a recorded decision: fixed, rejected with a reason, or turned into an issue.',
-        'Each bug report has steps, expected and actual results, and a screenshot or device note.',
-        'Any calculation fix has a test that fails without it and passes with it.',
-        'The live site passes the five accessibility checks on the screens you fixed.',
-        'Secret scanning and push protection are on, and nothing in the repository history is a key, token or real personal data.',
+        'Every comment from the fresh-session review has an explicit `Fixed`, `Rejected (with reason)` or `Issue filed` entry in `docs/review-log.md`.',
+        'Each logged bug includes device/width, steps to reproduce, expected vs actual results, and a regression test if it touched MoneyPilot calculations.',
+        'The MoneyPilot probe passes all five WCAG AA checks across normal, empty and shortfall states on phone width.',
+        'Secret scanning and push protection are active on GitHub, and git history contains zero credentials or personal data.',
       ],
       reflectionPrompts: [
-        'Which agent review comment was wrong, and how did you know?',
-        'What did watching a real person use the prototype show you that your own testing missed?',
-        'What would you need before trusting an agent review on a change that touches real money or real customers?',
+        'Which comment from the fresh-session review did you reject, and how did `REQUIREMENTS.md` make that call easy?',
+        'What did silent phone observation reveal that clicking through on your laptop missed?',
       ],
       checklist: [
-        { id: 'user-test', text: 'Watched at least one person use the live prototype on a phone' },
-        { id: 'a11y-checks', text: 'Ran the five accessibility checks on every screen' },
-        { id: 'review-checklist', text: 'Wrote `docs/review-checklist.md` in my own words' },
+        {
+          id: 'user-test',
+          text: 'Watched at least one person use the MoneyPilot probe silently on a phone',
+        },
+        {
+          id: 'a11y-checks',
+          text: 'Ran the five WCAG AA accessibility checks across normal, empty and shortfall states',
+        },
+        {
+          id: 'review-checklist',
+          text: 'Wrote `docs/review-checklist.md` in my own words and briefed a review from it',
+        },
         {
           id: 'fixes-merged',
-          text: 'Reproduced and verified a meaningful correction, or completed a labelled seeded local exercise',
+          text: 'Reproduced, tested and merged at least one defect fix (or completed a labelled local seeded-bug exercise)',
         },
         {
           id: 'agent-review',
-          text: 'Ran a fresh-session review on each fix and recorded a decision per comment',
+          text: 'Ran an independent fresh-session review and recorded `Fixed`, `Rejected (with reason)` or `Issue filed` per comment',
         },
         {
           id: 'no-secrets',
-          text: 'Turned on secret scanning and push protection and checked the history',
+          text: 'Enabled GitHub secret scanning and push protection and verified a clean git history',
         },
       ],
       mentorMove:
-        'Do the human review on her highest-risk pull request and think aloud: what you check first, what you trust the agent review for, and what makes you slow down. Then compare your findings with the agent review and point out one thing only someone who knows the product would have caught.',
+        'Ask your mentor to review your highest-risk bug-fix pull request (especially anything touching projected balances or shortfall warnings) and think aloud about what they inspect first versus what they trust an agent review to catch.',
+      soloMove:
+        'Review your bug-fix diff manually with the four PM questions before opening the fresh-session agent review, then compare both lists side by side. Verify every `blocker` or `should-fix` in the browser or fictional data file yourself, and record at least one explicit scope judgment in `docs/review-log.md`.',
     },
   ],
   challenges: [
@@ -693,21 +730,20 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
       competencies: ['technical-collaboration', 'coding-agents'],
       xp: 75,
       summary:
-        'Before your next engineering conversation, use Claude Code to understand an open-source product you could use yourself, without changing a line. Come out with a one-page brief and three good questions for an engineer.',
+        "Go deeper than Session 7's single product question: trace a user-facing feature end to end across UI, calculation logic, storage and automated tests in a multi-module open-source codebase without changing a line, and prepare three architecture trade-off questions for an engineer.",
       steps: [
-        'Pick an open-source product on GitHub with a web interface, active maintainers and a clear README: a budgeting app, a notes app or a help desk, ideally close to your product.',
-        'Ask Claude Code to download a copy into a new folder outside your workspace. Tell it this is read-only: no edits, no installs, no commands that change anything.',
-        'Ask: what does the product do, what are the main folders and what lives in each, where does one user-facing feature live from screen to data, how is it tested, and what would an engineer find hardest to change?',
-        'Ask Claude to save the answers as `codebase-brief.md`, citing a file path for every claim.',
-        'Open two of the cited files yourself and check that they say what the brief claims.',
-        'Write three questions you would now ask an engineer on that project, and say which part of the brief prompted each.',
+        'Pick an actively maintained open-source web product with multiple modules and an automated test suite (such as a budgeting app, personal finance tracker or scheduling tool) and clone it into a read-only folder outside `workspace/`.',
+        'Choose one end-to-end flow to trace (for example, saving a recurring transaction through to computing a monthly balance forecast) before asking your agent anything.',
+        'Brief Claude Code strictly read-only (no edits, installs or state-changing commands) to map that flow from UI component to domain logic, storage schema and test suite, saving `codebase-brief.md` with exact file paths and noting where tight coupling would make changes risky.',
+        'Open at least three cited source and test files yourself to confirm the trace holds up, spot one edge case the tests do not cover, and correct any overstatement in `codebase-brief.md`.',
+        'Write three engineering trade-off questions across module boundaries, naming the exact files in `codebase-brief.md` that prompted each question.',
       ],
       deliverable:
-        'A one-page `codebase-brief.md` with file paths for every claim, two claims you checked yourself, and three questions for an engineer.',
+        'A one-page `codebase-brief.md` tracing one feature across UI, domain logic, storage and tests with verified file paths, one untested edge case, and three trade-off questions for an engineer.',
       verification: [
-        'Every claim in the brief names a file path, and the two you opened match.',
-        'Nothing in the downloaded copy was changed.',
-        'The three questions are about trade-offs or risk, not things the README already answers.',
+        'Every architectural claim and test gap in `codebase-brief.md` cites an exact file path, and the three files you opened match.',
+        'Nothing in the cloned repository was edited or installed (`git status` is clean).',
+        'All three questions probe cross-module trade-offs, coupling or missing test coverage rather than facts already in the README.',
       ],
       resources: [
         {
@@ -980,54 +1016,54 @@ Output a table: severity (blocker, should-fix or nit), file and line, issue, sug
     },
   ],
   project: {
-    title: 'Clickable prototype',
+    title: 'Level 2 sign-off: discovery probe',
     brief:
-      'Finish Level 2 with a live, reviewed product prototype that engineers and users can click through, and the workspace and habits that produced it. Show that you directed the agent rather than accepted whatever it built: requirements you decided, changes you can explain, reviews that caught real problems and a repository with nothing in it that should not be public. Then walk your mentor through the code review on one pull request. About 5 hours, mostly finishing and tidying the work from Sessions 5 to 8.',
+      'This is a 15 to 20 minute sign-off review, not a 5-hour rebuild. Check the artefacts you already created in Sessions 5 to 8: `workspace/AGENTS.md`, `prototype/REQUIREMENTS.md`, your public `product-prototype` repository with its merged pull request and public-codebase note, your live link or 60-second recording, and `docs/review-checklist.md` plus `docs/review-log.md`. Confirm that every decision, figure and review call came from you rather than unchecked agent output.',
     deliverables: [
       {
         id: 'workspace',
-        text: '`workspace/` under git, with a short `AGENTS.md` that loads `product-context.md`, one folder per workstream and your Level 1 files filed.',
+        text: '`workspace/AGENTS.md` (Session 5) is under git, loads `@product-context.md`, and organizes your Level 1 MoneyPilot files by workstream.',
       },
       {
         id: 'requirements',
-        text: '`REQUIREMENTS.md` with three to five screens, their states, a "done when" example each and open questions.',
+        text: '`prototype/REQUIREMENTS.md` (Session 6) fits on one page, scopes one MoneyPilot job across normal, empty and shortfall states, and lists open questions.',
       },
       {
         id: 'repo',
-        text: 'The public `product-prototype` repository (with a no-bypass ruleset on main if you chose one), a README and a current `HANDOFF.md`.',
+        text: 'Public `product-prototype` repository (Session 7) with one merged pull request, `HANDOFF.md`, one filed bug issue, and your verified public-codebase note.',
       },
       {
         id: 'live',
-        text: 'The live GitHub Pages URL, working on a phone, with the "Prototype with fictional data" label.',
+        text: 'Live GitHub Pages URL working on a phone (or a 60-second walkthrough recording linked in `README.md`), showing the `"Prototype with fictional data"` banner.',
       },
       {
         id: 'review-log',
-        text: '`docs/review-checklist.md` and `docs/review-log.md`, with bug reports and a decision for every agent review comment.',
+        text: '`docs/review-checklist.md` in your own words and `docs/review-log.md` (Session 8) with `Fixed`, `Rejected (with reason)` or `Issue filed` recorded per comment.',
       },
       {
         id: 'fixes',
-        text: 'A verified correction with a recorded review and post-fix check, or a labelled seeded local exercise.',
+        text: 'At least one verified defect fix merged via pull request (with a regression test if math changed, or a labelled local seeded-bug exercise) and secret scanning enabled.',
       },
       {
         id: 'mentor-walkthrough',
-        text: 'A 20-minute walkthrough with your mentor of one pull request: what changed, why, how you checked it and what the agent review got right and wrong.',
+        text: 'Optional mentor walkthrough (or a written solo self-review) of one pull request: what changed, how you checked the math and one agent comment you rejected.',
       },
     ],
     rubric: {
       correctness:
-        'Every screen in `REQUIREMENTS.md` works on the live site with its states; figures match hand calculations from the fictional data; fixes did what their bug reports asked.',
+        'Normal, empty and shortfall states work at phone width; projected balances match hand calculations from the fictional data; fixes match their bug reports.',
       quality:
-        'Requirements are short, specific and free of invented decisions; pull requests are small and well described; the prototype passes the five accessibility checks; `AGENTS.md` and the handoff are short and current.',
+        'One-page requirements contain no invented features; pull requests stay small; all five WCAG AA checks pass; `AGENTS.md` and `HANDOFF.md` stay concise.',
       independence:
-        'You ran Claude Code, git and GitHub yourself, steered by reviewing results, used fresh sessions and handoffs when context drifted, and used your mentor for review rather than for doing the work.',
+        'You wrote your own briefs, steered via browser checks, verified real codebase paths yourself, and used fresh sessions with handoff notes before context rot.',
       judgment:
-        'You can explain every merged change, rejected at least one agent suggestion with a reason, kept private notes out of the public repository, and know which changes deserve a closer human review.',
+        'You can explain every merged diff, rejected at least one out-of-scope agent comment with a reason, and kept private notes and secrets out of GitHub.',
     },
     privacyNote:
-      'The `product-prototype` repository is public: fictional data only, no interview notes, no real names, no employer material, and never a key or token. Your workspace stays private on your own computer. The Academy stores only your checklist, reflections and the paths you type, never the files themselves.',
-    minutes: 300,
-    xp: 350,
+      'The `product-prototype` repository is public: fictional MoneyPilot data only, no interview notes, no real names, no employer material, and never a key or token. Your `workspace/` stays private on your own computer. The Academy stores only your checklist, reflections and the paths you type, never the files themselves.',
+    minutes: 20,
+    xp: 175,
   },
   nextRecommendation:
-    'Move to Level 3. The prototype becomes your research tool: in Session 10 you put it in front of five real users. Keep the workspace as the home for everything you learn: strategy, interviews, data and the PRD all go in it, and Claude Code reads them from there.',
+    'Move to Level 3, where your discovery probe meets strategy, real user interviews, funnel data and a PRD. Heads-up for Session 10: line up 3 to 5 monthly-paid people now for 30-minute conversations about juggling bills before payday (or target users for your own product). If recruitment falls through, Session 10 includes five MoneyPilot practice interview notes as a safety net so you can keep moving.',
 }

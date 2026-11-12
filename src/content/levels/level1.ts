@@ -6,13 +6,13 @@ export const level1: Level = {
   title: 'AI foundations',
   theme: 'Learn how the tools work, give them context and check what they say',
   summary:
-    'Start from the work you do as a PM. Learn how assistants use context, compare their output, check a research answer and build a pitch page. Choose your own product context, using public information and fictional practice data. Your context file and fact sheet carry into the rest of the course. Start with a free assistant account; tool availability and usage limits vary.',
+    'Start from everyday PM work. Learn how models and agents use context, compare two setups blind, verify an AI research answer against primary sources, and build a shareable pitch page. By default you work on MoneyPilot, a bank-app feature that subtracts scheduled bills from raw balance so monthly-paid customers see what is truly safe to spend before payday (or swap in your own product using public facts and fictional data). Your context file and fact sheet carry into every later level. Start with a free assistant account; tool options and usage limits vary by plan.',
   outcomes: [
-    'Explain tokens, the context window, reasoning models and the difference between a chat and an agent in language a risk officer or executive understands.',
-    'Compare two models or settings on a real PM task with explicit criteria, and record the date and settings.',
-    'Write a one-page product context file and use it as project knowledge, so answers are about your product instead of the average of the internet.',
+    'Explain tokens, the context window, the three layers (model, agent, interface) and model tier versus effort in language a risk officer or executive understands.',
+    'Compare two models or effort settings blind on a real PM task with explicit criteria, recording the date and settings.',
+    'Write a one-page product-context.md for MoneyPilot (or your own product) and use it in a Project so answers fit your product instead of the internet average.',
     'Decide what to delegate with the 4Ds, and verify every material claim in an AI research answer against a primary source.',
-    'Build and share a pitch page for a feature idea in an afternoon, changing one thing at a time and labelling it honestly.',
+    'Build and share an honest pitch page from your Markdown files, changing one thing at a time and checking every figure by hand.',
   ],
   badge: {
     name: 'Context Builder',
@@ -26,70 +26,58 @@ export const level1: Level = {
       number: 1,
       title: "How today's AI works",
       difficulty: 'Foundational',
-      minutes: 75,
+      minutes: 60,
       tools: ['Claude (free plan)', 'ChatGPT (optional, for the comparison)'],
       prerequisites: [],
       competencies: ['ai-fundamentals'],
       xp: 100,
       mentorReview: 'optional',
-      goal: 'Explain in plain language how a model produces an answer, what it can and cannot see, and how a chat differs from an agent, then compare two models or settings on one real PM task.',
+      goal: 'Explain in plain language how a model writes an answer, separate the model, agent and interface layers, choose a model tier and effort level for a PM job, and compare two setups blind on a MoneyPilot task.',
       whyItMatters:
-        'Before you use an assistant for anything that matters in your PM work, you need to know what it actually is. Product teams need a shared understanding of its limits. A PM who can explain tokens, context windows and hallucination in two minutes makes better calls about what to automate and what to check.',
+        'On a product like MoneyPilot, where one wrong balance or invented rule breaks user trust, your team needs a shared, plain-English grasp of how AI works. Knowing what the model sees, why answers vary across runs, and which layer failed when output disappoints lets you decide calmly what to automate and what to check.',
       learn: [
         {
           heading: 'How a model writes an answer',
           illustration: 'tokens',
           paragraphs: [
-            'A large language model is trained on a vast amount of text to predict the next small chunk of text, called a **token**. A token is roughly three quarters of an English word; numbers, code and non-English text often use more tokens per word. After this pretraining, the model is further trained on examples and human feedback so that it follows instructions and behaves like an assistant.',
-            'When you send a message, the model reads everything in its context and generates the reply one token at a time, each choice conditioned on everything before it. That single mechanism explains a lot. Models are fluent because fluency is what they were trained on. They can be confidently wrong because a plausible sentence and a true sentence look the same to the generation process. And two runs of the same request can differ because generation involves sampling from likely continuations, not looking up a stored answer.',
+            'A large language model is trained on vast amounts of text to predict the next small chunk of characters, called a **token** (roughly three quarters of an English word; numbers and code take more tokens per word). After pretraining, labs tune the model on examples and human feedback so it follows instructions and answers like a helpful colleague.',
+            'When you send a prompt, the model reads everything in its context and generates the reply one token at a time, sampling from likely continuations rather than looking up a stored database. That single mechanism explains three things you will see on **MoneyPilot** (see [Case studies](/case-study), where a 14,000 kr raw balance minus 12,500 kr in scheduled bills leaves 1,500 kr truly safe before payday): why a wrong answer still sounds fluent (**hallucination**), why two runs of the same prompt differ, and why tested code must calculate every figure while the model only explains it.',
           ],
         },
         {
-          heading: 'The context window: what the model can see',
+          heading: 'The context window and context rot',
           paragraphs: [
-            'The **context window** is everything the model can see at once: the instructions the product adds, your messages, attached documents, tool results and its own previous replies. Windows of hundreds of thousands of tokens are now common, but bigger is not the same as better. Practitioners call the effect **context rot**: as a conversation fills with long, loosely relevant or contradictory material, answers get less precise, and stale content competes with what you actually want.',
-            "The model does not remember yesterday's chat unless the product deliberately adds a memory feature or you bring the material back in. Treat each conversation as a fresh briefing. Session 2 turns this into the core skill of the course: deciding what the model sees.",
-          ],
-          bullets: [
-            'Start a new conversation when the topic changes.',
-            'Give the model only the material the task needs.',
-            'Prefer a short, curated document over a long dump of everything you have.',
+            "The **context window** is everything the model can see in one turn: hidden system instructions, your messages, attached files, tool results and earlier replies. Anything outside that window does not exist for the model, and nothing carries over from yesterday's chat unless a memory feature or file puts it back.",
+            'Windows now hold hundreds of thousands of tokens, yet bigger is not sharper. As a thread fills with stale drafts, tangents or conflicting notes, precision drops, an effect practitioners call **context rot**. Start a fresh chat when the job changes, attach only what the task needs, and prefer a one-page brief over a raw document dump.',
           ],
         },
         {
-          heading: 'Reasoning models, and chat versus agent',
+          heading: 'Three layers: model, agent and interface',
           illustration: 'chat-agent',
           paragraphs: [
-            '**Reasoning-capable models** can spend extra computation before answering. That can help with multi-step analysis, planning and code, with trade-offs in time and cost. Products expose different controls and may show a summary rather than the full internal process. Judge the answer with evidence and tests, not the apparent depth of its explanation.',
-            'A plain **chat** answers from what is in its context. Give the same model **tools** and it can look things up on the web, run code on a spreadsheet, read and create files. An **agent** is a model in a loop: it decides on a step, uses a tool, checks the result and carries on until the task is done. In Level 2 you will use Claude Code, an agent that works on the files in your own folder. More power means more to review: an agent that can act can also act wrongly.',
-          ],
-        },
-        {
-          heading: 'Choosing a model and an effort level',
-          paragraphs: [
-            '**Model choice** selects a particular trained model. Companies offer different models that balance capability, speed and cost. Try a more capable model for difficult analysis, a balanced model for everyday work, and a fast, lower-cost model for clear, repeated tasks. Compare their results on the work you need to do.',
-            '**Effort** controls how much work a supported model spends on a response. Raising it keeps the same model. It can help with difficult reasoning and checking, while taking longer and consuming more usage. It cannot supply missing context or make a factual answer automatically trustworthy.',
-            'The dated [model and effort guide](/field-guide) shows current Claude and GPT models, when to use each, and four PM task examples. Your available choices depend on the app and plan.',
+            'When an AI tool disappoints, separate three layers before you blame "the AI":',
           ],
           bullets: [
-            '**Low:** try a quick rewrite with all facts supplied. Check that no facts changed.',
-            '**Medium or the app default:** start with a defined brief or small prototype. Review the result against your criteria.',
-            '**High:** try it when competing constraints or a persistent bug need deeper reasoning. Supply the failing example first. Some models offer further levels, but maximum is not the default choice for every task.',
+            "**Model (the engine):** the trained neural network that reasons and writes from context, such as Claude Opus, Sonnet or Haiku, OpenAI's GPT models, or Google's Gemini.",
+            '**Agent (the application around it):** wraps the model in a loop with **tools** (web search, calculators, file access). Plain **chat** answers once from what you pasted; an agent plans a step, calls a tool, checks the result and repeats. In Level 2 you use Claude Code to edit files directly, so you must review its actions as well as its text.',
+            '**Interface (where you steer it):** web chat, a desktop Code tab, or a terminal window. One agent can sit behind several interfaces.',
           ],
         },
         {
-          heading: 'What models do well, and where they fail',
+          heading: 'Which model tier and effort level for which PM job',
           paragraphs: [
-            'Current models are strong at drafting, restructuring, summarizing, explaining a topic at different levels, generating options, translating between audiences and writing code.',
-            'They remain risky for exact arithmetic over many figures without a calculator tool, recent events unless web search is on, citations (which can be invented or misattributed), facts specific to your organization, and consistent judgment on ambiguous policy questions. A confident tone is not evidence of accuracy.',
+            '**Model choice** picks which engine does the work; **effort** controls how much thinking time that same model spends before replying. Raising effort on a mid-tier model keeps the same model and cannot supply missing product context or guarantee factual accuracy. Check the [Field guide](/field-guide) for current lab lineups and defaults.',
+          ],
+          bullets: [
+            '**Fast tier or low effort:** quick rewrites, formatting notes, or tagging feedback with categories you already tested, once all facts are supplied.',
+            '**Balanced tier at medium effort (everyday default):** drafting MoneyPilot interview questions, summarizing competitor pages, or building a first prototype.',
+            '**Flagship tier or high effort:** weighing conflicting PRD and regulatory constraints, stress-testing a strategy memo, or debugging a stubborn prototype state after giving the failing steps.',
           ],
         },
         {
-          heading: 'How to compare two models on your own task',
+          heading: 'Compare setups blind on your own task',
           paragraphs: [
-            'Asking which model is best is the wrong question. Define criteria for the task first: factual accuracy, following constraints, usefulness for the audience and honesty about uncertainty. Run the same request in two models or two settings, blind if someone can relabel the outputs, and score each one.',
-            'Be honest about what you are comparing. Two products differ in model, but also in reasoning setting, web search, memory and the instructions the product adds. Unless you control those, you are comparing products, not models, which is still useful as long as you say so.',
-            'Every model release changes what is possible: longer tasks, better tool use, lower cost. Something that failed six months ago may work now, so treat "AI cannot do that" as a dated claim. Keep the method, record the date, model names and settings, and rerun it when a new model ships. This course uses Claude throughout; ChatGPT works much the same, and in Level 2 Codex can do most of what Claude Code does.',
+            'Skip debates about which model is "best overall". Write four task criteria first: factual accuracy, constraint following, usefulness for the target reader, and honesty about uncertainty. Run the exact same MoneyPilot prompt across two models or two effort settings, relabel the outputs blind, score each 1 to 5, and quote the exact sentence behind every low score. Record the date, model names and enabled features (such as web search or memory) so you know whether you compared raw models or whole products.',
           ],
         },
       ],
@@ -132,60 +120,62 @@ export const level1: Level = {
       ],
       task: {
         summary:
-          'Build a mental model of how models work, write it down as your own glossary, and compare two models or settings on one real PM task for your product.',
+          'Create your private notes folder, draft a plain-language AI glossary, and compare two models or effort settings blind on a MoneyPilot discovery task.',
         steps: [
-          'Create a private folder on your own computer called `learning-notes/`, not in a shared drive. Every Level 1 file goes here; in Session 5 it moves into your workspace. Files are plain Markdown: `#` for headings, `-` for bullets, `**bold**`, saved with a `.md` ending from any text editor.',
-          'Watch the short 3Blue1Brown explainer. AI Fluency, under Go deeper, is the first course to start when you have time. Read the example and try the quick check above before the practical task.',
-          'Write `glossary.md` in your own words: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (one line: retrieval-augmented generation, fetching documents into the context before answering). One or two sentences each, plus one example that surprised you.',
-          "See a tool at work: ask Claude a question that needs this week's news with web search switched off, then on. Note which answer used a tool and how you could tell.",
-          'Pick one realistic PM task with no confidential data, for example: "Draft ten interview questions for [target users] about [specific problem]." Replace the brackets with a context you know. Run it in two models or two settings, each in a fresh chat. Try the same model at two effort levels if your app offers them, two Claude models if your plan offers them, or Claude and ChatGPT. Record the full model names, effort settings (or "not exposed"), other enabled features and date. If your mentor is available, let them relabel the outputs A and B so you score blind.',
-          'Score both outputs from 1 to 5 on factual accuracy, constraint following, usefulness and honesty about uncertainty. Quote the sentence behind any low score.',
-          'Rerun the same request once in the same model and note how much the answer changes.',
-          'Write `model-comparison.md`: the date, what you compared (models or products), the scores, the variation you saw, and which you would use for this kind of task and why.',
-          'Ask Claude to check your glossary with the prompt below. Accept or reject each suggestion yourself.',
+          '**Think first (no AI):** Create a private `learning-notes/` folder on your computer (not on a shared drive). Watch the assigned explainer, then draft `glossary.md` in your own words (1 to 2 sentences each) for: token, next-token prediction, context window, context rot, hallucination, knowledge cutoff, reasoning model, tool, agent, and RAG (retrieval-augmented generation: fetching documents into context before answering). Next, write four 1-to-5 scoring criteria (accuracy, constraint following, usefulness, honesty about uncertainty) for a MoneyPilot PM task: drafting 8 discovery interview questions for monthly-paid bank customers whose raw balance hides automatic bills due before payday.',
+          "**Work with your agent:** Run that MoneyPilot interview-question request in two fresh chats using two models or two effort settings (recording date, full model names, effort level and enabled features). Rerun one setup once in a fresh chat to observe sampling variance, test one question about this week's news with web search off versus on, and run the glossary check brief below with the brackets filled in.",
+          '**Check and try to break it:** Score both MoneyPilot outputs blind from 1 to 5 on your four criteria before asking any AI to critique them, quoting the exact sentence behind every score below 4. Then inspect the glossary check table line by line to separate genuinely sharper edits from over-confident rewrites that add jargon.',
+          '**Make the call:** Save `model-comparison.md` (date, setups compared, blind scores with quoted evidence, variance note, web-search note, and which setup you pick for this job) and your accepted edits in `glossary.md` inside `learning-notes/`, confirming zero employer, customer or confidential data entered any chat.',
         ],
       },
       agentPrompt: {
         tool: 'Claude',
-        where: 'A fresh chat, with your glossary.md attached or pasted below',
-        text: `Below is a glossary of AI terms I wrote in my own words. I am a product manager, and I will use it to explain these ideas to colleagues in risk, legal and engineering.
+        where: 'A fresh chat, with your glossary.md pasted below',
+        text: `Below is a glossary of 10 AI terms I wrote in my own words. I am a product manager, and I need these definitions clear enough for [who you explain AI terms to, e.g. risk, legal and engineering on a retail banking team].
+
+Pay closest attention to [one term from your glossary you feel least sure about].
 
 For each term:
-1. Say whether my definition is correct, partly correct or wrong.
-2. If it is not fully correct, explain the problem in one or two sentences and suggest a corrected sentence.
-3. Flag any simplification that would mislead a risk officer, even if it is technically defensible.
+1. Verdict: Correct, Partly correct, or Wrong.
+2. If not fully correct, explain the problem in one sentence and suggest a plain-English fix.
+3. Flag any shortcut that would mislead a risk or compliance reviewer, even if common in casual chat.
 
 Rules:
-- Do not rewrite definitions that are already correct. Keep my wording wherever you can.
-- If you are unsure about a point, say so instead of guessing.
-- Output a table with the columns: term, verdict, problem, suggested sentence.
+- Keep my wording wherever it is already accurate.
+- If a distinction is debated or tool-specific, say so instead of guessing.
+- Return a Markdown table: Term | Verdict | Problem | Suggested sentence.
 
-[paste glossary.md here]`,
+[paste your glossary.md here]`,
       },
       expectedOutput: [
-        '`glossary.md`: ten terms in your own words, each checked, with any accepted corrections.',
-        '`model-comparison.md`: one task, two models or settings, four criteria, scores with quoted evidence, and a note on variation.',
-        'A short note on what changed when web search was switched on.',
+        '`glossary.md`: ten terms in your own words, checked critically, keeping only edits you stand behind.',
+        '`model-comparison.md`: one MoneyPilot task, two models or effort settings scored blind on four criteria with quoted sentences, plus notes on sampling variance and web search.',
       ],
       artifact: '`glossary.md` and `model-comparison.md` in your private `learning-notes/` folder.',
       verification: [
-        'You scored both outputs before reading any AI critique of them.',
-        'Your explanation of a context window and of an agent makes sense read aloud to someone non-technical.',
-        'The comparison records the date, the model or product names and the settings, and says whether it compares models or products.',
-        'You rejected or changed at least one suggestion from the glossary check, or wrote down why every suggestion was right.',
+        'You scored both MoneyPilot outputs blind before reading any AI critique of them.',
+        'Your definitions of context window, model, agent and interface make sense read aloud to someone non-technical.',
+        'The comparison records the date, full model names and effort or tool settings, and states whether it compares models or products.',
+        'You rejected or adjusted at least one glossary suggestion, or wrote down why every suggestion was genuinely right.',
       ],
       reflectionPrompts: [
-        'Which output surprised you, and what does that tell you about how these models work?',
-        'Where in your past work would an agent, rather than a chat, have changed what was possible?',
-        'What kind of work would you now never delegate without checking?',
+        'Which score or sampling difference surprised you most on the MoneyPilot prompt, and why?',
+        'When a result disappoints next week, how will you tell whether the brief, the model tier or the agent layer caused it?',
+        'What part of MoneyPilot must never rely on next-token prediction?',
       ],
       checklist: [
-        { id: 'explainers', text: 'Watched the short explainer and explained the main idea aloud' },
-        { id: 'glossary', text: 'Wrote glossary.md in my own words and had it checked' },
-        { id: 'tool-test', text: 'Tried one question with web search off and on' },
+        {
+          id: 'explainers',
+          text: 'Watched the short explainer and explained next-token prediction aloud',
+        },
+        {
+          id: 'glossary',
+          text: 'Wrote glossary.md in my own words and reviewed every AI suggestion myself',
+        },
+        { id: 'tool-test', text: 'Tried one current-week question with web search off and on' },
         {
           id: 'compared',
-          text: 'Compared two models or settings on one real task and scored them',
+          text: 'Compared two models or effort settings blind on a MoneyPilot task and scored them',
         },
         { id: 'variance', text: 'Reran one request and recorded how the answer varied' },
         {
@@ -194,7 +184,9 @@ Rules:
         },
       ],
       mentorMove:
-        "Relabel the outputs as A and B so she scores blind. Then ask her to explain the difference between a chat and an agent as if you were the company's chief risk officer, and push back once with a hard follow-up question.",
+        "Relabel the two MoneyPilot outputs as A and B so she scores blind. Then ask her to explain the difference between a chat and an agent as if you were the bank's chief risk officer, and push back once with a hard follow-up question.",
+      soloMove:
+        'Paste both outputs into two unlabelled notes, take a five-minute break, shuffle their order and score them blind before checking which setup wrote which. Then read your chat-versus-agent definition aloud and check whether a retail-banking risk lead would know which actions need human approval.',
     },
     {
       id: 's2',
@@ -202,74 +194,54 @@ Rules:
       number: 2,
       title: 'Give AI your product context',
       difficulty: 'Foundational',
-      minutes: 90,
+      minutes: 75,
       tools: ['Claude (Projects)', 'A text editor or Obsidian'],
       prerequisites: ['s1'],
       competencies: ['prompting-context', 'ai-fundamentals'],
       xp: 100,
       mentorReview: 'recommended',
-      goal: 'Write a one-page `product-context.md` for your product, use it as project knowledge in a Claude Project, and decide with the 4Ds which parts of your quarter to delegate.',
+      goal: 'Write a one-page `product-context.md` for MoneyPilot, load it into a Claude Project so answers reflect real product constraints, and audit ten PM tasks with the 4Ds.',
       whyItMatters:
-        'Your manager wants a competitor summary by Friday. You ask Claude and get back a page that could describe any product in the category, because the model knows nothing about your product. The fix is not cleverer wording. It is giving the model what a new colleague would need: the product, the users, the constraints and the material. That file is the seed of every knowledge base you build in this course.',
+        'Ask a bare chat for a MoneyPilot competitor summary and you get generic fintech praise that ignores monthly pay cycles, deterministic balance math and UK or EU regulated-advice boundaries. Clever prompt wording cannot invent missing facts. Giving your agent a concise context file fixes the answer today and anchors every workspace you build later.',
       learn: [
         {
-          heading: 'Why the first draft was generic',
-          paragraphs: [
-            'A model without relevant product context may fall back on broad patterns or invent details. Generic output can signal missing context, an unclear task, conflicting instructions or a model limitation. Diagnose the gap before choosing a remedy.',
-            'When an output disappoints, ask what the model was missing before you rewrite the instruction. That question, more than any trick, is the core of what is now called **context engineering**.',
-          ],
-        },
-        {
-          heading: 'What the model actually sees',
+          heading: 'Why generic answers happen, and what the model sees',
           illustration: 'context',
           paragraphs: [
-            'Everything the model uses to answer arrives through its context window. If something is not there, it does not exist for the model, however obvious it is to you.',
+            'Ask a bare chat for a competitor summary for MoneyPilot and you get smooth fintech clichés that could describe any budgeting app. Adding "you are a world-class strategy consultant" changes the tone, not the substance, because a role title cannot supply missing facts. **Context engineering** means diagnosing what a capable new teammate would need on day one and putting only that into the window.',
+            'If a sharp PM joining MoneyPilot tomorrow could not do the job from what you pasted, neither can the model. Test that difference directly by comparing a bare prompt, a role-phrase prompt, and a Project chat backed by your context file. Everything the model uses arrives through six inputs:',
           ],
           bullets: [
-            '**Instructions**: what the product adds, plus your project or custom instructions.',
-            '**Your message**: the goal, the audience and what done looks like.',
-            '**Files and project knowledge**: documents you attach or store in a Project.',
-            '**Examples**: a good past output shows format and level better than a description.',
-            '**Memory**: what the product chooses to recall from earlier chats. Useful, but you cannot always see or control it, so put what matters in a file.',
-            '**Tool results**: search results, code output, files the model opened.',
+            '**Instructions:** product defaults plus your custom or Project rules.',
+            '**Your brief:** the goal, reader, constraints and definition of done.',
+            '**Project knowledge and files:** curated docs attached or saved in a Project.',
+            '**Examples:** one strong sample output shows style faster than adjectives.',
+            '**Memory:** chat fragments recalled automatically; opaque, so keep real facts in files.',
+            '**Tool results:** web pages or files fetched during the turn.',
           ],
         },
         {
-          heading: 'Role phrases versus real context',
+          heading: 'Write product-context.md for MoneyPilot in Markdown',
           paragraphs: [
-            'Clear wording still matters: say what task to do, which material to use, the constraints and what done looks like. A role phrase such as "you are a world-class strategist" cannot supply missing evidence. Compare instructions and context on your task instead of assuming a universal prompting trick.',
-            'A brief to a model has the same parts as a brief to a new colleague. If a capable person joining your team tomorrow could not do the task from what you gave them, the model cannot either.',
-          ],
-        },
-        {
-          heading: 'Write product-context.md',
-          paragraphs: [
-            '`product-context.md` is a single page that tells any assistant what it needs to know about your product. Keep it short: context rot applies to your own files too. Write "Unknown" where you do not know something, instead of a plausible guess, and list where each fact came from.',
-            'In a **Claude Project**, files in project knowledge and the project instructions are available to every chat in that project, so you stop pasting the same background every time. In Session 5 the same file sits at the top of your workspace, and in Level 5 it grows into a personal and a team knowledge base.',
+            'Across this course we use **MoneyPilot** (full spec in [Case studies](/case-study)): a retail bank-app feature showing monthly-paid customers their real `Safe before payday` (`14,000 kr` raw balance minus `12,500 kr` scheduled bills = `1,500 kr` left before everyday spending) plus an AI drawer for grounded Q&A and customer-approved cover transfers. Capture it in a one-page `product-context.md` so context rot never hits your own reference files. Wherever a detail is unsettled, write `Unknown` rather than a plausible guess; otherwise every future chat treats your guess as decided policy.',
+            'Write the file in **Markdown** (`.md`), plain text structured with `#` and `##` headings, `-` bullets, `1.` numbered steps, `**bold**` and `[label](link)` links (Obsidian in the [Starter kit](/starter-kit) previews it cleanly). Load `product-context.md` into a **Claude Project** so every chat starts grounded; in Session 5 it moves to the root of your coding-agent workspace, and in Level 5 it anchors your knowledge base. Use six headings:',
           ],
           bullets: [
-            '**Product**: what it is, the one job v1 does, what it is not.',
-            '**Users**: who they are and the problem in their words.',
-            '**Glossary**: domain terms and how your team uses them.',
-            '**Constraints**: regulation, risk, technical and brand limits.',
-            '**Open decisions**: what is not yet decided, and who decides.',
-            '**Sources**: where each fact came from, with dates.',
+            '**Product:** what MoneyPilot is (`Safe before payday` + `Ask MoneyPilot` drawer) and what v1 excludes.',
+            '**Users:** monthly-paid bank customers whose raw balance hides automatic AvtaleGiro, eFaktura and card bills due before the 25th.',
+            '**Glossary:** exact team terms such as `Safe before payday`, `scheduled bills only (excludes everyday spending)`, and `BankID confirmation`.',
+            '**Constraints:** tested code calculates every krone and date while the model only explains; Norwegian (Finanstilsynet) and EEA information-not-advice rules; shortfalls never shown by colour alone.',
+            '**Open decisions:** unresolved product or compliance calls and who decides.',
+            '**Sources:** where every stated fact came from, with dates.',
           ],
         },
         {
-          heading: 'Write it in Markdown',
-          paragraphs: [
-            'Write `product-context.md` in **Markdown**: plain text with a few marks for structure. It opens in any editor on any computer, it is the format Claude and other agents read and write most reliably, and its headings let an agent jump straight to the part of a long file it needs. You already used it for your Session 1 notes.',
-            'Six marks cover almost everything: `#` and `##` for headings, `-` at the start of a line for a bullet, `1.` for a numbered step, `**bold**` for the one thing nobody should miss, `[label](link)` for a link, and a blank line between paragraphs. Any text editor works. Obsidian, a free notes app in the [Starter kit](/starter-kit), shows the formatting as you type.',
-          ],
-        },
-        {
-          heading: 'Decide what to delegate: the 4Ds',
+          heading: 'Decide what to delegate: the 4Ds and the meat-proxy trap',
           illustration: 'delegate',
           paragraphs: [
-            "Anthropic's AI Fluency course names four competencies. **Delegation**: deciding what work to give the AI and what to keep. **Description**: giving it the context and the definition of done. **Discernment**: judging what comes back. **Diligence**: owning the result, including being open about how it was made.",
-            'For delegation, use two axes: how much judgment the task needs, and how costly a mistake would be. High-volume, low-judgment work such as summarizing, formatting and first drafts can be delegated with spot checks. High-judgment, high-stakes work such as priorities, feedback to people and what you believe stays with you; AI can challenge your thinking but should not do it for you.',
-            'Forwarding AI output to colleagues without reading it makes you what one engineer calls a meat proxy: they end up doing the review you skipped. If you send it, you own it, so read it, cut it and stand behind every claim.',
+            "Anthropic's AI Fluency course frames everyday AI work around four skills: **Delegation** (what to hand off versus keep), **Description** (clear context and done criteria), **Discernment** (evaluating what comes back), and **Diligence** (owning verification and transparency).",
+            "Map delegation along two questions: how much human judgment does the task demand, and what does an error cost? Delegate high-volume, low-judgment chores like reformatting notes or first-pass competitor tables with spot checks. Keep roadmap trade-offs, people feedback, and MoneyPilot's deterministic calculation rules in human or tested-code hands.",
+            'Never paste unread AI output into Slack or a doc for teammates to sort out. Acting as a **meat proxy** offloads the review you skipped onto colleagues. If you send it, you own every claim in it.',
           ],
         },
       ],
@@ -307,70 +279,77 @@ Rules:
       ],
       task: {
         summary:
-          'Ask for the same competitor summary with no background, then with a role phrase. Write product-context.md, use it in a Project or paste it into a fresh chat, ask again, and decide what you will delegate.',
+          'Compare a bare chat, a role-phrase prompt and a Project grounded in `product-context.md` on a MoneyPilot competitor summary, then refine your context file and audit 10 PM tasks.',
         steps: [
-          'Choose a public product or workflow you understand. In a fresh chat with no background brief, ask: "Write a one-page competitor summary for [product or workflow]." Replace the brackets with its name, without adding private context. Keep the answer.',
-          'In another fresh chat, ask the same thing but open with a role phrase such as "You are a world-class strategy consultant" and add "think step by step". Then save both answers side by side in `summary-comparison.md`, with one line on what changed between them.',
-          'For the same product or workflow, write `product-context.md` in your own words with the six headings from this lesson. Use public information and fictional practice data, without employer or customer details. Keep it to one page and write "Unknown" instead of guessing.',
-          'Create a Claude Project called "PM workspace". Add `product-context.md` to project knowledge and write four to six lines of project instructions: who the outputs are for, the format you usually want, and "say what is missing instead of guessing". If your plan does not offer Projects, paste the file at the top of each fresh chat instead.',
-          'Collect public pages for three to five competitors or alternative ways of doing the job. Run the agent prompt below in the Project and save the answer as `summary-v1.md`. Keep it: Session 3 fact-checks it.',
-          'Read the "Gaps and assumptions" list in v1. Update `product-context.md` yourself where you can answer a gap; add the rest under Open decisions.',
-          'Write `delegation-audit.md`: ten tasks from your PM role, such as competitor research, interview synthesis, a PRD draft, a stakeholder update or a prioritisation call. For each, record the decision (delegate with spot checks, draft with AI and edit, or keep), the context it needs, what you will check and who owns the result.',
+          '**Think first (no AI):** Using the MoneyPilot spec in [Case studies](/case-study) as raw notes, write a one-page `product-context.md` in `learning-notes/` in your own words under the six headings (Product, Users, Glossary, Constraints, Open decisions, Sources), marking genuine unknowns as `Unknown` rather than guessing. Then draft `delegation-audit.md` listing 10 real PM tasks across your week and classifying each with the 4Ds (delegate with spot checks, co-draft and edit, or keep human-only).',
+          '**Work with your agent:** Run three versions of a MoneyPilot competitor summary: first in a bare chat with no context, second in a fresh chat opening with "You are a world-class strategy consultant; think step by step" (save both side by side in `summary-comparison.md`), and third inside a `PM workspace` Claude Project containing `product-context.md`, 4 to 6 lines of project instructions, and 3 public budgeting or bank-app pages pasted into the brief below (save as `summary-v1.md` for Session 3; if your plan lacks Projects, paste `product-context.md` at the top of a fresh chat).',
+          '**Check and try to break it:** Score all three drafts from 1 to 5 on the same criteria (relevance to monthly-paid users, fidelity to constraints, evidence from the pasted pages, honesty about unknowns) and inspect `Gaps and assumptions` in `summary-v1.md` to verify every implication cites a real line from `product-context.md` rather than generic fintech buzzwords.',
+          '**Make the call:** Update `product-context.md` yourself where you know the answer to a flagged gap, move unresolved questions into Open decisions, and finish `delegation-audit.md` by naming for each task the context file needed, what you check by hand, and who owns a mistake.',
         ],
       },
       agentPrompt: {
         tool: 'Claude',
         where:
           'A chat inside your PM workspace Project, with product-context.md in project knowledge',
-        text: `Goal: a one-page competitor summary for my product that I will bring to my manager on Friday.
+        text: `Goal: a one-page competitor summary for MoneyPilot to support [who is reading this summary and what decision they face].
 
-Context: product-context.md in this project describes the product, its users, constraints and open decisions. Use it to judge what matters about each competitor.
+Context: product-context.md in this project defines our product, monthly-paid users, constraints and open decisions. Judge every competitor specifically against [the one constraint from product-context.md competitors must be judged against].
 
-Audience: my manager and two engineers. They know my product well; they do not know the competitors.
-
-Material: the competitor pages below. Use only this material and the context file.
-[paste the names, URLs and the relevant text of three to five competitor pages]
+Material (use only these pages and product-context.md; do not guess from memory):
+[paste 3 public competitor or personal-finance app pages and URLs]
 
 What good looks like:
-- A table with the columns: competitor, what it offers my target users, how it addresses the user problem in product-context.md, where it hands off to a person, source URL.
-- Three implications for my product, each naming the line in product-context.md it relies on.
-- A section "Gaps and assumptions": anything you needed but could not find in the material or the context file. Do not fill gaps with guesses.
+- Markdown table: Competitor | What it offers monthly-paid users | How it handles pre-payday bill timing | Where it hands off to a person or regulated flow | Source URL.
+- Three implications for MoneyPilot, each quoting the exact line in product-context.md it relies on.
+- "Gaps and assumptions": anything needed that was missing from the pasted pages or product-context.md. Mark unsupported details as "unverified".
 
-Constraints: under 400 words plus the table, plain language. Mark any statement the material does not support as "unverified".
-
-Done when: every table row has a source URL and every implication names the context line it relies on.`,
+Constraints: under 400 words outside the table, plain language.`,
       },
       expectedOutput: [
-        '`product-context.md`: one page with Product, Users, Glossary, Constraints, Open decisions and Sources, and "Unknown" where you do not know.',
-        '`summary-comparison.md` (the no-context and role-phrase summaries side by side) and `summary-v1.md`, scored on the same criteria, including any result that did not improve.',
-        '`delegation-audit.md`: ten tasks, each with a decision, the context it needs, what you check and who owns it.',
+        '`product-context.md`: one page with Product, Users, Glossary, Constraints, Open decisions and Sources, using `Unknown` instead of guesses.',
+        '`summary-comparison.md` (bare chat versus role phrase) and `summary-v1.md` (Project-grounded), scored on the same criteria.',
+        '`delegation-audit.md`: ten PM tasks with delegation call, required context, human check and owner.',
       ],
       artifact:
-        '`product-context.md` and `delegation-audit.md`, plus a Claude Project named PM workspace with the context file as project knowledge.',
+        '`product-context.md`, `summary-comparison.md`, `summary-v1.md` and `delegation-audit.md`, plus a `PM workspace` Project.',
       verification: [
-        '`product-context.md` fits on one page and every fact has a source or is marked Unknown.',
-        'You can point to which supplied facts changed v1, and distinguish specific wording from better-supported claims.',
-        'You wrote the context file and every update to it yourself; Claude only pointed out gaps.',
-        'Every delegated task in the audit names what you will check and how.',
+        '`product-context.md` fits on one page and every stated fact has a source or is marked `Unknown`.',
+        'You can point to the exact lines in `product-context.md` that changed `summary-v1.md` compared with the role-phrase run.',
+        'You wrote `product-context.md` and every edit to it yourself; the assistant only surfaced gaps.',
+        'Every delegated task in `delegation-audit.md` names a concrete check rather than "review quickly".',
       ],
       reflectionPrompts: [
-        'How much did the role phrase change the answer compared with the context file?',
-        'Which gap in your product context surprised you most?',
-        'Which task in your audit were you tempted to delegate fully, and what made you hold back?',
+        'How little did the "world-class strategy consultant" role phrase change compared with adding `product-context.md`?',
+        'Which `Unknown` or gap in MoneyPilot surprised you most once the assistant tried to use your file?',
+        'Which PM task were you tempted to delegate completely, and what error cost made you hold back?',
       ],
       checklist: [
         {
           id: 'generic-first',
-          text: 'Saved the no-context and role-phrase summaries side by side in summary-comparison.md',
+          text: 'Saved the bare-chat and role-phrase summaries side by side in summary-comparison.md',
         },
-        { id: 'context-file', text: 'Wrote a one-page product-context.md with sources' },
-        { id: 'project', text: 'Set up a Claude Project with the file and short instructions' },
-        { id: 'summary-v1', text: 'Got a specific v1 summary and saved it for Session 3' },
-        { id: 'gaps', text: 'Updated the context file from the gaps list myself' },
-        { id: 'audit', text: 'Wrote a ten-task delegation audit' },
+        {
+          id: 'context-file',
+          text: 'Wrote a one-page product-context.md for MoneyPilot with sources and Unknowns',
+        },
+        {
+          id: 'project',
+          text: 'Set up a PM workspace Project with the file and short instructions',
+        },
+        {
+          id: 'summary-v1',
+          text: 'Saved a grounded summary-v1.md for Session 3 and scored all three drafts',
+        },
+        {
+          id: 'gaps',
+          text: 'Updated product-context.md and Open decisions myself from the gaps list',
+        },
+        { id: 'audit', text: 'Wrote a ten-task delegation audit using the 4Ds' },
       ],
       mentorMove:
-        'Read her `product-context.md` cold and say what you, as an engineer joining tomorrow, would still need to know. Then challenge one task she delegated in the audit: what would go wrong, and how would she notice?',
+        'Read her `product-context.md` cold and say what you, as a banking engineer joining tomorrow, would still need to know before building MoneyPilot. Then challenge one task she delegated in the audit: what would go wrong, and how would she notice?',
+      soloMove:
+        'Open a fresh chat outside your Project, paste only `product-context.md`, and ask: "Read this as a sceptical retail-banking engineer and compliance lead joining tomorrow. List the 5 ambiguities most likely to cause a wrong build." Fix or log the valid gaps under Open decisions yourself.',
     },
     {
       id: 's3',
@@ -378,61 +357,54 @@ Done when: every table row has a source URL and every implication names the cont
       number: 3,
       title: 'Research and verify',
       difficulty: 'Foundational',
-      minutes: 90,
+      minutes: 75,
       tools: ['Claude (web search or Research)', 'A web browser'],
       prerequisites: ['s2'],
       competencies: ['ai-fundamentals', 'evals-safety'],
       xp: 100,
       mentorReview: 'recommended',
       safetyCritical: true,
-      goal: 'Use Claude with web search to answer a real question about your market, verify every material claim against a primary source, and know what you must never paste into an assistant.',
+      goal: 'Answer a real market or regulatory question for MoneyPilot with web search, verify every material claim against primary sources, and enforce strict rules on what never enters an assistant.',
       whyItMatters:
-        'The competitor summary may read well and still contain errors. A fabricated statistic or a misread rule can change a product decision. Check the claims that matter, record what held up and carry the unresolved questions forward.',
+        'A fluent MoneyPilot research brief can cite a working URL while misstating a Norwegian or EEA rule, mixing survey populations, or quoting an outdated overdraft figure in kr. Checking atomic claims against primary sources stops your roadmap from resting on an invented statistic.',
       learn: [
         {
-          heading: 'Why fluent answers can be wrong',
+          heading: 'Why web-backed answers still get facts wrong',
           paragraphs: [
-            'Generation optimizes for plausible text, so a model can produce a statistic, a quote or a citation that looks right and is not. This is called **hallucination**. Citations fail in three ways: the source does not exist, the source exists but does not say what is claimed, or the source is real but outdated or about a different market.',
-            'Web search and research modes reduce invented sources because the model reads real pages. They do not remove the problem. The model can still over-trust a weak page, merge two numbers, or summarize a nuanced finding into something stronger than the original.',
+            'Language models optimize for plausible continuations, so they can state an invented overdraft figure or quote with total confidence (**hallucination**). Switching on web search or paid **Research** mode cuts invented URLs because the assistant reads live pages, yet citations still fail in three common ways: the link is dead, the page exists without saying what the AI claimed, or the number applies to a different year, country or group.',
+            "Search tools can also repeat a fintech vendor's marketing blog as neutral evidence, merge two incompatible statistics, or turn a cautious pilot announcement into a full market launch.",
           ],
         },
         {
-          heading: 'Check each claim, not the whole answer',
+          heading: 'Audit atomic claims with four labels',
           illustration: 'verification',
           paragraphs: [
-            'Break any AI report into atomic claims, then sort them. **Material claims** would change a decision if they were wrong; **background claims** would not. You verify every material claim and sample the rest.',
-            'For each material claim, open the source yourself and check four things: it exists, it says what is claimed, the date is current enough, and it applies to your geography and users. Then label the claim.',
+            'Do not grade an AI report as a single block. Split it into atomic claims, then separate **material claims** (statements that would change a MoneyPilot product, risk or scope call if wrong) from **background claims**. Open the cited page yourself for every material claim, check that the page exists and matches the exact number, unit, date and population, and assign one of four labels:',
+            'For example, if an AI summary claims "35% of Norwegian adults enter an unplanned overdraft before payday" and the linked Finanstilsynet or Statistics Norway (SSB) report actually measured adults aged 18 to 24 carrying consumer credit across a full year, the link works and the claim is still **Partly supported** until you rewrite it to match the report.',
           ],
           bullets: [
-            '**Verified**: the source says exactly this.',
-            '**Partly supported**: the source says something weaker, older or narrower.',
-            '**Unsupported**: no source, or the source does not say it.',
-            '**Contradicted**: a better source says otherwise.',
+            '**Verified:** the source states this exact fact for your market and timeframe.',
+            '**Partly supported:** the source says something narrower, older or qualified, so your wording must tighten.',
+            '**Unsupported:** no source is given, or the linked page does not contain the claim.',
+            '**Contradicted:** a stronger primary source shows the opposite.',
           ],
         },
         {
-          heading: 'Which sources to trust for which claims',
+          heading: 'Primary sources, web search and Research',
           paragraphs: [
-            "A source is strong for a claim when it observed the thing directly. A national statistics survey is primary evidence for how many people face a problem. A company's own page is primary evidence for what that company says it launched, but only an assertion about how well it works. Reputable journalism and analyst reports are secondary: they interpret someone else's evidence.",
-            'So ask three questions of every source: did it observe this, does it gain from the claim, and has anyone independent confirmed it? A forum thread full of people describing the problem is a great discovery signal. It is not a market size.',
-          ],
-        },
-        {
-          heading: 'Web search and Research: when they help',
-          paragraphs: [
-            "Claude's web search, available on the free plan, reads a handful of pages and cites them. **Research**, on paid plans, runs an agent that searches many pages and writes a long report. Both are excellent for landscape scans, competitor overviews and finding sources you would not have found. Both need the same verification as anything else.",
-            'Brief them like you would brief an analyst: scope, geography, time window, required source types, and an instruction to separate what was found from what was inferred. Running the same brief again in a fresh chat is a cheap cross-check: where the two reports disagree is where you look first.',
+            "Trust a source when it observed the evidence directly. For MoneyPilot's Norwegian and EEA consumer-finance space, **primary sources** include financial regulators (such as Finanstilsynet or the EBA), national statistics offices (such as SSB), central banks (Norges Bank), and a rival's own product or pricing pages in kr for what it says it offers. Journalism and analyst summaries are **secondary** interpretations; forum threads are useful discovery signals for user pain, never proof of market prevalence. Ask three questions of every page you open: did this publisher measure the thing directly, do they gain commercially if you believe it, and has an independent body confirmed it?",
+            "Claude's standard web search (on the free plan) checks a handful of pages quickly; **Research** (on paid plans) runs a multi-step search agent across many pages to compile a longer report. Brief either mode with explicit geography, recency window and source rules, and require separate sections for inferences and unfound answers. Running the same brief twice in fresh chats is a cheap cross-check: wherever the two runs disagree, look first.",
           ],
         },
         {
           heading: 'What never goes into an assistant',
           paragraphs: [
-            "What you paste may be stored, reviewed for safety or, depending on your settings, used to improve models. Check the privacy and memory settings of every assistant you use. At work, your employer's approved-tool policy decides what is allowed, not the tool's settings. In this course, use only public sources and fictional data.",
+            "Prompts and attachments may be logged, reviewed for safety or used for model training depending on plan settings, and deleting a chat afterwards does not undo a disclosure. At work, your employer's approved-tool policy sets the boundary; throughout this course, use only public sources and fictional MoneyPilot data.",
           ],
           bullets: [
-            '**Personal data**: names, contact details, account numbers, health details or anything else about real customers, users or colleagues.',
-            '**Confidential company data**: unreleased plans, internal metrics, contracts, security details, anything under a confidentiality agreement.',
-            '**Credentials**: passwords, API keys, access tokens. If one slips into a chat, change it.',
+            '**Personal data:** real customer, user or colleague names, contact details, bank account numbers, transactions or support transcripts.',
+            '**Confidential company data:** internal metrics, unreleased roadmaps, commercial terms, architecture or compliance reviews.',
+            '**Credentials:** passwords, API keys or access tokens (if one ever slips into a chat, revoke and rotate it immediately).',
           ],
         },
       ],
@@ -465,74 +437,73 @@ Done when: every table row has a source URL and every implication names the cont
       ],
       task: {
         summary:
-          'Research one real question about your market with Claude, build a claim-by-claim verification table, and turn it into `fact-sheet.md`.',
+          'Research one publicly verifiable MoneyPilot question across two fresh runs, audit 10 material claims directly against primary sources, and save `fact-sheet.md`.',
         steps: [
-          'Write a research question with publicly verifiable answers, built from your v1 summary. For example: "What public evidence describes [specific problem] for [user group] in [market], and what alternatives exist today?" Replace the brackets; if prevalence data is unavailable, record that gap.',
-          'Adapt the research brief below: question, geography, time window, required source types and output format.',
-          'Run it in Claude with web search on (or Research, if your plan has it). Run it a second time in a fresh chat. Save both answers.',
-          'Extract the ten most material claims from both answers and from `summary-v1.md` into a table: claim, cited source, label, your evidence link, date of source.',
-          'Open every cited source yourself. Label each claim Verified, Partly supported, Unsupported or Contradicted.',
-          "Find at least one relevant primary source that neither answer cited, for example a national statistics release, a regulator report or a competitor's own product page.",
-          'Write `fact-sheet.md`: the verified facts you can use, each with its source and date, then a section "What I could not verify".',
-          'Update the Sources section of `product-context.md` with what held up, and fix anything that was contradicted.',
-          'Check for accidental sensitive inputs. If you find any, stop further use and follow the relevant provider or organisation incident process; revoke any exposed credential. Deleting a chat alone does not undo disclosure.',
+          '**Think first (no AI):** Write one specific, publicly verifiable research question for MoneyPilot (for example, UK or EU household bill-timing shortfalls, unplanned overdraft usage, or open-banking rules for displaying upcoming payments) and pick the single claim in `summary-v1.md` from Session 2 that you doubt most.',
+          '**Work with your agent:** Fill in the bracketed blanks in the research prompt below and run it twice in two separate fresh chats with web search (or Research) switched on. Save both outputs alongside `summary-v1.md`.',
+          '**Check and try to break it:** Extract the 10 most material claims across `summary-v1.md` and both research runs into a verification table (Claim | Cited source | Label | Your verified URL | Source date). Open every cited source yourself to label each (`Verified`, `Partly supported`, `Unsupported`, `Contradicted`), and find at least 1 relevant primary source (regulator, statistics office or official product page) that neither AI run cited.',
+          '**Make the call:** Save `fact-sheet.md` in `learning-notes/` with your `Verified` facts (exact figures, units, dates and URLs) plus a `What I could not verify` list, update `product-context.md` sources (fixing anything contradicted), and check all chats to confirm zero personal, confidential or credential data was pasted.',
         ],
       },
       agentPrompt: {
         tool: 'Claude with web search or Research',
-        where: 'A fresh chat in your PM workspace Project, with web search switched on',
-        text: `Research question: [your question]
+        where: 'Two separate fresh chats in your PM workspace Project, with web search switched on',
+        text: `Research question: [your MoneyPilot research question]
+
+Claim from my earlier draft to stress-test: [the one claim from summary-v1.md you doubt most and want checked against primary sources]
 
 Scope:
-- Geography: [country or region]
-- Time window: sources published in the last 24 months, unless a foundational source is older
-- Audience: a product manager preparing a short internal fact sheet for my product
+- Geography: [geography, e.g. UK]
+- Time window: sources published in the last 24 months, unless a foundational regulation or series is older
+- Audience: a product manager preparing an internal MoneyPilot fact sheet
 
 Source requirements:
-- Prefer primary sources: regulators, national statistics offices, peer-reviewed studies, and official company pages for what a company says it offers.
+- Prefer primary sources: financial regulators, national statistics offices, central banks, peer-reviewed studies, and official company pages for what a product states it offers.
 - Use reputable press or analyst reports only when no primary source exists, and label them secondary.
-- Label claims a company makes about its own results as company claims.
-- Do not use AI-generated summaries, content farms or forums as evidence for facts.
+- Label a company's claims about its own customer outcomes as company claims.
+- Do not cite forums, content farms or AI-generated roundups as factual evidence.
 
 Output format:
-1. A summary of no more than 200 words.
-2. A numbered list of claims. For each claim: the claim, the exact source title, publisher, publication date, URL, and whether it is primary or secondary.
-3. A section called "Inferred, not sourced" for anything you concluded yourself.
-4. A section called "Could not find" for parts of the question you could not answer.
-
-Rules:
-- Never invent a statistic, quote or URL. If you cannot find a source, say so.
-- Quote numbers exactly as the source states them, including the unit, the year and the population surveyed.`,
+1. Summary under 180 words.
+2. Numbered claims list: exact claim, source title, publisher, publication date, direct URL, and Primary or Secondary label. Quote every figure with exact unit, year and population surveyed.
+3. Verdict on the stress-tested claim above, quoting what primary sources actually say.
+4. Separate sections titled "Inferred, not sourced" and "Could not find". Never invent a statistic, quote or URL.`,
       },
       expectedOutput: [
-        'A verification table of ten material claims, each labelled, with your own evidence link.',
-        '`fact-sheet.md`: verified facts with sources and dates, and a "What I could not verify" list.',
+        'A 10-claim verification table with labels, source dates and links you opened yourself.',
+        '`fact-sheet.md`: verified MoneyPilot market and regulatory facts with exact citations, plus `What I could not verify`.',
         'An updated Sources section in `product-context.md`.',
       ],
-      artifact: '`fact-sheet.md`: every fact sourced, dated and checked by you.',
+      artifact:
+        '`fact-sheet.md` in `learning-notes/`: every fact sourced, dated and checked by you.',
       verification: [
-        'Every material claim has a source link that you opened and read yourself.',
-        'At least one primary source is included that the AI answers did not cite.',
-        'Every number matches its source exactly, including date, unit and geography.',
-        'You either found at least one discrepancy or wrote down that all ten claims held up after checking.',
+        'Every material claim has a source link that you opened and read in your own browser.',
+        'At least one primary source appears in `fact-sheet.md` that neither AI run cited.',
+        'Every quoted number matches its source on unit, year, population and geography.',
+        'You caught at least one overstatement or discrepancy, or documented how all 10 claims passed direct inspection.',
         'No chat in this session contains personal data, confidential company data or credentials.',
       ],
       reflectionPrompts: [
-        'What share of the claims held up, and what kind of failure did you see most?',
-        'Where did the two runs disagree, and which was closer to the primary source?',
-        'What would you need to change about how you use AI research when you are back at work?',
+        'What share of the 10 material claims held up as written, and which failure mode showed up most?',
+        'Where did your two fresh runs disagree, and what did the primary source actually say?',
+        'How will this change what you check before quoting an AI research summary in a leadership review?',
       ],
       checklist: [
-        { id: 'brief', text: 'Wrote a research brief with scope, time window and source rules' },
+        {
+          id: 'brief',
+          text: 'Wrote a MoneyPilot research question and picked one doubted claim to check',
+        },
         { id: 'two-runs', text: 'Ran the brief twice in fresh chats with web search on' },
         { id: 'ten-claims', text: 'Extracted ten material claims into a verification table' },
         { id: 'opened-sources', text: 'Opened every cited source myself and labelled each claim' },
-        { id: 'primary-source', text: 'Added at least one primary source the AI did not cite' },
-        { id: 'fact-sheet', text: 'Wrote fact-sheet.md and updated the context file sources' },
+        { id: 'primary-source', text: 'Added at least one primary source neither AI run cited' },
+        { id: 'fact-sheet', text: 'Wrote fact-sheet.md and updated product-context.md sources' },
         { id: 'never-paste', text: 'Checked my chats for personal, confidential or secret data' },
       ],
       mentorMove:
-        'Pick two claims she marked Verified and check them yourself while she watches. Then show her how a citation can exist and still not support the claim, and ask what she would never paste into a chat at her employer.',
+        'Pick two claims she marked Verified in `fact-sheet.md` and check them live together. Show how a citation can open cleanly yet overstate a narrow sample or jurisdiction, and ask what she would never paste into an assistant at a bank.',
+      soloMove:
+        'Take a short break, then re-open the original web pages for your two strongest `Verified` claims and use Find-in-page to check the exact figure, year, unit and surveyed group word for word. Downgrade and rewrite any sentence that broadened the claim.',
     },
     {
       id: 's4',
@@ -540,58 +511,52 @@ Rules:
       number: 4,
       title: 'Vibe code your first page',
       difficulty: 'Foundational',
-      minutes: 90,
+      minutes: 75,
       tools: ['Claude artifacts (free)', 'Lovable (optional)'],
       prerequisites: ['s3'],
       competencies: ['ux-prototyping'],
       xp: 100,
       mentorReview: 'optional',
       practicalProof: true,
-      goal: 'Turn your feature idea into a live, shareable pitch page built from `product-context.md` and `fact-sheet.md`, improved one change at a time, and labelled honestly as a prototype.',
+      goal: 'Turn MoneyPilot into a live, shareable pitch page grounded in `product-context.md` and `fact-sheet.md`, refine it one change at a time, and test it on a cold reader.',
       whyItMatters:
-        'You have a feature idea and a problem hypothesis in product-context.md. A clickable pitch page makes the idea easy to discuss: people can click through the flow and poke holes in it. It cannot tell you whether users actually have the problem; Level 3 checks that. Build a page when the question is how it works, and write a few sentences for the decisions a screen cannot show, such as why this problem first.',
+        'A memo about MoneyPilot lets three colleagues imagine three different flows. A clickable pitch page puts upcoming bills and the pre-payday forecast on screen in 30 seconds so people can poke holes in it early. It tests whether the idea is clear, not whether users truly want it (Level 3 tests demand).',
       learn: [
         {
           heading: 'Why build a page instead of writing a memo',
           paragraphs: [
-            'A page people can click answers questions a memo leaves open: what would the user actually see, what would it say, where would it break. It also exposes weak ideas faster, which is the point. You will meet this idea again in Session 12, where the prototype is linked from the PRD. Treat this page as a guess: you build it so Session 10 has something concrete to put in front of real users.',
-            '**Vibe coding**, a term Andrej Karpathy coined in early 2025, means describing what you want in plain language, letting the AI write the code, and judging the result by using it rather than by reading the code. It is ideal for pitches and throwaway prototypes. It is not how production software gets built, and Level 2 shows the more careful version.',
+            'A written memo about MoneyPilot lets three readers picture three different products. A clickable pitch page forces concrete choices onto the screen: which upcoming bills appear, what "left before payday" means when rent leaves on the 1st, and where the assistant stops short of financial advice. Exposing shaky assumptions in 30 seconds is the whole point.',
+            '**Vibe coding**, a phrase Andrej Karpathy coined in early 2025, means describing what you want in plain English, letting AI write the code, and judging the result by clicking through rather than reading code line by line. It is built for fast pitches and throwaway discovery probes; Level 2 introduces the tighter habits needed for multi-screen prototypes.',
           ],
         },
         {
-          heading: 'Markdown for files, HTML for pages',
+          heading: 'Markdown for durable facts, HTML for human eyes',
           paragraphs: [
-            'Your pitch page is **HTML**, the language every web browser reads. You do not write it: you describe the page and Claude writes it. An agent now makes a clear, good-looking page about as fast as a bulleted list, so you will choose between the two formats many times a week. The rule is short:',
+            'Your pitch page is **HTML**, the format every browser renders. Because an assistant now generates a clean interactive HTML page almost as quickly as a bulleted memo, use a simple rule to keep your work tidy:',
           ],
           bullets: [
-            '**Markdown** for anything you or an agent will read, edit and keep: context files, notes, PRDs, decision logs, outlines. It is short, quick to change and easy to compare between versions.',
-            '**HTML** for anything a person will look at: a pitch page, a comparison, a diagram, a dashboard, a deck. Ask for one self-contained file that opens in a browser with a double click, with no install and no account.',
-            '**Facts live in Markdown.** Generate the page from your Markdown files and data, and when a fact changes, fix the file and regenerate. Otherwise the page quietly becomes a second version of the truth.',
+            '**Markdown (`.md`)** is for durable knowledge you and your agents edit over time: `product-context.md`, `fact-sheet.md`, PRDs and decision logs.',
+            '**HTML** is for people to inspect and click: pitch pages, visual comparisons, prototypes and interactive readouts.',
+            '**Facts live in Markdown.** Generate HTML from your checked Markdown files, and when a number or constraint changes, fix the Markdown file first and regenerate so the page never drifts into a competing version of the truth.',
           ],
         },
         {
-          heading: 'Start from your files, then change one thing at a time',
+          heading: 'Ground the brief, then change one thing at a time',
           paragraphs: [
-            'Start from the files you already have. Building inside your PM workspace Project means `product-context.md` is already in context; attach `fact-sheet.md` so the page uses only checked facts. Say what the page is for, who will see it and what each section must contain.',
-            'Then iterate in small steps. Ask for one change per message and check the result before the next. A request that changes five things at once makes it impossible to tell which change broke the layout. Artifacts keep earlier versions, so you can step back. When the chat gets long, start a fresh one with the current version and your context files: context rot applies here too.',
+            'If you ask a bare chat for a MoneyPilot pitch page, it fills your gaps with invented overdraft stats, credit-score gauges, or product recommendations your regulatory constraints forbid. Seeing that generic draft once makes clear why your real build belongs inside your `PM workspace` Project with `product-context.md` and `fact-sheet.md` attached. Specify who will read the page in a two-minute review, which `Verified` facts to cite with their sources, and the exact fictional balance, bill dates and amounts the mocked screen must display: deterministic numbers first, plain-English explanation second.',
+            'Once v1 renders, iterate **one change per message**. Asking for five layout, copy and math tweaks together makes it impossible to tell which instruction broke the screen. Step back to the previous artifact version whenever an edit misfires, and open a fresh chat with your current files if the conversation gets long.',
           ],
         },
         {
-          heading: 'Label honestly and check the numbers',
+          heading: 'Honest labels, hand-checked math and cold readers',
           paragraphs: [
-            'Label every prototype honestly, on screen and in the message you share it with: prototype, fictional data, not a product commitment. A polished page reads as a promise, and PMs who prototype a lot warn that it can be motion mistaken for progress: the hard parts of an AI product, such as reliable data, evals and scale, are still ahead.',
-            'If the page shows figures, they must add up. Check every number on the mocked screen by hand. One figure that does not reconcile makes people doubt everything after it.',
+            'A polished prototype easily reads like a shipping promise. Put a clear banner at the top (`Prototype. Fictional data. Not a product commitment.`) and check every mocked MoneyPilot figure with a calculator: if a `14,000 kr` balance minus `12,500 kr` in bills before payday does not show `1,500 kr`, a sharp reviewer stops trusting everything else on the page.',
+            'Before calling the pitch ready, test it for 30 seconds with a **cold reader** who has zero background. Resist explaining the screen before they speak: their first confusion shows the exact label to fix next. Close `pitch-notes.md` with `What this page does not prove` so nobody mistakes clear UI for proven user demand. Claude artifacts handle single-page shareable links for free; Lovable and v0 (compared in Challenge 2) build multi-page web apps.',
           ],
           bullets: [
-            'It works on a phone as well as a laptop.',
-            'Text is readable and has enough contrast.',
-            'No warning relies on colour alone.',
-          ],
-        },
-        {
-          heading: 'Choosing a tool',
-          paragraphs: [
-            'Claude artifacts are free, quick for a single page and can be published with a shareable link. Lovable builds multi-page web apps and publishes them to its own address; its free tier has a small daily allowance. Challenge 2 compares artifacts, Lovable and v0 on the same pitch. Use fictional data in every tool.',
+            'Works cleanly on both a phone screen and a laptop.',
+            'Readable text with WCAG AA contrast.',
+            'Shortfall warnings use explicit words and icons, never colour alone.',
           ],
         },
       ],
@@ -639,73 +604,62 @@ Rules:
       ],
       task: {
         summary:
-          'Build a one-page pitch as an artifact, improve it from your own use, ask one reader two questions, make one change based on what they said, test that change with a different reader, and record what the page cannot prove.',
+          'See what a naive 3-line pitch prompt invents, rebuild MoneyPilot from `product-context.md` and `fact-sheet.md` one change at a time, check every figure by hand, and run a 30-second cold-reader test.',
         steps: [
-          'Start `pitch-notes.md` with a five-line brief: who it is for, the problem in their words, the idea in one sentence, the one verified fact from `fact-sheet.md` that makes the case, and what you want a reader to do next.',
-          'Open a fresh chat in your PM workspace Project, attach `fact-sheet.md`, and run the agent prompt below.',
-          'Use the page on your phone and on a laptop. Write down the three things you most want to change.',
-          'Make changes one at a time to address the problems you observed. Log the reason, expected improvement and actual result in pitch-notes.md. Keep a before and after comparison for at least one meaningful revision; do not invent extra changes to meet a quota.',
-          'Check every number on the mocked screen by hand, confirm the prototype banner is visible, and check that no warning relies on colour alone.',
-          'Publish the artifact and share the link with one person: your mentor or a friend. Ask two questions: what do you think this does, and what would you want to know next? Record the answers.',
-          'Make one change based on what they said, and log it the same way. Then show the changed page to a different person who has not seen it, ask the first question again, and record whether the change worked.',
-          'Optional: follow the Lovable quick start and rebuild the page there from the same brief. Note one difference.',
-          'Close `pitch-notes.md` with a section "What this page does not prove".',
+          "**Think first (no AI):** Start `pitch-notes.md` in `learning-notes/` with a 5-line pitch brief for MoneyPilot's `Safe before payday` screen: who reads it (for example, your manager and two retail-banking engineers), why raw bank balance misleads monthly-paid users, your one-sentence feature idea, 1 or 2 `Verified` facts from `fact-sheet.md`, and the exact sample figures that must reconcile by hand (for example, balance `14,000 kr` on the 14th, scheduled bills of `12,500 kr` due before payday on the 25th, `Safe before payday: 1,500 kr`).",
+          '**Work with your agent:** Run the naive 3-line starter prompt below in a bare chat first and note two things it invents or gets wrong. Then open a fresh `PM workspace` Project chat attaching `product-context.md` and `fact-sheet.md`, write your grounded brief using the bracketed checklist, build the interactive artifact, and refine it **one change at a time** (logging the problem, expected fix and before/after result in `pitch-notes.md`).',
+          '**Check and try to break it:** Add up every bill and projected balance on the mocked screen by hand, confirm the `Prototype. Fictional data.` banner is prominent, check phone layout and WCAG AA contrast, and verify shortfall warnings never rely on colour alone. Publish or share the link for a 30-second cold-reader test with one person ("What do you think this does?" and "What would you want to know next?"), then make one logged revision based on what they misread.',
+          '**Make the call:** Record your naive-versus-grounded comparison, before/after notes and cold-reader reaction in `pitch-notes.md`, update `product-context.md` if building exposed an open question, and finish `pitch-notes.md` with `What this page does not prove`.',
         ],
       },
       agentPrompt: {
-        tool: 'Claude',
+        tool: 'Claude artifacts',
         where:
-          'A fresh chat in your PM workspace Project, with product-context.md in project knowledge and fact-sheet.md attached',
-        text: `Build a one-page pitch for a feature idea for my product, as an interactive artifact that works on a phone and on a laptop.
+          'First in a bare chat to see the ungrounded draft; then rewritten in a fresh PM workspace Project chat with product-context.md and fact-sheet.md',
+        text: `Build an interactive pitch page for MoneyPilot, a bank app assistant that warns monthly-paid users before payday if upcoming bills will leave them short. Include a mocked screen with sample bills and a projected balance.
 
-Context: product-context.md describes the product and its constraints. fact-sheet.md holds checked facts. Use only facts marked Verified in fact-sheet.md, and show the source under each one.
-
-The idea: [paste your one-sentence feature hypothesis and the problem from product-context.md]
-Who will see it: my manager and two engineers, in a two-minute look.
-
-Sections, in order:
-1. The problem, as my target users would describe it, with one or two verified facts.
-2. The idea in one sentence.
-3. A mocked screen of the main task screen, filled with fictional records and events that you invent. Show totals, dates and status rules, worked out from that data, and make sure every number is consistent.
-4. What we would test first, and what result would make us stop.
-5. A banner at the top: "Prototype. Fictional data. Not a product commitment."
-
-Constraints:
-- Plain language, one primary action.
-- Text contrast at least WCAG AA; no warning shown by colour alone.
-- No external images, fonts or tracking.
-
-Build the whole page now. After that I will ask for one change at a time: change only what I ask, and tell me in one line what you changed.`,
+[After seeing the generic first version, rewrite your brief in a fresh chat attaching product-context.md and fact-sheet.md: state who reads it, which Verified facts to cite, the exact bill math that must add up, the "Prototype. Fictional data." banner, and the one-change-at-a-time rule]`,
       },
       expectedOutput: [
-        'A published pitch page with a shareable link, clearly labelled as a prototype with fictional data.',
-        'pitch-notes.md: the brief, a reasoned revision with before and after evidence, one real reaction and "What this page does not prove".',
+        'A published MoneyPilot pitch artifact link, clearly labelled as a prototype with fictional data and hand-reconciled bill figures.',
+        '`pitch-notes.md`: your 5-line brief, naive-versus-grounded notes, logged one-at-a-time revisions with before/after evidence, cold-reader reaction, and `What this page does not prove`.',
       ],
-      artifact: 'A live pitch page link plus `pitch-notes.md`.',
+      artifact: 'A live pitch page link plus `pitch-notes.md` in `learning-notes/`.',
       verification: [
-        'Every fact on the page appears as Verified in `fact-sheet.md`, with its source shown.',
-        'Every number on the mocked screen adds up when you check it by hand.',
-        'The page works on a phone, shows the prototype banner and uses no real personal data.',
-        'The change log connects each revision to an observed problem and records whether the change helped, including any rollback if needed.',
+        'Every factual claim on the page appears as `Verified` in `fact-sheet.md`, with its source shown.',
+        'Every balance, bill amount and projected figure on the mocked screen adds up when checked by hand.',
+        'The page works cleanly on a phone, displays the prototype banner, never shows a shortfall by colour alone, and contains no personal data.',
+        'Your revision log ties each single-step change to a specific observed problem or cold-reader confusion.',
       ],
       reflectionPrompts: [
-        'What did the reader think the page did, and how far was that from what you meant?',
-        'Which change made the biggest difference, and was it about content or about looks?',
-        'What would you be uncomfortable hearing a stakeholder promise after seeing this page?',
+        'What did the naive 3-line version invent that would have embarrassed you in front of a banking team?',
+        'What did your cold reader think the page did in the first 30 seconds, and which single edit fixed the gap?',
+        'What promise would you stop a stakeholder from making after seeing this prototype?',
       ],
       checklist: [
-        { id: 'brief', text: 'Wrote a five-line pitch brief in pitch-notes.md' },
-        { id: 'built', text: 'Built the page from product-context.md and fact-sheet.md' },
+        {
+          id: 'brief',
+          text: 'Wrote a five-line MoneyPilot pitch brief with exact sample figures in pitch-notes.md',
+        },
+        {
+          id: 'built',
+          text: 'Compared the naive prompt against a page built from product-context.md and fact-sheet.md',
+        },
         {
           id: 'five-changes',
-          text: 'Made and checked a reasoned revision, with before and after evidence',
+          text: 'Improved the page one change at a time with before and after notes',
         },
-        { id: 'numbers', text: 'Checked every number on the mocked screen by hand' },
-        { id: 'published', text: 'Published the page and got one real reaction' },
-        { id: 'not-proved', text: 'Wrote what the page does not prove' },
+        {
+          id: 'numbers',
+          text: 'Checked every number on the mocked screen by hand and verified colour-independent warnings',
+        },
+        { id: 'published', text: 'Published the page and ran a 30-second cold-reader check' },
+        { id: 'not-proved', text: 'Closed pitch-notes.md with What this page does not prove' },
       ],
       mentorMove:
-        'Open the link cold on your phone and say out loud, within 30 seconds, what you think it does. Then ask the engineer question: which part of this would be hardest to build for real, and why?',
+        'Open the link cold on your phone and say out loud, within 30 seconds, what you think MoneyPilot does. Then ask the banking engineer question: which part of this screen would be hardest to make reliable with real transaction feeds, and why?',
+      soloMove:
+        'Message the published link to a friend or family member on WhatsApp with zero context and ask for a two-sentence reply: "In 30 seconds, what does this do, and what is unclear?" If nobody is free today, step away for an hour, open the link on your phone at 200% zoom, and paste the page copy into a fresh chat instructed to critique it as a sceptical retail-banking PM.',
     },
   ],
   challenges: [
@@ -766,7 +720,7 @@ Build the whole page now. After that I will ask for one change at a time: change
       competencies: ['ux-prototyping', 'prompting-context'],
       xp: 100,
       summary:
-        'Build the same pitch page in Claude artifacts, Lovable and v0 (or Bolt) from the same brief and context, then compare what each tool is good for.',
+        'Build your MoneyPilot pitch page (or your own product pitch) in Claude artifacts, Lovable and v0 (or Bolt) from the exact same brief and context files, then compare what each tool is good for.',
       steps: [
         'Reuse the brief from `pitch-notes.md`, `product-context.md` and `fact-sheet.md` unchanged, so the only variable is the tool.',
         'Build the page in each tool from a fresh start. Allow yourself the same number of follow-up changes in each, for example three.',
@@ -1000,50 +954,50 @@ Build the whole page now. After that I will ask for one change at a time: change
     },
   ],
   project: {
-    title: 'Pitch pack',
+    title: 'Level 1 sign-off: Pitch pack',
     brief:
-      'Bring Level 1 together into the pack you would take to your first conversation about your product feature idea: the live pitch page, `fact-sheet.md` and `product-context.md`. Then walk your mentor through it, including one AI answer you rejected during the level and why. The context file is the seed of your Level 2 workspace, so make it something you would trust an agent to read.',
+      "This is a 15 to 20 minute review, not new work. Gather the files you already produced across Sessions 1 to 4 (`product-context.md`, `fact-sheet.md`, `pitch-notes.md` with your live artifact link, `glossary.md`, `model-comparison.md` and `delegation-audit.md`) and check that they hold together before Level 2's coding agent reads them.\n\nIf you have a mentor, walk them through the page, the verified facts behind it, and one AI claim or edit you rejected. Working solo? Open your files cold after a short break, read `product-context.md` and the pitch page side by side aloud, and score yourself against the four checks below.",
     deliverables: [
       {
         id: 'context-file',
-        text: '`product-context.md`, updated through the level: one page, every fact sourced or marked Unknown, open decisions listed.',
+        text: '`product-context.md` in `learning-notes/`: one page, every fact sourced or marked `Unknown`, Open decisions listed.',
       },
       {
         id: 'fact-sheet',
-        text: '`fact-sheet.md` with every fact verified against a source you opened, and a "What I could not verify" list.',
+        text: '`fact-sheet.md` from Session 3: every `Verified` fact backed by a source you opened, plus `What I could not verify`.',
       },
       {
         id: 'pitch-page',
-        text: 'The live pitch page link, labelled as a prototype with fictional data, plus `pitch-notes.md` with the change log and real reactions.',
+        text: 'The live pitch page link (showing the prototype banner and reconciled figures) plus `pitch-notes.md`.',
       },
       {
         id: 'foundations',
-        text: '`glossary.md`, `model-comparison.md` and `delegation-audit.md`, filed in the same folder.',
+        text: '`glossary.md`, `model-comparison.md` and `delegation-audit.md` filed in `learning-notes/`.',
       },
       {
         id: 'rejected-answer',
-        text: 'A short note on one AI answer you rejected: what it said, how you found the problem and what you used instead.',
+        text: 'A short note on one AI claim or suggestion you rejected in Sessions 1 to 4, how you caught it, and what you kept instead.',
       },
       {
         id: 'walkthrough',
-        text: 'A fifteen-minute walkthrough with your mentor: the page, the facts behind it, the context file and the rejected answer.',
+        text: 'A 15-minute review (with your mentor or as a cold solo check) confirming the pitch page, fact sheet and context file agree.',
       },
     ],
     rubric: {
       correctness:
-        'Every fact on the page traces to a Verified line in the fact sheet; the mentor checks two sources and they hold up; the numbers on the mocked screen add up.',
+        'Every factual claim on the pitch page traces to a Verified line in `fact-sheet.md`, and every mocked figure adds up by hand.',
       quality:
-        'The context file is one page and specific enough that a newcomer could brief an assistant from it; the page is clear in thirty seconds and honest about being a prototype.',
+        '`product-context.md` fits on one page with clear Unknowns, and the pitch page is clear in 30 seconds with an honest prototype label.',
       independence:
-        'You wrote the context file, the brief and the fact sheet yourself; the mentor gave feedback but did not build or write any of it.',
+        'You wrote `product-context.md`, the pitch brief and the source audit in your own words rather than pasting unchecked AI text.',
       judgment:
-        'You can explain why you delegated what you did, what you checked and why you rejected the answer you rejected; "What this page does not prove" names real limits.',
+        'You can point to one AI output you rejected with evidence, and `What this page does not prove` names real product and data limits.',
     },
     privacyNote:
       'Use public sources and fictional data only. No customer, colleague or employer data, and no credentials, in any chat, file or published page.',
-    minutes: 180,
-    xp: 300,
+    minutes: 20,
+    xp: 150,
   },
   nextRecommendation:
-    'Move to Level 2. From here the course uses Claude Code, which needs a paid Claude Pro plan. Before Session 5, install Warp, linked at the top of Session 5. In Session 5 your `learning-notes/` files move into a workspace, and `product-context.md` becomes the first thing every agent reads.',
+    'Move to Level 2. From Session 5 you work with a coding agent (Claude Code on a paid Claude Pro plan, or Codex in ChatGPT). Before opening Session 5, follow the Before Session 5 steps in the [Starter kit](/starter-kit) to set up Git and Claude Code in the Claude desktop Code tab or a terminal of your choice. In Session 5 your `learning-notes/` files move into a workspace folder, and `product-context.md` becomes the first file your agent reads.',
 }
