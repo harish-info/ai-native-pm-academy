@@ -12,7 +12,7 @@ const budget = {
   // Raised to 400 on 2026-11-02 for the redrawn lesson illustrations and four new ones (about
   // 16 kB gzip, all in the lazily loaded illustration chunk). Raised to 410 on 2026-11-03 for the
   // rewritten lesson examples, which quote real prompts and output (about 2 kB gzip).
-  jsGzipKb: 410,
+  jsGzipKb: 425,
   cssGzipKb: 20, // all CSS, gzipped
 }
 

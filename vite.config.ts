@@ -38,6 +38,11 @@ export default defineConfig({
               test: /src[\\/]content[\\/]starterKit\.ts$/,
               priority: 20,
             },
+            {
+              name: 'glossary',
+              test: /src[\\/]content[\\/]glossary\.ts$/,
+              priority: 20,
+            },
             { name: 'teaching', test: /src[\\/]content[\\/]teaching\.ts$/, priority: 10 },
             { name: 'resources', test: /src[\\/]content[\\/]resources\.ts$/, priority: 10 },
             { name: 'content', test: /src[\\/]content[\\/]/ },

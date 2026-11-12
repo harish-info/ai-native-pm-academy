@@ -21,6 +21,7 @@ const nav: { heading?: string; items: NavItem[] }[] = [
       { to: '/levels', label: 'Course', icon: 'path', also: ['/lessons', '/challenges'] },
       { to: '/starter-kit', label: 'Starter kit', icon: 'terminal' },
       { to: '/field-guide', label: 'Field guide', icon: 'spark' },
+      { to: '/glossary', label: 'AI jargon', icon: 'quiz' },
       { to: '/plan', label: 'Study plan', icon: 'calendar' },
       { to: '/resources', label: 'Resources', icon: 'library' },
     ],

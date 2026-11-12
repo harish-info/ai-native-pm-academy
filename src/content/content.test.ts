@@ -4,13 +4,16 @@ import { describe, expect, it } from 'vitest'
 import {
   allChallenges,
   allLessons,
+  challengeById,
   coursePath,
   featuredResourceIds,
   guides,
+  lessonById,
   levels,
   resourceById,
   resources,
 } from '.'
+import { glossaryCategories, glossaryEntries } from './glossary'
 import { caseStages, caseStudies } from './caseStudies'
 import { competencyIds } from './competencies'
 import { diagnosticQuestions } from './onboarding'
@@ -49,10 +52,22 @@ describe('curriculum shape', () => {
     }
   })
 
-  it('gives every level a quiz of at least 8 questions with valid answers', () => {
+  it('gives every level a quiz of at least 8 questions with valid answers and no length tell', () => {
     for (const l of levels) {
       expect(l.quiz.length).toBeGreaterThanOrEqual(8)
-      for (const q of l.quiz) expect(q.options.map((o) => o.id)).toContain(q.correct)
+      let longestCorrect = 0
+      for (const q of l.quiz) {
+        expect(q.options.map((o) => o.id)).toContain(q.correct)
+        const correctOpt = q.options.find((o) => o.id === q.correct)!
+        const maxDistractor = Math.max(
+          ...q.options.filter((o) => o.id !== q.correct).map((o) => o.text.length),
+        )
+        if (correctOpt.text.length > maxDistractor) longestCorrect++
+      }
+      expect(
+        longestCorrect / l.quiz.length,
+        `level ${l.id} longest-is-correct ratio`,
+      ).toBeLessThanOrEqual(0.4)
     }
   })
 
@@ -144,7 +159,6 @@ describe('references', () => {
       expect(diagnosticQuestions.filter((q) => q.level === l.id)).toHaveLength(3)
     const ids = diagnosticQuestions.map((q) => q.id)
     expect(new Set(ids).size).toBe(ids.length)
-    // d1 to d14 were an earlier set of questions; old answers are stored under those ids.
     for (let n = 1; n <= 14; n++) expect(ids).not.toContain(`d${n}`)
     for (const q of diagnosticQuestions) {
       expect(q.options.map((o) => o.id)).toContain(q.correct)
@@ -189,7 +203,6 @@ describe('field guide', () => {
       expect(r!.status, id).toBe('verified')
       expect(r!.verifiedOn, id).toBe(FIELD_GUIDE_AS_OF)
     }
-    // Every source a section cites is listed at the foot of the page.
     for (const id of sourceRefs) expect(fieldGuide.sources, id).toContain(id)
   })
 
@@ -214,6 +227,25 @@ describe('starter kit', () => {
       expect(r, id).toBeDefined()
       expect(r!.status, id).toBe('verified')
       expect(r!.verifiedOn, id).toBe(STARTER_KIT_AS_OF)
+    }
+    expect(starterKit.gitRescue.length).toBeGreaterThanOrEqual(5)
+  })
+})
+
+describe('glossary', () => {
+  it('defines plain-English terms with unique ids and valid session or challenge links', () => {
+    expect(glossaryEntries.length).toBeGreaterThanOrEqual(30)
+    const ids = glossaryEntries.map((e) => e.id)
+    expect(new Set(ids).size).toBe(ids.length)
+    for (const entry of glossaryEntries) {
+      expect(glossaryCategories).toContain(entry.category)
+      expect(entry.meaning.trim().length, entry.id).toBeGreaterThan(25)
+      expect(entry.dayToDay.trim().length, entry.id).toBeGreaterThan(25)
+      expect(entry.lessons.length, entry.id).toBeGreaterThan(0)
+      for (const lid of entry.lessons)
+        expect(lessonById(lid), `${entry.id} -> ${lid}`).toBeDefined()
+      for (const cid of entry.challenges ?? [])
+        expect(challengeById(cid), `${entry.id} -> ${cid}`).toBeDefined()
     }
   })
 })
@@ -272,11 +304,13 @@ describe('wiki thread', () => {
 
 describe('case studies', () => {
   it('offers three cases, each with every kind of agent question and an injection case', () => {
-    expect(caseStudies.map((c) => c.id)).toEqual(['moneypilot', 'steady', 'triage'])
+    expect(caseStudies.map((c) => c.id)).toEqual(['wayfinder', 'moneypilot', 'triage'])
     for (const c of caseStudies) {
       expect(new Set(c.agentQuestions.map((q) => q.kind)).size, c.id).toBe(4)
       expect(
-        c.agentQuestions.some((q) => /ignore your rules/i.test(q.question)),
+        c.agentQuestions.some((q) =>
+          /ignore (your|previous) (rules|instructions)/i.test(q.question),
+        ),
         c.id,
       ).toBe(true)
       expect(
@@ -293,7 +327,7 @@ describe('case studies', () => {
     const text = allText({ levels, wikiSteps, wikiMilestones, guides, planWeeks })
     expect(text.filter((t) => /\{\{|\}\}/.test(t))).toEqual([])
     for (const c of caseStudies) {
-      if (c.id !== 'moneypilot') {
+      if (c.id !== 'wayfinder') {
         expect(
           text.filter((t) => new RegExp(`\\b${c.tokens.name}\\b`, 'i').test(t)),
           `${c.tokens.name} must remain in the optional case-study area`,
@@ -301,9 +335,10 @@ describe('case studies', () => {
       }
       expect(text.filter((t) => t.includes(`${c.tokens.slug}-workspace`))).toEqual([])
     }
+    expect(text.filter((t) => /\bHabitLoop\b/i.test(t))).toEqual([])
     for (const lesson of allLessons) {
       for (const file of lesson.practiceFiles ?? []) {
-        expect(file.path, `${lesson.id}: ${file.path}`).toMatch(/^datasets\//)
+        expect(file.path, `${lesson.id}: ${file.path}`).toMatch(/^datasets\/wayfinder\//)
         expect(
           existsSync(resolve(process.cwd(), 'public', file.path)),
           `${lesson.id}: missing public/${file.path}`,
@@ -360,6 +395,7 @@ describe('writing style', () => {
       productLoop,
       fieldGuide,
       starterKit,
+      glossaryEntries,
     })
     const offenders = text.filter((t) => /[–—]/.test(t))
     expect(offenders).toEqual([])

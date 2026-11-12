@@ -9,7 +9,6 @@ export const PROJECT_MIN_DIMENSION = 2
 export const MASTERY_BONUS_XP = 200
 export const QUIZ_PASS_XP = 100
 export const QUIZ_PERFECT_BONUS_XP = 50
-/** In these levels a project counts only when a mentor assessed it, if the learner said she has one. */
 export const MENTOR_SIGNOFF_LEVELS: LevelId[] = [4, 5]
 
 export function needsMentorSignoff(data: LearnerData, levelId: LevelId): boolean {

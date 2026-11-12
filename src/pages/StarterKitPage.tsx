@@ -103,6 +103,37 @@ export function StarterKitPage() {
           </Card>
         ))}
 
+        <Card as="section" aria-labelledby="kit-git-rescue">
+          <h2 id="kit-git-rescue" className="text-xl font-semibold tracking-tight">
+            Git and terminal rescue cheat sheet
+          </h2>
+          <p className="mt-1 max-w-3xl text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+            Six commands cover almost everything you need from Session 5 onward. If you ever get
+            stuck on a Git message, paste the output into Claude Code and ask it to explain what
+            state the folder is in before running anything.
+          </p>
+          <dl className="mt-4 grid gap-3 md:grid-cols-2">
+            {k.gitRescue.map((item) => (
+              <div
+                key={item.command}
+                className="rounded-xl bg-stone-100 p-4 text-sm leading-relaxed dark:bg-stone-800/60"
+              >
+                <dt className="font-semibold text-stone-900 dark:text-stone-100">
+                  {item.situation}
+                </dt>
+                <dd className="mt-1.5">
+                  <code className="inline-block rounded bg-white px-2 py-1 font-mono text-xs text-indigo-900 dark:bg-stone-950 dark:text-indigo-200">
+                    {item.command}
+                  </code>
+                </dd>
+                <dd className="mt-1.5 text-stone-700 dark:text-stone-300">
+                  {inline(item.whatItDoes)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Card>
+
         <Card as="section" aria-labelledby="kit-other">
           <h2 id="kit-other" className="mb-2 text-xl font-semibold tracking-tight">
             Other agents you may hear about

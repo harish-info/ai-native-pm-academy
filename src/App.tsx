@@ -47,6 +47,9 @@ const StarterKitPage = lazy(() =>
 const FieldGuidePage = lazy(() =>
   import('./pages/FieldGuidePage').then((m) => ({ default: m.FieldGuidePage })),
 )
+const GlossaryPage = lazy(() =>
+  import('./pages/GlossaryPage').then((m) => ({ default: m.GlossaryPage })),
+)
 
 function Home() {
   const { data } = useStore()
@@ -81,6 +84,7 @@ export function AppRoutes() {
           <Route path="/moneypilot" element={<Navigate to="/case-study" replace />} />
           <Route path="/wiki" element={<WikiPage />} />
           <Route path="/field-guide" element={<FieldGuidePage />} />
+          <Route path="/glossary" element={<GlossaryPage />} />
           <Route path="/starter-kit" element={<StarterKitPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>

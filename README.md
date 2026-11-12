@@ -8,7 +8,7 @@ It is a static site. There is no account and no backend, and your progress stays
 
 ## What you do in the course
 
-By default you work on **MoneyPilot** (a pre-payday safe-to-spend and bill assistant inside a bank app, with fictional datasets included), or swap in your own product at any point. Each session ends with an artifact you made, not just a quiz score.
+By default you work on **Wayfinder** (an AI weekend and trip planner with deterministic day-plan/budget maths and an approval-gated replanning drawer, with fictional datasets included), or swap in your own product at any point. Each session ends with an artifact you made, not just a quiz score.
 
 | Level | Focus                          | Sessions | What you keep                                                                    |
 | ----- | ------------------------------ | -------- | -------------------------------------------------------------------------------- |
@@ -19,7 +19,7 @@ By default you work on **MoneyPilot** (a pre-payday safe-to-spend and bill assis
 | 5     | Your PM OS and team knowledge  | 17 to 20 | A personal wiki, a team knowledge base, a tested skill and a team pilot proposal |
 
 - About 45 hours in total: eight weeks at about 6 hours a week, or twelve weeks at about 4.
-- Ten optional challenges, a field guide on models and agents, curated courses in order, and three fictional case studies (**MoneyPilot**, **HabitLoop** and **ReplyDesk**).
+- Ten optional challenges, a plain-English AI jargon glossary, a field guide on models and agents, curated courses in order, and three fictional case studies (**Wayfinder**, **MoneyPilot** and **ReplyDesk**).
 - Mentor reviews are optional throughout; every session and 20-minute level sign-off includes a concrete solo check.
 - All practice data is fictional. The course rehearses product work; it does not ship anything to real customers.
 
@@ -47,6 +47,7 @@ All course text is typed TypeScript data in `src/content/`. You do not need to k
 | A session's example, recall and quick check         | `src/content/teaching.ts`                     |
 | A link or reading                                   | `src/content/resources.ts`                    |
 | The field guide                                     | `src/content/fieldGuide.ts`                   |
+| Plain-English AI jargon                             | `src/content/glossary.ts`                     |
 | The study plan                                      | `src/content/plan.ts`                         |
 | Case studies                                        | `src/content/caseStudies.ts`                  |
 

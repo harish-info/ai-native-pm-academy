@@ -9,7 +9,7 @@ import { Button, Chevron, cx, interactiveCard, LinkButton, stretchedLink } from 
 
 const builds: Record<LevelId, string> = {
   1: 'A product context file, a checked fact sheet and a live pitch page.',
-  2: 'A live prototype built with Claude Code, with pull requests you reviewed.',
+  2: 'A live static prototype built with Claude Code, with pull requests you reviewed.',
   3: 'A strategy, user interviews, data and a PRD an agent can build from.',
   4: 'A design spec, an engineering handoff, evals and a launch review.',
   5: 'Your own wiki, a team knowledge base, and a tested skill and scheduled briefing.',
@@ -26,7 +26,7 @@ const facts = [
   },
   {
     title: 'Self-contained, solo or with a mentor',
-    body: 'You build MoneyPilot end to end across all twenty sessions (with ready-made practice datasets), or swap in your own product. No coding background is required, and every mentor step has a solo fallback.',
+    body: 'You build Wayfinder end to end across all twenty sessions (with ready-made practice datasets), or swap in your own product. No coding background is required, and every mentor step has a solo fallback.',
   },
   {
     title: 'How progress works',
@@ -57,6 +57,9 @@ export function Landing() {
           <span className="hidden sm:inline">AI-Native PM Academy</span>
         </span>
         <nav aria-label="Primary" className="flex gap-1">
+          <Link to="/glossary" className={navLink}>
+            AI jargon
+          </Link>
           <Link to="/plan" className={navLink}>
             Study plan
           </Link>
@@ -77,10 +80,10 @@ export function Landing() {
                 A practical guide to working with AI agents as a PM.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
-                Twenty hands-on sessions take one product (MoneyPilot, or your own) from first pitch
-                to prototype, discovery, PRD, evals, experiment readout and living product wiki,
-                paired with curated courses and sources from Anthropic, Teresa Torres, Simon
-                Willison and others.
+                Twenty hands-on sessions take one product (Wayfinder, an AI weekend trip planner, or
+                your own product) from first pitch to prototype, discovery, PRD, evals, experiment
+                readout and living product wiki, paired with curated courses and sources from
+                Anthropic, Teresa Torres, Simon Willison and others.
               </p>
               <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
                 {[
@@ -151,8 +154,13 @@ export function Landing() {
           <h2 id="reference-heading" className="mb-4 text-2xl font-bold tracking-tight">
             Reference to keep open while you work
           </h2>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {[
+              {
+                to: '/glossary',
+                title: 'AI jargon',
+                body: 'Plain-English translations for everyday AI and dev terms, from vibe coding and meat proxy to Markdown, RAG and evals.',
+              },
               {
                 to: '/field-guide',
                 title: 'Field guide',
@@ -166,12 +174,12 @@ export function Landing() {
               {
                 to: '/starter-kit',
                 title: 'Starter kit',
-                body: 'What to install, in the order the course needs it, with prices and setup steps.',
+                body: 'What to install, in the order the course needs it, plus a six-command Git rescue sheet.',
               },
               {
                 to: '/case-study',
                 title: 'Case studies',
-                body: 'Full product briefs and practice datasets for MoneyPilot, HabitLoop and ReplyDesk.',
+                body: 'Full product briefs and practice datasets for Wayfinder, MoneyPilot and ReplyDesk.',
               },
             ].map((c) => (
               <li key={c.to} className={cx(interactiveCard, 'flex flex-col rounded-2xl p-4')}>

@@ -63,7 +63,7 @@ export function PracticeFiles({ files }: { files: PracticeFile[] }) {
         <Pill tone="amber">Practice data</Pill>
       </div>
       <p className="text-sm text-stone-600 dark:text-stone-400">
-        Fictional MoneyPilot files checked into this course so you can focus on the PM work rather
+        Fictional Wayfinder files checked into this course so you can focus on the PM work rather
         than inventing sample data.
       </p>
       {openFiles.length > 0 && (

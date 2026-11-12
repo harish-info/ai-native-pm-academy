@@ -9,7 +9,6 @@ async function answerEveryFieldset(page: Page) {
   }
 }
 
-/** Reads the saved learner record straight from IndexedDB. */
 function storedData(page: Page) {
   return page.evaluate(
     () =>
@@ -43,12 +42,11 @@ test('quick check explains choices without completing a lesson', async ({ page }
   await exercise.getByRole('button', { name: /two different tools said it/ }).click()
   await expect(page.getByText('Not quite')).toBeVisible()
   await expect(page.getByText(/Two matching guesses are still guesses/)).toBeVisible()
-  const correct = exercise.getByRole('button', { name: /Ask monthly-paid users/ })
+  const correct = exercise.getByRole('button', { name: /Ask recent trip planners/ })
   await correct.focus()
   await page.keyboard.press('Enter')
   await expect(correct).toHaveAttribute('aria-pressed', 'true')
   await expect(page.getByText('Right', { exact: true })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
   await expect(
     page.getByRole('link', { name: /AI Fluency: Framework and foundations/ }),
   ).toBeVisible()
@@ -58,6 +56,9 @@ test('quick check explains choices without completing a lesson', async ({ page }
     return !!(reader.compareDocumentPosition(sources) & Node.DOCUMENT_POSITION_FOLLOWING)
   })
   expect(lessonPrecedesSources).toBe(true)
+
+  await page.getByRole('tab', { name: '3. Verify & log' }).click()
+  await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
 })
 
 test('model guide separates model choice from effort and supports keyboard navigation', async ({
@@ -197,6 +198,7 @@ test('team loop stays in its lesson and supports keyboard exploration', async ({
   await expect(capacity.getByText('Whole-loop capacity: 2 items / week')).toBeVisible()
   await capacity.getByRole('button', { name: 'Improve the loop' }).click()
   await expect(capacity.getByText('Whole-loop capacity: 4 items / week')).toBeVisible()
+  await page.getByRole('tab', { name: '3. Verify & log' }).click()
   await expect(page.getByRole('button', { name: 'Mark complete' })).toBeDisabled()
   await page.goto('#/lessons/s9')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Strategy and market')
@@ -231,39 +233,69 @@ test('case studies stay in their own area and never rename the workspace', async
   await expect(page.getByRole('heading', { name: 'ReplyDesk: the brief' })).toBeVisible()
   await page.goto('#/lessons/s17')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-  await expect(page.locator('main')).not.toContainText(/ReplyDesk|HabitLoop/)
+  await expect(page.locator('main')).not.toContainText(/ReplyDesk|MoneyPilot|HabitLoop/)
   await expect(page.locator('main')).toContainText('workspace')
   await page.goto('#/wiki')
   await expect(page.getByRole('heading', { name: 'Your wiki' })).toBeVisible()
-  await expect(page.locator('main')).not.toContainText(/ReplyDesk|HabitLoop/)
+  await expect(page.locator('main')).not.toContainText(/ReplyDesk|MoneyPilot|HabitLoop/)
 })
 
-test('v3 session mechanics render MoneyPilot intro, solo moves, faded briefs and practice files', async ({
+test('v3.1 session mechanics render Wayfinder intro, 3-stage tabs, solo moves, briefs and practice files', async ({
   page,
 }) => {
   await page.goto('#/lessons/s1')
-  await expect(page.getByRole('heading', { name: 'Meet MoneyPilot' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Meet Wayfinder' })).toBeVisible()
+  await expect(page.getByRole('tab', { name: '1. Understand' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  )
+  await expect(page.getByRole('heading', { name: 'Your task' })).toBeHidden()
+  await page.getByRole('button', { name: /Continue to 2\. Build & test/ }).click()
+  await expect(page.getByRole('heading', { name: 'Your task' })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 
   await page.goto('#/lessons/s4')
+  await page.getByRole('tab', { name: '3. Verify & log' }).click()
   await expect(page.getByText('Working solo?')).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 
   await page.goto('#/lessons/s6')
+  await page.getByRole('tab', { name: '2. Build & test' }).click()
   await expect(page.getByRole('heading', { name: 'Your brief must cover' })).toBeVisible()
   await expect(page.getByText('Compare with a sample brief after you write yours')).toBeVisible()
 
   await page.goto('#/lessons/s7')
+  await page
+    .getByRole('navigation', { name: 'Session steps' })
+    .getByRole('button', { name: 'Your brief' })
+    .click()
   await expect(page.getByRole('heading', { name: 'Your brief must cover' })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 
   await page.goto('#/lessons/s11')
+  await page.getByRole('tab', { name: '2. Build & test' }).click()
   await expect(page.getByRole('heading', { name: 'Practice files for this session' })).toBeVisible()
-  await expect(page.locator('a[href$="datasets/moneypilot/s11-events.csv"]')).toBeVisible()
+  await expect(page.locator('a[href$="datasets/wayfinder/s11-events.csv"]')).toBeVisible()
 
   await page.goto('#/lessons/s14')
-  await expect(page.locator('a[href$="datasets/moneypilot/s14-conversations.md"]')).toBeVisible()
+  await page.getByRole('tab', { name: '2. Build & test' }).click()
+  await expect(page.locator('a[href$="datasets/wayfinder/s14-conversations.md"]')).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})
+
+test('glossary filters AI jargon in plain English and links to sessions', async ({ page }) => {
+  await page.goto('#/glossary')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI jargon, translated')
+  await page.getByLabel('Filter terms').fill('markdown')
+  await expect(page.getByRole('heading', { name: 'Markdown (.md)' })).toBeVisible()
+  await page.getByLabel('Filter terms').fill('meat proxy')
+  await expect(page.getByRole('heading', { name: 'Meat proxy' })).toBeVisible()
+  await expect(page.getByText(/human copy-paste relay between two AIs/)).toBeVisible()
+  await page.getByLabel('Filter terms').fill('vibe coding')
+  await expect(page.getByText(/Showing 1 of/)).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Vibe coding' })).toBeVisible()
+  await page.getByRole('link', { name: /Session 4:/ }).click()
+  await expect(page).toHaveURL(/#\/lessons\/s4$/)
 })
 
 test('a session completes only with evidence and stays complete after refresh', async ({
@@ -271,6 +303,7 @@ test('a session completes only with evidence and stays complete after refresh', 
 }) => {
   await page.goto('#/lessons/s1')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await page.getByRole('tab', { name: '3. Verify & log' }).click()
   const complete = page.getByRole('button', { name: 'Mark complete' })
   await expect(complete).toBeDisabled()
 
@@ -285,7 +318,6 @@ test('a session completes only with evidence and stays complete after refresh', 
 
   await complete.click()
   await expect(page.getByText(/Completed on/)).toBeVisible()
-  // Reloading mid-write aborts the IndexedDB transaction, so wait for the save to land first.
   await expect
     .poll(async () => {
       const data = await storedData(page)
@@ -294,6 +326,7 @@ test('a session completes only with evidence and stays complete after refresh', 
     })
     .toBeTruthy()
   await page.reload()
+  await page.getByRole('tab', { name: '3. Verify & log' }).click()
   await expect(page.getByText(/Completed on/)).toBeVisible()
 })
 
@@ -345,7 +378,6 @@ test('export and import round-trip progress', async ({ page }, testInfo) => {
   )
   const file = testInfo.outputPath('backup.json')
   await download.saveAs(file)
-  // The first backup earns the "Safe keeping" milestone, which opens a modal.
   await page.getByRole('dialog').getByRole('button', { name: 'Keep going' }).click()
   await expect(page.getByRole('dialog')).toHaveCount(0)
 
